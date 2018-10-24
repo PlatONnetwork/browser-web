@@ -4,13 +4,13 @@ const documentComponent = resolve => require(['@/views/more/document.vue'], reso
 
 
 export const walletCom = {
-    path:'wallet',
+    path:'/document',
     component:documentComponent,
     name:'documentComponent',
 }
 
 export const documentCom = {
-    path:'document',
+    path:'/wallet',
     component:walletComponent,
     name:'walletComponent',
 }

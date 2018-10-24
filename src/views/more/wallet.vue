@@ -1,6 +1,6 @@
 <template>
     <div class="node-wrap">
-        节点
+        钱包
     </div>
 </template>
 

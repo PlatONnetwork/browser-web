@@ -7,13 +7,13 @@ const blockComponent = resolve => require(['@/views/block/block.vue'], resolve)
 
 
 export const tradeCom = {
-    path:'trade',
+    path:'/trade',
     component:tradeComponent,
     name:'tradeComponent',
 }
 
 export const tradePendingCom = {
-    path:'trade-pending',
+    path:'/trade-pending',
     component:tradePendingComponent,
     name:'tradePendingComponent',
 }

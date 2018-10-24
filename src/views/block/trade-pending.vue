@@ -1,6 +1,6 @@
 <template>
     <div class="trade-wrap">
-        交易
+        待处理交易
     </div>
 </template>
 

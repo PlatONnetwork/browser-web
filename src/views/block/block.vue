@@ -1,15 +1,11 @@
 <template>
     <div class="block-wrap">
         区块
-        <com-footer></com-footer>
     </div>
 </template>
 
 <script>
     //import  from ''
-    import comHeader from '@/components/header/header.vue'
-    import comFooter from '@/components/footer/footer.vue'
-
     export default {
         //组件名
         name: '',
@@ -38,7 +34,7 @@
 
         },
         //组件
-        components: {comHeader,comFooter}
+        components: {}
     }
 </script>
 
