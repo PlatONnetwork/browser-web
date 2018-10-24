@@ -20,6 +20,10 @@
         "allowJs": true,
         "module": "esnext",
         "target": "es5",
+        "typeRoots": [
+            "./types",
+            "./node_modules/vue/types"
+        ],
         "moduleResolution": "node",
         "isolatedModules": true,
         "lib": [

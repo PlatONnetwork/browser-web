@@ -89,7 +89,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
-      _: 'lodash'
+      // _: 'lodash'
     })
   ]
 }

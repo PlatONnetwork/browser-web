@@ -20,7 +20,7 @@ export const tradePendingCom = {
 
 
 export const blockCom = {
-    path:'block',
+    path:'/block',
     component:blockComponent,
     name:'blockComponent',
 }

@@ -1,10 +1,10 @@
 <template>
     <div class="footer-wrap">
-        尾部
+        尾部111
     </div>
 </template>
 
-<script>
+<script lang="ts">
 	//import  from ''
 
 

@@ -32,13 +32,11 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   //import  from ''
-
-
     export default {
         //组件名
-        name: '',
+        name: 'header',
         //实例的数据对象
         data () {
           return {

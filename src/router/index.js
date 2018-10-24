@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './modules/index'
-import {tradeCom,tradePendingCom,blockCom} from './modules/block'
-import Node from './modules/node'
-import {walletCom,documentCom} from './modules/more'
-import Redirect from './modules/Redirect'
+import Index from './map/index'
+import {tradeCom,tradePendingCom,blockCom} from './map/block'
+import Node from './map/node'
+import {walletCom,documentCom} from './map/more'
+import Redirect from './map/Redirect'
 Vue.use(Router)
 
 export default new Router({

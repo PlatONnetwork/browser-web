@@ -9,9 +9,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import comHeader from '@/components/Header/Header.vue'
-import comFooter from '@/components/Footer/Footer.vue'
-@Component({comHeader,comFooter})
+import comHeader from '@/components/header/header.vue'
+import comFooter from '@/components/footer/footer.vue'
+@Component({
+    components:{
+        comHeader,
+        comFooter
+    }
+})
 export default class App extends Vue {
 
 }
