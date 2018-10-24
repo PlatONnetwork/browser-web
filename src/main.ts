@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store'
+import store from './vuex/store'
 import VueI18n from 'vue-i18n'
 import messages from '@/lang/index'
 import ElementUI from 'element-ui'
 import VueClipboard from 'vue-clipboard2'
-
+import filters from './filters/index'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
@@ -30,5 +30,19 @@ export default new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(App)
+    i18n,
+    render: h => h(App),
+    beforeCreate(){
+        store.dispatch('initJsonData', i18n.locale)
+    }
 })
+// (<any>window).vueVm = new Vue({
+//     el: '#app',
+//     i18n,
+//     router,
+//     store,
+//     render: h => h(App),
+//     beforeCreate(){
+//         store.dispatch('initJsonData', i18n.locale)
+//     }
+// })

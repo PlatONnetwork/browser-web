@@ -1,0 +1,81 @@
+.com-container{
+    position: relative;
+    margin:0 auto;
+    box-sizing: border-box;
+    width:1400px;
+    height:auto;
+}
+.content-area{
+    height:auto;
+}
+.cursor{
+    cursor: pointer;
+}
+.margin10{
+    margin-right:10px;
+}
+//按钮
+.el-btn{
+    width:90px;
+    height:40px;
+    // line-height: 38px;
+    font-size: 14px;
+    color: #FFFFFF;
+    background: #0067FC;
+    border-radius: 4px;
+    &:hover{
+        background: #0067FC;
+        color:#fff;
+    }
+}
+//失败
+.market-abnormal{
+    color: #FF3030;
+}
+//成功
+.market-normal{
+    color: #229600;
+}
+//出
+.border-abnormal{
+    border: 1px solid #FF3030;
+}
+//进
+.border-normal{
+    border: 1px solid #229600;
+}
+.normal{
+    color:#0067FC;
+}
+// tab切换
+.header-nav{
+    // padding-top:10px;
+    height:39px;
+    border-bottom:1px solid #eaeaea;
+    // margin-bottom:24px;
+    ul{
+        overflow:hidden;
+        cursor: pointer;
+        padding-left:30px;
+        li{
+            float:left;
+            // width:105px;
+            padding:0px 21px;
+            line-height: 38px;
+            font-size:14px;
+            color:#666;
+            text-align: center;
+            border: 1px solid #EAEAEA;
+            border-radius: 4px 4px 0 0 0;
+            border-bottom:none;
+            box-sizing: border-box;
+            margin-right:6px;
+        }
+        .active{
+            color: #0067FC;
+            border: 1px solid #0067FC;
+            border-radius: 4px 4px 0 0;
+            border-bottom:1px solid #fff;
+        }
+    }
+}
