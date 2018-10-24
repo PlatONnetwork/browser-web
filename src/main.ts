@@ -35,6 +35,7 @@ export default new Vue({
     beforeCreate(){
         store.dispatch('initJsonData', i18n.locale)
     }
+
 })
 // (<any>window).vueVm = new Vue({
 //     el: '#app',
