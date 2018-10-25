@@ -15631,7 +15631,7 @@
     -ms-user-select: none;
     user-select: none;
     text-align: left;
-    background-color: #fff; }
+    background-color: #ECEFF6;; }
     .el-table th div {
       display: inline-block;
       padding-left: 10px;
@@ -15703,7 +15703,8 @@
     .el-table--border.el-loading-parent--relative {
       border-color: transparent; }
     .el-table--border th, .el-table--border td {
-      border-right: 1px solid #ebeef5; }
+      /*border-right: 1px solid #ebeef5; */
+    }
       .el-table--border th:first-child .cell, .el-table--border td:first-child .cell {
         padding-left: 10px; }
     .el-table--border th.gutter:last-of-type {

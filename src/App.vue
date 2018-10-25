@@ -1,7 +1,14 @@
 <template>
     <div id="app">
         <com-header></com-header>
-        <router-view></router-view>
+        <div class="com-container">
+            <router-view></router-view>
+        </div>
+        <!-- <el-row :gutter='20'>
+            <el-col :span="18" :offset="3">
+
+            </el-col>
+        </el-row> -->
         <com-footer></com-footer>
     </div>
 </template>
@@ -22,6 +29,9 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+    .main{
+        background:#f0f0f0;
+        height:100%;
+    }
 </style>

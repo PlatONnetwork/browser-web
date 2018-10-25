@@ -56,7 +56,6 @@
         </div>
     </div>
 </template>
-
 <script lang="ts">
   //import  from ''
     export default {
@@ -102,18 +101,13 @@
             // },
         },
         //生命周期函数
-        created(){
-
-        },
+        created(){},
         //监视
-        watch: {
-
-        },
+        watch: {},
         //组件
         components: {}
     }
 </script>
-
 <style lang="less" scoped>
 .header-wrap{
     background-color: #242c39;
