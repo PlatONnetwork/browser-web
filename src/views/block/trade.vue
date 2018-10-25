@@ -29,10 +29,14 @@
                         <el-table-column label="交易哈希值">
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="el-icon-warning"></i></span>
-                                <span class='cursor' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" label="区块"></el-table-column>
+                        <el-table-column prop="blockHeight" label="区块">
+                            <template slot-scope="scope">
+                                <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column label="块龄">
                             <template slot-scope="scope">
                                 <span>{{scope.row.serverTime-scope.row.blockTime}}秒</span>
@@ -40,14 +44,14 @@
                         </el-table-column>
                         <el-table-column  label="发送方">
                             <template slot-scope="scope">
-                                <span class='cursor' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="接收方">
                             <template slot-scope="scope">
                                 <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="el-icon-edit"></i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
-                                <span v-if='scope.row.txType !== "contractCreate"'  class='cursor' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                <span v-if='scope.row.txType !== "contractCreate"'  class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column  prop=""  label="数额">
@@ -85,7 +89,7 @@
         data () {
             return {
                 newRecordFlag:false,
-                paginationFlag:false,
+                paginationFlag:true,
                 tableData:[
                     {
                         "txHash": "0x234234",//交易hash
@@ -211,6 +215,15 @@
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
+                })
+            },
+            //进入区块详情
+            goBlockDetail(index,row){
+                this.$router.push({
+                    path:'/block-detail',
+                    query:{
+                        height:row.blockHeight
+                    }
                 })
             },
             //进入交易哈希详情
