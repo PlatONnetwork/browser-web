@@ -1,17 +1,17 @@
 <template>
-    <div class="address-detail-wrap">
+    <div class="contract-detail-wrap">
         <div class="content-area">
             <v-menu>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{ path: '/trade' }">交易</el-breadcrumb-item>
-                    <el-breadcrumb-item>地址信息</el-breadcrumb-item>
+                    <el-breadcrumb-item>合约详情</el-breadcrumb-item>
                 </el-breadcrumb>
             </v-menu>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>地址#{{address}}</span>
+                        <span>合约#{{address}}</span>
                         <span
                             v-clipboard:copy="address"
                             v-clipboard:success="onCopy"
@@ -48,24 +48,24 @@
                         <div class="right">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>投票</span>
+                                    <span>其他</span>
                                 </el-col>
                                 <el-col :span="20"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>投票质押</span>
+                                    <span>合约开发者</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.votePledge}}ATP</span>
+                                    <span>{{detailInfo.developer}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>投票节点数</span>
+                                    <span>合约拥有者</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.nodeCount}}</span>
+                                    <span>{{detailInfo.ownerCount}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -75,7 +75,7 @@
                     <div class="header-nav">
                         <ul>
                             <li :class="{active: activeTab == 1}" @click="changeTab(1)">交易</li>
-                            <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li>
+                            <!-- <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li> -->
                         </ul>
                     </div>
                     <div class="data">
@@ -122,7 +122,7 @@
                                         <template slot-scope="scope">
                                             <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="el-icon-edit"></i></span>
                                             <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
-                                            <span v-else-if='scope.row.txType == "transactionExecute"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                            <!-- <span v-else-if='scope.row.txType == "transactionExecute"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
@@ -140,7 +140,7 @@
                                 </el-table>
                             </div>
                         </div>
-                        <div v-if='activeTab == 2'></div>
+                        <!-- <div v-if='activeTab == 2'></div> -->
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@
     import menu from '@/components/menu/index.vue'
     export default {
         //组件名
-        name: 'address-detail-wrap',
+        name: 'contract-detail-wrap',
         //实例的数据对象
         data () {
             return {
@@ -178,14 +178,14 @@
                 detailInfo:{
                     "balance":131, // 余额
                     "tradeCount":236, // 交易数
-                    "votePledge":131, // 投票质押
-                    "nodeCount":3, // 投票节点数
+                    "developer":131, // 合约开发者
+                    "ownerCount":3, // 合约拥有者
                     "trades":[
                         {
                            "txHash": "0x234234",//交易hash
                            "blockTime": 18080899999,//确认时间(出块时间)
                            "from": "11111",//发送方
-                           "to": "0x667766",//接收方
+                           "to": "22222",//接收方
                            "value": "222",//数额
                            "actualTxCoast": "22",//交易费用
                            "txReceiptStatus": -1,//交易状态 -1 pending 1 成功  0 失败
@@ -243,25 +243,28 @@
                     })
                 }
             },
-            goDetail(index,row){
-                //进入合约详情
-                this.$router.push({
-                    path:'/contract-detail',
-                    query:{
-                        address:row.to
-                    }
-                })
-            },
             goDetail1(index,row){
                 if(row.to == this.address){
                     return false;
                 }else{
-                    this.$router.push({
-                        path:'/address-detail',
-                        query:{
-                            address:row.to
-                        }
-                    })
+                    if(row.txType=='transactionExecute'){
+                        //进入合约详情
+                        this.$router.push({
+                            path:'/contract-detail',
+                            query:{
+                                address:row.to
+                            }
+                        })
+                    }else{
+                        //进入地址详情
+                        this.$router.push({
+                            path:'/address-detail',
+                            query:{
+                                address:row.to
+                            }
+                        })
+                    }
+
                 }
             },
             //获取地址信息详情
@@ -271,7 +274,7 @@
                     address:this.address,
                     txType:this.type
                 }
-                apiService.trade.addressDetails(param).then((res)=>{
+                apiService.trade.contractDetails(param).then((res)=>{
                     let {errMsg,code,data}= res
                     if(code==0){
                        this.detailInfo=data

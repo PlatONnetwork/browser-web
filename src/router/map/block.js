@@ -6,6 +6,7 @@ const tradePendingComponent = resolve => require(['@/views/block/trade-pending.v
 const blockComponent = resolve => require(['@/views/block/block.vue'], resolve)
 const tradeDetailComponent = resolve => require(['@/views/trade-detail/trade-detail.vue'], resolve)
 const addressDetailComponent = resolve => require(['@/views/address-detail/address-detail.vue'], resolve)
+const contractDetailComponent = resolve => require(['@/views/contract-detail/contract-detail.vue'], resolve)
 export const tradeCom = {
     path:'/trade',
     component:tradeComponent,
@@ -30,4 +31,9 @@ export const addressDetailCom = {
     path:'/address-detail',
     component:addressDetailComponent,
     name:'addressDetailComponent',
+}
+export const contractDetailCom = {
+    path:'/contract-detail',
+    component:contractDetailComponent,
+    name:'contractDetailComponent',
 }

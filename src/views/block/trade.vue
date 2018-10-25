@@ -235,6 +235,12 @@
             goDetail(index,row){
                 if(row.txType=='transactionExecute'){
                     //进入合约详情
+                    this.$router.push({
+                        path:'/contract-detail',
+                        query:{
+                            address:row.to
+                        }
+                    })
                 }else{
                     //进入钱包地址详情
                     this.$router.push({
