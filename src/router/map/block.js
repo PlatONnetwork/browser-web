@@ -8,6 +8,9 @@ const tradeDetailComponent = resolve => require(['@/views/trade-detail/trade-det
 const addressDetailComponent = resolve => require(['@/views/address-detail/address-detail.vue'], resolve)
 const contractDetailComponent = resolve => require(['@/views/contract-detail/contract-detail.vue'], resolve)
 const blockDetailComponent = resolve => require(['@/views/block-detail/block-detail.vue'], resolve)
+const tradeBlockComponent = resolve => require(['@/views/block/trade-block.vue'], resolve)
+const tradeBlockFilterComponent = resolve => require(['@/views/block/trade-block-filter.vue'], resolve)
+const tradePendDetailComponent = resolve => require(['@/views/trade-detail/pend-detail.vue'], resolve)
 export const tradeCom = {
     path:'/trade',
     component:tradeComponent,
@@ -26,7 +29,7 @@ export const blockCom = {
 export const tradeDetailCom = {
     path:'/trade-detail',
     component:tradeDetailComponent,
-    name:'blockComponent',
+    name:'tradeDetailComponent',
 }
 export const addressDetailCom = {
     path:'/address-detail',
@@ -42,4 +45,19 @@ export const blockDetailCom = {
     path:'/block-detail',
     component:blockDetailComponent,
     name:'blockDetailComponent',
+}
+export const tradeBlock = {
+    path:'/trade-block',
+    component:tradeBlockComponent,
+    name:'tradeBlockComponent',
+}
+export const tradeBlockFilter = {
+    path:'/trade-block-filter',
+    component:tradeBlockFilterComponent,
+    name:'tradeBlockFilterComponent',
+}
+export const tradePendDetailCom = {
+    path:'/trade-pending-detail',
+    component:tradePendDetailComponent,
+    name:'tradePendDetailComponent',
 }

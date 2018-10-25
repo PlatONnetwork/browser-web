@@ -10,7 +10,8 @@ export const commonAction = {
         //     state.chainList = data.cid;
         // });
         apiService.get("../../../static/json/mock.json").then((data)=>{
-            state.chainList = data.cid;
+            commit('DONE_CHAINLIST',data.chainList)
+            // state.chainList = data.cid;
         });
     },
 }
