@@ -23,7 +23,7 @@
                         <router-link to="/node">节点</router-link>
                     </el-menu-item>
                     <el-submenu index="3">
-                        <template slot="title">更多</template>
+                        <template slot="title">{{ $t("menu.more") }}</template>
                         <el-menu-item index="/wallet">
                             <router-link to="/wallet">钱包</router-link>
                         </el-menu-item>
@@ -44,14 +44,14 @@
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-
                     <el-dropdown class="dropdown2">
                         <span class="el-dropdown-link">
-                            {{Language}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            {{language}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changeLanguage('简体中文')">简体中文</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeLanguage('English')">English</el-dropdown-item>
+                            <el-dropdown-item @click.native="changeLanguage('zh-cn')">简体中文</el-dropdown-item>
+                            <el-dropdown-item @click.native="changeLanguage('en')">English</el-dropdown-item>
+
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -67,7 +67,6 @@
         //实例的数据对象
         data () {
             return {
-                cid:'',//链id
                 iconSrc: '/static/images/platon.png',
                 Net: 'MainNet',
                 Language: '简体中文',
@@ -84,7 +83,20 @@
                 netObj:{
                     "1":"MainNet",
                     "2":"TestNet"
-                }
+                },
+                options:[{
+                    value: 'CN',
+                    label: '中文简体',
+                    cid:`1`,
+                    name:'jjjjj',
+                },
+                {
+                    value: 'EN',
+                    label: 'English',
+                    cid:`2`,
+                    name:'22222',
+
+                }],
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -97,6 +109,7 @@
            }
         },
         //方法
+        //方法
         methods: {
             ...mapActions(['changeChainId']),
             handleCommand(command){
@@ -104,14 +117,22 @@
                 // this.cid=command
                 store.commit("CHANGE_ID",command)
             },
+            changeNet(item){  // 修改网络
+                this.net = item.name
+                //todo 把当前的CID name 放到vuex中
+            },
             // changeNet(value){  // 修改网络
             //     console.log(val)
             //     this.Net = value
             //     console.log(value)
             // },
             changeLanguage(lang){  // 修改语言
-                this.Language = lang
-                console.log(lang)
+                this.language = lang
+                let locale = this.$i18n.locale
+                locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
+                console.log('i18n'+this.$i18n.locale)
+                console.log('local'+locale)
+
             },
             // changeLanguage(value){  //修改语言
 			// 	let locale = this.$i18n.locale
@@ -138,7 +159,7 @@
     .header-content{
         top: 8%;
         left: 50%;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         height: 100%;
         display: flex;
@@ -168,8 +189,8 @@
         color: #fff;
     }
     .dropdown2{
-        color: #fff;
         width: 80px;
+        color: #fff;
     }
 
 

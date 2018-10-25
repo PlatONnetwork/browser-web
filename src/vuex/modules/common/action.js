@@ -15,7 +15,4 @@ export const commonAction = {
             // state.chainList = data.cid;
         });
     },
-    // changeChainId({commit,state},id){
-
-    // }
 }
