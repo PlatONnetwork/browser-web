@@ -23,7 +23,7 @@
             }
         },
         //数组或对象，用于接收来自父组件的数据
-        props: {},
+        props: ['descriptionProp'],
         //计算
         computed: {
 
@@ -36,16 +36,15 @@
                     cid:'',
                     parameter:this.searchKey,
                 }
-                this.switchFn('block','11111')
-                // apiService.search.query(param).then((res)=>{
-                //     let {errMsg,code,data}=res
-                //     if(code==0){
-                //         //根据type不同进入不同的详情页
-                //         this.switchFn(data.type,data.struct)
-                //     }
-                // }).catch((error)=>{
-                //     this.$message.error(error)
-                // })
+                apiService.search.query(param).then((res)=>{
+                    let {errMsg,code,data}=res
+                    if(code==0){
+                        //根据type不同进入不同的详情页
+                        this.switchFn(data.type,data.struct)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             },
             switchFn(type,struct){
                 switch (type){
@@ -54,14 +53,16 @@
                         return this.$router.push({
                             path:'/block-detail',
                             query:{
-                                height:struct
+                                height:struct.height
                             }
                         })
                         break
                     //交易详情
                     case 'transaction':
+                        let path = ''
+                        struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
                         return this.$router.push({
-                            path:'/trade-detail',
+                            path:path,
                             query:{
                                 txHash:struct.txHash
                             }
@@ -80,7 +81,7 @@
                             path:'/contract-detail',
                             query:{
                                 address:this.searchKey,
-                                description:'trade'
+                                description:this.descriptionProp
                             }
                         })
                         break
@@ -90,7 +91,7 @@
                             path:'/address-detail',
                             query:{
                                 address:this.searchKey,
-                                description:'trade'
+                                description:this.descriptionProp
                             }
                         })
                         break

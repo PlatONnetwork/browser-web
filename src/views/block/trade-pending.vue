@@ -1,7 +1,7 @@
 <template>
     <div class="pend-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
@@ -151,6 +151,7 @@
                 pageSize:10,
                 pageTotal:0,
                 currentPage1:1,
+                descriptionProp:'pending'
             }
         },
         //数组或对象，用于接收来自父组件的数据

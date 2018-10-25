@@ -1,7 +1,7 @@
 <template>
     <div class="trade-detail-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{ path: '/trade' }">交易</el-breadcrumb-item>
@@ -185,6 +185,7 @@
                   "inputData": "1111",//附加输入数据
                   "expectTime": 12312333 // 预计确认时间
                 },
+                descriptionProp:'trade'
             }
         },
         //数组或对象，用于接收来自父组件的数据

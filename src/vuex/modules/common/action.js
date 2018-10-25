@@ -11,7 +11,11 @@ export const commonAction = {
         // });
         apiService.get("../../../static/json/mock.json").then((data)=>{
             commit('DONE_CHAINLIST',data.chainList)
+            commit('CHANGE_ID',data.chainList[0].cid)
             // state.chainList = data.cid;
         });
     },
+    // changeChainId({commit,state},id){
+
+    // }
 }

@@ -1,10 +1,10 @@
 <template>
     <div class="address-detail-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: pathFn[description] }">{{descripFn[description]}}</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description'>{{descripFn[description]}}</el-breadcrumb-item>
                     <el-breadcrumb-item>地址信息</el-breadcrumb-item>
                 </el-breadcrumb>
             </v-menu>
@@ -228,6 +228,7 @@
                     trade : '/trade',
                 },
                 description:'',
+                descriptionProp:'',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -338,6 +339,7 @@
         created(){
             this.address=this.$route.query.address
             this.description=this.$route.query.description
+            this.descriptionProp=this.$route.query.description
             // console.log(1)
             //获取交易列表
             this.getDetail()

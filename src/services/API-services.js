@@ -8,6 +8,7 @@
 
 import Http from 'axios'
 import API from '@/config/API-config'
+import store from '@/vuex/store'
 Http.defaults.headers.post['Content-Type'] = "application/json;charset=utf-8"
 const encodeParams = (params) => {
     let r = '?',
@@ -66,6 +67,7 @@ class ApiService {
         typeof params === 'undefined' ? params = {} : '';
         localStorage.sessionid ? params.sessionid = localStorage.sessionid : ''
         params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
+        params.cid = store.state.common.chainId
         return Http.post(url, params).then(res => res.data)
     }
     encodeParams(url,params){

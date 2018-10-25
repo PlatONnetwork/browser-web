@@ -34,15 +34,17 @@
                 </el-menu>
             </div>
                 <div>
-                    <el-dropdown class="dropdown1">
+                    <el-dropdown class="dropdown1"  @command="handleCommand">
                         <span class="el-dropdown-link">
-                            {{Net}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changeNet('MainNet(主网络)')">MainNet(主网络)</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeNet('TestNet(测试网络)')">TestNet(测试网络)</el-dropdown-item>
+                        <el-dropdown-menu  slot="dropdown" >
+                            <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
+                                {{item[lang]}}
+                            </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
+
                     <el-dropdown class="dropdown2">
                         <span class="el-dropdown-link">
                             {{Language}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -57,40 +59,56 @@
     </div>
 </template>
 <script lang="ts">
-  //import  from ''
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+    import store from '@/vuex/store'
     export default {
         //组件名
         name: 'header-wrap',
         //实例的数据对象
         data () {
-          return {
-              iconSrc: '/static/images/platon.png',
-              Net: 'MainNet',
-              Language: '简体中文'
-            //   options:[
-			// 		{
-			// 			value: 'CN',
-			// 			label: '中文简体'
-			// 		},
-			// 		{
-			// 			value: 'EN',
-			// 			label: 'English'
-			// 		}
-            //     ],
+            return {
+                cid:'',//链id
+                iconSrc: '/static/images/platon.png',
+                Net: 'MainNet',
+                Language: '简体中文',
+                //   options:[
+    			// 		{
+    			// 			value: 'CN',
+    			// 			label: '中文简体'
+    			// 		},
+    			// 		{
+    			// 			value: 'EN',
+    			// 			label: 'English'
+    			// 		}
+                //     ],
+                netObj:{
+                    "1":"MainNet",
+                    "2":"TestNet"
                 }
+            }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
-           
-            },
+           ...mapGetters(['chainList','chainId']),
+           lang(){
+               return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
+           }
+        },
         //方法
         methods: {
-            changeNet(value){  // 修改网络
-                this.Net = value
-                console.log(value)
+            ...mapActions(['changeChainId']),
+            handleCommand(command){
+                console.log(command)
+                // this.cid=command
+                store.commit("CHANGE_ID",command)
             },
+            // changeNet(value){  // 修改网络
+            //     console.log(val)
+            //     this.Net = value
+            //     console.log(value)
+            // },
             changeLanguage(lang){  // 修改语言
                 this.Language = lang
                 console.log(lang)
@@ -101,7 +119,8 @@
             // },
         },
         //生命周期函数
-        created(){},
+        created(){
+        },
         //监视
         watch: {},
         //组件
@@ -152,8 +171,13 @@
         color: #fff;
         width: 80px;
     }
-    
 
+
+}
+.toggle-language{
+    width:120px;
+    height:30px;
+    line-height:30px;
 }
 </style>
 

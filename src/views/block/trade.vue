@@ -1,7 +1,7 @@
 <template>
     <div class="trade-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>交易</el-breadcrumb-item>
@@ -153,6 +153,7 @@
                 pageSize:10,
                 pageTotal:0,
                 currentPage1:1,
+                descriptionProp:'trade'
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -197,10 +198,11 @@
             //获取交易列表 下分页
             getTradeList(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     pageNo:this.currentPage,
                     pageSize:this.pageSize
                 }
+                console.warn('获取交易列表》》》',param)
                 apiService.trade.transactionList(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
@@ -271,7 +273,7 @@
         //生命周期函数
         created(){
             //获取交易列表
-            // this.getTradeList()
+            this.getTradeList()
         },
         //监视
         watch: {
