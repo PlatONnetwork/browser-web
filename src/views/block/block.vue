@@ -15,8 +15,8 @@
                     <div class="pagination-box1">
                         <el-pagination
                             background
-                            @current-change="handleCurrentChange1"
-                            :current-page.sync="currentPage1"
+                            @current-change="handleCurrentChange"
+                            :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 50, 100]"
                             layout="prev, pager, next"
                             :pager-count="9">
@@ -131,25 +131,25 @@
                 this.pageSize = val
                 this.getBlockList()
             },
-            handleCurrentChange1(val){
-                this.currentPage1 = val
-                let param = {
-                    cid:'',
-                    pageNo:this.currentPage1,
-                    pageSize:this.pageSize
-                }
-                apiService.block.blockList(param).then((res)=>{
-                    let {data,totalPages,totalCount,code,errMsg}=res
-                    if(code==0){
-                        this.tableData = data
-                        this.pageTotal = totalCount
-                    }else{
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
-            },
+            // handleCurrentChange1(val){
+            //     this.currentPage1 = val
+            //     let param = {
+            //         cid:'',
+            //         pageNo:this.currentPage1,
+            //         pageSize:this.pageSize
+            //     }
+            //     apiService.block.blockList(param).then((res)=>{
+            //         let {data,totalPages,totalCount,code,errMsg}=res
+            //         if(code==0){
+            //             this.tableData = data
+            //             this.pageTotal = totalCount
+            //         }else{
+            //             this.$message.error(errMsg)
+            //         }
+            //     }).catch((error)=>{
+            //         this.$message.error(error)
+            //     })
+            // },
             //获取交易列表 下分页
             getBlockList(){
                 let param = {

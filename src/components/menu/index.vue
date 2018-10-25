@@ -12,6 +12,7 @@
     </div>
 </template>
 <script>
+    import apiService from '@/services/API-services'
     export default {
         //组件名
         name: 'menu-top',
@@ -31,8 +32,70 @@
         methods: {
             //查询
             searchFn(){
-
+                let param = {
+                    cid:'',
+                    parameter:this.searchKey,
+                }
+                this.switchFn('block','11111')
+                // apiService.search.query(param).then((res)=>{
+                //     let {errMsg,code,data}=res
+                //     if(code==0){
+                //         //根据type不同进入不同的详情页
+                //         this.switchFn(data.type,data.struct)
+                //     }
+                // }).catch((error)=>{
+                //     this.$message.error(error)
+                // })
             },
+            switchFn(type,struct){
+                switch (type){
+                    //区块详情
+                    case 'block':
+                        return this.$router.push({
+                            path:'/block-detail',
+                            query:{
+                                height:struct
+                            }
+                        })
+                        break
+                    //交易详情
+                    case 'transaction':
+                        return this.$router.push({
+                            path:'/trade-detail',
+                            query:{
+                                txHash:struct.txHash
+                            }
+                        })
+                        break
+                    //节点详情
+                    case 'node':
+                        return this.$router.push({
+                            path:'',
+                            query:{}
+                        })
+                        break
+                    //合约详情
+                    case 'contract':
+                        return this.$router.push({
+                            path:'/contract-detail',
+                            query:{
+                                address:this.searchKey,
+                                description:'trade'
+                            }
+                        })
+                        break
+                    //地址详情
+                    case 'account':
+                        return this.$router.push({
+                            path:'/address-detail',
+                            query:{
+                                address:this.searchKey,
+                                description:'trade'
+                            }
+                        })
+                        break
+                }
+            }
         },
         //生命周期函数
         created(){

@@ -24,6 +24,7 @@ class ApiService {
 	    this.block = {
 		    blockList: this.post.bind(this, API.BLOCK.blockList),
 		    blockDetails: this.post.bind(this, API.BLOCK.blockDetails),
+            blockDetailNavigate: this.post.bind(this, API.BLOCK.blockDetailNavigate),
 	    }
         this.search = {
 	        query: this.post.bind(this, API.SEARCH.query),
@@ -37,6 +38,9 @@ class ApiService {
             addressDownload: this.post.bind(this, API.TRADE.addressDownload),
             contractDetails: this.post.bind(this, API.TRADE.contractDetails),
             contractDownload: this.post.bind(this, API.TRADE.contractDownload),
+            transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
+            pendingDetailNavigate: this.post.bind(this, API.TRADE.pendingDetailNavigate),
+            blockTransaction: this.post.bind(this, API.TRADE.blockTransaction),
         }
         this.account = {
             accountDetails: this.post.bind(this, API.ACCOUNT.accountDetails),

@@ -1,17 +1,17 @@
 <template>
-    <div class="trade-wrap">
+    <div class="trade-filter-wrap">
         <div class="content-area">
             <v-menu>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>交易</el-breadcrumb-item>
+                    <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
                 </el-breadcrumb>
             </v-menu>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共寻获超过>{{pageTotal}}交易</span>
-                        <span v-if='newRecordFlag'>（显示最新500K记录）</span>
+                        <span>地址-{{address}}</span><br/>
+                        <span>总共寻获{{pageTotal}}交易待处理</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination
@@ -28,23 +28,29 @@
                     <el-table :data="tableData" style="width: 100%"    stripe border class='item-table'  key='firstTable'  size="mini">
                         <el-table-column label="交易哈希值">
                             <template slot-scope="scope">
-                                <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="el-icon-warning"></i></span>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" label="区块">
+                        <el-table-column label="停留时间">
                             <template slot-scope="scope">
-                                <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
+                                <span>{{scope.row.dwellTime}}秒</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="块龄">
+                        <el-table-column label="能量限制">
                             <template slot-scope="scope">
-                                <span>{{scope.row.serverTime-scope.row.blockTime}}秒</span>
+                                <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span>
+                                <span>{{scope.row.energonLimit}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column  label="能量价值">
+                            <template slot-scope="scope">
+                                <span>{{scope.row.energonPrice}}Ene</span>
                             </template>
                         </el-table-column>
                         <el-table-column  label="发送方">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                <span @click='filterFn(scope.row.from)' v-if='scope.row.from !== address'><i class="el-icon-info"></i></span>
                             </template>
                         </el-table-column>
                         <el-table-column label="接收方">
@@ -52,6 +58,7 @@
                                 <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="el-icon-edit"></i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
                                 <span v-if='scope.row.txType !== "contractCreate"'  class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                <span v-if='scope.row.txType !== "contractCreate" && scope.row.to !== address' @click='filterFn(scope.row.to)'><i class="el-icon-info"></i></span>
                             </template>
                         </el-table-column>
                         <el-table-column  prop=""  label="数额">
@@ -59,7 +66,6 @@
                                 <span>{{scope.row.value}}ATP</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  prop="actualTxCoast"  label="交易费用"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination
@@ -84,70 +90,64 @@
     import menu from '@/components/menu/index.vue'
     export default {
         //组件名
-        name: 'trade-wrap',
+        name: 'trade-filter-wrap',
         //实例的数据对象
         data () {
             return {
-                newRecordFlag:false,
+                address:'',
                 paginationFlag:true,
                 tableData:[
                     {
-                        "txHash": "0x234234",//交易hash
-                        "blockHeight": "15566",//交易所在区块高度
-                        "blockTime": 18080899999,//出块时间
-                        "from": "0x667766",//发送方
-                        "to": "0x667766",//接收方
-                        "value": "222",//数额
-                        "actualTxCoast": "22",//交易费用
-                        "txReceiptStatus": 1,//交易状态 -1 pending 1 成功  0 失败
-                        "txType": "contractCreate", // 交易类型
-                            // transfer ：转账
-                            // MPCtransaction ： MPC交易
-                            // contractCreate ： 合约创建
-                            // vote ： 投票
-                            // transactionExecute ： 合约执行
-                            // authorization ： 权限
-                        "serverTime": 1123123,//服务器时间
-                        "failReason":""//失败原因
-                    },
+                      "txHash": "0x234234",//交易hash
+                      "dwellTime": 33,// 停留时间=服务器时间-交易接收时间
+                      "energonLimit": 55555,//能量限制
+                      "energonPrice": 55555,//能量价格
+                      "from": "0x667766",//发送方
+                      "to": "0x667766",//接收方
+                      "value": "222",//数额
+                      "txType": "contractCreate", // 交易类型
+                                    // transfer ：转账
+                                    // MPCtransaction ： MPC交易
+                                    // contractCreate ： 合约创建
+                                    // vote ： 投票
+                                    // transactionExecute ： 合约执行
+                                    // authorization ： 权限
+                      "serverTime": 1123123,//服务器时间
+                      },
                     {
-                        "txHash": "0x234234",//交易hash
-                        "blockHeight": "15566",//交易所在区块高度
-                        "blockTime": 18080899999,//出块时间
-                        "from": "0x667766",//发送方
-                        "to": "0x667766",//接收方
-                        "value": "222",//数额
-                        "actualTxCoast": "22",//交易费用
-                        "txReceiptStatus": 0,//交易状态 -1 pending 1 成功  0 失败
-                        "txType": "transactionExecute", // 交易类型
-                            // transfer ：转账
-                            // MPCtransaction ： MPC交易
-                            // contractCreate ： 合约创建
-                            // vote ： 投票
-                            // transactionExecute ： 合约执行
-                            // authorization ： 权限
-                        "serverTime": 1123123,//服务器时间
-                        "failReason":"就不告诉你哈哈哈哈"//失败原因
-                    },
+                      "txHash": "0x234234",//交易hash
+                      "dwellTime": 33,// 停留时间=服务器时间-交易接收时间
+                      "energonLimit": 55555,//能量限制
+                      "energonPrice": 55555,//能量价格
+                      "from": "0x667766",//发送方
+                      "to": "0x66776611",//接收方
+                      "value": "222",//数额
+                      "txType": "transfer", // 交易类型
+                                    // transfer ：转账
+                                    // MPCtransaction ： MPC交易
+                                    // contractCreate ： 合约创建
+                                    // vote ： 投票
+                                    // transactionExecute ： 合约执行
+                                    // authorization ： 权限
+                      "serverTime": 1123123,//服务器时间
+                      },
                     {
-                        "txHash": "0x234234",//交易hash
-                        "blockHeight": "15566",//交易所在区块高度
-                        "blockTime": 18080899999,//出块时间
-                        "from": "0x667766",//发送方
-                        "to": "0x667766",//接收方
-                        "value": "222",//数额
-                        "actualTxCoast": "22",//交易费用
-                        "txReceiptStatus": 0,//交易状态 -1 pending 1 成功  0 失败
-                        "txType": "transfer", // 交易类型
-                            // transfer ：转账
-                            // MPCtransaction ： MPC交易
-                            // contractCreate ： 合约创建
-                            // vote ： 投票
-                            // transactionExecute ： 合约执行
-                            // authorization ： 权限
-                        "serverTime": 1123123,//服务器时间
-                        "failReason":"就不告诉你哈哈哈哈"//失败原因
-                    }
+                      "txHash": "0x234234",//交易hash
+                      "dwellTime": 33,// 停留时间=服务器时间-交易接收时间
+                      "energonLimit": 55555,//能量限制
+                      "energonPrice": 55555,//能量价格
+                      "from": "0x667766222",//发送方
+                      "to": "0x667766",//接收方
+                      "value": "222",//数额
+                      "txType": "transactionExecute", // 交易类型
+                                    // transfer ：转账
+                                    // MPCtransaction ： MPC交易
+                                    // contractCreate ： 合约创建
+                                    // vote ： 投票
+                                    // transactionExecute ： 合约执行
+                                    // authorization ： 权限
+                      "serverTime": 1123123,//服务器时间
+                      },
                 ],
                 currentPage:1,
                 pageSize:10,
@@ -195,19 +195,19 @@
             //     })
             // },
             //获取交易列表 下分页
-            getTradeList(){
+            getTradeList(address){
                 let param = {
                     cid:'',
                     pageNo:this.currentPage,
-                    pageSize:this.pageSize
+                    pageSize:this.pageSize,
+                    address:address
                 }
+                console.warn('筛选待交易列表》》》',param)
                 apiService.trade.transactionList(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
                         this.tableData = data
                         this.pageTotal = totalCount
-                        //判断最新记录是否显示  总数
-                        totalCount>500000?this.newRecordFlag=true:this.newRecordFlag=false
                         //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                         totalPages==1?this.paginationFlag=false:this.paginationFlag=true
                     }else{
@@ -215,15 +215,6 @@
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
-                })
-            },
-            //进入区块详情
-            goBlockDetail(index,row){
-                this.$router.push({
-                    path:'/block-detail',
-                    query:{
-                        height:row.blockHeight
-                    }
                 })
             },
             //进入交易哈希详情
@@ -241,7 +232,7 @@
                     path:'/address-detail',
                     query:{
                         address:row.from,
-                        description:'trade'
+                        description:'pending'
                     }
                 })
             },
@@ -253,7 +244,7 @@
                         path:'/contract-detail',
                         query:{
                             address:row.to,
-                            description:'trade'
+                            description:'pending'
                         }
                     })
                 }else{
@@ -262,16 +253,28 @@
                         path:'/address-detail',
                         query:{
                             address:row.to,
-                            description:'trade'
+                            description:'pending'
                         }
                     })
                 }
             },
+            filterFn(address){
+                console.log(address)
+                this.address = address
+                this.$router.replace({
+                    path:'/trade-block-filter',
+                    query:{
+                        address:address
+                    }
+                })
+                this.getTradeList(address)
+            },
         },
         //生命周期函数
         created(){
+            this.address=this.$route.query.address
             //获取交易列表
-            // this.getTradeList()
+            this.getTradeList(this.address)
         },
         //监视
         watch: {
@@ -284,7 +287,7 @@
     }
 </script>
 <style lang="less" scoped>
-    .trade-wrap{
+    .trade-filter-wrap{
         .bottom{
             padding:20px 0;
             .title{

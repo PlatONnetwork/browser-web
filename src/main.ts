@@ -13,7 +13,7 @@ import '../static/css/element-ui.css'
 
 // less
 import '@/less/index.less'
-
+import {mapActions} from 'vuex'
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
@@ -32,10 +32,12 @@ export default new Vue({
     store,
     i18n,
     render: h => h(App),
-    beforeCreate(){
-        store.dispatch('initJsonData', i18n.locale)
-    }
-
+    methods: {
+        ...mapActions(['initJsonData']),
+    },
+    created(){
+        this.initJsonData(i18n.locale)
+    },
 })
 // (<any>window).vueVm = new Vue({
 //     el: '#app',

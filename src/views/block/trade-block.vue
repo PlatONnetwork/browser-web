@@ -1,17 +1,16 @@
 <template>
-    <div class="trade-wrap">
+    <div class="trade-block-wrap">
         <div class="content-area">
             <v-menu>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>交易</el-breadcrumb-item>
+                    <el-breadcrumb-item>交易-区块#{{height}}</el-breadcrumb-item>
                 </el-breadcrumb>
             </v-menu>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共寻获超过>{{pageTotal}}交易</span>
-                        <span v-if='newRecordFlag'>（显示最新500K记录）</span>
+                        <span>总共{{pageTotal}}交易</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination
@@ -84,10 +83,11 @@
     import menu from '@/components/menu/index.vue'
     export default {
         //组件名
-        name: 'trade-wrap',
+        name: 'trade-block-wrap',
         //实例的数据对象
         data () {
             return {
+                height:'',
                 newRecordFlag:false,
                 paginationFlag:true,
                 tableData:[
@@ -198,16 +198,15 @@
             getTradeList(){
                 let param = {
                     cid:'',
+                    height:this.height,
                     pageNo:this.currentPage,
                     pageSize:this.pageSize
                 }
-                apiService.trade.transactionList(param).then((res)=>{
+                apiService.trade.blockTransaction(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
                         this.tableData = data
                         this.pageTotal = totalCount
-                        //判断最新记录是否显示  总数
-                        totalCount>500000?this.newRecordFlag=true:this.newRecordFlag=false
                         //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                         totalPages==1?this.paginationFlag=false:this.paginationFlag=true
                     }else{
@@ -240,8 +239,7 @@
                 this.$router.push({
                     path:'/address-detail',
                     query:{
-                        address:row.from,
-                        description:'trade'
+                        address:row.from
                     }
                 })
             },
@@ -252,8 +250,7 @@
                     this.$router.push({
                         path:'/contract-detail',
                         query:{
-                            address:row.to,
-                            description:'trade'
+                            address:row.to
                         }
                     })
                 }else{
@@ -261,8 +258,7 @@
                     this.$router.push({
                         path:'/address-detail',
                         query:{
-                            address:row.to,
-                            description:'trade'
+                            address:row.to
                         }
                     })
                 }
@@ -270,6 +266,7 @@
         },
         //生命周期函数
         created(){
+            this.height = this.$route.query.height
             //获取交易列表
             // this.getTradeList()
         },
@@ -284,7 +281,7 @@
     }
 </script>
 <style lang="less" scoped>
-    .trade-wrap{
+    .trade-block-wrap{
         .bottom{
             padding:20px 0;
             .title{

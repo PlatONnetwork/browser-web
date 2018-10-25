@@ -4,7 +4,7 @@
             <v-menu>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: '/trade' }">交易</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: pathFn[description] }">{{descripFn[description]}}</el-breadcrumb-item>
                     <el-breadcrumb-item>地址信息</el-breadcrumb-item>
                 </el-breadcrumb>
             </v-menu>
@@ -198,9 +198,36 @@
                                      // authorization ： 权限
                            "serverTime": 1123123,//服务器时间
                            "failReason":""//失败原因
+                        },
+                        {
+                           "txHash": "0x234234",//交易hash
+                           "blockTime": 18080899999,//确认时间(出块时间)
+                           "from": "11111",//发送方
+                           "to": "0x667766",//接收方
+                           "value": "222",//数额
+                           "actualTxCoast": "22",//交易费用
+                           "txReceiptStatus": -1,//交易状态 -1 pending 1 成功  0 失败
+                           "txType": "transfer", // 交易类型
+                                     // transfer ：转账
+                                     // MPCtransaction ： MPC交易
+                                     // contractCreate ： 合约创建
+                                     // vote ： 投票
+                                     // transactionExecute ： 合约执行
+                                     // authorization ： 权限
+                           "serverTime": 1123123,//服务器时间
+                           "failReason":""//失败原因
                         }
                     ]
-                }
+                },
+                descripFn: {
+                    pending : '待处理交易',
+                    trade : '交易',
+                },
+                pathFn: {
+                    pending : '/trade-pending',
+                    trade : '/trade',
+                },
+                description:'',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -224,23 +251,36 @@
 
             },
             goTradeDetail(index,row){
-                this.$router.push({
-                    path:'/trade-detail',
-                    query:{
-                        txHash:row.txHash
-                    }
-                })
+                if(this.description=='trade'){
+                    this.$router.push({
+                        path:'/trade-detail',
+                        query:{
+                            txHash:row.txHash
+                        }
+                    })
+                }else if(this.description=='pending'){
+                    this.$router.push({
+                        path:'/trade-pending-detail',
+                        query:{
+                            txHash:row.txHash
+                        }
+                    })
+                }
             },
             goAddressDetail(index,row){
                 if(row.from == this.address){
                     return false;
                 }else{
-                    this.$router.push({
+                    //改变
+                    this.address = row.from
+                    this.$router.replace({
                         path:'/address-detail',
                         query:{
-                            address:row.from
+                            address:row.from,
+                            description:this.description
                         }
                     })
+                    this.getDetail()
                 }
             },
             goDetail(index,row){
@@ -248,7 +288,8 @@
                 this.$router.push({
                     path:'/contract-detail',
                     query:{
-                        address:row.to
+                        address:row.to,
+                        description:this.description
                     }
                 })
             },
@@ -256,12 +297,15 @@
                 if(row.to == this.address){
                     return false;
                 }else{
-                    this.$router.push({
+                    this.address = row.to
+                    this.$router.replace({
                         path:'/address-detail',
                         query:{
-                            address:row.to
+                            address:row.to,
+                            description:this.description
                         }
                     })
+                    this.getDetail()
                 }
             },
             //获取地址信息详情
@@ -271,33 +315,35 @@
                     address:this.address,
                     txType:this.type
                 }
-                apiService.trade.addressDetails(param).then((res)=>{
-                    let {errMsg,code,data}= res
-                    if(code==0){
-                       this.detailInfo=data
-                       data.trades.forEach((item)=>{
-                            if(item.txReceiptStatus==-1){
-                                ++this.count
-                            }
-                       })
-                    }else{
-                        this.detailInfo={}
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
+                console.warn('地址详情入参》》》》',param)
+                // apiService.trade.addressDetails(param).then((res)=>{
+                //     let {errMsg,code,data}= res
+                //     if(code==0){
+                //        this.detailInfo=data
+                //        data.trades.forEach((item)=>{
+                //             if(item.txReceiptStatus==-1){
+                //                 ++this.count
+                //             }
+                //        })
+                //     }else{
+                //         this.detailInfo={}
+                //         this.$message.error(errMsg)
+                //     }
+                // }).catch((error)=>{
+                //     this.$message.error(error)
+                // })
             }
         },
         //生命周期函数
         created(){
-            this.address=this.$route.query.address;
+            this.address=this.$route.query.address
+            this.description=this.$route.query.description
+            // console.log(1)
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
-
         },
         //组件
         components: {

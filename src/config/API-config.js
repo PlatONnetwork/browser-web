@@ -15,6 +15,7 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	BLOCK = {
 		blockList: `${BLOCK_URL}blockList`,
 		blockDetails: `${BLOCK_URL}blockDetails`,
+        blockDetailNavigate: `${BLOCK_URL}blockDetailNavigate`,
 	},
     // SOUSUO
 	SEARCH = {
@@ -30,6 +31,9 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         addressDownload: `${TRADE_URL}addressDownload`,
         contractDetails: `${TRADE_URL}contractDetails`,
         contractDownload: `${TRADE_URL}contractDownload`,
+        transactionDetailNavigate:`${TRADE_URL}transactionDetailNavigate`,
+        pendingDetailNavigate:`${TRADE_URL}pendingDetailNavigate`,
+        blockTransaction:`${TRADE_URL}blockTransaction`,
     },
     // TRADE
     ACCOUNT = {

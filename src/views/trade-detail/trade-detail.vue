@@ -20,6 +20,14 @@
                             <i class='el-icon-tickets cursor'></i>
                         </span>
                     </div>
+                    <div class="arrow">
+                        <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
+                            <i class='el-icon-caret-left'></i>
+                        </button>
+                        <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
+                            <i class='el-icon-caret-right'></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="data-detail">
                     <div class="data-title">交易信息</div>
@@ -151,6 +159,9 @@
         //实例的数据对象
         data () {
             return {
+                txHash:'',
+                disabledLeft:false,
+                disabledRight:false,
                 address:'11111111111',
                 detailInfo:{
                   "txHash": "0x234234",//交易hash
@@ -194,25 +205,27 @@
             getDetail(){
                 let param = {
                     cid:'',
-                    txHash:this.$route.query.txHash
+                    txHash:this.txHash
                 }
-                apiService.trade.transactionDetails(param).then((res)=>{
-                    let {errMsg,code,data}= res
-                    if(code==0){
-                       this.detailInfo=data
-                    }else{
-                        this.detailInfo={}
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
+                console.warn('交易详情》》》》',param)
+                // apiService.trade.transactionDetails(param).then((res)=>{
+                //     let {errMsg,code,data}= res
+                //     if(code==0){
+                //        this.detailInfo=data
+                //     }else{
+                //         this.detailInfo={}
+                //         this.$message.error(errMsg)
+                //     }
+                // }).catch((error)=>{
+                //     this.$message.error(error)
+                // })
             },
             goAddressDetail(address){
                 this.$router.push({
                     path:'/address-detail',
                     query:{
-                        address:address
+                        address:address,
+                        description:'trade'
                     }
                 })
             },
@@ -222,23 +235,90 @@
                     this.$router.push({
                         path:'/contract-detail',
                         query:{
-                            address:to
+                            address:to,
+                            description:'trade'
                         }
                     })
                 }else{
                     this.$router.push({
                         path:'/address-detail',
                         query:{
-                            address:to
+                            address:to,
+                            description:'trade'
                         }
                     })
                 }
+            },
+            //向左 上一个
+            goLeft(){
+                this.disabledRight=false;
+                let param = {
+                    cid:'',
+                    direction:'prev',
+                    txHash:this.txHash
+                }
+                console.warn('交易详情上一个》》》》',param)
+                apiService.trade.transactionDetailNavigate(param).then((res)=>{
+                    let {errMsg,code,data}= res
+                    if(code==1){
+                        //这是第一个 置灰
+                        this.disabledLeft=true
+                        return false;
+                    }else if(code==0){
+                        this.disabledLeft=false
+                        this.$router.replace({
+                            path:'/trade-detail',
+                            query:{
+                                txHash:data.txHash
+                            }
+                        })
+                        this.detailInfo=data
+                    }else{
+                        this.disabledLeft=false
+                        this.$message.error(errMsg)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
+            },
+            //向右 下一个
+            goRight(){
+                this.disabledLeft=false
+                let param = {
+                    cid:'',
+                    direction:'next',
+                    txHash:this.txHash
+                }
+                console.warn('交易详情下一个》》》》',param)
+                apiService.trade.transactionDetailNavigate(param).then((res)=>{
+                    let {errMsg,code,data}= res
+                    if(code==1){
+                        //这是最后一个 置灰
+                        this.disabledRight=true
+                        return false
+                    }else if(code==0){
+                        this.disabledRight=false
+                        this.$router.replace({
+                            path:'/trade-detail',
+                            query:{
+                                txHash:data.txHash
+                            }
+                        })
+                        this.detailInfo=data
+                    }else{
+                        this.disabledRight=false
+                        this.$message.error(errMsg)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             }
         },
         //生命周期函数
         created(){
+            this.txHash = this.$route.query.txHash;
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
@@ -255,6 +335,10 @@
         padding:20px 0;
         .title{
             margin-bottom:20px;
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: space-between;
         }
         .data-detail{
             .data-title{
