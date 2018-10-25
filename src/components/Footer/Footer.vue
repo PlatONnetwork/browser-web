@@ -3,13 +3,13 @@
 		<div class="footer">
 			<div class="footer-top">
 				<div class="platon">
-					<img class="footerimg" :src="iconSrc"/> 
+					<img class="footer-img" :src="iconSrc"/> 
 					<span>
 						XXXX是PlatON区块链资源管理与分析平台
 					</span>
 				</div>
 				<div class="link">
-					<p class="linktop">链接</p>
+					<p class="link-top">链接</p>
 					<el-row>
 						<span>
 							<a href="httt://www.baidu.com" target="_blank">开发帮助</a>
@@ -36,8 +36,12 @@
 					</el-row>
 				</div>
 				<div class="community">
-					<p class="linktop">社区</p>
+					<p class="link-top">社区</p>
 					<div>
+						<el-alert
+							title="此处为雪碧图效果，元素已加，等待UI出图调css"
+							type="error">
+						</el-alert>
 						<ul>
 							<li>
 								<a href="https://t.me/PlatONHK" class="icon-link-1"></a>
@@ -112,16 +116,16 @@
 	left: 0;
 	right: 0;
 	color: #fff;
-	height: 200px;
+	height: 130px;
 	margin-top: -200px;
 	bottom: 0;
 	.footer{
 		margin: 0 auto;
-		width: 1000px;
+		width: 1400px;
 		bottom: 0;
 		height: 100%;
 		display: flex;
-		flex-direction:column;   //弹性布局，从上到下顺序排列子div
+		flex-direction: column;   //弹性布局，从上到下顺序排列子div
 		.footer-top 
 		{
 			display: flex;
@@ -129,7 +133,7 @@
 			.link{
 			width: auto;
 			}
-			.linktop{
+			.link-top{
 			width: 200px;
 			border-bottom-width: 1px;
 			border-bottom-style: dotted;

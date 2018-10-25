@@ -23,7 +23,7 @@
                         <router-link to="/node">节点</router-link>
                     </el-menu-item>
                     <el-submenu index="3">
-                        <template slot="title">更多</template>
+                        <template slot="title">{{ $t("menu.more") }}</template>
                         <el-menu-item index="/wallet">
                             <router-link to="/wallet">钱包</router-link>
                         </el-menu-item>
@@ -36,20 +36,22 @@
                 <div>
                     <el-dropdown class="dropdown1">
                         <span class="el-dropdown-link">
-                            {{Net}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            {{net}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="changeNet('MainNet(主网络)')">MainNet(主网络)</el-dropdown-item>
                             <el-dropdown-item @click.native="changeNet('TestNet(测试网络)')">TestNet(测试网络)</el-dropdown-item>
+                            <el-dropdown-item v-for="(item,index) in options" :key="index" @click.native="changeLanguage(item)">{{item.name}}</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <el-dropdown class="dropdown2">
                         <span class="el-dropdown-link">
-                            {{Language}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            {{language}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changeLanguage('简体中文')">简体中文</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeLanguage('English')">English</el-dropdown-item>
+                            <el-dropdown-item @click.native="changeLanguage('zh-cn')">简体中文</el-dropdown-item>
+                            <el-dropdown-item @click.native="changeLanguage('en')">English</el-dropdown-item>
+                            
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -63,37 +65,46 @@
         name: 'header-wrap',
         //实例的数据对象
         data () {
-          return {
-              iconSrc: '/static/images/platon.png',
-              Net: 'MainNet',
-              Language: '简体中文'
-            //   options:[
-			// 		{
-			// 			value: 'CN',
-			// 			label: '中文简体'
-			// 		},
-			// 		{
-			// 			value: 'EN',
-			// 			label: 'English'
-			// 		}
-            //     ],
-                }
+            return {
+                iconSrc: '/static/images/platon.png',
+                net: 'MainNet',
+                language: '简体中文',
+                options:[{
+                    value: 'CN',
+                    label: '中文简体',
+                    cid:`1`,
+                    name:'jjjjj',
+                },
+                {
+                    value: 'EN',
+                    label: 'English',
+                    cid:`2`,
+                    name:'22222',
+                    
+                }],
+            }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
            
-            },
+        },
         //方法
         methods: {
-            changeNet(value){  // 修改网络
-                this.Net = value
-                console.log(value)
+            changeNet(item){  // 修改网络
+                this.net = item.name
+                //todo 把当前的CID name 放到vuex中
+
+                
             },
             changeLanguage(lang){  // 修改语言
-                this.Language = lang
-                console.log(lang)
+                this.language = lang
+                let locale = this.$i18n.locale
+                locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
+                console.log('i18n'+this.$i18n.locale)
+                console.log('local'+locale)
+                
             },
             // changeLanguage(value){  //修改语言
 			// 	let locale = this.$i18n.locale
@@ -119,7 +130,7 @@
     .header-content{
         top: 8%;
         left: 50%;
-        width: 1000px;
+        width: 1400px;
         margin: 0 auto;
         height: 100%;
         display: flex;
@@ -149,8 +160,8 @@
         color: #fff;
     }
     .dropdown2{
-        color: #fff;
         width: 80px;
+        color: #fff;
     }
     
 

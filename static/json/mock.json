@@ -1,6 +1,6 @@
 {
   "cid":[
     {"cid":"1","en": "all", "cn": "MainNet(主网络)"},
-    {"cid":"2","en": "China", "cn": "TestNet(测试网络)"},
+    {"cid":"2","en": "China", "cn": "TestNet(测试网络)"}
   ]
 }

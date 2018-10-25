@@ -3,5 +3,6 @@ import en from './modules/en'
 
 export default {
     'zh-cn': zh_ch,
-    en
+    en,
+    'en-us': en
 }

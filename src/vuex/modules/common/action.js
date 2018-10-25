@@ -12,5 +12,10 @@ export const commonAction = {
         apiService.get("../../../static/json/mock.json").then((data)=>{
             state.chainList = data.cid;
         });
+        apiService.get("../../../static/json/walletConfig.json").then((data)=>{
+            state.chainList = data;
+        });
+        
     },
+
 }
