@@ -44,14 +44,18 @@
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    <el-dropdown class="dropdown2">
+                    <el-dropdown class="dropdown2" @command="handleCommandLangage">
                         <span class="el-dropdown-link">
-                            {{language}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
-                        <el-dropdown-menu slot="dropdown">
+                        <!-- <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="changeLanguage('zh-cn')">简体中文</el-dropdown-item>
                             <el-dropdown-item @click.native="changeLanguage('en')">English</el-dropdown-item>
-
+                        </el-dropdown-menu> -->
+                        <el-dropdown-menu  slot="dropdown" >
+                            <el-dropdown-item v-for='(item,index) in options' :key='index' :command='item.value'>
+                                {{item.label}}
+                            </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -68,76 +72,55 @@
         data () {
             return {
                 iconSrc: '/static/images/platon.png',
-                Net: 'MainNet',
-                language: '简体中文',
-                //   options:[
-    			// 		{
-    			// 			value: 'CN',
-    			// 			label: '中文简体'
-    			// 		},
-    			// 		{
-    			// 			value: 'EN',
-    			// 			label: 'English'
-    			// 		}
-                //     ],
+                language: 'zh-cn',
                 netObj:{
                     "1":"MainNet",
                     "2":"TestNet"
                 },
-                options:[{
-                    value: 'CN',
-                    label: '中文简体',
-                    cid:`1`,
-                    name:'jjjjj',
-                },
-                {
-                    value: 'EN',
-                    label: 'English',
-                    cid:`2`,
-                    name:'22222',
-
-                }],
+                options:[
+                    {
+                        value: 'zh-cn',
+                        label: '简体中文'
+                    },
+                    {
+                        value: 'en',
+                        label: 'English'
+                    }
+                ],
+                languageObj:{
+                    'zh-cn':'简体中文',
+                    'en':'English'
+                }
             }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
-           ...mapGetters(['chainList','chainId']),
-           lang(){
+            ...mapGetters(['chainList','chainId']),
+            lang(){
                return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
-           }
+            }
         },
         //方法
         //方法
         methods: {
             ...mapActions(['changeChainId']),
             handleCommand(command){
-                console.log(command)
-                // this.cid=command
+                console.log('网络切换》》》',command)
                 store.commit("CHANGE_ID",command)
             },
-            changeNet(item){  // 修改网络
-                this.net = item.name
-                //todo 把当前的CID name 放到vuex中
+            handleCommandLangage(command){
+                this.$i18n.locale = command
+                this.language = command
             },
-            // changeNet(value){  // 修改网络
-            //     console.log(val)
-            //     this.Net = value
-            //     console.log(value)
-            // },
             changeLanguage(lang){  // 修改语言
                 this.language = lang
                 let locale = this.$i18n.locale
                 locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
                 console.log('i18n'+this.$i18n.locale)
                 console.log('local'+locale)
-
             },
-            // changeLanguage(value){  //修改语言
-			// 	let locale = this.$i18n.locale
-			// 	locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
-            // },
         },
         //生命周期函数
         created(){
