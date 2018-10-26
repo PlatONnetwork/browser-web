@@ -33,38 +33,36 @@
                     </el-submenu>
                 </el-menu>
             </div>
-                <div>
-                    <el-dropdown class="dropdown1"  @command="handleCommand">
-                        <span class="el-dropdown-link">
-                            {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
-                        </span>
-                        <el-dropdown-menu  slot="dropdown" >
-                            <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
-                                {{item[lang]}}
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                    <el-dropdown class="dropdown2" @command="handleCommandLangage">
-                        <span class="el-dropdown-link">
-                            {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
-                        </span>
-                        <!-- <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changeLanguage('zh-cn')">简体中文</el-dropdown-item>
-                            <el-dropdown-item @click.native="changeLanguage('en')">English</el-dropdown-item>
-                        </el-dropdown-menu> -->
-                        <el-dropdown-menu  slot="dropdown" >
-                            <el-dropdown-item v-for='(item,index) in options' :key='index' :command='item.value'>
-                                {{item.label}}
-                            </el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </div>
+            <v-search></v-search>
+            <div>
+                <el-dropdown class="dropdown1"  @command="handleCommand">
+                    <span class="el-dropdown-link">
+                        {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu  slot="dropdown" >
+                        <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
+                            {{item[lang]}}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <el-dropdown class="dropdown2" @command="handleCommandLangage">
+                    <span class="el-dropdown-link">
+                        {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu  slot="dropdown" >
+                        <el-dropdown-item v-for='(item,index) in options' :key='index' :command='item.value'>
+                            {{item.label}}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
         </div>
     </div>
 </template>
 <script lang="ts">
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import store from '@/vuex/store'
+    import search from '@/components/search/search.vue'
     export default {
         //组件名
         name: 'header-wrap',
@@ -128,7 +126,9 @@
         //监视
         watch: {},
         //组件
-        components: {}
+        components: {
+            // 'v-search':search
+        }
     }
 </script>
 <style lang="less" scoped>

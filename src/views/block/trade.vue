@@ -1,5 +1,6 @@
 <template>
     <div class="trade-wrap">
+        <com-header></com-header>
         <div class="content-area">
             <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -77,9 +78,13 @@
                 </div>
             </div>
         </div>
+        <com-footer></com-footer>
     </div>
 </template>
 <script>
+    import Component from 'vue-class-component'
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
@@ -282,7 +287,9 @@
         },
         //组件
         components: {
-            'v-menu':menu
+            'v-menu':menu,
+            comHeader,
+            comFooter
         }
     }
 </script>
