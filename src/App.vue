@@ -4,11 +4,6 @@
         <div class="com-container">
             <router-view></router-view>
         </div>
-        <!-- <el-row :gutter='20'>
-            <el-col :span="18" :offset="3">
-
-            </el-col>
-        </el-row> -->
         <com-footer></com-footer>
     </div>
 </template>

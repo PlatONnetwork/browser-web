@@ -4,6 +4,7 @@ import Index from './map/index'
 import {tradeCom,tradePendingCom,blockCom,tradeDetailCom,addressDetailCom,contractDetailCom,blockDetailCom,tradeBlock,tradeBlockFilter,tradePendDetailCom} from './map/block'
 import Node from './map/node'
 import {walletCom,documentCom} from './map/more'
+import DownLoad from './map/download'
 import Redirect from './map/Redirect'
 Vue.use(Router)
 export default new Router({
@@ -23,6 +24,7 @@ export default new Router({
         Node,
         walletCom,
         documentCom,
+        DownLoad,
         Redirect, //路由重定向(访问不存在的页面时，重定向到这个页面) 放最后面
     ]
 })
