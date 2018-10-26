@@ -6,7 +6,7 @@
         </div>
     </div>
 </template>
-<script lang="ts">
+<script lang='ts'>
     import apiService from '@/services/API-services'
     export default {
         //组件名
