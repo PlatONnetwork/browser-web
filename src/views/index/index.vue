@@ -1,37 +1,82 @@
 <template>
     <div class="index">
-        <!-- <slider :pages="pages" :sliderinit="sliderinit">
-            <slideritem>
-                <com-header></com-header>
-            </slideritem>
-            <slideritem>
-                <div>322222222222</div>
-            </slideritem>
-            <slideritem>
-                <com-footer></com-footer>
-            </slideritem>
-        </slider> -->
+        <com-header></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
-          <!-- 直接使用slideritem slot -->
-           <slideritem v-for="(item,index) in someList" :key="index" :style="item.style">{{item.html}}</slideritem>
-           <slideritem>
-                <com-header></com-header>
-            </slideritem>
             <slideritem>
-                <div>322222222222</div>
+                <ul class="footer-box">
+                    <li class="color1">
+                        <p>666666</p>
+                        <span>Block Height</span>
+                    </li>
+                    <li>
+                        <p>666666</p>
+                        <span>Producer</span>
+                    </li>
+                    <li>
+                        <p>666666</p>
+                        <span>Total Transactions</span>
+                    </li>
+                    <li>
+                        <p>666666</p>
+                        <span>Consensus Nodes</span>
+                    </li>
+                    <li>
+                        <p>666666</p>
+                        <span>Total Address</span>
+                    </li>
+                    <li>
+                        <p>666666</p>
+                        <span>Votes / Ratio</span>
+                    </li>
+                    <li class="color2">
+                        <p>666666</p>
+                        <span>Vote Price</span>
+                    </li>
+                </ul>
+            </slideritem>
+            <slideritem class="second-floor">
+                <header class="time-and-number">
+                    Time And Number
+                </header>
+                <p class="second-floor-text">Block Time And Number Of Transactions</p>
+                <div class="chart-box">
+                    <div class="chart" ref="chart"></div>
+                    <ul class="chart-aside">
+                        <li>
+                            <p>Average Block Time</p>
+                            <span>1.5 s</span>
+                        </li>
+                        <li>
+                            <p>Current / Max TPS</p>
+                            <span>100 / 1600</span>
+                        </li>
+                        <li>
+                            <p>Average Block Txns</p>
+                            <span>600</span>
+                        </li>
+                    </ul>
+                </div>
+                <header class="time-and-number">
+                    Time And Number
+                </header>
+                <p class="second-floor-text second-floor-text1">Block Time And Number Of Transactions</p>
+                <p class="transactions">The number of bitcoin transactions in the last 24 hours</p>
+                <ul class="num-box clearfix">
+                    <li>0</li>
+                    <li>2</li>
+                    <li>0</li>
+                    <li>2</li>
+                    <li>0</li>
+                    <li>2</li>
+                </ul>
             </slideritem>
             <slideritem>
                 <com-footer></com-footer>
             </slideritem>
-          <!-- 设置loading,可自定义 -->
-          <div slot="loading">loading...</div>
-      </slider>
+            <!-- 设置loading,可自定义 -->
+            <div slot="loading">loading...</div>
+        </slider>
 
-        <section class="first-floor">
-        </section>
-        <section class="second-floor">
-
-        </section>
         <section class="third-floor">
 
         </section>
@@ -51,54 +96,34 @@ import {slider, slideritem} from 'vue-concise-slider';
         comHeader,
         comFooter,
         slider,
-        slideritem
+        slideritem,
     },
 })
 export default class HelloWorld extends Vue {
     @Getter
     info;
 
-    someList: Array<object>  = [
-          {
-            html: 'slide1',
-            style: {
-              'background': '#1bbc9b'
-            }
-          },
-          {
-            html: 'slide2',
-            style: {
-              'background': '#4bbfc3'
-            }
-          },
-          {
-            html: 'slide3',
-            style: {
-              'background': '#7baabe'
-            }
-          }
-        ]
     // 滑动配置[obj]
     options: object = {
-        currentPage: 0, // 当前页码
+        currentPage: 1, // 当前页码
         thresholdDistance: 500, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
-        autoplay: 1000, // 自动滚动[ms]
-        loop: false, // 循环滚动
+        autoplay: 0, // 自动滚动[ms]
+        loop: true, // 循环滚动
         direction: 'vertical', // 方向设置，垂直滚动
         infinite: 1, // 无限滚动前后遍历数
         slidesToScroll: 1, // 每次滑动项数
     };
 
-    slide (data) {
-        console.log(data)
-      }
-      onTap (data) {
-        console.log(data)
-      }
-      onInit (data) {
-        console.log(data)
-      }
+    slide(data) {
+        console.log(data);
+    }
+    onTap(data) {
+        console.log(data);
+    }
+    onInit(data) {
+        console.log(data);
+    }
     mounted() {}
 }
 </script>
@@ -106,5 +131,123 @@ export default class HelloWorld extends Vue {
 <style lang="less" scoped>
 .index {
     height: 100%;
+}
+div.slider-item {
+    display: initial;
+    font-size: 14px;
+    text-align: left;
+}
+.swiper-container-vertical .slider-pagination-bullets {
+    right: 30px;
+}
+.slider-pagination-bullet {
+    background-color: #3c4fa1;
+}
+.color1 {
+    color: #fcff0a;
+}
+.color2 {
+    color: #ff374f;
+}
+.footer-box {
+    position: absolute;
+    margin: 0 200px;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    display: flex;
+    > li {
+        height: 56px;
+        width: 100/7%;
+        flex: 1/7;
+        text-align: center;
+    }
+    p {
+        margin: 0 0 13px;
+        font-size: 40px;
+    }
+    // span{
+
+    // }
+}
+
+.second-floor {
+    padding: 100px 100px 0 100px;
+}
+
+.time-and-number {
+    position: relative;
+    width: 592px;
+    height: 48px;
+    font-size: 64px;
+    line-height: 30px;
+    letter-spacing: 3.8px;
+    color: #3c425d;
+    opacity: 0.2;
+}
+.second-floor-text {
+    position: absolute;
+    top: 125px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+    opacity: 1;
+}
+.second-floor-text1 {
+    top: 590px;
+}
+
+.chart-box {
+    display: flex;
+}
+.chart {
+    flex: 1;
+    padding: 35px 0 55px;
+    height: 415px;
+}
+.chart-aside {
+    width: 163+89+88px;
+    height: 415px;
+    font-family: DINCond-Regular;
+    li {
+        padding: 10px 0 87px 88px;
+    }
+    p {
+        padding: 0 0 12px;
+        font-size: 16px;
+        line-height: 30px;
+        letter-spacing: 1.6px;
+        color: #6d81a9;
+    }
+    span {
+        font-size: 42px;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 30px;
+        letter-spacing: 2.5px;
+        color: #d2daea;
+    }
+}
+.transactions {
+    font-size: 12px;
+    line-height: 30px;
+    letter-spacing: 0.7px;
+    color: #8d9bb8;
+}
+.num-box {
+    padding: 30px 0 0;
+    > li {
+        margin: 0 50px 0 0;
+        float: left;
+        width: 121px;
+        height: 140px;
+        background-color: rgba(20,33,87, 0.5);
+        font-family: DINCond-Regular;
+        font-size: 100px;
+        line-height: 140px;
+        letter-spacing: 6px;
+        color: #fcff0a;
+        text-align: center;
+    }
 }
 </style>

@@ -116,7 +116,7 @@
 	left: 0;
 	right: 0;
 	color: #fff;
-	height: 130px;
+	height: 190px; // UI设计图 190px
 	margin-top: -200px;
 	bottom: 0;
 	.footer{

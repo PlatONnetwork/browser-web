@@ -199,13 +199,13 @@
 </script>
 <style lang="less" scoped>
 .header-wrap{
-    background-color: #242c39;
-    width: 100%;
+    position:fixed;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     height: 60px;
-    // padding-top:20px;
+    background: #242c39;
     .header-content{
         top: 8%;
         left: 50%;
