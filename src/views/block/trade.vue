@@ -1,13 +1,13 @@
 <template>
     <div class="trade-wrap">
-        <com-header></com-header>
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <v-menu :descriptionProp='descriptionProp'>
+            <div class="crumb">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>交易</el-breadcrumb-item>
                 </el-breadcrumb>
-            </v-menu>
+            </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
@@ -21,6 +21,7 @@
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 50, 100]"
                             layout="prev, pager, next"
+                            :total="pageTotal"
                             :pager-count="9">
                         </el-pagination>
                     </div>
@@ -81,7 +82,7 @@
         <com-footer></com-footer>
     </div>
 </template>
-<script>
+<script lang="ts">
     import Component from 'vue-class-component'
     import comHeader from '@/components/header/header.vue'
     import comFooter from '@/components/footer/footer.vue'
@@ -157,7 +158,7 @@
                 ],
                 currentPage:1,
                 pageSize:10,
-                pageTotal:0,
+                pageTotal:110,
                 currentPage1:1,
                 descriptionProp:'trade'
             }
@@ -279,7 +280,7 @@
         //生命周期函数
         created(){
             //获取交易列表
-            this.getTradeList()
+            // this.getTradeList()
         },
         //监视
         watch: {
@@ -296,13 +297,19 @@
 <style lang="less" scoped>
     .trade-wrap{
         .bottom{
-            padding:20px 0;
+            padding:30px 0;
             .title{
-                margin-bottom:20px;
+                margin-bottom:30px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: space-between;
+                .record{
+                    font-size: 12px;
+                    line-height: 30px;
+                    letter-spacing: 0.7px;
+                    color: #d7dde9;
+                }
             }
         }
     }

@@ -3,7 +3,7 @@
 		<div class="footer">
 			<div class="footer-top">
 				<div class="platon">
-					<img class="footer-img" :src="iconSrc"/> 
+					<img class="footer-img" :src="iconSrc"/>
 					<span>
 						XXXX是PlatON区块链资源管理与分析平台
 					</span>
@@ -121,15 +121,16 @@
 	bottom: 0;
 	.footer{
 		margin: 0 auto;
-		width: 1400px;
+		// width: 1400px;
+		padding:0 100px;
 		bottom: 0;
 		height: 100%;
 		display: flex;
 		flex-direction: column;   //弹性布局，从上到下顺序排列子div
-		.footer-top 
+		.footer-top
 		{
 			display: flex;
-			flex-direction: row; 
+			flex-direction: row;
 			.link{
 			width: auto;
 			}
@@ -143,7 +144,7 @@
 		.footer-bottom{
 			margin: 70px 0 0;
 		}
-		
+
 		a {
 			color: #fff;
 		}
@@ -152,12 +153,12 @@
 			width: 140px;
 			height: 50px;
 		}
-		
+
 	}
 	.text-left{
 		text-align: left;
 	}
-	
+
 }
 </style>
 

@@ -33,7 +33,10 @@
                     </el-submenu>
                 </el-menu>
             </div>
-            <v-search></v-search>
+            <div class="search">
+                <el-input placeholder="请输入区块高度/地址/块哈希/交易哈希" class="margin10" v-model.trim="searchKey"  @keyup.enter.native="searchFn"></el-input>
+                <el-button type="primary" class="el-btn" @click="searchFn">查询</el-button>
+            </div>
             <div>
                 <el-dropdown class="dropdown1"  @command="handleCommand">
                     <span class="el-dropdown-link">
@@ -59,16 +62,18 @@
         </div>
     </div>
 </template>
-<script lang="ts">
+<script lang='ts'>
+    import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import store from '@/vuex/store'
-    import search from '@/components/search/search.vue'
+    // import search from '@/components/search/search.vue'
     export default {
         //组件名
         name: 'header-wrap',
         //实例的数据对象
         data () {
             return {
+                searchKey:'',//搜索
                 iconSrc: '/static/images/platon.png',
                 language: 'zh-cn',
                 netObj:{
@@ -92,7 +97,7 @@
             }
         },
         //数组或对象，用于接收来自父组件的数据
-        props: {},
+        props: ['descriptionProp'],
         //计算
         computed: {
             ...mapGetters(['chainList','chainId']),
@@ -112,13 +117,74 @@
                 this.$i18n.locale = command
                 this.language = command
             },
-            changeLanguage(lang){  // 修改语言
-                this.language = lang
-                let locale = this.$i18n.locale
-                locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
-                console.log('i18n'+this.$i18n.locale)
-                console.log('local'+locale)
+            //查询
+            searchFn(){
+                let param = {
+                    // cid:'',
+                    parameter:this.searchKey,
+                }
+                console.warn('搜索内容》》》',param)
+                apiService.search.query(param).then((res)=>{
+                    let {errMsg,code,data}=res
+                    if(code==0){
+                        //根据type不同进入不同的详情页
+                        this.switchFn(data.type,data.struct)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             },
+            switchFn(type,struct){
+                switch (type){
+                    //区块详情
+                    case 'block':
+                        return this.$router.push({
+                            path:'/block-detail',
+                            query:{
+                                height:struct.height
+                            }
+                        })
+                        break
+                    //交易详情
+                    case 'transaction':
+                        let path = ''
+                        struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
+                        return this.$router.push({
+                            path:path,
+                            query:{
+                                txHash:struct.txHash
+                            }
+                        })
+                        break
+                    //节点详情
+                    case 'node':
+                        return this.$router.push({
+                            path:'',
+                            query:{}
+                        })
+                        break
+                    //合约详情
+                    case 'contract':
+                        return this.$router.push({
+                            path:'/contract-detail',
+                            query:{
+                                address:this.searchKey,
+                                description:this.descriptionProp
+                            }
+                        })
+                        break
+                    //地址详情
+                    case 'account':
+                        return this.$router.push({
+                            path:'/address-detail',
+                            query:{
+                                address:this.searchKey,
+                                description:this.descriptionProp
+                            }
+                        })
+                        break
+                }
+            }
         },
         //生命周期函数
         created(){
@@ -142,7 +208,8 @@
     .header-content{
         top: 8%;
         left: 50%;
-        width: 1400px;
+        // width: 1400px;
+        padding:0 100px;
         margin: 0 auto;
         height: 100%;
         display: flex;
@@ -183,5 +250,19 @@
     height:30px;
     line-height:30px;
 }
+</style>
+<style lang="less">
+    .search{
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        .el-input{
+            width:300px;
+        }
+        .el-btn{
+            margin-top:4px;
+        }
+    }
 </style>
 

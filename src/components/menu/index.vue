@@ -11,7 +11,7 @@
         </div>
     </div>
 </template>
-<script>
+<script lang='ts'>
     import apiService from '@/services/API-services'
     export default {
         //组件名
@@ -109,11 +109,6 @@
     }
 </script>
 <style lang="less">
-    .crumb{
-        .el-breadcrumb{
-            line-height: 50px;
-        }
-    }
     .search{
         .el-input{
             width:300px;
