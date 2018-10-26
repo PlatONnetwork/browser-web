@@ -69,7 +69,7 @@
             return {
                 iconSrc: '/static/images/platon.png',
                 Net: 'MainNet',
-                Language: '简体中文',
+                language: '简体中文',
                 //   options:[
     			// 		{
     			// 			value: 'CN',
