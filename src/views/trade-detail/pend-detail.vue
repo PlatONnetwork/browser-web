@@ -149,6 +149,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'pend-detail-wrap',
@@ -188,7 +189,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -201,21 +202,21 @@
             //获取交易信息详情
             getDetail(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     txHash:this.txHash
                 }
                 console.warn('待处理交易详情》》》》',param)
-                // apiService.trade.transactionDetails(param).then((res)=>{
-                //     let {errMsg,code,data}= res
-                //     if(code==0){
-                //        this.detailInfo=data
-                //     }else{
-                //         this.detailInfo={}
-                //         this.$message.error(errMsg)
-                //     }
-                // }).catch((error)=>{
-                //     this.$message.error(error)
-                // })
+                apiService.trade.transactionDetails(param).then((res)=>{
+                    let {errMsg,code,data}= res
+                    if(code==0){
+                       this.detailInfo=data
+                    }else{
+                        this.detailInfo={}
+                        this.$message.error(errMsg)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             },
             goAddressDetail(address){
                 this.$router.push({
@@ -250,7 +251,7 @@
             goLeft(){
                 this.disabledRight=false;
                 let param = {
-                    cid:'',
+                    // cid:'',
                     direction:'prev',
                     txHash:this.txHash
                 }
@@ -270,6 +271,7 @@
                             }
                         })
                         this.detailInfo=data
+                        this.txHash=data.txHash
                     }else{
                         this.disabledLeft=false
                         this.$message.error(errMsg)
@@ -282,7 +284,7 @@
             goRight(){
                 this.disabledLeft=false
                 let param = {
-                    cid:'',
+                    // cid:'',
                     direction:'next',
                     txHash:this.txHash
                 }
@@ -302,6 +304,7 @@
                             }
                         })
                         this.detailInfo=data
+                        this.txHash=data.txHash
                     }else{
                         this.disabledRight=false
                         this.$message.error(errMsg)
@@ -319,7 +322,7 @@
         },
         //监视
         watch: {
-
+            'chainId':'getDetail'
         },
         //组件
         components: {

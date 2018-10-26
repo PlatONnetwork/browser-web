@@ -1,7 +1,7 @@
 <template>
     <div class="trade-filter-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
@@ -38,7 +38,7 @@
                         </el-table-column>
                         <el-table-column label="能量限制">
                             <template slot-scope="scope">
-                                <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span>
+                                <!-- <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span> -->
                                 <span>{{scope.row.energonLimit}}</span>
                             </template>
                         </el-table-column>
@@ -88,6 +88,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'trade-filter-wrap',
@@ -153,13 +154,14 @@
                 pageSize:10,
                 pageTotal:0,
                 currentPage1:1,
+                descriptionProp:'pending'
             }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -197,7 +199,7 @@
             //获取交易列表 下分页
             getTradeList(address){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     pageNo:this.currentPage,
                     pageSize:this.pageSize,
                     address:address
@@ -278,7 +280,9 @@
         },
         //监视
         watch: {
-
+            'chainId':function(){
+                this.getTradeList(this.address)
+            }
         },
         //组件
         components: {

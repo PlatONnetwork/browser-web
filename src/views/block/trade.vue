@@ -82,6 +82,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'trade-wrap',
@@ -160,7 +161,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -277,7 +278,7 @@
         },
         //监视
         watch: {
-
+            'chainId':'getTradeList'
         },
         //组件
         components: {

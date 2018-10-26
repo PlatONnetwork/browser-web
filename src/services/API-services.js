@@ -66,7 +66,7 @@ class ApiService {
     post(url, params) {
         typeof params === 'undefined' ? params = {} : '';
         localStorage.sessionid ? params.sessionid = localStorage.sessionid : ''
-        params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
+        // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
         params.cid = store.state.common.chainId
         return Http.post(url, params).then(res => res.data)
     }
@@ -98,7 +98,7 @@ class ApiService {
     interceptorsOfReq() {
         return Http.interceptors.request.use(
             config => {
-                // console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
+                console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
                 return config
             },
             err => {

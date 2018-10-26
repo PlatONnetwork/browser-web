@@ -83,6 +83,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'block-wrap',
@@ -115,7 +116,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -153,10 +154,11 @@
             //获取交易列表 下分页
             getBlockList(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     pageNo:this.currentPage,
                     pageSize:this.pageSize
                 }
+                console.warn('获得区块列表》》》',param)
                 apiService.block.blockList(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
@@ -185,11 +187,11 @@
         //生命周期函数
         created(){
             //获取交易列表
-            // this.getBlockList()
+            this.getBlockList()
         },
         //监视
         watch: {
-
+            'chainId':'getBlockList'
         },
         //组件
         components: {

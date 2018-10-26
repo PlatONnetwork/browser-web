@@ -87,6 +87,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'pend-wrap',
@@ -158,7 +159,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -268,11 +269,11 @@
         //生命周期函数
         created(){
             //获取交易列表
-            // this.getTradeList()
+            this.getTradeList()
         },
         //监视
         watch: {
-
+            'chainId':'getTradeList'
         },
         //组件
         components: {

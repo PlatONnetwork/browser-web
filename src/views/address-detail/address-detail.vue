@@ -150,6 +150,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'address-detail-wrap',
@@ -222,10 +223,12 @@
                 descripFn: {
                     pending : '待处理交易',
                     trade : '交易',
+                    block:'区块'
                 },
                 pathFn: {
                     pending : '/trade-pending',
                     trade : '/trade',
+                    block:'/block'
                 },
                 description:'',
                 descriptionProp:'',
@@ -235,7 +238,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -312,27 +315,27 @@
             //获取地址信息详情
             getDetail(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     address:this.address,
                     txType:this.type
                 }
                 console.warn('地址详情入参》》》》',param)
-                // apiService.trade.addressDetails(param).then((res)=>{
-                //     let {errMsg,code,data}= res
-                //     if(code==0){
-                //        this.detailInfo=data
-                //        data.trades.forEach((item)=>{
-                //             if(item.txReceiptStatus==-1){
-                //                 ++this.count
-                //             }
-                //        })
-                //     }else{
-                //         this.detailInfo={}
-                //         this.$message.error(errMsg)
-                //     }
-                // }).catch((error)=>{
-                //     this.$message.error(error)
-                // })
+                apiService.trade.addressDetails(param).then((res)=>{
+                    let {errMsg,code,data}= res
+                    if(code==0){
+                       this.detailInfo=data
+                       data.trades.forEach((item)=>{
+                            if(item.txReceiptStatus==-1){
+                                ++this.count
+                            }
+                       })
+                    }else{
+                        this.detailInfo={}
+                        this.$message.error(errMsg)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             }
         },
         //生命周期函数
@@ -346,6 +349,7 @@
         },
         //监视
         watch: {
+            'chainId':'getDetail'
         },
         //组件
         components: {

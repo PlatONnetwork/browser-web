@@ -1,7 +1,7 @@
 <template>
     <div class="trade-block-wrap">
         <div class="content-area">
-            <v-menu>
+            <v-menu :descriptionProp='descriptionProp'>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>交易-区块#{{height}}</el-breadcrumb-item>
@@ -81,6 +81,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'trade-block-wrap',
@@ -153,13 +154,14 @@
                 pageSize:10,
                 pageTotal:0,
                 currentPage1:1,
+                descriptionProp:'block'
             }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -197,11 +199,12 @@
             //获取交易列表 下分页
             getTradeList(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     height:this.height,
                     pageNo:this.currentPage,
                     pageSize:this.pageSize
                 }
+                console.warn('获取区块交易列表》》》',param)
                 apiService.trade.blockTransaction(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
@@ -239,7 +242,8 @@
                 this.$router.push({
                     path:'/address-detail',
                     query:{
-                        address:row.from
+                        address:row.from,
+                        description:'block'
                     }
                 })
             },
@@ -250,7 +254,8 @@
                     this.$router.push({
                         path:'/contract-detail',
                         query:{
-                            address:row.to
+                            address:row.to,
+                            description:'block'
                         }
                     })
                 }else{
@@ -258,7 +263,8 @@
                     this.$router.push({
                         path:'/address-detail',
                         query:{
-                            address:row.to
+                            address:row.to,
+                            description:'block'
                         }
                     })
                 }
@@ -268,11 +274,11 @@
         created(){
             this.height = this.$route.query.height
             //获取交易列表
-            // this.getTradeList()
+            this.getTradeList()
         },
         //监视
         watch: {
-
+            'chainId':'getTradeList'
         },
         //组件
         components: {

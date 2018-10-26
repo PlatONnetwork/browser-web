@@ -136,6 +136,7 @@
 <script>
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
+    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名
         name: 'block-detail-wrap',
@@ -164,7 +165,7 @@
         props: {},
         //计算
         computed: {
-
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
@@ -177,27 +178,27 @@
             //获取区块信息详情
             getDetail(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     height:this.height
                 }
                 console.warn('区块详情》》》',param)
-                // apiService.block.blockDetails(param).then((res)=>{
-                //     let {errMsg,code,data}= res
-                //     if(code==0){
-                //        this.detailInfo=data
-                //     }else{
-                //         this.detailInfo={}
-                //         this.$message.error(errMsg)
-                //     }
-                // }).catch((error)=>{
-                //     this.$message.error(error)
-                // })
+                apiService.block.blockDetails(param).then((res)=>{
+                    let {errMsg,code,data}= res
+                    if(code==0){
+                       this.detailInfo=data
+                    }else{
+                        this.detailInfo={}
+                        this.$message.error(errMsg)
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                })
             },
             //向左 上一个
             goLeft(){
                 this.disabledRight=false;
                 let param = {
-                    cid:'',
+                    // cid:'',
                     direction:'prev',
                     height:this.height
                 }
@@ -217,6 +218,7 @@
                             }
                         })
                         this.detailInfo=data
+                        this.height=data.height
                     }else{
                         this.disabledLeft=false
                         this.$message.error(errMsg)
@@ -229,7 +231,7 @@
             goRight(){
                 this.disabledLeft=false
                 let param = {
-                    cid:'',
+                    // cid:'',
                     direction:'next',
                     height:this.height
                 }
@@ -249,6 +251,7 @@
                             }
                         })
                         this.detailInfo=data
+                        this.height=data.height
                     }else{
                         this.disabledRight=false
                         this.$message.error(errMsg)
@@ -260,7 +263,7 @@
             //上一块哈希值
             prevFn(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     direction:'prev',
                     height:this.height
                 }
@@ -275,6 +278,7 @@
                             }
                         })
                         this.detailInfo=data
+                        this.height=data.height
                     }else{
                         this.detailInfo={}
                         this.$message.error(errMsg)
@@ -297,11 +301,11 @@
         created(){
             this.height = this.$route.query.height;
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
-
+            'chainId':'getDetail'
         },
         //组件
         components: {
