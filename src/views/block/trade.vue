@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="table">
-                    <el-table :data="tableData" style="width: 100%"    stripe border class='item-table'  key='firstTable'  size="mini">
+                    <el-table :data="tableData" style="width: 100%"    stripe   key='firstTable'  size="mini">
                         <el-table-column label="交易哈希值">
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="el-icon-warning"></i></span>
@@ -313,5 +313,6 @@
             }
         }
     }
+    tr:hover{background:none}
 </style>
 

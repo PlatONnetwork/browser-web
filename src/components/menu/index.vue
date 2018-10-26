@@ -108,14 +108,6 @@
         components: {}
     }
 </script>
-<style lang="less">
-    .search{
-        .el-input{
-            width:300px;
-        }
-
-    }
-</style>
 <style lang="less" scoped>
     .top{
         height:50px;

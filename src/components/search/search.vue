@@ -109,12 +109,6 @@
             line-height: 50px;
         }
     }
-    .search{
-        .el-input{
-            width:300px;
-        }
-
-    }
 </style>
 <style lang="less" scoped>
     .top{
