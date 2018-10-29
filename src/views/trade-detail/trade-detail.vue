@@ -10,7 +10,12 @@
                 </el-breadcrumb>
             </div>
             <div class="bottom">
-                <div class="title">
+                <div class="left">
+                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
+                        <i class='icons el-icon-arrow-left'></i>
+                    </button>
+                </div>
+                <div class="center">
                     <div class='record'>
                         <span>交易#{{detailInfo.txHash}}</span>
                         <span
@@ -21,132 +26,129 @@
                             <i class='el-icon-tickets cursor'></i>
                         </span>
                     </div>
-                    <div class="arrow">
-                        <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
-                            <i class='el-icon-caret-left'></i>
-                        </button>
-                        <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
-                            <i class='el-icon-caret-right'></i>
-                        </button>
+                    <div class="data-detail">
+                        <div class="data-title">交易信息</div>
+                        <div class="data" v-if='detailInfo'>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>时间戳:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.timeStamp}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>交易hash:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.txHash}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>状态:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span :class='{"market-normal":detailInfo.txReceiptStatus==1,"market-abnormal":detailInfo.txReceiptStatus==0}'>{{detailInfo.txReceiptStatus==1?'成功':(detailInfo.txReceiptStatus==0?'失败':'pending ')}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>数额:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.value}}ATP</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>发送方:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='cursor normal' @click='goAddressDetail(detailInfo.from)'>{{detailInfo.from}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>接收方:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="el-icon-edit"></i>Contract</span>
+                                    <span v-if='detailInfo.txType == "contractCreate"'>合约创建</span>
+                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg" v-if='detailInfo.txReceiptStatus==0'>
+                                <el-col :span="4">
+                                </el-col>
+                                <el-col :span="20">
+                                    <span><i class="el-icon-warning"></i></span>
+                                    <span>{{detailInfo.failReason}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>交易费用:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.actualTxCoast}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>能量限制:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.energonLimit}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>消耗的能量:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.energonUsed}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>能量价格:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.energonPrice}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>区块:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='cursor normal'>{{detailInfo.blockHeight}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>发出数据:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    v-model="detailInfo.inputData"
+                                    :disabled="true">
+                                    </el-input>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
                 </div>
-                <div class="data-detail">
-                    <div class="data-title">交易信息</div>
-                    <div class="data" v-if='detailInfo'>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>时间戳</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.timeStamp}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>交易hash</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.txHash}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>状态</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span :class='{"market-normal":detailInfo.txReceiptStatus==1,"market-abnormal":detailInfo.txReceiptStatus==0}'>{{detailInfo.txReceiptStatus==1?'成功':(detailInfo.txReceiptStatus==0?'失败':'pending ')}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>数额</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.value}}ATP</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>发送方</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span class='cursor normal' @click='goAddressDetail(detailInfo.from)'>{{detailInfo.from}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>接收方</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="el-icon-edit"></i>Contract</span>
-                                <span v-if='detailInfo.txType == "contractCreate"'>合约创建</span>
-                                <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg" v-if='detailInfo.txReceiptStatus==0'>
-                            <el-col :span="4">
-                            </el-col>
-                            <el-col :span="20">
-                                <span><i class="el-icon-warning"></i></span>
-                                <span>{{detailInfo.failReason}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>交易费用</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.actualTxCoast}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>能量限制</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.energonLimit}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>消耗的能量</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.energonUsed}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>能量价格</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.energonPrice}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>区块</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span class='cursor normal'>{{detailInfo.blockHeight}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>发出数据</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <el-input
-                                  type="textarea"
-                                  :rows="2"
-                                  v-model="detailInfo.inputData"
-                                  :disabled="true">
-                                </el-input>
-                                <!-- <span>{{detailInfo.inputData}}</span> -->
-                            </el-col>
-                        </el-row>
-                    </div>
+                <div class="right">
+                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
+                        <i class='icons el-icon-arrow-right'></i>
+                    </button>
                 </div>
+
             </div>
         </div>
         <com-footer></com-footer>
@@ -327,7 +329,7 @@
         created(){
             this.txHash = this.$route.query.txHash;
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
@@ -342,29 +344,71 @@
     }
 </script>
 <style lang="less" scoped>
+    .icons{
+        width: 50px;
+        height: 120px;
+        color: #5c6493;
+        font-size:50px;
+        line-height:120px;
+    }
+    button{
+        background:none;
+        border:none;
+        outline:none;
+    }
     .bottom{
         padding:30px 0;
-        .title{
-            margin-bottom:20px;
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: row;
-            justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        box-sizing: border-box;
+        .left,.right{
+            width:10%;
+            text-align: center;
+            line-height:630px;
+        }
+        .center{
+            width:80%;
+            // height:630px;
+            background-color: #0e1438;
+	        box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+        }
+        .record{
+            width: 625px;
+            height: 30px;
+            background-color: #303868;
+            opacity: 0.3;
+            margin:0 auto;
+            margin-top:58px;
+            padding-left:9px;
+            position: relative;
+            span{
+                letter-spacing: 0.8px;
+                color: #fff;
+                line-height:30px;
+                &:last-child{
+                    position: absolute;
+                    right:9px;
+                }
+            }
         }
         .data-detail{
+            padding:0 190px;
+            margin-bottom:58px;
             .data-title{
-                height:40px;
-                line-height:40px;
-                background:#ebebeb;
-                font-weight:600;
-                padding-left:20px;
+                letter-spacing: 1px;
+	            color: #ffffff;
+                font-size:16px;
+                text-align:center;
+                margin-top:25px;
+                margin-bottom:85px;
             }
             .data{
-                border:1px solid #eaeaea;
-                border-top:none;
-                padding:20px;
+                letter-spacing: 0.8px;
+                color: #93a5c8;
                 .el-row{
-                    margin-bottom:15px;
+                    margin-bottom:10px;
                 }
             }
         }
