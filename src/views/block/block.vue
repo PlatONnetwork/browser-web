@@ -34,7 +34,7 @@
                         </el-table-column>
                         <el-table-column label="块龄">
                             <template slot-scope="scope">
-                                <span>{{scope.row.serverTime-scope.row.timeStamp}}秒前</span>
+                                <span>{{scope.row.serverTime-scope.row.timestamp}}秒前</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="transaction" label="交易数"></el-table-column>
@@ -101,7 +101,7 @@ import Component from 'vue-class-component'
                 tableData:[
                     {
                         "height": 17888,//块高
-                        "timeStamp": 1798798798798,//出块时间
+                        "timestamp": 1798798798798,//出块时间
                         "transaction": 10000,//块内交易数
                         "size": 188,//块大小
                         "miner": "0x234", // 出块节点

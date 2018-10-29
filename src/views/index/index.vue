@@ -4,33 +4,33 @@
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
                 <ul class="footer-box">
-                    <li class="color1">
-                        <p>666666</p>
-                        <span>Block Height</span>
+                    <li>
+                        <p class="color1">666666</p>
+                        <span>当前区块高度</span>
                     </li>
                     <li>
                         <p>666666</p>
-                        <span>Producer</span>
+                        <span>出块节点</span>
+                    </li>
+                    <li>
+                        <p class="color1">666666</p>
+                        <span>当前交易笔数</span>
+                    </li>
+                    <li>
+                        <p class="color1">666666</p>
+                        <span>共识节点数s</span>
                     </li>
                     <li>
                         <p>666666</p>
-                        <span>Total Transactions</span>
+                        <span>地址数</span>
                     </li>
                     <li>
                         <p>666666</p>
-                        <span>Consensus Nodes</span>
+                        <span>投票数/占比</span>
                     </li>
                     <li>
-                        <p>666666</p>
-                        <span>Total Address</span>
-                    </li>
-                    <li>
-                        <p>666666</p>
-                        <span>Votes / Ratio</span>
-                    </li>
-                    <li class="color2">
-                        <p>666666</p>
-                        <span>Vote Price</span>
+                        <p class="color2">666666</p>
+                        <span>票价</span>
                     </li>
                 </ul>
             </slideritem>
@@ -38,29 +38,29 @@
                 <header class="time-and-number">
                     Time And Number
                 </header>
-                <p class="second-floor-text">Block Time And Number Of Transactions</p>
+                <p class="second-floor-text">出块时间及交易数量</p>
                 <div class="chart-box">
-                    <div class="chart" ref="chart"></div>
+                    <div class="chart" ref="blockChart"></div>
                     <ul class="chart-aside">
                         <li>
-                            <p>Average Block Time</p>
+                            <p>平均出块时长</p>
                             <span>1.5 s</span>
                         </li>
                         <li>
-                            <p>Current / Max TPS</p>
+                            <p>当前/最大交易TPS</p>
                             <span>100 / 1600</span>
                         </li>
                         <li>
-                            <p>Average Block Txns</p>
+                            <p>平均区块交易数</p>
                             <span>600</span>
                         </li>
                     </ul>
                 </div>
                 <header class="time-and-number">
-                    Time And Number
+                    Transactions
                 </header>
-                <p class="second-floor-text second-floor-text1">Block Time And Number Of Transactions</p>
-                <p class="transactions">The number of bitcoin transactions in the last 24 hours</p>
+                <p class="second-floor-text second-floor-text1">每日交易笔数</p>
+                <p class="transactions">过去24小时交易笔数实时统计</p>
                 <ul class="num-box clearfix">
                     <li>0</li>
                     <li>2</li>
@@ -90,7 +90,12 @@ import {Getter} from 'vuex-class';
 import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 import {slider, slideritem} from 'vue-concise-slider';
-
+// import chartService from '@/services/chart-services';
+// let blockChart = new chartService();
+import apiServices from '@/services/API-services';
+console.log(apiServices)
+import chartService from '@/services/chart-services';
+let blockChart = new chartService();
 @Component({
     components: {
         comHeader,
@@ -124,10 +129,26 @@ export default class HelloWorld extends Vue {
     onInit(data) {
         console.log(data);
     }
-    mounted() {}
+    initChart(){
+        let r = this.$refs;
+        blockChart.init(r.blockChart,blockChart.blocklineOption)
+    }
+    mounted() {
+        this.initChart();
+    }
 }
 </script>
-
+<style lang="less">
+    .swiper-container-vertical .slider-pagination-bullet{
+        background:#3c4fa1;
+        opacity: 1;
+        margin:12px 0;
+    }
+    .slider-pagination-bullet-active{
+        background:none;
+        border: solid 2px #ffff00;
+    }
+</style>
 <style lang="less" scoped>
 .index {
     height: 100%;
@@ -137,18 +158,21 @@ div.slider-item {
     font-size: 14px;
     text-align: left;
 }
+.swiper-container-vertical .slider-pagination-bullet{
+    background:#3c4fa1;
+}
 .swiper-container-vertical .slider-pagination-bullets {
     right: 30px;
 }
 .slider-pagination-bullet {
     background-color: #3c4fa1;
 }
-.color1 {
-    color: #fcff0a;
-}
-.color2 {
-    color: #ff374f;
-}
+// .color1 {
+//     color: #fcff0a;
+// }
+// .color2 {
+//     color: #ff374f;
+// }
 .footer-box {
     position: absolute;
     margin: 0 200px;
@@ -165,10 +189,19 @@ div.slider-item {
     p {
         margin: 0 0 13px;
         font-size: 40px;
+        letter-spacing: 2.4px;
+	    color: #d2daea;
     }
-    // span{
-
-    // }
+    .color1{
+        color: #fcff0a;
+    }
+    .color2{
+        color: #ff374f;
+    }
+    span{
+        letter-spacing: 1.4px;
+	    color: #6d81a9;
+    }
 }
 
 .second-floor {
@@ -192,6 +225,7 @@ div.slider-item {
     line-height: 16px;
     color: #ffffff;
     opacity: 1;
+    letter-spacing: 1px;
 }
 .second-floor-text1 {
     top: 590px;

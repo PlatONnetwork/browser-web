@@ -34,7 +34,7 @@
                                     <span>时间戳:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timeStamp}}</span>
+                                    <span>{{detailInfo.timestamp}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -173,7 +173,7 @@
                 address:'11111111111',
                 detailInfo:{
                   "txHash": "0x234234",//交易hash
-                  "timeStamp": 123123123879,//交易时间
+                  "timestamp": 123123123879,//交易时间
                   "txReceiptStatus": 0,//交易状态 -1 pending 1 成功  0 失败
                   "blockHeight": "15566",//交易所在区块高度
                   "from": "0x667766",//发送者

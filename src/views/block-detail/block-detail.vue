@@ -42,7 +42,7 @@
                                     <span>时间戳</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timeStamp}}</span>
+                                    <span>{{detailInfo.timestamp}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -155,7 +155,7 @@
                 disabledRight:false,
                 detailInfo:{
                   "height": 19988,//块高
-                  "timeStamp": 123123123879,//出块时间
+                  "timestamp": 123123123879,//出块时间
                   "transaction": 1288,//块内交易总数
                   "hash": "0x1238",//区块hash
                   "parentHash": "0x234",//父区块hash
