@@ -1,15 +1,21 @@
 <template>
     <div class="block-detail-wrap">
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <v-menu>
+            <div class="crumb">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{ path: '/block' }">区块</el-breadcrumb-item>
                     <el-breadcrumb-item>区块信息</el-breadcrumb-item>
                 </el-breadcrumb>
-            </v-menu>
+            </div>
             <div class="bottom">
-                <div class="title">
+                <div class="left">
+                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块'>
+                        <i class='icons el-icon-arrow-left'></i>
+                    </button>
+                </div>
+                <div class="center">
                     <div class='record'>
                         <span>区块#{{detailInfo.height}}</span>
                         <span
@@ -20,120 +26,121 @@
                             <i class='el-icon-tickets cursor'></i>
                         </span>
                     </div>
-                    <div class="arrow">
-                        <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块'>
-                            <i class='el-icon-caret-left'></i>
-                        </button>
-                        <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块'>
-                            <i class='el-icon-caret-right'></i>
-                        </button>
+                    <div class="data-detail">
+                        <div class="data-title">区块信息</div>
+                        <div class="data" v-if='detailInfo'>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>区块高度</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.height}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>时间戳</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.timeStamp}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>交易</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span>TX</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>区块哈希</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.hash}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>上一区块哈希</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='normal cursor' @click='prevFn'>{{detailInfo.parentHash}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>出块节点</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='normal'>{{detailInfo.miner}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>大小</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.size}} bytes</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>能量限制</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.energonLimit}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>能量消耗</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.energonUsed}}({{(detailInfo.energonUsed/detailInfo.energonLimit)*100}}%)</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>区块奖励</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span>{{detailInfo.blockReward}}ATP</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>额外数据</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    v-model="detailInfo.extraData"
+                                    :disabled="true">
+                                    </el-input>
+                                    <!-- <span>{{detailInfo.inputData}}</span> -->
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
                 </div>
-                <div class="data-detail">
-                    <div class="data-title">区块信息</div>
-                    <div class="data" v-if='detailInfo'>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>区块高度</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.height}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>时间戳</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.timeStamp}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>交易</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
-                                <span>TX</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>区块哈希</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.hash}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>上一区块哈希</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span class='normal cursor' @click='prevFn'>{{detailInfo.parentHash}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>出块节点</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span class='normal'>{{detailInfo.miner}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>大小</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.size}} bytes</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>能量限制</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.energonLimit}}</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>能量消耗</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.energonUsed}}({{(detailInfo.energonUsed/detailInfo.energonLimit)*100}}%)</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>区块奖励</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{detailInfo.blockReward}}ATP</span>
-                            </el-col>
-                        </el-row>
-                        <el-row type="flex" class="row-bg">
-                            <el-col :span="4">
-                                <span>额外数据</span>
-                            </el-col>
-                            <el-col :span="20">
-                                <el-input
-                                  type="textarea"
-                                  :rows="2"
-                                  v-model="detailInfo.extraData"
-                                  :disabled="true">
-                                </el-input>
-                                <!-- <span>{{detailInfo.inputData}}</span> -->
-                            </el-col>
-                        </el-row>
-                    </div>
+                <div class="right">
+                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块'>
+                        <i class='icons el-icon-arrow-right'></i>
+                    </button>
                 </div>
             </div>
         </div>
+        <com-footer></com-footer>
     </div>
 </template>
-<script>
+<script lang="ts">
+    import Component from 'vue-class-component'
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
@@ -159,6 +166,7 @@
                   "blockReward": "123123",//区块奖励
                   "extraData": "xxx"//附加数据
                 },
+                descriptionProp:'block'
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -309,34 +317,78 @@
         },
         //组件
         components: {
-            'v-menu':menu
+            'v-menu':menu,
+            comHeader,
+            comFooter
         }
     }
 </script>
 <style lang="less" scoped>
+    .icons{
+        width: 50px;
+        height: 120px;
+        color: #5c6493;
+        font-size:50px;
+        line-height:120px;
+    }
+    button{
+        background:none;
+        border:none;
+        outline:none;
+    }
     .bottom{
-        padding:20px 0;
-        .title{
-            margin-bottom:20px;
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: row;
-            justify-content: space-between;
+        padding:30px 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        box-sizing: border-box;
+        .left,.right{
+            width:10%;
+            text-align: center;
+            line-height:630px;
+        }
+        .center{
+            width:80%;
+            // height:630px;
+            background-color: #0e1438;
+	        box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+        }
+        .record{
+            width: 625px;
+            height: 30px;
+            background-color: #303868;
+            opacity: 0.3;
+            margin:0 auto;
+            margin-top:58px;
+            padding-left:9px;
+            position: relative;
+            span{
+                letter-spacing: 0.8px;
+                color: #fff;
+                line-height:30px;
+                &:last-child{
+                    position: absolute;
+                    right:9px;
+                }
+            }
         }
         .data-detail{
+            padding:0 190px;
+            margin-bottom:58px;
             .data-title{
-                height:40px;
-                line-height:40px;
-                background:#ebebeb;
-                font-weight:600;
-                padding-left:20px;
+                letter-spacing: 1px;
+	            color: #ffffff;
+                font-size:16px;
+                text-align:center;
+                margin-top:25px;
+                margin-bottom:85px;
             }
             .data{
-                border:1px solid #eaeaea;
-                border-top:none;
-                padding:20px;
+                letter-spacing: 0.8px;
+                color: #93a5c8;
                 .el-row{
-                    margin-bottom:15px;
+                    margin-bottom:10px;
                 }
             }
         }

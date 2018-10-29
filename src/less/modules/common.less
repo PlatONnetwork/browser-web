@@ -10,6 +10,9 @@ body{
     // height:auto;
     // min-height:calc(100% - 190px);
 }
+.trade-wrap, .pend-wrap, .trade-block-wrap, .trade-filter-wrap, .block-wrap,  .trade-detail-wrap, .pend-detail-wrap, .contract-detail-wrap, .block-detail-wrap, .address-detail-wrap{
+    height:100%;
+}
 .content-area{
     position: relative;
     margin:0 auto;
@@ -18,10 +21,11 @@ body{
     height:auto;
     min-height:calc(100% - 190px);
     padding:0 100px;
+    padding-top:140px;
 }
 //面包屑导航
 .crumb{
-    margin-top:140px;
+    // margin-top:140px;
     font-size:16px;
 }
 .el-breadcrumb{
@@ -37,6 +41,10 @@ body{
 }
 .el-breadcrumb__inner.is-link, .el-breadcrumb__inner a{
     color: #2faaf8;
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover{
+    color:#fff;
+    letter-spacing: 1px;
 }
 .cursor{
     cursor: pointer;
@@ -75,7 +83,7 @@ body{
     border: 1px solid #229600;
 }
 .normal{
-    color:#0067FC;
+    color:#2faaf8;
 }
 // tab切换
 .header-nav{

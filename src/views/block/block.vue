@@ -1,12 +1,13 @@
 <template>
     <div class="block-wrap">
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <v-menu>
+            <div class="crumb">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>区块</el-breadcrumb-item>
                 </el-breadcrumb>
-            </v-menu>
+            </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
@@ -19,12 +20,13 @@
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 50, 100]"
                             layout="prev, pager, next"
+                            :total="pageTotal"
                             :pager-count="9">
                         </el-pagination>
                     </div>
                 </div>
                 <div class="table">
-                    <el-table :data="tableData" style="width: 100%"  stripe border class='item-table'  key='firstTable'  size="mini">
+                    <el-table :data="tableData" style="width: 100%"   key='firstTable'  size="mini" :row-class-name="tableRowClassName">
                         <el-table-column label="区块">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
@@ -78,9 +80,13 @@
                 </div>
             </div>
         </div>
+        <com-footer></com-footer>
     </div>
 </template>
-<script>
+<script lang="ts">
+import Component from 'vue-class-component'
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
@@ -110,6 +116,7 @@
                 pageSize:10,
                 pageTotal:0,
                 currentPage1:1,
+                descriptionProp:'block'
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -123,6 +130,13 @@
             //查询
             searchFn(){
 
+            },
+            tableRowClassName({row, rowIndex}) {
+                if(rowIndex%2 === 0) {
+                    return 'even-row';
+                }else{
+                    return 'odd-row';
+                }
             },
             handleCurrentChange(val){
                 this.currentPage = val
@@ -195,20 +209,28 @@
         },
         //组件
         components: {
-            'v-menu':menu
+            'v-menu':menu,
+            comHeader,
+            comFooter
         }
     }
 </script>
 <style lang="less" scoped>
     .block-wrap{
         .bottom{
-            padding:20px 0;
+            padding:30px 0;
             .title{
-                margin-bottom:20px;
+                margin-bottom:30px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
                 justify-content: space-between;
+                .record{
+                    font-size: 12px;
+                    line-height: 30px;
+                    letter-spacing: 0.7px;
+                    color: #d7dde9;
+                }
             }
         }
     }
