@@ -113,7 +113,7 @@
 .footer-wrap{
     bottom: 0;
     height: 190px; // UI设计图 190px
-    margin-top: -200px;
+    // margin-top: -200px;
     color: #fff;
     background-color: #242c39;
     .footer{
