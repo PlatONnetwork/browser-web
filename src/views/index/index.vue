@@ -70,7 +70,21 @@
                     <li>2</li>
                 </ul>
             </slideritem>
-            <slideritem>
+            <slideritem class="third-floor">
+                <div class="floor-area">
+                    <div class="left">
+                        <header class="time-and-number">
+                            Blocks
+                        </header>
+                        <p class="second-floor-text">最新区块</p>
+                    </div>
+                    <div class="right">
+                        <header class="time-and-number">
+                            Transactions
+                        </header>
+                        <p class="second-floor-text">最新交易</p>
+                    </div>
+                </div>
                 <com-footer></com-footer>
             </slideritem>
             <!-- 设置loading,可自定义 -->
@@ -110,7 +124,7 @@ export default class HelloWorld extends Vue {
 
     // 滑动配置[obj]
     options: object = {
-        currentPage: 1, // 当前页码
+        currentPage: 2, // 当前页码
         thresholdDistance: 500, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
@@ -131,9 +145,10 @@ export default class HelloWorld extends Vue {
     }
     initChart(){
         let r = this.$refs;
-        blockChart.init(r.blockChart,blockChart.blocklineOption)
+        blockChart.init(r.blockChart,blockChart.blocklineOption);
     }
     mounted() {
+        //初始化图表
         this.initChart();
     }
 }
@@ -207,7 +222,20 @@ div.slider-item {
 .second-floor {
     padding: 100px 100px 0 100px;
 }
-
+.third-floor{
+    padding:100px 140px 0;
+    // min-height:calc(100% - 190px);
+}
+.floor-area{
+    display: flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content:space-between;
+    min-height:calc(100% - 190px);
+    .left,.right{
+        width:50%;
+    }
+}
 .time-and-number {
     position: relative;
     width: 592px;

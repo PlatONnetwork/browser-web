@@ -45,7 +45,7 @@ class ChartService {
                         show:true,
                         interval:0,
                         lineStyle:{
-                            color: ['2b66f3'],
+                            color: ['#2b66f3'],
                             opacity: 0.3,
                             type:'dashed',
                             width:1
@@ -61,28 +61,31 @@ class ChartService {
             ],
             yAxis:[
                 {
-                    type:'value',
-                    name:'出块时间',
-                    position:'left',
-                    // min:0,
-                    // max: 'dataMax',
-                    // interval:50,
-                    axisLabel:{
-                        formatter:'{value}',
-                        textStyle: {
-                          color: '#2F3753',
-                          fontSize: '16'
-                        }
-                    },
-
+                  type: 'value',
+                  name: '',
+                  position: 'left',
+                  axisLabel: {
+                    formatter: '{value}',
+                    textStyle: {
+                      color: '#2F3753',
+                      fontSize: '16'
+                    }
+                  },
+                  splitLine: {
+                    show: true,
+                    interval: 0,
+                    lineStyle: {
+                      color: ['#2b66f3'],
+                      opacity: 0.3,
+                      type: 'dashed',
+                      width: 1
+                    }
+                  },
                 },
                 {
                     type:'value',
-                    name:'交易数量',
+                    name:'',
                     position: 'right',
-                    // min: 0,
-                    // max: 25,
-                    // interval: 5,
                     axisLabel: {
                       formatter: '{value}',
                       textStyle: {
@@ -91,16 +94,17 @@ class ChartService {
                       }
                     },
                     splitLine: {
-                      show: true,
-                      interval: 0,
+                      show: false,
+                      interval: 1,
                       lineStyle: {
-                        color: ['2b66f3'],
-                        opacity: 0.3,
+                        color: ['#2b66f3'],
+                        opacity: 0,
                         type: 'dashed',
                         width: 1
                       }
                     },
-                }
+                },
+
             ],
             series:[
                 {
