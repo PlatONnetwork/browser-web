@@ -101,8 +101,8 @@
         //计算
         computed: {
             ...mapGetters(['chainList','chainId']),
-            lang(){
-               return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
+            lang() {
+                return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
         },
         //方法
@@ -201,21 +201,20 @@
 .header-wrap{
     position:fixed;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     width: 100%;
     height: 60px;
     background: #242c39;
     .header-content{
         top: 8%;
         left: 50%;
-        // width: 1400px;
-        padding:0 100px;
-        margin: 0 auto;
-        height: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 100%;
+        padding:0 100px;
+        margin: 0 auto;
         .logo{
             display: inline-block;
             height: 100%;
@@ -243,8 +242,6 @@
         width: 80px;
         color: #fff;
     }
-
-
 }
 .toggle-language{
     width:120px;

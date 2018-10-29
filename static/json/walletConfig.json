@@ -1,15 +1,15 @@
 [{
     "title":"666",
-    "dis":"4564654643646546",
-    "dowonloadLink":"https://www.baidu.com",
-    "githubLink":"https://www.baidu.com",
-    "developer":"hufu",
+    "summary":"XXXX 是一个完全去中心化的轻节点移动钱包客户端，通过XXX可以创建Pla",
+    "dowonloadLink":"下载链接",
+    "githubLink":"github",
+    "developer":"开发者网站",
     "icon":"这是图片的链接"
 },{
     "title":"22222",
-    "dis":"456465234234234242344643646546",
+    "summary":"456465234234234242344643646546",
     "dowonloadLink":"https://www.baidu.com",
     "githubLink":"https://www.baidu.com",
-    "developer":"hu23423423423fu",
+    "developer":"hu234",
     "icon":"这是图片4234234的链接"
 }]

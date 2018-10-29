@@ -1,6 +1,6 @@
 <template>
     <div class="node-wrap">
-        <div>
+        <div class="wallet">
             <div class="top">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -11,32 +11,51 @@
                 </div>
             </div>
             <div class="authority-wallet">
-                <p class="title">官方钱包</p>
+                <h1 class="title">官方钱包</h1>
                 <div class="introduce">
                     <div class="Edge1">
                         <img :src="imgSrc"/>
-                        <div class="Edge1-introduce">
-                            <h1>XXXX</h1>
-                            <p>XXXX 是一个完全去中心化的轻节点移动钱包客户端，通过XXX可以创建PlatON区块链地址，并安全管理和存储PlatON区块链的数字资产。</p>
-                            <el-button>下载链接</el-button>
-                            <el-button>github</el-button>
-                            <el-button>开发者网站</el-button>
+                        <div class="Edge1-introduce" v-if="walletList.length>0">
+                            <h1>{{walletList[0].title}}</h1>
+                            <p>{{walletList[0].summary}}</p>
+                            <ul class="link">
+                                <li>
+                                    <a href="https:www.baidu.com" target="_blank">{{walletList[0].dowonloadLink}}</a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/PlatONHK">{{walletList[0].githubLink}}</a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[0].developer}}</a>
+                                </li>
+                            </ul>
+                            <!-- <el-button>{{walletList[0].dowonloadLink}}</el-button>  使用ul列表代替el-button
+                            <el-button>{{walletList[0].githubLink}}</el-button>
+                            <el-button>{{walletList[0].developer}}</el-button> -->
                         </div>
                     </div>
                     <div class="Edge">
                         <img :src="imgSrc"/>
-                        <div class="Edge-introduce">
-                            <h1>Edge</h1>
-                            <p>Edge是一个完全去中心化的全节点桌面客户端，除支持基本的钱包创建与管理之外，同时提供节点服务及管理、投票等功能。</p>
-                            <el-button>下载链接</el-button>
-                            <el-button>github</el-button>
-                            <el-button>开发者网站</el-button>
+                        <div class="Edge-introduce"  v-if="walletList.length > 0">
+                            <h1>{{walletList[1].title}}</h1>
+                            <p>{{walletList[1].summary}}</p>
+                            <ul class="link">
+                                <li>
+                                    <a href="https:www.baidu.com" target="_blank">{{walletList[1].dowonloadLink}}</a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/PlatONHK">{{walletList[1].githubLink}}</a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[1].developer}}</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <p class="title">第三方钱包</p>
+                <h1 class="title">第三方钱包</h1>
                 <div>
                     暂无
                 </div>
@@ -47,7 +66,7 @@
 
 <script>
     //import  from ''
-    import module from "vuex";
+    import apiService from '@/services/API-services';
     export default {
         //组件名
         name: '',
@@ -70,6 +89,9 @@
         },
         //生命周期函数
         created(){
+            apiService.get("../../../static/json/walletConfig.json").then((data)=>{
+                this.walletList = data;
+        });
         },
         
         //监视
@@ -82,33 +104,52 @@
 </script>
 
 <style lang="less" scoped>
-    .top{
-        display: flex;
-        justify-content: space-between;
-    }
-    .authority-wallet{
-        .introduce{
+    .node-wrap{
+        padding-top: 60px;
+        .top{
             display: flex;
+            justify-content: space-between;
         }
-        .Edge1{
-            width: 50%;
-        }
-            .Edge1-introduce
-            {
-                display: inline;
+        .authority-wallet{
+            .introduce{
+                display: flex;
+                flex-direction: row;
+                .link ul{
+                        padding-top:6px;
+	                    padding-bottom:6px;
+                    }
+                    .link li{
+                        float: left;
+                        margin-right: 10px;
+                        width: 90px;
+                        height: 30px;
+                    }
+                    .link a{
+                        display: block;
+                        text-align: center;
+                        background-color: #fff;
+                        border-style: solid;
+                        line-height: 30px;   //设置行高，达到垂直居中
+                    }
             }
-        .Edge{
-            display: inline;
+            .Edge1{
+                width: 50%;
+                .Edge1-introduce{
+                    // display: inline-block;
+                    margin-left: 130px;
+                    
+                }
+            }
+            .Edge{
+                width: 50%;
+            }
         }
-    }
-        
-    img{
-        float: left;
-    }
-    p.title{
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: rgb(100, 107, 116);
+        img{
+            float: left;
+        }
+        h1.title{
+            border-bottom: 1px solid rgb(100, 107, 116);
+        }
     }
 </style>
 
