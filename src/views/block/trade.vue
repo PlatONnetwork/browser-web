@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="table">
-                    <el-table :data="tableData" style="width: 100%"    stripe   key='firstTable'  size="mini">
+                    <el-table :data="tableData" style="width: 100%"   key='firstTable'  size="mini" :row-class-name="tableRowClassName">
                         <el-table-column label="交易哈希值">
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="el-icon-warning"></i></span>
@@ -175,6 +175,13 @@
             searchFn(){
 
             },
+            tableRowClassName({row, rowIndex}) {
+                if(rowIndex%2 === 0) {
+                    return 'even-row';
+                }else{
+                    return 'odd-row';
+                }
+            },
             handleCurrentChange(val){
                 this.currentPage = val
                 this.getTradeList()
@@ -280,7 +287,7 @@
         //生命周期函数
         created(){
             //获取交易列表
-            // this.getTradeList()
+            this.getTradeList()
         },
         //监视
         watch: {
@@ -313,6 +320,5 @@
             }
         }
     }
-    tr:hover{background:none}
 </style>
 

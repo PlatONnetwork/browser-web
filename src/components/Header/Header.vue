@@ -206,6 +206,7 @@
     width: 100%;
     height: 60px;
     background: #242c39;
+    z-index:9999;
     .header-content{
         top: 8%;
         left: 50%;

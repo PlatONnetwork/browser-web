@@ -1,13 +1,14 @@
 <template>
     <div class="trade-detail-wrap">
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <v-menu :descriptionProp='descriptionProp'>
+            <div class="crumb">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{ path: '/trade' }">交易</el-breadcrumb-item>
                     <el-breadcrumb-item>交易信息</el-breadcrumb-item>
                 </el-breadcrumb>
-            </v-menu>
+            </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
@@ -148,9 +149,13 @@
                 </div>
             </div>
         </div>
+        <com-footer></com-footer>
     </div>
 </template>
-<script>
+<script lang="ts">
+    import Component from 'vue-class-component'
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
@@ -322,7 +327,7 @@
         created(){
             this.txHash = this.$route.query.txHash;
             //获取交易列表
-            this.getDetail()
+            // this.getDetail()
         },
         //监视
         watch: {
@@ -330,13 +335,15 @@
         },
         //组件
         components: {
-            'v-menu':menu
+            'v-menu':menu,
+            comHeader,
+            comFooter
         }
     }
 </script>
 <style lang="less" scoped>
     .bottom{
-        padding:20px 0;
+        padding:30px 0;
         .title{
             margin-bottom:20px;
             display: flex;

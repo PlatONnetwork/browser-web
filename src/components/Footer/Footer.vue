@@ -112,12 +112,12 @@
 <style lang="less" scoped>
 .footer-wrap{
 	background-color: #242c39;
-	position:absolute;
-	left: 0;
-	right: 0;
+	// position:absolute;
+	// left: 0;
+	// right: 0;
 	color: #fff;
 	height: 190px; // UI设计图 190px
-	margin-top: -200px;
+	// margin-top: 60px;
 	bottom: 0;
 	.footer{
 		margin: 0 auto;
