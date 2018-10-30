@@ -26,7 +26,7 @@
                             Transactions
                         </header>
                         <div class="inputdata">
-                            <span>交易#{{detailInfo.txHash}}</span>
+                            <span>#{{detailInfo.txHash}}</span>
                             <span
                                 v-clipboard:copy="detailInfo.txHash"
                                 v-clipboard:success="onCopy"
@@ -93,7 +93,7 @@
                                 <el-col :span="4">
                                 </el-col>
                                 <el-col :span="20">
-                                    <span><i class="el-icon-warning"></i></span>
+                                    <span><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                     <span>{{detailInfo.failReason}}</span>
                                 </el-col>
                             </el-row>
@@ -102,7 +102,7 @@
                                     <span>交易费用:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.actualTxCoast}}</span>
+                                    <span>{{detailInfo.actualTxCost}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -134,14 +134,15 @@
                                     <span>区块:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal'>{{detailInfo.blockHeight}}</span>
+                                    <span>
+                                        <span class='cursor normal'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}区块确认)</span></span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
                                     <span>发出数据:</span>
                                 </el-col>
-                                <el-col :span="20">
+                                <el-col :span="20" class='special-input'>
                                     <el-input
                                     type="textarea"
                                     :rows="2"
@@ -158,7 +159,6 @@
                         <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
-
             </div>
         </div>
         <com-footer></com-footer>
@@ -282,6 +282,7 @@
                     if(code==1){
                         //这是第一个 置灰
                         this.disabledLeft=true
+                        this.$message.warning(errMsg)
                         return false;
                     }else if(code==0){
                         this.disabledLeft=false
@@ -315,6 +316,7 @@
                     if(code==1){
                         //这是最后一个 置灰
                         this.disabledRight=true
+                        this.$message.warning(errMsg)
                         return false
                     }else if(code==0){
                         this.disabledRight=false
@@ -454,10 +456,13 @@
         opacity: 1;
         letter-spacing: 1px;
     }
-    .iconleft{
-        color:#5c6493;
-        font-size:96px;
-    }
 
+    .iconcontract{
+        margin-right:4px;
+    }
+    .el-col-20{
+        color: #D7DDE9;
+    }
 </style>
+
 

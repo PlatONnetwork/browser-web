@@ -2,39 +2,49 @@
     <div class="pend-detail-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <div class="crumb">
-                <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: '/trade-pending' }">待处理交易</el-breadcrumb-item>
-                    <el-breadcrumb-item>交易信息</el-breadcrumb-item>
-                </el-breadcrumb>
+            <div class='top'>
+                <header class="time-and-number">
+                    Tx-Information
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade-pending' }">待处理交易</el-breadcrumb-item>
+                        <el-breadcrumb-item>交易信息</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
             </div>
             <div class="bottom">
                 <div class="left">
                     <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
-                        <i class='icons el-icon-arrow-left'></i>
+                        <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
                 <div class="center">
                     <div class='record'>
-                        <span>交易#{{detailInfo.txHash}}</span>
-                        <span
-                            v-clipboard:copy="detailInfo.txHash"
-                            v-clipboard:success="onCopy"
-                            v-clipboard:error="onError"
-                        >
-                            <i class='el-icon-tickets cursor'></i>
-                        </span>
+                        <header class="time-and-number time2">
+                            Transactions
+                        </header>
+                        <div class='position-pending'>待处理</div>
+                        <div class="inputdata">
+                            <span>#{{detailInfo.txHash}}</span>
+                            <span
+                                v-clipboard:copy="detailInfo.txHash"
+                                v-clipboard:success="onCopy"
+                                v-clipboard:error="onError"
+                            >
+                                <i class='iconfont iconcopy cursor'>&#xe63d;</i>
+                            </span>
+                        </div>
                     </div>
                     <div class="data-detail">
                         <div class="data-title">
                             <span>交易信息</span>
-                            <span>待处理</span>
                         </div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>预计确认时间</span>
+                                    <span>预计确认时间:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.expectTime}}</span>
@@ -42,7 +52,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易接收时间</span>
+                                    <span>交易接收时间:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.timestamp}}</span>
@@ -50,7 +60,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易hash</span>
+                                    <span>交易hash:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.txHash}}</span>
@@ -58,7 +68,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>数额</span>
+                                    <span>数额:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.value}}ATP</span>
@@ -66,7 +76,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发送方</span>
+                                    <span>发送方:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='cursor normal' @click='goAddressDetail(detailInfo.from)'>{{detailInfo.from}}</span>
@@ -74,25 +84,25 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>接收方</span>
+                                    <span>接收方:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="el-icon-edit"></i>Contract</span>
+                                    <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
                                     <span v-if='detailInfo.txType == "contractCreate"'>合约创建</span>
                                     <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易费用</span>
+                                    <span>交易费用:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>(Pending)</span>
+                                    <span class='pending'>(Pending)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量限制</span>
+                                    <span>能量限制:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonLimit}}</span>
@@ -100,33 +110,33 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>消耗的能量</span>
+                                    <span>消耗的能量:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>(Pending)</span>
+                                    <span class='pending'>(Pending)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量价格</span>
+                                    <span>能量价格:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.energonPrice}} ATP (Energon)</span>
+                                    <span>{{detailInfo.energonPrice}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块</span>
+                                    <span>区块:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>(Pending)</span>
+                                    <span class='pending'>(Pending)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发出数据</span>
+                                    <span>发出数据:</span>
                                 </el-col>
-                                <el-col :span="20">
+                                <el-col :span="20" class='special-input'>
                                     <el-input
                                     type="textarea"
                                     :rows="2"
@@ -140,7 +150,7 @@
                 </div>
                 <div class="right">
                     <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
-                        <i class='icons el-icon-arrow-right'></i>
+                        <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
             </div>
@@ -211,7 +221,7 @@
                     txHash:this.txHash
                 }
                 console.warn('待处理交易详情》》》》',param)
-                apiService.trade.transactionDetails(param).then((res)=>{
+                apiService.trade.pendingDetails(param).then((res)=>{
                     let {errMsg,code,data}= res
                     if(code==0){
                        this.detailInfo=data
@@ -266,6 +276,7 @@
                     if(code==1){
                         //这是第一个 置灰
                         this.disabledLeft=true
+                        this.$message.warning(errMsg)
                         return false;
                     }else if(code==0){
                         this.disabledLeft=false
@@ -299,6 +310,7 @@
                     if(code==1){
                         //这是最后一个 置灰
                         this.disabledRight=true
+                        this.$message.warning(errMsg)
                         return false
                     }else if(code==0){
                         this.disabledRight=false
@@ -339,11 +351,9 @@
 </script>
 <style lang="less" scoped>
     .icons{
-        width: 50px;
-        height: 120px;
-        color: #5c6493;
-        font-size:50px;
-        line-height:120px;
+        width: 40px;
+        height: 96px;
+        line-height:96px;
     }
     button{
         background:none;
@@ -364,27 +374,43 @@
         }
         .center{
             width:80%;
-            // height:630px;
-            background-color: #0e1438;
-	        box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+            box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+            background:url(images/background.png) no-repeat center;
+            background-size:100% 100%;
         }
         .record{
-            width: 625px;
-            height: 30px;
-            background-color: #303868;
-            opacity: 0.3;
-            margin:0 auto;
-            margin-top:58px;
-            padding-left:9px;
+            margin-top:30px;
             position: relative;
-            span{
-                letter-spacing: 0.8px;
-                color: #fff;
-                line-height:30px;
-                &:last-child{
-                    position: absolute;
-                    right:9px;
+            .time2{
+                width: 540px;
+                left:50%;
+                margin-left:-270px;
+                top:30px;
+                text-align: center;
+            }
+            .inputdata{
+                width: 540px;
+                height: 30px;
+                padding-left:9px;
+                background-color: rgba(48,56,104,0.30);;
+                margin:0 auto;
+                position: relative;
+                span{
+                    letter-spacing: 0.8px;
+                    color: #93A5C8;;
+                    line-height:30px;
+                    &:last-child{
+                        position: absolute;
+                        right:9px;
+                    }
                 }
+            }
+            .position-pending{
+                position: absolute;
+                right:40px;
+                top:0px;
+                font-size: 12px;
+                color: #FCFF0A;
             }
         }
         .data-detail{
@@ -395,17 +421,50 @@
 	            color: #ffffff;
                 font-size:16px;
                 text-align:center;
-                margin-top:25px;
-                margin-bottom:85px;
+                margin-top:20px;
+                margin-bottom:60px;
             }
             .data{
                 letter-spacing: 0.8px;
                 color: #93a5c8;
+                font-size:12px;
                 .el-row{
                     margin-bottom:10px;
                 }
             }
         }
+    }
+    .time-and-number{
+        position:relative;
+        width:592px;
+        height:48px;
+        font-size:64px;
+        line-height:30px;
+        letter-spacing: 3.8px;
+        color: #3c425d;
+        opacity: 0.2;
+    }
+    .second-floor-text{
+        position: absolute;
+        top:125px;
+        font-size:16px;
+        line-height: 16px;
+        color: #ffffff;
+        opacity: 1;
+        letter-spacing: 1px;
+    }
+    .iconleft{
+        color:#5c6493;
+        font-size:96px;
+    }
+    .iconcontract{
+        margin-right:4px;
+    }
+    .el-col-20{
+        color: #D7DDE9;
+    }
+    .pending{
+        color: #6D81A9;
     }
 </style>
 

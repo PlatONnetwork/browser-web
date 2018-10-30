@@ -47,7 +47,7 @@
                         </el-table-column>
                         <el-table-column label="块龄">
                             <template slot-scope="scope">
-                                <span>{{scope.row.serverTime-scope.row.blockTime}}秒</span>
+                                <span>{{(scope.row.serverTime-scope.row.blockTime)/60}}秒</span>
                             </template>
                         </el-table-column>
                         <el-table-column  label="发送方">
@@ -352,9 +352,6 @@
         opacity: 1;
         letter-spacing: 1px;
     }
-    .iconxinxi{
-        font-size:14px;
-        color:#ff7b37;
-    }
+
 </style>
 

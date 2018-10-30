@@ -2,11 +2,16 @@
     <div class="pend-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <div class="crumb">
-                <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
-                </el-breadcrumb>
+            <div class='top'>
+                <header class="time-and-number">
+                    Transactions
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
             </div>
             <div class="bottom">
                 <div class="title">
@@ -20,6 +25,7 @@
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 50, 100]"
                             layout="prev, pager, next"
+                            :page-size="pageSize"
                             :total="pageTotal"
                             :pager-count="9">
                         </el-pagination>
@@ -34,7 +40,7 @@
                         </el-table-column>
                         <el-table-column label="停留时间">
                             <template slot-scope="scope">
-                                <span>{{scope.row.dwellTime}}秒</span>
+                                <span>{{scope.row.dwellTime/60}}秒</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="能量限制">
@@ -51,15 +57,22 @@
                         <el-table-column  label="发送方">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                <span @click='filterFn(scope.row.from)'><i class="el-icon-info"></i></span>
+                                <span @click='filterFn(scope.row.from)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column  label="">
+                            <template slot-scope="scope">
+                                <span>
+                                    <i class='iconfont icon--icon-to iconto'></i>
+                                </span>
                             </template>
                         </el-table-column>
                         <el-table-column label="接收方">
                             <template slot-scope="scope">
-                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="el-icon-edit"></i></span>
+                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
                                 <span v-if='scope.row.txType !== "contractCreate"'  class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)'><i class="el-icon-info"></i></span>
+                                <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                             </template>
                         </el-table-column>
                         <el-table-column  prop=""  label="数额">
@@ -210,10 +223,11 @@
             //获取交易列表 下分页
             getTradeList(){
                 let param = {
-                    cid:'',
+                    // cid:'',
                     pageNo:this.currentPage,
                     pageSize:this.pageSize
                 }
+                console.warn('获取待处理页面》》》',param)
                 apiService.trade.pendingList(param).then((res)=>{
                     let {data,totalPages,totalCount,code,errMsg}=res
                     if(code==0){
@@ -299,9 +313,9 @@
 <style lang="less" scoped>
     .pend-wrap{
         .bottom{
-            padding:30px 0;
+            padding:26px 0 40px;
             .title{
-                margin-bottom:30px;
+                margin-bottom:23px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -314,6 +328,25 @@
                 }
             }
         }
+    }
+    .time-and-number{
+        position:relative;
+        width:592px;
+        height:48px;
+        font-size:64px;
+        line-height:30px;
+        letter-spacing: 3.8px;
+        color: #3c425d;
+        opacity: 0.2;
+    }
+    .second-floor-text{
+        position: absolute;
+        top:125px;
+        font-size:16px;
+        line-height: 16px;
+        color: #ffffff;
+        opacity: 1;
+        letter-spacing: 1px;
     }
 </style>
 

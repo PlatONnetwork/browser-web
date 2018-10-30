@@ -1,30 +1,39 @@
 <template>
     <div class="address-detail-wrap">
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <v-menu :descriptionProp='descriptionProp'>
-                <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description'>{{descripFn[description]}}</el-breadcrumb-item>
-                    <el-breadcrumb-item>地址信息</el-breadcrumb-item>
-                </el-breadcrumb>
-            </v-menu>
+            <div class='top'>
+                <header class="time-and-number">
+                    Address Info
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description'>{{descripFn[description]}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>地址信息</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
+            </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>地址#{{address}}</span>
-                        <span
-                            v-clipboard:copy="address"
-                            v-clipboard:success="onCopy"
-                            v-clipboard:error="onError"
-                        >
-                            <i class='el-icon-tickets cursor'></i>
-                        </span>
+                        <div class="left">Address</div>
+                        <div class="right">
+                            <span>#{{address}}</span>
+                            <span
+                                v-clipboard:copy="address"
+                                v-clipboard:success="onCopy"
+                                v-clipboard:error="onError"
+                            >
+                                <i class='iconfont iconcopy cursor'>&#xe63d;</i>
+                            </span>
+                        </div>
                     </div>
                     <div class="view">
                         <div class="left">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>概览</span>
+                                    <span class='row-title'>概览</span>
                                 </el-col>
                                 <el-col :span="20"></el-col>
                             </el-row>
@@ -48,7 +57,7 @@
                         <div class="right">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>投票</span>
+                                    <span class='row-title'>投票</span>
                                 </el-col>
                                 <el-col :span="20"></el-col>
                             </el-row>
@@ -72,7 +81,7 @@
                     </div>
                 </div>
                 <div class="data-detail">
-                    <div class="header-nav">
+                    <div class="ul-nav">
                         <ul>
                             <li :class="{active: activeTab == 1}" @click="changeTab(1)">交易</li>
                             <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li>
@@ -145,9 +154,13 @@
                 </div>
             </div>
         </div>
+        <com-footer></com-footer>
     </div>
 </template>
-<script>
+<script lang="ts">
+    import Component from 'vue-class-component'
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
@@ -345,34 +358,68 @@
             this.descriptionProp=this.$route.query.description
             // console.log(1)
             //获取交易列表
-            this.getDetail()
+            // this.getDetail()
         },
         //监视
         watch: {
-            'chainId':'getDetail'
+            // 'chainId':'getDetail'
         },
         //组件
         components: {
-            'v-menu':menu
+            'v-menu':menu,
+            comHeader,
+            comFooter
         }
     }
 </script>
 <style lang="less" scoped>
     .bottom{
-        padding:20px 0;
+         padding:26px 0 40px;
         .title{
-            margin-bottom:20px;
+            margin-bottom:40px;
+            background: #0C1035;
+            padding:20px 0;
             .record{
-               height:40px;
-                line-height:40px;
-                font-weight:600;
+                height:36px;
+                padding-left:20px;
+                border-bottom:1px solid #151C45;
+                display: flex;
+                flex-direction: row;
+                flex-wrap:nowrap;
+                justify-content: flex-start;
+                .left{
+                    font-size: 14px;
+                    color: #FFFFFF;
+                    margin-right:20px;
+                }
+                .right{
+                    margin-top:4px;
+                    width:380px;
+                    height:26px;
+                    padding-left:9px;
+                    background: rgba(48,56,104,0.30);
+                    position: relative;
+                    span{
+                        letter-spacing: 0.8px;
+                        color: #93A5C8;;
+                        line-height:26px;
+                        &:last-child{
+                            position: absolute;
+                            right:9px;
+                        }
+                    }
+                }
             }
             .view{
+                margin:30px 40px;
+                margin-bottom:0;
+                padding:10px;
+                background: #0F133A;
                 overflow:hidden;
                 .left,.right{
                     width:50%;
                     .el-row{
-                        margin-bottom:10px;
+                        margin-bottom:12px;
                     }
                 }
                 .left{
@@ -381,6 +428,37 @@
                 .right{
                     float:right;
                 }
+                .row-title{
+                    font-family: ArialMT;
+                    color: #FFFFFF;
+                }
+                .el-col-4{
+                    font-size: 12px;
+                    color: #93A5C8;
+                }
+                .el-col-20{
+                    font-size: 12px;
+                    color: #D7DDE9;
+                }
+            }
+        }
+        .ul-nav{
+            height:34px;
+            border: 1px solid #252C57;
+            overflow:hidden;
+            margin-bottom:16px;
+            li{
+                float:left;
+                line-height:34px;
+                padding:0 10px;
+                color: #252C57;
+                &:first-child{
+                    border-right:1px solid #252C57;
+                }
+            }
+            .active{
+                background: #252C57;
+                color: #FFFFFF;
             }
         }
         .data-detail{
@@ -403,6 +481,25 @@
                 }
             }
         }
+    }
+    .time-and-number{
+        position:relative;
+        width:592px;
+        height:48px;
+        font-size:64px;
+        line-height:30px;
+        letter-spacing: 3.8px;
+        color: #3c425d;
+        opacity: 0.2;
+    }
+    .second-floor-text{
+        position: absolute;
+        top:125px;
+        font-size:16px;
+        line-height: 16px;
+        color: #ffffff;
+        opacity: 1;
+        letter-spacing: 1px;
     }
 </style>
 

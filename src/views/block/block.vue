@@ -2,11 +2,16 @@
     <div class="block-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <div class="crumb">
-                <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>区块</el-breadcrumb-item>
-                </el-breadcrumb>
+            <div class='top'>
+                <header class="time-and-number">
+                    Blocks
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>区块</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
             </div>
             <div class="bottom">
                 <div class="title">
@@ -20,6 +25,7 @@
                             :current-page.sync="currentPage"
                             :page-sizes="[10, 20, 50, 100]"
                             layout="prev, pager, next"
+                            :page-size="pageSize"
                             :total="pageTotal"
                             :pager-count="9">
                         </el-pagination>
@@ -34,7 +40,7 @@
                         </el-table-column>
                         <el-table-column label="块龄">
                             <template slot-scope="scope">
-                                <span>{{scope.row.serverTime-scope.row.timestamp}}秒前</span>
+                                <span>{{(scope.row.serverTime-scope.row.timestamp)/60}}秒前</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="transaction" label="交易数"></el-table-column>
@@ -218,9 +224,9 @@ import Component from 'vue-class-component'
 <style lang="less" scoped>
     .block-wrap{
         .bottom{
-            padding:30px 0;
+            padding:26px 0 40px;
             .title{
-                margin-bottom:30px;
+                margin-bottom:23px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
@@ -233,6 +239,25 @@ import Component from 'vue-class-component'
                 }
             }
         }
+    }
+    .time-and-number{
+        position:relative;
+        width:592px;
+        height:48px;
+        font-size:64px;
+        line-height:30px;
+        letter-spacing: 3.8px;
+        color: #3c425d;
+        opacity: 0.2;
+    }
+    .second-floor-text{
+        position: absolute;
+        top:125px;
+        font-size:16px;
+        line-height: 16px;
+        color: #ffffff;
+        opacity: 1;
+        letter-spacing: 1px;
     }
 </style>
 

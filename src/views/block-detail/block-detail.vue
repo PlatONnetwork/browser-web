@@ -2,36 +2,46 @@
     <div class="block-detail-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
         <div class="content-area">
-            <div class="crumb">
-                <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: '/block' }">区块</el-breadcrumb-item>
-                    <el-breadcrumb-item>区块信息</el-breadcrumb-item>
-                </el-breadcrumb>
+            <div class='top'>
+                <header class="time-and-number">
+                    Block Information
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/block' }">区块</el-breadcrumb-item>
+                        <el-breadcrumb-item>区块信息</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
             </div>
             <div class="bottom">
                 <div class="left">
                     <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块'>
-                        <i class='icons el-icon-arrow-left'></i>
+                        <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
                 <div class="center">
                     <div class='record'>
-                        <span>区块#{{detailInfo.height}}</span>
-                        <span
-                            v-clipboard:copy="detailInfo.height"
-                            v-clipboard:success="onCopy"
-                            v-clipboard:error="onError"
-                        >
-                            <i class='el-icon-tickets cursor'></i>
-                        </span>
+                        <header class="time-and-number time2">
+                            Block
+                        </header>
+                        <div class="inputdata">
+                            <span>#{{detailInfo.height}}</span>
+                            <span
+                                v-clipboard:copy="detailInfo.height"
+                                v-clipboard:success="onCopy"
+                                v-clipboard:error="onError"
+                            >
+                                <i class='iconfont iconcopy cursor'>&#xe63d;</i>
+                            </span>
+                        </div>
                     </div>
                     <div class="data-detail">
                         <div class="data-title">区块信息</div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块高度</span>
+                                    <span>区块高度:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.height}}</span>
@@ -39,7 +49,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>时间戳</span>
+                                    <span>时间戳:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.timestamp}}</span>
@@ -47,7 +57,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易</span>
+                                    <span>交易:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
@@ -56,7 +66,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块哈希</span>
+                                    <span>区块哈希:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.hash}}</span>
@@ -64,7 +74,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>上一区块哈希</span>
+                                    <span>上一区块哈希:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click='prevFn'>{{detailInfo.parentHash}}</span>
@@ -72,15 +82,16 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>出块节点</span>
+                                    <span>出块节点:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal'>{{detailInfo.miner}}</span>
+                                    <span class='normal cursor'>{{detailInfo.miner}}</span>
+                                    <span>【{{(detailInfo.timeDiff)/60}}秒内】</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>大小</span>
+                                    <span>大小:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.size}} bytes</span>
@@ -88,7 +99,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量限制</span>
+                                    <span>能量限制:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonLimit}}</span>
@@ -96,7 +107,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量消耗</span>
+                                    <span>能量消耗:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonUsed}}({{(detailInfo.energonUsed/detailInfo.energonLimit)*100}}%)</span>
@@ -104,7 +115,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块奖励</span>
+                                    <span>区块奖励:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.blockReward}}ATP</span>
@@ -112,9 +123,9 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>额外数据</span>
+                                    <span>额外数据:</span>
                                 </el-col>
-                                <el-col :span="20">
+                                <el-col :span="20" class='special-input'>
                                     <el-input
                                     type="textarea"
                                     :rows="2"
@@ -129,7 +140,7 @@
                 </div>
                 <div class="right">
                     <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块'>
-                        <i class='icons el-icon-arrow-right'></i>
+                        <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
             </div>
@@ -216,6 +227,7 @@
                     if(code==1){
                         //这是第一个 置灰
                         this.disabledLeft=true
+                        this.$message.warning(errMsg)
                         return false;
                     }else if(code==0){
                         this.disabledLeft=false
@@ -249,6 +261,7 @@
                     if(code==1){
                         //这是最后一个 置灰
                         this.disabledRight=true
+                        this.$message.warning(errMsg)
                         return false
                     }else if(code==0){
                         this.disabledRight=false
@@ -270,30 +283,7 @@
             },
             //上一块哈希值
             prevFn(){
-                let param = {
-                    // cid:'',
-                    direction:'prev',
-                    height:this.height
-                }
-                console.warn('上一块哈希值》》》》',param)
-                apiService.block.blockDetailNavigate(param).then((res)=>{
-                    let {errMsg,code,data}= res
-                    if(code == 0){
-                        this.$router.replace({
-                            path:'/block-detail',
-                            query:{
-                                height:data.height
-                            }
-                        })
-                        this.detailInfo=data
-                        this.height=data.height
-                    }else{
-                        this.detailInfo={}
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
+                this.goLeft()
             },
             //交易区块
             tradeBlockFn(height){
@@ -325,11 +315,9 @@
 </script>
 <style lang="less" scoped>
     .icons{
-        width: 50px;
-        height: 120px;
-        color: #5c6493;
-        font-size:50px;
-        line-height:120px;
+        width: 40px;
+        height: 96px;
+        line-height:96px;
     }
     button{
         background:none;
@@ -350,26 +338,35 @@
         }
         .center{
             width:80%;
-            // height:630px;
-            background-color: #0e1438;
-	        box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+            box-shadow: 0px 5px 19px 1px  rgba(2, 4, 23, 0.3);
+            background:url(images/background.png) no-repeat center;
+            background-size:100% 100%;
         }
         .record{
-            width: 625px;
-            height: 30px;
-            background-color: #303868;
-            opacity: 0.3;
-            margin:0 auto;
-            margin-top:58px;
-            padding-left:9px;
+            margin-top:30px;
             position: relative;
-            span{
-                letter-spacing: 0.8px;
-                color: #fff;
-                line-height:30px;
-                &:last-child{
-                    position: absolute;
-                    right:9px;
+            .time2{
+                width: 540px;
+                left:50%;
+                margin-left:-270px;
+                top:30px;
+                text-align: center;
+            }
+            .inputdata{
+                width: 540px;
+                height: 30px;
+                padding-left:9px;
+                background-color: rgba(48,56,104,0.30);;
+                margin:0 auto;
+                position: relative;
+                span{
+                    letter-spacing: 0.8px;
+                    color: #93A5C8;;
+                    line-height:30px;
+                    &:last-child{
+                        position: absolute;
+                        right:9px;
+                    }
                 }
             }
         }
@@ -381,17 +378,40 @@
 	            color: #ffffff;
                 font-size:16px;
                 text-align:center;
-                margin-top:25px;
-                margin-bottom:85px;
+                margin-top:20px;
+                margin-bottom:60px;
             }
             .data{
                 letter-spacing: 0.8px;
                 color: #93a5c8;
+                font-size:12px;
                 .el-row{
                     margin-bottom:10px;
                 }
             }
         }
+    }
+    .time-and-number{
+        position:relative;
+        width:592px;
+        height:48px;
+        font-size:64px;
+        line-height:30px;
+        letter-spacing: 3.8px;
+        color: #3c425d;
+        opacity: 0.2;
+    }
+    .second-floor-text{
+        position: absolute;
+        top:125px;
+        font-size:16px;
+        line-height: 16px;
+        color: #ffffff;
+        opacity: 1;
+        letter-spacing: 1px;
+    }
+    .el-col-20{
+        color: #D7DDE9;
     }
 </style>
 
