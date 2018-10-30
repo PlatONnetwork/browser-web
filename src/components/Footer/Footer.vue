@@ -34,45 +34,43 @@
         </div>
         <div class="community">
             <p class="link-top">社区</p>
-            <div>
-                <ul>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg1"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg2"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg3"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg4"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg5"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg6"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                        <img :src="linkImg7"/>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <ul>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg1"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg2"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg3"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg4"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg5"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg6"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <img :src="linkImg7"/>
+                    </a>
+                </li>
+            </ul>
         </div>
         <!-- <div class="footer-bottom">   原型为最底部，UI的位置在左边
             <span class="text-left">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</span>
@@ -145,26 +143,24 @@
             }
             .copyright{
                 display: block;
-                margin-top: 33px
+                margin-top: 33px;
             }
         }
         .link {
             width: auto;
-            font-family: ArialMT;
             font-size: 13px;
             color: #D7DDE9;
-            letter-spacing: 0;
+            font-family: ArialMT;
             a{
-                font-family: ArialMT;
+                // font-family: ArialMT;
                 font-size: 13px;
                 color: #FFFFFF;
-                letter-spacing: 0;
             }
             .el-row{
                 padding-bottom: 10px;
             }
         }
-        
+
         .link-top{
             width: 200px;
             padding-bottom: 25px;
@@ -182,7 +178,7 @@
                     height: 40px;
             }
             }
-        } 
+        }
     }
 </style>
 
