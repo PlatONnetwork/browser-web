@@ -7,7 +7,11 @@ declare module '*.vue' {
 
 // 全局变量设置
 declare global {
+}
 
+declare interface Window {
+  SockJS: Object;
+  Stomp: Object;
 }
 
 // 全局方法
