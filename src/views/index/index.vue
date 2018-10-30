@@ -90,10 +90,6 @@
             <!-- 设置loading,可自定义 -->
             <div slot="loading">loading...</div>
         </slider>
-
-        <section class="third-floor">
-
-        </section>
     </div>
 </template>
 
@@ -107,9 +103,9 @@ import {slider, slideritem} from 'vue-concise-slider';
 // import chartService from '@/services/chart-services';
 // let blockChart = new chartService();
 import apiServices from '@/services/API-services';
-console.log(apiServices)
 import chartService from '@/services/chart-services';
 let blockChart = new chartService();
+
 @Component({
     components: {
         comHeader,
