@@ -257,7 +257,7 @@
         border-radius: 4px;
         .el-input{
             width:300px;
-            height:50px;
+            height:40px;
         }
         .el-input__inner{
             background-color: #0e1438;
@@ -270,11 +270,11 @@
             border:none;
         }
         .el-input--mini .el-input__inner{
-            height:50px;
-            line-height:50px;
+            height:40px;
+            line-height:40px;
         }
         .el-btn{
-            height:50px;
+            height:40px;
             background-color: #1a2047;
             border-radius: 0px 4px 4px 0px;
             letter-spacing: 0.8px;
