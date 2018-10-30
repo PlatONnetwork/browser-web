@@ -10,6 +10,7 @@ import filters from './filters/index'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
+import '../static/css/iconfont.css'
 
 // less
 import '@/less/index.less'
