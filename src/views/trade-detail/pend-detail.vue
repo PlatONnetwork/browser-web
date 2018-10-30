@@ -16,9 +16,9 @@
             </div>
             <div class="bottom">
                 <div class="left">
-                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
+                    <!-- <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
                         <i class='iconfont iconleft'>&#xe643;</i>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="center">
                     <div class='record'>
@@ -149,9 +149,9 @@
                     </div>
                 </div>
                 <div class="right">
-                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
+                    <!-- <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
                         <i class='iconfont iconleft'>&#xe644;</i>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>

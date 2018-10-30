@@ -81,18 +81,17 @@
                     </div>
                 </div>
                 <div class="data-detail">
-                    <div class="ul-nav">
-                        <ul>
-                            <li :class="{active: activeTab == 1}" @click="changeTab(1)">交易</li>
-                            <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li>
-                        </ul>
-                    </div>
+                    <ul class="ul-nav">
+                        <li :class="{active: activeTab == 1}" @click="changeTab(1)">交易</li>
+                        <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li>
+                    </ul>
                     <div class="data">
                         <div v-if='activeTab == 1'>
                             <div class='data-top'>
-                                <div>1个待处理交易</div>
-                                <div class='search'>
-                                    <el-select v-model="type"  class="margin10">
+                                <div class='count'>{{count}}个待处理交易</div>
+                                <div class='search-address'>
+                                    <span class='count types'>Type：</span>
+                                    <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
                                         <el-option
                                             v-for="item in typeList"
                                             :key="item.value"
@@ -100,21 +99,21 @@
                                             :value="item.value">
                                         </el-option>
                                     </el-select>
-                                    <el-button type="primary" class="el-btn" @click="exportFn">下载csv</el-button>
+                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">下载csv</el-button>
                                 </div>
                             </div>
                             <div class="table">
-                                <el-table :data="detailInfo.trades" style="width: 100%"    stripe border class='item-table'  key='firstTable'  size="mini">
+                                <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
                                     <el-table-column label="交易哈希值">
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="el-icon-warning"></i></span>
+                                            <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'  class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column label="确认时间">
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus == -1'>(待处理）</span>
-                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 ' class='cursor normal'>{{scope.row.blockTime}}</span>
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.blockTime}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column  label="类型">
@@ -129,7 +128,7 @@
                                     </el-table-column>
                                     <el-table-column label="接收方">
                                         <template slot-scope="scope">
-                                            <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="el-icon-edit"></i></span>
+                                            <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                             <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
                                             <span v-else-if='scope.row.txType == "transactionExecute"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
@@ -142,8 +141,8 @@
                                     </el-table-column>
                                     <el-table-column  label="交易费用">
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus == -1'>(待处理）</span>
-                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 ' class='cursor normal'>{{scope.row.actualTxCoast}}</span>
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -255,6 +254,13 @@
         },
         //方法
         methods: {
+            tableRowClassName({row, rowIndex}) {
+                if(rowIndex%2 === 0) {
+                    return 'even-row';
+                }else{
+                    return 'odd-row';
+                }
+            },
             changeTab(type){
                 this.activeTab=type
             },
@@ -358,11 +364,11 @@
             this.descriptionProp=this.$route.query.description
             // console.log(1)
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
-            // 'chainId':'getDetail'
+            'chainId':'getDetail'
         },
         //组件
         components: {
@@ -373,8 +379,15 @@
     }
 </script>
 <style lang="less" scoped>
+    .margin20{
+        margin-right:20px;
+    }
+    .pending{
+        font-size: 12px;
+        color: #6D81A9;
+    }
     .bottom{
-         padding:26px 0 40px;
+        padding:26px 0 40px;
         .title{
             margin-bottom:40px;
             background: #0C1035;
@@ -443,17 +456,17 @@
             }
         }
         .ul-nav{
-            height:34px;
-            border: 1px solid #252C57;
+            // height:34px;
             overflow:hidden;
             margin-bottom:16px;
             li{
                 float:left;
-                line-height:34px;
+                line-height:32px;
                 padding:0 10px;
                 color: #252C57;
+                border: 1px solid #252C57;
                 &:first-child{
-                    border-right:1px solid #252C57;
+                    border-right:none;
                 }
             }
             .active{
@@ -463,20 +476,26 @@
         }
         .data-detail{
             .data{
-                padding:10px;
+                // padding:10px;
                 .data-top{
-                    height:40px;
-                    line-height: 40px;
+                    height:34px;
+                    line-height: 34px;
                     display: flex;
                     flex-wrap: nowrap;
                     flex-direction: row;
                     justify-content: space-between;
-                    margin-bottom:10px;
-                    .search{
+                    margin-bottom:20px;
+                    .search-address{
                         display: flex;
                         flex-wrap: nowrap;
                         flex-direction: row;
                         justify-content: flex-start;
+                    }
+                    .count{
+                        color:#fff;
+                    }
+                    .types{
+                        margin-right:10px;
                     }
                 }
             }
@@ -500,6 +519,26 @@
         color: #ffffff;
         opacity: 1;
         letter-spacing: 1px;
+    }
+</style>
+<style lang='less'>
+    .search-address{
+        .el-input--suffix .el-input__inner{
+            border: 1px solid #12183D;
+            font-size: 12px;
+            color: #7988AB;
+            line-height: 34px;
+            height: 34px;
+        }
+        .el-download{
+            height:34px;
+            // line-height:34px;
+            padding:0 10px;
+            border:none;
+            font-size: 14px;
+            color: #FCFF0A;
+            background: #252C57;
+        }
     }
 </style>
 
