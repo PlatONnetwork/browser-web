@@ -234,9 +234,11 @@ export default class HelloWorld extends Vue {
         this.initChart();
     }
     created() {
-        // indexService.subscribe().then((data)=>{
-        //     console.log('index',data)
-        // })
+        console.log(indexService)
+        indexService.getSecondFloorData().then((data)=>{
+            console.log('getSecondFloorData index',data)
+            this.secondFloorData=data;
+        })
     }
 }
 </script>

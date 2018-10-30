@@ -39,6 +39,18 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     ACCOUNT = {
         accountDetails: `${ACCOUNT_URL}accountDetails`,
         download: `${ACCOUNT_URL}download`,
+    },
+    WS_CONFIG = {
+        root: `${TOTAL}platon-websocket`,
+        init: `/app/node/init?cid=`,
+        indexInit: `/app/index/init?cid=`,
+        indexUpdate: `/topic/index/new?cid=`,
+        secondInit: `/app/statistic/init?cid=`,
+        secondUpdate: `/topic/statistic/new?cid=`,
+        blockInit: `/app/block/init?cid=`,
+        blockUpdate: `/topic/block/new?cid=`,
+        transactionInit: `/app/transaction/init?cid=`,
+        transactionUpdate: `/topic/transaction/new?cid=`
     };
 	//文件上传
 	// FILE = {
@@ -48,5 +60,6 @@ export default {
 	BLOCK,
 	SEARCH,
 	TRADE,
-    ACCOUNT
+    ACCOUNT,
+    WS_CONFIG
 }

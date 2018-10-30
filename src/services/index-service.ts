@@ -1,4 +1,5 @@
-// import API from '@/src/config/API-config'
+import API from '@/config/API-config'
+import store from '@/vuex/store'
 
 interface StompClientConfigConfig {
     heartbeat?: {
@@ -12,6 +13,12 @@ interface StompClientConfigConfig {
 }
 interface MsgConfig {
     body: string
+}
+
+interface ResConfig {
+    errMsg: string,
+    code: number,
+    data: object
 }
 
 class Sub {
@@ -31,7 +38,7 @@ const sub = new Sub()
 class Ws {
     greeting: string
     stompClient: StompClientConfigConfig = null
-    // websocketUrl: string = API.WS
+    websocketUrl: string = API.WS_CONFIG.root
     timeSettimeout: number = null
 
     constructor() {
@@ -39,16 +46,15 @@ class Ws {
     }
 
     connect(): void {
-        // if (this.stompClient) { return }
-        // let socket = new window['SockJS'](this.websocketUrl)
-        // this.stompClient = window['Stomp'].over(socket)
-        // this.stompClient.heartbeat.outgoing = 10000
-        // this.stompClient.heartbeat.incoming = 10000
-        // this.stompClient.connect({}, (frame) => {
-        //     console.log('Connected: ' + frame)
-        //     //this.subscribe()
-        //     sub.notify()
-        // })
+        if (this.stompClient) { return }
+        let socket = new window['SockJS'](this.websocketUrl)
+        this.stompClient = window['Stomp'].over(socket)
+        this.stompClient.heartbeat.outgoing = 10000
+        this.stompClient.heartbeat.incoming = 10000
+        this.stompClient.connect({}, (frame) => {
+            console.log('Connected: ' + frame)
+            sub.notify()
+        })
     }
 
     //由于服务断开导致连接失败，客户端自动连接
@@ -71,27 +77,146 @@ class Ws {
 }
 
 class IndexService extends Ws {
+    chainId: string = store.state.common.chainId
 
     greet() {
         console.log(this, this.connect)
     }
 
-    get
-
-    subscribe(): any {
+    getOverviewData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe('/app/node/init?cid=1', (msg: MsgConfig) => {
-                    console.log(`subscribe`, msg, JSON.parse(msg.body))
-                    resolve(JSON.parse(msg.body))
+                this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`getOverviewData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
                 }, { 'message': '434343434' })
-                this.stompClient.subscribe('/topic/node/new?cid=1', (msg: MsgConfig) => {
-                    console.log(`subscribe`, msg, JSON.parse(msg.body))
-                    return Promise.resolve(JSON.parse(msg.body))
+            })
+        })
+    }
+
+    updatOverviewData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`updatOverviewData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+                }, { 'message': '434343434' })
+            })
+        })
+    }
+
+    getSecondFloorData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.secondInit+this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`getSecondFloorData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+                }, { 'message': '434343434' })
+            })
+        })
+    }
+
+    updateSecondFloorData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`upSecondFloorData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+
+                })
+            })
+        })
+
+    }
+
+    getBlockData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`getBlockData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+
                 })
             })
         })
     }
+
+    updateBlockData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`updateBlockData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+
+                })
+            })
+        })
+    }
+
+    getTransactionData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`getTransactionData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+
+                })
+            })
+        })
+    }
+
+    updateTransactionData() {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.chainId, (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`updateTransactionData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+
+                })
+            })
+        })
+    }
+
 }
 
 export default IndexService
