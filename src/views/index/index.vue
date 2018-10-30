@@ -133,7 +133,7 @@ import chartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 
 const blockChart = new chartService(),
-indexService=new IndexService();
+    indexService=new IndexService();
 
 @Component({
     components: {

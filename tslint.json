@@ -6,7 +6,11 @@
     },
     "rules": {
         "curly": true, //for if do while 要有括号
-        "comment-format":false,
+        "comment-format": false,
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
         "no-var-keyword": true,
         "no-var-requires": true, //不允许使用var module = require("module"),用 import foo = require('foo')导入
         "space-before-function-paren": false,
@@ -24,6 +28,10 @@
             "allow-declarations",
             "allow-named-functions"
         ], //允许箭头表达式，不需要传统表达式 ； 允许独立的函数声明  ；允许表达，function foo() {}但不是function() {}
+        "object-curly-spacing": [
+            0,
+            "never"
+        ], //大括号内是否允许不必要的空格
         "no-empty-character-class": false,
         "indent": [
             true,
