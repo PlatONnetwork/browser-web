@@ -72,17 +72,38 @@
             </slideritem>
             <slideritem class="third-floor">
                 <div class="floor-area">
-                    <div class="left">
+                    <div class="floor-area-box">
+                        <el-button class="fr">Realtime</el-button>
                         <header class="time-and-number">
                             Blocks
                         </header>
                         <p class="second-floor-text">最新区块</p>
+                        <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+                            <el-table-column prop="date" label="日期" width="180">
+                            </el-table-column>
+                            <el-table-column prop="name" label="姓名" width="180">
+                            </el-table-column>
+                            <el-table-column prop="address" label="地址">
+                            </el-table-column>
+                        </el-table>
+
+                        <div class="view-all">View All</div>
                     </div>
-                    <div class="right">
+                    <div class="floor-area-box">
+                        <el-button class="fr">Realtime</el-button>
                         <header class="time-and-number">
                             Transactions
                         </header>
                         <p class="second-floor-text">最新交易</p>
+                        <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
+                            <el-table-column prop="date" label="日期" width="180">
+                            </el-table-column>
+                            <el-table-column prop="name" label="姓名" width="180">
+                            </el-table-column>
+                            <el-table-column prop="address" label="地址">
+                            </el-table-column>
+                        </el-table>
+                        <div class="view-all">View All</div>
                     </div>
                 </div>
                 <com-footer></com-footer>
@@ -90,10 +111,6 @@
             <!-- 设置loading,可自定义 -->
             <div slot="loading">loading...</div>
         </slider>
-
-        <section class="third-floor">
-
-        </section>
     </div>
 </template>
 
@@ -107,9 +124,9 @@ import {slider, slideritem} from 'vue-concise-slider';
 // import chartService from '@/services/chart-services';
 // let blockChart = new chartService();
 import apiServices from '@/services/API-services';
-console.log(apiServices)
 import chartService from '@/services/chart-services';
 let blockChart = new chartService();
+
 @Component({
     components: {
         comHeader,
@@ -134,6 +151,49 @@ export default class HelloWorld extends Vue {
         slidesToScroll: 1, // 每次滑动项数
     };
 
+    tableData: Array<object> = [
+        {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄',
+        },
+        {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄',
+        },
+        {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄',
+        },
+        {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄',
+        },
+        {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄',
+        },
+        {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄',
+        },
+        {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄',
+        },
+        {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄',
+        },
+    ];
+
     slide(data) {
         console.log(data);
     }
@@ -143,9 +203,17 @@ export default class HelloWorld extends Vue {
     onInit(data) {
         console.log(data);
     }
-    initChart(){
+    initChart() {
         let r = this.$refs;
-        blockChart.init(r.blockChart,blockChart.blocklineOption);
+        blockChart.init(r.blockChart, blockChart.blocklineOption);
+    }
+
+    tableRowClassName({row: object, rowIndex}) {
+        if (rowIndex % 2 === 0) {
+            return 'even-row';
+        } else {
+            return 'odd-row';
+        }
     }
     mounted() {
         //初始化图表
@@ -154,15 +222,15 @@ export default class HelloWorld extends Vue {
 }
 </script>
 <style lang="less">
-    .swiper-container-vertical .slider-pagination-bullet{
-        background:#3c4fa1;
-        opacity: 1;
-        margin:12px 0;
-    }
-    .slider-pagination-bullet-active{
-        background:none;
-        border: solid 2px #ffff00;
-    }
+.swiper-container-vertical .slider-pagination-bullet {
+    background: #3c4fa1;
+    opacity: 1;
+    margin: 12px 0;
+}
+.slider-pagination-bullet-active {
+    background: none;
+    border: solid 2px #ffff00;
+}
 </style>
 <style lang="less" scoped>
 .index {
@@ -173,8 +241,8 @@ div.slider-item {
     font-size: 14px;
     text-align: left;
 }
-.swiper-container-vertical .slider-pagination-bullet{
-    background:#3c4fa1;
+.swiper-container-vertical .slider-pagination-bullet {
+    background: #3c4fa1;
 }
 .swiper-container-vertical .slider-pagination-bullets {
     right: 30px;
@@ -205,37 +273,38 @@ div.slider-item {
         margin: 0 0 13px;
         font-size: 40px;
         letter-spacing: 2.4px;
-	    color: #d2daea;
+        color: #d2daea;
     }
-    .color1{
+    .color1 {
         color: #fcff0a;
     }
-    .color2{
+    .color2 {
         color: #ff374f;
     }
-    span{
+    span {
         letter-spacing: 1.4px;
-	    color: #6d81a9;
+        color: #6d81a9;
     }
 }
 
 .second-floor {
     padding: 100px 100px 0 100px;
 }
-.third-floor{
-    padding-top:100px;
+.third-floor {
+    padding: 100px 0 0;
     // min-height:calc(100% - 190px);
 }
-.floor-area{
-    padding:0 100px;
+.floor-area {
     display: flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    justify-content:space-between;
-    min-height:calc(100% - 190px);
-    .left,.right{
-        width:50%;
-    }
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0 50px;
+    min-height: calc(100% - 190px);
+}
+.floor-area-box {
+    padding: 0 50px;
+    width: 50%;
 }
 .time-and-number {
     position: relative;
@@ -304,7 +373,7 @@ div.slider-item {
         float: left;
         width: 121px;
         height: 140px;
-        background-color: rgba(20,33,87, 0.5);
+        background-color: rgba(20, 33, 87, 0.5);
         font-family: DINCond-Regular;
         font-size: 100px;
         line-height: 140px;
@@ -312,5 +381,14 @@ div.slider-item {
         color: #fcff0a;
         text-align: center;
     }
+}
+
+.view-all{
+    margin:12px 0 0;
+    height:44px;
+    line-height:44px;
+    background: #0D1333;
+    text-align:center;
+    color: #FCFF0A;
 }
 </style>
