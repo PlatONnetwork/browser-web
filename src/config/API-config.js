@@ -1,11 +1,11 @@
 //请求地址
 const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT"http://10.10.8.232:8888"
-	FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
-	TOTAL= `${BASE}/`,
-	FILES_PUBLIC_STORE = process.env.FILESTORE_PUBLIC_ROOT,//'http://192.168.9.86:8081',公有
-    FILES_PRIVITE_STORE = process.env.FILESTORE_PRIVITE_ROOT,//'http://192.168.9.85:8081',私有
+	// FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
+	TOTAL = `${BASE}/browser-api/`,
+	// FILES_PUBLIC_STORE = process.env.FILESTORE_PUBLIC_ROOT,//'http://192.168.9.86:8081',公有
+    // FILES_PRIVITE_STORE = process.env.FILESTORE_PRIVITE_ROOT,//'http://192.168.9.85:8081',私有
 	// FILES = `${FILES_STORE}/`,
-	FILES = `${FILES_PUBLIC_STORE}/`,//公有
+	// FILES = `${FILES_PUBLIC_STORE}/`,//公有
     // FILES = `${FILES_PRIVITE_STORE}/`,//私有
     BLOCK_URL = `${TOTAL}block/`,
    	HOME_URL = `${TOTAL}home/`,
@@ -39,6 +39,18 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     ACCOUNT = {
         accountDetails: `${ACCOUNT_URL}accountDetails`,
         download: `${ACCOUNT_URL}download`,
+    },
+    WS_CONFIG = {
+        root: `${TOTAL}platon-websocket`,
+        init: `/app/node/init?cid=`,
+        indexInit: `/app/index/init?cid=`,
+        indexUpdate: `/topic/index/new?cid=`,
+        secondInit: `/app/statistic/init?cid=`,
+        secondUpdate: `/topic/statistic/new?cid=`,
+        blockInit: `/app/block/init?cid=`,
+        blockUpdate: `/topic/block/new?cid=`,
+        transactionInit: `/app/transaction/init?cid=`,
+        transactionUpdate: `/topic/transaction/new?cid=`
     };
 	//文件上传
 	// FILE = {
@@ -48,5 +60,6 @@ export default {
 	BLOCK,
 	SEARCH,
 	TRADE,
-    ACCOUNT
+    ACCOUNT,
+    WS_CONFIG
 }

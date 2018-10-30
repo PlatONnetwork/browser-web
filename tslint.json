@@ -6,6 +6,7 @@
     },
     "rules": {
         "curly": true, //for if do while 要有括号
+        "comment-format":false,
         "no-var-keyword": true,
         "no-var-requires": true, //不允许使用var module = require("module"),用 import foo = require('foo')导入
         "space-before-function-paren": false,
