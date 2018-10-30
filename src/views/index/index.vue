@@ -223,10 +223,11 @@ div.slider-item {
     padding: 100px 100px 0 100px;
 }
 .third-floor{
-    padding:100px 140px 0;
+    padding-top:100px;
     // min-height:calc(100% - 190px);
 }
 .floor-area{
+    padding:0 100px;
     display: flex;
     flex-direction:row;
     flex-wrap:nowrap;
