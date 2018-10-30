@@ -230,8 +230,7 @@
                 float: right
             }
         }
-        .right-most
-            div{
+        .right-most div{
             font-family: ArialMT;
             font-size: 14px;
             color: #D7DDE9;
@@ -240,7 +239,7 @@
             :first-child{
                 padding-right: 25px;
             }
-            
+
         }
     }
     // .toggle-language{
