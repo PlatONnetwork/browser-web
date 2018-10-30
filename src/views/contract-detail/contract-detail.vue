@@ -116,12 +116,12 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.blockTime}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="类型">
+                                    <el-table-column label="类型">
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{txTypeFn[scope.row.txType]}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="发送方">
+                                    <el-table-column label="发送方">
                                         <template slot-scope="scope">
                                             <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                         </template>
@@ -134,12 +134,12 @@
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  prop=""  label="数额">
+                                    <el-table-column prop="" label="数额">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}}ATP</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="交易费用">
+                                    <el-table-column label="交易费用">
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
@@ -261,118 +261,118 @@
                     return 'odd-row';
                 }
             },
-            onCopy(){
-                this.$message.success('已复制到剪贴板')
+            onCopy() {
+                this.$message.success('已复制到剪贴板');
             },
-            onError(){
-                this.$message.error('复制失败')
+            onError() {
+                this.$message.error('复制失败');
             },
-            exportFn(){
-
-            },
-            goTradeDetail(index,row){
-                if(this.description=='trade'){
+            exportFn() {},
+            goTradeDetail(index, row) {
+                if (this.description == 'trade') {
                     this.$router.push({
-                        path:'/trade-detail',
-                        query:{
-                            txHash:row.txHash
-                        }
-                    })
-                }else if(this.description=='pending'){
+                        path: '/trade-detail',
+                        query: {
+                            txHash: row.txHash,
+                        },
+                    });
+                } else if (this.description == 'pending') {
                     this.$router.push({
-                        path:'/trade-pending-detail',
-                        query:{
-                            txHash:row.txHash
-                        }
-                    })
+                        path: '/trade-pending-detail',
+                        query: {
+                            txHash: row.txHash,
+                        },
+                    });
                 }
             },
-            goAddressDetail(index,row){
-                if(row.from == this.address){
+            goAddressDetail(index, row) {
+                if (row.from == this.address) {
                     return false;
-                }else{
+                } else {
                     this.$router.push({
-                        path:'/address-detail',
-                        query:{
-                            address:row.from,
-                            description:this.description
-                        }
-                    })
+                        path: '/address-detail',
+                        query: {
+                            address: row.from,
+                            description: this.description,
+                        },
+                    });
                 }
             },
-            goDetail1(index,row){
-                if(row.to == this.address){
+            goDetail1(index, row) {
+                if (row.to == this.address) {
                     return false;
-                }else{
-                    if(row.txType=='transactionExecute'){
+                } else {
+                    if (row.txType == 'transactionExecute') {
                         //进入合约详情
-                        this.address = row.to
+                        this.address = row.to;
                         this.$router.replace({
-                            path:'/contract-detail',
-                            query:{
-                                address:row.to,
-                                description:this.description
-                            }
-                        })
-                        this.getDetail()
-                    }else{
+                            path: '/contract-detail',
+                            query: {
+                                address: row.to,
+                                description: this.description,
+                            },
+                        });
+                        this.getDetail();
+                    } else {
                         //进入地址详情
                         this.$router.push({
-                            path:'/address-detail',
-                            query:{
-                                address:row.to,
-                                description:this.description
-                            }
-                        })
+                            path: '/address-detail',
+                            query: {
+                                address: row.to,
+                                description: this.description,
+                            },
+                        });
                     }
-
                 }
             },
             //获取地址信息详情
-            getDetail(){
+            getDetail() {
                 let param = {
                     // cid:'',
-                    address:this.address,
-                    txType:this.type
-                }
-                console.warn('合约详情》》》',param)
-                apiService.trade.contractDetails(param).then((res)=>{
-                    let {errMsg,code,data}= res
-                    if(code==0){
-                       this.detailInfo=data
-                       data.trades.forEach((item)=>{
-                            if(item.txReceiptStatus==-1){
-                                ++this.count
-                            }
-                       })
-                    }else{
-                        this.detailInfo={}
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
-            }
+                    address: this.address,
+                    txType: this.type,
+                };
+                console.warn('合约详情》》》', param);
+                apiService.trade
+                    .contractDetails(param)
+                    .then(res => {
+                        let {errMsg, code, data} = res;
+                        if (code == 0) {
+                            this.detailInfo = data;
+                            data.trades.forEach(item => {
+                                if (item.txReceiptStatus == -1) {
+                                    ++this.count;
+                                }
+                            });
+                        } else {
+                            this.detailInfo = {};
+                            this.$message.error(errMsg);
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error(error);
+                    });
+            },
+
         },
         //生命周期函数
-        created(){
-            this.address=this.$route.query.address
-            this.description=this.$route.query.description
-            this.descriptionProp=this.$route.query.description
+        created() {
+            this.address = this.$route.query.address;
+            this.description = this.$route.query.description;
+            this.descriptionProp = this.$route.query.description;
             //获取交易列表
-            this.getDetail()
+            this.getDetail();
         },
-        //监视
         watch: {
-            'chainId':'getDetail'
+            chainId: 'getDetail',
         },
         //组件
         components: {
             'v-menu':menu,
             comHeader,
             comFooter
-        }
-    }
+        },
+    };
 </script>
 <style lang="less" scoped>
     .margin20{
@@ -468,6 +468,12 @@
             .active{
                 background: #252C57;
                 color: #FFFFFF;
+            }
+            .left {
+                float: left;
+            }
+            .right {
+                float: right;
             }
         }
         .data-detail{

@@ -20,11 +20,7 @@
                         <div class="left">Address</div>
                         <div class="right">
                             <span>#{{address}}</span>
-                            <span
-                                v-clipboard:copy="address"
-                                v-clipboard:success="onCopy"
-                                v-clipboard:error="onError"
-                            >
+                            <span v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">
                                 <i class='iconfont iconcopy cursor'>&#xe63d;</i>
                             </span>
                         </div>
@@ -116,12 +112,12 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.blockTime}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="类型">
+                                    <el-table-column label="类型">
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{txTypeFn[scope.row.txType]}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="发送方">
+                                    <el-table-column label="发送方">
                                         <template slot-scope="scope">
                                             <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                         </template>
@@ -134,12 +130,12 @@
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  prop=""  label="数额">
+                                    <el-table-column prop="" label="数额">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}}ATP</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column  label="交易费用">
+                                    <el-table-column label="交易费用">
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
@@ -253,7 +249,7 @@
             ...mapGetters(['chainId']),
         },
         //方法
-        methods: {
+         methods: {
             tableRowClassName({row, rowIndex}) {
                 if(rowIndex%2 === 0) {
                     return 'even-row';
@@ -261,107 +257,109 @@
                     return 'odd-row';
                 }
             },
-            changeTab(type){
-                this.activeTab=type
+            changeTab(type) {
+                this.activeTab = type;
             },
-            onCopy(){
-                this.$message.success('已复制到剪贴板')
+            onCopy() {
+                this.$message.success('已复制到剪贴板');
             },
-            onError(){
-                this.$message.error('复制失败')
+            onError() {
+                this.$message.error('复制失败');
             },
-            exportFn(){
-
-            },
-            goTradeDetail(index,row){
-                if(this.description=='trade'){
+            exportFn() {},
+            goTradeDetail(index, row) {
+                if (this.description == 'trade') {
                     this.$router.push({
-                        path:'/trade-detail',
-                        query:{
-                            txHash:row.txHash
-                        }
-                    })
-                }else if(this.description=='pending'){
+                        path: '/trade-detail',
+                        query: {
+                            txHash: row.txHash,
+                        },
+                    });
+                } else if (this.description == 'pending') {
                     this.$router.push({
-                        path:'/trade-pending-detail',
-                        query:{
-                            txHash:row.txHash
-                        }
-                    })
+                        path: '/trade-pending-detail',
+                        query: {
+                            txHash: row.txHash,
+                        },
+                    });
                 }
             },
-            goAddressDetail(index,row){
-                if(row.from == this.address){
+            goAddressDetail(index, row) {
+                if (row.from == this.address) {
                     return false;
-                }else{
+                } else {
                     //改变
-                    this.address = row.from
+                    this.address = row.from;
                     this.$router.replace({
-                        path:'/address-detail',
-                        query:{
-                            address:row.from,
-                            description:this.description
-                        }
-                    })
-                    this.getDetail()
+                        path: '/address-detail',
+                        query: {
+                            address: row.from,
+                            description: this.description,
+                        },
+                    });
+                    this.getDetail();
                 }
             },
-            goDetail(index,row){
+            goDetail(index, row) {
                 //进入合约详情
                 this.$router.push({
-                    path:'/contract-detail',
-                    query:{
-                        address:row.to,
-                        description:this.description
-                    }
-                })
+                    path: '/contract-detail',
+                    query: {
+                        address: row.to,
+                        description: this.description,
+                    },
+                });
             },
-            goDetail1(index,row){
-                if(row.to == this.address){
+            goDetail1(index, row) {
+                if (row.to == this.address) {
                     return false;
-                }else{
-                    this.address = row.to
+                } else {
+                    this.address = row.to;
                     this.$router.replace({
-                        path:'/address-detail',
-                        query:{
-                            address:row.to,
-                            description:this.description
-                        }
-                    })
-                    this.getDetail()
+                        path: '/address-detail',
+                        query: {
+                            address: row.to,
+                            description: this.description,
+                        },
+                    });
+                    this.getDetail();
                 }
             },
             //获取地址信息详情
-            getDetail(){
+            getDetail() {
                 let param = {
                     // cid:'',
-                    address:this.address,
-                    txType:this.type
-                }
-                console.warn('地址详情入参》》》》',param)
-                apiService.trade.addressDetails(param).then((res)=>{
-                    let {errMsg,code,data}= res
-                    if(code==0){
-                       this.detailInfo=data
-                       data.trades.forEach((item)=>{
-                            if(item.txReceiptStatus==-1){
-                                ++this.count
-                            }
-                       })
-                    }else{
-                        this.detailInfo={}
-                        this.$message.error(errMsg)
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                })
-            }
+                    address: this.address,
+                    txType: this.type,
+                };
+                console.warn('地址详情入参》》》》', param);
+                apiService.trade
+                    .addressDetails(param)
+                    .then(res => {
+                        let {errMsg, code, data} = res;
+                        if (code == 0) {
+                            this.detailInfo = data;
+                            data.trades.forEach(item => {
+                                if (item.txReceiptStatus == -1) {
+                                    ++this.count;
+                                }
+                            });
+                        } else {
+                            this.detailInfo = {};
+                            this.$message.error(errMsg);
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error(error);
+                    });
+            },
+
         },
         //生命周期函数
-        created(){
-            this.address=this.$route.query.address
-            this.description=this.$route.query.description
-            this.descriptionProp=this.$route.query.description
+        created() {
+            this.address = this.$route.query.address;
+            this.description = this.$route.query.description;
+            this.descriptionProp = this.$route.query.description;
             // console.log(1)
             //获取交易列表
             this.getDetail()
@@ -372,11 +370,11 @@
         },
         //组件
         components: {
-            'v-menu':menu,
+            'v-menu': menu,
             comHeader,
-            comFooter
-        }
-    }
+            comFooter,
+        },
+    };
 </script>
 <style lang="less" scoped>
     .margin20{
@@ -472,6 +470,12 @@
             .active{
                 background: #252C57;
                 color: #FFFFFF;
+            }
+            .left {
+                float: left;
+            }
+            .right {
+                float: right;
             }
         }
         .data-detail{
