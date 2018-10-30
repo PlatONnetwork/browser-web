@@ -5,31 +5,31 @@
             <slideritem>
                 <ul class="footer-box">
                     <li>
-                        <p class="color1">666666</p>
+                        <p class="color1">{{currentOverViewData.currentHeight}}</p>
                         <span>当前区块高度</span>
                     </li>
                     <li>
-                        <p>666666</p>
+                        <p>{{currentOverViewData.node}}</p>
                         <span>出块节点</span>
                     </li>
                     <li>
-                        <p class="color1">666666</p>
+                        <p class="color1">{{currentOverViewData.currentTransaction}}</p>
                         <span>当前交易笔数</span>
                     </li>
                     <li>
-                        <p class="color1">666666</p>
+                        <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p>
                         <span>共识节点数s</span>
                     </li>
                     <li>
-                        <p>666666</p>
+                        <p>{{currentOverViewData.addressAmount}}</p>
                         <span>地址数</span>
                     </li>
                     <li>
-                        <p>666666</p>
+                        <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
                         <span>投票数/占比</span>
                     </li>
                     <li>
-                        <p class="color2">666666</p>
+                        <p class="color2">{{currentOverViewData.ticketPrice}}</p>
                         <span>票价</span>
                     </li>
                 </ul>
@@ -44,15 +44,15 @@
                     <ul class="chart-aside">
                         <li>
                             <p>平均出块时长</p>
-                            <span>1.5 s</span>
+                            <span>{{secondFloorData.avgTime}} s</span>
                         </li>
                         <li>
                             <p>当前/最大交易TPS</p>
-                            <span>100 / 1600</span>
+                            <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
                         </li>
                         <li>
                             <p>平均区块交易数</p>
-                            <span>600</span>
+                            <span>{{secondFloorData.avgTransaction}}</span>
                         </li>
                     </ul>
                 </div>
@@ -62,6 +62,7 @@
                 <p class="second-floor-text second-floor-text1">每日交易笔数</p>
                 <p class="transactions">过去24小时交易笔数实时统计</p>
                 <ul class="num-box clearfix">
+                    <!-- secondFloorData.dayTransaction -->
                     <li>0</li>
                     <li>2</li>
                     <li>0</li>
@@ -78,12 +79,16 @@
                             Blocks
                         </header>
                         <p class="second-floor-text">最新区块</p>
-                        <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
-                            <el-table-column prop="date" label="日期" width="180">
+                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName">
+                            <el-table-column prop="height" label="区块高度" width="180">
                             </el-table-column>
-                            <el-table-column prop="name" label="姓名" width="180">
+                            <el-table-column prop="timeStamp" label="币龄" width="180">
                             </el-table-column>
-                            <el-table-column prop="address" label="地址">
+                            <el-table-column prop="node" label="出块节点">
+                            </el-table-column>
+                            <el-table-column prop="transaction" label="交易数">
+                            </el-table-column>
+                            <el-table-column prop="blockReward" label="奖励">
                             </el-table-column>
                         </el-table>
 
@@ -95,12 +100,14 @@
                             Transactions
                         </header>
                         <p class="second-floor-text">最新交易</p>
-                        <el-table :data="tableData" style="width: 100%" :row-class-name="tableRowClassName">
-                            <el-table-column prop="date" label="日期" width="180">
+                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName">
+                            <el-table-column prop="txHash" label="交易哈希" width="180">
                             </el-table-column>
-                            <el-table-column prop="name" label="姓名" width="180">
+                            <el-table-column prop="from" label="From" width="180">
                             </el-table-column>
-                            <el-table-column prop="address" label="地址">
+                            <el-table-column prop="to" label="to">
+                            </el-table-column>
+                            <el-table-column prop="value" label="数额">
                             </el-table-column>
                         </el-table>
                         <div class="view-all">View All</div>
@@ -121,11 +128,12 @@ import {Getter} from 'vuex-class';
 import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 import {slider, slideritem} from 'vue-concise-slider';
-// import chartService from '@/services/chart-services';
-// let blockChart = new chartService();
 import apiServices from '@/services/API-services';
 import chartService from '@/services/chart-services';
-let blockChart = new chartService();
+import IndexService from '@/services/index-service';
+
+const blockChart = new chartService(),
+indexService=new IndexService();
 
 @Component({
     components: {
@@ -138,6 +146,31 @@ let blockChart = new chartService();
 export default class HelloWorld extends Vue {
     @Getter
     info;
+    currentOverViewData: object = {
+        currentHeight: '666666', //当前区块高度
+        node: '666666', //出块节点
+        currentTransaction: '666666', //当前交易笔数
+        consensusNodeAmount: '666666', //共识节点数
+        addressAmount: '666666', //地址数
+        voteAmount: '666666', //投票数
+        proportion: '666666', //占比
+        ticketPrice: '666666', //票价
+    };
+
+    secondFloorData: object = {
+        avgTime: 365, //平均出块时长
+        current: 333, //当前交易数量
+        maxTps: 333, //最大交易TPS
+        avgTransaction: 33, //平均区块交易数
+        dayTransaction: 33, //过去24小时交易笔数
+        blockStatisticList: [
+            {
+                height: 333, //区块高度
+                time: 333, //出块的时间
+                transaction: 33, //区块打包数量
+            },
+        ], //投票数
+    };
 
     // 滑动配置[obj]
     options: object = {
@@ -151,57 +184,37 @@ export default class HelloWorld extends Vue {
         slidesToScroll: 1, // 每次滑动项数
     };
 
-    tableData: Array<object> = [
+    blockData: Array<object> = [
         {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄',
+            height: 33, //区块高度
+            timeStamp: 33333, //出块时间
+            serverTime: 44444, //服务器时间
+            node: 'node-1', //出块节点
+            transaction: 333, //交易数
+            blockReward: 333, //区块奖励
         },
+    ];
+
+    transactionData: Array<object> = [
         {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄',
-        },
-        {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄',
-        },
-        {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄',
-        },
-        {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄',
-        },
-        {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄',
-        },
-        {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄',
-        },
-        {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄',
+            txHash: 'x3222', //交易Hash
+            blockHeight: 5555, // 区块高度
+            transactionIndex: 33, // 交易在区块中位置
+            from: 'ddddd', //交易发起方地址
+            to: 'aaaa', //交易接收方地址
+            value: 3.6, //数额
+            timestamp: 155788, //交易时间
         },
     ];
 
     slide(data) {
-        console.log(data);
+        console.log('slide',data);
     }
     onTap(data) {
-        console.log(data);
+        console.log('onTap',data);
     }
     onInit(data) {
-        console.log(data);
+        console.log('onInit',data);
     }
     initChart() {
         let r = this.$refs;
@@ -215,9 +228,17 @@ export default class HelloWorld extends Vue {
             return 'odd-row';
         }
     }
+
     mounted() {
         //初始化图表
         this.initChart();
+    }
+    created() {
+        console.log(indexService)
+        indexService.getSecondFloorData().then((data)=>{
+            console.log('getSecondFloorData index',data)
+            this.secondFloorData=data;
+        })
     }
 }
 </script>
@@ -383,12 +404,12 @@ div.slider-item {
     }
 }
 
-.view-all{
-    margin:12px 0 0;
-    height:44px;
-    line-height:44px;
-    background: #0D1333;
-    text-align:center;
-    color: #FCFF0A;
+.view-all {
+    margin: 12px 0 0;
+    height: 44px;
+    line-height: 44px;
+    background: #0d1333;
+    text-align: center;
+    color: #fcff0a;
 }
 </style>
