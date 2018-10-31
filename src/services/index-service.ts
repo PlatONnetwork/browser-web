@@ -18,7 +18,7 @@ interface MsgConfig {
 interface ResConfig {
     errMsg: string,
     code: number,
-    data: object
+    data: any
 }
 
 class Sub {
@@ -90,6 +90,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getOverviewData`, res)
                     if (res.code === 0) {
+                        (res.data.node === null) && (res.data.node = ' ')
                         return resolve(res.data)
                     } else {
                         throw new Error(`todo`)
@@ -166,7 +167,7 @@ class IndexService extends Ws {
         })
     }
 
-    updateBlockData() {
+    updateBlockData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
@@ -200,14 +201,16 @@ class IndexService extends Ws {
         })
     }
 
-    updateTransactionData() {
+    updateTransactionData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateTransactionData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data)
+                        if (list.length >= 10) { list.shift() }
+                        list.push(res.data)
+                        return resolve(list)
                     } else {
                         throw new Error(`todo`)
                     }

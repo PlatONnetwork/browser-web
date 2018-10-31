@@ -143,7 +143,7 @@ const blockChart = new chartService(),
         slideritem,
     },
 })
-export default class HelloWorld extends Vue {
+export default class Index extends Vue {
     @Getter
     info;
     currentOverViewData: object = {
@@ -195,7 +195,7 @@ export default class HelloWorld extends Vue {
         },
     ];
 
-    transactionData: Array<object> = [
+    transactionData: any = [
         {
             txHash: 'x3222', //交易Hash
             blockHeight: 5555, // 区块高度
@@ -208,13 +208,13 @@ export default class HelloWorld extends Vue {
     ];
 
     slide(data) {
-        console.log('slide',data);
+        // console.log('slide',data);
     }
     onTap(data) {
-        console.log('onTap',data);
+        // console.log('onTap',data);
     }
     onInit(data) {
-        console.log('onInit',data);
+        // console.log('onInit',data);
     }
     initChart() {
         let r = this.$refs;
@@ -235,9 +235,29 @@ export default class HelloWorld extends Vue {
     }
     created() {
         console.log(indexService)
+        indexService.getOverviewData().then((data)=>{
+            this.currentOverViewData=data;
+        })
+        indexService.updatOverviewData().then((data)=>{
+            // this.currentOverViewData=data;
+        })
         indexService.getSecondFloorData().then((data)=>{
-            console.log('getSecondFloorData index',data)
             this.secondFloorData=data;
+        })
+        indexService.updateSecondFloorData().then((data)=>{
+            // this.secondFloorData=data;
+        })
+        indexService.getBlockData().then((data)=>{
+            // this.secondFloorData=data;
+        })
+        indexService.updateBlockData(this.blockData).then((data)=>{
+            // this.secondFloorData=data;
+        })
+        indexService.getTransactionData().then((data)=>{
+            this.transactionData=data;
+        })
+        indexService.updateTransactionData(this.transactionData).then((data)=>{
+            this.transactionData=data;
         })
     }
 }
@@ -292,6 +312,7 @@ div.slider-item {
     }
     p {
         margin: 0 0 13px;
+        height: 45px;
         font-size: 40px;
         letter-spacing: 2.4px;
         color: #d2daea;
