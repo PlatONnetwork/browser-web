@@ -92,21 +92,18 @@
         bottom: 0;
         display: flex;
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
-        height: 160px; // UI设计图 190px
+        height: 190px; // UI设计图 190px
         color: #FFF;
         background-color: #0D1333;
         padding: 30px 100px 0 100px;
-        // margin: 30px auto 0;
     }
     .platon{
-        background: url('./images/footer-logo.png');
-        background-repeat: no-repeat;
+        background: url('./images/footer-logo.png') no-repeat;
         >p{
-            font-family: ArialMT;
+            // font-family: ArialMT;
             font-size: 12px;
             color: #93A5C8;
             letter-spacing: 0;
-            display: block;
         }
         .footer-img{
             padding-top: 88px;
@@ -120,7 +117,7 @@
         width: auto;
         font-size: 13px;
         color: #D7DDE9;
-        font-family: ArialMT;
+        // font-family: ArialMT;
         a{
             color: #FFFFFF;
         }
@@ -134,7 +131,7 @@
         // border-bottom: 1px dotted rgb(100, 107, 116);   原型有下划线，UI目前去掉
     }
     .community{
-        font-family: ArialMT;
+        // font-family: ArialMT;
         font-size: 13px;
         color: #D7DDE9;
         letter-spacing: 0;

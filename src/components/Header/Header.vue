@@ -217,6 +217,7 @@
         display: inline-block;
         height: 100%;
         width: 289px;
+        overflow: hidden;
         .logo-right{
             margin-top: 5px;
             margin-left: 42px;
@@ -236,10 +237,10 @@
             color: #93A5C8;
             letter-spacing: 0;
         }
-        .menu{
-            float: right
-        }
     }
+    .el-menu-demo{
+        width: 326px
+        }
     .right-most div{
         font-family: ArialMT;
         font-size: 14px;
