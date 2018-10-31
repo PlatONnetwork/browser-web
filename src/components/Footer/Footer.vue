@@ -1,72 +1,58 @@
 <template>
     <div class="footer-wrap">
         <div class="platon">
-            <img class="footer-img" :src="iconSrc"/>
-            <span>XXXX是PlatON区块链资源管理与分析平台</span>
-            <span class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</span>
+            <p class="footer-img">XXXX是PlatON区块链资源管理与分析平台</p>
+            <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
             <p class="link-top">链接</p>
-            <el-row>
-                <span>
-                    <a href="httt://www.baidu.com" target="_blank">开发帮助</a>
-                </span>
-                <template slot="title">链接</template>
-            </el-row>
-            <el-row>
-                <span>
+            <ul>
+                <li>
+                    <a href="http://www.baidu.com" target="_blank">开发帮助</a>
+                </li>
+                <li>
                     <a href="#" target="_blank">钱包</a>
-                </span>
-                <template slot="title">链接</template>
-            </el-row>
-            <el-row>
-                <span>
+                </li>
+                <li>
                     <a href="#" target="_blank">PlatOn官网</a>
-                </span>
-                <template slot="title">链接</template>
-            </el-row>
-            <el-row>
-                <span>
+                </li>
+                <li>
                     <a href="#" target="_blank">白皮书</a>
-                </span>
-                <template slot="title">链接</template>
-            </el-row>
+                </li>
+            </ul>    
         </div>
         <div class="community">
             <p class="link-top">社区</p>
-            <ul>
+            <ul class="clearfix">
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                    <img :src="linkImg1"/>
+                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank"></a>
+                </li>
+                <li>
+                    <a href="http://www.baidu.com" class="icon-link-2" target="_blank">
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
-                    <img :src="linkImg2"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <a href="http://www.baidu.com" class="icon-link-3" target="_blank">
                     <img :src="linkImg3"/>
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <a href="http://www.baidu.com" class="icon-link-4" target="_blank">
                     <img :src="linkImg4"/>
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <a href="http://www.baidu.com" class="icon-link-5" target="_blank">
                     <img :src="linkImg5"/>
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <a href="http://www.baidu.com" class="icon-link-6" target="_blank">
                     <img :src="linkImg6"/>
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank">
+                    <a href="http://www.baidu.com" class="icon-link-7" target="_blank">
                     <img :src="linkImg7"/>
                     </a>
                 </li>
@@ -86,14 +72,7 @@
         //实例的数据对象
         data () {
             return {
-                iconSrc: '/static/images/footer-logo.png',
-                linkImg1: '/static/images/icon-Telegram.png',
-                linkImg2: '/static/images/icon-WeChat.png',
-                linkImg3: '/static/images/icon-Twitter.png',
-                linkImg4: '/static/images/icon-Rabbit.png',
-                linkImg5: '/static/images/icon-Medium.png',
-                linkImg6: '/static/images/icon-GitHub.png',
-                linkImg7: '/static/images/icon-Facebook.png'
+               
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -124,59 +103,85 @@
         bottom: 0;
         display: flex;
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
-        height: 190px; // UI设计图 190px
+        height: 160px; // UI设计图 190px
         color: #FFF;
         background-color: #040B27;
-        padding:0 100px;
-        margin: 0 auto;
-        >div{
-            margin-top: 30px;
-        }
-        .platon{
-            >span{
-                font-family: ArialMT;
-                font-size: 12px;
-                color: #93A5C8;
-                letter-spacing: 0;
-                display: block;
-                margin-top: 19px
-            }
-            .copyright{
-                display: block;
-                margin-top: 33px;
-            }
-        }
-        .link {
-            width: auto;
-            font-size: 13px;
-            color: #D7DDE9;
+        padding: 0 100px;
+        margin: 30px auto 0;
+    }
+    .platon{
+        background: url('./images/footer-logo.png');
+        background-repeat: no-repeat;
+        >p{
             font-family: ArialMT;
+            font-size: 12px;
+            color: #93A5C8;
+            letter-spacing: 0;
+            display: block;
+        }
+        .footer-img{
+            padding-top: 88px;
+        }
+        .copyright{
+            display: block;
+            margin-top: 33px;
+        }
+    }
+    .link {
+        width: auto;
+        font-size: 13px;
+        color: #D7DDE9;
+        font-family: ArialMT;
+        a{
+            color: #FFFFFF;
+        }
+        ul li{
+            padding-bottom: 8px;
+        }
+    }
+    .link-top{
+        width: 200px;
+        padding-bottom: 25px;
+        // border-bottom: 1px dotted rgb(100, 107, 116);   原型有下划线，UI目前去掉
+    }
+    .community{
+        font-family: ArialMT;
+        font-size: 13px;
+        color: #D7DDE9;
+        letter-spacing: 0;
+        ul{
+            padding-top: 2px;
+            width: 400px;
+        }
+        li{
+            float: left;
+            padding-right: 16px;
             a{
-                // font-family: ArialMT;
-                font-size: 13px;
-                color: #FFFFFF;
+                display: block;
+                width: 40px;
+                height: 40px;
+                background: url('./images/Sprite-figure.png')
             }
-            .el-row{
-                padding-bottom: 10px;
+            .icon-link-1{
+                    background-position: 0 0;
             }
-        }
-
-        .link-top{
-            width: 200px;
-            padding-bottom: 25px;
-            // border-bottom: 1px dotted rgb(100, 107, 116);   原型有下划线，UI目前去掉
-        }
-        .community{
-            ul{
-                width: 400px;
+            .icon-link-2{
+                    background-position: -56px 0;
             }
-            li{
-                display: inline;
-                a{
-                    display: inline-block;
-                    width: 40px;
-                    height: 40px;
+            .icon-link-3{
+                    background-position: -112px 0;
             }
+            .icon-link-4{
+                    background-position: -168px 0;
+            }
+            .icon-link-5{
+                    background-position: -224px 0;
+            }
+            .icon-link-6{
+                    background-position: -280px 0;
+            }
+            .icon-link-7{
+                    background-position: -336px 0;
             }
         }
     }
