@@ -28,33 +28,22 @@
                     <a href="http://www.baidu.com" class="icon-link-1" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-2" target="_blank">
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-2" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-3" target="_blank">
-                    <img :src="linkImg3"/>
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-3" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-4" target="_blank">
-                    <img :src="linkImg4"/>
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-4" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-5" target="_blank">
-                    <img :src="linkImg5"/>
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-5" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-6" target="_blank">
-                    <img :src="linkImg6"/>
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-6" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-7" target="_blank">
-                    <img :src="linkImg7"/>
-                    </a>
+                    <a href="http://www.baidu.com" class="icon-link-7" target="_blank"></a>
                 </li>
             </ul>
         </div>
@@ -105,9 +94,9 @@
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
         height: 160px; // UI设计图 190px
         color: #FFF;
-        background-color: #040B27;
-        padding: 0 100px;
-        margin: 30px auto 0;
+        background-color: #0D1333;
+        padding: 30px 100px 0 100px;
+        // margin: 30px auto 0;
     }
     .platon{
         background: url('./images/footer-logo.png');
