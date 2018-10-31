@@ -266,7 +266,16 @@
             onError() {
                 this.$message.error('复制失败');
             },
-            exportFn() {},
+            exportFn() {
+                //跳转至下载页
+                this.$router.push({
+                    path:'/download',
+                    query:{
+                        address:this.address,
+                        description: this.description,
+                    }
+                })
+            },
             goTradeDetail(index, row) {
                 if (this.description == 'trade') {
                     this.$router.push({
@@ -528,9 +537,9 @@
 <style lang='less'>
     .search-address{
         .el-input--suffix .el-input__inner{
-            border: 1px solid #12183D;
+            // border: 1px solid #12183D;
             font-size: 12px;
-            color: #7988AB;
+            // color: #7988AB;
             line-height: 34px;
             height: 34px;
         }
@@ -539,9 +548,6 @@
             // line-height:34px;
             padding:0 10px;
             border:none;
-            font-size: 14px;
-            color: #FCFF0A;
-            background: #252C57;
         }
     }
 </style>

@@ -38,7 +38,7 @@
         </div>
         <div class="search">
             <el-input placeholder="请输入区块高度/地址/块哈希/交易哈希" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
-            <el-button type="primary" class="el-btn" @click="searchFn">查询</el-button>
+            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">查询</el-button>
         </div>
         <div class="right-most">
             <el-dropdown  @command="handleCommand">
@@ -258,6 +258,7 @@
         flex-direction: row;
         justify-content: flex-start;
         border-radius: 4px;
+        box-shadow: 0 2px 4px 2px rgba(7,11,48,0.30);
         .el-input{
             width:300px;
             height:40px;
@@ -271,17 +272,18 @@
             border-bottom-right-radius:0;
             box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
             border:none;
+            color:#fff;
         }
         .el-input--mini .el-input__inner{
             height:40px;
             line-height:40px;
         }
-        .el-btn{
+        .el-searchs{
             height:40px;
-            background-color: #1a2047;
+            // background-color: #1a2047;
             border-radius: 0px 4px 4px 0px;
             letter-spacing: 0.8px;
-            color: #fcff0a;
+            // color: #fcff0a;
             border:none;
             border-radius:4px;
             border-top-left-radius:0;
