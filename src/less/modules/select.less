@@ -1,0 +1,37 @@
+//下拉框
+.el-select .el-input .el-input__inner{
+    background: #0E1438;
+    letter-spacing: 0.7px;
+    color: #8D9BB8;
+    font-size:12px;
+}
+.el-select:hover .el-input__inner {
+    background: #121940;
+    border: 1px solid rgba(180,185,194,0.20);
+    color: #8D9BB8;
+}
+.el-select .el-input.is-focus .el-input__inner{
+    background: #0E143B;
+    border: 1px solid rgba(180,185,194,0.50);
+    color: #FFFFFF;
+}
+.el-popper{
+    background: #0E1438;
+    border: 1px solid rgba(180,185,194,0.20);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+}
+.el-popper[x-placement^="bottom"] .popper__arrow::after{
+    top:0;
+    border-bottom-color:none;
+}
+.el-select-dropdown__item{
+    color: #8D9BB8;
+}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+    background: #1F254C;
+    color: #8D9BB8;
+}
+.el-select-dropdown__item.selected{
+    background: #0F83CD;
+    color: #FFFFFF;
+}

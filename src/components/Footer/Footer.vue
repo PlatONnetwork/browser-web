@@ -126,7 +126,7 @@
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
         height: 190px; // UI设计图 190px
         color: #FFF;
-        background-color: #040B27;
+        background-color: #0D1333;
         padding:0 100px;
         margin: 0 auto;
         >div{

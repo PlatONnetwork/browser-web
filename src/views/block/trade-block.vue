@@ -305,7 +305,7 @@ export default {
     .bottom {
         padding: 26px 0 40px;
         .title {
-            margin-bottom: 23px;
+            margin-bottom: 10px;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
