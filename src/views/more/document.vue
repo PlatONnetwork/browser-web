@@ -1,5 +1,5 @@
 <template>
-    <div class="node-wrap">
+    <div class="document-wrap">
         文档
     </div>
 </template>
