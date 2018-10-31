@@ -72,6 +72,8 @@
 <script>
     //import  from ''
     import apiService from '@/services/API-services';
+    import comHeader from '@/components/header/header.vue'
+    import comFooter from '@/components/footer/footer.vue'
     export default {
         //组件名
         name: '',
@@ -79,11 +81,13 @@
         data () {
             return {
                 imgSrc: '/static/images/demo.png',
-                walletList: []
+                walletList: [],
+                descriptionProp:'wallet'
             }
         },
         //数组或对象，用于接收来自父组件的数据
-        props: {},
+        props: {
+        },
         //计算
         computed: {
 
@@ -104,7 +108,10 @@
 
         },
         //组件
-        components: {}
+        components: {
+            comHeader,
+            comFooter
+        }
     }
 </script>
 
@@ -151,7 +158,41 @@
             float: left;
         }
         h1.title{
-            border-bottom: 1px solid rgb(100, 107, 116);
+            font-family: ArialMT;
+            font-size: 12px;
+            color: #D7DDE9;
+            letter-spacing: 0;
+            // border-bottom: 1px solid rgb(100, 107, 116);   原型有下划线，UI去掉
+        }
+        .third-party-wallet{
+            width: 525px;
+            height: 180px;
+            background: url('./images/background-third-party.png') no-repeat;
+            span{
+                display: block;
+                margin: auto;
+                width: 50%;
+                height: 18px;
+                padding: 81px 0 0 0;
+                //UI样式
+                font-family: ArialMT;
+                font-size: 16px;
+                color: #D7DDE9;
+                letter-spacing: 0;
+            }
+            button{
+                width: 80px;
+                height: 32px;
+                margin-left: 200px;
+                background: #252C57;
+                border: 1px solid #333A60;
+                //button中的字体样式
+                font-family: ArialMT;
+                font-size: 12px;
+                color: #FFFF00;
+                letter-spacing: 0;
+                text-align: center;
+            }
         }
     }
     .time-and-number {
