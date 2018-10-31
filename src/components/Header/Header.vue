@@ -1,8 +1,8 @@
 <template>
     <div class="header-wrap">
         <div class="logo">
-            <img class="icon1" :src='iconSrc1'/>
-            <img class="icon2" :src='iconSrc2'/>
+            <img class="icon1" src='./images/herder-logo-a.png'/>
+            <img class="icon2" src='./images/herder-logo-b.png'/>
             <p>The PlatON Block Exploer</p>
         </div>
         <div class="menu">
@@ -76,8 +76,6 @@
         data () {
             return {
                 searchKey:'',//搜索
-                iconSrc1: '/static/images/herder-logo-a.png',
-                iconSrc2: '/static/images/herder-logo-b.png',
                 language: 'zh-cn',
                 netObj:{
                     "1":"MainNet",
@@ -108,7 +106,6 @@
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
         },
-        //方法
         //方法
         methods: {
             ...mapActions(['changeChainId']),
@@ -215,38 +212,44 @@
         color: #FFF;
         background: #040B27;
         z-index:9999;
-        .logo{
-                display: inline-block;
-                height: 100%;
-                width: 289px;
-                .logo-right{
-                    margin-top: 5px;
-                    margin-left: 42px;
-                }
-               .icon1{
-                   float: left;
-               }
-            .menu{
-                float: right
-            }
+    }
+    .logo{
+        display: inline-block;
+        height: 100%;
+        width: 289px;
+        .logo-right{
+            margin-top: 5px;
+            margin-left: 42px;
         }
-        .right-most div{
+        .icon1{
+            padding-top: 10px;
+            padding-right: 4px;
+            float: left;
+        }
+        .icon2{
+            padding-top: 20px;
+            padding-bottom: 2px;
+        }
+        p{
             font-family: ArialMT;
-            font-size: 14px;
-            color: #D7DDE9;
+            font-size: 12px;
+            color: #93A5C8;
             letter-spacing: 0;
-            text-align: right;
-            :first-child{
-                padding-right: 25px;
-            }
-
+        }
+        .menu{
+            float: right
         }
     }
-    // .toggle-language{
-    //     width:120px;
-    //     height:30px;
-    //     line-height:30px;
-    // }
+    .right-most div{
+        font-family: ArialMT;
+        font-size: 14px;
+        color: #D7DDE9;
+        letter-spacing: 0;
+        text-align: right;
+        :first-child{
+            padding-right: 25px;
+        }
+    }
 </style>
 <style lang="less">
     .search{
