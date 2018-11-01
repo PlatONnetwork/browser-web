@@ -1,6 +1,11 @@
 {
   "chainList":[
-    {"cid":"1","en": "all", "zh": "MainNet(主网络)"},
-    {"cid":"2","en": "China", "zh": "TestNet(测试网络)"}
+    {
+      "cid": "1",
+      "en": "all",
+      "zh": "MainNet(主网络)",
+      "http": "http://192.168.9.73:6789"
+    },
+    {"cid":"2","en": "China", "zh": "TestNet(测试网络)","http":""}
   ]
 }

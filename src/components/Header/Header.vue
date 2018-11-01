@@ -68,7 +68,7 @@
     import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import store from '@/vuex/store'
-    // import search from '@/components/search/search.vue'
+    import contractService from '@/services/web3-services'
     export default {
         //组件名
         name: 'header-wrap',
@@ -101,7 +101,7 @@
         props: ['descriptionProp'],
         //计算
         computed: {
-            ...mapGetters(['chainList','chainId']),
+            ...mapGetters(['chainList','chainId','chainHttp']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
@@ -112,6 +112,10 @@
             handleCommand(command){
                 console.log('网络切换》》》',command)
                 store.commit("CHANGE_ID",command)
+                let arr = this.chainList.filter((item,index)=>{
+                    return item.cid == command
+                })
+                store.commit("CHANGE_HTTP",arr[0].http)
             },
             handleCommandLangage(command){
                 this.$i18n.locale = command
@@ -188,6 +192,7 @@
         },
         //生命周期函数
         created(){
+
         },
         //监视
         watch: {},
