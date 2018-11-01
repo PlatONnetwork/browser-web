@@ -116,8 +116,6 @@
                     return item.cid == command
                 })
                 store.commit("CHANGE_HTTP",arr[0].http)
-                //设置节点地址
-                contractService.serProvider(arr[0].http)
             },
             handleCommandLangage(command){
                 this.$i18n.locale = command

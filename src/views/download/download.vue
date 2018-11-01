@@ -21,12 +21,12 @@
                     </div>
                 </div>
                 <div class='download'>
-                    <el-form  :inline="true" ref="form" :model="form" label-width="80px">
+                    <el-form  :inline="true" ref="form" :model="form" label-width="80px" :rules='rules'>
                         <!-- 谷歌机器人验证地方 -->
                         <div class="g-recaptcha" data-sitekey="yoursitekey"></div>
                         <br/>
                         <br/>
-                        <el-form-item label='数据日期' class='margin20'>
+                        <el-form-item label='数据日期' class='margin20' prop='value'>
                             <el-date-picker
                                 v-model="form.value"
                                 type="date"
@@ -38,7 +38,7 @@
                             </el-date-picker>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" class="el-btn el-download" @click='downloadFn'>下载</el-button>
+                            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>下载</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -60,6 +60,7 @@
         //实例的数据对象
         data () {
             return {
+                disabledBtn:true,
                 address:'',
                 form:{
                     value:'',
@@ -73,6 +74,11 @@
                 },
                 description:'',
                 descriptionProp:'',
+                rules:{
+                    value:[
+                        { required: true, message: '请选择日期', trigger: 'change'}
+                    ]
+                }
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -83,7 +89,11 @@
         //方法
         methods: {
             downloadFn(){
-                console.log(this.form.value)
+                this.$refs.form.validate((valid)=>{
+                    if(valid){
+                        console.log(this.form.value)
+                    }
+                })
             }
         },
         //生命周期函数

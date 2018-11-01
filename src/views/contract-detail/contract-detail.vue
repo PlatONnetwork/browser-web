@@ -338,6 +338,8 @@
             },
             //获取地址信息详情
             getDetail() {
+                //设置节点地址
+                contractService.serProvider(this.chainHttp)
                 //获取余额
                 this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
                 // this.balance = contractService.getBalance(this.address)
@@ -375,7 +377,7 @@
             this.description = this.$route.query.description;
             this.descriptionProp = this.$route.query.description;
             //设置节点地址
-            contractService.serProvider(this.chainHttp)
+            // contractService.serProvider(this.chainHttp)
             //获取交易列表
             this.getDetail();
         },
