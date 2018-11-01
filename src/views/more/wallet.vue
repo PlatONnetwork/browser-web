@@ -1,7 +1,7 @@
 <template>
-    <div class="node-wrap">
+    <div class="wallet-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
-            <div class="wallet">
+            <div class="content-area">
                 <!-- <p class="watermark">
                     钱包
                 </p> -->
@@ -19,72 +19,75 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="authority-wallet">
-                    <h1 class="title">官方钱包</h1>
-                    <div class="introduce">
-                        <div class="first-wallet">
-                            <img src="./images/default-logo.png"/>
-                            <div class="wallet-introduce" v-if="walletList.length>0">
-                                <h1>{{walletList[0].title}}</h1>
-                                <p>{{walletList[0].summary}}</p>
-                                <ul class="link clearfix">
-                                    <li>
-                                        <a href="https:www.baidu.com" target="_blank">{{walletList[0].dowonloadLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK">{{walletList[0].githubLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[0].developer}}</a>
-                                    </li>
-                                </ul>
+                <div class='bottom'>
+                    <div class="authority-wallet">
+                        <h1 class="title">官方钱包</h1>
+                        <div class="introduce">
+                            <div class="first-wallet">
+                                <img src="./images/default-logo.png"/>
+                                <div class="wallet-introduce" v-if="walletList.length>0">
+                                    <h1>{{walletList[0].title}}</h1>
+                                    <p>{{walletList[0].summary}}</p>
+                                    <ul class="link clearfix">
+                                        <li>
+                                            <a href="https:www.baidu.com" target="_blank">{{walletList[0].dowonloadLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK">{{walletList[0].githubLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[0].developer}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="second-wallet">
-                            <img src="./images/default-logo.png"/>
-                            <div class="wallet-introduce"  v-if="walletList.length>0">
-                                <h1>{{walletList[1].title}}</h1>
-                                <p>{{walletList[1].summary}}</p>
-                                <ul class="link clearfix">
-                                    <li>
-                                        <a href="https:www.baidu.com" target="_blank">{{walletList[1].dowonloadLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK">{{walletList[1].githubLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[1].developer}}</a>
-                                    </li>
-                                </ul>
+                            <div class="second-wallet">
+                                <img src="./images/default-logo.png"/>
+                                <div class="wallet-introduce"  v-if="walletList.length>0">
+                                    <h1>{{walletList[1].title}}</h1>
+                                    <p>{{walletList[1].summary}}</p>
+                                    <ul class="link clearfix">
+                                        <li>
+                                            <a href="https:www.baidu.com" target="_blank">{{walletList[1].dowonloadLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK">{{walletList[1].githubLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[1].developer}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="third-wallet">
-                            <img src="./images/default-logo.png"/>
-                            <div class="wallet-introduce"  v-if="walletList.length>0">
-                                <h1>{{walletList[2].title}}</h1>
-                                <p>{{walletList[2].summary}}</p>
-                                <ul class="link clearfix">
-                                    <li>
-                                        <a href="https:www.baidu.com" target="_blank">{{walletList[2].dowonloadLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK">{{walletList[2].githubLink}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[2].developer}}</a>
-                                    </li>
-                                </ul>
+                            <div class="third-wallet">
+                                <img src="./images/default-logo.png"/>
+                                <div class="wallet-introduce"  v-if="walletList.length>0">
+                                    <h1>{{walletList[2].title}}</h1>
+                                    <p>{{walletList[2].summary}}</p>
+                                    <ul class="link clearfix">
+                                        <li>
+                                            <a href="https:www.baidu.com" target="_blank">{{walletList[2].dowonloadLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK">{{walletList[2].githubLink}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[2].developer}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <h1 class="title">第三方钱包</h1>
-                <div class="third-party-wallet">
-                    <div class="summary">
-                        <span>没有第三方钱包，点击提交</span>
-                        <button class="buttonSytle">Submit</button>
+                    <div class="third-party-wallet">
+                        <div class="summary">
+                            <span>没有第三方钱包，点击提交</span>
+                            <button class="buttonSytle">Submit</button>
+                        </div>
                     </div>
                 </div>
+
             </div>
         <com-footer></com-footer>
     </div>
@@ -123,7 +126,7 @@
                 this.walletList = data;
         });
         },
-        
+
         //监视
         watch: {
 
@@ -137,8 +140,12 @@
 </script>
 
 <style lang="less" scoped>
-    .wallet{
-        padding:110px 100px 0 100px;
+        .wallet-wrap{
+            .bottom{
+                padding: 26px 0 40px;
+            }
+        }
+        // padding:110px 100px 0 100px;
         .watermark{
             opacity: 0.2;
             font-family: ArialMT;
@@ -253,7 +260,6 @@
                 text-align: center;
             }
         }
-    }
     .time-and-number {
         position: relative;
         width: 592px;

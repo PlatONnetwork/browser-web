@@ -28,7 +28,8 @@
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-class": "^0.3.0"
+    "vuex-class": "^0.3.0",
+    "web3": "^1.0.0-beta.36"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
