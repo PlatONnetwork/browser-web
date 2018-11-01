@@ -42,7 +42,7 @@
                                     <span>余额</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.balance}}ATP</span>
+                                    <span>{{balance}}ATP</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -163,12 +163,14 @@
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+    import contractService from '@/services/web3-services'
     export default {
         //组件名
         name: 'contract-detail-wrap',
         //实例的数据对象
         data () {
             return {
+                balance:'',
                 count:0,
                 activeTab:1,
                 type:'transfer',
@@ -250,7 +252,7 @@
         props: {},
         //计算
         computed: {
-            ...mapGetters(['chainId']),
+            ...mapGetters(['chainId','chainHttp']),
         },
         //方法
         methods: {
@@ -336,6 +338,9 @@
             },
             //获取地址信息详情
             getDetail() {
+                //获取余额
+                this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
+                // this.balance = contractService.getBalance(this.address)
                 let param = {
                     // cid:'',
                     address: this.address,
@@ -369,6 +374,8 @@
             this.address = this.$route.query.address;
             this.description = this.$route.query.description;
             this.descriptionProp = this.$route.query.description;
+            //设置节点地址
+            contractService.serProvider(this.chainHttp)
             //获取交易列表
             this.getDetail();
         },

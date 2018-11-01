@@ -25,7 +25,9 @@
                         <header class="time-and-number time2">
                             Transactions
                         </header>
-                        <div class='position-pending'>待处理</div>
+                        <div class='position-pending'>
+                            <!-- <img src="./images/1112121.gif" alt=""> -->
+                            待处理</div>
                         <div class="inputdata">
                             <span>#{{detailInfo.txHash}}</span>
                             <span v-clipboard:copy="detailInfo.txHash" v-clipboard:success="onCopy" v-clipboard:error="onError">
@@ -413,6 +415,8 @@ button {
             top: 0px;
             font-size: 12px;
             color: #fcff0a;
+            background:url(images/zhuandong.gif) no-repeat left center;
+            padding-left:12px;
         }
     }
     .data-detail {
