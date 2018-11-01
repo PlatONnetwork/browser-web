@@ -1,7 +1,5 @@
 //引入web3.js
-// let Web3 = require('web3')
 import Web3 from 'web3'
-// let web3 = new Web3()
 class contractService{
     constructor(){
         this.web3 = null
