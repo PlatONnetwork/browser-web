@@ -2,9 +2,6 @@
     <div class="wallet-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
             <div class="content-area">
-                <!-- <p class="watermark">
-                    钱包
-                </p> -->
                 <div class="top">
                     <header class="time-and-number">
                         Wallet
@@ -14,9 +11,6 @@
                             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                             <el-breadcrumb-item>钱包</el-breadcrumb-item>
                         </el-breadcrumb>
-                        <!-- <div>   //原型右边有按钮，UI去掉
-                            <el-button type="primary">+提交</el-button>
-                        </div> -->
                     </div>
                 </div>
                 <div class='bottom'>
@@ -30,13 +24,13 @@
                                     <p>{{walletList[0].summary}}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a href="https:www.baidu.com" target="_blank">{{walletList[0].dowonloadLink}}</a>
+                                            <a :href="walletList[0].dowonloadLink" target="_blank">下载链接</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK">{{walletList[0].githubLink}}</a>
+                                            <a :href="walletList[0].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[0].developer}}</a>
+                                            <a :href="walletList[0].developer" class="icon-link-3">开发者网站</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -48,13 +42,13 @@
                                     <p>{{walletList[1].summary}}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a href="https:www.baidu.com" target="_blank">{{walletList[1].dowonloadLink}}</a>
+                                            <a :href="walletList[1].dowonloadLink" target="_blank">下载链接</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK">{{walletList[1].githubLink}}</a>
+                                            <a :href="walletList[1].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[1].developer}}</a>
+                                            <a :href="walletList[1].developer" class="icon-link-3">开发者网站</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -66,13 +60,13 @@
                                     <p>{{walletList[2].summary}}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a href="https:www.baidu.com" target="_blank">{{walletList[2].dowonloadLink}}</a>
+                                            <a :href="walletList[2].dowonloadLink" target="_blank">下载链接</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK">{{walletList[2].githubLink}}</a>
+                                            <a :href="walletList[2].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a href="https://t.me/PlatONHK" class="icon-link-3">{{walletList[2].developer}}</a>
+                                            <a :href="walletList[2].developer" class="icon-link-3">开发者网站</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -82,8 +76,8 @@
                     <h1 class="title">第三方钱包</h1>
                     <div class="third-party-wallet">
                         <div class="summary">
-                            <span>没有第三方钱包，点击提交</span>
-                            <button class="buttonSytle">Submit</button>
+                            <span>没有第三方钱包，点击</span>
+                            <button class="el-btn">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -146,14 +140,6 @@
             }
         }
         // padding:110px 100px 0 100px;
-        .watermark{
-            opacity: 0.2;
-            font-family: ArialMT;
-            font-size: 64px;
-            color: #3C425D;
-            letter-spacing: 0;
-            line-height: 64px;
-        }
         .top{
             display: flex;
             justify-content: space-between;
@@ -237,7 +223,7 @@
             .summary{
                 margin: auto;
                 // width: 50%;
-                padding: 70px 0 0 70px;
+                padding: 55px 0 0 70px;
             }
             span{
                 // width: 300px;
@@ -247,17 +233,7 @@
                 letter-spacing: 0;
             }
             button{
-                width: 80px;
-                height: 32px;
-                margin: 0 0 0 8px;
-                background: #252C57;
                 border: 1px solid #333A60;
-                //button中的字体样式
-                font-family: ArialMT;
-                font-size: 12px;
-                color: #FFFF00;
-                letter-spacing: 0;
-                text-align: center;
             }
         }
     .time-and-number {
