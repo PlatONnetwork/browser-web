@@ -24,7 +24,7 @@
                     <el-form  :inline="true" ref="form" :model="form" label-width="80px" :rules='rules'>
                         <!-- 谷歌机器人验证地方 -->
                         <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  data-callback="robotVerified"></div> -->
-                        <com-recaptcha ref='recaptcha'
+                        <com-recaptcha ref='recaptcha' @verify='verify'
                         ></com-recaptcha>
                         <br/>
                         <br/>
@@ -47,15 +47,16 @@
             </div>
         </div>
        <com-footer></com-footer>
-       <!-- <remote-js src="https://www.google.com/recaptcha/api.js" ></remote-js> -->
+       <iframe id="ifile" style="display:none" :src="src"></iframe>
     </div>
 </template>
-<script lang='ts'>
-    import comRecaptcha from '@/components/recaptcha/recaptcha'
+<script lang="ts">
     import Component from 'vue-class-component'
+    import comRecaptcha from '@/components/recaptcha/recaptcha'
     import comHeader from '@/components/header/header.vue'
     import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
+    import apiConfig from '@/config/API-config'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
@@ -64,7 +65,8 @@
         //实例的数据对象
         data () {
             return {
-                disabledBtn:true,
+                src:'',
+                disabledBtn:false,
                 address:'',
                 form:{
                     value:'',
@@ -83,62 +85,62 @@
                         { required: true, message: '请选择日期', trigger: 'change'}
                     ]
                 },
-                response:''
+                response:'',
+                exportname:''
             }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
-            // 'disabledBtn':function(){
-            //     console.log(localStorage.getItem('response'))
-            //     return localStorage.getItem('response')?false:true
-            // }
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
-            downloadFn(){
-                // console.log(this.response)
-                this.submit();
-                // this.$refs.form.validate((valid)=>{
-                //     if(valid){
-                //         console.log(this.form.value)
-                //     }
-                // })
+            verify(data){
+                console.warn('传给父组件的token',data)
+                this.response = data
+                this.response ? this.sameFn() : this.$message.error('请验证您是否是机器人！')
             },
+            downloadFn(){
+                //父组件调用子组件方法
+                this.$refs.recaptcha.getResponse()
+            },
+            sameFn(){
+                this.$refs.form.validate((valid)=>{
+                    if(valid){
+                        let param = {
+                            cid:this.chainId,
+                            address:this.address,
+                            date:this.form.value
+                        }
+                        if(this.exportname=='account'){
+                            //导出地址详情
+                            // let iframe =document.getElementById('ifile')
+                            // console.log(iframe.src)
+                            // document.getElementById("ifile").src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                            this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                        }else if(this.exportname=='contract'){
+                            this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                        }
+                    }
+                })
+            }
         },
         //生命周期函数
         created(){
-            this.address = this.$route.query.address;
-            this.description = this.$route.query.description;
-            this.descriptionProp = this.$route.query.description;
-            this.response=localStorage.getItem('response');
+            this.address = this.$route.query.address
+            this.description = this.$route.query.description
+            this.descriptionProp = this.$route.query.description
+            this.exportname = this.$route.query.exportname
         },
-        destroyed() {
-            localStorage.removeItem('response')
-        },
-        //监视
-        watch: {
-            'response':function(){
-
-                let response = localStorage.getItem('response')
-                response?this.disabledBtn=false:this.disabledBtn=true
-            },
-
+        mounted(){
         },
         //组件
         components: {
             comHeader,
             comFooter,
             comRecaptcha
-            // 'remote-js':{
-            //     render(createElement){
-            //         return createElement('script',{attrs:{type:'text/javascript',src:this.src, async:'async',defer:'defer'}})
-            //     },
-            //     props:{
-            //         src:{type:String,required:true}
-            //     },
-            // }
         }
     }
 </script>

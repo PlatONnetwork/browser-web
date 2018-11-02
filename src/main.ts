@@ -11,7 +11,7 @@ import filters from './filters/index'
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
 import '../static/css/iconfont.css'
-
+import '../static/js/date-format.js'
 // less
 import '@/less/index.less'
 import { mapActions } from 'vuex'
@@ -20,7 +20,7 @@ Vue.use(ElementUI)
 Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
-
+// window.responseInfo = '';
 const browserLanguage: string = navigator.language.toLowerCase()
 const i18n = new VueI18n({
     locale: browserLanguage,

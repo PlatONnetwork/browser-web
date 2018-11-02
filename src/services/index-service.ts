@@ -153,11 +153,11 @@ class IndexService extends Ws {
     getBlockData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getBlockData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data)
+                        return resolve(res.data.slice(0,10))
                     } else {
                         throw new Error(`todo`)
                     }
@@ -170,11 +170,11 @@ class IndexService extends Ws {
     updateBlockData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateBlockData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data)
+                        return resolve(res.data.slice(0, 10))
                     } else {
                         throw new Error(`todo`)
                     }
@@ -191,7 +191,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getTransactionData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data)
+                        return resolve(res.data.slice(0, 10))
                     } else {
                         throw new Error(`todo`)
                     }
@@ -208,9 +208,9 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateTransactionData`, res)
                     if (res.code === 0) {
-                        if (list.length >= 10) { list.shift() }
-                        list.push(res.data)
-                        return resolve(list)
+                        // if (list.length >= 10) { list.shift() }
+                        // list.push(res.data)
+                        return resolve(res.data.slice(0, 10))
                     } else {
                         throw new Error(`todo`)
                     }
