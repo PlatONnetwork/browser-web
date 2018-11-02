@@ -62,13 +62,14 @@
                 <p class="second-floor-text second-floor-text1">每日交易笔数</p>
                 <p class="transactions">过去24小时交易笔数实时统计</p>
                 <ul class="num-box clearfix">
+                    <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                     <!-- secondFloorData.dayTransaction -->
+                    <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
+                    <!-- <li>2</li>
                     <li>0</li>
                     <li>2</li>
                     <li>0</li>
-                    <li>2</li>
-                    <li>0</li>
-                    <li>2</li>
+                    <li>2</li> -->
                 </ul>
             </slideritem>
             <slideritem class="third-floor">
@@ -79,10 +80,13 @@
                             Blocks
                         </header>
                         <p class="second-floor-text">最新区块</p>
-                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName">
+                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="480">
                             <el-table-column prop="height" label="区块高度" width="180">
+                                <template slot-scope="scope">
+                                    <span class='cursor normal'>{{scope.row.height}}</span>
+                                </template>
                             </el-table-column>
-                            <el-table-column prop="timeStamp" label="币龄" width="180">
+                            <el-table-column prop="timestamp" label="币龄" width="180">
                             </el-table-column>
                             <el-table-column prop="node" label="出块节点">
                             </el-table-column>
@@ -100,12 +104,28 @@
                             Transactions
                         </header>
                         <p class="second-floor-text">最新交易</p>
-                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName">
+                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="480">
                             <el-table-column prop="txHash" label="交易哈希" width="180">
+                                <template slot-scope="scope">
+                                    <span class='cursor normal'>{{scope.row.txHash}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column prop="from" label="From" width="180">
+                                <template slot-scope="scope">
+                                    <span class='cursor normal'>{{scope.row.from}}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label=""  width="40">
+                                <template slot-scope="scope">
+                                    <span>
+                                        <i class='iconfont icon--icon-to iconto'></i>
+                                    </span>
+                                </template>
                             </el-table-column>
                             <el-table-column prop="to" label="to">
+                                <template slot-scope="scope">
+                                    <span class='cursor normal'>{{scope.row.to}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column prop="value" label="数额">
                             </el-table-column>
@@ -174,7 +194,7 @@ export default class Index extends Vue {
 
     // 滑动配置[obj]
     options: object = {
-        currentPage: 2, // 当前页码
+        currentPage: 0, // 当前页码
         thresholdDistance: 500, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
@@ -184,7 +204,7 @@ export default class Index extends Vue {
         slidesToScroll: 1, // 每次滑动项数
     };
 
-    blockData: Array<object> = [
+    blockData: any = [
         {
             height: 33, //区块高度
             timeStamp: 33333, //出块时间
@@ -228,6 +248,46 @@ export default class Index extends Vue {
             return 'odd-row';
         }
     }
+    format(timestamp){
+        let date = new Date(timestamp),//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-',
+         M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
+         D = date.getDate() + ' ',
+         h = date.getHours() + ':',
+         m = date.getMinutes() + ':',
+         s = date.getSeconds();
+        //  debugger
+        return Y+M+D+h+m+s;
+    }
+    updateChart(data){
+        //遍历data  得到 x轴  双 y轴
+        let xList=[],yListTime=[],yListNum=[]
+        data.forEach((item,index)=>{
+            // debugger
+            // this.format(item.time)
+            xList.push(item.height)
+            // yListTime.push(this.format(item.time))
+            yListTime.push(item.time)
+            yListNum.push(item.transaction)
+        })
+        // debugger
+        console.log(yListTime)
+        blockChart.update({
+            xAxis:[
+                {
+                    data:xList
+                }
+            ],
+            series:[
+                {
+                    data:yListTime
+                },
+                {
+                    data:yListNum
+                }
+            ]
+        })
+    }
 
     mounted() {
         //初始化图表
@@ -236,22 +296,26 @@ export default class Index extends Vue {
     created() {
         console.log(indexService)
         indexService.getOverviewData().then((data)=>{
+            //初始数据
             this.currentOverViewData=data;
         })
         indexService.updatOverviewData().then((data)=>{
-            // this.currentOverViewData=data;
+            this.currentOverViewData=data;
         })
         indexService.getSecondFloorData().then((data)=>{
             this.secondFloorData=data;
+            // let blockStatisticList = this.secondFloorData["blockStatisticList"]
+            this.updateChart(this.secondFloorData["blockStatisticList"])
         })
         indexService.updateSecondFloorData().then((data)=>{
-            // this.secondFloorData=data;
+            this.secondFloorData=data;
+            this.updateChart(this.secondFloorData["blockStatisticList"])
         })
         indexService.getBlockData().then((data)=>{
-            // this.secondFloorData=data;
+            this.blockData=data;
         })
         indexService.updateBlockData(this.blockData).then((data)=>{
-            // this.secondFloorData=data;
+            this.blockData=data;
         })
         indexService.getTransactionData().then((data)=>{
             this.transactionData=data;
