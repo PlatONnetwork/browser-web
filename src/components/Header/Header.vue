@@ -41,7 +41,7 @@
             <el-button type="primary" class="el-btn el-searchs" @click="searchFn">查询</el-button>
         </div>
         <div class="right-most">
-            <el-dropdown @command="handleCommand">
+            <el-dropdown @command="handleCommand" placement="bottom-start">
                 <span class="el-dropdown-link">
                     {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
@@ -51,7 +51,7 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown @command="handleCommandLangage">
+            <el-dropdown @command="handleCommandLangage" placement="bottom-start">
                 <span class="el-dropdown-link">
                     {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
@@ -210,13 +210,16 @@
         left: 0;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: center;   //居中对齐
         height: 60px;
         padding:0 100px;
         margin: 0 auto;
         // color: #FFF;
         background: #040B27;
         z-index:9999;
+        .menu{
+            margin: 0 10% 0 0;
+        }
     }
     .logo{
         display: inline-block;
@@ -251,46 +254,29 @@
             border: 0px;
         }
     }
-    .el-menu--popup{
-        .el-menu-item{
-            // background: #0E1438;
-            // border: 4px solid rgba(180,185,194,0.20);
-            // box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
-            
-            a{  
-                width: 150px;
-                height: 30px;
-                display: block;
-                color: #FFF;
-            }
-            :hover{
-                background: #1F254C;
-            }
-            :active{
-                background: #0F83CD;
+    .right-most{
+        width: 200px;
+        div{
+            font-family: ArialMT;
+            font-size: 14px;
+            color: #D7DDE9;
+            letter-spacing: 0;
+            text-align: right;
+            .el-dropdown-link {
+                cursor: pointer;
             }
         }
     }
-    .right-most
-        div{
-        font-family: ArialMT;
-        font-size: 14px;
-        color: #D7DDE9;
-        letter-spacing: 0;
-        text-align: right;
-        :first-child{
+    .right-most > .el-dropdown:first-child{
             margin-right: 25px;
-        }
-    .el-dropdown-link {
-        cursor: pointer;
-        } 
     }
     .el-dropdown-menu{
-        background: #0E1438;
-        border: 1px solid rgba(180,185,194,0.20);
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+        // background: #0E1438;
+        // border: 0 0 0 0 !important;
+        // box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
         padding: 0 0 0 0;
         .el-dropdown-menu__item{
+            line-height: 62px;
             color: #8D9BB8;
             letter-spacing: 0;
         }
@@ -350,37 +336,32 @@
             border-bottom: 0px;
         }
     }
-    
-    .el-menu--horizontal{
-        background: #0E1438;
-        border: 4px solid rgba(180,185,194,0.20);
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    .el-menu--horizontal,.el-menu--horizontal>ul{
+        // background: #0E1438;
+        // border: 4px solid rgba(180,185,194,0.20);
+        // box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
         border: 0px;
-        .el-menu{
-            background: #FFF;
+    }
+    .el-menu--popup,.el-menu--popup>li{
+        background: #0E1438 !important;
+    }
+    .el-menu--popup{
+        min-width: 150px;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        a{  
+            color: #8D9BB8;
         }
-        .el-menu--popup{
-            width: 100px;
-            background: #FFF;
-            margin: 0 0 0 10px;
+        .el-menu-item:hover{
+            background: #1F254C !important;
         }
-        .el-menu--popup-bottom-start{
-            background: #FFF;
-        }.el-menu--popup .el-menu-item{
-            background: #FFF;
-        }.el-menu--popup-bottom-start .el-menu-item{
-            background: #FFF;
-        }
-        ul{
-            background: #FFF;
+        .el-menu-item:active{
+            background: #0F83CD !important;
         }
     }
-    // .el-submenu ul{
-    //     background: rgb(0, 255, 255);
-    // }
-    //箭头翻转
-    .el-dropdown :hover .el-icon-arrow-down {
-    -webkit-transform: rotate(180deg);
-    transform: rotateZ(180deg); 
+    //右边的dropdown
+    .el-dropdown-menu{
+        padding: 0 0 0 0;
+        border: 0px solid #ebeef5;
     }
 </style>

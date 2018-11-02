@@ -2,24 +2,22 @@
     <div class="wallet-wrap">
         <com-header :descriptionProp='descriptionProp'></com-header>
             <div class="content-area">
-                <div class="top">
-                    <header class="time-and-number">
-                        Wallet
-                    </header>
-                    <div class="crumb second-floor-text">
-                        <el-breadcrumb separator-class="el-icon-arrow-right">
-                            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                            <el-breadcrumb-item>钱包</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div>
+                <header class="time-and-number">
+                    Wallet
+                </header>
+                <div class="crumb second-floor-text">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item>钱包</el-breadcrumb-item>
+                    </el-breadcrumb>
                 </div>
                 <div class='bottom'>
                     <div class="authority-wallet">
                         <h1 class="title">官方钱包</h1>
                         <div class="introduce">
-                            <div class="first-wallet">
-                                <img src="./images/default-logo.png"/>
-                                <div class="wallet-introduce" v-if="walletList.length>0">
+                            <div class="first-wallet" v-if="walletList.length>0">
+                                <img :src="walletList[0].icon"/>
+                                <div class="wallet-introduce">
                                     <h1>{{walletList[0].title}}</h1>
                                     <p>{{walletList[0].summary}}</p>
                                     <ul class="link clearfix">
@@ -81,7 +79,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         <com-footer></com-footer>
     </div>
@@ -118,6 +115,7 @@
         created(){
             apiService.get("../../../static/json/walletConfig.json").then((data)=>{
                 this.walletList = data;
+                console.log(walletList[0].icon);
         });
         },
 
@@ -134,113 +132,98 @@
 </script>
 
 <style lang="less" scoped>
-        .wallet-wrap{
-            .bottom{
-                padding: 26px 0 40px;
-            }
-        }
-        // padding:110px 100px 0 100px;
-        .top{
-            display: flex;
-            justify-content: space-between;
-        }
-        .authority-wallet{
-            .title{
-            padding: 16px 0;
-            }
-            .introduce{
-                display: flex;
-                flex-direction: row;
-                color: #D7DDE9;
-                h1{
-                    padding: 15px 0 6px 0;
-                    // font-family: ArialMT;
-                    font-size: 14px;
-                    letter-spacing: 0;
-                }
-                p{
-                    font-size: 12px;
-                }
-                .wallet-introduce{
-                    height: 150px;
-                    position: relative;
-                }
-                ul{
-                    position:absolute;
-                    bottom:25px;
-                }
-                .link li{
-                    float: left;
-                    margin-right: 10px;
-                    width: 90px;
-                    height: 30px;
-                }
-                .link a{
-                    display: block;
-                    text-align: center;
-                    line-height: 30px;   //设置行高，达到垂直居中
-                    width: 80px;
-                    height: 32px;
-                    background: #252C57;
-                    border: 1px solid #333A60;
-                    //button中的字体样式
-                    font-family: ArialMT;
-                    font-size: 12px;
-                    color: #FFFF00;
-                    letter-spacing: 0;
-                    text-align: center;
-                }>div{
-                    width: 460px;
-                    height: 150px;
-                    background-image: linear-gradient(-135deg, #272E50 0%, #0B1137 100%);
-                    box-shadow: 0 2px 4px 0 rgba(9,18,47,0.50);
-                }
-            }
-            .second-wallet{
-                margin:0 60px 0 60px;
-            }
-            .wallet-introduce{
-                // display: inline-block;
-                margin-left: 130px;
-            }
-        }
-        img{
-            padding: 30px 0 0 33px;
-            float: left;
-        }
-        h1.title{
-            padding: 16px 0;
-            font-family: ArialMT;
-            font-size: 12px;
-            color: #D7DDE9;
+    .bottom{
+        padding: 26px 0 40px;
+    }
+    .introduce{
+        display: flex;
+        justify-content: space-between;   //弹性布局，两端对齐
+        color: #D7DDE9;
+        h1{
+            padding: 15px 0 6px 0;
+            // font-family: ArialMT;
+            font-size: 14px;
             letter-spacing: 0;
-            // border-bottom: 1px solid rgb(100, 107, 116);   原型有下划线，UI去掉
         }
-        .third-party-wallet{
+        p{
+            font-size: 12px;
+        }
+        .wallet-introduce{
+            position: relative;
+            height: 150px;
+            min-width: 300px;
+            margin: 0 0 0 130px;
+        }
+        ul{
+            position:absolute;
+            bottom:25px;
+        }
+        .link li{
+            float: left;
+            margin-right: 10px;
+            width: 90px;
+            height: 30px;
+        }
+        .link a{
+            display: block;
+            text-align: center;
+            line-height: 30px;   //设置行高，达到垂直居中
+            width: 80px;
+            height: 32px;
+            background: #252C57;
+            border: 1px solid #333A60;
+            //button中的字体样式
+            // font-family: ArialMT;
+            font-size: 12px;
+            color: #FFFF00;
+            letter-spacing: 0;
+            text-align: center;
+            border-radius: 4px;
+        }>div{
             width: 460px;
             height: 150px;
             background: url('./images/background-third-party.png') no-repeat;
-            .summary{
-                margin: auto;
-                // width: 50%;
-                padding: 55px 0 0 70px;
-            }
-            span{
-                // width: 300px;
-                font-family: ArialMT;
-                font-size: 16px;
-                color: #D7DDE9;
-                letter-spacing: 0;
-            }
-            button{
-                border: 1px solid #333A60;
-            }
+            background-size: 460px 150px;
         }
+    }
+    img{
+        padding: 30px 0 0 33px;
+        float: left;
+    }
+    h1.title{
+        padding: 16px 0 16px 7px;
+        font-family: ArialMT;
+        font-size: 12px;
+        color: #D7DDE9;
+        letter-spacing: 0;
+    }
+    .third-party-wallet{
+        width: 460px;
+        height: 150px;
+        background: url('./images/background-third-party.png') no-repeat;
+        background-size: 460px 150px;
+        .summary{
+            margin: auto;
+            padding: 60px 0 0 70px;
+        }
+        span{
+            font-family: ArialMT;
+            font-size: 16px;
+            color: #D7DDE9;
+            letter-spacing: 0;
+        }
+        button{
+            width: 80px;
+            height: 32px;
+            border: 1px solid #333A60;
+        }
+    }
     .time-and-number {
         position: relative;
         width: 592px;
         height: 48px;
         font-size: 64px;
+        font-weight: 600;
         line-height: 30px;
         letter-spacing: 3.8px;
         color: #3c425d;
