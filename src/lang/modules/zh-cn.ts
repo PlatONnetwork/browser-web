@@ -1,5 +1,7 @@
+import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 export default {
     menu: { // 菜单
+        home: '首页',
         index: '首页',
         blockChain: '区块链',
         blockChainItem:{
@@ -51,5 +53,64 @@ export default {
         thirdPartyWallet: '第三方钱包',
         nothirdPartyWallet: '无第三方钱包，请点击',
         submitBtn: '提交'
-    }
+    },
+    tradeAbout:{
+        morethen:'总共寻获超过',
+        transactions:'交易',
+        record:'显示最新500k记录',
+        hash:'交易哈希值',
+        block:'区块',
+        age:'块龄',
+        from:'发送方',
+        to:'接收方',
+        value:'数额',
+        fee:'交易费用',
+        create:'合约创建',
+        contract:'合约',
+        before:'前',
+        txInfo:'交易信息',
+        viewLeft:'查看前一个交易',
+        viewRight:'查看后一个交易',
+        information:'Transaction Information',
+        timestamp:'时间戳',
+        txHash:'交易hash',
+        txReceiptStatus:'状态',
+        actualTxCost:'交易费用',
+        energonLimit:'能量限制',
+        energonUsed:'消耗的能量',
+        energonPrice:'能量价格',
+        blockHeight:'区块',
+        inputData:'发出数据',
+        confirmNum:'区块确认'
+    },
+    // tradePendingAbout: {
+    //     morethen: '总共寻获超过',
+    //     transactions: '交易',
+    //     record: '显示最新500k记录',
+    //     hash: '交易哈希值',
+    //     block: '区块',
+    //     age: '块龄',
+    //     from: '发送方',
+    //     to: '接收方',
+    //     value: '数额',
+    //     fee: '交易费用',
+    //     create: '合约创建',
+    //     contract: '合约',
+    //     before: '前',
+    //     txInfo: '交易信息',
+    //     viewLeft: '查看前一个交易',
+    //     viewRight: '查看后一个交易',
+    //     information: 'Transaction Information',
+    //     timestamp: '时间戳',
+    //     txHash: '交易hash',
+    //     txReceiptStatus: '状态',
+    //     actualTxCost: '交易费用',
+    //     energonLimit: '能量限制',
+    //     energonUsed: '消耗的能量',
+    //     energonPrice: '能量价格',
+    //     blockHeight: '区块',
+    //     inputData: '发出数据',
+    //     confirmNum: '区块确认'
+    // }
+    ...zhLocale
 }

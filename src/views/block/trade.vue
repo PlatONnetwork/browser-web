@@ -8,16 +8,16 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>交易</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record '>
-                        <span>总共寻获超过>{{pageTotal}}交易</span>
-                        <span v-if='newRecordFlag'>（显示最新500K记录）</span>
+                        <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{pageTotal}}&nbsp;{{$t('tradeAbout.transactions')}}</span>
+                        <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -26,23 +26,23 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="交易哈希值">
+                        <el-table-column :label="$t('tradeAbout.hash')">
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason' class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" label="区块">
+                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="块龄">
+                        <el-table-column  :label="$t('tradeAbout.age')">
                             <template slot-scope="scope">
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}前</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="发送方">
+                        <el-table-column :label="$t('tradeAbout.from')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
@@ -54,19 +54,19 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="接收方">
+                        <el-table-column :label="$t('tradeAbout.to')">
                             <template slot-scope="scope">
-                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                <span :title="$t('tradeAbout.contract')" v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('tradeAbout.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="数额">
+                        <el-table-column :label="$t('tradeAbout.value')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}ATP</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" label="交易费用"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
