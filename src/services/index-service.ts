@@ -157,7 +157,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getBlockData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data.slice(0,10))
+                        return resolve(res.data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -174,7 +174,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateBlockData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data.slice(0, 10))
+                        return resolve(res.data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -191,7 +191,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getTransactionData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data.slice(0, 10))
+                        return resolve(res.data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -208,9 +208,9 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateTransactionData`, res)
                     if (res.code === 0) {
-                        // if (list.length >= 10) { list.shift() }
-                        // list.push(res.data)
-                        return resolve(res.data.slice(0, 10))
+                        if (list.length >= 10) { list.shift() }
+                        list.push(res.data)
+                        return resolve(list)
                     } else {
                         throw new Error(`todo`)
                     }

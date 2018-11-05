@@ -233,7 +233,7 @@
                 descripFn: {
                     pending : '待处理交易',
                     trade : '交易',
-                    block:'区块'
+                    block:'区块',
                 },
                 pathFn: {
                     pending : '/trade-pending',

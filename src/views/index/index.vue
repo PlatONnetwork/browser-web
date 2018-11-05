@@ -1,6 +1,6 @@
 <template>
     <div class="index">
-        <com-header></com-header>
+        <com-header :descriptionProp='descriptionProp'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
                 <ul class="footer-box">
@@ -75,15 +75,21 @@
             <slideritem class="third-floor">
                 <div class="floor-area">
                     <div class="floor-area-box">
-                        <el-button class="fr">Realtime</el-button>
                         <header class="time-and-number">
                             Blocks
                         </header>
-                        <p class="second-floor-text">最新区块</p>
+                        <!-- <p class="second-floor-text">最新区块</p> -->
+                        <div class="second-floor-text2">
+                            <p class='fl'>最新区块</p>
+                            <p class='fr'>
+                                <el-button  type="primary" class="el-same el-sameon" v-if='blockOnBtn' @click='blockOffFn'>Realtime</el-button>
+                                <el-button  type="primary" class="el-same el-sameoff" v-if='blockOffBtn' @click='blockOnFn'>Realtime</el-button>
+                            </p>
+                        </div>
                         <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="480">
                             <el-table-column prop="height" label="区块高度" width="180">
                                 <template slot-scope="scope">
-                                    <span class='cursor normal'>{{scope.row.height}}</span>
+                                    <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="timestamp" label="币龄" width="180">
@@ -96,23 +102,30 @@
                             </el-table-column>
                         </el-table>
 
-                        <div class="view-all">View All</div>
+                        <div class="view-all" @click='blockAllFn'>View All</div>
                     </div>
                     <div class="floor-area-box">
-                        <el-button class="fr">Realtime</el-button>
+                        <!-- <el-button class="fr el-same">Realtime</el-button> -->
                         <header class="time-and-number">
                             Transactions
                         </header>
-                        <p class="second-floor-text">最新交易</p>
+                        <!-- <p class="second-floor-text">最新交易</p> -->
+                        <div class="second-floor-text2">
+                            <p class='fl'>最新交易</p>
+                            <p class='fr'>
+                                <el-button  type="primary" class="el-same el-sameon" v-if='tradeOnBtn' @click='tradeOffFn'>Realtime</el-button>
+                                <el-button  type="primary" class="el-same el-sameoff" v-if='tradeOffBtn' @click='tradeOnFn'>Realtime</el-button>
+                            </p>
+                        </div>
                         <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="480">
                             <el-table-column prop="txHash" label="交易哈希" width="180">
                                 <template slot-scope="scope">
-                                    <span class='cursor normal'>{{scope.row.txHash}}</span>
+                                    <span class='cursor normal'  @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="from" label="From" width="180">
                                 <template slot-scope="scope">
-                                    <span class='cursor normal'>{{scope.row.from}}</span>
+                                    <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column label=""  width="40">
@@ -123,14 +136,19 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="to" label="to">
+                                <!-- <template slot-scope="scope">
+                                    <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                </template> -->
                                 <template slot-scope="scope">
-                                    <span class='cursor normal'>{{scope.row.to}}</span>
+                                    <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="value" label="数额">
                             </el-table-column>
                         </el-table>
-                        <div class="view-all">View All</div>
+                        <div class="view-all" @click='tradeAllFn'>View All</div>
                     </div>
                 </div>
                 <com-footer></com-footer>
@@ -164,8 +182,14 @@ const blockChart = new chartService(),
     },
 })
 export default class Index extends Vue {
+    blockOnBtn:boolean = true
+    blockOffBtn:boolean = false
+    tradeOnBtn:boolean = true
+    tradeOffBtn:boolean = false
+    descriptionProp:string = ''
     @Getter
     info;
+
     currentOverViewData: object = {
         currentHeight: '666666', //当前区块高度
         node: '666666', //出块节点
@@ -194,7 +218,7 @@ export default class Index extends Vue {
 
     // 滑动配置[obj]
     options: object = {
-        currentPage: 0, // 当前页码
+        currentPage: 2, // 当前页码
         thresholdDistance: 500, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
@@ -240,7 +264,6 @@ export default class Index extends Vue {
         let r = this.$refs;
         blockChart.init(r.blockChart, blockChart.blocklineOption);
     }
-
     tableRowClassName({row: object, rowIndex}) {
         if (rowIndex % 2 === 0) {
             return 'even-row';
@@ -288,7 +311,92 @@ export default class Index extends Vue {
             ]
         })
     }
-
+    //区块 重启订阅
+    blockOnFn(){
+        this.blockOnBtn = true;
+        this.blockOffBtn = false;
+        //重启订阅
+    }
+    //区块 取消订阅
+    blockOffFn(){
+        this.blockOnBtn = false;
+        this.blockOffBtn = true;
+        //取消订阅
+    }
+    //交易 重启订阅
+    tradeOnFn(){
+        this.tradeOnBtn = true;
+        this.tradeOffBtn = false;
+        //重启订阅
+    }
+    //交易 取消订阅
+    tradeOffFn(){
+        this.tradeOnBtn = false;
+        this.tradeOffBtn = true;
+        //取消订阅
+    }
+    //区块查看全部
+    blockAlLFn(){
+        this.$router.push({
+            path:'/block'
+        })
+    }
+    //交易查看全部
+    tradeAllFn(){
+        this.$router.push({
+            path:'/trade'
+        })
+    }
+    //进入区块详情
+    goBlockDetail(index, row) {
+        this.$router.push({
+            path: '/block-detail',
+            query: {
+                height: row.height,
+            },
+        });
+    }
+    //进入交易哈希详情
+    goTradeDetail(index, row) {
+        this.$router.push({
+            path: '/trade-detail',
+            query: {
+                txHash: row.txHash,
+            },
+        });
+    }
+    //进入钱包地址详情
+    goAddressDetail(index, row) {
+        this.$router.push({
+            path: '/address-detail',
+            query: {
+                address: row.from,
+                description: '',
+            },
+        });
+    }
+    //进入钱包地址详情或者合约详情
+    goDetail(index, row) {
+        if (row.txType == 'transactionExecute') {
+            //进入合约详情
+            this.$router.push({
+                path: '/contract-detail',
+                query: {
+                    address: row.to,
+                    description: '',
+                },
+            });
+        } else {
+            //进入钱包地址详情
+            this.$router.push({
+                path: '/address-detail',
+                query: {
+                    address: row.to,
+                    description: '',
+                },
+            });
+        }
+    }
     mounted() {
         //初始化图表
         this.initChart();
@@ -335,6 +443,23 @@ export default class Index extends Vue {
 .slider-pagination-bullet-active {
     background: none;
     border: solid 2px #ffff00;
+}
+.el-same{
+    border-width:0;
+    outline:none;
+    border-color: transparent;
+    span{
+        padding-left:8px;
+        font-size: 14px;
+    }
+    &:hover{
+        border-width:0;
+        border-color: transparent;
+    }
+    &:active{
+        border-width:0;
+        border-color: transparent;
+    }
 }
 </style>
 <style lang="less" scoped>
@@ -434,6 +559,9 @@ div.slider-item {
 .second-floor-text1 {
     top: 590px;
 }
+.buttons{
+    // position: absolute;
+}
 
 .chart-box {
     display: flex;
@@ -496,5 +624,31 @@ div.slider-item {
     background: #0d1333;
     text-align: center;
     color: #fcff0a;
+}
+.second-floor-text2{
+    position: relative;
+    top: -43px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    .fl{
+        margin-top: 25px;
+    }
+}
+.el-sameon{
+    background:url(images/on.png) no-repeat #252C57 8px center;
+    color: #FFFF00;
+    border-width:0;
+}
+.el-sameoff{
+    background:url(images/off.png) no-repeat #131736 8px center;
+    color: #2b2d45;
 }
 </style>
