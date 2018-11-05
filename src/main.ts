@@ -5,6 +5,7 @@ import store from './vuex/store'
 import VueI18n from 'vue-i18n'
 import messages from '@/lang/index'
 import ElementUI from 'element-ui'
+import ElementLocale from 'element-ui/lib/locale'
 import VueClipboard from 'vue-clipboard2'
 import filters from './filters/index'
 // css
@@ -25,7 +26,8 @@ const i18n = new VueI18n({
     locale: browserLanguage,
     messages
 })
-
+// ElementLocale.i18n((key, value) => i18n.t(key, value))
+console.log(ElementLocale.i18n((key, value) => i18n.t(key, value)))
 export default new Vue({
     el: '#app',
     router,
