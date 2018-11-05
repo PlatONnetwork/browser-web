@@ -2,7 +2,6 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 export default {
     menu: { // 菜单
         home: '首页',
-        index: '首页',
         blockChain: '区块链',
         blockChainItem:{
             viewTxns: '查看交易',
@@ -22,7 +21,7 @@ export default {
     },
     breadcrumb: {
         walletWatermark: '钱包',
-        index: '首页',
+        home: '首页',
         wallet: '钱包'
     },
     footer: {

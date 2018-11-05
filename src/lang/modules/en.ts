@@ -2,7 +2,6 @@ import enLocale from 'element-ui/lib/locale/lang/en'
 export default {
     menu: { // 菜单
         home:'Home',
-        index: 'Index',
         blockChain: 'BlockChain',
         blockChainItem:{
                 viewTxns: 'ViewTxns',
@@ -22,7 +21,7 @@ export default {
     },
     breadcrumb: {
         walletWatermark: 'Wallet',
-        index: 'Index',
+        home: 'Home',
         wallet: 'Wallet'
     },
     footer: {

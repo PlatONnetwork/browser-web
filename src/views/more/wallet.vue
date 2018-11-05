@@ -7,7 +7,7 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">{{ $t("breadcrumb.index") }}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{ $t("breadcrumb.home") }}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{ $t("breadcrumb.wallet") }}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>

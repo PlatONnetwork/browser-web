@@ -8,7 +8,7 @@
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#D7DDE9" active-text-color="#D7DDE9">
                 <el-menu-item index="/">
-                    <router-link to="/">{{ $t("menu.index") }}</router-link>
+                    <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
                 <el-submenu index="2">
                     <template slot="title">{{ $t("menu.blockChain") }}</template>
