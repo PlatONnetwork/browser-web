@@ -15,9 +15,9 @@
                     <div class="authority-wallet">
                         <h1 class="title">官方钱包</h1>
                         <div class="introduce">
-                            <div class="first-wallet" v-if="walletList.length>0">
-                                <img :src="walletList[0].icon"/>
-                                <div class="wallet-introduce">
+                            <div class="first-wallet">
+                                <img src="./images/default-logo.png"/>
+                                <div class="wallet-introduce" v-if="walletList.length>0">
                                     <h1>{{walletList[0].title}}</h1>
                                     <p>{{walletList[0].summary}}</p>
                                     <ul class="link clearfix">
@@ -75,7 +75,10 @@
                     <div class="third-party-wallet">
                         <div class="summary">
                             <span>没有第三方钱包，点击</span>
-                            <button class="el-btn">Submit</button>
+                            <!-- <button class="el-btn">Submit</button>   使用表单替换button，跳转到邮箱 -->
+                            <form action="MAILTO:someone@example.com" method="post" enctype="text/plain">
+                            <input class="el-btn" type="submit" value="Submit">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -95,7 +98,7 @@
         //实例的数据对象
         data () {
             return {
-                imgSrc: '/static/images/demo.png',
+                // imgSrc: '/static/images/demo.png',
                 walletList: [],
                 descriptionProp:'wallet'
             }
@@ -115,7 +118,7 @@
         created(){
             apiService.get("../../../static/json/walletConfig.json").then((data)=>{
                 this.walletList = data;
-                console.log(walletList[0].icon);
+                // console.log(walletList[0].icon);
         });
         },
 
@@ -138,6 +141,7 @@
     .introduce{
         display: flex;
         justify-content: space-between;   //弹性布局，两端对齐
+        flex-wrap :wrap;   //当屏幕宽度变小，一行放不下，就换行
         color: #D7DDE9;
         h1{
             padding: 15px 0 6px 0;
@@ -151,7 +155,6 @@
         .wallet-introduce{
             position: relative;
             height: 150px;
-            min-width: 300px;
             margin: 0 0 0 130px;
         }
         ul{
@@ -167,12 +170,12 @@
         .link a{
             display: block;
             text-align: center;
-            line-height: 30px;   //设置行高，达到垂直居中
+            line-height: 30px;   // 设置行高，达到垂直居中
             width: 80px;
             height: 32px;
             background: #252C57;
             border: 1px solid #333A60;
-            //button中的字体样式
+            // button中的字体样式
             // font-family: ArialMT;
             font-size: 12px;
             color: #FFFF00;
@@ -181,9 +184,18 @@
             border-radius: 4px;
         }>div{
             width: 460px;
+            // width: auto;
             height: 150px;
             background: url('./images/background-third-party.png') no-repeat;
             background-size: 460px 150px;
+        }
+    }
+    form{
+        display: inline;
+        input{
+            width: 80px;
+            height: 32px;
+            border: 1px solid #333A60;
         }
     }
     img{
@@ -211,11 +223,6 @@
             font-size: 16px;
             color: #D7DDE9;
             letter-spacing: 0;
-        }
-        button{
-            width: 80px;
-            height: 32px;
-            border: 1px solid #333A60;
         }
     }
     .time-and-number {
