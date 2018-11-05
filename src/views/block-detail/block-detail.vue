@@ -16,7 +16,7 @@
             </div>
             <div class="bottom">
                 <div class="left">
-                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块'>
+                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块' v-if='btnLeftFlag'>
                         <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
@@ -48,7 +48,7 @@
                                     <span>时间戳:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timestamp}}</span>
+                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块'>
+                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块' v-if='btnRightFlag'>
                         <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
@@ -154,6 +154,8 @@ export default {
     data() {
         return {
             height: '',
+            btnLeftFlag:true,
+            btnRightFlag:true,
             disabledLeft: false,
             disabledRight: false,
             detailInfo: {
@@ -210,6 +212,7 @@ export default {
         },
         //向左 上一个
         goLeft() {
+            this.btnRightFlag = true;
             this.disabledRight = false;
             let param = {
                 // cid:'',
@@ -223,10 +226,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是第一个 置灰
+                        this.btnLeftFlag = false;
                         this.disabledLeft = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$router.replace({
                             path: '/block-detail',
@@ -237,6 +242,7 @@ export default {
                         this.detailInfo = data;
                         this.height = data.height;
                     } else {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$message.error(errMsg);
                     }
@@ -247,6 +253,7 @@ export default {
         },
         //向右 下一个
         goRight() {
+            this.btnLeftFlag = true;
             this.disabledLeft = false;
             let param = {
                 // cid:'',
@@ -260,10 +267,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是最后一个 置灰
+                        this.btnRightFlag = false;
                         this.disabledRight = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$router.replace({
                             path: '/block-detail',
@@ -274,6 +283,7 @@ export default {
                         this.detailInfo = data;
                         this.height = data.height;
                     } else {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$message.error(errMsg);
                     }

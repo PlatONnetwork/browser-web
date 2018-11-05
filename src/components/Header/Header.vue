@@ -6,42 +6,42 @@
             <p>The PlatON Block Exploer</p>
         </div>
         <div class="menu">
-            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#FFF" active-text-color="#FFE32C">
-            <el-menu-item index="/">
-                <router-link to="/">首页</router-link>
-            </el-menu-item>
-            <el-submenu index="2">
-                <template slot="title">区块链</template>
-                <el-menu-item index="/trade">
-                    <router-link to="/trade">查看交易</router-link>
+            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#D7DDE9" active-text-color="#D7DDE9">
+                <el-menu-item index="/">
+                    <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/trade-pending">
-                    <router-link to="/trade-pending">查看待处理交易</router-link>
+                <el-submenu index="2">
+                    <template slot="title">{{ $t("menu.blockChain") }}</template>
+                    <el-menu-item index="/trade">
+                        <router-link to="/trade">{{ $t("menu.blockChainItem.viewTxns") }}</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/trade-pending">
+                        <router-link to="/trade-pending">{{ $t("menu.blockChainItem.viewPendingTxns") }}</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/block">
+                        <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
+                    </el-menu-item>
+                </el-submenu>
+                <el-menu-item index="/node">
+                    <router-link to="/node">{{ $t("menu.node") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/block">
-                    <router-link to="/block">查看区块</router-link>
-                </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="/node">
-                <router-link to="/node">节点</router-link>
-            </el-menu-item>
-            <el-submenu index="3">
-                <template slot="title">{{ $t("menu.more") }}</template>
-                <el-menu-item index="/wallet">
-                    <router-link to="/wallet">钱包</router-link>
-                </el-menu-item>
-                <el-menu-item index="/document">
-                    <router-link to="/document">开发帮助</router-link>
-                </el-menu-item>
-            </el-submenu>
-        </el-menu>
+                <el-submenu index="3">
+                    <template slot="title">{{ $t("menu.more") }}</template>
+                    <el-menu-item index="/wallet">
+                        <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/document">
+                        <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link>
+                    </el-menu-item>
+                </el-submenu>
+            </el-menu>
         </div>
         <div class="search">
-            <el-input placeholder="请输入区块高度/地址/块哈希/交易哈希" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
-            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">查询</el-button>
+            <el-input :placeholder="$t('search.placeHolder')" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
         </div>
         <div class="right-most">
-            <el-dropdown  @command="handleCommand">
+            <el-dropdown @command="handleCommand" placement="bottom-start">
                 <span class="el-dropdown-link">
                     {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
@@ -51,7 +51,7 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown @command="handleCommandLangage">
+            <el-dropdown @command="handleCommandLangage" placement="bottom-start">
                 <span class="el-dropdown-link">
                     {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
@@ -68,7 +68,7 @@
     import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import store from '@/vuex/store'
-    // import search from '@/components/search/search.vue'
+    import contractService from '@/services/web3-services'
     export default {
         //组件名
         name: 'header-wrap',
@@ -101,7 +101,7 @@
         props: ['descriptionProp'],
         //计算
         computed: {
-            ...mapGetters(['chainList','chainId']),
+            ...mapGetters(['chainList','chainId','chainHttp']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
@@ -112,6 +112,10 @@
             handleCommand(command){
                 console.log('网络切换》》》',command)
                 store.commit("CHANGE_ID",command)
+                let arr = this.chainList.filter((item,index)=>{
+                    return item.cid == command
+                })
+                store.commit("CHANGE_HTTP",arr[0].http)
             },
             handleCommandLangage(command){
                 this.$i18n.locale = command
@@ -188,6 +192,7 @@
         },
         //生命周期函数
         created(){
+
         },
         //监视
         watch: {},
@@ -205,13 +210,15 @@
         left: 0;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: center;   //居中对齐
         height: 60px;
         padding:0 100px;
         margin: 0 auto;
-        color: #FFF;
         background: #040B27;
         z-index:9999;
+        .menu{
+            margin: 0 10% 0 0;
+        }
     }
     .logo{
         display: inline-block;
@@ -239,18 +246,47 @@
         }
     }
     .el-menu-demo{
-        width: 326px
-        }
-    .right-most div{
-        font-family: ArialMT;
-        font-size: 14px;
-        color: #D7DDE9;
-        letter-spacing: 0;
-        text-align: right;
-        :first-child{
-            padding-right: 25px;
+        width: 380px;
+        // border: 0px;
+        border-bottom-color: #040B27; 
+        li.el-menu-item.is-active{
+            border: 0px;
         }
     }
+    .right-most{
+        width: 200px;
+        div{
+            font-family: ArialMT;
+            font-size: 14px;
+            color: #D7DDE9;
+            letter-spacing: 0;
+            text-align: right;
+            .el-dropdown-link {
+                cursor: pointer;
+            }
+        }
+    }
+    .right-most > .el-dropdown:first-child{
+            margin-right: 25px;
+    }
+    .el-dropdown-menu{
+        // background: #0E1438;
+        padding: 0 0 0 0;
+        .el-dropdown-menu__item{
+            color: #8D9BB8;
+            letter-spacing: 0;
+        }
+        .el-dropdown-menu__item:hover{
+            background-color: #1F254C;
+        }
+        .el-dropdown-menu__item:focus{
+            background-color: #0F83CD;
+        }
+        :first-child{
+            margin: 9px 0 0 0;
+        }
+    }
+    
 </style>
 <style lang="less">
     .search{
@@ -273,7 +309,7 @@
             border-bottom-right-radius:0;
             box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
             border:none;
-            color:#fff;
+            color: #fff;
         }
         .el-input--mini .el-input__inner{
             height:40px;
@@ -291,5 +327,37 @@
             border-bottom-left-radius:0;
         }
     }
+    .menu{
+        .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+            border-bottom: 0px;
+        }
+        .el-menu--horizontal > .el-submenu .el-submenu__title{
+            line-height: 62px;
+        }
+    }
+    .el-menu--horizontal,.el-menu--horizontal>ul{
+        border: 0px;
+    }
+    .el-menu--popup,.el-menu--popup>li{
+        background: #0E1438 !important;
+    }
+    .el-menu--popup{
+        min-width: 150px;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        a{  
+            color: #8D9BB8;
+        }
+        .el-menu-item:hover{
+            background: #1F254C !important;
+        }
+        .el-menu-item:active{
+            background: #0F83CD !important;
+        }
+    }
+    //右边的dropdown
+    .el-dropdown-menu{
+        padding: 0 0 0 0;
+        border: 0px solid #ebeef5;
+    }
 </style>
-

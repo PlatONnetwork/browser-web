@@ -9,5 +9,9 @@ export const commonGetter = {
     //获取链id
     chainId(state){
         return state.chainId
+    },
+    //获取链http
+    chainHttp(state) {
+      return state.chainHttp
     }
 }

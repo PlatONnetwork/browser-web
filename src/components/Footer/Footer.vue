@@ -1,28 +1,28 @@
 <template>
     <div class="footer-wrap">
         <div class="platon">
-            <p class="footer-img">XXXX是PlatON区块链资源管理与分析平台</p>
+            <p class="footer-intro">{{ $t("footer.desc") }}</p>
             <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
-            <p class="link-top">链接</p>
+            <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
-                    <a href="http://www.baidu.com" target="_blank">开发帮助</a>
+                    <a href="http://www.baidu.com" target="_blank">{{ $t("footer.help") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">钱包</a>
+                    <a href="#" target="_blank">{{ $t("footer.wallet") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">PlatOn官网</a>
+                    <a href="#" target="_blank">{{ $t("footer.officialWebsite") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">白皮书</a>
+                    <a href="#" target="_blank">{{ $t("footer.whitePaper") }}</a>
                 </li>
             </ul>    
         </div>
         <div class="community">
-            <p class="link-top">社区</p>
+            <p class="link-top">{{ $t("footer.community") }}</p>
             <ul class="clearfix">
                 <li>
                     <a href="http://www.baidu.com" class="icon-link-1" target="_blank"></a>
@@ -92,25 +92,26 @@
         bottom: 0;
         display: flex;
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
-        height: 190px; // UI设计图 190px
+        height: 170px; // UI设计图 190px改为170px 2018-11-2
         color: #FFF;
         background-color: #0D1333;
-        padding: 30px 100px 0 100px;
+        padding: 20px 100px 0 100px;
     }
     .platon{
         background: url('./images/footer-logo.png') no-repeat;
+        background-size: 155px 54px;
         >p{
             // font-family: ArialMT;
             font-size: 12px;
             color: #93A5C8;
             letter-spacing: 0;
         }
-        .footer-img{
-            padding-top: 88px;
+        .footer-intro{
+            padding-top: 80px;
         }
         .copyright{
-            display: block;
-            margin-top: 33px;
+            font-size: 11px;
+            margin: 25px 0 0 0;
         }
     }
     .link {
@@ -128,7 +129,6 @@
     .link-top{
         width: 200px;
         padding-bottom: 25px;
-        // border-bottom: 1px dotted rgb(100, 107, 116);   原型有下划线，UI目前去掉
     }
     .community{
         // font-family: ArialMT;

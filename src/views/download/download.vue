@@ -21,12 +21,14 @@
                     </div>
                 </div>
                 <div class='download'>
-                    <el-form  :inline="true" ref="form" :model="form" label-width="80px">
+                    <el-form  :inline="true" ref="form" :model="form" label-width="80px" :rules='rules'>
                         <!-- 谷歌机器人验证地方 -->
-                        <div class="g-recaptcha" data-sitekey="yoursitekey"></div>
+                        <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  data-callback="robotVerified"></div> -->
+                        <com-recaptcha ref='recaptcha' @verify='verify'
+                        ></com-recaptcha>
                         <br/>
                         <br/>
-                        <el-form-item label='数据日期' class='margin20'>
+                        <el-form-item label='数据日期' class='margin20' prop='value'>
                             <el-date-picker
                                 v-model="form.value"
                                 type="date"
@@ -38,20 +40,23 @@
                             </el-date-picker>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" class="el-btn el-download" @click='downloadFn'>下载</el-button>
+                            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>下载</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
             </div>
         </div>
        <com-footer></com-footer>
+       <iframe id="ifile" style="display:none" :src="src"></iframe>
     </div>
 </template>
-<script lang='ts'>
+<script lang="ts">
     import Component from 'vue-class-component'
+    import comRecaptcha from '@/components/recaptcha/recaptcha'
     import comHeader from '@/components/header/header.vue'
     import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
+    import apiConfig from '@/config/API-config'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
@@ -60,6 +65,8 @@
         //实例的数据对象
         data () {
             return {
+                src:'',
+                disabledBtn:false,
                 address:'',
                 form:{
                     value:'',
@@ -73,32 +80,67 @@
                 },
                 description:'',
                 descriptionProp:'',
+                rules:{
+                    value:[
+                        { required: true, message: '请选择日期', trigger: 'change'}
+                    ]
+                },
+                response:'',
+                exportname:''
             }
         },
         //数组或对象，用于接收来自父组件的数据
         props: {},
         //计算
         computed: {
+            ...mapGetters(['chainId']),
         },
         //方法
         methods: {
+            verify(data){
+                console.warn('传给父组件的token',data)
+                this.response = data
+                this.response ? this.sameFn() : this.$message.error('请验证您是否是机器人！')
+            },
             downloadFn(){
-                console.log(this.form.value)
+                //父组件调用子组件方法
+                this.$refs.recaptcha.getResponse()
+            },
+            sameFn(){
+                this.$refs.form.validate((valid)=>{
+                    if(valid){
+                        let param = {
+                            cid:this.chainId,
+                            address:this.address,
+                            date:this.form.value
+                        }
+                        if(this.exportname=='account'){
+                            //导出地址详情
+                            // let iframe =document.getElementById('ifile')
+                            // console.log(iframe.src)
+                            // document.getElementById("ifile").src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                            this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                        }else if(this.exportname=='contract'){
+                            this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                        }
+                    }
+                })
             }
         },
         //生命周期函数
         created(){
-            this.address = this.$route.query.address;
-            this.description = this.$route.query.description;
-            this.descriptionProp = this.$route.query.description;
+            this.address = this.$route.query.address
+            this.description = this.$route.query.description
+            this.descriptionProp = this.$route.query.description
+            this.exportname = this.$route.query.exportname
         },
-        //监视
-        watch: {
+        mounted(){
         },
         //组件
         components: {
             comHeader,
-            comFooter
+            comFooter,
+            comRecaptcha
         }
     }
 </script>

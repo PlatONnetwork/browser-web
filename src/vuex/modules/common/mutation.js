@@ -8,5 +8,8 @@ export const commonMutation = {
     },
     ['CHANGE_ID'](state,id){
         state.chainId=id
+    },
+    ['CHANGE_HTTP'](state, http) {
+      state.chainHttp = http
     }
 }

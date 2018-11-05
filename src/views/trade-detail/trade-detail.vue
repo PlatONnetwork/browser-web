@@ -8,15 +8,15 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/trade' }">交易</el-breadcrumb-item>
-                        <el-breadcrumb-item>交易信息</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}} </el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade' }">{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradeAbout.txInfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="left">
-                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个交易'>
+                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' :title="$t('tradeAbout.viewLeft')" v-if='btnLeftFlag'>
                         <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
@@ -33,19 +33,19 @@
                         </div>
                     </div>
                     <div class="data-detail">
-                        <div class="data-title">交易信息</div>
+                        <div class="data-title">{{$t('tradeAbout.information')}}</div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>时间戳:</span>
+                                    <span>{{$t('tradeAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timestamp}}</span>
+                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易hash:</span>
+                                    <span>{{$t('tradeAbout.txHash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.txHash}}</span>
@@ -53,7 +53,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>状态:</span>
+                                    <span>{{$t('tradeAbout.txReceiptStatus')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span :class='{"market-normal":detailInfo.txReceiptStatus==1,"market-abnormal":detailInfo.txReceiptStatus==0}'>{{detailInfo.txReceiptStatus==1?'成功':(detailInfo.txReceiptStatus==0?'失败':'pending ')}}</span>
@@ -61,7 +61,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>数额:</span>
+                                    <span>{{$t('tradeAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.value}}ATP</span>
@@ -69,7 +69,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发送方:</span>
+                                    <span>{{$t('tradeAbout.from')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='cursor normal' @click='goAddressDetail(detailInfo.from)'>{{detailInfo.from}}</span>
@@ -77,11 +77,11 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>接收方:</span>
+                                    <span>{{$t('tradeAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.txType == "contractCreate"'>合约创建</span>
+                                    <span :title="$t('tradeAbout.contract')"  v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('tradeAbout.create')}}</span>
                                     <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
@@ -95,7 +95,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易费用:</span>
+                                    <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.actualTxCost}}</span>
@@ -103,7 +103,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量限制:</span>
+                                    <span>{{$t('tradeAbout.energonLimit')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonLimit}}</span>
@@ -111,7 +111,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>消耗的能量:</span>
+                                    <span>{{$t('tradeAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonUsed}}</span>
@@ -119,7 +119,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量价格:</span>
+                                    <span>{{$t('tradeAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonPrice}}</span>
@@ -127,16 +127,16 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块:</span>
+                                    <span>{{$t('tradeAbout.blockHeight')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>
-                                        <span class='cursor normal'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}区块确认)</span></span>
+                                        <span class='cursor normal'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发出数据:</span>
+                                    <span>{{$t('tradeAbout.inputData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true">
@@ -147,7 +147,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个交易'>
+                    <button @click='goRight' :disabled='disabledRight' class='cursor' :title="$t('tradeAbout.viewRight')"  v-if='btnRightFlag'>
                         <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
@@ -170,6 +170,8 @@ export default {
     data() {
         return {
             txHash: '',
+            btnLeftFlag:true,
+            btnRightFlag:true,
             disabledLeft: false,
             disabledRight: false,
             address: '11111111111',
@@ -265,6 +267,7 @@ export default {
         },
         //向左 上一个
         goLeft() {
+            this.btnRightFlag = true;
             this.disabledRight = false;
             let param = {
                 // cid:'',
@@ -278,10 +281,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是第一个 置灰
+                        this.btnLeftFlag = false;
                         this.disabledLeft = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$router.replace({
                             path: '/trade-detail',
@@ -292,6 +297,7 @@ export default {
                         this.detailInfo = data;
                         this.txHash = data.txHash;
                     } else {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$message.error(errMsg);
                     }
@@ -302,6 +308,7 @@ export default {
         },
         //向右 下一个
         goRight() {
+            this.btnLeftFlag = true;
             this.disabledLeft = false;
             let param = {
                 // cid:'',
@@ -315,10 +322,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是最后一个 置灰
+                        this.btnRightFlag = false;
                         this.disabledRight = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$router.replace({
                             path: '/trade-detail',
@@ -329,6 +338,7 @@ export default {
                         this.detailInfo = data;
                         this.txHash = data.txHash;
                     } else {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$message.error(errMsg);
                     }

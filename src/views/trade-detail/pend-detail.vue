@@ -25,7 +25,9 @@
                         <header class="time-and-number time2">
                             Transactions
                         </header>
-                        <div class='position-pending'>待处理</div>
+                        <div class='position-pending'>
+                            <!-- <img src="./images/1112121.gif" alt=""> -->
+                            待处理</div>
                         <div class="inputdata">
                             <span>#{{detailInfo.txHash}}</span>
                             <span v-clipboard:copy="detailInfo.txHash" v-clipboard:success="onCopy" v-clipboard:error="onError">
@@ -51,7 +53,7 @@
                                     <span>交易接收时间:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timestamp}}</span>
+                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -164,6 +166,8 @@ export default {
     data() {
         return {
             txHash: '',
+            btnLeftFlag:true,
+            btnRightFlag:true,
             disabledLeft: false,
             disabledRight: false,
             address: '11111111111',
@@ -259,6 +263,7 @@ export default {
         },
         //向左 上一个
         goLeft() {
+            this.btnRightFlag = true;
             this.disabledRight = false;
             let param = {
                 // cid:'',
@@ -272,10 +277,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是第一个 置灰
+                        this.btnLeftFlag = false;
                         this.disabledLeft = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$router.replace({
                             path: 'trade-pending-detail',
@@ -286,6 +293,7 @@ export default {
                         this.detailInfo = data;
                         this.txHash = data.txHash;
                     } else {
+                        this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$message.error(errMsg);
                     }
@@ -296,6 +304,7 @@ export default {
         },
         //向右 下一个
         goRight() {
+            this.btnLeftFlag = true;
             this.disabledLeft = false;
             let param = {
                 // cid:'',
@@ -309,10 +318,12 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 1) {
                         //这是最后一个 置灰
+                        this.btnRightFlag = false;
                         this.disabledRight = true;
                         this.$message.warning(errMsg);
                         return false;
                     } else if (code == 0) {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$router.replace({
                             path: 'trade-pending-detail',
@@ -323,6 +334,7 @@ export default {
                         this.detailInfo = data;
                         this.txHash = data.txHash;
                     } else {
+                        this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$message.error(errMsg);
                     }
@@ -413,6 +425,8 @@ button {
             top: 0px;
             font-size: 12px;
             color: #fcff0a;
+            background:url(images/zhuandong.gif) no-repeat left center;
+            padding-left:12px;
         }
     }
     .data-detail {

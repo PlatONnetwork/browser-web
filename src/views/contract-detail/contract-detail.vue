@@ -42,7 +42,7 @@
                                     <span>余额</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.balance}}ATP</span>
+                                    <span>{{balance}}ATP</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -113,7 +113,7 @@
                                     <el-table-column label="确认时间">
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
-                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.blockTime}}</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column label="类型">
@@ -163,12 +163,14 @@
     import apiService from '@/services/API-services'
     import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+    import contractService from '@/services/web3-services'
     export default {
         //组件名
         name: 'contract-detail-wrap',
         //实例的数据对象
         data () {
             return {
+                balance:'',
                 count:0,
                 activeTab:1,
                 type:'transfer',
@@ -250,7 +252,7 @@
         props: {},
         //计算
         computed: {
-            ...mapGetters(['chainId']),
+            ...mapGetters(['chainId','chainHttp']),
         },
         //方法
         methods: {
@@ -274,25 +276,44 @@
                     query:{
                         address:this.address,
                         description: this.description,
+                        exportname:'contract'
                     }
                 })
             },
             goTradeDetail(index, row) {
-                if (this.description == 'trade') {
-                    this.$router.push({
-                        path: '/trade-detail',
-                        query: {
-                            txHash: row.txHash,
-                        },
-                    });
-                } else if (this.description == 'pending') {
+                if(row.txReceiptStatus == -1){
+                    //待处理
                     this.$router.push({
                         path: '/trade-pending-detail',
                         query: {
                             txHash: row.txHash,
+                            // description: 'pending',
+                        },
+                    });
+                }else{
+                    this.$router.push({
+                        path: '/trade-detail',
+                        query: {
+                            txHash: row.txHash,
+                            // description: 'trade',
                         },
                     });
                 }
+                // if (this.description == 'trade') {
+                //     this.$router.push({
+                //         path: '/trade-detail',
+                //         query: {
+                //             txHash: row.txHash,
+                //         },
+                //     });
+                // } else if (this.description == 'pending') {
+                //     this.$router.push({
+                //         path: '/trade-pending-detail',
+                //         query: {
+                //             txHash: row.txHash,
+                //         },
+                //     });
+                // }
             },
             goAddressDetail(index, row) {
                 if (row.from == this.address) {
@@ -336,6 +357,11 @@
             },
             //获取地址信息详情
             getDetail() {
+                //设置节点地址
+                contractService.serProvider(this.chainHttp)
+                //获取余额
+                this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
+                // this.balance = contractService.getBalance(this.address)
                 let param = {
                     // cid:'',
                     address: this.address,
@@ -369,6 +395,8 @@
             this.address = this.$route.query.address;
             this.description = this.$route.query.description;
             this.descriptionProp = this.$route.query.description;
+            //设置节点地址
+            // contractService.serProvider(this.chainHttp)
             //获取交易列表
             this.getDetail();
         },

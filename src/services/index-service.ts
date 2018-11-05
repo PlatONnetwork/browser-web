@@ -153,7 +153,7 @@ class IndexService extends Ws {
     getBlockData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getBlockData`, res)
                     if (res.code === 0) {
@@ -170,7 +170,7 @@ class IndexService extends Ws {
     updateBlockData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
+                this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`updateBlockData`, res)
                     if (res.code === 0) {
