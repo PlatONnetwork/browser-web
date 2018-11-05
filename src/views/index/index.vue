@@ -93,6 +93,9 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="timestamp" label="币龄" width="180">
+                                <!-- <template slot-scope="scope">
+                                    <span>{{new Date(scope.row.timestamp).Format('yyyy-MM-dd')}}</span>
+                                </template> -->
                             </el-table-column>
                             <el-table-column prop="node" label="出块节点">
                             </el-table-column>
@@ -101,8 +104,7 @@
                             <el-table-column prop="blockReward" label="奖励">
                             </el-table-column>
                         </el-table>
-
-                        <div class="view-all" @click='blockAllFn'>View All</div>
+                        <div class="view-all cursor" @click='viewBlock'>View All</div>
                     </div>
                     <div class="floor-area-box">
                         <!-- <el-button class="fr el-same">Realtime</el-button> -->
@@ -148,7 +150,7 @@
                             <el-table-column prop="value" label="数额">
                             </el-table-column>
                         </el-table>
-                        <div class="view-all" @click='tradeAllFn'>View All</div>
+                        <div class="view-all cursor" @click='tradeAllFn'>View All</div>
                     </div>
                 </div>
                 <com-footer></com-footer>
@@ -335,16 +337,17 @@ export default class Index extends Vue {
         this.tradeOffBtn = true;
         //取消订阅
     }
-    //区块查看全部
-    blockAlLFn(){
-        this.$router.push({
-            path:'/block'
-        })
-    }
     //交易查看全部
     tradeAllFn(){
         this.$router.push({
             path:'/trade'
+        })
+    }
+    //区块查看全部
+    viewBlock(){
+        console.log(11111)
+        this.$router.push({
+            path:'/block'
         })
     }
     //进入区块详情
@@ -403,34 +406,34 @@ export default class Index extends Vue {
     }
     created() {
         console.log(indexService)
-        indexService.getOverviewData().then((data)=>{
-            //初始数据
-            this.currentOverViewData=data;
-        })
-        indexService.updatOverviewData().then((data)=>{
-            this.currentOverViewData=data;
-        })
-        indexService.getSecondFloorData().then((data)=>{
-            this.secondFloorData=data;
-            // let blockStatisticList = this.secondFloorData["blockStatisticList"]
-            this.updateChart(this.secondFloorData["blockStatisticList"])
-        })
-        indexService.updateSecondFloorData().then((data)=>{
-            this.secondFloorData=data;
-            this.updateChart(this.secondFloorData["blockStatisticList"])
-        })
-        indexService.getBlockData().then((data)=>{
-            this.blockData=data;
-        })
-        indexService.updateBlockData(this.blockData).then((data)=>{
-            this.blockData=data;
-        })
-        indexService.getTransactionData().then((data)=>{
-            this.transactionData=data;
-        })
-        indexService.updateTransactionData(this.transactionData).then((data)=>{
-            this.transactionData=data;
-        })
+        // indexService.getOverviewData().then((data)=>{
+        //     //初始数据
+        //     this.currentOverViewData=data;
+        // })
+        // indexService.updatOverviewData().then((data)=>{
+        //     this.currentOverViewData=data;
+        // })
+        // indexService.getSecondFloorData().then((data)=>{
+        //     this.secondFloorData=data;
+        //     // let blockStatisticList = this.secondFloorData["blockStatisticList"]
+        //     this.updateChart(this.secondFloorData["blockStatisticList"])
+        // })
+        // indexService.updateSecondFloorData().then((data)=>{
+        //     this.secondFloorData=data;
+        //     this.updateChart(this.secondFloorData["blockStatisticList"])
+        // })
+        // indexService.getBlockData().then((data)=>{
+        //     this.blockData=data;
+        // })
+        // indexService.updateBlockData(this.blockData).then((data)=>{
+        //     this.blockData=data;
+        // })
+        // indexService.getTransactionData().then((data)=>{
+        //     this.transactionData=data;
+        // })
+        // indexService.updateTransactionData(this.transactionData).then((data)=>{
+        //     this.transactionData=data;
+        // })
     }
 }
 </script>

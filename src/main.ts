@@ -11,7 +11,6 @@ import filters from './filters/index'
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
 import '../static/css/iconfont.css'
-import '../static/js/date-format.js'
 // less
 import '@/less/index.less'
 import { mapActions } from 'vuex'
