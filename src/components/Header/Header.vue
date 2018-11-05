@@ -8,37 +8,37 @@
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#D7DDE9" active-text-color="#D7DDE9">
                 <el-menu-item index="/">
-                    <router-link to="/">首页</router-link>
+                    <router-link to="/">{{ $t("menu.index") }}</router-link>
                 </el-menu-item>
                 <el-submenu index="2">
-                    <template slot="title">区块链</template>
+                    <template slot="title">{{ $t("menu.blockChain") }}</template>
                     <el-menu-item index="/trade">
-                        <router-link to="/trade">查看交易</router-link>
+                        <router-link to="/trade">{{ $t("menu.blockChainItem.viewTxns") }}</router-link>
                     </el-menu-item>
                     <el-menu-item index="/trade-pending">
-                        <router-link to="/trade-pending">查看待处理交易</router-link>
+                        <router-link to="/trade-pending">{{ $t("menu.blockChainItem.viewPendingTxns") }}</router-link>
                     </el-menu-item>
                     <el-menu-item index="/block">
-                        <router-link to="/block">查看区块</router-link>
+                        <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
                 <el-menu-item index="/node">
-                    <router-link to="/node">节点</router-link>
+                    <router-link to="/node">{{ $t("menu.node") }}</router-link>
                 </el-menu-item>
                 <el-submenu index="3">
                     <template slot="title">{{ $t("menu.more") }}</template>
                     <el-menu-item index="/wallet">
-                        <router-link to="/wallet">钱包</router-link>
+                        <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
                     </el-menu-item>
                     <el-menu-item index="/document">
-                        <router-link to="/document">开发帮助</router-link>
+                        <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
             </el-menu>
         </div>
         <div class="search">
-            <el-input placeholder="请输入区块高度/地址/块哈希/交易哈希" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
-            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">查询</el-button>
+            <el-input :placeholder="$t('search.placeHolder')" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
         </div>
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start">
@@ -246,7 +246,7 @@
         }
     }
     .el-menu-demo{
-        width: 330px;
+        width: 380px;
         // border: 0px;
         border-bottom-color: #040B27; 
         li.el-menu-item.is-active{

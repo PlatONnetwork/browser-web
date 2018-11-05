@@ -3,32 +3,32 @@
         <com-header :descriptionProp='descriptionProp'></com-header>
             <div class="content-area">
                 <header class="time-and-number">
-                    Wallet
+                    {{ $t("breadcrumb.walletWatermark") }}
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>钱包</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{ $t("breadcrumb.index") }}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{ $t("breadcrumb.wallet") }}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
                 <div class='bottom'>
                     <div class="authority-wallet">
-                        <h1 class="title">官方钱包</h1>
+                        <h1 class="title">{{ $t("wallet.officeWallet") }}</h1>
                         <div class="introduce">
                             <div class="first-wallet">
                                 <img src="./images/default-logo.png"/>
                                 <div class="wallet-introduce" v-if="walletList.length>0">
-                                    <h1>{{walletList[0].title}}</h1>
-                                    <p>{{walletList[0].summary}}</p>
+                                    <h1>{{ $t("wallet.firstWallet.title") }}</h1>
+                                    <p>{{ $t("wallet.firstWallet.summary") }}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a :href="walletList[0].dowonloadLink" target="_blank">下载链接</a>
+                                            <a :href="walletList[0].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
                                             <a :href="walletList[0].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[0].developer" class="icon-link-3">开发者网站</a>
+                                            <a :href="walletList[0].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -36,17 +36,17 @@
                             <div class="second-wallet">
                                 <img src="./images/default-logo.png"/>
                                 <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{walletList[1].title}}</h1>
-                                    <p>{{walletList[1].summary}}</p>
+                                    <h1>{{ $t("wallet.secondWallet.title") }}</h1>
+                                    <p>{{ $t("wallet.secondWallet.summary") }}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a :href="walletList[1].dowonloadLink" target="_blank">下载链接</a>
+                                            <a :href="walletList[1].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
                                             <a :href="walletList[1].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[1].developer" class="icon-link-3">开发者网站</a>
+                                            <a :href="walletList[1].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -54,30 +54,30 @@
                             <div class="third-wallet">
                                 <img src="./images/default-logo.png"/>
                                 <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{walletList[2].title}}</h1>
-                                    <p>{{walletList[2].summary}}</p>
+                                    <h1>{{ $t("wallet.thirdWallet.title") }}</h1>
+                                    <p>{{ $t("wallet.thirdWallet.summary") }}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a :href="walletList[2].dowonloadLink" target="_blank">下载链接</a>
+                                            <a :href="walletList[2].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
                                             <a :href="walletList[2].githubLink">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[2].developer" class="icon-link-3">开发者网站</a>
+                                            <a :href="walletList[2].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h1 class="title">第三方钱包</h1>
+                    <h1 class="title">{{ $t("wallet.thirdPartyWallet") }}</h1>
                     <div class="third-party-wallet">
                         <div class="summary">
-                            <span>没有第三方钱包，点击</span>
+                            <span>{{ $t("wallet.nothirdPartyWallet") }}</span>
                             <!-- <button class="el-btn">Submit</button>   使用表单替换button，跳转到邮箱 -->
-                            <form action="MAILTO:someone@example.com" method="post" enctype="text/plain">
-                            <input class="el-btn" type="submit" value="Submit">
+                            <form target="_blank">
+                            <input class="el-btn" :formaction='formLink' type="submit" :value=" $t('wallet.submitBtn') ">
                             </form>
                         </div>
                     </div>
@@ -99,6 +99,7 @@
         data () {
             return {
                 // imgSrc: '/static/images/demo.png',
+                formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdNoozqk-McqJtvTs9HMk8TJlDR7rQy7KLbQuUKlaSZacyxrA/viewform?usp=sf_link',
                 walletList: [],
                 descriptionProp:'wallet'
             }
@@ -151,6 +152,7 @@
         }
         p{
             font-size: 12px;
+            padding-right: 20px;
         }
         .wallet-introduce{
             position: relative;
