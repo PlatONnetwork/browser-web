@@ -33,7 +33,7 @@
                         </el-table-column>
                         <el-table-column label="停留时间">
                             <template slot-scope="scope">
-                                <span>{{scope.row.dwellTime/60}}秒</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}前</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="能量限制">
@@ -90,6 +90,7 @@ import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 import apiService from '@/services/API-services';
 import menu from '@/components/menu/index.vue';
+import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     //组件名
@@ -169,6 +170,9 @@ export default {
     methods: {
         //查询
         searchFn() {},
+        timeDiffFn(beginTime,endTime){
+            return timeDiff(beginTime,endTime)
+        },
         tableRowClassName({row, rowIndex}) {
             if (rowIndex % 2 === 0) {
                 return 'even-row';

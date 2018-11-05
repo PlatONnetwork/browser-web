@@ -113,7 +113,7 @@
                                     <el-table-column label="确认时间">
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
-                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.blockTime}}</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column label="类型">
@@ -281,21 +281,39 @@
                 })
             },
             goTradeDetail(index, row) {
-                if (this.description == 'trade') {
-                    this.$router.push({
-                        path: '/trade-detail',
-                        query: {
-                            txHash: row.txHash,
-                        },
-                    });
-                } else if (this.description == 'pending') {
+                if(row.txReceiptStatus == -1){
+                    //待处理
                     this.$router.push({
                         path: '/trade-pending-detail',
                         query: {
                             txHash: row.txHash,
+                            // description: 'pending',
+                        },
+                    });
+                }else{
+                    this.$router.push({
+                        path: '/trade-detail',
+                        query: {
+                            txHash: row.txHash,
+                            // description: 'trade',
                         },
                     });
                 }
+                // if (this.description == 'trade') {
+                //     this.$router.push({
+                //         path: '/trade-detail',
+                //         query: {
+                //             txHash: row.txHash,
+                //         },
+                //     });
+                // } else if (this.description == 'pending') {
+                //     this.$router.push({
+                //         path: '/trade-pending-detail',
+                //         query: {
+                //             txHash: row.txHash,
+                //         },
+                //     });
+                // }
             },
             goAddressDetail(index, row) {
                 if (row.from == this.address) {

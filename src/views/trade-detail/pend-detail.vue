@@ -53,7 +53,7 @@
                                     <span>交易接收时间:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.timestamp}}</span>
+                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

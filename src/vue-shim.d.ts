@@ -12,6 +12,10 @@ declare global {
 declare interface Window {
   SockJS: Object;
   Stomp: Object;
+  Date:{
+    Format:Function,
+    [propName: string]: any
+  }
 }
 
 // 全局方法
