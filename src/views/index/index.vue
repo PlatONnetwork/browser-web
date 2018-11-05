@@ -184,7 +184,7 @@ export default class Index extends Vue {
         slidesToScroll: 1, // 每次滑动项数
     };
 
-    blockData: Array<object> = [
+    blockData: any = [
         {
             height: 33, //区块高度
             timeStamp: 33333, //出块时间
@@ -248,10 +248,10 @@ export default class Index extends Vue {
             // this.secondFloorData=data;
         })
         indexService.getBlockData().then((data)=>{
-            // this.secondFloorData=data;
+            this.blockData=data;
         })
         indexService.updateBlockData(this.blockData).then((data)=>{
-            // this.secondFloorData=data;
+            this.blockData=data;
         })
         indexService.getTransactionData().then((data)=>{
             this.transactionData=data;
