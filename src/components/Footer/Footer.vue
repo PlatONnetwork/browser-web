@@ -1,28 +1,28 @@
 <template>
     <div class="footer-wrap">
         <div class="platon">
-            <p class="footer-intro">XXXX是PlatON区块链资源管理与分析平台</p>
+            <p class="footer-intro">{{ $t("footer.desc") }}</p>
             <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
-            <p class="link-top">链接</p>
+            <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
-                    <a href="http://www.baidu.com" target="_blank">开发帮助</a>
+                    <a href="http://www.baidu.com" target="_blank">{{ $t("footer.help") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">钱包</a>
+                    <a href="#" target="_blank">{{ $t("footer.wallet") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">PlatOn官网</a>
+                    <a href="#" target="_blank">{{ $t("footer.officialWebsite") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">白皮书</a>
+                    <a href="#" target="_blank">{{ $t("footer.whitePaper") }}</a>
                 </li>
             </ul>    
         </div>
         <div class="community">
-            <p class="link-top">社区</p>
+            <p class="link-top">{{ $t("footer.community") }}</p>
             <ul class="clearfix">
                 <li>
                     <a href="http://www.baidu.com" class="icon-link-1" target="_blank"></a>
