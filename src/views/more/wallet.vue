@@ -14,12 +14,12 @@
                 <div class='bottom'>
                     <div class="authority-wallet">
                         <h1 class="title">{{ $t("wallet.officeWallet") }}</h1>
-                        <div class="introduce">
-                            <div class="first-wallet">
-                                <img src="./images/default-logo.png"/>
-                                <div class="wallet-introduce" v-if="walletList.length>0">
-                                    <h1>{{ $t("wallet.firstWallet.title") }}</h1>
-                                    <p>{{ $t("wallet.firstWallet.summary") }}</p>
+                        <div class="introduce" v-if="walletList.length>0">
+                            <div>
+                                <img :src="walletList[0].icon">
+                                <div class="wallet-introduce">
+                                    <h1>{{ walletTitle[0][lang].title }}</h1>
+                                    <p>{{ walletTitle[0][lang].summary }}</p>
                                     <ul class="link clearfix">
                                         <li>
                                             <a :href="walletList[0].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
@@ -33,11 +33,11 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="second-wallet">
-                                <img src="./images/default-logo.png"/>
+                            <div>
+                                <img :src="walletList[1].icon"/>
                                 <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{ $t("wallet.secondWallet.title") }}</h1>
-                                    <p>{{ $t("wallet.secondWallet.summary") }}</p>
+                                    <h1>{{ walletTitle[1][lang].title }}</h1>
+                                    <p>{{ walletTitle[1][lang].summary }}</p>
                                     <ul class="link clearfix">
                                         <li>
                                             <a :href="walletList[1].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
@@ -51,11 +51,11 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="third-wallet">
-                                <img src="./images/default-logo.png"/>
+                            <div>
+                                <img :src="walletList[2].icon"/>
                                 <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{ $t("wallet.thirdWallet.title") }}</h1>
-                                    <p>{{ $t("wallet.thirdWallet.summary") }}</p>
+                                    <h1>{{ walletTitle[2][lang].title }}</h1>
+                                    <p>{{ walletTitle[2][lang].summary }}</p>
                                     <ul class="link clearfix">
                                         <li>
                                             <a :href="walletList[2].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
@@ -90,6 +90,8 @@
 <script>
     //import  from ''
     import apiService from '@/services/API-services';
+    import {mapState,mapActions,mapGetters,mapMutations} from 'vuex'
+    import store from '@/vuex/store'
     import comHeader from '@/components/header/header.vue';
     import comFooter from '@/components/footer/footer.vue';
     export default {
@@ -98,8 +100,7 @@
         //实例的数据对象
         data () {
             return {
-                // imgSrc: '/static/images/demo.png',
-                formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdNoozqk-McqJtvTs9HMk8TJlDR7rQy7KLbQuUKlaSZacyxrA/viewform?usp=sf_link',
+                formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdNoozqk-McqJtvTs9HMk8TJlDR7rQy7KLbQuUKlaSZacyxrA/viewform?usp=sf_link',   // google表单
                 walletList: [],
                 descriptionProp:'wallet'
             }
@@ -109,7 +110,10 @@
         },
         //计算
         computed: {
-
+            ...mapGetters(['walletTitle']),
+            lang() {
+                return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
+            }
         },
         //方法
         methods: {

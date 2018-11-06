@@ -219,7 +219,7 @@
         right: 0;
         left: 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between;   //两端对齐
         align-items: center;   //居中对齐
         height: 60px;
         padding:0 100px;
@@ -264,6 +264,7 @@
         }
     }
     .right-most{
+        flex-shrink: 0;   // 网络切换+中英文不缩小
         width: 200px;
         div{
             font-family: ArialMT;

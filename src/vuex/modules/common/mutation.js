@@ -11,5 +11,8 @@ export const commonMutation = {
     },
     ['CHANGE_HTTP'](state, http) {
       state.chainHttp = http
-    }
+    },
+    ['CHANGE_TITLE'](state, title) {
+        state.data= title
+      }
 }

@@ -35,18 +35,6 @@ export default {
     },
     wallet: {
         officeWallet: '官方钱包',
-        firstWallet: {
-            title: 'xxx中',
-            summary: 'XXXX 是一个完全去中心化的轻节点移动钱包客户端，通过XXX可以创建PlatON区块链地址，并安全管理和存储PlatON区块链的数字资产。'
-        },
-        secondWallet: {
-            title: 'Edge',
-            summary: 'Edge是一个完全去中心化的全节点桌面客户端，除支持基本的钱包创建与管理之外，同时提供节点服务及管理、投票等功能。'
-        },
-        thirdWallet: {
-            title: 'xxx中',
-            summary: 'XXXX 是一个完全去中心化的轻节点移动钱包客户端，通过XXX可以创建PlatON区块链地址，并安全管理和存储PlatON区块链的数字资产。'
-        },
         download: '下载链接',
         developer: '开发者网站',
         thirdPartyWallet: '第三方钱包',
