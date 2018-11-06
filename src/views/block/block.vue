@@ -8,15 +8,15 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>区块</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('blockAbout.block')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共{{pageTotal}}区块</span>
+                        <span>{{$t('blockAbout.morethen')}}{{pageTotal}}{{$t('blockAbout.block')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -25,38 +25,38 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="区块">
+                        <el-table-column :label="$t('blockAbout.height')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="块龄">
+                        <el-table-column :label="$t('blockAbout.age')">
                             <template slot-scope="scope">
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}前</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="transaction" label="交易数"></el-table-column>
-                        <el-table-column prop="size" label="区块大小">
+                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')"></el-table-column>
+                        <el-table-column prop="size" :label="$t('blockAbout.size')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="出块节点">
+                        <el-table-column :label="$t('blockAbout.miner')">
                             <template slot-scope="scope">
                                 <span class='cursor normal'>{{scope.row.miner}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="能量消耗">
+                        <el-table-column :label="$t('blockAbout.energonUsed')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonUsed}}({{(scope.row.energonUsed/scope.row.energonLimit)*100}}%)</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="平均能量价值">
+                        <el-table-column :label="$t('blockAbout.energonAverage')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonAverage}}Ene</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="奖励">
+                        <el-table-column :label="$t('blockAbout.blockReward')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockReward}}ATP</span>
                             </template>

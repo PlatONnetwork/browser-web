@@ -137,7 +137,7 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`upSecondFloorData`, res)
+                    console.log(`updateSecondFloorData`, res)
                     if (res.code === 0) {
                         return resolve(res.data)
                     } else {

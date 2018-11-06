@@ -8,9 +8,9 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/trade-pending' }">待处理交易</el-breadcrumb-item>
-                        <el-breadcrumb-item>交易信息</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade-pending' }">{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradePendingAbout.txInfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         </header>
                         <div class='position-pending'>
                             <!-- <img src="./images/1112121.gif" alt=""> -->
-                            待处理</div>
+                            {{$t('tradePendingAbout.pending')}}</div>
                         <div class="inputdata">
                             <span>#{{detailInfo.txHash}}</span>
                             <span v-clipboard:copy="detailInfo.txHash" v-clipboard:success="onCopy" v-clipboard:error="onError">
@@ -37,12 +37,12 @@
                     </div>
                     <div class="data-detail">
                         <div class="data-title">
-                            <span>交易信息</span>
+                            <span>{{$t('tradePendingAbout.information')}}</span>
                         </div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>预计确认时间:</span>
+                                    <span>{{$t('tradePendingAbout.expectTime')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.expectTime}}</span>
@@ -50,7 +50,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易接收时间:</span>
+                                    <span>{{$t('tradePendingAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
@@ -58,7 +58,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易hash:</span>
+                                    <span>{{$t('tradePendingAbout.txHash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.txHash}}</span>
@@ -66,7 +66,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>数额:</span>
+                                    <span>{{$t('tradePendingAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.value}}ATP</span>
@@ -74,7 +74,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发送方:</span>
+                                    <span>{{$t('tradePendingAbout.from')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='cursor normal' @click='goAddressDetail(detailInfo.from)'>{{detailInfo.from}}</span>
@@ -82,17 +82,17 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>接收方:</span>
+                                    <span>{{$t('tradePendingAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span title='合约' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.txType == "contractCreate"'>合约创建</span>
+                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                     <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易费用:</span>
+                                    <span>{{$t('tradePendingAbout.fee')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='pending'>(Pending)</span>
@@ -100,7 +100,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量限制:</span>
+                                    <span>{{$t('tradePendingAbout.energonLimit')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonLimit}}</span>
@@ -108,7 +108,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>消耗的能量:</span>
+                                    <span>{{$t('tradePendingAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='pending'>(Pending)</span>
@@ -116,7 +116,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量价格:</span>
+                                    <span>{{$t('tradePendingAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonPrice}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
@@ -124,7 +124,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块:</span>
+                                    <span>{{$t('tradePendingAbout.blockHeight')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='pending'>(Pending)</span>
@@ -132,7 +132,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>发出数据:</span>
+                                    <span>{{$t('tradePendingAbout.inputData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true">
@@ -205,10 +205,10 @@ export default {
     //方法
     methods: {
         onCopy() {
-            this.$message.success('已复制到剪贴板');
+            this.$message.success(this.$t('modalInfo.copysuccess'));
         },
         onError() {
-            this.$message.error('复制失败');
+            this.$message.error(this.$t('modalInfo.copyfail'));
         },
         //获取交易信息详情
         getDetail() {

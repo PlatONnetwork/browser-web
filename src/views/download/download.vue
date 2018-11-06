@@ -8,7 +8,7 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item>下载数据</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('download.info')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
@@ -17,18 +17,18 @@
                     <div class="record">
                         <span>Address-# {{address}}</span>
                         <br/>
-                        <span>下载当前地址的交易\出块记录，在下载之前，请验证您是否是机器人！</span>
+                        <span>{{$t('download.title')}}</span>
                     </div>
                 </div>
                 <div class='download'>
-                    <el-form  :inline="true" ref="form" :model="form" label-width="80px" :rules='rules'>
+                    <el-form  :inline="true" ref="form" :model="form" label-width="100px" :rules='rules'>
                         <!-- 谷歌机器人验证地方 -->
                         <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  data-callback="robotVerified"></div> -->
                         <com-recaptcha ref='recaptcha' @verify='verify'
                         ></com-recaptcha>
                         <br/>
                         <br/>
-                        <el-form-item label='数据日期' class='margin20' prop='value'>
+                        <el-form-item :label='$t("download.date")' class='margin20' prop='value'>
                             <el-date-picker
                                 v-model="form.value"
                                 type="date"
@@ -40,7 +40,7 @@
                             </el-date-picker>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>下载</el-button>
+                            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>{{$t('download.download')}}</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
