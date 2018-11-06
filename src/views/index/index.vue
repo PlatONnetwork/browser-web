@@ -29,10 +29,13 @@
                         <span>投票数/占比</span>
                     </li>
                     <li>
-                        <p class="color2">{{currentOverViewData.ticketPrice}}</p>
+                        <p class="color2">{{currentOverViewData.ticketPrice}}
+                            <span class="atp">ATP</span>
+                        </p>
                         <span>票价</span>
                     </li>
                 </ul>
+                <div class="earth" :class="isBigEarth?'earth1':'earth2'" @click="changeEarth"></div>
             </slideritem>
             <slideritem class="second-floor">
                 <header class="time-and-number">
@@ -82,11 +85,10 @@
                         <div class="second-floor-text2">
                             <p class='fl'>最新区块</p>
                             <p class='fr'>
-                                <el-button  type="primary" class="el-same el-sameon" v-if='blockOnBtn' @click='blockOffFn'>Realtime</el-button>
-                                <el-button  type="primary" class="el-same el-sameoff" v-if='blockOffBtn' @click='blockOnFn'>Realtime</el-button>
+                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">Realtime</el-button>
                             </p>
                         </div>
-                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="480">
+                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
                             <el-table-column prop="height" label="区块高度" width="180">
                                 <template slot-scope="scope">
                                     <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
@@ -115,14 +117,13 @@
                         <div class="second-floor-text2">
                             <p class='fl'>最新交易</p>
                             <p class='fr'>
-                                <el-button  type="primary" class="el-same el-sameon" v-if='tradeOnBtn' @click='tradeOffFn'>Realtime</el-button>
-                                <el-button  type="primary" class="el-same el-sameoff" v-if='tradeOffBtn' @click='tradeOnFn'>Realtime</el-button>
+                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">Realtime</el-button>
                             </p>
                         </div>
-                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="480">
+                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
                             <el-table-column prop="txHash" label="交易哈希" width="180">
                                 <template slot-scope="scope">
-                                    <span class='cursor normal'  @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                    <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="from" label="From" width="180">
@@ -130,7 +131,7 @@
                                     <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label=""  width="40">
+                            <el-table-column label="" width="40">
                                 <template slot-scope="scope">
                                     <span>
                                         <i class='iconfont icon--icon-to iconto'></i>
@@ -173,7 +174,7 @@ import chartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 
 const blockChart = new chartService(),
-    indexService=new IndexService();
+    indexService = new IndexService();
 
 @Component({
     components: {
@@ -184,13 +185,13 @@ const blockChart = new chartService(),
     },
 })
 export default class Index extends Vue {
-    blockOnBtn:boolean = true
-    blockOffBtn:boolean = false
-    tradeOnBtn:boolean = true
-    tradeOffBtn:boolean = false
-    descriptionProp:string = ''
     @Getter
     info;
+
+    isRealtimeBlock: boolean = true;
+    isRealtimeTrade:boolean=true
+    descriptionProp: string = '';
+    isBigEarth: boolean = true;
 
     currentOverViewData: object = {
         currentHeight: '666666', //当前区块高度
@@ -220,7 +221,7 @@ export default class Index extends Vue {
 
     // 滑动配置[obj]
     options: object = {
-        currentPage: 2, // 当前页码
+        currentPage: 0, // 当前页码
         thresholdDistance: 500, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
@@ -273,82 +274,73 @@ export default class Index extends Vue {
             return 'odd-row';
         }
     }
-    format(timestamp){
-        let date = new Date(timestamp),//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        Y = date.getFullYear() + '-',
-         M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
-         D = date.getDate() + ' ',
-         h = date.getHours() + ':',
-         m = date.getMinutes() + ':',
-         s = date.getSeconds();
+    format(timestamp) {
+        let date = new Date(timestamp), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            Y = date.getFullYear() + '-',
+            M =
+                (date.getMonth() + 1 < 10
+                    ? '0' + (date.getMonth() + 1)
+                    : date.getMonth() + 1) + '-',
+            D = date.getDate() + ' ',
+            h = date.getHours() + ':',
+            m = date.getMinutes() + ':',
+            s = date.getSeconds();
         //  debugger
-        return Y+M+D+h+m+s;
+        return Y + M + D + h + m + s;
     }
-    updateChart(data){
+    updateChart(data) {
         //遍历data  得到 x轴  双 y轴
-        let xList=[],yListTime=[],yListNum=[]
-        data.forEach((item,index)=>{
+        let xList = [],
+            yListTime = [],
+            yListNum = [];
+        data.forEach((item, index) => {
             // debugger
             // this.format(item.time)
-            xList.push(item.height)
+            xList.push(item.height);
             // yListTime.push(this.format(item.time))
-            yListTime.push(item.time)
-            yListNum.push(item.transaction)
-        })
+            yListTime.push(item.time);
+            yListNum.push(item.transaction);
+        });
         // debugger
-        console.log(yListTime)
+        console.log(yListTime);
         blockChart.update({
-            xAxis:[
+            xAxis: [
                 {
-                    data:xList
-                }
+                    data: xList,
+                },
             ],
-            series:[
+            series: [
                 {
-                    data:yListTime
+                    data: yListTime,
                 },
                 {
-                    data:yListNum
-                }
-            ]
-        })
+                    data: yListNum,
+                },
+            ],
+        });
     }
-    //区块 重启订阅
-    blockOnFn(){
-        this.blockOnBtn = true;
-        this.blockOffBtn = false;
+    //区块 订阅
+    changeRealtimeBlock() {
+        this.isRealtimeBlock = !this.isRealtimeBlock;
         //重启订阅
     }
-    //区块 取消订阅
-    blockOffFn(){
-        this.blockOnBtn = false;
-        this.blockOffBtn = true;
-        //取消订阅
-    }
-    //交易 重启订阅
-    tradeOnFn(){
-        this.tradeOnBtn = true;
-        this.tradeOffBtn = false;
+    //交易 订阅
+    changeRealtimeTrade() {
+        this.isRealtimeTrade = !this.isRealtimeTrade;
         //重启订阅
-    }
-    //交易 取消订阅
-    tradeOffFn(){
-        this.tradeOnBtn = false;
-        this.tradeOffBtn = true;
-        //取消订阅
     }
     //交易查看全部
-    tradeAllFn(){
+    tradeAllFn() {
         this.$router.push({
-            path:'/trade'
-        })
+            path: '/trade',
+        });
     }
     //区块查看全部
-    viewBlock(){
-        console.log(11111)
+    viewBlock() {
+        console.log(11111);
         this.$router.push({
-            path:'/block'
-        })
+            path: '/block',
+        });
     }
     //进入区块详情
     goBlockDetail(index, row) {
@@ -400,40 +392,44 @@ export default class Index extends Vue {
             });
         }
     }
+
+    changeEarth() {
+        this.isBigEarth = !this.isBigEarth;
+    }
     mounted() {
         //初始化图表
         this.initChart();
     }
     created() {
-        console.log(indexService)
-        // indexService.getOverviewData().then((data)=>{
-        //     //初始数据
-        //     this.currentOverViewData=data;
-        // })
-        // indexService.updatOverviewData().then((data)=>{
-        //     this.currentOverViewData=data;
-        // })
-        // indexService.getSecondFloorData().then((data)=>{
-        //     this.secondFloorData=data;
-        //     // let blockStatisticList = this.secondFloorData["blockStatisticList"]
-        //     this.updateChart(this.secondFloorData["blockStatisticList"])
-        // })
-        // indexService.updateSecondFloorData().then((data)=>{
-        //     this.secondFloorData=data;
-        //     this.updateChart(this.secondFloorData["blockStatisticList"])
-        // })
-        // indexService.getBlockData().then((data)=>{
-        //     this.blockData=data;
-        // })
-        // indexService.updateBlockData(this.blockData).then((data)=>{
-        //     this.blockData=data;
-        // })
-        // indexService.getTransactionData().then((data)=>{
-        //     this.transactionData=data;
-        // })
-        // indexService.updateTransactionData(this.transactionData).then((data)=>{
-        //     this.transactionData=data;
-        // })
+        console.log(indexService);
+        indexService.getOverviewData().then(data => {
+            //初始数据
+            this.currentOverViewData = data;
+        });
+        indexService.updatOverviewData().then(data => {
+            this.currentOverViewData = data;
+        });
+        indexService.getSecondFloorData().then(data => {
+            this.secondFloorData = data;
+            // let blockStatisticList = this.secondFloorData["blockStatisticList"]
+            this.updateChart(this.secondFloorData['blockStatisticList']);
+        });
+        indexService.updateSecondFloorData().then(data => {
+            this.secondFloorData = data;
+            this.updateChart(this.secondFloorData['blockStatisticList']);
+        });
+        indexService.getBlockData().then(data => {
+            this.blockData = data;
+        });
+        indexService.updateBlockData(this.blockData).then(data => {
+            this.blockData = data;
+        });
+        indexService.getTransactionData().then(data => {
+            this.transactionData = data;
+        });
+        indexService.updateTransactionData(this.transactionData).then(data => {
+            this.transactionData = data;
+        });
     }
 }
 </script>
@@ -447,20 +443,20 @@ export default class Index extends Vue {
     background: none;
     border: solid 2px #ffff00;
 }
-.el-same{
-    border-width:0;
-    outline:none;
+.el-same {
+    border-width: 0;
+    outline: none;
     border-color: transparent;
-    span{
-        padding-left:8px;
+    span {
+        padding-left: 8px;
         font-size: 14px;
     }
-    &:hover{
-        border-width:0;
+    &:hover {
+        border-width: 0;
         border-color: transparent;
     }
-    &:active{
-        border-width:0;
+    &:active {
+        border-width: 0;
         border-color: transparent;
     }
 }
@@ -509,6 +505,10 @@ div.slider-item {
         letter-spacing: 2.4px;
         color: #d2daea;
     }
+    .atp {
+        font-size: 30px;
+        color: #ff374f;
+    }
     .color1 {
         color: #fcff0a;
     }
@@ -519,6 +519,24 @@ div.slider-item {
         letter-spacing: 1.4px;
         color: #6d81a9;
     }
+}
+
+.earth {
+    position: absolute;
+    bottom: 30px;
+    right: 43px;
+    width: 113px;
+    height: 70px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.earth1 {
+    background-image: url('./images/big.png');
+    background-position: center center;
+}
+.earth2 {
+    background-image: url('./images/small.png');
+    background-position: center center;
 }
 
 .second-floor {
@@ -562,7 +580,7 @@ div.slider-item {
 .second-floor-text1 {
     top: 590px;
 }
-.buttons{
+.buttons {
     // position: absolute;
 }
 
@@ -628,7 +646,7 @@ div.slider-item {
     text-align: center;
     color: #fcff0a;
 }
-.second-floor-text2{
+.second-floor-text2 {
     position: relative;
     top: -43px;
     font-size: 16px;
@@ -641,17 +659,17 @@ div.slider-item {
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
-    .fl{
+    .fl {
         margin-top: 25px;
     }
 }
-.el-sameon{
-    background:url(images/on.png) no-repeat #252C57 8px center;
-    color: #FFFF00;
-    border-width:0;
+.el-sameon {
+    background: url(images/on.png) no-repeat #252c57 8px center;
+    color: #ffff00;
+    border-width: 0;
 }
-.el-sameoff{
-    background:url(images/off.png) no-repeat #131736 8px center;
+.el-sameoff {
+    background: url(images/off.png) no-repeat #131736 8px center;
     color: #2b2d45;
 }
 </style>
