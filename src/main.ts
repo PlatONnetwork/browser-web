@@ -27,20 +27,7 @@ const i18n = new VueI18n({
     messages
 })
 ElementLocale.i18n((key, value) => i18n.t(key, value))
-export default new Vue({
-    el: '#app',
-    router,
-    store,
-    i18n,
-    render: h => h(App),
-    methods: {
-        ...mapActions(['initJsonData'])
-    },
-    created() {
-        this.initJsonData(i18n.locale)
-    }
-})
-// (<any>window).vueVm = new Vue({
+// export default new Vue({
 //     el: '#app',
 //     router,
 //     store,
@@ -53,3 +40,16 @@ export default new Vue({
 //         this.initJsonData(i18n.locale)
 //     }
 // })
+window.vueVm = new Vue({
+    el: '#app',
+    router,
+    store,
+    i18n,
+    render: h => h(App),
+    methods: {
+        ...mapActions(['initJsonData'])
+    },
+    created() {
+        this.initJsonData(i18n.locale)
+    }
+})

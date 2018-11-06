@@ -8,16 +8,16 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>地址-{{address}}</span><br />
-                        <span>总共寻获{{pageTotal}}交易待处理</span>
+                        <span>{{$t('tradePendingAbout.address')}}-{{address}}</span>
+                        <span>{{$t('tradePendingAbout.morethen')}}{{pageTotal}}{{$t('tradePendingAbout.transactions1')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -26,28 +26,28 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="交易哈希值">
+                        <el-table-column :label="$t('tradePendingAbout.hash')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="停留时间">
+                        <el-table-column :label="$t('tradePendingAbout.age')">
                             <template slot-scope="scope">
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}前</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradePendingAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="能量限制">
+                        <el-table-column :label="$t('tradePendingAbout.energonLimit')">
                             <template slot-scope="scope">
                                 <!-- <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span> -->
                                 <span>{{scope.row.energonLimit}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="能量价值">
+                        <el-table-column :label="$t('tradePendingAbout.energonPrice1')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonPrice}}Ene</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="发送方">
+                        <el-table-column :label="$t('tradePendingAbout.from')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 <span @click='filterFn(scope.row.from)' v-if='scope.row.from !== address' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
@@ -60,15 +60,15 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="接收方">
+                        <el-table-column :label="$t('tradePendingAbout.to')">
                             <template slot-scope="scope">
-                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate" && scope.row.to !== address' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="数额">
+                        <el-table-column :label="$t('tradePendingAbout.value')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}ATP</span>
                             </template>
@@ -124,7 +124,7 @@ export default {
                     energonLimit: 55555, //能量限制
                     energonPrice: 55555, //能量价格
                     from: '0x667766', //发送方
-                    to: '0x66776611', //接收方
+                    to: '0x667766', //接收方
                     value: '222', //数额
                     txType: 'transfer', // 交易类型
                     // transfer ：转账
@@ -318,10 +318,21 @@ export default {
             flex-wrap: nowrap;
             justify-content: space-between;
             .record {
-                font-size: 12px;
+                // font-size: 12px;
                 line-height: 30px;
-                letter-spacing: 0.7px;
-                color: #d7dde9;
+                // letter-spacing: 0.7px;
+                // color: #d7dde9;
+                span{
+                    &:first-child{
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                    &:last-child{
+                        font-size: 12px;
+                        color: #D7DDE9;
+                        margin-left:20px;
+                    }
+                }
             }
         }
     }

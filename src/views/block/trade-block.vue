@@ -8,15 +8,15 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>交易-区块#{{height}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('blockAbout.transactionBlock')}}#{{height}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共{{pageTotal}}交易</span>
+                        <span>{{$t('blockAbout.morethen')}}{{pageTotal}}{{$t('blockAbout.transactions')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -25,23 +25,23 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="交易哈希值">
+                        <el-table-column :label="$t('blockAbout.txHash')">
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" label="区块">
+                        <el-table-column prop="blockHeight" :label="$t('blockAbout.height')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="块龄">
+                        <el-table-column :label="$t('blockAbout.age')">
                             <template slot-scope="scope">
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}前</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="发送方">
+                        <el-table-column :label="$t('blockAbout.from')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
@@ -53,19 +53,19 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="接收方">
+                        <el-table-column :label="$t('blockAbout.to')">
                             <template slot-scope="scope">
-                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="数额">
+                        <el-table-column :label="$t('blockAbout.value')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}ATP</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" label="交易费用"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -246,12 +246,21 @@ export default {
         },
         //进入交易哈希详情
         goTradeDetail(index, row) {
-            this.$router.push({
-                path: '/trade-detail',
-                query: {
-                    txHash: row.txHash,
-                },
-            });
+            if(row.txReceiptStatus == -1){
+                this.$router.push({
+                    path: '/trade-pending-detail',
+                    query: {
+                        txHash: row.txHash,
+                    },
+                });
+            }else{
+                this.$router.push({
+                    path: '/trade-detail',
+                    query: {
+                        txHash: row.txHash,
+                    },
+                });
+            }
         },
         //进入钱包地址详情
         goAddressDetail(index, row) {

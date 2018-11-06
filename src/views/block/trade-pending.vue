@@ -8,15 +8,15 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item>待处理的交易</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共寻获{{pageTotal}}待处理交易</span>
+                        <span>{{$t('tradePendingAbout.morethen')}}{{pageTotal}}{{$t('tradePendingAbout.transactions1')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -25,29 +25,29 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="交易哈希值">
+                        <el-table-column :label="$t('tradePendingAbout.hash')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="停留时间">
+                        <el-table-column :label="$t('tradePendingAbout.age')">
                             <template slot-scope="scope">
                                 <!-- <span>{{scope.row.dwellTime/60}}秒</span> -->
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}前</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradePendingAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="能量限制">
+                        <el-table-column :label="$t('tradePendingAbout.energonLimit')">
                             <template slot-scope="scope">
                                 <!-- <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span> -->
                                 <span>{{scope.row.energonLimit}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="能量价值">
+                        <el-table-column :label="$t('tradePendingAbout.energonPrice1')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonPrice}}Ene</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="发送方">
+                        <el-table-column :label="$t('tradePendingAbout.from')">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 <span @click='filterFn(scope.row.from)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
@@ -60,15 +60,15 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="接收方">
+                        <el-table-column :label="$t('tradePendingAbout.to')">
                             <template slot-scope="scope">
-                                <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                <span :title='$t("elseInfo.contract")'  v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="数额">
+                        <el-table-column :label="$t('tradePendingAbout.value')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}ATP</span>
                             </template>

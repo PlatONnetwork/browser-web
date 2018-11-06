@@ -8,9 +8,9 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
                         <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description !== ""'>{{descripFn[description]}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>合约详情</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('totalInfo.info1')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
@@ -33,13 +33,13 @@
                         <div class="left">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span class='row-title'>概览</span>
+                                    <span class='row-title'>{{$t('totalInfo.overview')}}</span>
                                 </el-col>
                                 <el-col :span="20"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>余额</span>
+                                    <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{balance}}ATP</span>
@@ -47,7 +47,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易</span>
+                                    <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.tradeCount}}</span>
@@ -57,13 +57,13 @@
                         <div class="right">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span  class='row-title'>其他</span>
+                                    <span  class='row-title'>{{$t('totalInfo.else')}}</span>
                                 </el-col>
                                 <el-col :span="20"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>合约开发者</span>
+                                    <span>{{$t('totalInfo.contractcreator')}}</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.developer}}</span>
@@ -71,7 +71,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>合约拥有者</span>
+                                    <span>{{$t('totalInfo.contractowner')}}</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.ownerCount}}</span>
@@ -82,13 +82,13 @@
                 </div>
                 <div class="data-detail">
                     <ul class="ul-nav">
-                        <li :class="{active: activeTab == 1}">交易</li>
+                        <li :class="{active: activeTab == 1}">{{$t('totalInfo.transactions')}}</li>
                             <!-- <li :class="{active: activeTab == 2}" @click="changeTab(2)">投票</li> -->
                     </ul>
                     <div class="data">
                         <div v-if='activeTab == 1'>
                             <div class='data-top'>
-                                <div class='count'>{{count}}个待处理交易</div>
+                                <div class='count'>{{count}}{{$t('totalInfo.pendtransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
@@ -99,49 +99,49 @@
                                             :value="item.value">
                                         </el-option>
                                     </el-select>
-                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">下载csv</el-button>
+                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
                                 </div>
                             </div>
                             <div class="table">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column label="交易哈希值">
+                                    <el-table-column :label='$t("totalInfo.txHash")'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason' class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label="确认时间">
+                                    <el-table-column :label='$t("totalInfo.blockTime")'>
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label="类型">
+                                    <el-table-column :label='$t("totalInfo.txType")'>
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{txTypeFn[scope.row.txType]}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label="发送方">
+                                    <el-table-column :label='$t("totalInfo.from")'>
                                         <template slot-scope="scope">
                                             <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label="接收方">
+                                    <el-table-column :label='$t("totalInfo.to")'>
                                         <template slot-scope="scope">
-                                            <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                            <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                            <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                            <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                             <!-- <span v-else-if='scope.row.txType == "transactionExecute"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column prop="" label="数额">
+                                    <el-table-column :label='$t("totalInfo.value")'>
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}}ATP</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label="交易费用">
+                                    <el-table-column :label='$t("totalInfo.actualTxCost")'>
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>(待处理）</span>
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
                                         </template>
                                     </el-table-column>
@@ -175,19 +175,19 @@
                 activeTab:1,
                 type:'transfer',
                 typeList:[
-                    {label:'转账',value:'transfer'},
-                    {label:'投票',value:'vote'},
-                    {label:'合约创建',value:'contractCreate'},
-                    {label:'合约执行',value:'transactionExecute'},
-                    {label:'MPC交易',value:'MPCtransaction'},
+                    {label:this.$t('elseInfo.transfer'),value:'transfer'},
+                    {label:this.$t('elseInfo.vote'),value:'vote'},
+                    {label:this.$t('elseInfo.contractCreate'),value:'contractCreate'},
+                    {label:this.$t('elseInfo.transactionExecute'),value:'transactionExecute'},
+                    {label:this.$t('elseInfo.MPCtransaction'),value:'MPCtransaction'},
                 ],
                 txTypeFn: {
-                    transfer : '转账',
-                    MPCtransaction : 'MPC交易',
-                    contractCreate : '合约创建',
-                    vote : '投票',
-                    transactionExecute :'合约执行',
-                    authorization :'权限'
+                    transfer : this.$t('elseInfo.transfer'),
+                    MPCtransaction : this.$t('elseInfo.MPCtransaction'),
+                    contractCreate : this.$t('elseInfo.contractCreate'),
+                    vote : this.$t('elseInfo.vote'),
+                    transactionExecute :this.$t('elseInfo.transactionExecute'),
+                    authorization :this.$t('elseInfo.authorization')
                 },
                 address:'',
                 detailInfo:{
@@ -235,9 +235,9 @@
                     ]
                 },
                 descripFn: {
-                    pending : '待处理交易',
-                    trade : '交易',
-                    block:'区块'
+                    pending : this.$t('tradePendingAbout.transactions'),
+                    trade : this.$t('tradeAbout.transactions'),
+                    block:this.$t('blockAbout.block'),
                 },
                 pathFn: {
                     pending : '/trade-pending',
@@ -264,10 +264,10 @@
                 }
             },
             onCopy() {
-                this.$message.success('已复制到剪贴板');
+                this.$message.success(this.$t('modalInfo.copysuccess'));
             },
             onError() {
-                this.$message.error('复制失败');
+                this.$message.error(this.$t('modalInfo.copyfail'));
             },
             exportFn() {
                 //跳转至下载页

@@ -7,6 +7,10 @@ declare module '*.vue' {
 
 // 全局变量设置
 declare global {
+  interface Window {
+    i18nLocale:String
+    vueVm:Object
+  }
 }
 
 declare interface Window {
@@ -15,7 +19,8 @@ declare interface Window {
   Date:{
     Format:Function,
     [propName: string]: any
-  }
+  };
+
 }
 
 // 全局方法

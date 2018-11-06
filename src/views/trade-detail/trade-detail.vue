@@ -80,8 +80,8 @@
                                     <span>{{$t('tradeAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span :title="$t('tradeAbout.contract')"  v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('tradeAbout.create')}}</span>
+                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                     <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
@@ -209,10 +209,10 @@ export default {
     //方法
     methods: {
         onCopy() {
-            this.$message.success('已复制到剪贴板');
+            this.$message.success(this.$t('modalInfo.copysuccess'));
         },
         onError() {
-            this.$message.error('复制失败');
+            this.$message.error(this.$t('modalInfo.copyfail'));
         },
         //获取交易信息详情
         getDetail() {

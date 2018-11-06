@@ -76,7 +76,7 @@
         data () {
             return {
                 searchKey:'',//搜索
-                language: 'zh-cn',
+                language: window.i18nLocale?window.i18nLocale:'zh-cn',
                 netObj:{
                     "1":"MainNet",
                     "2":"TestNet"
@@ -120,6 +120,7 @@
             handleCommandLangage(command){
                 this.$i18n.locale = command
                 this.language = command
+                window.i18nLocale = command
             },
             //查询
             searchFn(){
@@ -248,7 +249,7 @@
     .el-menu-demo{
         width: 380px;
         // border: 0px;
-        border-bottom-color: #040B27; 
+        border-bottom-color: #040B27;
         li.el-menu-item.is-active{
             border: 0px;
         }
@@ -286,7 +287,7 @@
             margin: 9px 0 0 0;
         }
     }
-    
+
 </style>
 <style lang="less">
     .search{
@@ -345,7 +346,7 @@
         min-width: 150px;
         margin: 0 0 0 0;
         padding: 0 0 0 0;
-        a{  
+        a{
             color: #8D9BB8;
         }
         .el-menu-item:hover{

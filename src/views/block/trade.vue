@@ -16,7 +16,7 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record '>
-                        <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{pageTotal}}&nbsp;{{$t('tradeAbout.transactions')}}</span>
+                        <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{pageTotal}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
                         <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
                     </div>
                     <div class="pagination-box1">
@@ -56,8 +56,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('tradeAbout.to')">
                             <template slot-scope="scope">
-                                <span :title="$t('tradeAbout.contract')" v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('tradeAbout.create')}}</span>
+                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                             </template>
                         </el-table-column>

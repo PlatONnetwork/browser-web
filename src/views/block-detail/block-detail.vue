@@ -8,15 +8,15 @@
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/block' }">区块</el-breadcrumb-item>
-                        <el-breadcrumb-item>区块信息</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/block' }">{{$t('blockAbout.block')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('blockAbout.info')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="left">
-                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' title='查看前一个区块' v-if='btnLeftFlag'>
+                    <button @click='goLeft' :disabled='disabledLeft' class='cursor' :title="$t('blockAbout.viewLeft')" v-if='btnLeftFlag'>
                         <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
@@ -33,11 +33,11 @@
                         </div>
                     </div>
                     <div class="data-detail">
-                        <div class="data-title">区块信息</div>
+                        <div class="data-title">{{$t('blockAbout.information')}}</div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块高度:</span>
+                                    <span>{{$t('blockAbout.height1')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.height}}</span>
@@ -45,7 +45,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>时间戳:</span>
+                                    <span>{{$t('blockAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
@@ -53,7 +53,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>交易:</span>
+                                    <span>{{$t('blockAbout.transactions')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
@@ -62,7 +62,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块哈希:</span>
+                                    <span>{{$t('blockAbout.hash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.hash}}</span>
@@ -70,7 +70,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>上一区块哈希:</span>
+                                    <span>{{$t('blockAbout.parentHash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click='prevFn'>{{detailInfo.parentHash}}</span>
@@ -78,16 +78,16 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>出块节点:</span>
+                                    <span>{{$t('blockAbout.miner')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor'>{{detailInfo.miner}}</span>
-                                    <span>【{{(detailInfo.timeDiff)/60}}秒内】</span>
+                                    <span>【{{ $t('blockAbout.in',{ timeDiff:(detailInfo.timeDiff)/1000 }) }}】</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>大小:</span>
+                                    <span>{{$t('blockAbout.size')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.size}} bytes</span>
@@ -95,7 +95,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量限制:</span>
+                                    <span>{{$t('blockAbout.energonLimit')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonLimit}}</span>
@@ -103,7 +103,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>能量消耗:</span>
+                                    <span>{{$t('blockAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.energonUsed}}({{(detailInfo.energonUsed/detailInfo.energonLimit)*100}}%)</span>
@@ -111,7 +111,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>区块奖励:</span>
+                                    <span>{{$t('blockAbout.blockReward1')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{detailInfo.blockReward}}ATP</span>
@@ -119,7 +119,7 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
-                                    <span>额外数据:</span>
+                                    <span>{{$t('blockAbout.extraData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.extraData" :disabled="true">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <button @click='goRight' :disabled='disabledRight' class='cursor' title='查看后一个区块' v-if='btnRightFlag'>
+                    <button @click='goRight' :disabled='disabledRight' class='cursor' :title="$t('blockAbout.viewRight')" v-if='btnRightFlag'>
                         <i class='iconfont iconleft'>&#xe644;</i>
                     </button>
                 </div>
@@ -183,10 +183,10 @@ export default {
     //方法
     methods: {
         onCopy() {
-            this.$message.success('已复制到剪贴板');
+            this.$message.success(this.$t('modalInfo.copysuccess'));
         },
         onError() {
-            this.$message.error('复制失败');
+            this.$message.error(this.$t('modalInfo.copyfail'));
         },
         //获取区块信息详情
         getDetail() {

@@ -10,12 +10,12 @@ export function timeDiff(beginTime, endTime) {
     leave3 = leave2 % (60 * 1000),//计算分钟后剩余的毫秒数
     seconds = Math.round(leave3 / 1000)
     if (dayDiff === 0 && hours !== 0 && minutes !== 0) {
-        return hours + '时' + minutes + '分'
+        return hours + window.vueVm.$i18n.t('elseInfo.hour') + minutes + window.vueVm.$i18n.t('elseInfo.minutes')
     } else if (dayDiff === 0 && hours === 0 && minutes !== 0) {
-        return  minutes + '分'
+        return minutes + window.vueVm.$i18n.t('elseInfo.minutes')
     } else if (dayDiff === 0 && hours === 0 && minutes === 0) {
-        return seconds + '秒'
+        return seconds + window.vueVm.$i18n.t('elseInfo.seconds')
     } else {
-        return dayDiff + '天' + hours + '时'
+        return dayDiff + window.vueVm.$i18n.t('elseInfo.day') + hours + window.vueVm.$i18n.t('elseInfo.hour')
     }
 }
