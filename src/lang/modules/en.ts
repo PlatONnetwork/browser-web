@@ -161,7 +161,7 @@ export default {
         placeholder1:'请选择日期',
         robot:'请验证您是否是机器人！'
     },
-    elseInfo:{
+    elseInfo: {
         transfer:'Transfer',
         vote:'Vote',
         contractCreate:'Contract Create',

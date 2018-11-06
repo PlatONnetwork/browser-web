@@ -151,26 +151,35 @@
                             query:{
                                 height:struct.height
                             }
-                        })
-                        break
+                        });
+                        break;
                     //交易详情
                     case 'transaction':
-                        let path = ''
-                        struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
+                        // let path = ''
+                        // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
                         return this.$router.push({
-                            path:path,
+                            path:'/trade-detail',
                             query:{
                                 txHash:struct.txHash
                             }
-                        })
-                        break
+                        });
+                        break;
+                    //待处理
+                    case 'pending':
+                        return this.$router.push({
+                            path:'/trade-pending-detail',
+                            query:{
+                                txHash:struct.txHash
+                            }
+                        });
+                        break;
                     //节点详情
                     case 'node':
                         return this.$router.push({
                             path:'',
                             query:{}
-                        })
-                        break
+                        });
+                        break;
                     //合约详情
                     case 'contract':
                         return this.$router.push({
@@ -179,8 +188,8 @@
                                 address:this.searchKey,
                                 description:this.descriptionProp
                             }
-                        })
-                        break
+                        });
+                        break;
                     //地址详情
                     case 'account':
                         return this.$router.push({
@@ -189,8 +198,8 @@
                                 address:this.searchKey,
                                 description:this.descriptionProp
                             }
-                        })
-                        break
+                        });
+                        break;
                 }
             }
         },
