@@ -13,5 +13,9 @@ export const commonGetter = {
     //获取链http
     chainHttp(state) {
       return state.chainHttp
-    }
+    },
+    //获取title
+    walletTitle(state) {
+        return state.data
+      }
 }

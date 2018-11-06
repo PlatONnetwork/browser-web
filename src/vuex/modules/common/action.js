@@ -16,5 +16,8 @@ export const commonAction = {
             commit('CHANGE_HTTP', data.chainList[0].http)
             // state.chainList = data.cid;
         });
+        apiService.get("../../../static/json/walletConfig.json").then((data)=>{
+            commit('CHANGE_TITLE',data)
+        });
     },
 }

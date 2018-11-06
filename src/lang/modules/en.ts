@@ -35,18 +35,6 @@ export default {
     },
     wallet: {
         officeWallet: 'Office Wallet',
-        firstWallet: {
-            title: 'xxxE',
-            summary: 'XXXX is a completely decentralized lightweight node mobile wallet client.The PlatON blockchain address can be created through XXX and the digital assets of the PlatON blockchain can be managed and stored securely.'
-        },
-        secondWallet: {
-            title: 'Edge',
-            summary: 'Edge is a completely decentralized, full-node desktop client.In addition to supporting basic wallet creation and management, it also provides node services and functions such as management and voting.'
-        },
-        thirdWallet: {
-            title: 'xxxE',
-            summary: 'XXXX is a completely decentralized lightweight node mobile wallet client.The PlatON blockchain address can be created through XXX and the digital assets of the PlatON blockchain can be managed and stored securely.'
-        },
         download: 'Download',
         developer: 'Developer',
         thirdPartyWallet: 'Third-PartyWallet',
