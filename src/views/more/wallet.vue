@@ -25,10 +25,10 @@
                                             <a :href="walletList[0].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[0].githubLink">github</a>
+                                            <a :href="walletList[0].githubLink" target="_blank">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[0].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
+                                            <a :href="walletList[0].developer" target="_blank" class="">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -43,10 +43,10 @@
                                             <a :href="walletList[1].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[1].githubLink">github</a>
+                                            <a :href="walletList[1].githubLink" target="_blank">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[1].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
+                                            <a :href="walletList[1].developer" target="_blank">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -61,10 +61,10 @@
                                             <a :href="walletList[2].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[2].githubLink">github</a>
+                                            <a :href="walletList[2].githubLink" target="_blank">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[2].developer" class="icon-link-3">{{ $t("wallet.developer") }}</a>
+                                            <a :href="walletList[2].developer" target="_blank">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
