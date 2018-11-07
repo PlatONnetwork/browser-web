@@ -43,7 +43,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     },
     WS_CONFIG = {
         root: `${TOTAL}platon-websocket`,
-        init: `/app/node/init?cid=`,
+        nodeInit: `/app/node/init?cid=`,
+        nodeUpdate:`/topic/node/new?cid=`,
         indexInit: `/app/index/init?cid=`,
         indexUpdate: `/topic/index/new?cid=`,
         secondInit: `/app/statistic/init?cid=`,
