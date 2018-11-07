@@ -6,7 +6,7 @@
             <p>The PlatON Block Exploer</p>
         </div>
         <div class="menu">
-            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#D7DDE9" active-text-color="#D7DDE9">
+            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#D7DDE9" active-text-color="#FFFF00">
                 <el-menu-item index="/">
                     <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
@@ -137,10 +137,6 @@
                     if(code==0){
                         //根据type不同进入不同的详情页
                         this.switchFn(data.type,data.struct)
-                        this.$emit('searchFn',data)
-                        //切换完成
-                    }else{
-                        this.$message.error(errMsg)
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
@@ -190,7 +186,7 @@
                             path:'/contract-detail',
                             query:{
                                 address:this.searchKey,
-                                description:''
+                                description:this.descriptionProp
                             }
                         });
                         break;
@@ -200,7 +196,7 @@
                             path:'/address-detail',
                             query:{
                                 address:this.searchKey,
-                                description:''
+                                description:this.descriptionProp
                             }
                         });
                         break;
@@ -226,13 +222,13 @@
         right: 0;
         left: 0;
         display: flex;
-        justify-content: space-between;   //两端对齐
-        align-items: center;   //居中对齐
         height: 60px;
+        z-index:9999;
         padding:0 100px;
         margin: 0 auto;
-        // background: #040B27; //头部不需要加背景色
-        z-index:9999;
+        // background: #040B27;
+        align-items: center;   //居中对齐
+        justify-content: space-between;   //两端对齐
         .menu{
             margin: 0 10% 0 0;
         }
@@ -265,7 +261,7 @@
     .el-menu-demo{
         width: 380px;
         // border: 0px;
-        border-bottom-color: #040B27;
+        // border-bottom-color: #040B27;
         li.el-menu-item.is-active{
             border: 0px;
         }
@@ -304,11 +300,10 @@
             margin: 9px 0 0 0;
         }
     }
-
+    
 </style>
 <style lang="less">
     .search{
-        width:560px;
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
@@ -316,7 +311,7 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px 2px rgba(7,11,48,0.30);
         .el-input{
-            // width:300px;
+            width:300px;
             height:40px;
         }
         .el-input__inner{
@@ -347,6 +342,12 @@
         }
     }
     .menu{
+        .el-menu-demo  > .el-menu-item:hover{
+            background: transparent !important;
+        }
+        .el-menu--horizontal > .el-submenu .el-submenu__title:hover{
+            background: transparent !important;
+        }
         .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
             border-bottom: 0px;
         }
