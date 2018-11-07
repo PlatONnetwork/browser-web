@@ -13,8 +13,8 @@
     }
 },{
     "dowonloadLink":"http://www.baidu.com",
-    "githubLink":"github",
-    "developer":"hu234",
+    "githubLink":"http://www.baidu.com",
+    "developer":"http://www.baidu.com",
     "icon":"./static/images/default-logo.png",
     "zh": {
         "title":"中xxx中",
@@ -26,8 +26,8 @@
     }
 },{
     "dowonloadLink":"http://www.baidu.com",
-    "githubLink":"github",
-    "developer":"hu234",
+    "githubLink":"http://www.baidu.com",
+    "developer":"http://www.baidu.com",
     "icon":"./static/images/default-logo.png",
     "zh": {
         "title":"中xxx中",
