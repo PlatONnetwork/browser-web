@@ -384,7 +384,7 @@
             // contractService.serProvider(this.chainHttp)
             // console.log(1)
             //获取交易列表
-            // this.getDetail()
+            this.getDetail()
         },
         //监视
         watch: {
