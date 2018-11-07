@@ -91,7 +91,7 @@
                                         <el-option
                                             v-for="item in typeList"
                                             :key="item.value"
-                                            :label="item.label"
+                                            :label="$t('elseInfo.'+item.label)"
                                             :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -171,11 +171,11 @@
                 activeTab:1,
                 type:'transfer',
                 typeList:[
-                    {label:this.$t('elseInfo.transfer'),value:'transfer'},
-                    {label:this.$t('elseInfo.vote'),value:'vote'},
-                    {label:this.$t('elseInfo.contractCreate'),value:'contractCreate'},
-                    {label:this.$t('elseInfo.transactionExecute'),value:'transactionExecute'},
-                    {label:this.$t('elseInfo.MPCtransaction'),value:'MPCtransaction'},
+                    {label:'transfer',value:'transfer'},
+                    {label:'vote',value:'vote'},
+                    {label:'contractCreate',value:'contractCreate'},
+                    {label:'transactionExecute',value:'transactionExecute'},
+                    {label:'MPCtransaction',value:'MPCtransaction'},
                 ],
                 txTypeFn: {
                     transfer : this.$t('elseInfo.transfer'),
