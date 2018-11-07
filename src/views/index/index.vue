@@ -591,7 +591,7 @@ div.slider-item {
     flex-wrap: nowrap;
     justify-content: space-between;
     padding: 0 50px;
-    min-height: calc(100% - 190px);
+    min-height: calc(100% - 170px);
 }
 .floor-area-box {
     padding: 0 50px;
