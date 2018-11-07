@@ -15,56 +15,20 @@
                     <div class="authority-wallet">
                         <h1 class="title">{{ $t("wallet.officeWallet") }}</h1>
                         <div class="introduce" v-if="walletList.length>0">
-                            <div>
-                                <img :src="walletList[0].icon">
+                            <div v-for="(item,index) in walletList" :key="index">
+                                <img :src="item.icon">
                                 <div class="wallet-introduce">
-                                    <h1>{{ walletTitle[0][lang].title }}</h1>
-                                    <p>{{ walletTitle[0][lang].summary }}</p>
+                                    <h1>{{item[lang].title }}</h1>
+                                    <p>{{ item[lang].summary }}</p>
                                     <ul class="link clearfix">
                                         <li>
-                                            <a :href="walletList[0].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
+                                            <a :href="item.dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[0].githubLink" target="_blank">github</a>
+                                            <a :href="item.githubLink" target="_blank">github</a>
                                         </li>
                                         <li>
-                                            <a :href="walletList[0].developer" target="_blank" class="">{{ $t("wallet.developer") }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div>
-                                <img :src="walletList[1].icon"/>
-                                <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{ walletTitle[1][lang].title }}</h1>
-                                    <p>{{ walletTitle[1][lang].summary }}</p>
-                                    <ul class="link clearfix">
-                                        <li>
-                                            <a :href="walletList[1].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
-                                        </li>
-                                        <li>
-                                            <a :href="walletList[1].githubLink" target="_blank">github</a>
-                                        </li>
-                                        <li>
-                                            <a :href="walletList[1].developer" target="_blank">{{ $t("wallet.developer") }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div>
-                                <img :src="walletList[2].icon"/>
-                                <div class="wallet-introduce"  v-if="walletList.length>0">
-                                    <h1>{{ walletTitle[2][lang].title }}</h1>
-                                    <p>{{ walletTitle[2][lang].summary }}</p>
-                                    <ul class="link clearfix">
-                                        <li>
-                                            <a :href="walletList[2].dowonloadLink" target="_blank">{{ $t("wallet.download") }}</a>
-                                        </li>
-                                        <li>
-                                            <a :href="walletList[2].githubLink" target="_blank">github</a>
-                                        </li>
-                                        <li>
-                                            <a :href="walletList[2].developer" target="_blank">{{ $t("wallet.developer") }}</a>
+                                            <a :href="item.developer" target="_blank">{{ $t("wallet.developer") }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -75,7 +39,7 @@
                     <div class="third-party-wallet">
                         <div class="summary">
                             <span>{{ $t("wallet.nothirdPartyWallet") }}</span>
-                            <!-- <button class="el-btn">Submit</button>   使用表单替换button，跳转到邮箱 -->
+                            <!-- <button class="el-btn">Submit</button>   使用表单替换button，跳转到Google表单 -->
                             <form target="_blank">
                             <input class="el-btn" :formaction='formLink' type="submit" :value=" $t('wallet.submitBtn') ">
                             </form>
@@ -102,7 +66,7 @@
             return {
                 formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdNoozqk-McqJtvTs9HMk8TJlDR7rQy7KLbQuUKlaSZacyxrA/viewform?usp=sf_link',   // google表单
                 walletList: [],
-                descriptionProp:'wallet'
+                descriptionProp:'wallet',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -110,7 +74,6 @@
         },
         //计算
         computed: {
-            ...mapGetters(['walletTitle']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
