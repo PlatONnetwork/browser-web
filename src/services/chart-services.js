@@ -16,7 +16,7 @@ class ChartService {
         // backgroundColor: '#fff',
         geo: {
             map: 'world',
-            roam: true,
+            roam: 'scale',
             label: {
                 emphasis: {
                     show: false
