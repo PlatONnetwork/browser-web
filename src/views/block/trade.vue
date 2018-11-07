@@ -26,13 +26,13 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('tradeAbout.hash')">
+                        <el-table-column :label="$t('tradeAbout.hash')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason' class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')">
+                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='150'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
@@ -42,31 +42,31 @@
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.from')">
+                        <el-table-column :label="$t('tradeAbout.from')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="">
+                        <el-table-column label="" width='40'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.to')">
+                        <el-table-column :label="$t('tradeAbout.to')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.value')">
+                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}ATP</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
