@@ -308,6 +308,7 @@
 </style>
 <style lang="less">
     .search{
+        width:560px;
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
@@ -315,7 +316,7 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px 2px rgba(7,11,48,0.30);
         .el-input{
-            width:300px;
+            // width:300px;
             height:40px;
         }
         .el-input__inner{

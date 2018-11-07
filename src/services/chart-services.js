@@ -12,62 +12,62 @@ import 'echarts/map/js/world';
  * fun resize() 重置图表尺寸
  */
 class ChartService {
-    worldMapOption = {
-        // backgroundColor: '#fff',
-        geo: {
-            map: 'world',
-            roam: true,
-            label: {
-                emphasis: {
-                    show: false
-                }
-            },
-            silent: true,
-            itemStyle: {
-                normal: {
-                    areaColor: '#323c48',
-                    borderColor: '#111'
-                },
-                emphasis: {
-                    areaColor: '#2a333d'
-                }
-            }
-        },
-        series: [{
-            name: '弱',
-            type: 'scatterGL',
-            progressive: 1e6,
-            coordinateSystem: 'geo',
-            symbolSize: ((level) => {
-                switch (level) {
-                    case 1:
-                        return 1;
-                        break;
-                    case 2:
-                        return 5;
-                        break;
-                    case 3:
-                        return 10;
-                        break;
-                    default:
-                        return 1;
-                        break;
-                }
-            })(1),//store.state.common.baseConfig.worldMapSymbolLevel
-            zoomScale: 0.002,
-            blendMode: 'lighter',
-            large: true,
-            itemStyle: {
-                color: 'rgb(20, 15, 2)'
-            },
-            postEffect: {
-                enable: true
-            },
-            silent: true,
-            dimensions: ['lng', 'lat'],
-            data: new Float32Array()
-        }]
-    };
+    // worldMapOption = {
+    //     // backgroundColor: '#fff',
+    //     geo: {
+    //         map: 'world',
+    //         roam: true,
+    //         label: {
+    //             emphasis: {
+    //                 show: false
+    //             }
+    //         },
+    //         silent: true,
+    //         itemStyle: {
+    //             normal: {
+    //                 areaColor: '#323c48',
+    //                 borderColor: '#111'
+    //             },
+    //             emphasis: {
+    //                 areaColor: '#2a333d'
+    //             }
+    //         }
+    //     },
+    //     series: [{
+    //         name: '弱',
+    //         type: 'scatterGL',
+    //         progressive: 1e6,
+    //         coordinateSystem: 'geo',
+    //         symbolSize: ((level) => {
+    //             switch (level) {
+    //                 case 1:
+    //                     return 1;
+    //                     break;
+    //                 case 2:
+    //                     return 5;
+    //                     break;
+    //                 case 3:
+    //                     return 10;
+    //                     break;
+    //                 default:
+    //                     return 1;
+    //                     break;
+    //             }
+    //         })(1),//store.state.common.baseConfig.worldMapSymbolLevel
+    //         zoomScale: 0.002,
+    //         blendMode: 'lighter',
+    //         large: true,
+    //         itemStyle: {
+    //             color: 'rgb(20, 15, 2)'
+    //         },
+    //         postEffect: {
+    //             enable: true
+    //         },
+    //         silent: true,
+    //         dimensions: ['lng', 'lat'],
+    //         data: new Float32Array()
+    //     }]
+    // };
     constructor() {
         this.chart = null
         this.ele = null
@@ -210,6 +210,62 @@ class ChartService {
                 }
             ]
         }
+        this.worldMapOption = {
+          // backgroundColor: '#fff',
+          geo: {
+            map: 'world',
+            roam: true,
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            silent: true,
+            itemStyle: {
+              normal: {
+                areaColor: '#323c48',
+                borderColor: '#111'
+              },
+              emphasis: {
+                areaColor: '#2a333d'
+              }
+            }
+          },
+          series: [{
+            name: '弱',
+            type: 'scatterGL',
+            progressive: 1e6,
+            coordinateSystem: 'geo',
+            symbolSize: ((level) => {
+              switch (level) {
+                case 1:
+                  return 1;
+                  break;
+                case 2:
+                  return 5;
+                  break;
+                case 3:
+                  return 10;
+                  break;
+                default:
+                  return 1;
+                  break;
+              }
+            })(1), //store.state.common.baseConfig.worldMapSymbolLevel
+            zoomScale: 0.002,
+            blendMode: 'lighter',
+            large: true,
+            itemStyle: {
+              color: 'rgb(20, 15, 2)'
+            },
+            postEffect: {
+              enable: true
+            },
+            silent: true,
+            dimensions: ['lng', 'lat'],
+            data: new Float32Array()
+          }]
+        };
     }
     init(ele, option) {
         this.ele = ele
