@@ -87,7 +87,7 @@
             apiService.get("../../../static/json/walletConfig.json").then((data)=>{
                 this.walletList = data;
                 // console.log(walletList[0].icon);
-        });
+            });
         },
 
         //监视

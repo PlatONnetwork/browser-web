@@ -6,7 +6,7 @@
             <p>The PlatON Block Exploer</p>
         </div>
         <div class="menu">
-            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="#040B27" text-color ="#D7DDE9" active-text-color="#D7DDE9">
+            <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#D7DDE9" active-text-color="#FFFF00">
                 <el-menu-item index="/">
                     <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
@@ -222,13 +222,13 @@
         right: 0;
         left: 0;
         display: flex;
-        justify-content: space-between;   //两端对齐
-        align-items: center;   //居中对齐
         height: 60px;
+        z-index:9999;
         padding:0 100px;
         margin: 0 auto;
-        background: #040B27;
-        z-index:9999;
+        // background: #040B27;
+        align-items: center;   //居中对齐
+        justify-content: space-between;   //两端对齐
         .menu{
             margin: 0 10% 0 0;
         }
@@ -261,7 +261,7 @@
     .el-menu-demo{
         width: 380px;
         // border: 0px;
-        border-bottom-color: #040B27;
+        // border-bottom-color: #040B27;
         li.el-menu-item.is-active{
             border: 0px;
         }
@@ -342,6 +342,12 @@
         }
     }
     .menu{
+        .el-menu-demo  > .el-menu-item:hover{
+            background: transparent !important;
+        }
+        .el-menu--horizontal > .el-submenu .el-submenu__title:hover{
+            background: transparent !important;
+        }
         .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
             border-bottom: 0px;
         }
