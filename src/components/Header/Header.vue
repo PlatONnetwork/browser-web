@@ -231,7 +231,7 @@
         height: 60px;
         padding:0 100px;
         margin: 0 auto;
-        background: #040B27;
+        // background: #040B27; //头部不需要加背景色
         z-index:9999;
         .menu{
             margin: 0 10% 0 0;
