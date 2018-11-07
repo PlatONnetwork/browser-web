@@ -3,10 +3,10 @@
         <com-header :descriptionProp='descriptionProp'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
-                <div v-if="isWorldMap" class="world-map">
+                <div v-show="isWorldMap" class="world-map">
                     <div ref="worldMap" class="world-map"></div>
                 </div>
-                <div v-if="!isWorldMap" class="earth-box">
+                <div v-show="!isWorldMap" class="earth-box">
                     <div ref="earthChart" class="earth-box"></div>
                 </div>
                 <ul class="footer-box">
@@ -273,7 +273,8 @@ export default class Index extends Vue {
     initChart() :void{
         let r = this.$refs;
         blockChart.init(r.blockChart, blockChart.blocklineOption);
-        worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
+        // worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
+        // earthChart.init(r.earthChart,earthChart.earthOption)
     }
     initWorldMapChart():void{
         let r = this.$refs;
@@ -287,7 +288,7 @@ export default class Index extends Vue {
         this.isWorldMap = !this.isWorldMap;
         setTimeout(()=>{
                 this.isWorldMap?this.initWorldMapChart():this.initEarthChart()
-        },50)
+        },0)
     }
     tableRowClassName({row: object, rowIndex}) {
         if (rowIndex % 2 === 0) {
