@@ -1,6 +1,6 @@
 <template>
     <div class="trade-detail-wrap">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -208,6 +208,11 @@ export default {
     },
     //方法
     methods: {
+        searchFn(data){
+            console.warn('子组件header向交易详情data>>>>',data)
+            this.txHash = data.struct.txHash
+            this.detailInfo = data.struct
+        },
         onCopy() {
             this.$message.success(this.$t('modalInfo.copysuccess'));
         },
@@ -373,19 +378,17 @@ export default {
     line-height: 96px;
 }
 button {
-    // width:40px;
-    // height:96px;
     background: none;
     border: none;
     outline: none;
 }
 .bottom {
-    padding: 30px 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     box-sizing: border-box;
+    padding: 30px 0;
     .left,
     .right {
         width: 10%;
@@ -394,8 +397,6 @@ button {
     }
     .center {
         width: 80%;
-        // height:630px;
-        // background-color: #0e1438;
         box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
         background: url(images/background.png) no-repeat center;
         background-size: 100% 100%;
@@ -404,19 +405,20 @@ button {
         margin-top: 30px;
         position: relative;
         .time2 {
-            width: 540px;
+            width: 610px;
             left: 50%;
-            margin-left: -270px;
             top: 30px;
+            margin-left: -305px;
             text-align: center;
         }
         .inputdata {
-            width: 540px;
+            position: relative;
+            width: 610px;
             height: 30px;
-            padding-left: 9px;
             background-color: rgba(48, 56, 104, 0.3);
             margin: 0 auto;
-            position: relative;
+            padding-left: 9px;
+
             span {
                 letter-spacing: 0.8px;
                 color: #93a5c8;

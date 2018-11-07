@@ -1,6 +1,6 @@
 <template>
     <div class="address-detail-wrap">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -9,7 +9,7 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description'>{{descripFn[description]}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description'>{{ $t('breadCrumb.' + descripFn[description]) }}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{$t('totalInfo.info')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -114,7 +114,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.txType")'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{txTypeFn[scope.row.txType]}}</span>
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.from")'>
@@ -178,12 +178,12 @@
                     {label:'MPCtransaction',value:'MPCtransaction'},
                 ],
                 txTypeFn: {
-                    transfer : this.$t('elseInfo.transfer'),
-                    MPCtransaction : this.$t('elseInfo.MPCtransaction'),
-                    contractCreate : this.$t('elseInfo.contractCreate'),
-                    vote : this.$t('elseInfo.vote'),
-                    transactionExecute :this.$t('elseInfo.transactionExecute'),
-                    authorization :this.$t('elseInfo.authorization')
+                    transfer : 'transfer',
+                    MPCtransaction : 'MPCtransaction',
+                    contractCreate : 'contractCreate',
+                    vote : 'vote',
+                    transactionExecute :'transactionExecute',
+                    authorization :'authorization'
                 },
                 address:'',
                 detailInfo:{
@@ -231,9 +231,9 @@
                     ]
                 },
                 descripFn: {
-                    pending : this.$t('tradePendingAbout.transactions'),
-                    trade : this.$t('tradeAbout.transactions'),
-                    block:this.$t('blockAbout.block'),
+                    pending : 'pending',
+                    trade : 'trade',
+                    block : 'block',
                 },
                 pathFn: {
                     pending : '/trade-pending',
@@ -252,6 +252,16 @@
         },
         //方法
          methods: {
+            searchFn(data){
+                console.warn('子组件header向地址详情data>>>>',data)
+                this.address = this.$route.query.address;
+                this.detailInfo = data.struct;
+                data.struct.trades.forEach(item => {
+                    if (item.txReceiptStatus == -1) {
+                        ++this.count;
+                    }
+                });
+            },
             tableRowClassName({row, rowIndex}) {
                 if(rowIndex%2 === 0) {
                     return 'even-row';
@@ -426,10 +436,10 @@
                     margin-right:20px;
                 }
                 .right{
-                    margin-top:4px;
-                    width:380px;
+                    width:430px;
                     height:26px;
                     padding-left:9px;
+                    margin-top:4px;
                     background: rgba(48,56,104,0.30);
                     position: relative;
                     span{

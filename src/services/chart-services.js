@@ -67,7 +67,45 @@ class ChartService {
             dimensions: ['lng', 'lat'],
             data: new Float32Array()
         }]
-    };
+    }
+
+    earthOption = {
+        // backgroundColor: '#000',
+        globe: {
+            baseTexture: 'http://echarts.baidu.com/examples/data-gl/asset/world.topo.bathy.200401.jpg',
+            heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
+            shading: 'lambert',
+            light: {
+                ambient: {
+                    intensity: 0.4
+                },
+                main: {
+                    intensity: 0.4
+                }
+            },
+            viewControl: {
+                autoRotate: false
+            },
+            top: '5%',
+            bottom:'8%'
+        },
+        series: {
+
+            type: 'lines3D',
+
+            coordinateSystem: 'globe',
+
+            blendMode: 'lighter',
+
+            lineStyle: {
+                width: 1,
+                color: 'rgb(50, 50, 150)',
+                opacity: 0.1
+            },
+
+            data: []
+        }
+    }
     constructor() {
         this.chart = null
         this.ele = null

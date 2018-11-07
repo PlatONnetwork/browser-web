@@ -55,8 +55,8 @@ export default {
         fee: 'TxFee',
         before: 'ago',
         txInfo: 'Tx Info',
-        viewLeft: '查看前一个交易',
-        viewRight: '查看后一个交易',
+        viewLeft: 'View the previous transaction',
+        viewRight: 'View the latter transaction',
         information: 'Transaction Information',
         timestamp: 'Time Stamp',
         txHash: 'Txhash',
@@ -82,8 +82,8 @@ export default {
         fee: 'Tx Cost/Fee',
         before: 'ago',
         txInfo: 'Tx Info',
-        viewLeft: '查看前一个交易',
-        viewRight: '查看后一个交易',
+        viewLeft: 'View the previous transaction',
+        viewRight: 'View the latter transaction',
         information: 'Transaction Information',
         pending:'Pending',
         timestamp: 'Receiving Time',
@@ -110,8 +110,8 @@ export default {
         blockReward:'Reward',
         before:' ago',
         info:'Block Info',
-        viewLeft:'查看前一个区块',
-        viewRight:'查看后一个区块',
+        viewLeft:'View the previous block',
+        viewRight:'View the latter block',
         information:'Block Information',
         height1:'Height',
         timestamp:'TimeStamp',
@@ -177,8 +177,13 @@ export default {
         day:'d '
     },
     modalInfo:{
-        copysuccess:'Copy Success',
-        copyfail:'Copy Fail'
+        copysuccess:'Copied to clipboard',
+        copyfail:'Copy the failure'
+    },
+    breadCrumb: {
+        pending: 'Pending Transactions',
+        trade: 'Transactions',
+        block: 'Blocks'
     },
     ...enLocale
 }

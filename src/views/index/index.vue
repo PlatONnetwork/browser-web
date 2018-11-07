@@ -3,8 +3,12 @@
         <com-header :descriptionProp='descriptionProp'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
-                <div v-show="isBigEarth" ref="worldMap" class="world-map"></div>
-                <div v-show="!isBigEarth" ref="earthChart" class="world-map"></div>
+                <div v-show="isWorldMap" class="world-map">
+                    <div ref="worldMap" class="world-map"></div>
+                </div>
+                <div v-show="!isWorldMap" class="earth-box">
+                    <div ref="earthChart" class="earth-box"></div>
+                </div>
                 <ul class="footer-box">
                     <li>
                         <p class="color1">{{currentOverViewData.currentHeight}}</p>
@@ -37,7 +41,7 @@
                         <span>票价</span>
                     </li>
                 </ul>
-                <div class="earth" :class="isBigEarth?'earth2':'earth1'" @click="changeEarth"></div>
+                <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
             </slideritem>
             <slideritem class="second-floor">
                 <header class="time-and-number">
@@ -177,7 +181,8 @@ import IndexService from '@/services/index-service';
 
 const blockChart = new ChartService(),
     indexService = new IndexService(),
-    worldMapChart = new ChartService();
+    worldMapChart = new ChartService(),
+    earthChart = new ChartService();
 
 @Component({
     components: {
@@ -193,7 +198,7 @@ export default class Index extends Vue {
     isRealtimeBlock: boolean = true;
     isRealtimeTrade:boolean=true
     descriptionProp: string = '';
-    isBigEarth: boolean = true;
+    isWorldMap: boolean = true;
 
     currentOverViewData: object = {
         currentHeight: '666666', //当前区块高度
@@ -265,10 +270,25 @@ export default class Index extends Vue {
     onInit(data) {
         // console.log('onInit',data);
     }
-    initChart() {
+    initChart() :void{
         let r = this.$refs;
         blockChart.init(r.blockChart, blockChart.blocklineOption);
+        // worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
+        // earthChart.init(r.earthChart,earthChart.earthOption)
+    }
+    initWorldMapChart():void{
+        let r = this.$refs;
         worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
+    }
+    initEarthChart():void{
+        let r = this.$refs;
+        earthChart.init(r.earthChart,earthChart.earthOption)
+    }
+    changeEarth():void {
+        this.isWorldMap = !this.isWorldMap;
+        setTimeout(()=>{
+                this.isWorldMap?this.initWorldMapChart():this.initEarthChart()
+        },0)
     }
     tableRowClassName({row: object, rowIndex}) {
         if (rowIndex % 2 === 0) {
@@ -396,15 +416,12 @@ export default class Index extends Vue {
         }
     }
 
-    changeEarth() {
-        this.isBigEarth = !this.isBigEarth;
-    }
     mounted() {
         //初始化图表
         this.initChart();
+        this.initWorldMapChart()
     }
     created() {
-        console.log(indexService);
         indexService.getOverviewData().then(data => {
             //初始数据
             this.currentOverViewData = data;
@@ -434,6 +451,16 @@ export default class Index extends Vue {
             this.transactionData = data;
         });
     }
+    updated(){
+
+    }
+    beforeDestroy() {
+        indexService.disconnect()
+    }
+    destroyed() {
+        indexService.disconnect()
+    }
+
 }
 </script>
 <style lang="less">
@@ -441,6 +468,7 @@ export default class Index extends Vue {
     background: #3c4fa1;
     opacity: 1;
     margin: 12px 0;
+    right: 30px;
 }
 .slider-pagination-bullet-active {
     background: none;
@@ -473,15 +501,7 @@ div.slider-item {
     font-size: 14px;
     text-align: left;
 }
-.swiper-container-vertical .slider-pagination-bullet {
-    background: #3c4fa1;
-}
-.swiper-container-vertical .slider-pagination-bullets {
-    right: 30px;
-}
-.slider-pagination-bullet {
-    background-color: #3c4fa1;
-}
+
 // .color1 {
 //     color: #fcff0a;
 // }
@@ -523,7 +543,7 @@ div.slider-item {
         color: #6d81a9;
     }
 }
-.world-map{
+.world-map,.earth-box{
     width:100%;
     height:100% ;
 }

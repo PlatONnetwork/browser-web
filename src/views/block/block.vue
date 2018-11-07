@@ -215,11 +215,11 @@ export default {
     .bottom {
         padding: 26px 0 40px;
         .title {
-            margin-bottom: 10px;
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: space-between;
+            margin-bottom: 10px;
             .record {
                 font-size: 12px;
                 line-height: 30px;

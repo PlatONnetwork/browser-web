@@ -162,7 +162,7 @@ export default {
         robot:'请验证您是否是机器人！'
     },
     elseInfo:{
-        transfer:'转账1',
+        transfer:'转账',
         vote:'投票',
         contractCreate:'合约创建',
         transactionExecute:'合约执行',
@@ -179,6 +179,11 @@ export default {
     modalInfo:{
         copysuccess:'已复制到剪贴板',
         copyfail:'复制失败'
+    },
+    breadCrumb:{
+        pending:'待处理交易',
+        trade:'交易',
+        block:'区块'
     },
     ...zhLocale
 }
