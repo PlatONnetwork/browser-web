@@ -3,6 +3,8 @@
         <com-header :descriptionProp='descriptionProp'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
+                <div v-show="isBigEarth" ref="worldMap" class="world-map"></div>
+                <div v-show="!isBigEarth" ref="earthChart" class="world-map"></div>
                 <ul class="footer-box">
                     <li>
                         <p class="color1">{{currentOverViewData.currentHeight}}</p>
@@ -35,7 +37,7 @@
                         <span>票价</span>
                     </li>
                 </ul>
-                <div class="earth" :class="isBigEarth?'earth1':'earth2'" @click="changeEarth"></div>
+                <div class="earth" :class="isBigEarth?'earth2':'earth1'" @click="changeEarth"></div>
             </slideritem>
             <slideritem class="second-floor">
                 <header class="time-and-number">
@@ -170,11 +172,12 @@ import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 import {slider, slideritem} from 'vue-concise-slider';
 import apiServices from '@/services/API-services';
-import chartService from '@/services/chart-services';
+import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 
-const blockChart = new chartService(),
-    indexService = new IndexService();
+const blockChart = new ChartService(),
+    indexService = new IndexService(),
+    worldMapChart = new ChartService();
 
 @Component({
     components: {
@@ -185,8 +188,7 @@ const blockChart = new chartService(),
     },
 })
 export default class Index extends Vue {
-    @Getter
-    info;
+    // @Getter info;
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade:boolean=true
@@ -266,6 +268,7 @@ export default class Index extends Vue {
     initChart() {
         let r = this.$refs;
         blockChart.init(r.blockChart, blockChart.blocklineOption);
+        worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
     }
     tableRowClassName({row: object, rowIndex}) {
         if (rowIndex % 2 === 0) {
@@ -520,7 +523,10 @@ div.slider-item {
         color: #6d81a9;
     }
 }
-
+.world-map{
+    width:100%;
+    height:100% ;
+}
 .earth {
     position: absolute;
     bottom: 30px;
