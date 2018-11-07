@@ -1,6 +1,6 @@
 <template>
     <div class="trade-detail-wrap">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -208,6 +208,11 @@ export default {
     },
     //方法
     methods: {
+        searchFn(data){
+            console.warn('子组件header向交易详情data>>>>',data)
+            this.txHash = data.struct.txHash
+            this.detailInfo = data.struct
+        },
         onCopy() {
             this.$message.success(this.$t('modalInfo.copysuccess'));
         },
@@ -404,14 +409,14 @@ button {
         margin-top: 30px;
         position: relative;
         .time2 {
-            width: 540px;
+            width: 610px;
             left: 50%;
-            margin-left: -270px;
+            margin-left: -305px;
             top: 30px;
             text-align: center;
         }
         .inputdata {
-            width: 540px;
+            width: 610px;
             height: 30px;
             padding-left: 9px;
             background-color: rgba(48, 56, 104, 0.3);

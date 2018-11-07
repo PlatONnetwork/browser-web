@@ -1,6 +1,6 @@
 <template>
     <div class="block-detail-wrap">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -182,6 +182,11 @@ export default {
     },
     //方法
     methods: {
+        searchFn(data){
+            console.warn('子组件header向区块详情data>>>>',data)
+            this.height = data.struct.height;
+            this.detailInfo = data.struct;
+        },
         onCopy() {
             this.$message.success(this.$t('modalInfo.copysuccess'));
         },

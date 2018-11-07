@@ -137,6 +137,10 @@
                     if(code==0){
                         //根据type不同进入不同的详情页
                         this.switchFn(data.type,data.struct)
+                        this.$emit('searchFn',data)
+                        //切换完成
+                    }else{
+                        this.$message.error(errMsg)
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
@@ -186,7 +190,7 @@
                             path:'/contract-detail',
                             query:{
                                 address:this.searchKey,
-                                description:this.descriptionProp
+                                description:''
                             }
                         });
                         break;
@@ -196,7 +200,7 @@
                             path:'/address-detail',
                             query:{
                                 address:this.searchKey,
-                                description:this.descriptionProp
+                                description:''
                             }
                         });
                         break;
@@ -300,7 +304,7 @@
             margin: 9px 0 0 0;
         }
     }
-    
+
 </style>
 <style lang="less">
     .search{

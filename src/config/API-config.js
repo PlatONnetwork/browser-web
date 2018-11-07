@@ -8,8 +8,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	// FILES = `${FILES_PUBLIC_STORE}/`,//公有
     // FILES = `${FILES_PRIVITE_STORE}/`,//私有
     BLOCK_URL = `${TOTAL}block/`,
-       // HOME_URL = `${TOTAL}home/`,
-       HOME_URL = `http:// 10.10.8.1:8080/browser-server/home/`,
+    HOME_URL = `${TOTAL}home/`,
+    // HOME_URL = `http://10.10.8.8:8080/browser-server/home/`,
    	TRADE_URL = `${TOTAL}transaction/`,
     ACCOUNT_URL = `${TOTAL}account/`,
 	// BLOCK
