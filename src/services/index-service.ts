@@ -83,6 +83,20 @@ class IndexService extends Ws {
         console.log(this, this.connect)
     }
 
+    static dealData(now: Array<object>, old) {
+        if (now.length) {
+            if (now.length === 10) {
+                return now
+            } else {
+                if (old.length >= 10) { old.shift() }
+                return old.concat(now)
+            }
+        } else {
+            if (old.length >= 10) { old.shift() }
+            return old.push(now)
+        }
+    }
+
     getOverviewData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
@@ -172,9 +186,11 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
+                    //data为对象
+                    const { data, code } = res
                     console.log(`updateBlockData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
+                    if (code === 0) {
+                        return resolve(IndexService.dealData(data, list))
                     } else {
                         throw new Error(`todo`)
                     }
@@ -189,9 +205,10 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
+                    const { data, code } = res
                     console.log(`getTransactionData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
+                    if (code === 0) {
+                        return resolve(data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -206,11 +223,11 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
+                    //data为数组
+                    const { data, code } = res
                     console.log(`updateTransactionData`, res)
-                    if (res.code === 0) {
-                        if (list.length >= 10) { list.shift() }
-                        list.push(res.data)
-                        return resolve(list)
+                    if (code === 0) {
+                        return resolve(IndexService.dealData(data, list))
                     } else {
                         throw new Error(`todo`)
                     }
@@ -219,6 +236,7 @@ class IndexService extends Ws {
             })
         })
     }
+
 
 }
 
