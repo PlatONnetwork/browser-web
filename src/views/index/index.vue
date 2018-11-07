@@ -178,11 +178,13 @@ import {slider, slideritem} from 'vue-concise-slider';
 import apiServices from '@/services/API-services';
 import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
+import index from '@/router/map';
 
 const blockChart = new ChartService(),
-    indexService = new IndexService(),
     worldMapChart = new ChartService(),
     earthChart = new ChartService();
+
+let indexService = null
 
 @Component({
     components: {
@@ -342,15 +344,33 @@ export default class Index extends Vue {
             ],
         });
     }
+    getBlock(){
+        indexService.getBlockData().then(data => {
+            this.blockData = data;
+        });
+        indexService.updateBlockData(this.blockData).then(data => {
+            this.blockData = data;
+        });
+    }
+    getTransaction(){
+        indexService.getTransactionData().then(data => {
+            this.transactionData = data;
+        });
+        indexService.updateTransactionData(this.transactionData).then(data => {
+            this.transactionData = data;
+        });
+    }
     //区块 订阅
     changeRealtimeBlock() {
         this.isRealtimeBlock = !this.isRealtimeBlock;
         //重启订阅
+        this.isRealtimeBlock?this.getBlock():indexService.unsubBlock()
     }
     //交易 订阅
     changeRealtimeTrade() {
         this.isRealtimeTrade = !this.isRealtimeTrade;
         //重启订阅
+        this.isRealtimeTrade?this.getTransaction():indexService.unsubTransaction()
     }
     //交易查看全部
     tradeAllFn() {
@@ -422,11 +442,16 @@ export default class Index extends Vue {
         this.initWorldMapChart()
     }
     created() {
+        indexService=new IndexService()
+        indexService.getChartData().then(data => {
+        });
+        indexService.updateChartData().then(data => {
+        });
         indexService.getOverviewData().then(data => {
             //初始数据
             this.currentOverViewData = data;
         });
-        indexService.updatOverviewData().then(data => {
+        indexService.updateOverviewData().then(data => {
             this.currentOverViewData = data;
         });
         indexService.getSecondFloorData().then(data => {
@@ -438,24 +463,16 @@ export default class Index extends Vue {
             this.secondFloorData = data;
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });
-        indexService.getBlockData().then(data => {
-            this.blockData = data;
-        });
-        indexService.updateBlockData(this.blockData).then(data => {
-            this.blockData = data;
-        });
-        indexService.getTransactionData().then(data => {
-            this.transactionData = data;
-        });
-        indexService.updateTransactionData(this.transactionData).then(data => {
-            this.transactionData = data;
-        });
+        this.getBlock()
+        this.getTransaction()
+
     }
     updated(){
 
     }
     beforeDestroy() {
         indexService.disconnect()
+
     }
     destroyed() {
         indexService.disconnect()
@@ -578,7 +595,7 @@ div.slider-item {
     flex-wrap: nowrap;
     justify-content: space-between;
     padding: 0 50px;
-    min-height: calc(100% - 190px);
+    min-height: calc(100% - 170px);
 }
 .floor-area-box {
     padding: 0 50px;
