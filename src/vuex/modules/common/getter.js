@@ -14,8 +14,4 @@ export const commonGetter = {
     chainHttp(state) {
       return state.chainHttp
     },
-    //获取title
-    walletTitle(state) {
-        return state.data
-      }
 }

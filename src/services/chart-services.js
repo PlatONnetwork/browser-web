@@ -1,5 +1,7 @@
 import echarts from 'echarts'
-import store from '@/vuex/store'
+import 'echarts-gl';
+import 'echarts/map/js/world';
+// import store from '@/vuex/store'
 /*
  * fun init(ele, option) 初始化
  *  @param ele 必传
@@ -10,12 +12,68 @@ import store from '@/vuex/store'
  * fun resize() 重置图表尺寸
  */
 class ChartService {
+    worldMapOption = {
+        // backgroundColor: '#fff',
+        geo: {
+            map: 'world',
+            roam: true,
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            silent: true,
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        series: [{
+            name: '弱',
+            type: 'scatterGL',
+            progressive: 1e6,
+            coordinateSystem: 'geo',
+            symbolSize: ((level) => {
+                switch (level) {
+                    case 1:
+                        return 1;
+                        break;
+                    case 2:
+                        return 5;
+                        break;
+                    case 3:
+                        return 10;
+                        break;
+                    default:
+                        return 1;
+                        break;
+                }
+            })(1),//store.state.common.baseConfig.worldMapSymbolLevel
+            zoomScale: 0.002,
+            blendMode: 'lighter',
+            large: true,
+            itemStyle: {
+                color: 'rgb(20, 15, 2)'
+            },
+            postEffect: {
+                enable: true
+            },
+            silent: true,
+            dimensions: ['lng', 'lat'],
+            data: new Float32Array()
+        }]
+    };
     constructor() {
         this.chart = null
         this.ele = null
         this.blocklineOption = {
-            grid:{
-                show:false,
+            grid: {
+                show: false,
                 // left:'3%',
             },
             tooltip: {
@@ -27,149 +85,149 @@ class ChartService {
                     }
                 }
             },
-            xAxis:[
+            xAxis: [
                 {
-                    type:'category',
+                    type: 'category',
                     data: ['1月', '2月', '3月', '4月', '5月', '6月'],
-                    axisPointer:{
-                        type:'shadow'
+                    axisPointer: {
+                        type: 'shadow'
                     },
-                    axisLabel:{
-                        show:true,
-                        textStyle:{
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
                             color: '#2F3753',
                             fontSize: '16'
                         }
                     },
-                    splitLine:{
-                        show:true,
-                        interval:0,
-                        lineStyle:{
+                    splitLine: {
+                        show: true,
+                        interval: 0,
+                        lineStyle: {
                             color: ['#2b66f3'],
                             opacity: 0.3,
-                            type:'dashed',
-                            width:1
+                            type: 'dashed',
+                            width: 1
                         }
                     },
-                    axisLine:{
-                        lineStyle:{
-                            color:'2b66f3',
-                            width:1
+                    axisLine: {
+                        lineStyle: {
+                            color: '2b66f3',
+                            width: 1
                         }
                     }
                 }
             ],
-            yAxis:[
+            yAxis: [
                 {
-                  type: 'value',
-                  name: '',
-                  position: 'left',
-                  axisLabel: {
-                    formatter: '{value}',
-                    textStyle: {
-                      color: '#2F3753',
-                      fontSize: '16'
-                    }
-                  },
-                  splitLine: {
-                    show: true,
-                    interval: 0,
-                    lineStyle: {
-                      color: ['#2b66f3'],
-                      opacity: 0.3,
-                      type: 'dashed',
-                      width: 1
-                    }
-                  },
-                },
-                {
-                    type:'value',
-                    name:'',
-                    position: 'right',
+                    type: 'value',
+                    name: '',
+                    position: 'left',
                     axisLabel: {
-                      formatter: '{value}',
-                      textStyle: {
-                        color: '#2F3753',
-                        fontSize: '16'
-                      }
+                        formatter: '{value}',
+                        textStyle: {
+                            color: '#2F3753',
+                            fontSize: '16'
+                        }
                     },
                     splitLine: {
-                      show: false,
-                      interval: 1,
-                      lineStyle: {
-                        color: ['#2b66f3'],
-                        opacity: 0,
-                        type: 'dashed',
-                        width: 1
-                      }
+                        show: true,
+                        interval: 0,
+                        lineStyle: {
+                            color: ['#2b66f3'],
+                            opacity: 0.3,
+                            type: 'dashed',
+                            width: 1
+                        }
+                    },
+                },
+                {
+                    type: 'value',
+                    name: '',
+                    position: 'right',
+                    axisLabel: {
+                        formatter: '{value}',
+                        textStyle: {
+                            color: '#2F3753',
+                            fontSize: '16'
+                        }
+                    },
+                    splitLine: {
+                        show: false,
+                        interval: 1,
+                        lineStyle: {
+                            color: ['#2b66f3'],
+                            opacity: 0,
+                            type: 'dashed',
+                            width: 1
+                        }
                     },
                 },
 
             ],
-            series:[
+            series: [
                 {
-                    name:'出块时间',
-                    type:'line',
-                    yAxisIndex:0,
-                    smooth:true,
+                    name: '出块时间',
+                    type: 'line',
+                    yAxisIndex: 0,
+                    smooth: true,
                     data: [1, 2.3, 4, 3, 3.5, 4],
                     lineStyle: {
                         color: '#2FAAF8',
-                        width:2,
-                        shadowBlur:4,
+                        width: 2,
+                        shadowBlur: 4,
                         shadowColor: 'rgba(42, 63, 131, 0.50)',
-                        shadowOffsetX:2,
-                        shadowOffsetY:4
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 4
                     },
                     // smooth:true,
-                    itemStyle:{
+                    itemStyle: {
                         color: '#2FAAF8',
                         borderColor: '#2FAAF8',
-                        boredrWidth:0,
-                        opacity:0,
+                        boredrWidth: 0,
+                        opacity: 0,
                     },
                     areaStyle: {
-                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#1142FA'
-                      }, {
-                        offset: 1,
-                        color: 'rgba(35,112,160,0.20)'
-                      }])
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#1142FA'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(35,112,160,0.20)'
+                        }])
                     },
                 },
                 {
-                    name:'交易数量',
-                    type:'bar',
+                    name: '交易数量',
+                    type: 'bar',
                     yAxisIndex: 1,
                     smooth: true,
                     data: [20, 4, 5, 30, 14, 25],
                     itemStyle: {
-                      color: '#30EAF6',
-                      opacity:0.3
+                        color: '#30EAF6',
+                        opacity: 0.3
                     },
-                    barWidth:10
+                    barWidth: 10
                 }
             ]
         }
     }
-    init(ele,option){
+    init(ele, option) {
         this.ele = ele
         //基于准备好的dom，初始化echarts实例
         this.chart = echarts.init(ele)
         this.chart.setOption(option)
     }
-    update(updateOption){
+    update(updateOption) {
         this.chart ? this.chart.setOption(updateOption) : console.warn('请先执行init方法')
     }
-    changeTitle(title){
+    changeTitle(title) {
         this.echart ? this.echart.setOption({
-            title:{
-                text:title,
+            title: {
+                text: title,
             },
         }) : console.warn('请先执行init方法')
     }
-    resize(){
+    resize() {
         return this.echart.resize()
     }
 }
