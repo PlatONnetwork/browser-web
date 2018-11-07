@@ -54,7 +54,7 @@ class Ws {
         this.stompClient.connect({}, (frame) => {
             console.log('Connected: ' + frame)
             sub.notify()
-        })
+        }, this.errorCallBack)
     }
 
     //由于服务断开导致连接失败，客户端自动连接
@@ -78,7 +78,10 @@ class Ws {
 
 class IndexService extends Ws {
     chainId: string = store.state.common.chainId
-
+    blackSubHandle: any = null
+    updateBlackSubHandle: any = null
+    transactionSubHandle: any = null
+    updateTransactionSubHandle: any = null
     greet() {
         console.log(this, this.connect)
     }
@@ -97,7 +100,7 @@ class IndexService extends Ws {
         }
     }
 
-    getOverviewData() {
+    getOverviewData(): any {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.chainId, (msg: MsgConfig) => {
@@ -109,12 +112,12 @@ class IndexService extends Ws {
                     } else {
                         throw new Error(`todo`)
                     }
-                }, { 'message': '434343434' })
+                })
             })
         })
     }
 
-    updatOverviewData() {
+    updatOverviewData(): any {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.chainId, (msg: MsgConfig) => {
@@ -125,15 +128,15 @@ class IndexService extends Ws {
                     } else {
                         throw new Error(`todo`)
                     }
-                }, { 'message': '434343434' })
+                })
             })
         })
     }
 
-    getSecondFloorData() {
+    getSecondFloorData(): any {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondInit+this.chainId, (msg: MsgConfig) => {
+                this.stompClient.subscribe(API.WS_CONFIG.secondInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getSecondFloorData`, res)
                     if (res.code === 0) {
@@ -141,7 +144,7 @@ class IndexService extends Ws {
                     } else {
                         throw new Error(`todo`)
                     }
-                }, { 'message': '434343434' })
+                })
             })
         })
     }
@@ -167,7 +170,8 @@ class IndexService extends Ws {
     getBlockData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.chainId, (msg: MsgConfig) => {
+                console.log(2222)
+                this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     console.log(`getBlockData`, res)
                     if (res.code === 0) {
@@ -184,7 +188,7 @@ class IndexService extends Ws {
     updateBlockData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.chainId, (msg: MsgConfig) => {
+                this.updateBlackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     //data为对象
                     const { data, code } = res
@@ -203,7 +207,7 @@ class IndexService extends Ws {
     getTransactionData() {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.chainId, (msg: MsgConfig) => {
+                this.transactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     const { data, code } = res
                     console.log(`getTransactionData`, res)
@@ -221,7 +225,7 @@ class IndexService extends Ws {
     updateTransactionData(list: Array<any>) {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.chainId, (msg: MsgConfig) => {
+                this.updateTransactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.chainId, (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     //data为数组
                     const { data, code } = res
@@ -237,6 +241,14 @@ class IndexService extends Ws {
         })
     }
 
+    unsubBlock() {
+        this.blackSubHandle.unsubscribe()
+        this.updateBlackSubHandle.unsubscribe()
+    }
+    unsubTransaction() {
+        this.transactionSubHandle.unsubscribe()
+        this.updateTransactionSubHandle.unsubscribe()
+    }
 
 }
 
