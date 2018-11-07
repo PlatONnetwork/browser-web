@@ -436,10 +436,10 @@
                     margin-right:20px;
                 }
                 .right{
-                    margin-top:4px;
                     width:430px;
                     height:26px;
                     padding-left:9px;
+                    margin-top:4px;
                     background: rgba(48,56,104,0.30);
                     position: relative;
                     span{

@@ -341,17 +341,17 @@ button {
     outline: none;
 }
 .bottom {
-    padding: 30px 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
     box-sizing: border-box;
+    padding: 30px 0;
     .left,
     .right {
         width: 10%;
-        text-align: center;
         line-height: 630px;
+        text-align: center;
     }
     .center {
         width: 80%;
@@ -360,22 +360,22 @@ button {
         background-size: 100% 100%;
     }
     .record {
-        margin-top: 30px;
         position: relative;
+        margin-top: 30px;
         .time2 {
             width: 540px;
             left: 50%;
-            margin-left: -270px;
             top: 30px;
+            margin-left: -270px;
             text-align: center;
         }
         .inputdata {
+            position: relative;
             width: 540px;
             height: 30px;
-            padding-left: 9px;
             background-color: rgba(48, 56, 104, 0.3);
             margin: 0 auto;
-            position: relative;
+            padding-left: 9px;
             span {
                 letter-spacing: 0.8px;
                 color: #93a5c8;

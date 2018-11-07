@@ -248,7 +248,6 @@ class ChartService {
                 }
             ]
         }
-
     }
     init(ele, option) {
         this.ele = ele
