@@ -443,6 +443,10 @@ export default class Index extends Vue {
     }
     created() {
         indexService=new IndexService()
+        indexService.getChartData().then(data => {
+        });
+        indexService.updateChartData().then(data => {
+        });
         indexService.getOverviewData().then(data => {
             //初始数据
             this.currentOverViewData = data;

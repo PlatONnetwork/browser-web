@@ -102,6 +102,39 @@ class IndexService extends Ws {
         }
     }
 
+    getChartData(): any {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`getChartData`, res)
+                    if (res.code === 0) {
+                        (res.data.node === null) && (res.data.node = ' ')
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+                })
+            })
+        })
+    }
+
+    updateChartData(): any {
+        return new Promise((resolve, reject) => {
+            sub.addSub(() => {
+                this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
+                    const res: ResConfig = JSON.parse(msg.body)
+                    console.log(`updateChartData`, res)
+                    if (res.code === 0) {
+                        return resolve(res.data)
+                    } else {
+                        throw new Error(`todo`)
+                    }
+                })
+            })
+        })
+    }
+
     getOverviewData(): any {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
