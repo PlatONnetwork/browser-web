@@ -128,11 +128,11 @@
         }
         ul{
             position:absolute;
-            bottom:25px;
+            bottom:10px;
         }
         .link li{
             float: left;
-            margin-right: 10px;
+            margin-right: 15px;
             width: 90px;
             height: 30px;
         }
@@ -152,11 +152,11 @@
             text-align: center;
             border-radius: 4px;
         }>div{
-            width: 460px;
+            width: 518px;
             // width: auto;
-            height: 150px;
+            height: 180px;
             background: url('./images/background-third-party.png') no-repeat;
-            background-size: 460px 150px;
+            background-size: 518px 180px;
         }
     }
     form{
@@ -179,17 +179,18 @@
         letter-spacing: 0;
     }
     .third-party-wallet{
-        width: 460px;
-        height: 150px;
+        width: 518px;
+        height: 180px;
         background: url('./images/background-third-party.png') no-repeat;
-        background-size: 460px 150px;
+        background-size: 518px 180px;
         .summary{
             margin: auto;
-            padding: 60px 0 0 70px;
+            padding: 70px 0 0 110px;
         }
         span{
+            padding: 0 10px 0 0;
             font-family: ArialMT;
-            font-size: 16px;
+            font-size: 14px;
             color: #D7DDE9;
             letter-spacing: 0;
         }
