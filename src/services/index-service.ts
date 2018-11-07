@@ -119,12 +119,12 @@ class IndexService extends Ws {
         })
     }
 
-    updatOverviewData(): any {
+    updateOverviewData(): any {
         return new Promise((resolve, reject) => {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.getChainId(), (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`updatOverviewData`, res)
+                    console.log(`updateOverviewData`, res)
                     if (res.code === 0) {
                         return resolve(res.data)
                     } else {

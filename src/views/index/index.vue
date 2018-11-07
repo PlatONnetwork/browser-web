@@ -447,7 +447,7 @@ export default class Index extends Vue {
             //初始数据
             this.currentOverViewData = data;
         });
-        indexService.updatOverviewData().then(data => {
+        indexService.updateOverviewData().then(data => {
             this.currentOverViewData = data;
         });
         indexService.getSecondFloorData().then(data => {
