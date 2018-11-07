@@ -8,13 +8,14 @@ import ElementUI from 'element-ui'
 import ElementLocale from 'element-ui/lib/locale'
 import VueClipboard from 'vue-clipboard2'
 import filters from './filters/index'
+import { mapActions } from 'vuex'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
 import '../static/css/iconfont.css'
 // less
 import '@/less/index.less'
-import { mapActions } from 'vuex'
+
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
