@@ -468,6 +468,7 @@ export default class Index extends Vue {
     background: #3c4fa1;
     opacity: 1;
     margin: 12px 0;
+    right: 30px;
 }
 .slider-pagination-bullet-active {
     background: none;
@@ -500,15 +501,7 @@ div.slider-item {
     font-size: 14px;
     text-align: left;
 }
-.swiper-container-vertical .slider-pagination-bullet {
-    background: #3c4fa1;
-}
-.swiper-container-vertical .slider-pagination-bullets {
-    right: 30px;
-}
-.slider-pagination-bullet {
-    background-color: #3c4fa1;
-}
+
 // .color1 {
 //     color: #fcff0a;
 // }
