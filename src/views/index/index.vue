@@ -422,7 +422,6 @@ export default class Index extends Vue {
         this.initWorldMapChart()
     }
     created() {
-        console.log(indexService);
         indexService.getOverviewData().then(data => {
             //初始数据
             this.currentOverViewData = data;
@@ -454,6 +453,12 @@ export default class Index extends Vue {
     }
     updated(){
 
+    }
+    beforeDestroy() {
+        indexService.disconnect()
+    }
+    destroyed() {
+        indexService.disconnect()
     }
 
 }
