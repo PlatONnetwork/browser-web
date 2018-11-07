@@ -31,6 +31,10 @@ class ChartService {
                 emphasis: {
                     areaColor: '#2a333d'
                 }
+            },
+            scaleLimit: {
+                min: 0.5,
+                max:1.5
             }
         },
         series: [{
