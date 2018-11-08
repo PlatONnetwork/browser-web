@@ -1,6 +1,6 @@
 <template>
     <div class="trade-block-wrap">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -174,6 +174,10 @@ export default {
     methods: {
         //查询
         searchFn() {},
+        changeDataFn(){
+            console.warn('子组件告诉交易区块链id更改》》》》')
+            this.getTradeList();
+        },
         timeDiffFn(beginTime,endTime){
             return timeDiff(beginTime,endTime)
         },
@@ -192,25 +196,6 @@ export default {
             this.pageSize = val;
             this.getTradeList();
         },
-        // handleCurrentChange1(val){
-        //     this.currentPage1 = val
-        //     let param = {
-        //         cid:'',
-        //         pageNo:this.currentPage1,
-        //         pageSize:this.pageSize
-        //     }
-        //     apiService.trade.transactionList(param).then((res)=>{
-        //         let {data,totalPages,totalCount,code,errMsg}=res
-        //         if(code==0){
-        //             this.tableData = data
-        //             this.pageTotal = totalCount
-        //         }else{
-        //             this.$message.error(errMsg)
-        //         }
-        //     }).catch((error)=>{
-        //         this.$message.error(error)
-        //     })
-        // },
         //获取交易列表 下分页
         getTradeList() {
             let param = {
@@ -307,7 +292,7 @@ export default {
     },
     //监视
     watch: {
-        chainId: 'getTradeList',
+        // chainId: 'getTradeList',
     },
     //组件
     components: {

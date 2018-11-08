@@ -1,6 +1,6 @@
 <template>
     <div class="index">
-        <com-header :descriptionProp='descriptionProp'></com-header>
+        <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
                 <div v-show="isWorldMap" class="world-map">
@@ -274,6 +274,9 @@ export default class Index extends Vue {
     }
     onInit(data) {
         // console.log('onInit',data);
+    }
+    changeDataFn(){
+
     }
     timeDiffFn(beginTime, endTime) {
         return timeDiff(beginTime, endTime);

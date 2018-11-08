@@ -1,6 +1,6 @@
 <template>
     <div class="pend-detail-wrap">
-        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -209,6 +209,10 @@ export default {
             this.txHash = data.struct.txHash
             this.detailInfo = data.struct
         },
+        changeDataFn(){
+            console.warn('子组件告诉待交易详情链id更改》》》》')
+            this.getDetail();
+        },
         onCopy() {
             this.$message.success(this.$t('modalInfo.copysuccess'));
         },
@@ -357,7 +361,7 @@ export default {
     },
     //监视
     watch: {
-        chainId: 'getDetail',
+        // chainId: 'getDetail',
     },
     //组件
     components: {

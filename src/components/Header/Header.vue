@@ -119,6 +119,7 @@
                     return item.cid == command
                 })
                 store.commit("CHANGE_HTTP",arr[0].http)
+                this.$emit('changeDataFn')
             },
             handleCommandLangage(command){
                 this.$i18n.locale = command
@@ -137,6 +138,7 @@
                     if(code==0){
                         //根据type不同进入不同的详情页
                         this.switchFn(data.type,data.struct)
+                        this.$emit('searchFn',data);
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
@@ -300,7 +302,7 @@
             margin: 9px 0 0 0;
         }
     }
-    
+
 </style>
 <style lang="less">
     .search{

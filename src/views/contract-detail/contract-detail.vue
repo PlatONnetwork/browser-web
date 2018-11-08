@@ -1,6 +1,6 @@
 <template>
     <div class="contract-detail-wrap">
-        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn'></com-header>
+        <com-header :descriptionProp='descriptionProp' @searchFn='searchFn' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -270,6 +270,10 @@
                     }
                 });
             },
+            changeDataFn(){
+                console.warn('子组件告诉合约详情链id更改》》》》')
+                this.getDetail();
+            },
             tableRowClassName({row, rowIndex}) {
                 if(rowIndex%2 === 0) {
                     return 'even-row';
@@ -415,7 +419,7 @@
             this.getDetail();
         },
         watch: {
-            chainId: 'getDetail',
+            // chainId: 'getDetail',
         },
         //组件
         components: {
