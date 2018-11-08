@@ -182,12 +182,12 @@ import apiServices from '@/services/API-services';
 import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 import index from '@/router/map';
-import { timeDiff } from '@/services/time-services';
+import {timeDiff} from '@/services/time-services';
 const blockChart = new ChartService(),
     worldMapChart = new ChartService(),
     earthChart = new ChartService();
 
-let indexService = null
+let indexService = null;
 
 @Component({
     components: {
@@ -201,7 +201,7 @@ export default class Index extends Vue {
     // @Getter info;
 
     isRealtimeBlock: boolean = true;
-    isRealtimeTrade:boolean=true
+    isRealtimeTrade: boolean = true;
     descriptionProp: string = '';
     isWorldMap: boolean = true;
 
@@ -275,28 +275,28 @@ export default class Index extends Vue {
     onInit(data) {
         // console.log('onInit',data);
     }
-    timeDiffFn(beginTime,endTime){
-        return timeDiff(beginTime,endTime)
+    timeDiffFn(beginTime, endTime) {
+        return timeDiff(beginTime, endTime);
     }
-    initChart() :void{
+    initChart(): void {
         let r = this.$refs;
         blockChart.init(r.blockChart, blockChart.blocklineOption);
         // worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
         // earthChart.init(r.earthChart,earthChart.earthOption)
     }
-    initWorldMapChart():void{
+    initWorldMapChart(): void {
         let r = this.$refs;
         worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
     }
-    initEarthChart():void{
+    initEarthChart(): void {
         let r = this.$refs;
-        earthChart.init(r.earthChart,earthChart.earthOption)
+        earthChart.init(r.earthChart, earthChart.earthOption);
     }
-    changeEarth():void {
+    changeEarth(): void {
         this.isWorldMap = !this.isWorldMap;
-        setTimeout(()=>{
-                this.isWorldMap?this.initWorldMapChart():this.initEarthChart()
-        },0)
+        setTimeout(() => {
+            this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
+        }, 0);
     }
     tableRowClassName({row: object, rowIndex}) {
         if (rowIndex % 2 === 0) {
@@ -350,7 +350,7 @@ export default class Index extends Vue {
             ],
         });
     }
-    getBlock(){
+    getBlock() {
         indexService.getBlockData().then(data => {
             this.blockData = data;
         });
@@ -358,7 +358,7 @@ export default class Index extends Vue {
             this.blockData = data;
         });
     }
-    getTransaction(){
+    getTransaction() {
         indexService.getTransactionData().then(data => {
             this.transactionData = data;
         });
@@ -370,13 +370,15 @@ export default class Index extends Vue {
     changeRealtimeBlock() {
         this.isRealtimeBlock = !this.isRealtimeBlock;
         //重启订阅
-        this.isRealtimeBlock?this.getBlock():indexService.unsubBlock()
+        this.isRealtimeBlock ? this.getBlock() : indexService.unsubBlock();
     }
     //交易 订阅
     changeRealtimeTrade() {
         this.isRealtimeTrade = !this.isRealtimeTrade;
         //重启订阅
-        this.isRealtimeTrade?this.getTransaction():indexService.unsubTransaction()
+        this.isRealtimeTrade
+            ? this.getTransaction()
+            : indexService.unsubTransaction();
     }
     //交易查看全部
     tradeAllFn() {
@@ -445,14 +447,17 @@ export default class Index extends Vue {
     mounted() {
         //初始化图表
         this.initChart();
-        this.initWorldMapChart()
+        this.initWorldMapChart();
+        indexService.getChartData().then(data => {
+            worldMapChart.chart.appendData({
+                seriesIndex: 0,
+                data,
+            });
+        });
+        indexService.updateChartData().then(data => {});
     }
     created() {
-        indexService=new IndexService()
-        indexService.getChartData().then(data => {
-        });
-        indexService.updateChartData().then(data => {
-        });
+        indexService = new IndexService();
         indexService.getOverviewData().then(data => {
             //初始数据
             this.currentOverViewData = data;
@@ -469,21 +474,16 @@ export default class Index extends Vue {
             this.secondFloorData = data;
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });
-        this.getBlock()
-        this.getTransaction()
-
+        this.getBlock();
+        this.getTransaction();
     }
-    updated(){
-
-    }
+    updated() {}
     beforeDestroy() {
-        indexService.disconnect()
-
+        indexService.disconnect();
     }
     destroyed() {
-        indexService.disconnect()
+        indexService.disconnect();
     }
-
 }
 </script>
 <style lang="less">
@@ -566,9 +566,10 @@ div.slider-item {
         color: #6d81a9;
     }
 }
-.world-map,.earth-box{
-    width:100%;
-    height:100% ;
+.world-map,
+.earth-box {
+    width: 100%;
+    height: 100%;
 }
 .earth {
     position: absolute;

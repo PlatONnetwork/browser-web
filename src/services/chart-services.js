@@ -57,7 +57,7 @@ class ChartService {
                         return 1;
                         break;
                 }
-            })(1),//store.state.common.baseConfig.worldMapSymbolLevel
+            })(3),//store.state.common.baseConfig.worldMapSymbolLevel
             zoomScale: 0.002,
             blendMode: 'lighter',
             large: true,
