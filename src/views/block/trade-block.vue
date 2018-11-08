@@ -25,13 +25,13 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.txHash')">
+                        <el-table-column :label="$t('blockAbout.txHash')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="iconfont iconxinxi">&#xe63f;</i></span>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" :label="$t('blockAbout.height')">
+                        <el-table-column prop="blockHeight" :label="$t('blockAbout.height')" width='150'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
@@ -41,7 +41,7 @@
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.from')">
+                        <el-table-column :label="$t('blockAbout.from')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
@@ -53,7 +53,7 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.to')">
+                        <el-table-column :label="$t('blockAbout.to')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
@@ -316,7 +316,7 @@ export default {
 <style lang="less" scoped>
 .trade-block-wrap {
     .bottom {
-        padding: 26px 0 40px;
+        padding: 26px 0 28px;
         .title {
             display: flex;
             flex-direction: row;

@@ -213,7 +213,7 @@ export default {
 <style lang="less" scoped>
 .block-wrap {
     .bottom {
-        padding: 26px 0 40px;
+        padding: 26px 0 28px;
         .title {
             display: flex;
             flex-direction: row;

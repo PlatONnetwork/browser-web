@@ -25,12 +25,12 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('tradePendingAbout.hash')">
+                        <el-table-column :label="$t('tradePendingAbout.hash')" show-overflow-tooltip  width='200' >
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.age')">
+                        <el-table-column :label="$t('tradePendingAbout.age')"  width='150'>
                             <template slot-scope="scope">
                                 <!-- <span>{{scope.row.dwellTime/60}}秒</span> -->
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradePendingAbout.before')}}</span>
@@ -47,20 +47,20 @@
                                 <span>{{scope.row.energonPrice}}Ene</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.from')">
+                        <el-table-column :label="$t('tradePendingAbout.from')" show-overflow-tooltip  width='200'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 <span @click='filterFn(scope.row.from)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="">
+                        <el-table-column label="" width='40'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.to')">
+                        <el-table-column :label="$t('tradePendingAbout.to')" show-overflow-tooltip  width='200'>
                             <template slot-scope="scope">
                                 <span :title='$t("elseInfo.contract")'  v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
@@ -304,7 +304,7 @@ export default {
 <style lang="less" scoped>
 .pend-wrap {
     .bottom {
-        padding: 26px 0 40px;
+        padding: 26px 0 28px;
         .title {
             display: flex;
             flex-direction: row;

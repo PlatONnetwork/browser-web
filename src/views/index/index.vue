@@ -100,10 +100,10 @@
                                     <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="timestamp" label="币龄" width="180">
-                                <!-- <template slot-scope="scope">
-                                    <span>{{new Date(scope.row.timestamp).Format('yyyy-MM-dd')}}</span>
-                                </template> -->
+                            <el-table-column label="币龄" width="180">
+                                <template slot-scope="scope">
+                                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
+                                </template>
                             </el-table-column>
                             <el-table-column prop="node" label="出块节点">
                             </el-table-column>
@@ -154,7 +154,10 @@
                                     <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="value" label="数额">
+                            <el-table-column label="数额">
+                                <template slot-scope="scope">
+                                    <span>{{scope.row.value}}ATP</span>
+                                </template>
                             </el-table-column>
                         </el-table>
                         <div class="view-all cursor" @click='tradeAllFn'>View All</div>
@@ -179,7 +182,7 @@ import apiServices from '@/services/API-services';
 import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 import index from '@/router/map';
-
+import { timeDiff } from '@/services/time-services';
 const blockChart = new ChartService(),
     worldMapChart = new ChartService(),
     earthChart = new ChartService();
@@ -271,6 +274,9 @@ export default class Index extends Vue {
     }
     onInit(data) {
         // console.log('onInit',data);
+    }
+    timeDiffFn(beginTime,endTime){
+        return timeDiff(beginTime,endTime)
     }
     initChart() :void{
         let r = this.$refs;
