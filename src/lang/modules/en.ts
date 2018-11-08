@@ -185,5 +185,30 @@ export default {
         trade: 'Transactions',
         block: 'Blocks'
     },
+    indexInfo: {
+        blockHeight: 'Block Height',
+        node: 'Producer',
+        currentTransaction: 'Total Transactions',
+        consensusNodeAmount: 'Consensus Nodes',
+        addressAmount: 'Total Address',
+        voteAmount: 'Votes',
+        proportion: 'Ratio',
+        ticketPrice: 'Vote Price',
+        timeandnum: 'Block Time And Number Of Transactions',
+        avgTime: 'Average Block Time',
+        current: 'Current',
+        maxTps: 'Max TPS',
+        avgTransaction: 'Average Block Txns',
+        transactionsperday: 'Transactions Per Day',
+        monitor: 'The number of bitcoin transactions in the last 24 hours',
+        blocks: 'Blocks',
+        height: 'Block Height',
+        age: 'Age',
+        txn: 'Txn',
+        blockReward: 'Reward',
+        transactions: 'Transactions',
+        txhash: 'TxHash',
+        before:'ago'
+    },
     ...enLocale
 }

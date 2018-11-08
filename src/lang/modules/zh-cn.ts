@@ -185,5 +185,30 @@ export default {
         trade:'交易',
         block:'区块'
     },
+    indexInfo:{
+        blockHeight:'当前区块高度',
+        node:'出块节点',
+        currentTransaction:'当前交易笔数',
+        consensusNodeAmount:'共识节点数',
+        addressAmount:'地址数',
+        voteAmount:'投票数',
+        proportion:'占比',
+        ticketPrice:'票价',
+        timeandnum:'出块时间及交易数量',
+        avgTime:'平均出块时长',
+        current:'当前',
+        maxTps:'最大交易TPS',
+        avgTransaction:'平均区块交易数',
+        transactionsperday:'每日交易笔数',
+        monitor:'过去24小时交易笔数实时统计',
+        blocks:'最新区块',
+        height:'区块高度',
+        age:'币龄',
+        txn:'交易数',
+        blockReward:'奖励',
+        transactions:'最新交易',
+        txhash:'交易哈希',
+        before: '前'
+    },
     ...zhLocale
 }

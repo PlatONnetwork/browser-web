@@ -12,33 +12,33 @@
                 <ul class="footer-box">
                     <li>
                         <p class="color1">{{currentOverViewData.currentHeight}}</p>
-                        <span>当前区块高度</span>
+                        <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
                         <p>{{currentOverViewData.node}}</p>
-                        <span>出块节点</span>
+                        <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
                         <p class="color1">{{currentOverViewData.currentTransaction}}</p>
-                        <span>当前交易笔数</span>
+                        <span>{{$t("indexInfo.currentTransaction")}}</span>
                     </li>
                     <li>
                         <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p>
-                        <span>共识节点数s</span>
+                        <span>{{$t("indexInfo.consensusNodeAmount")}}</span>
                     </li>
                     <li>
                         <p>{{currentOverViewData.addressAmount}}</p>
-                        <span>地址数</span>
+                        <span>{{$t("indexInfo.addressAmount")}}</span>
                     </li>
                     <li>
                         <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
-                        <span>投票数/占比</span>
+                        <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
                     </li>
                     <li>
                         <p class="color2">{{currentOverViewData.ticketPrice}}
                             <span class="atp">ATP</span>
                         </p>
-                        <span>票价</span>
+                        <span>{{$t("indexInfo.ticketPrice")}}</span>
                     </li>
                 </ul>
                 <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
@@ -47,20 +47,20 @@
                 <header class="time-and-number">
                     Time And Number
                 </header>
-                <p class="second-floor-text">出块时间及交易数量</p>
+                <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
                 <div class="chart-box">
                     <div class="chart" ref="blockChart"></div>
                     <ul class="chart-aside">
                         <li>
-                            <p>平均出块时长</p>
+                            <p>{{$t("indexInfo.avgTime")}}</p>
                             <span>{{secondFloorData.avgTime}} s</span>
                         </li>
                         <li>
-                            <p>当前/最大交易TPS</p>
+                            <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
                             <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
                         </li>
                         <li>
-                            <p>平均区块交易数</p>
+                            <p>{{$t("indexInfo.avgTransaction")}}</p>
                             <span>{{secondFloorData.avgTransaction}}</span>
                         </li>
                     </ul>
@@ -68,8 +68,8 @@
                 <header class="time-and-number">
                     Transactions
                 </header>
-                <p class="second-floor-text second-floor-text1">每日交易笔数</p>
-                <p class="transactions">过去24小时交易笔数实时统计</p>
+                <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
+                <p class="transactions">{{$t("indexInfo.monitor")}}</p>
                 <ul class="num-box clearfix">
                     <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                     <!-- secondFloorData.dayTransaction -->
@@ -89,27 +89,27 @@
                         </header>
                         <!-- <p class="second-floor-text">最新区块</p> -->
                         <div class="second-floor-text2">
-                            <p class='fl'>最新区块</p>
+                            <p class='fl'>{{$t("indexInfo.blocks")}}</p>
                             <p class='fr'>
                                 <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">Realtime</el-button>
                             </p>
                         </div>
                         <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
-                            <el-table-column prop="height" label="区块高度" width="180">
+                            <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
                                 <template slot-scope="scope">
                                     <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="币龄" width="180">
+                            <el-table-column :label='$t("indexInfo.age")' width="180">
                                 <template slot-scope="scope">
-                                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
+                                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="node" label="出块节点">
+                            <el-table-column prop="node" :label='$t("indexInfo.node")'>
                             </el-table-column>
-                            <el-table-column prop="transaction" label="交易数">
+                            <el-table-column prop="transaction" :label='$t("indexInfo.txn")'>
                             </el-table-column>
-                            <el-table-column prop="blockReward" label="奖励">
+                            <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")'>
                             </el-table-column>
                         </el-table>
                         <div class="view-all cursor" @click='viewBlock'>View All</div>
@@ -121,13 +121,13 @@
                         </header>
                         <!-- <p class="second-floor-text">最新交易</p> -->
                         <div class="second-floor-text2">
-                            <p class='fl'>最新交易</p>
+                            <p class='fl'>{{$t("indexInfo.transactions")}}</p>
                             <p class='fr'>
                                 <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">Realtime</el-button>
                             </p>
                         </div>
                         <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
-                            <el-table-column prop="txHash" label="交易哈希" show-overflow-tooltip>
+                            <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                 </template>
@@ -149,12 +149,12 @@
                                     <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template> -->
                                 <template slot-scope="scope">
-                                    <span title='合约' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                    <span v-if='scope.row.txType == "contractCreate"'>合约创建</span>
+                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                     <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="数额">
+                            <el-table-column :label="$t('tradeAbout.value')">
                                 <template slot-scope="scope">
                                     <span>{{scope.row.value}}ATP</span>
                                 </template>
