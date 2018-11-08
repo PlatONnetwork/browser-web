@@ -107,10 +107,27 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
+                    const { data, code } = res
                     console.log(`getChartData`, res)
-                    if (res.code === 0) {
-                        (res.data.node === null) && (res.data.node = ' ')
-                        return resolve(res.data)
+                    if (code === 0) {
+                        if (!data.length) { return [] }
+
+                        let list: Array<Array<number>> = []
+                        let arr: Array<number> = []
+
+                        data.map(item => {
+                            if (item.latitude && item.longitude) {
+                                arr = [item.latitude, item.longitude]
+                                list = list.concat(arr)
+                            }
+                        })
+
+                        let newList: any = new Float32Array(list.length)
+                        list.map((item, index) => {
+                            newList[index] = item
+                        })
+                        console.log(`getChartData===`,newList)
+                        return resolve(newList)
                     } else {
                         throw new Error(`todo`)
                     }
