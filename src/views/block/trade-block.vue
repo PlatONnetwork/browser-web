@@ -27,7 +27,11 @@
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
                         <el-table-column :label="$t('blockAbout.txHash')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
-                                <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="iconfont iconxinxi">&#xe63f;</i></span>
+                                <!-- <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason'><i class="iconfont iconxinxi">&#xe63f;</i></span> -->
+                                <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                                    <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
+                                    <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                                </el-tooltip>
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
