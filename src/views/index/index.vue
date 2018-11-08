@@ -127,12 +127,12 @@
                             </p>
                         </div>
                         <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
-                            <el-table-column prop="txHash" label="交易哈希" width="180">
+                            <el-table-column prop="txHash" label="交易哈希" show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="from" label="From" width="180">
+                            <el-table-column prop="from" label="From" show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                 </template>
@@ -144,7 +144,7 @@
                                     </span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="to" label="to">
+                            <el-table-column prop="to" label="to" show-overflow-tooltip>
                                 <!-- <template slot-scope="scope">
                                     <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template> -->
