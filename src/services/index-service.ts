@@ -46,7 +46,7 @@ class Ws {
     }
 
     connect(): void {
-        if (this.stompClient) { return }
+        // if (this.stompClient) { return }
         let socket = new window['SockJS'](this.websocketUrl)
         this.stompClient = window['Stomp'].over(socket)
         this.stompClient.heartbeat.outgoing = 10000
@@ -76,7 +76,6 @@ class Ws {
     //主动断开连接
     disconnect(): void {
         this.stompClient != null && this.stompClient.disconnect()
-        this.stompClient = null
     }
 
 }
