@@ -76,6 +76,7 @@ class Ws {
     //主动断开连接
     disconnect(): void {
         this.stompClient != null && this.stompClient.disconnect()
+        this.stompClient = null
     }
 
 }
