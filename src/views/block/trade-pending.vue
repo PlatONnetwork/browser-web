@@ -100,57 +100,7 @@ export default {
         return {
             paginationFlag: true,
             tableData: [
-                {
-                    txHash: '0x234234', //交易hash
-                    dwellTime: 33, // 停留时间=服务器时间-交易接收时间
-                    energonLimit: 55555, //能量限制
-                    energonPrice: 55555, //能量价格
-                    from: '0x667766', //发送方
-                    to: '0x667766', //接收方
-                    value: '222', //数额
-                    txType: 'contractCreate', // 交易类型
-                    // transfer ：转账
-                    // MPCtransaction ： MPC交易
-                    // contractCreate ： 合约创建
-                    // vote ： 投票
-                    // transactionExecute ： 合约执行
-                    // authorization ： 权限
-                    serverTime: 1123123, //服务器时间
-                },
-                {
-                    txHash: '0x234234', //交易hash
-                    dwellTime: 33, // 停留时间=服务器时间-交易接收时间
-                    energonLimit: 55555, //能量限制
-                    energonPrice: 55555, //能量价格
-                    from: '0x667766', //发送方
-                    to: '0x667766', //接收方
-                    value: '222', //数额
-                    txType: 'transfer', // 交易类型
-                    // transfer ：转账
-                    // MPCtransaction ： MPC交易
-                    // contractCreate ： 合约创建
-                    // vote ： 投票
-                    // transactionExecute ： 合约执行
-                    // authorization ： 权限
-                    serverTime: 1123123, //服务器时间
-                },
-                {
-                    txHash: '0x234234', //交易hash
-                    dwellTime: 33, // 停留时间=服务器时间-交易接收时间
-                    energonLimit: 55555, //能量限制
-                    energonPrice: 55555, //能量价格
-                    from: '0x667766', //发送方
-                    to: '0x667766', //接收方
-                    value: '222', //数额
-                    txType: 'transactionExecute', // 交易类型
-                    // transfer ：转账
-                    // MPCtransaction ： MPC交易
-                    // contractCreate ： 合约创建
-                    // vote ： 投票
-                    // transactionExecute ： 合约执行
-                    // authorization ： 权限
-                    serverTime: 1123123, //服务器时间
-                },
+
             ],
             currentPage: 1,
             pageSize: 10,

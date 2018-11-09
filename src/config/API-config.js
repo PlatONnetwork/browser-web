@@ -1,6 +1,7 @@
 //请求地址
 const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT"http://10.10.8.232:8888"
-	// FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
+    // FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
+    JSON_BASE = process.env.JSON_ROOT,
 	TOTAL = `${BASE}/browser-api/`,
 	// FILES_PUBLIC_STORE = process.env.FILESTORE_PUBLIC_ROOT,//'http://192.168.9.86:8081',公有
     // FILES_PRIVITE_STORE = process.env.FILESTORE_PRIVITE_ROOT,//'http://192.168.9.85:8081',私有
@@ -63,5 +64,6 @@ export default {
 	SEARCH,
 	TRADE,
     ACCOUNT,
-    WS_CONFIG
+    WS_CONFIG,
+    JSON_BASE
 }

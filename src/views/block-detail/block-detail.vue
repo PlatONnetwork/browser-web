@@ -159,17 +159,7 @@ export default {
             disabledLeft: false,
             disabledRight: false,
             detailInfo: {
-                height: 19988, //块高
-                timestamp: 123123123879, //出块时间
-                transaction: 1288, //块内交易总数
-                hash: '0x1238', //区块hash
-                parentHash: '0x234', //父区块hash
-                miner: '0x234', // 出块节点（多少时间内）
-                size: 123, //区块大小
-                energonLimit: 24234, //能量消耗限制
-                energonUsed: 2342, //能量消耗
-                blockReward: '123123', //区块奖励
-                extraData: 'xxx', //附加数据
+
             },
             descriptionProp: 'block',
         };

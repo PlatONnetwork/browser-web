@@ -8,7 +8,8 @@ export const common = {
     state: {
         chainList:[],
         chainId:'',
-        chainHttp:''
+        chainHttp:'',
+        walletList:[]
     },
     actions: commonAction,
     getters: commonGetter,

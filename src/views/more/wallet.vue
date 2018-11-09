@@ -65,7 +65,7 @@
         data () {
             return {
                 formLink: 'https://docs.google.com/forms/d/e/1FAIpQLSdNoozqk-McqJtvTs9HMk8TJlDR7rQy7KLbQuUKlaSZacyxrA/viewform?usp=sf_link',   // google表单
-                walletList: [],
+                // walletList: [],
                 descriptionProp:'wallet',
             }
         },
@@ -74,6 +74,7 @@
         },
         //计算
         computed: {
+            ...mapGetters(['walletList']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             }
@@ -84,10 +85,10 @@
         },
         //生命周期函数
         created(){
-            apiService.get("../../../static/json/walletConfig.json").then((data)=>{
-                this.walletList = data;
-                // console.log(walletList[0].icon);
-            });
+            // apiService.get("../../../static/json/walletConfig.json").then((data)=>{
+            //     this.walletList = data;
+            //     // console.log(walletList[0].icon);
+            // });
         },
 
         //监视

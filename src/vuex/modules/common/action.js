@@ -10,11 +10,20 @@ export const commonAction = {
         // apiService.get(config.JSON_BASE+locale+"/countryCode.json").then((data)=>{
         //     state.chainList = data.cid;
         // });
-        apiService.get("../../../static/json/mock.json").then((data)=>{
-            commit('DONE_CHAINLIST',data.chainList)
-            commit('CHANGE_ID',data.chainList[0].cid)
-            commit('CHANGE_HTTP', data.chainList[0].http)
-            // state.chainList = data.cid;
+        // apiService.get("../../../static/json/mock.json").then((data)=>{
+        //     commit('DONE_CHAINLIST',data.chainList)
+        //     commit('CHANGE_ID',data.chainList[0].cid)
+        //     commit('CHANGE_HTTP', data.chainList[0].http)
+        // });
+        apiService.get(config.JSON_BASE + "/mock.json").then((data) => {
+          commit('DONE_CHAINLIST', data.chainList)
+          commit('CHANGE_ID', data.chainList[0].cid)
+          commit('CHANGE_HTTP', data.chainList[0].http)
+        });
+        apiService.get(config.JSON_BASE + "/walletConfig.json").then((data) => {
+            commit('DONE_WALLETLIST', data.wallList)
+        //   this.walletList = data;
+          // console.log(walletList[0].icon);
         });
     },
 }

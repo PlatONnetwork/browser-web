@@ -55,7 +55,9 @@ class Ws {
             this.connectFlag = true
             console.log('Connected: ' + frame)
             sub.notify()
-        }, this.errorCallBack)
+        }, (error) => {
+            this.errorCallBack(error)
+        })
     }
 
     //由于服务断开导致连接失败，客户端自动连接

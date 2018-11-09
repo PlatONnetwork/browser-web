@@ -191,48 +191,7 @@
                 },
                 address:'',
                 detailInfo:{
-                    "balance":131, // 余额
-                    "tradeCount":236, // 交易数
-                    "votePledge":131, // 投票质押
-                    "nodeCount":3, // 投票节点数
-                    "trades":[
-                        {
-                           "txHash": "0x234234",//交易hash
-                           "blockTime": 18080899999,//确认时间(出块时间)
-                           "from": "11111",//发送方
-                           "to": "0x667766",//接收方
-                           "value": "222",//数额
-                           "actualTxCoast": "22",//交易费用
-                           "txReceiptStatus": -1,//交易状态 -1 pending 1 成功  0 失败
-                           "txType": "transactionExecute", // 交易类型
-                                     // transfer ：转账
-                                     // MPCtransaction ： MPC交易
-                                     // contractCreate ： 合约创建
-                                     // vote ： 投票
-                                     // transactionExecute ： 合约执行
-                                     // authorization ： 权限
-                           "serverTime": 1123123,//服务器时间
-                           "failReason":""//失败原因
-                        },
-                        {
-                           "txHash": "0x234234",//交易hash
-                           "blockTime": 18080899999,//确认时间(出块时间)
-                           "from": "11111",//发送方
-                           "to": "0x667766",//接收方
-                           "value": "222",//数额
-                           "actualTxCoast": "22",//交易费用
-                           "txReceiptStatus": -1,//交易状态 -1 pending 1 成功  0 失败
-                           "txType": "transfer", // 交易类型
-                                     // transfer ：转账
-                                     // MPCtransaction ： MPC交易
-                                     // contractCreate ： 合约创建
-                                     // vote ： 投票
-                                     // transactionExecute ： 合约执行
-                                     // authorization ： 权限
-                           "serverTime": 1123123,//服务器时间
-                           "failReason":""//失败原因
-                        }
-                    ]
+
                 },
                 descripFn: {
                     pending : 'pending',
@@ -363,8 +322,8 @@
                 //设置节点地址
                 contractService.serProvider(this.chainHttp)
                 //获取余额
-                this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
-                // this.balance = contractService.getBalance(this.address)
+                // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
+                this.balance = contractService.getBalance(this.address)
                 let param = {
                     // cid:'',
                     address: this.address,

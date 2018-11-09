@@ -81,7 +81,7 @@
                 searchKey:'',//搜索
                 language: window.i18nLocale?window.i18nLocale:'zh-cn',
                 netObj:{
-                    "1":"MainNet",
+                    "100":"MainNet",
                     "2":"TestNet"
                 },
                 options:[

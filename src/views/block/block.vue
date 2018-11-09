@@ -89,18 +89,7 @@ export default {
             newRecordFlag: false,
             paginationFlag: true,
             tableData: [
-                {
-                    height: 17888, //块高
-                    timestamp: 1798798798798, //出块时间
-                    transaction: 10000, //块内交易数
-                    size: 188, //块大小
-                    miner: '0x234', // 出块节点
-                    energonUsed: 111, //能量消耗
-                    energonLimit: 24234, //能量消耗限制
-                    energonAverage: 11, //平均能量价值
-                    blockReward: '123123', //区块奖励
-                    serverTime: 1708098077, //服务器时间
-                },
+
             ],
             currentPage: 1,
             pageSize: 10,
