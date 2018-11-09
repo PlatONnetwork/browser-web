@@ -173,7 +173,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import {Component, Watch} from 'vue-property-decorator';
 import {Getter} from 'vuex-class';
 import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
@@ -196,9 +196,11 @@ let indexService = null;
         slider,
         slideritem,
     },
+
 })
 export default class Index extends Vue {
-    // @Getter info;
+    @Getter
+    chainId;
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade: boolean = true;
@@ -275,9 +277,7 @@ export default class Index extends Vue {
     onInit(data) {
         // console.log('onInit',data);
     }
-    changeDataFn(){
-
-    }
+    changeDataFn() {}
     timeDiffFn(beginTime, endTime) {
         return timeDiff(beginTime, endTime);
     }
@@ -486,6 +486,12 @@ export default class Index extends Vue {
     }
     destroyed() {
         indexService.disconnect();
+    }
+
+    @Watch('chainId')
+    onChainIdChanged(val: string, oldVal: string) {
+        indexService.disconnect()
+        indexService.connect()
     }
 }
 </script>
