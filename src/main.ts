@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App'
+// import App from './App'
 import router from './router'
 import store from './vuex/store'
 import VueI18n from 'vue-i18n'
@@ -46,7 +46,7 @@ window.vueVm = new Vue({
     router,
     store,
     i18n,
-    render: h => h(App),
+    // render: h => h(App),
     methods: {
         ...mapActions(['initJsonData'])
     },
