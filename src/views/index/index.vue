@@ -15,7 +15,7 @@
                         <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
-                        <p>{{currentOverViewData.node}}</p>
+                        <p class='ellipsis' :title='currentOverViewData.node'>{{currentOverViewData.node}}</p>
                         <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
@@ -323,18 +323,20 @@ export default class Index extends Vue {
         return Y + M + D + h + m + s;
     }
     updateChart(data) {
+        // console.warn('data>>>>>>',typeof data,data.length)
         //遍历data  得到 x轴  双 y轴
         let xList = [],
             yListTime = [],
             yListNum = [];
-        if(data.length){
+        if(data !== null){
             data.forEach((item, index) => {
                 let time = new Date(item.time).getSeconds()
+                console.warn('time>>>>',time)
                 // debugger
                 // this.format(item.time)
                 xList.push(item.height);
-                // yListTime.push(this.format(item.time))
-                yListTime.push(time);
+                yListTime.push(time)
+                // yListTime.push(time);
                 yListNum.push(item.transaction);
             });
         }
@@ -475,6 +477,7 @@ export default class Index extends Vue {
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });
         indexService.updateSecondFloorData().then(data => {
+            console.warn('重新订阅啦啦啦啦啦')
             this.secondFloorData = data;
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });

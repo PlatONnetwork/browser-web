@@ -103,7 +103,7 @@ export default {
             ],
             currentPage: 1,
             pageSize: 10,
-            pageTotal: 110,
+            pageTotal: 0,
             currentPage1: 1,
             descriptionProp: 'trade',
         };

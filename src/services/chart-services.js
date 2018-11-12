@@ -118,6 +118,7 @@ class ChartService {
                 show: false,
                 // left:'3%',
             },
+            //提示框组件
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -140,7 +141,7 @@ class ChartService {
                             color: '#2F3753',
                             fontSize: '16'
                         },
-                        interval: 0,
+                        // interval: 2,
                         rotate: 50,
                     },
                     splitLine: {
@@ -167,7 +168,7 @@ class ChartService {
                     name: '',
                     position: 'left',
                     axisLabel: {
-                        formatter: '{value}',
+                        formatter: '{value}s',
                         textStyle: {
                             color: '#2F3753',
                             fontSize: '16'
@@ -213,7 +214,6 @@ class ChartService {
                     name: '出块时间',
                     type: 'line',
                     yAxisIndex: 0,
-                    smooth: true,
                     data: [1, 2.3, 4, 3, 3.5, 4],
                     lineStyle: {
                         color: '#2FAAF8',
@@ -239,6 +239,8 @@ class ChartService {
                             color: 'rgba(35,112,160,0.20)'
                         }])
                     },
+                    symbol: 'none', //去掉折线图中的节点
+                    smooth: true //true 为平滑曲线，false为直线
                 },
                 {
                     name: '交易数量',
