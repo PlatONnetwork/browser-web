@@ -105,51 +105,47 @@ class IndexService extends Ws {
     }
 
     getChartData(): any {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    const { data, code } = res
-                    console.log(`getChartData`, res)
-                    if (code === 0) {
-                        if (!data.length) { return [] }
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`getChartData`, res)
+                if (code === 0) {
+                    if (!data.length) { return [] }
 
-                        let list: Array<Array<number>> = []
-                        let arr: Array<number> = []
+                    let list: Array<Array<number>> = []
+                    let arr: Array<number> = []
 
-                        data.map(item => {
-                            if (item.latitude && item.longitude) {
-                                arr = [item.latitude, item.longitude]
-                                list = list.concat(arr)
-                            }
-                        })
+                    data.map(item => {
+                        if (item.latitude && item.longitude) {
+                            arr = [item.longitude, item.latitude]
+                            list = list.concat(arr)
+                        }
+                    })
 
-                        let newList: any = new Float32Array(list.length)
-                        list.map((item, index) => {
-                            newList[index] = item
-                        })
-                        console.log(`getChartData===`, newList)
-                        return resolve(newList)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
+                    let newList: any = new Float32Array(list.length)
+                    list.map((item, index) => {
+                        newList[index] = item
+                    })
+                    console.log(`getChartData===`, newList)
+                    store.dispatch('updateChartData', newList)
+                } else {
+                    throw new Error(`todo`)
+                }
             })
         })
     }
 
     updateChartData(): any {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`updateChartData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                console.log(`updateChartData`, res)
+                if (res.code === 0) {
+                    //todo
+                } else {
+                    throw new Error(`todo`)
+                }
             })
         })
     }

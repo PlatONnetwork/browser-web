@@ -13,8 +13,11 @@ export const indexAction = {
     updateTransactionData({ commit, state }, list) {
         commit('UPDATE_TRANSACTION_DADA', list)
     },
-    updateSecondFloorData({ commit, state }, list) {
-        commit('UPDATE_SECOND_FLOOR_DADA', list)
+    updateSecondFloorData({ commit, state }, data) {
+        commit('UPDATE_SECOND_FLOOR_DADA', data)
+    },
+    updateChartData({ commit, state }, list) {
+        commit('UPDATE_CHART_DADA', list)
     }
 
 }

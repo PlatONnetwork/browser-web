@@ -211,6 +211,7 @@ export default class Index extends Vue {
     currentOverViewData;
     @Getter
     secondFloorData;
+    @Getter chartData
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade: boolean = true;
@@ -278,8 +279,7 @@ export default class Index extends Vue {
         if (data.length) {
             data.forEach((item, index) => {
                 let time = new Date(item.time).getSeconds();
-                console.warn('time>>>>', time);
-                // debugger
+                // console.warn('time>>>>', time);
                 // this.format(item.time)
                 xList.push(item.height);
                 yListTime.push(time);
@@ -393,12 +393,7 @@ export default class Index extends Vue {
         //初始化图表
         this.initChart();
         this.initWorldMapChart();
-        indexService.getChartData().then(data => {
-            worldMapChart.chart.appendData({
-                seriesIndex: 0,
-                data,
-            });
-        });
+        indexService.getChartData()
         indexService.updateChartData().then(data => {});
     }
     created() {
@@ -426,6 +421,13 @@ export default class Index extends Vue {
     @Watch('secondFloorData')
     onSecondFloorDataChanged(val: object, oldVal: object): void {
         this.updateChart(val['blockStatisticList']);
+    }
+    @Watch('chartData')
+    onChartDataChanged(val: Array<object>, oldVal: Array<object>): void {
+        worldMapChart.chart.appendData({
+            seriesIndex: 0,
+            data:val,
+        });
     }
 }
 </script>

@@ -52,10 +52,7 @@ export const index: object = {
                 timestamp: 155788 //交易时间
             }
         ],
-
-        statisticObj: {},//出块时间及交易数据
-        blockList: [],//实时区块列表
-        tradeList: []//实时交易列表
+        chartData:[]
     },
     actions: indexAction,
     getters: indexGetter,
