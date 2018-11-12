@@ -15,7 +15,10 @@
                         <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
-                        <p class='ellipsis' :title='currentOverViewData.node'>{{currentOverViewData.node}}</p>
+                        <el-tooltip class="item" effect="dark"  placement="bottom">
+                            <div slot="content">{{currentOverViewData.node}}</div>
+                            <p class='ellipsis'>{{currentOverViewData.node}}</p>
+                        </el-tooltip>
                         <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
@@ -308,27 +311,13 @@ export default class Index extends Vue {
             return 'odd-row';
         }
     }
-    format(timestamp) {
-        let date = new Date(timestamp), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            Y = date.getFullYear() + '-',
-            M =
-                (date.getMonth() + 1 < 10
-                    ? '0' + (date.getMonth() + 1)
-                    : date.getMonth() + 1) + '-',
-            D = date.getDate() + ' ',
-            h = date.getHours() + ':',
-            m = date.getMinutes() + ':',
-            s = date.getSeconds();
-        //  debugger
-        return Y + M + D + h + m + s;
-    }
     updateChart(data) {
         // console.warn('data>>>>>>',typeof data,data.length)
         //遍历data  得到 x轴  双 y轴
         let xList = [],
             yListTime = [],
             yListNum = [];
-        if(data !== null){
+        if(data.length){
             data.forEach((item, index) => {
                 let time = new Date(item.time).getSeconds()
                 console.warn('time>>>>',time)
@@ -477,7 +466,6 @@ export default class Index extends Vue {
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });
         indexService.updateSecondFloorData().then(data => {
-            console.warn('重新订阅啦啦啦啦啦')
             this.secondFloorData = data;
             this.updateChart(this.secondFloorData['blockStatisticList']);
         });
