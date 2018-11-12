@@ -31,18 +31,18 @@
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.age')" width='150'>
+                        <el-table-column :label="$t('tradePendingAbout.age')" width='180'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradePendingAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.energonLimit')">
+                        <el-table-column :label="$t('tradePendingAbout.energonLimit')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <!-- <span v-if='scope.row.energonLimit>100' title='超过能量限制，可能无法验证成功！'><i class="el-icon-warning"></i></span> -->
                                 <span>{{scope.row.energonLimit}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.energonPrice1')">
+                        <el-table-column :label="$t('tradePendingAbout.energonPrice1')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonPrice}}Ene</span>
                             </template>
@@ -53,7 +53,7 @@
                                 <span @click='filterFn(scope.row.from)' v-if='scope.row.from !== address' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='40'>
+                        <el-table-column label=""  width='150' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
