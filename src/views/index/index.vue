@@ -327,16 +327,17 @@ export default class Index extends Vue {
         let xList = [],
             yListTime = [],
             yListNum = [];
-        data.forEach((item, index) => {
-            // debugger
-            // this.format(item.time)
-            xList.push(item.height);
-            // yListTime.push(this.format(item.time))
-            yListTime.push(item.time);
-            yListNum.push(item.transaction);
-        });
-        // debugger
-        console.log(yListTime);
+        if(data.length){
+            data.forEach((item, index) => {
+                let time = new Date(item.time).getSeconds()
+                // debugger
+                // this.format(item.time)
+                xList.push(item.height);
+                // yListTime.push(this.format(item.time))
+                yListTime.push(time);
+                yListNum.push(item.transaction);
+            });
+        }
         blockChart.update({
             xAxis: [
                 {

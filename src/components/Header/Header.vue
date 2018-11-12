@@ -139,6 +139,8 @@
                         //根据type不同进入不同的详情页
                         this.switchFn(data.type,data.struct)
                         this.$emit('searchFn',data);
+                    }else{
+                        this.$message.warning('Search no results!')
                     }
                 }).catch((error)=>{
                     this.$message.error(error)

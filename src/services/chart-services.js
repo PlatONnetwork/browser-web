@@ -139,7 +139,9 @@ class ChartService {
                         textStyle: {
                             color: '#2F3753',
                             fontSize: '16'
-                        }
+                        },
+                        interval: 0,
+                        rotate: 50,
                     },
                     splitLine: {
                         show: true,
