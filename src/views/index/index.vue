@@ -15,7 +15,7 @@
                         <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
-                        <el-tooltip class="item" effect="dark"  placement="bottom">
+                        <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">{{currentOverViewData.node}}</div>
                             <p class='ellipsis'>{{currentOverViewData.node}}</p>
                         </el-tooltip>
@@ -108,7 +108,7 @@
                                     <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="node" :label='$t("indexInfo.node")'  show-overflow-tooltip>
+                            <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip>
                             </el-table-column>
                             <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip>
                             </el-table-column>
@@ -199,27 +199,21 @@ let indexService = null;
         slider,
         slideritem,
     },
-
 })
 export default class Index extends Vue {
     @Getter
     chainId;
+    @Getter
+    blockData;
+    @Getter
+    transactionData;
+    @Getter
+    currentOverViewData;
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade: boolean = true;
     descriptionProp: string = '';
     isWorldMap: boolean = true;
-
-    currentOverViewData: object = {
-        currentHeight: '666666', //当前区块高度
-        node: '666666', //出块节点
-        currentTransaction: '666666', //当前交易笔数
-        consensusNodeAmount: '666666', //共识节点数
-        addressAmount: '666666', //地址数
-        voteAmount: '666666', //投票数
-        proportion: '666666', //占比
-        ticketPrice: '666666', //票价
-    };
 
     secondFloorData: object = {
         avgTime: 365, //平均出块时长
@@ -247,29 +241,6 @@ export default class Index extends Vue {
         infinite: 1, // 无限滚动前后遍历数
         slidesToScroll: 1, // 每次滑动项数
     };
-
-    blockData: any = [
-        {
-            height: 33, //区块高度
-            timeStamp: 33333, //出块时间
-            serverTime: 44444, //服务器时间
-            node: 'node-1', //出块节点
-            transaction: 333, //交易数
-            blockReward: 333, //区块奖励
-        },
-    ];
-
-    transactionData: any = [
-        {
-            txHash: 'x3222', //交易Hash
-            blockHeight: 5555, // 区块高度
-            transactionIndex: 33, // 交易在区块中位置
-            from: 'ddddd', //交易发起方地址
-            to: 'aaaa', //交易接收方地址
-            value: 3.6, //数额
-            timestamp: 155788, //交易时间
-        },
-    ];
 
     slide(data) {
         // console.log('slide',data);
@@ -317,14 +288,14 @@ export default class Index extends Vue {
         let xList = [],
             yListTime = [],
             yListNum = [];
-        if(data.length){
+        if (data.length) {
             data.forEach((item, index) => {
-                let time = new Date(item.time).getSeconds()
-                console.warn('time>>>>',time)
+                let time = new Date(item.time).getSeconds();
+                console.warn('time>>>>', time);
                 // debugger
                 // this.format(item.time)
                 xList.push(item.height);
-                yListTime.push(time)
+                yListTime.push(time);
                 // yListTime.push(time);
                 yListNum.push(item.transaction);
             });
@@ -346,20 +317,12 @@ export default class Index extends Vue {
         });
     }
     getBlock() {
-        indexService.getBlockData().then(data => {
-            this.blockData = data;
-        });
-        indexService.updateBlockData(this.blockData).then(data => {
-            this.blockData = data;
-        });
+        indexService.getBlockData();
+        indexService.updateBlockData();
     }
     getTransaction() {
-        indexService.getTransactionData().then(data => {
-            this.transactionData = data;
-        });
-        indexService.updateTransactionData(this.transactionData).then(data => {
-            this.transactionData = data;
-        });
+        indexService.getTransactionData();
+        indexService.updateTransactionData();
     }
     //区块 订阅
     changeRealtimeBlock() {
@@ -453,13 +416,8 @@ export default class Index extends Vue {
     }
     created() {
         indexService = new IndexService();
-        indexService.getOverviewData().then(data => {
-            //初始数据
-            this.currentOverViewData = data;
-        });
-        indexService.updateOverviewData().then(data => {
-            this.currentOverViewData = data;
-        });
+        indexService.getOverviewData();
+        indexService.updateOverviewData();
         indexService.getSecondFloorData().then(data => {
             this.secondFloorData = data;
             // let blockStatisticList = this.secondFloorData["blockStatisticList"]
@@ -481,9 +439,9 @@ export default class Index extends Vue {
     }
 
     @Watch('chainId')
-    onChainIdChanged(val: string, oldVal: string):void {
-        indexService.disconnect()
-        indexService.connect()
+    onChainIdChanged(val: string, oldVal: string): void {
+        indexService.disconnect();
+        indexService.connect();
     }
 }
 </script>

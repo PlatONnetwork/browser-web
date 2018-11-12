@@ -1,0 +1,50 @@
+/**
+ * Created by 15236 on 2017/10/25.
+ */
+import { indexAction } from './action'
+import { indexGetter } from './getter'
+import { indexMutation } from './mutation'
+
+export const index: object = {
+    state: {
+        currentOverViewData:  {
+            currentHeight: '666666', //当前区块高度
+            node: '666666', //出块节点
+            currentTransaction: '666666', //当前交易笔数
+            consensusNodeAmount: '666666', //共识节点数
+            addressAmount: '666666', //地址数
+            voteAmount: '666666', //投票数
+            proportion: '666666', //占比
+            ticketPrice: '666666' //票价
+        },
+        blockData: [
+            {
+                height: 33, //区块高度
+                timeStamp: 33333, //出块时间
+                serverTime: 44444, //服务器时间
+                node: 'node-1', //出块节点
+                transaction: 333, //交易数
+                blockReward: 333 //区块奖励
+            }
+        ],
+        transactionData: [
+            {
+                txHash: 'x3222', //交易Hash
+                blockHeight: 5555, // 区块高度
+                transactionIndex: 33, // 交易在区块中位置
+                from: 'ddddd', //交易发起方地址
+                to: 'aaaa', //交易接收方地址
+                value: 3.6, //数额
+                timestamp: 155788 //交易时间
+            }
+        ],
+
+        statisticObj: {},//出块时间及交易数据
+        blockList: [],//实时区块列表
+        tradeList: []//实时交易列表
+    },
+    actions: indexAction,
+    getters: indexGetter,
+    mutations: indexMutation
+}
+export default index

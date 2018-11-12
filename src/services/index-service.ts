@@ -128,7 +128,7 @@ class IndexService extends Ws {
                         list.map((item, index) => {
                             newList[index] = item
                         })
-                        console.log(`getChartData===`,newList)
+                        console.log(`getChartData===`, newList)
                         return resolve(newList)
                     } else {
                         throw new Error(`todo`)
@@ -155,34 +155,32 @@ class IndexService extends Ws {
     }
 
     getOverviewData(): any {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`getOverviewData`, res)
-                    if (res.code === 0) {
-                        (res.data.node === null) && (res.data.node = ' ')
-                        return resolve(res.data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`getOverviewData`, res)
+                if (code === 0) {
+                    (data.node === null) && (data.node = ' ')
+                    store.dispatch('updateOverviewData', data)
+                } else {
+                    throw new Error(`todo`)
+                }
             })
         })
     }
 
     updateOverviewData(): any {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`updateOverviewData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`updateOverviewData`, res)
+                if (code === 0) {
+                    store.dispatch('updateOverviewData', data)
+                } else {
+                    throw new Error(`todo`)
+                }
             })
         })
     }
@@ -222,41 +220,38 @@ class IndexService extends Ws {
     }
 
     getBlockData() {
-        return new Promise((resolve, reject) => {
-            const fn = () => {
-                this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`getBlockData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
+        const fn = () => {
+            this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                console.log(`getBlockData`, res)
+                if (res.code === 0) {
+                    store.dispatch('updateBlockData', res.data)
+                } else {
+                    throw new Error(`todo`)
+                }
 
-                })
-            }
-            this.connectFlag ? fn() : sub.addSub(fn)
-        })
+            })
+        }
+        this.connectFlag ? fn() : sub.addSub(fn)
     }
 
-    updateBlockData(list: Array<any>) {
-        return new Promise((resolve, reject) => {
-            const fn = () => {
-                this.updateBlackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    //data为对象
-                    const { data, code } = res
-                    console.log(`updateBlockData`, res)
-                    if (code === 0) {
-                        return resolve(IndexService.dealData(data, list))
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
-            }
+    updateBlockData() {
+        const fn = () => {
+            this.updateBlackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                //data为对象
+                const { data, code } = res
+                console.log(`updateBlockData`, res)
+                if (code === 0) {
+                    const newList = IndexService.dealData(data, store.state.index.blockData)
+                    store.dispatch('updateBlockData', newList)
+                } else {
+                    throw new Error(`todo`)
+                }
+            })
+        }
 
-            this.connectFlag ? fn() : sub.addSub(fn)
-        })
+        this.connectFlag ? fn() : sub.addSub(fn)
     }
 
     getTransactionData() {
@@ -267,7 +262,7 @@ class IndexService extends Ws {
                     const { data, code } = res
                     console.log(`getTransactionData`, res)
                     if (code === 0) {
-                        return resolve(data)
+                        store.dispatch('updateTransactionData', data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -278,24 +273,23 @@ class IndexService extends Ws {
         })
     }
 
-    updateTransactionData(list: Array<any>) {
-        return new Promise((resolve, reject) => {
-            const fn = () => {
-                this.updateTransactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    //data为数组
-                    const { data, code } = res
-                    console.log(`updateTransactionData`, res)
-                    if (code === 0) {
-                        return resolve(IndexService.dealData(data, list))
-                    } else {
-                        throw new Error(`todo`)
-                    }
+    updateTransactionData() {
+        const fn = () => {
+            this.updateTransactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                //data为数组
+                const { data, code } = res
+                console.log(`updateTransactionData`, res)
+                if (code === 0) {
+                    const newList = IndexService.dealData(data, store.state.index.transactionData)
+                    store.dispatch('updateTransactionData', newList)
+                } else {
+                    throw new Error(`todo`)
+                }
 
-                })
-            }
-            this.connectFlag ? fn() : sub.addSub(fn)
-        })
+            })
+        }
+        this.connectFlag ? fn() : sub.addSub(fn)
     }
 
     unsubBlock() {
