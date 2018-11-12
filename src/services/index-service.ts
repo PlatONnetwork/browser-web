@@ -103,7 +103,25 @@ class IndexService extends Ws {
             return old.push(now)
         }
     }
+    static dealChartList(data: Array<any>) {
+        if (!data.length) { return [] }
 
+        let list: Array<Array<number>> = []
+        let arr: Array<number> = []
+
+        data.map(item => {
+            if (item.latitude && item.longitude) {
+                arr = [item.longitude, item.latitude]
+                list = list.concat(arr)
+            }
+        })
+
+        let newList: any = new Float32Array(list.length)
+        list.map((item, index) => {
+            newList[index] = item
+        })
+        return newList
+    }
     getChartData(): any {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
@@ -111,24 +129,7 @@ class IndexService extends Ws {
                 const { data, code } = res
                 console.log(`getChartData`, res)
                 if (code === 0) {
-                    if (!data.length) { return [] }
-
-                    let list: Array<Array<number>> = []
-                    let arr: Array<number> = []
-
-                    data.map(item => {
-                        if (item.latitude && item.longitude) {
-                            arr = [item.longitude, item.latitude]
-                            list = list.concat(arr)
-                        }
-                    })
-
-                    let newList: any = new Float32Array(list.length)
-                    list.map((item, index) => {
-                        newList[index] = item
-                    })
-                    console.log(`getChartData===`, newList)
-                    store.dispatch('updateChartData', newList)
+                    store.dispatch('setChartData', IndexService.dealChartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
@@ -141,8 +142,10 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 console.log(`updateChartData`, res)
+                const { data, code } = res
                 if (res.code === 0) {
-                    //todo
+                    const list = IndexService.dealChartList(data)
+                    store.dispatch('updateChartData', list)
                 } else {
                     throw new Error(`todo`)
                 }

@@ -394,7 +394,7 @@ export default class Index extends Vue {
         this.initChart();
         this.initWorldMapChart();
         indexService.getChartData()
-        indexService.updateChartData().then(data => {});
+        indexService.updateChartData()
     }
     created() {
         indexService = new IndexService();
