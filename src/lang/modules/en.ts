@@ -156,10 +156,10 @@ export default {
         info:'Download Data',
         title:'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
         date:'Date Date',
-        placeholder:'选择日期',
+        placeholder:'Select a date',
         download:'Download',
-        placeholder1:'请选择日期',
-        robot:'请验证您是否是机器人！'
+        placeholder1:'Please select date',
+        robot:'Please verify that you are a robot!'
     },
     elseInfo: {
         transfer:'Transfer',
