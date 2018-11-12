@@ -13,6 +13,9 @@ export const indexMutation = {
     },
     ['UPDATE_SECOND_FLOOR_DADA'](state, data) {
         state.secondFloorData = data
+    },
+    ['UPDATE_CHART_DADA'](state, data) {
+        state.chartData = data
     }
 
 
