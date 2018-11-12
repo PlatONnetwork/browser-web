@@ -170,10 +170,32 @@ export default {
         },
         //进入交易哈希详情
         goTradeDetail(index, row) {
+            apiService.trade.pendingDetails({ txHash : row.txHash}).then(res=>{
+                let {errMsg,code,data} = res;
+                if(code == 0){
+                    data.type=='pending'?this.pendingRouterFn(row.txHash):this.tradeRouterFn(row.txHash)
+                }
+            })
+            // this.$router.push({
+            //     path: '/trade-pending-detail',
+            //     query: {
+            //         txHash: row.txHash,
+            //     },
+            // });
+        },
+        pendingRouterFn(txHash){
             this.$router.push({
                 path: '/trade-pending-detail',
                 query: {
-                    txHash: row.txHash,
+                    txHash:txHash,
+                },
+            });
+        },
+        tradeRouterFn(txHash){
+            this.$router.push({
+                path: '/trade-detail',
+                query: {
+                    txHash:txHash,
                 },
             });
         },
