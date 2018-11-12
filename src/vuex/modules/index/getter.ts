@@ -4,5 +4,6 @@
 export const indexGetter = {
     currentOverViewData: state => state.currentOverViewData,
     blockData: state => state.blockData,
-    transactionData: state => state.transactionData
+    transactionData: state => state.transactionData,
+    secondFloorData: state => state.secondFloorData
 }

@@ -186,17 +186,16 @@ class IndexService extends Ws {
     }
 
     getSecondFloorData(): any {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondInit + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    console.log(`getSecondFloorData`, res)
-                    if (res.code === 0) {
-                        return resolve(res.data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-                })
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.secondInit + this.getChainId(), (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`getSecondFloorData`, res)
+                if (res.code === 0) {
+                    store.dispatch('updateSecondFloorData', data)
+                } else {
+                    throw new Error(`todo`)
+                }
             })
         })
     }
@@ -206,9 +205,10 @@ class IndexService extends Ws {
             sub.addSub(() => {
                 this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.getChainId(), (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
+                    const { data, code } = res
                     console.log(`updateSecondFloorData`, res)
                     if (res.code === 0) {
-                        return resolve(res.data)
+                        store.dispatch('updateSecondFloorData', data)
                     } else {
                         throw new Error(`todo`)
                     }

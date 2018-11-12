@@ -209,26 +209,13 @@ export default class Index extends Vue {
     transactionData;
     @Getter
     currentOverViewData;
+    @Getter
+    secondFloorData;
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade: boolean = true;
     descriptionProp: string = '';
     isWorldMap: boolean = true;
-
-    secondFloorData: object = {
-        avgTime: 365, //平均出块时长
-        current: 333, //当前交易数量
-        maxTps: 333, //最大交易TPS
-        avgTransaction: 33, //平均区块交易数
-        dayTransaction: 33, //过去24小时交易笔数
-        blockStatisticList: [
-            {
-                height: 333, //区块高度
-                time: 333, //出块的时间
-                transaction: 33, //区块打包数量
-            },
-        ], //投票数
-    };
 
     // 滑动配置[obj]
     options: object = {
@@ -418,15 +405,8 @@ export default class Index extends Vue {
         indexService = new IndexService();
         indexService.getOverviewData();
         indexService.updateOverviewData();
-        indexService.getSecondFloorData().then(data => {
-            this.secondFloorData = data;
-            // let blockStatisticList = this.secondFloorData["blockStatisticList"]
-            this.updateChart(this.secondFloorData['blockStatisticList']);
-        });
-        indexService.updateSecondFloorData().then(data => {
-            this.secondFloorData = data;
-            this.updateChart(this.secondFloorData['blockStatisticList']);
-        });
+        indexService.getSecondFloorData();
+        indexService.updateSecondFloorData();
         this.getBlock();
         this.getTransaction();
     }
@@ -442,6 +422,10 @@ export default class Index extends Vue {
     onChainIdChanged(val: string, oldVal: string): void {
         indexService.disconnect();
         indexService.connect();
+    }
+    @Watch('secondFloorData')
+    onSecondFloorDataChanged(val: object, oldVal: object): void {
+        this.updateChart(val['blockStatisticList']);
     }
 }
 </script>

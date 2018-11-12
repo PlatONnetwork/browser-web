@@ -7,7 +7,7 @@ import { indexMutation } from './mutation'
 
 export const index: object = {
     state: {
-        currentOverViewData:  {
+        currentOverViewData: {
             currentHeight: '666666', //当前区块高度
             node: '666666', //出块节点
             currentTransaction: '666666', //当前交易笔数
@@ -16,6 +16,20 @@ export const index: object = {
             voteAmount: '666666', //投票数
             proportion: '666666', //占比
             ticketPrice: '666666' //票价
+        },
+        secondFloorData: {
+            avgTime: 365, //平均出块时长
+            current: 333, //当前交易数量
+            maxTps: 333, //最大交易TPS
+            avgTransaction: 33, //平均区块交易数
+            dayTransaction: 33, //过去24小时交易笔数
+            blockStatisticList: [
+                {
+                    height: 333, //区块高度
+                    time: 333, //出块的时间
+                    transaction: 33 //区块打包数量
+                }
+            ]//投票数
         },
         blockData: [
             {

@@ -10,6 +10,10 @@ export const indexMutation = {
     },
     ['UPDATE_TRANSACTION_DADA'](state, data) {
         state.transactionData = data
+    },
+    ['UPDATE_SECOND_FLOOR_DADA'](state, data) {
+        state.secondFloorData = data
     }
+
 
 }
