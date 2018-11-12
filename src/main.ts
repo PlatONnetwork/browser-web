@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import App from './App'
+import App from './App'
 import router from './router'
 import store from './vuex/store'
 import VueI18n from 'vue-i18n'
@@ -27,13 +27,28 @@ const i18n = new VueI18n({
     locale: browserLanguage,
     messages
 })
+
 ElementLocale.i18n((key, value) => i18n.t(key, value))
-// export default new Vue({
+
+export default window.vueVm= new Vue({
+    el: '#app',
+    router,
+    store,
+    i18n,
+    render: h => h(App),
+    methods: {
+        ...mapActions(['initJsonData'])
+    },
+    created() {
+        this.initJsonData(i18n.locale)
+    }
+}).$mount('#app')
+// window.vueVm = new Vue({
 //     el: '#app',
 //     router,
 //     store,
 //     i18n,
-//     render: h => h(App),
+//     // render: h => h(App),
 //     methods: {
 //         ...mapActions(['initJsonData'])
 //     },
@@ -41,16 +56,5 @@ ElementLocale.i18n((key, value) => i18n.t(key, value))
 //         this.initJsonData(i18n.locale)
 //     }
 // })
-window.vueVm = new Vue({
-    el: '#app',
-    router,
-    store,
-    i18n,
-    // render: h => h(App),
-    methods: {
-        ...mapActions(['initJsonData'])
-    },
-    created() {
-        this.initJsonData(i18n.locale)
-    }
-})
+
+
