@@ -353,14 +353,14 @@
             background: transparent !important;
         }
         .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
-            border-bottom: 0px;
+            border-bottom: 0 !important;
         }
         .el-menu--horizontal > .el-submenu .el-submenu__title{
             line-height: 62px;
         }
     }
     .el-menu--horizontal,.el-menu--horizontal>ul{
-        border: 0px;
+        border: 0 !important;
     }
     .el-menu--popup,.el-menu--popup>li{
         background: #0E1438 !important;
@@ -381,7 +381,7 @@
     }
     //右边的dropdown
     .el-dropdown-menu{
-        padding: 0 0 0 0;
-        border: 0px solid #ebeef5;
+        padding: 0 0 0 0 !important;
+        border: 0px solid #ebeef5 !important;
     }
 </style>
