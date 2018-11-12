@@ -25,23 +25,23 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.height')">
+                        <el-table-column :label="$t('blockAbout.height')" width='150'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')">
+                        <el-table-column :label="$t('blockAbout.age')" width='180'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')"></el-table-column>
-                        <el-table-column prop="size" :label="$t('blockAbout.size')">
+                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')" width='150'></el-table-column>
+                        <el-table-column prop="size" :label="$t('blockAbout.size')" width='180'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.miner')">
+                        <el-table-column :label="$t('blockAbout.miner')" show-overflow-tooltip >
                             <template slot-scope="scope">
                                 <span class='cursor normal'>{{scope.row.miner}}</span>
                             </template>

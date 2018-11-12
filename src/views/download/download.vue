@@ -32,7 +32,7 @@
                             <el-date-picker
                                 v-model="form.value"
                                 type="date"
-                                placeholder="选择日期"
+                                :placeholder="$t('download.placeholder')"
                                 :picker-options="pickerOptions"
                                 style='width:150px;'
                                 value-format='yyyy-MM-dd'
@@ -82,7 +82,7 @@
                 descriptionProp:'',
                 rules:{
                     value:[
-                        { required: true, message: '请选择日期', trigger: 'change'}
+                        { required: true, message: this.$t('download.placeholder1'), trigger: 'change'}
                     ]
                 },
                 response:'',
@@ -100,7 +100,7 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                this.response ? this.sameFn() : this.$message.error('请验证您是否是机器人！')
+                this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
             downloadFn(){
                 //父组件调用子组件方法

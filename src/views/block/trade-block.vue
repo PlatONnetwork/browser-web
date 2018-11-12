@@ -40,7 +40,7 @@
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')">
+                        <el-table-column :label="$t('blockAbout.age')" width='180'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('blockAbout.before')}}</span>
                             </template>
@@ -50,7 +50,7 @@
                                 <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="">
+                        <el-table-column label="" width='150' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>

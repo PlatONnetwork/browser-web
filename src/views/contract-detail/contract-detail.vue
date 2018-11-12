@@ -104,7 +104,7 @@
                             </div>
                             <div class="table">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' show-overflow-tooltip width='200'>
+                                    <el-table-column :label='$t("totalInfo.txHash")' show-overflow-tooltip width='250'>
                                         <template slot-scope="scope">
                                             <!-- <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason' class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span> -->
                                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -114,7 +114,7 @@
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.blockTime")'>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='200'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
@@ -125,12 +125,12 @@
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.from")' show-overflow-tooltip width='200'>
+                                    <el-table-column :label='$t("totalInfo.from")' show-overflow-tooltip width='250'>
                                         <template slot-scope="scope">
                                             <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.to")' show-overflow-tooltip width='200'>
+                                    <el-table-column :label='$t("totalInfo.to")' show-overflow-tooltip width='250'>
                                         <template slot-scope="scope">
                                             <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                             <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
@@ -138,12 +138,12 @@
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.value")'>
+                                    <el-table-column :label='$t("totalInfo.value")' show-overflow-tooltip>
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}}ATP</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.actualTxCost")'>
+                                    <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
