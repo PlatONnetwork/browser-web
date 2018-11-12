@@ -105,11 +105,11 @@
                                     <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="node" :label='$t("indexInfo.node")'>
+                            <el-table-column prop="node" :label='$t("indexInfo.node")'  show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="transaction" :label='$t("indexInfo.txn")'>
+                            <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip>
                             </el-table-column>
-                            <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")'>
+                            <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
                             </el-table-column>
                         </el-table>
                         <div class="view-all cursor" @click='viewBlock'>View All</div>
@@ -154,7 +154,7 @@
                                     <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                 </template>
                             </el-table-column>
-                            <el-table-column :label="$t('tradeAbout.value')">
+                            <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                                 <template slot-scope="scope">
                                     <span>{{scope.row.value}}ATP</span>
                                 </template>

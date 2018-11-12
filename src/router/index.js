@@ -7,7 +7,6 @@ import {walletCom,documentCom} from './map/more'
 import DownLoad from './map/download'
 import Redirect from './map/Redirect'
 Vue.use(Router)
-console.log('进来路由来来来')
 export default new Router({
     mode: 'history',
     routes: [

@@ -116,7 +116,7 @@ class ChartService {
         this.blocklineOption = {
             grid: {
                 show: false,
-                // left:'3%',
+                left:'3%',
             },
             //提示框组件
             tooltip: {
