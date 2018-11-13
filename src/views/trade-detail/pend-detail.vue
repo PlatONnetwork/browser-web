@@ -213,7 +213,7 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 0) {
                         // data.type == 'pending' ? this.detailInfo = data :
-                        this.detailInfo = data.data;
+                        this.detailInfo = data.pending;
                     } else {
                         this.detailInfo = {};
                         this.$message.error(errMsg);

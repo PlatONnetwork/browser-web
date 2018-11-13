@@ -49,7 +49,7 @@
                     {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
-                    <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
+                    <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid' :disabled=' item.cid =="2" '>
                         {{item[lang]}}
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -78,6 +78,7 @@
         //实例的数据对象
         data () {
             return {
+                dropDisabled:false,
                 searchKey:'',//搜索
                 language: window.i18nLocale?window.i18nLocale:'zh-cn',
                 netObj:{
@@ -383,5 +384,8 @@
     .el-dropdown-menu{
         padding: 0 0 0 0 !important;
         border: 0px solid #ebeef5 !important;
+    }
+    .el-dropdown-menu__item.is-disabled{
+        opacity: 0.25;
     }
 </style>
