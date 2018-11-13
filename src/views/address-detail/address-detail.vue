@@ -62,7 +62,7 @@
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.votePledge}}ATP</span>
+                                    <span>{{detailInfo.votePledge || 0}}ATP</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -215,6 +215,11 @@
         },
         //方法
          methods: {
+             //将科学计数法转为数值
+            toNonExponential(num){
+                let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
+                return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
+            },
             searchFn(data){
                 console.warn('子组件header向地址详情data>>>>',data)
                 this.address = this.$route.query.address;

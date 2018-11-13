@@ -135,7 +135,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span>
-                                        <span class='cursor normal'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
+                                        <span class='cursor normal' @click='viewBlock'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -197,6 +197,7 @@ export default {
         //将科学计数法转为数值
         toNonExponential(num){
             let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
+            console.warn(m,m[1])
             return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
         },
         searchFn(data){
@@ -353,6 +354,11 @@ export default {
                     this.$message.error(error);
                 });
         },
+        viewBlock(){
+            this.$router.push({
+                path: '/block',
+            });
+        }
     },
     //生命周期函数
     created() {
