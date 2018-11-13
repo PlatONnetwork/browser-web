@@ -119,7 +119,7 @@
                                     <span>{{$t('tradePendingAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.energonPrice}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
+                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -185,6 +185,11 @@ export default {
     },
     //方法
     methods: {
+        //将科学计数法转为数值
+        toNonExponential(num){
+            let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
+            return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
+        },
         searchFn(data){
             console.warn('子组件header向待交易详情data>>>>',data)
             this.txHash = data.struct.txHash

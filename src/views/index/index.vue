@@ -11,7 +11,7 @@
                 </div>
                 <ul class="footer-box">
                     <li>
-                        <p class="color1">{{currentOverViewData.currentHeight}}</p>
+                        <p class="color1 cursor"  @click='viewBlock'>{{currentOverViewData.currentHeight}}</p>
                         <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
@@ -22,7 +22,7 @@
                         <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
-                        <p class="color1">{{currentOverViewData.currentTransaction}}</p>
+                        <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p>
                         <span>{{$t("indexInfo.currentTransaction")}}</span>
                     </li>
                     <li>
@@ -93,8 +93,8 @@
                         <!-- <p class="second-floor-text">最新区块</p> -->
                         <div class="second-floor-text2">
                             <p class='fl'>{{$t("indexInfo.blocks")}}</p>
-                            <p class='fr'>
-                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">Realtime</el-button>
+                            <p class='fr index-btn'>
+                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{$t('indexInfo.realtime')}}</el-button>
                             </p>
                         </div>
                         <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
@@ -115,7 +115,7 @@
                             <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
                             </el-table-column>
                         </el-table>
-                        <div class="view-all cursor" @click='viewBlock'>View All</div>
+                        <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
                     </div>
                     <div class="floor-area-box">
                         <!-- <el-button class="fr el-same">Realtime</el-button> -->
@@ -125,8 +125,8 @@
                         <!-- <p class="second-floor-text">最新交易</p> -->
                         <div class="second-floor-text2">
                             <p class='fl'>{{$t("indexInfo.transactions")}}</p>
-                            <p class='fr'>
-                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">Realtime</el-button>
+                            <p class='fr index-btn'>
+                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button>
                             </p>
                         </div>
                         <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
@@ -163,7 +163,7 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <div class="view-all cursor" @click='tradeAllFn'>View All</div>
+                        <div class="view-all cursor" @click='tradeAllFn'>{{$t('indexInfo.view')}}</div>
                     </div>
                 </div>
                 <com-footer></com-footer>
@@ -219,15 +219,30 @@ export default class Index extends Vue {
     isWorldMap: boolean = true;
 
     // 滑动配置[obj]
+    // options: object = {
+    //     currentPage: 0, // 当前页码
+    //     thresholdDistance: 500, // 滑动判定距离
+    //     thresholdTime: 100, // 滑动判定时间
+    //     autoplay: 0, // 自动滚动[ms]
+    //     loop: true, // 循环滚动
+    //     direction: 'vertical', // 方向设置，垂直滚动
+    //     infinite: 1, // 无限滚动前后遍历数
+    //     slidesToScroll: 1, // 每次滑动项数
+    //     // preventDocumentMove:true,//触发触摸事件时，整个页面会滚动
+    //     effect:'slide',//切换效果
+    // };
     options: object = {
         currentPage: 0, // 当前页码
-        thresholdDistance: 500, // 滑动判定距离
+        thresholdDistance: 800, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
-        loop: true, // 循环滚动
+        loop: false, // 循环滚动
         direction: 'vertical', // 方向设置，垂直滚动
         infinite: 1, // 无限滚动前后遍历数
         slidesToScroll: 1, // 每次滑动项数
+        // preventDocumentMove:true,//触发触摸事件时，整个页面会滚动
+        timingFunction: 'ease',
+        duration: 300
     };
 
     slide(data) {
@@ -276,17 +291,22 @@ export default class Index extends Vue {
         let xList = [],
             yListTime = [],
             yListNum = [];
-        if (data.length) {
-            data.forEach((item, index) => {
-                let time = new Date(item.time).getSeconds();
-                // console.warn('time>>>>', time);
-                // this.format(item.time)
-                xList.push(item.height);
-                yListTime.push(time);
-                // yListTime.push(time);
-                yListNum.push(item.transaction);
-            });
+        if(data){
+            xList = data.x
+            yListTime = data.ya
+            yListNum = data.yb
         }
+        // if (data.length) {
+        //     data.forEach((item, index) => {
+        //         let time = new Date(item.time).getSeconds();
+        //         // console.warn('time>>>>', time);
+        //         // this.format(item.time)
+        //         xList.push(item.height);
+        //         yListTime.push(time);
+        //         // yListTime.push(time);
+        //         yListNum.push(item.transaction);
+        //     });
+        // }
         blockChart.update({
             xAxis: [
                 {
@@ -420,7 +440,7 @@ export default class Index extends Vue {
     }
     @Watch('secondFloorData')
     onSecondFloorDataChanged(val: object, oldVal: object): void {
-        this.updateChart(val['blockStatisticList']);
+        this.updateChart(val['graphData']);
     }
     @Watch('chartData')
     onChartDataChanged(val: Array<object>, oldVal: Array<object>): void {
@@ -446,10 +466,7 @@ export default class Index extends Vue {
     border-width: 0;
     outline: none;
     border-color: transparent;
-    span {
-        padding-left: 8px;
-        font-size: 14px;
-    }
+
     &:hover {
         border-width: 0;
         border-color: transparent;
@@ -457,6 +474,55 @@ export default class Index extends Vue {
     &:active {
         border-width: 0;
         border-color: transparent;
+    }
+}
+.index-btn{
+    .el-same{
+        border-width: 0;
+        outline: none;
+        border-color: transparent;
+        span {
+            padding-left: 8px;
+            font-size: 14px;
+        }
+    }
+    .el-sameon:hover,  {
+        background: url(images/on.png) no-repeat #252c57 8px center;
+        color: #ffff00;
+        border-color: transparent;
+        border-width:0;
+    }
+    .el-sameon:focus{
+        background: url(images/on.png) no-repeat #252c57 8px center;
+        color: #ffff00;
+        border-color: transparent;
+        border-width:0;
+    }
+    .el-sameon:active {
+        background: url(images/on.png) no-repeat #252c57 8px center;
+        color: #ffff00;
+        outline: none;
+        border-color: transparent;
+        border-width:0;
+    }
+    .el-sameoff:hover,  {
+        background: url(images/off.png) no-repeat #131736 8px center;
+        color: #2b2d45;
+        border-color: transparent;
+        border-width:0;
+    }
+    .el-sameoff:focus{
+        background: url(images/off.png) no-repeat #131736 8px center;
+        color: #2b2d45;
+        border-color: transparent;
+        border-width:0;
+    }
+    .el-sameoff:active {
+        background: url(images/off.png) no-repeat #131736 8px center;
+        color: #2b2d45;
+        outline: none;
+        border-color: transparent;
+        border-width:0;
     }
 }
 </style>
@@ -575,9 +641,7 @@ div.slider-item {
 .second-floor-text1 {
     top: 590px;
 }
-.buttons {
-    // position: absolute;
-}
+
 
 .chart-box {
     display: flex;

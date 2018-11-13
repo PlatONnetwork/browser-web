@@ -26,7 +26,7 @@ export const indexAction = {
             if (index <= oldList.length) {
                 newList[index] = oldList[index]
             } else {
-                debugger
+                // debugger
                 newList[index] = list[index - oldList.length-1]
             }
         }

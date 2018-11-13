@@ -20,7 +20,11 @@
                         <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
-                <div class="center">
+                <div class="center"
+                    v-loading="loading"
+                    :element-loading-text="$t('elseInfo.loading')"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(4,11,39, 0.5)">
                     <div class='record'>
                         <header class="time-and-number time2">
                             Transactions
@@ -98,7 +102,7 @@
                                     <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.actualTxCost}}</span>
+                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} ATP</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -122,7 +126,7 @@
                                     <span>{{$t('tradeAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.energonPrice}}</span>
+                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -169,6 +173,7 @@ export default {
     //实例的数据对象
     data() {
         return {
+            loading:false,
             txHash: '',
             btnLeftFlag:true,
             btnRightFlag:true,
@@ -189,6 +194,11 @@ export default {
     },
     //方法
     methods: {
+        //将科学计数法转为数值
+        toNonExponential(num){
+            let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
+            return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
+        },
         searchFn(data){
             console.warn('子组件header向交易详情data>>>>',data)
             this.txHash = data.struct.txHash
@@ -259,6 +269,7 @@ export default {
         goLeft() {
             this.btnRightFlag = true;
             this.disabledRight = false;
+            this.loading = true;
             let param = {
                 // cid:'',
                 direction: 'prev',
@@ -269,6 +280,7 @@ export default {
                 .transactionDetailNavigate(param)
                 .then(res => {
                     let {errMsg, code, data} = res;
+                    this.loading = false;
                     if (code == 1) {
                         //这是第一个 置灰
                         this.btnLeftFlag = false;
@@ -293,6 +305,7 @@ export default {
                     }
                 })
                 .catch(error => {
+                    this.loading = false;
                     this.$message.error(error);
                 });
         },
@@ -300,6 +313,7 @@ export default {
         goRight() {
             this.btnLeftFlag = true;
             this.disabledLeft = false;
+            this.loading = true;
             let param = {
                 // cid:'',
                 direction: 'next',
@@ -310,6 +324,7 @@ export default {
                 .transactionDetailNavigate(param)
                 .then(res => {
                     let {errMsg, code, data} = res;
+                    this.loading = false;
                     if (code == 1) {
                         //这是最后一个 置灰
                         this.btnRightFlag = false;
@@ -334,6 +349,7 @@ export default {
                     }
                 })
                 .catch(error => {
+                    this.loading = false;
                     this.$message.error(error);
                 });
         },

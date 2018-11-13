@@ -138,10 +138,14 @@
                     let {errMsg,code,data}=res
                     if(code==0){
                         //根据type不同进入不同的详情页
-                        this.switchFn(data.type,data.struct)
-                        this.$emit('searchFn',data);
+                        if(data.type==null){
+                            this.$message.warning(this.$t('indexInfo.searchno'))
+                        }else{
+                            this.switchFn(data.type,data.struct)
+                            this.$emit('searchFn',data);
+                        }
                     }else{
-                        this.$message.warning('Search no results!')
+                        this.$message.error(errMsg)
                     }
                 }).catch((error)=>{
                     this.$message.error(error)

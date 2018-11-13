@@ -20,7 +20,11 @@
                         <i class='iconfont iconleft'>&#xe643;</i>
                     </button>
                 </div>
-                <div class="center">
+                <div class="center"
+                    v-loading="loading"
+                    :element-loading-text="$t('elseInfo.loading')"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(4,11,39, 0.5)">
                     <div class='record'>
                         <header class="time-and-number time2">
                             Block
@@ -153,6 +157,7 @@ export default {
     //实例的数据对象
     data() {
         return {
+            loading:false,
             height: '',
             btnLeftFlag:true,
             btnRightFlag:true,
@@ -213,6 +218,7 @@ export default {
         goLeft() {
             this.btnRightFlag = true;
             this.disabledRight = false;
+            this.loading = true;
             let param = {
                 // cid:'',
                 direction: 'prev',
@@ -223,6 +229,7 @@ export default {
                 .blockDetailNavigate(param)
                 .then(res => {
                     let {errMsg, code, data} = res;
+                    this.loading = false;
                     if (code == 1) {
                         //这是第一个 置灰
                         this.btnLeftFlag = false;
@@ -247,6 +254,7 @@ export default {
                     }
                 })
                 .catch(error => {
+                    this.loading = false;
                     this.$message.error(error);
                 });
         },
@@ -254,6 +262,7 @@ export default {
         goRight() {
             this.btnLeftFlag = true;
             this.disabledLeft = false;
+            this.loading = true;
             let param = {
                 // cid:'',
                 direction: 'next',
@@ -264,6 +273,7 @@ export default {
                 .blockDetailNavigate(param)
                 .then(res => {
                     let {errMsg, code, data} = res;
+                    this.loading = false;
                     if (code == 1) {
                         //这是最后一个 置灰
                         this.btnRightFlag = false;
@@ -288,6 +298,7 @@ export default {
                     }
                 })
                 .catch(error => {
+                    this.loading = false;
                     this.$message.error(error);
                 });
         },

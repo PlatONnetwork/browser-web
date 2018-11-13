@@ -174,7 +174,8 @@ export default {
         hour:'时',
         minutes:'分',
         seconds:'秒',
-        day:'天'
+        day:'天',
+        loading:'拼命加载中'
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',
@@ -208,7 +209,10 @@ export default {
         blockReward:'奖励',
         transactions:'最新交易',
         txhash:'交易哈希',
-        before: '前'
+        before: '前',
+        realtime: '实时',
+        view:'查看全部',
+        searchno:'查询无结果！'
     },
     ...zhLocale
 }

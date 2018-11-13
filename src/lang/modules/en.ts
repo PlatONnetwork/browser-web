@@ -174,7 +174,8 @@ export default {
         hour:'h ',
         minutes:'m ',
         seconds:'s ',
-        day:'d '
+        day:'d ',
+        loading:'Loading'
     },
     modalInfo:{
         copysuccess:'Copied to clipboard',
@@ -208,7 +209,10 @@ export default {
         blockReward: 'Reward',
         transactions: 'Transactions',
         txhash: 'TxHash',
-        before:'ago'
+        before:'ago',
+        realtime:'Realtime',
+        view:'View All',
+        searchno:'Search no results!'
     },
     ...enLocale
 }
