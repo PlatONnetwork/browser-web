@@ -127,6 +127,7 @@ export default {
             this.getBlockList();
         },
         handleSizeChange(val) {
+            this.currentPage = 1;
             this.pageSize = val;
             this.getBlockList();
         },

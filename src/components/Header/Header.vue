@@ -235,7 +235,7 @@
         z-index:9999;
         padding:0 100px;
         margin: 0 auto;
-        // background: #040B27;
+        background: #040B27;
         align-items: center;   //居中对齐
         justify-content: space-between;   //两端对齐
         .menu{

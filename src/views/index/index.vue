@@ -1,6 +1,6 @@
 <template>
     <div class="index">
-        <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
+        <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
                 <div v-show="isWorldMap" class="world-map">
@@ -233,8 +233,8 @@ export default class Index extends Vue {
     // };
     options: object = {
         currentPage: 0, // 当前页码
-        thresholdDistance: 1000, // 滑动判定距离
-        thresholdTime: 100, // 滑动判定时间
+        thresholdDistance: 969, // 滑动判定距离
+        thresholdTime: 300, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
         loop: false, // 循环滚动
         direction: 'vertical', // 方向设置，垂直滚动
@@ -527,6 +527,9 @@ export default class Index extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.header-special{
+    background:none;
+}
 .index {
     height: 100%;
 }

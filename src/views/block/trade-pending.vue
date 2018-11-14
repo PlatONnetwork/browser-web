@@ -138,6 +138,7 @@ export default {
             this.getTradeList();
         },
         handleSizeChange(val) {
+            this.currentPage = 1;
             this.pageSize = val;
             this.getTradeList();
         },

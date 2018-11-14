@@ -173,6 +173,8 @@ export default {
     //实例的数据对象
     data() {
         return {
+            currentPage:'',
+            pageSize:'',
             loading:false,
             txHash: '',
             btnLeftFlag:true,
@@ -194,6 +196,16 @@ export default {
     },
     //方法
     methods: {
+        goBack(){
+            // :to="{ path: '/trade' }"
+            this.$router.push({
+                path:'/trade',
+                query:{
+                    currentPage:this.$route.query.currentPage,
+                    pageSize:this.$route.query.pageSize
+                }
+            });
+        },
         //将科学计数法转为数值
         toNonExponential(num){
             let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
@@ -408,6 +420,8 @@ export default {
     },
     //生命周期函数
     created() {
+        this.currentPage=this.$route.query.currentPage;
+        this.pageSize=this.$route.query.pageSize;
         this.txHash = this.$route.query.txHash;
         //获取交易列表
         this.getDetail();
