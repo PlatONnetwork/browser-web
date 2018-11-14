@@ -94,7 +94,7 @@
                         <div class="second-floor-text2">
                             <p class='fl'>{{$t("indexInfo.blocks")}}</p>
                             <p class='fr index-btn'>
-                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{$t('indexInfo.realtime')}}</el-button>
+                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
                             </p>
                         </div>
                         <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
@@ -126,18 +126,31 @@
                         <div class="second-floor-text2">
                             <p class='fl'>{{$t("indexInfo.transactions")}}</p>
                             <p class='fr index-btn'>
-                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button>
+                                <!-- <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button> -->
+                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
                             </p>
                         </div>
                         <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
-                            <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' show-overflow-tooltip>
+                            <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
                                 <template slot-scope="scope">
-                                    <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                    <div class='flex-special'>
+                                        <el-tooltip class="item" effect="dark" placement="top">
+                                            <div slot="content">{{scope.row.txHash}}</div>
+                                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                        </el-tooltip>
+                                    </div>
+                                    <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="from" label="From" show-overflow-tooltip>
+                            <el-table-column prop="from" label="From" width='190'>
                                 <template slot-scope="scope">
-                                    <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                    <div class='flex-special'>
+                                        <el-tooltip class="item" effect="dark" placement="top">
+                                            <div slot="content">{{scope.row.from}}</div>
+                                            <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                        </el-tooltip>
+                                    </div>
+                                    <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 </template>
                             </el-table-column>
                             <el-table-column label="" width="40">
@@ -147,14 +160,19 @@
                                     </span>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="to" label="to" show-overflow-tooltip>
-                                <!-- <template slot-scope="scope">
-                                    <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                </template> -->
+                            <el-table-column prop="to" label="to" width='190'>
                                 <template slot-scope="scope">
-                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <div class='flex-special'>
+                                        <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                        <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                        <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"' >
+                                            <div slot="content">{{scope.row.to}}</div>
+                                            <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                        </el-tooltip>
+                                    </div>
+                                    <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                     <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                                 </template>
                             </el-table-column>
                             <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
@@ -481,10 +499,22 @@ export default class Index extends Vue {
         border-width: 0;
         outline: none;
         border-color: transparent;
+        width:90px;
+        padding:12px 0;
         span {
             padding-left: 8px;
             font-size: 14px;
         }
+    }
+    .el-sameon {
+        background: url(images/on.png) no-repeat #252c57 8px center;
+        color: #ffff00;
+        border-width: 0;
+    }
+    .el-sameoff {
+        background: url(images/off.png) no-repeat #252C57 8px center;
+        color: #FFFFFF;
+        border-width: 0;
     }
     .el-sameon:hover,  {
         background: url(images/on.png) no-repeat #252c57 8px center;
@@ -506,20 +536,20 @@ export default class Index extends Vue {
         border-width:0;
     }
     .el-sameoff:hover,  {
-        background: url(images/off.png) no-repeat #131736 8px center;
-        color: #2b2d45;
+        background: url(images/off.png) no-repeat #252C57 8px center;
+        color: #FFFFFF;
         border-color: transparent;
         border-width:0;
     }
     .el-sameoff:focus{
-        background: url(images/off.png) no-repeat #131736 8px center;
-        color: #2b2d45;
+        background: url(images/off.png) no-repeat #252C57 8px center;
+        color: #FFFFFF;
         border-color: transparent;
         border-width:0;
     }
     .el-sameoff:active {
-        background: url(images/off.png) no-repeat #131736 8px center;
-        color: #2b2d45;
+        background: url(images/off.png) no-repeat #252C57 8px center;
+        color: #FFFFFF;
         outline: none;
         border-color: transparent;
         border-width:0;
@@ -725,13 +755,5 @@ div.slider-item {
         margin-top: 25px;
     }
 }
-.el-sameon {
-    background: url(images/on.png) no-repeat #252c57 8px center;
-    color: #ffff00;
-    border-width: 0;
-}
-.el-sameoff {
-    background: url(images/off.png) no-repeat #131736 8px center;
-    color: #2b2d45;
-}
+
 </style>

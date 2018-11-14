@@ -9,10 +9,11 @@ export function timeDiff(beginTime, endTime) {
     minutes = Math.floor(leave2 / (60 * 1000)),//计算相差分钟
     leave3 = leave2 % (60 * 1000),//计算分钟后剩余的毫秒数
     seconds = Math.round(leave3 / 1000)
+    console.warn(" 相差 " + dayDiff + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒")
     if (dayDiff === 0 && hours !== 0 && minutes !== 0) {
         return hours + window.vueVm.$i18n.t('elseInfo.hour') + minutes + window.vueVm.$i18n.t('elseInfo.minutes')
     } else if (dayDiff === 0 && hours === 0 && minutes !== 0) {
-        return minutes + window.vueVm.$i18n.t('elseInfo.minutes')
+        return minutes + window.vueVm.$i18n.t('elseInfo.minutes') + seconds + window.vueVm.$i18n.t('elseInfo.seconds')
     } else if (dayDiff === 0 && hours === 0 && minutes === 0) {
         return seconds + window.vueVm.$i18n.t('elseInfo.seconds')
     } else {

@@ -212,7 +212,8 @@ export default {
         before:'ago',
         realtime:'Realtime',
         view:'View All',
-        searchno:'Search no results!'
+        searchno:'Search no results!',
+        cancel: 'Cancel'
     },
     ...enLocale
 }

@@ -41,9 +41,15 @@
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.miner')" show-overflow-tooltip >
+                        <el-table-column :label="$t('blockAbout.miner')"  width='200' >
                             <template slot-scope="scope">
-                                <span class='cursor normal'>{{scope.row.miner}}</span>
+                                <div class='flex-special'>
+                                    <el-tooltip class="item" effect="dark" placement="top">
+                                        <div slot="content">{{scope.row.miner}}</div>
+                                        <span class='cursor normal ellipsis'>{{scope.row.miner}}</span>
+                                    </el-tooltip>
+                                </div>
+                                <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.energonUsed')">

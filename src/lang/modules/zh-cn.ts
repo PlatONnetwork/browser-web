@@ -204,7 +204,7 @@ export default {
         monitor:'过去24小时交易笔数实时统计',
         blocks:'最新区块',
         height:'区块高度',
-        age:'币龄',
+        age:'块龄',
         txn:'交易数',
         blockReward:'奖励',
         transactions:'最新交易',
@@ -212,7 +212,8 @@ export default {
         before: '前',
         realtime: '实时',
         view:'查看全部',
-        searchno:'查询无结果！'
+        searchno:'查询无结果！',
+        cancel:'取消'
     },
     ...zhLocale
 }

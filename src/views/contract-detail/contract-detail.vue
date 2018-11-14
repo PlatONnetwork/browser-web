@@ -104,14 +104,23 @@
                             </div>
                             <div class="table">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' show-overflow-tooltip width='250'>
+                                    <el-table-column :label='$t("totalInfo.txHash")'  width='250'>
                                         <template slot-scope="scope">
-                                            <!-- <span v-if='scope.row.txReceiptStatus==0' :title='scope.row.failReason' class='cursor'><i class="iconfont iconxinxi">&#xe63f;</i></span> -->
-                                            <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                                                    <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
+                                                    <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                                                </el-tooltip>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.txHash}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
                                                 <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
                                                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
                                             </el-tooltip>
-                                            <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                            <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.blockTime")' width='200'>
@@ -125,17 +134,30 @@
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.from")' show-overflow-tooltip width='250'>
+                                    <el-table-column :label='$t("totalInfo.from")'  width='250'>
                                         <template slot-scope="scope">
-                                            <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.from}}</div>
+                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.to")' show-overflow-tooltip width='250'>
+                                    <el-table-column :label='$t("totalInfo.to")'  width='250'>
                                         <template slot-scope="scope">
-                                            <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                            <div class='flex-special'>
+                                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                                <el-tooltip class="item" effect="dark" placement="top"  v-else>
+                                                    <div slot="content">{{scope.row.to}}</div>
+                                                    <span class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                             <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                            <!-- <span v-else-if='scope.row.txType == "transactionExecute"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
-                                            <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                            <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.value")' show-overflow-tooltip>
@@ -248,7 +270,7 @@
             },
             exportFn() {
                 //跳转至下载页
-                this.$router.push({
+                const {href} = this.$router.resolve({
                     path:'/download',
                     query:{
                         address:this.address,
@@ -256,6 +278,15 @@
                         exportname:'contract'
                     }
                 })
+                // this.$router.push({
+                //     path:'/download',
+                //     query:{
+                //         address:this.address,
+                //         description: this.description,
+                //         exportname:'contract'
+                //     }
+                // })
+                window.open(href,'_blank')
             },
             goTradeDetail(index, row) {
                 if(row.txReceiptStatus == -1){
