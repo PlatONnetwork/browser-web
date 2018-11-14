@@ -233,7 +233,7 @@ export default class Index extends Vue {
     // };
     options: object = {
         currentPage: 0, // 当前页码
-        thresholdDistance: 800, // 滑动判定距离
+        thresholdDistance: 1000, // 滑动判定距离
         thresholdTime: 100, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
         loop: false, // 循环滚动

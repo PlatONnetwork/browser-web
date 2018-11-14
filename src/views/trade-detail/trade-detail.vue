@@ -282,28 +282,51 @@ export default {
                 .then(res => {
                     let {errMsg, code, data} = res;
                     this.loading = false;
-                    if (code == 1) {
-                        //这是第一个 置灰
-                        this.btnLeftFlag = false;
-                        this.disabledLeft = true;
-                        this.$message.warning(errMsg);
-                        return false;
-                    } else if (code == 0) {
-                        this.btnLeftFlag = true;
-                        this.disabledLeft = false;
-                        this.$router.replace({
-                            path: '/trade-detail',
-                            query: {
-                                txHash: data.txHash,
-                            },
-                        });
-                        this.detailInfo = data;
-                        this.txHash = data.txHash;
-                    } else {
+                    if(code==0){
+                        if(data.first){
+                            //这是第一个 置灰
+                            this.btnLeftFlag = false;
+                            this.disabledLeft = true;
+                            return false;
+                        }else{
+                            this.btnLeftFlag = true;
+                            this.disabledLeft = false;
+                            this.$router.replace({
+                                path: '/trade-detail',
+                                query: {
+                                    txHash: data.txHash,
+                                },
+                            });
+                            this.detailInfo = data;
+                            this.txHash = data.txHash;
+                        }
+                    }else{
                         this.btnLeftFlag = true;
                         this.disabledLeft = false;
                         this.$message.error(errMsg);
                     }
+                    // if (code == 1) {
+                    //     //这是第一个 置灰
+                    //     this.btnLeftFlag = false;
+                    //     this.disabledLeft = true;
+                    //     this.$message.warning(errMsg);
+                    //     return false;
+                    // } else if (code == 0) {
+                    //     this.btnLeftFlag = true;
+                    //     this.disabledLeft = false;
+                    //     this.$router.replace({
+                    //         path: '/trade-detail',
+                    //         query: {
+                    //             txHash: data.txHash,
+                    //         },
+                    //     });
+                    //     this.detailInfo = data;
+                    //     this.txHash = data.txHash;
+                    // } else {
+                    //     this.btnLeftFlag = true;
+                    //     this.disabledLeft = false;
+                    //     this.$message.error(errMsg);
+                    // }
                 })
                 .catch(error => {
                     this.loading = false;
@@ -326,28 +349,51 @@ export default {
                 .then(res => {
                     let {errMsg, code, data} = res;
                     this.loading = false;
-                    if (code == 1) {
-                        //这是最后一个 置灰
-                        this.btnRightFlag = false;
-                        this.disabledRight = true;
-                        this.$message.warning(errMsg);
-                        return false;
-                    } else if (code == 0) {
-                        this.btnRightFlag = true;
-                        this.disabledRight = false;
-                        this.$router.replace({
-                            path: '/trade-detail',
-                            query: {
-                                txHash: data.txHash,
-                            },
-                        });
-                        this.detailInfo = data;
-                        this.txHash = data.txHash;
-                    } else {
+                    if(code==0){
+                        if(data.last){
+                            //这是最后一个 置灰
+                            this.btnRightFlag = false;
+                            this.disabledRight = true;
+                            return false;
+                        }else{
+                            this.btnRightFlag = true;
+                            this.disabledRight = false;
+                            this.$router.replace({
+                                path: '/trade-detail',
+                                query: {
+                                    txHash: data.txHash,
+                                },
+                            });
+                            this.detailInfo = data;
+                            this.txHash = data.txHash;
+                        }
+                    }else{
                         this.btnRightFlag = true;
                         this.disabledRight = false;
                         this.$message.error(errMsg);
                     }
+                    // if (code == 1) {
+                    //     //这是最后一个 置灰
+                    //     this.btnRightFlag = false;
+                    //     this.disabledRight = true;
+                    //     this.$message.warning(errMsg);
+                    //     return false;
+                    // } else if (code == 0) {
+                    //     this.btnRightFlag = true;
+                    //     this.disabledRight = false;
+                    //     this.$router.replace({
+                    //         path: '/trade-detail',
+                    //         query: {
+                    //             txHash: data.txHash,
+                    //         },
+                    //     });
+                    //     this.detailInfo = data;
+                    //     this.txHash = data.txHash;
+                    // } else {
+                    //     this.btnRightFlag = true;
+                    //     this.disabledRight = false;
+                    //     this.$message.error(errMsg);
+                    // }
                 })
                 .catch(error => {
                     this.loading = false;

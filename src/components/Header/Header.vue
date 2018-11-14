@@ -83,7 +83,7 @@
                 language: window.i18nLocale?window.i18nLocale:'zh-cn',
                 netObj:{
                     "100":"MainNet",
-                    "2":"TestNet"
+                    "1":"TestNet"
                 },
                 options:[
                     {
