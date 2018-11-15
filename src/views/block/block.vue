@@ -97,9 +97,9 @@ export default {
             tableData: [
 
             ],
-            currentPage: 1,
+            currentPage:1,
             pageSize: 10,
-            pageTotal: 0,
+            pageTotal: null,
             currentPage1: 1,
             descriptionProp: 'block',
         };
@@ -170,12 +170,21 @@ export default {
                 path: '/block-detail',
                 query: {
                     height: row.height,
+                    currentPage:this.currentPage,
+                    pageSize:this.pageSize
                 },
             });
         },
     },
     //生命周期函数
     created() {
+        if(this.$route.query.currentPage){
+            this.currentPage = Number(this.$route.query.currentPage);
+        };
+        if(this.$route.query.pageSize){
+            this.pageSize = Number(this.$route.query.pageSize);
+        };
+        console.log(this.currentPage)
         //获取交易列表
         this.getBlockList();
     },

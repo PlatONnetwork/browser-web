@@ -49,7 +49,7 @@
                     {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
-                    <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid' :disabled=' item.cid =="2" '>
+                    <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
                         {{item[lang]}}
                     </el-dropdown-item>
                 </el-dropdown-menu>

@@ -9,7 +9,10 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/trade-pending' }">{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade-pending' ,query:{
+                        currentPage:currentPage,
+                        pageSize:pageSize
+                    }}">{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{$t('tradePendingAbout.txInfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -165,6 +168,8 @@ export default {
     //实例的数据对象
     data() {
         return {
+            currentPage:null,
+            pageSize:null,
             txHash: '',
             btnLeftFlag:true,
             btnRightFlag:true,
@@ -342,6 +347,8 @@ export default {
     },
     //生命周期函数
     created() {
+        this.currentPage=this.$route.query.currentPage;
+        this.pageSize=this.$route.query.pageSize;
         this.txHash = this.$route.query.txHash;
         //获取交易列表
         this.getDetail();

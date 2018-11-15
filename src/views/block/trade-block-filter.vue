@@ -127,7 +127,7 @@ export default {
             ],
             currentPage: 1,
             pageSize: 10,
-            pageTotal: 0,
+            pageTotal: null,
             currentPage1: 1,
             descriptionProp: 'pending',
         };
@@ -195,10 +195,34 @@ export default {
         },
         //进入交易哈希详情
         goTradeDetail(index, row) {
+            apiService.trade.pendingDetails({ txHash : row.txHash}).then(res=>{
+                let {errMsg,code,data} = res;
+                if(code == 0){
+                    data.type=='pending'?this.pendingRouterFn(row.txHash):this.tradeRouterFn(row.txHash)
+                }
+            })
+            // this.$router.push({
+            //     path: '/trade-pending-detail',
+            //     query: {
+            //         txHash: row.txHash,
+            //     },
+            // });
+        },
+        pendingRouterFn(txHash){
             this.$router.push({
                 path: '/trade-pending-detail',
                 query: {
-                    txHash: row.txHash,
+                    txHash:txHash,
+                    currentPage:this.currentPage,
+                    pageSize:this.pageSize
+                },
+            });
+        },
+        tradeRouterFn(txHash){
+            this.$router.push({
+                path: '/trade-detail',
+                query: {
+                    txHash:txHash,
                 },
             });
         },
@@ -247,6 +271,13 @@ export default {
     },
     //生命周期函数
     created() {
+        // if(this.$route.query.currentPage){
+        //     this.currentPage = Number(this.$route.query.currentPage);
+        // };
+        // if(this.$route.query.pageSize){
+        //     this.pageSize = Number(this.$route.query.pageSize);
+        // };
+        // console.log(this.currentPage)
         this.address = this.$route.query.address;
         //获取交易列表
         this.getTradeList(this.address);

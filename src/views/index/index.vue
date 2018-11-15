@@ -251,16 +251,8 @@ export default class Index extends Vue {
     // };
     options: object = {
         currentPage: 0, // 当前页码
-        thresholdDistance: 969, // 滑动判定距离
-        thresholdTime: 300, // 滑动判定时间
         autoplay: 0, // 自动滚动[ms]
-        loop: false, // 循环滚动
         direction: 'vertical', // 方向设置，垂直滚动
-        infinite: 1, // 无限滚动前后遍历数
-        slidesToScroll: 1, // 每次滑动项数
-        // preventDocumentMove:true,//触发触摸事件时，整个页面会滚动
-        timingFunction: 'ease',
-        duration: 300
     };
 
     slide(data) {
@@ -475,8 +467,8 @@ export default class Index extends Vue {
     opacity: 1;
     margin: 12px 0;
     right: 30px;
-    width:15px;
-    height:15px;
+    width:8px;
+    height:8px;
 }
 .slider-pagination-bullet-active {
     background: none;

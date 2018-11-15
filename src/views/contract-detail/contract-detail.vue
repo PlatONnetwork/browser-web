@@ -9,7 +9,10 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: pathFn[description] }" v-if='description !== ""'>{{ $t('breadCrumb.' + descripFn[description]) }}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: pathFn[description],query:{
+                        currentPage:currentPage,
+                        pageSize:pageSize
+                    } }" v-if='description !== ""'>{{ $t('breadCrumb.' + descripFn[description]) }}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{$t('totalInfo.info1')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -196,6 +199,8 @@
         //实例的数据对象
         data () {
             return {
+                currentPage:null,
+                pageSize:null,
                 balance:'',
                 count:0,
                 activeTab:1,
@@ -400,6 +405,8 @@
         },
         //生命周期函数
         created() {
+            this.currentPage=this.$route.query.currentPage;
+            this.pageSize=this.$route.query.pageSize;
             this.address = this.$route.query.address;
             this.description = this.$route.query.description;
             this.descriptionProp = this.$route.query.description;

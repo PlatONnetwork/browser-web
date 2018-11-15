@@ -9,7 +9,10 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}} </el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/trade' }">{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade' ,query:{
+                        currentPage:currentPage,
+                        pageSize:pageSize
+                    }}">{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{$t('tradeAbout.txInfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -173,8 +176,8 @@ export default {
     //实例的数据对象
     data() {
         return {
-            currentPage:'',
-            pageSize:'',
+            currentPage:null,
+            pageSize:null,
             loading:false,
             txHash: '',
             btnLeftFlag:true,
