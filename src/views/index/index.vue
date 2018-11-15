@@ -475,6 +475,8 @@ export default class Index extends Vue {
     opacity: 1;
     margin: 12px 0;
     right: 30px;
+    width:15px;
+    height:15px;
 }
 .slider-pagination-bullet-active {
     background: none;

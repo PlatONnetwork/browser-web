@@ -73,7 +73,7 @@
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.to')" show-overflow-tooltip  width='200'>
+                        <el-table-column :label="$t('tradePendingAbout.to')" width='200'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>

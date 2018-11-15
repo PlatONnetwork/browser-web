@@ -28,7 +28,7 @@
                         ></com-recaptcha>
                         <br/>
                         <br/>
-                        <el-form-item :label='$t("download.date")' class='margin20' prop='value'>
+                        <el-form-item :label='$t("download.date")' class='margin20'>
                             <el-date-picker
                                 v-model="form.value"
                                 type="date"
@@ -69,13 +69,13 @@
                 disabledBtn:false,
                 address:'',
                 form:{
-                    value:'',
+                    value:'2018-01-01',
                 },
                 pickerOptions:{
                     disabledDate(time){
                         let myDate = new Date()
                         let val = myDate.setFullYear(myDate.getFullYear(),0,1)
-                        return time.getTime() < new Date(val).getTime() || time.getTime() > Date.now()
+                        return time.getTime() < new Date(val).getTime()- 8.64e7 || time.getTime() > Date.now()
                     }
                 },
                 description:'',
@@ -107,24 +107,32 @@
                 this.$refs.recaptcha.getResponse()
             },
             sameFn(){
-                this.$refs.form.validate((valid)=>{
-                    if(valid){
-                        let param = {
-                            cid:this.chainId,
-                            address:this.address,
-                            date:this.form.value
-                        }
-                        if(this.exportname=='account'){
-                            //导出地址详情
-                            // let iframe =document.getElementById('ifile')
-                            // console.log(iframe.src)
-                            // document.getElementById("ifile").src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
-                            this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
-                        }else if(this.exportname=='contract'){
-                            this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
-                        }
-                    }
-                })
+                // this.$refs.form.validate((valid)=>{
+                //     if(valid){
+                //         let param = {
+                //             cid:this.chainId,
+                //             address:this.address,
+                //             date:this.form.value
+                //         }
+                //         if(this.exportname=='account'){
+                //             this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                //         }else if(this.exportname=='contract'){
+                //             this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                //         }
+                //     }
+                // })
+                let param = {
+                    cid:this.chainId,
+                    address:this.address,
+                    date:this.form.value
+                }
+                if(this.exportname=='account'){
+                    console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressDownload,param))
+                    this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                }else if(this.exportname=='contract'){
+                    console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,param))
+                    this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                }
             }
         },
         //生命周期函数
