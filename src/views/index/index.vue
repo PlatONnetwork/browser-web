@@ -725,9 +725,9 @@ div.slider-item {
 }
 
 .view-all {
-    margin: 12px 0 0;
-    height: 44px;
-    line-height: 44px;
+    margin: 0 0;
+    height: 34px;
+    line-height: 34px;
     background: #0d1333;
     text-align: center;
     color: #fcff0a;
