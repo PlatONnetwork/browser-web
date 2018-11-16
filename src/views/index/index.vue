@@ -3,10 +3,10 @@
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
         <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
             <slideritem>
-                <div v-show="isWorldMap" class="world-map">
+                <div v-show="isWorldMap" class="world-map world-map1">
                     <div ref="worldMap" class="world-map"></div>
                 </div>
-                <div v-show="!isWorldMap" class="earth-box">
+                <div v-show="!isWorldMap" class="earth-box earch-box1">
                     <div ref="earthChart" class="earth-box"></div>
                 </div>
                 <ul class="footer-box">
@@ -163,7 +163,7 @@
                             <el-table-column prop="to" label="to" width='190'>
                                 <template slot-scope="scope">
                                     <div class='flex-special'>
-                                        <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                        <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span> -->
                                         <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                         <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"' >
                                             <div slot="content">{{scope.row.to}}</div>
@@ -229,7 +229,8 @@ export default class Index extends Vue {
     currentOverViewData;
     @Getter
     secondFloorData;
-    @Getter chartData
+    @Getter chartData;
+    @Getter mapData
 
     isRealtimeBlock: boolean = true;
     isRealtimeTrade: boolean = true;
@@ -285,7 +286,8 @@ export default class Index extends Vue {
     changeEarth(): void {
         this.isWorldMap = !this.isWorldMap;
         setTimeout(() => {
-            this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
+            // this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
+            this.isWorldMap ?  this.updateMapData(this.mapData) : this.initEarthChart()
         }, 0);
     }
     tableRowClassName({row: object, rowIndex}) {
@@ -306,17 +308,6 @@ export default class Index extends Vue {
             yListTime = data.ya
             yListNum = data.yb
         }
-        // if (data.length) {
-        //     data.forEach((item, index) => {
-        //         let time = new Date(item.time).getSeconds();
-        //         // console.warn('time>>>>', time);
-        //         // this.format(item.time)
-        //         xList.push(item.height);
-        //         yListTime.push(time);
-        //         // yListTime.push(time);
-        //         yListNum.push(item.transaction);
-        //     });
-        // }
         blockChart.update({
             xAxis: [
                 {
@@ -398,7 +389,7 @@ export default class Index extends Vue {
     }
     //进入钱包地址详情或者合约详情
     goDetail(index, row) {
-        if (row.txType == 'transactionExecute') {
+        if (row.receiveType == 'contract') {
             //进入合约详情
             this.$router.push({
                 path: '/contract-detail',
@@ -418,11 +409,42 @@ export default class Index extends Vue {
             });
         }
     }
+    updateMapData(data){
+        console.warn('地图data》》》',data)
+        console.warn('地图length》》》',data.length)
+        let nodeNormal=[],normal=[],annormal=[];
+        data.forEach((item)=>{
+            if(item.netState===1){
+                //正常 判断是否是共识节点
+                item.nodeType===1?nodeNormal.push([item.longitude,item.latitude]):normal.push([item.longitude,item.latitude])
+            }else if(item.netState===2){
+                //异常
+                annormal.push([item.longitude,item.latitude])
+            }
+        });
+        console.warn("nodeNormal",nodeNormal)
+        console.warn("normal",normal)
+        console.warn("annormal",annormal)
+        worldMapChart.update({
+            series: [
+                {
+                    data: nodeNormal,//正常共识节点
+                },
+                {
+                    data: normal,//正常普通节点
+                },
+                {
+                    data: annormal,//所有异常节点
+                }
+            ],
+        });
+    }
 
     mounted() {
         //初始化图表
         this.initChart();
         this.initWorldMapChart();
+        // this.initEarthChart();
         indexService.getChartData()
         indexService.updateChartData()
     }
@@ -454,10 +476,15 @@ export default class Index extends Vue {
     }
     @Watch('chartData')
     onChartDataChanged(val: Array<object>, oldVal: Array<object>): void {
-        worldMapChart.chart.appendData({
-            seriesIndex: 0,
-            data:val,
-        });
+        // console.warn('val>>>>',val)
+        // worldMapChart.chart.appendData({
+        //     seriesIndex: 0,
+        //     data:val,
+        // });
+    }
+    @Watch('mapData')
+    onMapDateChanges(val: object, oldVal: object): void{
+        this.updateMapData(val)
     }
 }
 </script>
@@ -749,5 +776,15 @@ div.slider-item {
         margin-top: 25px;
     }
 }
-
+.world-map1{
+    background:url(images/background-big.png)  no-repeat center,
+    url(images/background-big2.png) no-repeat center;
+    background-size: contain;
+}
+.earch-box1{
+    background:url(images/background-big2.png)  no-repeat center;
+    // background:url(images/background-big.png)  no-repeat center,
+    // url(images/background-big2.png) no-repeat center;
+    background-size: contain;
+}
 </style>

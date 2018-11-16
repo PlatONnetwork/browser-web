@@ -76,7 +76,7 @@
                         <el-table-column :label="$t('blockAbout.to')"  width='200'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                     <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                     <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.txType !== "contractCreate"'>
                                         <div slot="content">{{scope.row.to}}</div>
@@ -232,7 +232,7 @@ export default {
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.txType == 'transactionExecute') {
+            if (row.receiveType == 'contract') {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',

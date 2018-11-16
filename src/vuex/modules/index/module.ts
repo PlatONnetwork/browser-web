@@ -52,7 +52,8 @@ export const index: object = {
                 timestamp: 155788 //交易时间
             }
         ],
-        chartData:[]
+        chartData:[],
+        mapData:[]
     },
     actions: indexAction,
     getters: indexGetter,

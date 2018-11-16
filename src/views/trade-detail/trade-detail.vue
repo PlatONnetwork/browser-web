@@ -87,9 +87,12 @@
                                     <span>{{$t('tradeAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <!-- <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
                                     <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span> -->
+                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txReceiptStatus==0'>
@@ -138,7 +141,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span>
-                                        <span class='cursor normal' @click='viewBlock'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
+                                        <span class='cursor normal' @click='viewBlock(detailInfo.blockHeight)'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -262,7 +265,7 @@ export default {
             });
         },
         goDetail(type, to) {
-            if (type == 'transactionExecute') {
+            if (type == 'contract') {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',
@@ -415,9 +418,12 @@ export default {
                     this.$message.error(error);
                 });
         },
-        viewBlock(){
+        viewBlock(height){
             this.$router.push({
-                path: '/block',
+                path: '/block-detail',
+                query: {
+                    height: height,
+                },
             });
         }
     },

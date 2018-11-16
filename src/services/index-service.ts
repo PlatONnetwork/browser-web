@@ -129,6 +129,7 @@ class IndexService extends Ws {
                 const { data, code } = res
                 console.log(`getChartData`, res)
                 if (code === 0) {
+                    store.dispatch('setMapData', data)
                     store.dispatch('setChartData', IndexService.dealChartList(data))
                 } else {
                     throw new Error(`todo`)
@@ -144,6 +145,7 @@ class IndexService extends Ws {
                 console.log(`updateChartData`, res)
                 const { data, code } = res
                 if (res.code === 0) {
+                    store.dispatch('updateMapData', data)
                     const list = IndexService.dealChartList(data)
                     store.dispatch('updateChartData', list)
                 } else {

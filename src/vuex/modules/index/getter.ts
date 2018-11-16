@@ -6,5 +6,6 @@ export const indexGetter = {
     blockData: state => state.blockData,
     transactionData: state => state.transactionData,
     secondFloorData: state => state.secondFloorData,
-    chartData: state => state.chartData
+    chartData: state => state.chartData,
+    mapData: state => state.mapData
 }
