@@ -141,7 +141,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span>
-                                        <span class='cursor normal' @click='viewBlock'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
+                                        <span class='cursor normal' @click='viewBlock(detailInfo.blockHeight)'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -418,9 +418,12 @@ export default {
                     this.$message.error(error);
                 });
         },
-        viewBlock(){
+        viewBlock(height){
             this.$router.push({
-                path: '/block',
+                path: '/block-detail',
+                query: {
+                    height: height,
+                },
             });
         }
     },

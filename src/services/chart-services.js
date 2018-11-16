@@ -110,7 +110,9 @@ class ChartService {
                 name:'共识节点',
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
-                data: [],
+                data: [
+
+                ],
                 symbolSize: 13,
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -132,7 +134,9 @@ class ChartService {
                 name: '普通节点',
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
-                data: [],
+                data: [
+
+                ],
                 //   symbolSize: 10,
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -155,6 +159,7 @@ class ChartService {
                 type: 'scatter',
                 coordinateSystem: 'geo',
                 data: [
+
                 ],
                 // symbolSize: 15,
                 itemStyle: {
@@ -163,7 +168,7 @@ class ChartService {
                     }
                 }
             }
-      ]
+        ]
     }
     earthOption = {
         // backgroundColor: '#000',
@@ -202,6 +207,7 @@ class ChartService {
             data: []
         }
     }
+
     constructor() {
         this.chart = null
         this.ele = null

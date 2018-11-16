@@ -783,6 +783,8 @@ div.slider-item {
 }
 .earch-box1{
     background:url(images/background-big2.png)  no-repeat center;
+    // background:url(images/background-big.png)  no-repeat center,
+    // url(images/background-big2.png) no-repeat center;
     background-size: contain;
 }
 </style>
