@@ -16,6 +16,9 @@ export const indexMutation = {
     },
     ['UPDATE_CHART_DADA'](state, data) {
         state.chartData = data
+    },
+    ['UPDATE_MAP_DADA'](state, data) {
+        state.mapData = data
     }
 
 

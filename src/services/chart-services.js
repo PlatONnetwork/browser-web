@@ -11,9 +11,74 @@ import 'echarts/map/js/world';
  * fun changeTitle(title) 改变标题
  * fun resize() 重置图表尺寸
  */
+
+
 class ChartService {
+    // worldMapOption = {
+    //   // backgroundColor: '#fff',
+    //   geo: {
+    //     map: 'world',
+    //     roam: 'scale',
+    //     label: {
+    //       emphasis: {
+    //         show: false
+    //       }
+    //     },
+    //     silent: true,
+    //     itemStyle: {
+    //       normal: {
+    //         areaColor: '#323c48',
+    //         borderColor: '#111'
+    //       },
+    //       emphasis: {
+    //         areaColor: '#2a333d'
+    //       }
+    //     },
+    //     scaleLimit: {
+    //       min: 0.5,
+    //       max: 1.5
+    //     }
+    //   },
+    //   series: [{
+    //     name: '弱',
+    //     type: 'scatterGL',
+    //     progressive: 1e6,
+    //     coordinateSystem: 'geo',
+    //     symbolSize: ((level) => {
+    //       switch (level) {
+    //         case 1:
+    //           return 1;
+    //           break;
+    //         case 2:
+    //           return 5;
+    //           break;
+    //         case 3:
+    //           return 10;
+    //           break;
+    //         default:
+    //           return 1;
+    //           break;
+    //       }
+    //     })(2), //store.state.common.baseConfig.worldMapSymbolLevel
+    //     zoomScale: 0.002,
+    //     blendMode: 'lighter',
+    //     large: true,
+    //     itemStyle: {
+    //       color: 'rgb(20, 15, 2)'
+    //     },
+    //     postEffect: {
+    //       enable: true
+    //     },
+    //     silent: true,
+    //     dimensions: ['lng', 'lat'],
+    //     data: new Float32Array()
+    //   }]
+    // }
+
     worldMapOption = {
-        // backgroundColor: '#fff',
+        tooltip: {
+            trigger: 'item'
+        },
         geo: {
             map: 'world',
             roam: 'scale',
@@ -25,54 +90,81 @@ class ChartService {
             silent: true,
             itemStyle: {
                 normal: {
-                    areaColor: '#323c48',
-                    borderColor: '#111'
+                    areaColor: 'transparent',
+                    borderColor: '#608bce',
+                    borderWidth: 2,
+                    shadowColor: 'rgba(63, 218, 255, 0.3)',
+                    shadowBlur: 10
                 },
                 emphasis: {
-                    areaColor: '#2a333d'
+                    areaColor: '#2B91B7',
                 }
             },
             scaleLimit: {
                 min: 0.5,
-                max:1.5
+                max: 1.5
             }
         },
-        series: [{
-            name: '弱',
-            type: 'scatterGL',
-            progressive: 1e6,
-            coordinateSystem: 'geo',
-            symbolSize: ((level) => {
-                switch (level) {
-                    case 1:
-                        return 1;
-                        break;
-                    case 2:
-                        return 5;
-                        break;
-                    case 3:
-                        return 10;
-                        break;
-                    default:
-                        return 1;
-                        break;
+        series: [
+            {
+                name:'共识节点',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                data: [],
+                symbolSize: 13,
+                showEffectOn: 'render',
+                rippleEffect: {
+                    period: 5,
+                    scale: 6,
+                    brushType: 'fill'
+                },
+                hoverAnimation: true,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(255,255,0,1)',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                zlevel: 1
+            },
+            {
+                name: '普通节点',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                data: [],
+                //   symbolSize: 10,
+                showEffectOn: 'render',
+                rippleEffect: {
+                    period: 5,
+                    scale: 6,
+                    brushType: 'fill'
+                },
+                hoverAnimation: true,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(44,213,230,0.8)',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+              zlevel: 1
+            },
+            {
+                name: '异常离线节点',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: [
+                ],
+                // symbolSize: 15,
+                itemStyle: {
+                    normal: {
+                        color: '#b0b0b0',
+                    }
                 }
-            })(2),//store.state.common.baseConfig.worldMapSymbolLevel
-            zoomScale: 0.002,
-            blendMode: 'lighter',
-            large: true,
-            itemStyle: {
-                color: 'rgb(20, 15, 2)'
-            },
-            postEffect: {
-                enable: true
-            },
-            silent: true,
-            dimensions: ['lng', 'lat'],
-            data: new Float32Array()
-        }]
+            }
+      ]
     }
-
     earthOption = {
         // backgroundColor: '#000',
         globe: {

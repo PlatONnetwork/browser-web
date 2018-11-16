@@ -39,8 +39,11 @@ export default window.vueVm= new Vue({
     methods: {
         ...mapActions(['initJsonData'])
     },
+    beforeCreate(){
+        store.dispatch('initJsonData', i18n.locale);
+    },
     created() {
-        this.initJsonData(i18n.locale)
+        // this.initJsonData(i18n.locale)
     }
 }).$mount('#app')
 // window.vueVm = new Vue({

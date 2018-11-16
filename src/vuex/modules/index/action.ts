@@ -30,8 +30,16 @@ export const indexAction = {
                 newList[index] = list[index - oldList.length-1]
             }
         }
-        console.log('update newList', newList)
+        // console.log('update newList', newList)
         commit('UPDATE_CHART_DADA', newList)
+    },
+    updateMapData({ commit, state }, data) {
+        let oldMapData = state.mapData
+        let newMapData = data.concat(oldMapData)
+        commit('UPDATE_MAP_DADA', newMapData)
+    },
+    setMapData({commit,state},data){
+        commit('UPDATE_MAP_DADA', data)
     }
 
 }
