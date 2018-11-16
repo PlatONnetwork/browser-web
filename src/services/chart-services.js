@@ -81,7 +81,7 @@ class ChartService {
         },
         geo: {
             map: 'world',
-            roam: 'scale',
+            roam: 'false',
             label: {
                 emphasis: {
                     show: false

@@ -9,16 +9,19 @@ import ElementLocale from 'element-ui/lib/locale'
 import VueClipboard from 'vue-clipboard2'
 import filters from './filters/index'
 import { mapActions } from 'vuex'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
 import '../static/css/iconfont.css'
+import 'swiper/dist/css/swiper.css'
 // less
 import '@/less/index.less'
 
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
+Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
 // window.responseInfo = '';

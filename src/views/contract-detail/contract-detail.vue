@@ -443,7 +443,7 @@
         color: #6D81A9;
     }
     .bottom{
-        padding:26px 0 40px;
+        padding:26px 0 60px;
         .title{
             margin-bottom:40px;
             background: #0C1035;
