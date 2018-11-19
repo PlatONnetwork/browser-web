@@ -80,7 +80,7 @@
             return {
                 dropDisabled:false,
                 searchKey:'',//搜索
-                language: window.i18nLocale?window.i18nLocale:'zh-cn',
+                language: localStorage.getItem('i18nLocale')?localStorage.getItem('i18nLocale'):'zh-cn',
                 netObj:{
                     "100":"MainNet",
                     "1":"TestNet"
@@ -123,9 +123,12 @@
                 this.$emit('changeDataFn')
             },
             handleCommandLangage(command){
+                console.warn('command>>>>',command)
                 this.$i18n.locale = command
                 this.language = command
                 window.i18nLocale = command
+                localStorage.setItem('i18nLocale',command)
+                // this.$i18n.locale = localStorage.getItem('i18nLocale')
             },
             //查询
             searchFn(){
@@ -217,7 +220,11 @@
 
         },
         //监视
-        watch: {},
+        watch: {
+            // 'language':function(val){
+            //    this.$i18n.locale = localStorage.getItem('i18nLocale')
+            // }
+        },
         //组件
         components: {
             // 'v-search':search

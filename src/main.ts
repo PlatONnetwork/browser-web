@@ -25,7 +25,8 @@ Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
 // window.responseInfo = '';
-const browserLanguage: string = navigator.language.toLowerCase()
+// const browserLanguage: string = navigator.language.toLowerCase()
+const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):navigator.language.toLowerCase()
 const i18n = new VueI18n({
     locale: browserLanguage,
     messages
@@ -47,6 +48,12 @@ export default window.vueVm= new Vue({
     },
     created() {
         // this.initJsonData(i18n.locale)
+    },
+    beforeDestroy() {
+        localStorage.removeItem('i18nLocale');
+    },
+    destroyed() {
+        localStorage.removeItem('i18nLocale');
     }
 }).$mount('#app')
 // window.vueVm = new Vue({

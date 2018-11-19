@@ -11,7 +11,105 @@ import 'echarts/map/js/world';
  * fun changeTitle(title) 改变标题
  * fun resize() 重置图表尺寸
  */
-
+let canvas = document.createElement('canvas');
+let mapChart = echarts.init(canvas, null, {
+  width: 4096,
+  height: 2048
+});
+mapChart.setOption({
+    tooltip: {
+        trigger: 'item'
+      },
+      geo: {
+        map: 'world',
+        roam: false,
+        label: {
+          emphasis: {
+            show: false
+          }
+        },
+        silent: true,
+        itemStyle: {
+          normal: {
+            areaColor: 'transparent',
+            borderColor: '#608bce',
+            borderWidth: 2,
+            shadowColor: 'rgba(63, 218, 255, 0.3)',
+            shadowBlur: 10
+          },
+          emphasis: {
+            areaColor: '#2B91B7',
+          }
+        },
+        scaleLimit: {
+          min: 0.5,
+          max: 1.5
+        }
+      },
+      series: [{
+          name: '共识节点',
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          data: [
+            [120.44891, 23.479202]
+          ],
+          symbolSize: 13,
+          showEffectOn: 'render',
+          rippleEffect: {
+            period: 5,
+            scale: 6,
+            brushType: 'fill'
+          },
+          hoverAnimation: true,
+          itemStyle: {
+            normal: {
+              color: 'rgba(255,255,0,1)',
+              shadowBlur: 10,
+              shadowColor: '#333'
+            }
+          },
+          zlevel: 1
+        },
+        {
+          name: '普通节点',
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          data: [
+            [118.08191, 24.479797]
+          ],
+          //   symbolSize: 10,
+          showEffectOn: 'render',
+          rippleEffect: {
+            period: 5,
+            scale: 6,
+            brushType: 'fill'
+          },
+          hoverAnimation: true,
+          itemStyle: {
+            normal: {
+              color: 'rgba(44,213,230,0.8)',
+              shadowBlur: 10,
+              shadowColor: '#333'
+            }
+          },
+          zlevel: 1
+        },
+        {
+          name: '异常离线节点',
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          data: [
+            [-122.0074, 37.424896]
+          ],
+          // symbolSize: 15,
+          itemStyle: {
+            normal: {
+              color: '#b0b0b0',
+            }
+          }
+        }
+      ]
+})
 
 class ChartService {
     // worldMapOption = {
@@ -81,7 +179,7 @@ class ChartService {
         },
         geo: {
             map: 'world',
-            roam: 'false',
+            roam: false,
             label: {
                 emphasis: {
                     show: false
@@ -111,7 +209,7 @@ class ChartService {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 data: [
-
+                  [120.44891, 23.479202]
                 ],
                 symbolSize: 13,
                 showEffectOn: 'render',
@@ -135,7 +233,7 @@ class ChartService {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 data: [
-
+                  [118.08191, 24.479797]
                 ],
                 //   symbolSize: 10,
                 showEffectOn: 'render',
@@ -159,7 +257,7 @@ class ChartService {
                 type: 'scatter',
                 coordinateSystem: 'geo',
                 data: [
-
+                    [-122.0074, 37.424896]
                 ],
                 // symbolSize: 15,
                 itemStyle: {
@@ -185,26 +283,10 @@ class ChartService {
                 }
             },
             viewControl: {
-                autoRotate: false
+                autoRotate: true
             },
             top: '5%',
             bottom:'8%'
-        },
-        series: {
-
-            type: 'lines3D',
-
-            coordinateSystem: 'globe',
-
-            blendMode: 'lighter',
-
-            lineStyle: {
-                width: 1,
-                color: 'rgb(50, 50, 150)',
-                opacity: 0.1
-            },
-
-            data: []
         }
     }
 

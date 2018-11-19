@@ -67,7 +67,9 @@ export default {
         energonPrice: 'Energon Price',
         blockHeight: 'Block Height',
         inputData: 'Input Date',
-        confirmNum: 'Block Confirmations'
+        confirmNum: 'Block Confirmations',
+        success: 'Success',
+        fail: 'Fail'
     },
     tradePendingAbout: {
         address:'Address',

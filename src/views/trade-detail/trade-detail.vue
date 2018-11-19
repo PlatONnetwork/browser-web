@@ -63,7 +63,7 @@
                                     <span>{{$t('tradeAbout.txReceiptStatus')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span :class='{"market-normal":detailInfo.txReceiptStatus==1,"market-abnormal":detailInfo.txReceiptStatus==0}'>{{detailInfo.txReceiptStatus==1?'成功':(detailInfo.txReceiptStatus==0?'失败':'pending ')}}</span>
+                                    <span :class='{"market-normal":detailInfo.txReceiptStatus==1,"market-abnormal":detailInfo.txReceiptStatus==0}'>{{detailInfo.txReceiptStatus==1?$t('tradeAbout.success'):(detailInfo.txReceiptStatus==0?$t('tradeAbout.fail'):'pending ')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

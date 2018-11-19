@@ -65,9 +65,11 @@ export default {
         energonLimit:'能量限制',
         energonUsed:'消耗的能量',
         energonPrice:'能量价格',
-        blockHeight:'区块',
+        blockHeight:'区块高度',
         inputData:'发出数据',
-        confirmNum:'区块确认'
+        confirmNum:'区块确认',
+        success:'成功',
+        fail:'失败'
     },
     tradePendingAbout: {
         address:'地址',
@@ -100,7 +102,7 @@ export default {
         address:'地址',
         morethen: '总共',
         block: '区块',
-        height:'区块',
+        height:'区块高度',
         age:'块龄',
         transaction :'交易数',
         size:'区块大小',
