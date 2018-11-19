@@ -7,5 +7,6 @@ export const indexGetter = {
     transactionData: state => state.transactionData,
     secondFloorData: state => state.secondFloorData,
     chartData: state => state.chartData,
+    earthData: state => state.earthData,
     mapData: state => state.mapData
 }
