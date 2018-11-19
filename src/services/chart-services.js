@@ -205,6 +205,7 @@ class ChartService {
             type: 'scatter3D',
             coordinateSystem: 'globe',
             data: data1,
+            symbol:'pin',
             symbolSize: 13,
             itemStyle: {
                 normal: {
@@ -219,6 +220,7 @@ class ChartService {
                 type: 'scatter3D',
                 coordinateSystem: 'globe',
                 data: data2,
+                symbol:'arrow',
                 //   symbolSize: 10,
                 hoverAnimation: true,
                 itemStyle: {
@@ -231,14 +233,15 @@ class ChartService {
                 zlevel: 1
             }, {
                 name: '异常离线节点',
-            type: 'scatter3D',
-            coordinateSystem: 'globe',
-            blendMode: 'lighter',
-            itemStyle: {
-                color: '#b0b0b0',
-                opacity: 1
-            },
-            data:data3
+                type: 'scatter3D',
+                coordinateSystem: 'globe',
+                blendMode: 'lighter',
+                symbol:'pin',
+                itemStyle: {
+                    color: '#b0b0b0',
+                    opacity: 1
+                },
+                data:data3
             }]
     }
 
