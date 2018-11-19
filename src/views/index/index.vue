@@ -233,6 +233,7 @@ export default class Index extends Vue {
     @Getter
     secondFloorData;
     @Getter chartData;
+    @Getter earthData
     @Getter mapData
 
     isRealtimeBlock: boolean = true;
@@ -280,6 +281,22 @@ export default class Index extends Vue {
     initEarthChart(): void {
         let r = this.$refs;
         earthChart.init(r.earthChart, earthChart.earthOption);
+        this.updateEarthChart(this.earthData)
+    }
+    updateEarthChart(data:Array<Array<any>>){
+        earthChart.update({
+            series: [
+                {
+                    data: data[0],
+                },
+                {
+                    data: data[1],
+                },
+                {
+                    data: data[2],
+                }
+            ],
+        });
     }
     changeEarth(): void {
         this.isWorldMap = !this.isWorldMap;
@@ -471,13 +488,17 @@ export default class Index extends Vue {
     onSecondFloorDataChanged(val: object, oldVal: object): void {
         this.updateChart(val['graphData']);
     }
-    @Watch('chartData')
-    onChartDataChanged(val: Array<object>, oldVal: Array<object>): void {
+    // @Watch('chartData')
+    // onChartDataChanged(val: Array<object>, oldVal: Array<object>): void {
         // console.warn('val>>>>',val)
         // worldMapChart.chart.appendData({
         //     seriesIndex: 0,
         //     data:val,
         // });
+    // }
+    @Watch('earthData')
+    onEarthDataChanged(val: Array<Array<object>>, oldVal: Array<Array<object>>): void {
+        this.updateEarthChart(val)
     }
     @Watch('mapData')
     onMapDateChanges(val: object, oldVal: object): void{

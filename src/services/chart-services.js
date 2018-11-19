@@ -11,8 +11,23 @@ import 'echarts/map/js/world';
  * fun changeTitle(title) 改变标题
  * fun resize() 重置图表尺寸
  */
-
-
+let data=require('../../static/json/data.json')
+data = data.filter(function (dataItem) {
+    return dataItem[2] > 0;
+}).map(function (dataItem) {
+    return [dataItem[0], dataItem[1], Math.sqrt(dataItem[2])];
+});
+let data1=[],data2=[],data3=[]
+// data.map((item,index) => {
+//     if (index < 1000) {
+//         data1.push(item)
+//     } else if (index < 2000) {
+//         data2.push(item)
+//     } else {
+//         data3.push(item)
+//     }
+// })
+console.log('data111',data)
 class ChartService {
     // worldMapOption = {
     //   // backgroundColor: '#fff',
@@ -185,27 +200,51 @@ class ChartService {
                 }
             },
             viewControl: {
-                autoRotate: false
+                autoRotate: true
             },
             top: '5%',
             bottom:'8%'
         },
-        series: {
-
-            type: 'lines3D',
-
+        series: [{
+            name: '共识节点',
+            type: 'scatter3D',
             coordinateSystem: 'globe',
-
-            blendMode: 'lighter',
-
-            lineStyle: {
-                width: 1,
-                color: 'rgb(50, 50, 150)',
-                opacity: 0.1
+            data: data1,
+            symbolSize: 13,
+            itemStyle: {
+                normal: {
+                    color: 'rgba(255,255,0,1)',
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
             },
-
-            data: []
-        }
+            zlevel: 1
+        }, {
+                name: '普通节点',
+                type: 'scatter3D',
+                coordinateSystem: 'globe',
+                data: data2,
+                //   symbolSize: 10,
+                hoverAnimation: true,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(44,213,230,0.8)',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                zlevel: 1
+            }, {
+                name: '异常离线节点',
+            type: 'scatter3D',
+            coordinateSystem: 'globe',
+            blendMode: 'lighter',
+            itemStyle: {
+                color: '#b0b0b0',
+                opacity: 1
+            },
+            data:data3
+            }]
     }
 
     constructor() {

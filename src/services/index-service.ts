@@ -21,6 +21,13 @@ interface ResConfig {
     data: any
 }
 
+interface ChartList {
+    latitude: number,
+    longitude: number,
+    netState: number,
+    nodeType: number,
+}
+
 class Sub {
     subs: Array<Function> = []
     addSub(sub) {
@@ -122,6 +129,20 @@ class IndexService extends Ws {
         })
         return newList
     }
+
+    static dealEarthCHartList(data: Array<ChartList>) {
+        let list: Array<Array<any>> = [[],[],[]]
+        data.forEach((item) => {
+            if (item.netState === 1) {
+                //正常 判断是否是共识节点
+                item.nodeType === 1 ? list[0].push([item.longitude, item.latitude]) : list[1].push([item.longitude, item.latitude])
+            } else if (item.netState === 2) {
+                //异常
+                list[2].push([item.longitude, item.latitude])
+            }
+        })
+        return list
+    }
     getChartData(): any {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
@@ -130,7 +151,8 @@ class IndexService extends Ws {
                 console.log(`getChartData`, res)
                 if (code === 0) {
                     store.dispatch('setMapData', data)
-                    store.dispatch('setChartData', IndexService.dealChartList(data))
+                    // store.dispatch('setChartData', IndexService.dealChartList(data))
+                    store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
@@ -147,7 +169,8 @@ class IndexService extends Ws {
                 if (res.code === 0) {
                     store.dispatch('updateMapData', data)
                     const list = IndexService.dealChartList(data)
-                    store.dispatch('updateChartData', list)
+                    // store.dispatch('updateChartData', list)
+                    store.dispatch('updateEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
