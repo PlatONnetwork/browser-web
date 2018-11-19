@@ -1,194 +1,194 @@
 <template>
     <div class="index">
-        <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
-        <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
-            <slideritem>
-                <div v-show="isWorldMap" class="world-map world-map1">
-                    <div ref="worldMap" class="world-map"></div>
-                </div>
-                <div v-show="!isWorldMap" class="earth-box earch-box1">
-                    <div ref="earthChart" class="earth-box"></div>
-                </div>
-                <ul class="footer-box">
-                    <li>
-                        <p class="color1 cursor"  @click='viewBlock'>{{currentOverViewData.currentHeight}}</p>
-                        <span>{{$t("indexInfo.blockHeight")}}</span>
-                    </li>
-                    <li>
-                        <el-tooltip class="item" effect="dark" placement="bottom">
-                            <div slot="content">{{currentOverViewData.node}}</div>
-                            <p class='ellipsis'>{{currentOverViewData.node}}</p>
-                        </el-tooltip>
-                        <span>{{$t("indexInfo.node")}}</span>
-                    </li>
-                    <li>
-                        <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p>
-                        <span>{{$t("indexInfo.currentTransaction")}}</span>
-                    </li>
-                    <li>
-                        <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p>
-                        <span>{{$t("indexInfo.consensusNodeAmount")}}</span>
-                    </li>
-                    <li>
-                        <p>{{currentOverViewData.addressAmount}}</p>
-                        <span>{{$t("indexInfo.addressAmount")}}</span>
-                    </li>
-                    <li>
-                        <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
-                        <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
-                    </li>
-                    <li>
-                        <p class="color2">{{currentOverViewData.ticketPrice}}
-                            <span class="atp">ATP</span>
-                        </p>
-                        <span>{{$t("indexInfo.ticketPrice")}}</span>
-                    </li>
-                </ul>
-                <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
-            </slideritem>
-            <slideritem class="second-floor">
-                <header class="time-and-number">
-                    Time And Number
-                </header>
-                <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
-                <div class="chart-box">
-                    <div class="chart" ref="blockChart"></div>
-                    <ul class="chart-aside">
-                        <li>
-                            <p>{{$t("indexInfo.avgTime")}}</p>
-                            <span>{{secondFloorData.avgTime}} s</span>
-                        </li>
-                        <li>
-                            <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
-                            <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
-                        </li>
-                        <li>
-                            <p>{{$t("indexInfo.avgTransaction")}}</p>
-                            <span>{{secondFloorData.avgTransaction}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <header class="time-and-number">
-                    Transactions
-                </header>
-                <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
-                <p class="transactions">{{$t("indexInfo.monitor")}}</p>
-                <ul class="num-box clearfix">
-                    <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
-                    <!-- secondFloorData.dayTransaction -->
-                    <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
-                    <!-- <li>2</li>
-                    <li>0</li>
-                    <li>2</li>
-                    <li>0</li>
-                    <li>2</li> -->
-                </ul>
-            </slideritem>
-            <slideritem class="third-floor">
-                <div class="floor-area">
-                    <div class="floor-area-box">
-                        <header class="time-and-number">
-                            Blocks
-                        </header>
-                        <!-- <p class="second-floor-text">最新区块</p> -->
-                        <div class="second-floor-text2">
-                            <p class='fl'>{{$t("indexInfo.blocks")}}</p>
-                            <p class='fr index-btn'>
-                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
-                            </p>
+        <com-header :descriptionProp='descriptionProp' class='header-special'></com-header>
+        <div class="swiper-box">
+            <swiper id='swiperBox' :options="swiperOption" ref="mySwiper">
+                <swiper-slide>
+                    <div class="page">
+                        <div v-show="isWorldMap" class="world-map world-map1">
+                            <div ref="worldMap" class="world-map"></div>
                         </div>
-                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
-                            <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
-                                <template slot-scope="scope">
-                                    <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column :label='$t("indexInfo.age")' width="180">
-                                <template slot-scope="scope">
-                                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip>
-                            </el-table-column>
-                            <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip>
-                            </el-table-column>
-                            <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
-                            </el-table-column>
-                        </el-table>
-                        <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
+                        <div v-show="!isWorldMap" class="earth-box earch-box1">
+                            <div ref="earthChart" class="earth-box"></div>
+                        </div>
+                        <ul class="footer-box">
+                            <li>
+                                <p class="color1 cursor"  @click='viewBlock'>{{currentOverViewData.currentHeight}}</p>
+                                <span>{{$t("indexInfo.blockHeight")}}</span>
+                            </li>
+                            <li>
+                                <el-tooltip class="item" effect="dark" placement="bottom">
+                                    <div slot="content">{{currentOverViewData.node}}</div>
+                                    <p class='ellipsis'>{{currentOverViewData.node}}</p>
+                                </el-tooltip>
+                                <span>{{$t("indexInfo.node")}}</span>
+                            </li>
+                            <li>
+                                <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p>
+                                <span>{{$t("indexInfo.currentTransaction")}}</span>
+                            </li>
+                            <li>
+                                <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p>
+                                <span>{{$t("indexInfo.consensusNodeAmount")}}</span>
+                            </li>
+                            <li>
+                                <p>{{currentOverViewData.addressAmount}}</p>
+                                <span>{{$t("indexInfo.addressAmount")}}</span>
+                            </li>
+                            <li>
+                                <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
+                                <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
+                            </li>
+                            <li>
+                                <p class="color2">{{currentOverViewData.ticketPrice}}
+                                    <span class="atp">ATP</span>
+                                </p>
+                                <span>{{$t("indexInfo.ticketPrice")}}</span>
+                            </li>
+                        </ul>
+                        <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
                     </div>
-                    <div class="floor-area-box">
-                        <!-- <el-button class="fr el-same">Realtime</el-button> -->
+                </swiper-slide>
+                <swiper-slide class='second-floor'>
+                    <div class="page">
+                        <header class="time-and-number">
+                            Time And Number
+                        </header>
+                        <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
+                        <div class="chart-box">
+                            <div class="chart" ref="blockChart"></div>
+                            <ul class="chart-aside">
+                                <li>
+                                    <p>{{$t("indexInfo.avgTime")}}</p>
+                                    <span>{{secondFloorData.avgTime}} s</span>
+                                </li>
+                                <li>
+                                    <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
+                                    <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
+                                </li>
+                                <li>
+                                    <p>{{$t("indexInfo.avgTransaction")}}</p>
+                                    <span>{{secondFloorData.avgTransaction}}</span>
+                                </li>
+                            </ul>
+                        </div>
                         <header class="time-and-number">
                             Transactions
                         </header>
-                        <!-- <p class="second-floor-text">最新交易</p> -->
-                        <div class="second-floor-text2">
-                            <p class='fl'>{{$t("indexInfo.transactions")}}</p>
-                            <p class='fr index-btn'>
-                                <!-- <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button> -->
-                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
-                            </p>
-                        </div>
-                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
-                            <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <el-tooltip class="item" effect="dark" placement="top">
-                                            <div slot="content">{{scope.row.txHash}}</div>
-                                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="from" label="From" width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <el-tooltip class="item" effect="dark" placement="top">
-                                            <div slot="content">{{scope.row.from}}</div>
-                                            <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column label="" width="40">
-                                <template slot-scope="scope">
-                                    <span>
-                                        <i class='iconfont icon--icon-to iconto'></i>
-                                    </span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="to" label="to" width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span> -->
-                                        <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                        <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"' >
-                                            <div slot="content">{{scope.row.to}}</div>
-                                            <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                    <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
-                                <template slot-scope="scope">
-                                    <span>{{scope.row.value}}ATP</span>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="view-all cursor" @click='tradeAllFn'>{{$t('indexInfo.view')}}</div>
+                        <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
+                        <p class="transactions">{{$t("indexInfo.monitor")}}</p>
+                        <ul class="num-box clearfix">
+                            <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
+                        </ul>
                     </div>
-                </div>
-                <com-footer></com-footer>
-            </slideritem>
-            <!-- 设置loading,可自定义 -->
-            <div slot="loading">loading...</div>
-        </slider>
+                </swiper-slide>
+                <swiper-slide class='third-floor'>
+                    <div class="page">
+                        <div class="floor-area">
+                            <div class="floor-area-box">
+                                <header class="time-and-number">
+                                    Blocks
+                                </header>
+                                <!-- <p class="second-floor-text">最新区块</p> -->
+                                <div class="second-floor-text2">
+                                    <p class='fl'>{{$t("indexInfo.blocks")}}</p>
+                                    <p class='fr index-btn'>
+                                        <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                    </p>
+                                </div>
+                                <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
+                                    <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
+                                        <template slot-scope="scope">
+                                            <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("indexInfo.age")' width="180">
+                                        <template slot-scope="scope">
+                                            <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip>
+                                    </el-table-column>
+                                    <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip>
+                                    </el-table-column>
+                                    <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
+                                    </el-table-column>
+                                </el-table>
+                                <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
+                            </div>
+                            <div class="floor-area-box">
+                                <!-- <el-button class="fr el-same">Realtime</el-button> -->
+                                <header class="time-and-number">
+                                    Transactions
+                                </header>
+                                <!-- <p class="second-floor-text">最新交易</p> -->
+                                <div class="second-floor-text2">
+                                    <p class='fl'>{{$t("indexInfo.transactions")}}</p>
+                                    <p class='fr index-btn'>
+                                        <!-- <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button> -->
+                                        <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                    </p>
+                                </div>
+                                <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
+                                    <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.txHash}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="from" label="From" width='190'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.from}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="" width="40">
+                                        <template slot-scope="scope">
+                                            <span>
+                                                <i class='iconfont icon--icon-to iconto'></i>
+                                            </span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="to" label="to" width='190'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span> -->
+                                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                                <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"' >
+                                                    <div slot="content">{{scope.row.to}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                            <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                            <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                            <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+                                        <template slot-scope="scope">
+                                            <span>{{scope.row.value}}ATP</span>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                                <div class="view-all cursor" @click='tradeAllFn'>{{$t('indexInfo.view')}}</div>
+                            </div>
+                        </div>
+                        <com-footer></com-footer>
+                    </div>
+                </swiper-slide>
+            </swiper>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </div>
     </div>
 </template>
 
@@ -204,6 +204,7 @@ import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 import index from '@/router/map';
 import {timeDiff} from '@/services/time-services';
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 const blockChart = new ChartService(),
     worldMapChart = new ChartService(),
     earthChart = new ChartService();
@@ -216,6 +217,8 @@ let indexService = null;
         comFooter,
         slider,
         slideritem,
+        swiper,
+        swiperSlide
     },
 })
 export default class Index extends Vue {
@@ -238,34 +241,29 @@ export default class Index extends Vue {
     isWorldMap: boolean = true;
 
     // 滑动配置[obj]
-    // options: object = {
-    //     currentPage: 0, // 当前页码
-    //     thresholdDistance: 500, // 滑动判定距离
-    //     thresholdTime: 100, // 滑动判定时间
-    //     autoplay: 0, // 自动滚动[ms]
-    //     loop: true, // 循环滚动
-    //     direction: 'vertical', // 方向设置，垂直滚动
-    //     infinite: 1, // 无限滚动前后遍历数
-    //     slidesToScroll: 1, // 每次滑动项数
-    //     // preventDocumentMove:true,//触发触摸事件时，整个页面会滚动
-    //     effect:'slide',//切换效果
-    // };
-    options: object = {
-        currentPage: 0, // 当前页码
-        autoplay: 0, // 自动滚动[ms]
-        direction: 'vertical', // 方向设置，垂直滚动
-    };
+    swiperOption:object = {
+        initialSlide: 0,
+        notNextTick: true,
+        direction: 'vertical',
+        grabCursor: false,
+        autoHeight: true,
+        slidesPerView: 1,
+        mousewheel: true,
+        mousewheelControl: true,
+        resistanceRatio: 0,
+        pagination: {
+            el: '.swiper-pagination',
+            // progressbarOpposite: false, //使进度条分页器与Swiper的direction参数相反
+        },
+        preventClicksPropagation: true,//阻止click冒泡。拖动Swiper时阻止click事件。
+        height:window.innerHeight
+    }
 
-    slide(data) {
-        // console.log('slide',data);
+    get swiper (): object{
+        let r = this.$refs;
+        console.warn('r>>>>',r)
+        return r
     }
-    onTap(data) {
-        // console.log('onTap',data);
-    }
-    onInit(data) {
-        // console.log('onInit',data);
-    }
-    changeDataFn() {}
     timeDiffFn(beginTime, endTime) {
         return timeDiff(beginTime, endTime);
     }
@@ -444,7 +442,6 @@ export default class Index extends Vue {
         //初始化图表
         this.initChart();
         this.initWorldMapChart();
-        // this.initEarthChart();
         indexService.getChartData()
         indexService.updateChartData()
     }
@@ -500,6 +497,19 @@ export default class Index extends Vue {
 .slider-pagination-bullet-active {
     background: none;
     border: solid 2px #ffff00;
+}
+.swiper-pagination-bullet{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #000;
+    /* opacity: 0.2; */
+    background: #3d4f9e;
+    margin:10px 0;
+}
+.swiper-pagination-bullet-active{
+    background: #feff3a;
 }
 .el-same {
     border-width: 0;
@@ -584,6 +594,27 @@ export default class Index extends Vue {
 .index {
     height: 100%;
 }
+.swiper-box{
+    width:100%;
+    height:100%;
+    position: relative;
+    .page{
+        width:100%;
+        height:100%;
+    }
+}
+.swiper-box .swiper {
+    width: 100%;
+    height: 100%;
+}
+.swiper-box .swiper-pagination{
+    position: absolute;
+    left: 98%;
+    // right: 40px;
+    top: 48%;
+    width: 8px;
+}
+
 div.slider-item {
     display: initial;
     font-size: 14px;
