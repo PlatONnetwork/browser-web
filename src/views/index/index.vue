@@ -473,7 +473,6 @@ export default class Index extends Vue {
         const len:number=slider.$children.length
         let page:number=this.options['currentPage']
         if(direction==='up'){
-            // slider.next()
             if(--page<0){
                 page=len-1
             }
