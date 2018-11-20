@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
-        <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
+        <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit' v-scroll="mousewheel">
             <slideritem>
                 <div v-show="isWorldMap" class="world-map world-map1">
                     <div ref="worldMap" class="world-map"></div>
@@ -11,7 +11,7 @@
                 </div>
                 <ul class="footer-box">
                     <li>
-                        <p class="color1 cursor"  @click='viewBlock'>{{currentOverViewData.currentHeight}}</p>
+                        <p class="color1 cursor" @click='viewBlock'>{{currentOverViewData.currentHeight}}</p>
                         <span>{{$t("indexInfo.blockHeight")}}</span>
                     </li>
                     <li>
@@ -165,7 +165,7 @@
                                     <div class='flex-special'>
                                         <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span> -->
                                         <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                        <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"' >
+                                        <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.txType !== "contractCreate"'>
                                             <div slot="content">{{scope.row.to}}</div>
                                             <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                         </el-tooltip>
@@ -217,6 +217,17 @@ let indexService = null;
         slider,
         slideritem,
     },
+    directives:{
+        'scroll': {
+            inserted(el, binding) {
+                let cb = binding.value
+                el.addEventListener('mousewheel', function (e) {
+                    var direction = e.deltaY > 0 ? 'down' : 'up'
+                    cb(direction)
+                })
+            }
+        }
+    }
 })
 export default class Index extends Vue {
     @Getter
@@ -257,14 +268,15 @@ export default class Index extends Vue {
         direction: 'vertical', // 方向设置，垂直滚动
     };
 
-    slide(data) {
-        // console.log('slide',data);
+    slide(data:any) {
+        console.log('slide 666',data);
+        this.options['currentPage']=data.currentPage
     }
     onTap(data) {
-        // console.log('onTap',data);
+        console.log('onTap 666',data);
     }
     onInit(data) {
-        // console.log('onInit',data);
+        console.log('onInit 666',data);
     }
     changeDataFn() {}
     timeDiffFn(beginTime, endTime) {
@@ -456,7 +468,23 @@ export default class Index extends Vue {
             ],
         });
     }
-
+    mousewheel(direction:string){
+        const slider:any=this.$refs.slider
+        const len:number=slider.$children.length
+        let page:number=this.options['currentPage']
+        if(direction==='up'){
+            if(--page<0){
+                page=len-1
+            }
+            slider.slide(page)
+        }else if(direction==='down'){
+            if(++page>=len){
+                page=0
+            }
+            slider.slide(page)
+        }
+        this.options['currentPage']=page
+    }
     mounted() {
         //初始化图表
         this.initChart();
@@ -515,8 +543,8 @@ export default class Index extends Vue {
     opacity: 1;
     margin: 12px 0;
     right: 30px;
-    width:8px;
-    height:8px;
+    width: 8px;
+    height: 8px;
 }
 .slider-pagination-bullet-active {
     background: none;
@@ -536,13 +564,13 @@ export default class Index extends Vue {
         border-color: transparent;
     }
 }
-.index-btn{
-    .el-same{
+.index-btn {
+    .el-same {
         border-width: 0;
         outline: none;
         border-color: transparent;
-        width:90px;
-        padding:12px 0;
+        width: 90px;
+        padding: 12px 0;
         span {
             padding-left: 8px;
             font-size: 14px;
@@ -554,53 +582,53 @@ export default class Index extends Vue {
         border-width: 0;
     }
     .el-sameoff {
-        background: url(images/off.png) no-repeat #252C57 8px center;
-        color: #FFFFFF;
+        background: url(images/off.png) no-repeat #252c57 8px center;
+        color: #ffffff;
         border-width: 0;
     }
-    .el-sameon:hover,  {
+    .el-sameon:hover {
         background: url(images/on.png) no-repeat #252c57 8px center;
         color: #ffff00;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
-    .el-sameon:focus{
+    .el-sameon:focus {
         background: url(images/on.png) no-repeat #252c57 8px center;
         color: #ffff00;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
     .el-sameon:active {
         background: url(images/on.png) no-repeat #252c57 8px center;
         color: #ffff00;
         outline: none;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
-    .el-sameoff:hover,  {
-        background: url(images/off.png) no-repeat #252C57 8px center;
-        color: #FFFFFF;
+    .el-sameoff:hover {
+        background: url(images/off.png) no-repeat #252c57 8px center;
+        color: #ffffff;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
-    .el-sameoff:focus{
-        background: url(images/off.png) no-repeat #252C57 8px center;
-        color: #FFFFFF;
+    .el-sameoff:focus {
+        background: url(images/off.png) no-repeat #252c57 8px center;
+        color: #ffffff;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
     .el-sameoff:active {
-        background: url(images/off.png) no-repeat #252C57 8px center;
-        color: #FFFFFF;
+        background: url(images/off.png) no-repeat #252c57 8px center;
+        color: #ffffff;
         outline: none;
         border-color: transparent;
-        border-width:0;
+        border-width: 0;
     }
 }
 </style>
 <style lang="less" scoped>
-.header-special{
-    background:none;
+.header-special {
+    background: none;
 }
 .index {
     height: 100%;
@@ -717,7 +745,6 @@ div.slider-item {
     top: 590px;
 }
 
-
 .chart-box {
     display: flex;
 }
@@ -797,13 +824,13 @@ div.slider-item {
         margin-top: 25px;
     }
 }
-.world-map1{
-    background:url(images/background-big.png)  no-repeat center,
-    url(images/background-big2.png) no-repeat center;
+.world-map1 {
+    background: url(images/background-big.png) no-repeat center,
+        url(images/background-big2.png) no-repeat center;
     background-size: contain;
 }
-.earch-box1{
-    background:url(images/background-big2.png)  no-repeat center;
+.earch-box1 {
+    background: url(images/background-big2.png) no-repeat center;
     // background:url(images/background-big.png)  no-repeat center,
     // url(images/background-big2.png) no-repeat center;
     background-size: contain;

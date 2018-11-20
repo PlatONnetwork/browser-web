@@ -60,7 +60,7 @@ class Ws {
         this.stompClient.heartbeat.incoming = 10000
         this.stompClient.connect({}, (frame) => {
             this.connectFlag = true
-            console.log('Connected: ' + frame)
+            //console.log('Connected: ' + frame)
             sub.notify()
         }, (error) => {
             this.errorCallBack(error)
@@ -70,7 +70,7 @@ class Ws {
     //由于服务断开导致连接失败，客户端自动连接
     errorCallBack(error: any): void {
         //连接失败时，服务器响应的回调方法
-        console.log('连接失败【' + error + '】')
+        //console.log('连接失败【' + error + '】')
         //连接失败后重新连接；设置延迟避免请求过多
         clearTimeout(this.timeSettimeout)
         this.timeSettimeout = setTimeout(() => {
@@ -148,7 +148,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`getChartData`, res)
+                //console.log(`getChartData`, res)
                 if (code === 0) {
                     store.dispatch('setMapData', data)
                     // store.dispatch('setChartData', IndexService.dealChartList(data))
@@ -164,7 +164,7 @@ class IndexService extends Ws {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                console.log(`updateChartData`, res)
+                //console.log(`updateChartData`, res)
                 const { data, code } = res
                 if (res.code === 0) {
                     store.dispatch('updateMapData', data)
@@ -183,7 +183,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`getOverviewData`, res)
+                //console.log(`getOverviewData`, res)
                 if (code === 0) {
                     (data.node === null) && (data.node = ' ')
                     store.dispatch('updateOverviewData', data)
@@ -199,7 +199,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`updateOverviewData`, res)
+                //console.log(`updateOverviewData`, res)
                 if (code === 0) {
                     store.dispatch('updateOverviewData', data)
                 } else {
@@ -214,7 +214,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.secondInit + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`getSecondFloorData`, res)
+                //console.log(`getSecondFloorData`, res)
                 if (res.code === 0) {
                     store.dispatch('updateSecondFloorData', data)
                 } else {
@@ -230,7 +230,7 @@ class IndexService extends Ws {
                 this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.getChainId(), (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     const { data, code } = res
-                    console.log(`updateSecondFloorData`, res)
+                    //console.log(`updateSecondFloorData`, res)
                     if (res.code === 0) {
                         store.dispatch('updateSecondFloorData', data)
                     } else {
@@ -247,7 +247,7 @@ class IndexService extends Ws {
         const fn = () => {
             this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.getChainId(), (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                console.log(`getBlockData`, res)
+                //console.log(`getBlockData`, res)
                 if (res.code === 0) {
                     store.dispatch('updateBlockData', res.data)
                 } else {
@@ -265,7 +265,7 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 //data为对象
                 const { data, code } = res
-                console.log(`updateBlockData`, res)
+                //console.log(`updateBlockData`, res)
                 if (code === 0) {
                     const newList = IndexService.dealData(data, store.state.index.blockData)
                     store.dispatch('updateBlockData', newList)
@@ -284,7 +284,7 @@ class IndexService extends Ws {
                 this.transactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.getChainId(), (msg: MsgConfig) => {
                     const res: ResConfig = JSON.parse(msg.body)
                     const { data, code } = res
-                    console.log(`getTransactionData`, res)
+                    //console.log(`getTransactionData`, res)
                     if (code === 0) {
                         store.dispatch('updateTransactionData', data)
                     } else {
@@ -303,7 +303,7 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 //data为数组
                 const { data, code } = res
-                console.log(`updateTransactionData`, res)
+                //console.log(`updateTransactionData`, res)
                 if (code === 0) {
                     const newList = IndexService.dealData(data, store.state.index.transactionData)
                     store.dispatch('updateTransactionData', newList)
