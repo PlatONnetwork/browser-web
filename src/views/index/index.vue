@@ -222,7 +222,7 @@ let indexService = null;
             inserted(el, binding) {
                 let cb = binding.value
                 el.addEventListener('mousewheel', function (e) {
-                    var direction = e.deltaY > 0 ? 'down' : 'up'
+                    const direction = e.deltaY > 0 ? 'down' : 'up'
                     cb(direction)
                 })
             }
