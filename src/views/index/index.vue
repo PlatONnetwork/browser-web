@@ -291,6 +291,7 @@ export default class Index extends Vue {
     initWorldMapChart(): void {
         let r = this.$refs;
         worldMapChart.init(r.worldMap, worldMapChart.worldMapOption);
+        this.updateMapData(this.mapData)
     }
     initEarthChart(): void {
         let r = this.$refs;
@@ -315,8 +316,8 @@ export default class Index extends Vue {
     changeEarth(): void {
         this.isWorldMap = !this.isWorldMap;
         setTimeout(() => {
-            // this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
-            this.isWorldMap ?  this.updateMapData(this.mapData) : this.initEarthChart()
+            this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
+            // this.isWorldMap ?  this.updateMapData(this.mapData) : this.initEarthChart()
         }, 0);
     }
     tableRowClassName({row: object, rowIndex}) {
