@@ -97,7 +97,7 @@ class IndexService extends Ws {
     getChainId(): string {
         return store.state.common.chainId
     }
-    static dealData(now: Array<object>, old) {
+    static dealData(now: Array<object>, old = []) {
         if (now.length) {
             if (now.length === 10) {
                 return now
@@ -106,8 +106,8 @@ class IndexService extends Ws {
                 return old.concat(now)
             }
         } else {
-            if (old.length >= 10) { old.shift() }
-            return old.push(now)
+            // if (old.length >= 10) { old.shift() }
+            return old
         }
     }
     static dealChartList(data: Array<any>) {
