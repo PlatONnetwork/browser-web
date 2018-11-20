@@ -182,9 +182,9 @@ class ChartService {
     earthOption = {
         // backgroundColor: '#000',
         globe: {
-            baseTexture: 'http://echarts.baidu.com/examples/data-gl/asset/world.topo.bathy.200401.jpg',
+            baseTexture: '../../static/images/earth2.jpg',
             heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
-            shading: 'lambert',
+            shading: 'color',
             light: {
                 ambient: {
                     intensity: 0.4
@@ -198,7 +198,8 @@ class ChartService {
                 zoomSensitivity:0
             },
             top: '5%',
-            bottom:'8%'
+            bottom:'8%',
+            globeRadius:70
         },
         series: [{
             name: '共识节点',

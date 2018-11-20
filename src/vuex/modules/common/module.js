@@ -7,7 +7,7 @@ import { commonMutation } from './mutation'
 export const common = {
     state: {
         chainList:[],
-        chainId:'',
+        chainId:'100',
         chainHttp:'',
         walletList:[]
     },
