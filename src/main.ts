@@ -56,6 +56,8 @@ export default window.vueVm= new Vue({
         localStorage.removeItem('i18nLocale');
     }
 }).$mount('#app')
+
+// console.warn(window.vueVm.$i18n.t('elseInfo.minutes'))
 // window.vueVm = new Vue({
 //     el: '#app',
 //     router,

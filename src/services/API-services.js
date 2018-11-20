@@ -10,6 +10,10 @@ import Http from 'axios'
 import API from '@/config/API-config'
 import store from '@/vuex/store'
 Http.defaults.headers.post['Content-Type'] = "application/json;charset=utf-8"
+// Http.defaults.headers.post['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase()
+
+console.warn(localStorage.getItem('i18nLocale'))
+
 const encodeParams = (params) => {
     let r = '?',
         p = [];
@@ -98,6 +102,7 @@ class ApiService {
     interceptorsOfReq() {
         return Http.interceptors.request.use(
             config => {
+                config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase();
                 console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
                 return config
             },
