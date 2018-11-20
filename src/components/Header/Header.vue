@@ -120,7 +120,10 @@
                     return item.cid == command
                 })
                 store.commit("CHANGE_HTTP",arr[0].http)
-                this.$emit('changeDataFn')
+                // this.$emit('changeDataFn')
+                this.$router.push({
+                    path:'/'
+                })
             },
             handleCommandLangage(command){
                 console.warn('command>>>>',command)
