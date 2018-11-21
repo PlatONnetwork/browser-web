@@ -231,7 +231,7 @@ class IndexService extends Ws {
                     const res: ResConfig = JSON.parse(msg.body)
                     const { data, code } = res
                     //console.log(`updateSecondFloorData`, res)
-                    if (res.code === 0) {
+                    if (code === 0) {
                         store.dispatch('updateSecondFloorData', data)
                     } else {
                         throw new Error(`todo`)
