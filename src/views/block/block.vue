@@ -16,7 +16,7 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>{{$t('blockAbout.morethen')}}{{pageTotal}}{{$t('blockAbout.block')}}</span>
+                        <span>{{$t('blockAbout.morethen')}}{{displayTotalCount}}{{$t('blockAbout.block')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -102,6 +102,7 @@ export default {
             pageTotal: null,
             currentPage1: 1,
             descriptionProp: 'block',
+            displayTotalCount:0,
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -148,10 +149,11 @@ export default {
             apiService.block
                 .blockList(param)
                 .then(res => {
-                    let {data, totalPages, totalCount, code, errMsg} = res;
+                    let {data, totalPages, totalCount, code, errMsg ,displayTotalCount} = res;
                     if (code == 0) {
                         this.tableData = data;
                         this.pageTotal = totalCount;
+                        this.displayTotalCount = displayTotalCount;
                         //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                         totalPages == 1
                             ? (this.paginationFlag = false)
