@@ -210,6 +210,22 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 0) {
                         this.detailInfo = data;
+                        //是否第一条记录
+                        if(data.first){
+                            this.btnLeftFlag = false;
+                            this.disabledLeft = true;
+                        }else{
+                            this.btnLeftFlag = true;
+                            this.disabledLeft = false
+                        }
+                        //是否最后一条数据
+                        if(data.last){
+                            this.btnRightFlag = false;
+                            this.disabledRight = true;
+                        }else{
+                            this.btnRightFlag = true;
+                            this.disabledRight = false;
+                        }
                     } else {
                         this.detailInfo = {};
                         this.$message.error(errMsg);
