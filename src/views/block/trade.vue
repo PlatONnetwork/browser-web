@@ -16,7 +16,7 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record '>
-                        <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{pageTotal}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
+                        <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{displayTotalCount}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
                         <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
                     </div>
                     <div class="pagination-box1">
@@ -133,6 +133,7 @@ export default {
             pageSize: 10,
             pageTotal: null,
             descriptionProp: 'trade',
+            displayTotalCount:0,
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -179,10 +180,11 @@ export default {
             apiService.trade
                 .transactionList(param)
                 .then(res => {
-                    let {data, totalPages, totalCount, code, errMsg} = res;
+                    let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                     if (code == 0) {
                         this.tableData = data;
                         this.pageTotal = totalCount;
+                        this.displayTotalCount = displayTotalCount;
                         //判断最新记录是否显示  总数
                         totalCount > 500000
                             ? (this.newRecordFlag = true)
