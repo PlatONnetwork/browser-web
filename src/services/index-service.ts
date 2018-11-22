@@ -267,7 +267,7 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateBlockData`, res)
                 if (code === 0) {
-                    ////陈东明说：改为服务器处理
+                    //陈东明说：改为服务器处理
                     // const newList = IndexService.dealData(data, store.state.index.blockData)
                     store.dispatch('updateBlockData', data)
                 } else {
