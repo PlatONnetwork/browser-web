@@ -131,7 +131,7 @@ class IndexService extends Ws {
     }
 
     static dealEarthCHartList(data: Array<ChartList>) {
-        let list: Array<Array<any>> = [[],[],[]]
+        let list: Array<Array<any>> = [[], [], []]
         data.forEach((item) => {
             if (item.netState === 1) {
                 //正常 判断是否是共识节点
