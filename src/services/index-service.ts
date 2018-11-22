@@ -97,17 +97,26 @@ class IndexService extends Ws {
     getChainId(): string {
         return store.state.common.chainId
     }
-    static dealData(now: Array<object>, old = []) {
-        if (now.length) {
-            if (now.length === 10) {
-                return now
-            } else {
-                if (old.length >= 10) { old.shift() }
-                return old.concat(now)
+    // static dealData(now: Array<object>, old = []) {
+    //     if (now.length) {
+    //         if (now.length === 10) {
+    //             return now
+    //         } else {
+    //             if (old.length >= 10) { old.shift() }
+    //             return old.concat(now)
+    //         }
+    //     } else {
+    //         // if (old.length >= 10) { old.shift() }
+    //         return old
+    //     }
+    // }
+    static arrayLengthFn(data:Array<object>){
+        if(data.length){
+            if(data.length>10){
+                return data.splice(0,10)
+            }else{
+                return data
             }
-        } else {
-            // if (old.length >= 10) { old.shift() }
-            return old
         }
     }
     static dealChartList(data: Array<any>) {
@@ -249,7 +258,9 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 //console.log(`getBlockData`, res)
                 if (res.code === 0) {
-                    store.dispatch('updateBlockData', res.data)
+                    let list = IndexService.arrayLengthFn(res.data)
+                    store.dispatch('updateBlockData', list)
+                    // store.dispatch('updateBlockData', res.data)
                 } else {
                     throw new Error(`todo`)
                 }
@@ -267,8 +278,10 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateBlockData`, res)
                 if (code === 0) {
-                    const newList = IndexService.dealData(data, store.state.index.blockData)
-                    store.dispatch('updateBlockData', newList)
+                    // const newList = IndexService.dealData(data, store.state.index.blockData)
+                    // store.dispatch('updateBlockData', newList)
+                    let list = IndexService.arrayLengthFn(data)
+                    store.dispatch('updateBlockData', list)
                 } else {
                     throw new Error(`todo`)
                 }
@@ -286,7 +299,9 @@ class IndexService extends Ws {
                     const { data, code } = res
                     //console.log(`getTransactionData`, res)
                     if (code === 0) {
-                        store.dispatch('updateTransactionData', data)
+                        let list = IndexService.arrayLengthFn(data)
+                        store.dispatch('updateTransactionData', list)
+                        // store.dispatch('updateTransactionData', data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -305,8 +320,10 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateTransactionData`, res)
                 if (code === 0) {
-                    const newList = IndexService.dealData(data, store.state.index.transactionData)
-                    store.dispatch('updateTransactionData', newList)
+                    let list = IndexService.arrayLengthFn(data)
+                    store.dispatch('updateTransactionData', list)
+                    // const newList = IndexService.dealData(data, store.state.index.transactionData)
+                    // store.dispatch('updateTransactionData', newList)
                 } else {
                     throw new Error(`todo`)
                 }
