@@ -97,26 +97,17 @@ class IndexService extends Ws {
     getChainId(): string {
         return store.state.common.chainId
     }
-    // static dealData(now: Array<object>, old = []) {
-    //     if (now.length) {
-    //         if (now.length === 10) {
-    //             return now
-    //         } else {
-    //             if (old.length >= 10) { old.shift() }
-    //             return old.concat(now)
-    //         }
-    //     } else {
-    //         // if (old.length >= 10) { old.shift() }
-    //         return old
-    //     }
-    // }
-    static arrayLengthFn(data:Array<object>){
-        if(data.length){
-            if(data.length>10){
-                return data.splice(0,10)
-            }else{
-                return data
+    static dealData(now: Array<object>, old = []) {
+        if (now.length) {
+            if (now.length === 10) {
+                return now
+            } else {
+                if (old.length >= 10) { old.shift() }
+                return old.concat(now)
             }
+        } else {
+            // if (old.length >= 10) { old.shift() }
+            return old
         }
     }
     static dealChartList(data: Array<any>) {
@@ -140,7 +131,7 @@ class IndexService extends Ws {
     }
 
     static dealEarthCHartList(data: Array<ChartList>) {
-        let list: Array<Array<any>> = [[],[],[]]
+        let list: Array<Array<any>> = [[], [], []]
         data.forEach((item) => {
             if (item.netState === 1) {
                 //正常 判断是否是共识节点
@@ -258,9 +249,7 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 //console.log(`getBlockData`, res)
                 if (res.code === 0) {
-                    let list = IndexService.arrayLengthFn(res.data)
-                    store.dispatch('updateBlockData', list)
-                    // store.dispatch('updateBlockData', res.data)
+                    store.dispatch('updateBlockData', res.data)
                 } else {
                     throw new Error(`todo`)
                 }
@@ -278,10 +267,9 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateBlockData`, res)
                 if (code === 0) {
+                    ////陈东明说：改为服务器处理
                     // const newList = IndexService.dealData(data, store.state.index.blockData)
-                    // store.dispatch('updateBlockData', newList)
-                    let list = IndexService.arrayLengthFn(data)
-                    store.dispatch('updateBlockData', list)
+                    store.dispatch('updateBlockData', data)
                 } else {
                     throw new Error(`todo`)
                 }
@@ -299,9 +287,7 @@ class IndexService extends Ws {
                     const { data, code } = res
                     //console.log(`getTransactionData`, res)
                     if (code === 0) {
-                        let list = IndexService.arrayLengthFn(data)
-                        store.dispatch('updateTransactionData', list)
-                        // store.dispatch('updateTransactionData', data)
+                        store.dispatch('updateTransactionData', data)
                     } else {
                         throw new Error(`todo`)
                     }
@@ -320,10 +306,9 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateTransactionData`, res)
                 if (code === 0) {
-                    let list = IndexService.arrayLengthFn(data)
-                    store.dispatch('updateTransactionData', list)
+                    //陈东明说：改为服务器处理
                     // const newList = IndexService.dealData(data, store.state.index.transactionData)
-                    // store.dispatch('updateTransactionData', newList)
+                    store.dispatch('updateTransactionData', data)
                 } else {
                     throw new Error(`todo`)
                 }
