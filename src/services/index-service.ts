@@ -267,8 +267,9 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateBlockData`, res)
                 if (code === 0) {
-                    const newList = IndexService.dealData(data, store.state.index.blockData)
-                    store.dispatch('updateBlockData', newList)
+                    ////陈东明说：改为服务器处理
+                    // const newList = IndexService.dealData(data, store.state.index.blockData)
+                    store.dispatch('updateBlockData', data)
                 } else {
                     throw new Error(`todo`)
                 }
@@ -305,8 +306,9 @@ class IndexService extends Ws {
                 const { data, code } = res
                 //console.log(`updateTransactionData`, res)
                 if (code === 0) {
-                    const newList = IndexService.dealData(data, store.state.index.transactionData)
-                    store.dispatch('updateTransactionData', newList)
+                    // const newList = IndexService.dealData(data, store.state.index.transactionData)
+                    //陈东明说：改为服务器处理
+                    store.dispatch('updateTransactionData', data)
                 } else {
                     throw new Error(`todo`)
                 }
