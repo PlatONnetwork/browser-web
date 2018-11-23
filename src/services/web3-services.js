@@ -25,9 +25,11 @@ class contractService {
     let number = this.web3.eth.blockNumber
     // console.log('最高区块',number)
     let result = this.web3.eth.getBalance(address)
-    result = this.web3.fromWei(result.toNumber(), 'ether')
-    console.warn('根据地址查询余额》》》', result)
-    return result
+    console.warn('根据地址查询余额》》》', result.toNumber())
+    let r = this.web3.fromWei(result.toNumber(), 'ether')
+    // result = this.web3.fromWei(result.toNumber(), 'ether')
+    console.warn('根据地址查询余额fromWei》》》', r)
+    return r
   }
 }
 export default new contractService
