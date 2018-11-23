@@ -121,6 +121,9 @@
                 })
                 store.commit("CHANGE_HTTP",arr[0].http)
                 // this.$emit('changeDataFn')
+                //切换网络之后，将当前网络存在sessionStorage
+                sessionStorage.setItem('commandId',command)
+                sessionStorage.setItem('commandHttp',arr[0].http)
                 this.$router.push({
                     path:'/'
                 })

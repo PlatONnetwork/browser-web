@@ -17,8 +17,9 @@ export const commonAction = {
         // });
         apiService.get(config.JSON_BASE + "/mock.json").then((data) => {
             commit('DONE_CHAINLIST', data.chainList)
-            commit('CHANGE_ID', data.chainList[0].cid)
-            commit('CHANGE_HTTP', data.chainList[0].http)
+            sessionStorage.getItem('commandId') ? commit('CHANGE_ID', sessionStorage.getItem('commandId')) : commit('CHANGE_ID', data.chainList[0].cid)
+            // commit('CHANGE_ID', data.chainList[0].cid)
+            sessionStorage.getItem('commandHttp') ? commit('CHANGE_HTTP', sessionStorage.getItem('commandHttp')) : commit('CHANGE_HTTP', data.chainList[0].http)
         });
         apiService.get(config.JSON_BASE + "/walletConfig.json").then((data) => {
             commit('DONE_WALLETLIST', data.wallList)
