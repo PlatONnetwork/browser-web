@@ -257,19 +257,19 @@ export default {
                             //这是第一条记录 置灰
                             this.btnLeftFlag = false;
                             this.disabledLeft = true;
-                            return false;
+                            // return false;
                         }else{
                             this.btnLeftFlag = true;
                             this.disabledLeft = false;
-                            this.$router.replace({
-                                path: '/block-detail',
-                                query: {
-                                    height: data.height,
-                                },
-                            });
-                            this.detailInfo = data;
-                            this.height = data.height;
                         }
+                        this.$router.replace({
+                            path: '/block-detail',
+                            query: {
+                                height: data.height,
+                            },
+                        });
+                        this.detailInfo = data;
+                        this.height = data.height;
                     }else{
                         this.btnLeftFlag = true;
                         this.disabledLeft = false;
@@ -324,19 +324,19 @@ export default {
                             //最后一条记录
                             this.btnRightFlag = false;
                             this.disabledRight = true;
-                            return false;
+                            // return false;
                         }else{
                             this.btnRightFlag = true;
                             this.disabledRight = false;
-                            this.$router.replace({
-                                path: '/block-detail',
-                                query: {
-                                    height: data.height,
-                                },
-                            });
-                            this.detailInfo = data;
-                            this.height = data.height;
                         }
+                        this.$router.replace({
+                            path: '/block-detail',
+                            query: {
+                                height: data.height,
+                            },
+                        });
+                        this.detailInfo = data;
+                        this.height = data.height;
                     }else{
                         this.btnRightFlag = true;
                         this.disabledRight = false;
