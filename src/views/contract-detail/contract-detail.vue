@@ -198,7 +198,6 @@
     import comHeader from '@/components/header/header.vue'
     import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
-    import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import contractService from '@/services/web3-services'
     export default {
@@ -429,7 +428,6 @@
         },
         //组件
         components: {
-            'v-menu':menu,
             comHeader,
             comFooter
         },

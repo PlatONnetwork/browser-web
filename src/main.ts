@@ -7,7 +7,6 @@ import messages from '@/lang/index'
 import ElementUI from 'element-ui'
 import ElementLocale from 'element-ui/lib/locale'
 import VueClipboard from 'vue-clipboard2'
-import filters from './filters/index'
 import { mapActions } from 'vuex'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // css

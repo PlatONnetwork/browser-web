@@ -57,7 +57,6 @@
     import comFooter from '@/components/footer/footer.vue'
     import apiService from '@/services/API-services'
     import apiConfig from '@/config/API-config'
-    import menu from '@/components/menu/index.vue'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
         //组件名

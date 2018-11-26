@@ -111,7 +111,6 @@ import Component from 'vue-class-component';
 import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 import apiService from '@/services/API-services';
-import menu from '@/components/menu/index.vue';
 import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
@@ -290,7 +289,6 @@ export default {
     },
     //组件
     components: {
-        'v-menu': menu,
         comHeader,
         comFooter,
     },
