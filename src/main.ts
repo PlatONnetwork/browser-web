@@ -26,6 +26,7 @@ Vue.config.productionTip = false
 // window.responseInfo = '';
 // const browserLanguage: string = navigator.language.toLowerCase()
 const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):navigator.language.toLowerCase()
+// console.warn(navigator.language.toLowerCase())
 const i18n = new VueI18n({
     locale: browserLanguage,
     messages

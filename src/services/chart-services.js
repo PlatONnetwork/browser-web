@@ -27,7 +27,7 @@ let data1=[],data2=[],data3=[]
 //         data3.push(item)
 //     }
 // })
-console.log('data111',data)
+// console.log('data111',data)
 class ChartService {
     // worldMapOption = {
     //   // backgroundColor: '#fff',

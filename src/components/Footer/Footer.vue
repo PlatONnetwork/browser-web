@@ -14,12 +14,13 @@
                     <a href="#" target="_blank">{{ $t("footer.wallet") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">{{ $t("footer.officialWebsite") }}</a>
+                    <a href="https://www.platon.network/" target="_blank">{{ $t("footer.officialWebsite") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">{{ $t("footer.whitePaper") }}</a>
+                    <!-- <a href="" target="_blank">{{ $t("footer.whitePaper") }}</a> -->
+                    <a :href='$i18n.locale=="zh-cn" ? "https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf" : "https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf"' target="_blank">{{ $t("footer.whitePaper") }}</a>
                 </li>
-            </ul>    
+            </ul>
         </div>
         <div class="community">
             <p class="link-top">{{ $t("footer.community") }}</p>
@@ -61,7 +62,7 @@
         //实例的数据对象
         data () {
             return {
-               
+                href:'',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -76,7 +77,20 @@
         },
         //生命周期函数
         created(){
-
+            console.warn('1111',this.$i18n.locale)
+            // if(localStorage.getItem('i18nLocale')){
+            //     if(localStorage.getItem('i18nLocale')=='zh-cn'){
+            //         this.href='https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf'
+            //     }else{
+            //         this.href='https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf'
+            //     }
+            // }else{
+            //     if(navigator.language.toLowerCase()=='zh-cn'){
+            //         this.href='https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf'
+            //     }else{
+            //         this.href='https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf'
+            //     }
+            // }
         },
         //监视
         watch: {
