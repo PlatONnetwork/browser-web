@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './map/index'
 import {tradeCom,tradePendingCom,blockCom,tradeDetailCom,addressDetailCom,contractDetailCom,blockDetailCom,tradeBlock,tradeBlockFilter,tradePendDetailCom} from './map/block'
-import Node from './map/node'
+import {nodeCom, nodeDetailCom } from './map/node'
 import {walletCom,documentCom} from './map/more'
 import DownLoad from './map/download'
 import Redirect from './map/Redirect'
@@ -21,7 +21,8 @@ export default new Router({
         tradeBlock,
         tradeBlockFilter,
         tradePendDetailCom,
-        Node,
+        nodeCom,
+        nodeDetailCom,
         walletCom,
         documentCom,
         DownLoad,

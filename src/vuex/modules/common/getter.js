@@ -17,4 +17,7 @@ export const commonGetter = {
     walletList(state) {
       return state.walletList
     },
+    country(state) {
+      return state.country
+    },
 }

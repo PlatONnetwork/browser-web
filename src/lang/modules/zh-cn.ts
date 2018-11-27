@@ -217,5 +217,22 @@ export default {
         searchno:'查询无结果！',
         cancel:'取消'
     },
+    nodeInfo:{
+        index:'节点',
+        validate:'竞选节点',
+        rule:'竞选规则',
+        ranking:'排名',
+        name:'节点',
+        electionStatus:'竞选状态',
+        location:'位置',
+        deposit:'质押金',
+        blockCount:'已产生区块数',
+        rewardRatio:'分红比例',
+        placeHolder:'输入节点账户名称查询',
+        candidate:'候选前100名',
+        standby:'备选前100名',
+
+
+    },
     ...zhLocale
 }

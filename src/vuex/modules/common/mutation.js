@@ -13,6 +13,8 @@ export const commonMutation = {
     },
     ['DONE_WALLETLIST'](state, data) {
       state.walletList = data
+    },
+    ['DONE_COUNTRY'](state, data) {
+      state.country = data
     }
-
 }

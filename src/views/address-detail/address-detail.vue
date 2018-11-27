@@ -82,7 +82,7 @@
                 <div class="data-detail">
                     <ul class="ul-nav">
                         <li :class="{active: activeTab == 1}" @click="changeTab(1)">{{$t('totalInfo.transactions')}}</li>
-                        <li :class="{active: activeTab == 2}" @click="changeTab(2)">{{$t('totalInfo.votes')}}</li>
+                        <!-- <li :class="{active: activeTab == 2}" @click="changeTab(2)">{{$t('totalInfo.votes')}}</li> -->
                     </ul>
                     <div class="data">
                         <div v-if='activeTab == 1'>

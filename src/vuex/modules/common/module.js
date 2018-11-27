@@ -10,7 +10,8 @@ export const common = {
         chainId: sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId'):
         '100',
         chainHttp:'',
-        walletList:[]
+        walletList:[],
+        country:[]
     },
     actions: commonAction,
     getters: commonGetter,

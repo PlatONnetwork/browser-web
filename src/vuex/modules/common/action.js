@@ -26,5 +26,8 @@ export const commonAction = {
             //   this.walletList = data;
             // console.log(walletList[0].icon);
         });
+        apiService.get(config.JSON_BASE + "/country.json").then((data) => {
+            commit('DONE_COUNTRY', data.countrys)
+        });
     },
 }

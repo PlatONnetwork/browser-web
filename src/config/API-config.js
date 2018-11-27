@@ -13,6 +13,14 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     // HOME_URL = `http://10.10.8.8:8080/browser-server/home/`,
    	TRADE_URL = `${TOTAL}transaction/`,
     ACCOUNT_URL = `${TOTAL}account/`,
+    NODE_URL = `${TOTAL}node/`,
+    //NODE
+    NODE = {
+        list: `${NODE_URL}list`,
+        detail: `${NODE_URL}detail`,
+        blockList: `${NODE_URL}blockList`,
+        blockDownload: `${NODE_URL}blockDownload`
+    },
 	// BLOCK
 	BLOCK = {
 		blockList: `${BLOCK_URL}blockList`,
@@ -65,5 +73,6 @@ export default {
 	TRADE,
     ACCOUNT,
     WS_CONFIG,
-    JSON_BASE
+    JSON_BASE,
+    NODE
 }

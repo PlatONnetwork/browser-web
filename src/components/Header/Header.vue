@@ -22,10 +22,13 @@
                         <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
-                <el-menu-item index="/node" disabled>
-                    <!-- <router-link to="/node">{{ $t("menu.node") }}</router-link> -->
+                <!-- <el-menu-item index="/node" disabled>
                     <el-tooltip class="item" effect="light" content="敬请期待" placement="bottom">
                     <span>{{ $t("menu.node") }}</span>
+                    </el-tooltip>
+                </el-menu-item> -->
+                <el-menu-item index="/node">
+                    <router-link to="/node">{{ $t("menu.node") }}</router-link>
                     </el-tooltip>
                 </el-menu-item>
                 <el-submenu index="3">
