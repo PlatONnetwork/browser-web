@@ -131,6 +131,9 @@
                 }else if(this.exportname=='contract'){
                     console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,param))
                     this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                }else if(this.exportname=='node'){
+                    console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.NODE.blockDownload,param))
+                    this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
                 }
             }
         },

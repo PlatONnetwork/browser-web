@@ -186,7 +186,8 @@ export default {
     breadCrumb: {
         pending: 'Pending Transactions',
         trade: 'Transactions',
-        block: 'Blocks'
+        block: 'Blocks',
+        node:'Node'
     },
     indexInfo: {
         blockHeight: 'Block Height',
@@ -216,6 +217,44 @@ export default {
         view: 'View All',
         searchno: 'Search no results!',
         cancel: 'Cancel'
+    },
+    nodeInfo: {
+        index: 'Node',
+        validate: 'Validator Node',
+        rule: 'Validator Node Rules',
+        ranking: 'Rank',
+        name: 'VN Name',
+        electionStatus: 'Status',
+        location: 'Location',
+        deposit: 'Staked',
+        blockCount: 'Blocks',
+        rewardRatio: 'Reward Ratio',
+        placeHolder: 'Search by Validator Node Name',
+        candidate: 'Candidate',
+        standby: 'Standby',
+        nodeinfo: 'Node Info',
+        jointime: 'Join time',
+        stakedrank: 'Staked Ranking',
+        totalincome: 'Total Income',
+        blocks: 'Blocks',
+        averagetime: 'Average Block Time',
+        totalreward: 'Total Vote Reward',
+        nodeinfo1: 'Node Info',
+        nodeblock: 'Produced Blocks',
+        baseinfo: 'Basic Information',
+        nodeaddress: 'Node URL',
+        nodepublickey: 'Node Public Key',
+        nodewallet: 'Node Wallet',
+        nodedes: 'Node Introduction',
+        plan: 'Profit Plan',
+        info: 'Institutional info',
+        jigouname: 'Name',
+        jigounet: 'Website',
+        block: 'Block',
+        timestamp: 'TimeStamp',
+        transactions: 'Txn',
+        blockreward: 'Block Reward',
+        export:'Download csv'
     },
     ...enLocale
 }

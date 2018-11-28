@@ -10,7 +10,7 @@
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
                         <el-breadcrumb-item :to="{ path: '/node'}" >{{$t('nodeInfo.index')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>节点信息</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('nodeInfo.nodeinfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
@@ -19,84 +19,84 @@
                     <div class='record'>
                         <div class="left">
                             <p>
-                                <img src="./image/user.png" alt="" class='images'>
+                                <img :src="detailInfo.logo" alt="" class='images'>
                             </p>
                             <p>
-                                <span class='account-name'>账户名称 <i>(所属区域)</i></span>
-                                <span>加入时间：2018-11-16 xx:xx:xx</span>
+                                <span class='account-name'>{{detailInfo.name}} <i>({{detailInfo.location}})</i></span>
+                                <span>{{$t('nodeInfo.jointime')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </p>
                         </div>
                         <div class="right">
-                            <span class='node-candidate'>候选前100名</span>
+                            <span :class='{"node-candidate":detailInfo.electionStatus == 1,"node-standby":detailInfo.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[detailInfo.electionStatus])}}</span>
                         </div>
                     </div>
                     <div class="view">
                         <div>
                             <p>
-                                <span>质押金</span>
-                                <span>111111111111111111111111111ATP</span>
+                                <span>{{$t('nodeInfo.deposit')}}</span>
+                                <span>{{detailInfo.deposit}} ATP</span>
                             </p>
                             <p>
-                                <span>累计出块</span>
-                                <span>11111111</span>
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                <span>分红比例</span>
-                                <span>12%</span>
-                            </p>
-                            <p>
-                                <span>平均出块时长</span>
-                                <span>11111111s</span>
+                                <span>{{$t('nodeInfo.blocks')}}</span>
+                                <span>{{detailInfo.blockCount}}</span>
                             </p>
                         </div>
                         <div>
                             <p>
-                                <span>质押排名</span>
-                                <span>12</span>
+                                <span>{{$t('nodeInfo.rewardRatio')}}</span>
+                                <span>{{detailInfo.rewardRatio * 100}}%</span>
                             </p>
                             <p>
-                                <span>累计分红</span>
-                                <span>11111111 ATP</span>
+                                <span>{{$t('nodeInfo.averagetime')}}</span>
+                                <span>{{detailInfo.avgBlockTime}}s</span>
                             </p>
                         </div>
                         <div>
                             <p>
-                                <span>累计收益</span>
-                                <span>1111111111111111111111111111ATP</span>
+                                <span>{{$t('nodeInfo.stakedrank')}}</span>
+                                <span>{{detailInfo.ranking}}</span>
+                            </p>
+                            <p>
+                                <span>{{$t('nodeInfo.totalreward')}}</span>
+                                <span>{{detailInfo.rewardAmount}} ATP</span>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                <span>{{$t('nodeInfo.totalincome')}}</span>
+                                <span>{{detailInfo.profitAmount}} ATP</span>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="data-detail">
                     <ul class="ul-nav cursor">
-                        <li :class="{active: activeTab == 1}" @click="changeTab(1)">节点信息</li>
-                        <li :class="{active: activeTab == 2}" @click="changeTab(2)">节点出的区块</li>
+                        <li :class="{active: activeTab == 1}" @click="changeTab(1)">{{$t('nodeInfo.nodeinfo1')}}</li>
+                        <li :class="{active: activeTab == 2}" @click="changeTab(2)">{{$t('nodeInfo.nodeblock')}}</li>
                     </ul>
                     <div class="data">
                         <div v-if='activeTab == 1'>
-                            <div class="data-top">基本信息</div>
+                            <div class="data-top">{{$t('nodeInfo.baseinfo')}}</div>
                             <div class="data-info">
                                 <div class="data-line">
-                                    <div class="data-title">节点信息</div>
+                                    <div class="data-title">{{$t('nodeInfo.nodeinfo1')}}</div>
                                     <div class="rows">
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>节点地址</span>
+                                                <span>{{$t('nodeInfo.nodeaddress')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>http</span>
+                                                <span>{{detailInfo.nodeUrl}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>节点公钥</span>
+                                                <span>{{$t('nodeInfo.nodepublickey')}}</span>
                                             </el-col>
                                             <el-col :span="21">
                                                 <span class='copys'>
-                                                    <span>111111111111111111111111111111</span>
-                                                    <span v-clipboard:copy="111111111111111111111111111111" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                                                    <span>{{detailInfo.publicKey}}</span>
+                                                    <span v-clipboard:copy="detailInfo.publicKey" v-clipboard:success="onCopyPublicKey" v-clipboard:error="onErrorPublicKey">
                                                         <i class='iconfont iconcopy cursor'>&#xe63d;</i>
                                                     </span>
                                                 </span>
@@ -105,12 +105,12 @@
                                         </el-row>
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>节点钱包</span>
+                                                <span>{{$t('nodeInfo.nodewallet')}}</span>
                                             </el-col>
                                             <el-col :span="21">
                                                 <span class='copys'>
-                                                    <span class='normal '>111111111111111111111111111111</span>
-                                                    <span v-clipboard:copy="111111111111111111111111111111" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                                                    <span class='normal cursor' @click='goAddressDetail(detailInfo.wallet)'>{{detailInfo.wallet}}</span>
+                                                    <span v-clipboard:copy="detailInfo.wallet" v-clipboard:success="onCopyWallet" v-clipboard:error="onErrorWallet">
                                                         <i class='iconfont iconcopy cursor'>&#xe63d;</i>
                                                     </span>
                                                 </span>
@@ -119,44 +119,44 @@
                                         </el-row>
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>节点简介</span>
+                                                <span>{{$t('nodeInfo.nodedes')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>http</span>
+                                                <span>{{detailInfo.intro}}</span>
                                             </el-col>
                                         </el-row>
                                     </div>
                                 </div>
                                 <div class="data-line">
-                                    <div class="data-title">收益计划</div>
+                                    <div class="data-title">{{$t('nodeInfo.plan')}}</div>
                                     <div class="rows">
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>分红比例</span>
+                                                <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>http%</span>
+                                                <span>{{detailInfo.rewardRatio * 100}}%</span>
                                             </el-col>
                                         </el-row>
                                     </div>
                                 </div>
                                 <div class="data-line">
-                                    <div class="data-title">机构信息</div>
+                                    <div class="data-title">{{$t('nodeInfo.info')}}</div>
                                     <div class="rows">
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>机构名称</span>
+                                                <span>{{$t('nodeInfo.jigouname')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>http%</span>
+                                                <span>{{detailInfo.orgName}}</span>
                                             </el-col>
                                         </el-row>
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>机构官网</span>
+                                                <span>{{$t('nodeInfo.jigounet')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <a href="#" target="_blank" class='normal'>hhh</a>
+                                                <a :href="detailInfo.orgWebsite" target="_blank" class='normal'>{{detailInfo.orgWebsite}}</a>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -165,31 +165,31 @@
                         </div>
                         <div v-if='activeTab == 2'>
                             <div class="data-top data-top1">
-                                <span>累计出块：13111</span>
+                                <span>{{$t('nodeInfo.blocks')}}：{{total}}</span>
                                 <div class='search-address'>
-                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
+                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('nodeInfo.export')}}</el-button>
                                 </div>
                             </div>
                             <div class="table">
-                                <el-table style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column label='区块' >
+                                <el-table :data='tableData' style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
+                                    <el-table-column :label="$t('nodeInfo.block')" >
                                         <template slot-scope="scope">
-                                            <span class='normal cursor'>11111</span>
+                                            <span class='normal cursor'  @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label='时间戳'>
+                                    <el-table-column :label="$t('nodeInfo.timestamp')">
                                         <template slot-scope="scope">
-                                            <span>111111111111</span>
+                                            <span>{{new Date(scope.row.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label='交易数'>
+                                    <el-table-column :label="$t('nodeInfo.transactions')">
                                         <template slot-scope="scope">
-                                            <span>1111}</span>
+                                            <span>{{scope.row.transaction}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column label='区块奖励'>
+                                    <el-table-column :label="$t('nodeInfo.blockreward')">
                                         <template slot-scope="scope">
-                                            <span>111ATP</span>
+                                            <span>{{scope.row.blockReward}}ATP</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -215,7 +215,7 @@
         //实例的数据对象
         data () {
             return {
-                activeTab:2,
+                activeTab:1,
                 statusFn:{
                     '1':'candidate',
                     '2':'出块中',
@@ -226,7 +226,11 @@
                 descriptionProp: 'node',
                 detailInfo:{
 
-                }
+                },
+                tableData:[
+
+                ],
+                total:0,
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -243,18 +247,13 @@
                 return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
             },
             searchFn(data){
-                console.warn('子组件header向地址详情data>>>>',data)
+                console.warn('子组件header向节点地址详情data>>>>',data)
                 this.address = this.$route.query.address;
                 this.detailInfo = data.struct;
-                data.struct.trades.forEach(item => {
-                    if (item.txReceiptStatus == -1) {
-                        ++this.count;
-                    }
-                });
             },
             changeDataFn(){
                 console.warn('子组件告诉地址详情链id更改》》》》')
-                this.getDetail()
+                // this.getDetail()
             },
             tableRowClassName({row, rowIndex}) {
                 if(rowIndex%2 === 0) {
@@ -265,6 +264,19 @@
             },
             changeTab(type) {
                 this.activeTab = type;
+                this.activeTab == 2 ? this.getList() : this.getNodeInfo();
+            },
+            onCopyPublicKey(){
+                this.onCopy();
+            },
+            onErrorPublicKey(){
+                this.onError();
+            },
+            onCopyWallet(){
+                this.onCopy();
+            },
+            onErrorWallet(){
+                this.onError();
             },
             onCopy() {
                 this.$message.success(this.$t('modalInfo.copysuccess'));
@@ -284,20 +296,63 @@
                 })
                 window.open(href,'_blank')
             },
-            //获取地址信息详情
-            getDetail() {
-
+            //获取节点信息
+            getNodeInfo(){
+                let param = {
+                    address:this.address
+                };
+                apiService.node.detail(param).then(res=>{
+                    let {errMsg,code,data}=res;
+                    if(code==0){
+                        this.detailInfo = data
+                    }else{
+                        this.$message.error(errMsg);
+                    }
+                }).catch(error=>{
+                    this.$message.error(error);
+                })
             },
-
+            //获取区块列表信息
+            getList(){
+                let param = {
+                    address:this.address
+                };
+                apiService.node.blockList(param).then(res=>{
+                    let {errMsg,code,data}=res;
+                    if(code==0){
+                        this.total = data.length;
+                        this.tableData = data;
+                    }else{
+                        this.$message.error(errMsg);
+                    }
+                }).catch(error=>{
+                    this.$message.error(error);
+                })
+            },
+            //进入地址详情页面
+            goAddressDetail(address) {
+                this.$router.push({
+                    path: '/address-detail',
+                    query: {
+                        address: address,
+                        description: 'node',
+                    },
+                });
+            },
+            //进入区块详情
+            goBlockDetail(index, row) {
+                this.$router.push({
+                    path: '/block-detail',
+                    query: {
+                        height: row.height
+                    },
+                });
+            },
         },
         //生命周期函数
         created() {
             this.address = this.$route.query.address;
-            //设置节点地址
-            // contractService.serProvider(this.chainHttp)
-            // console.log(1)
-            //获取节点信息
-            this.getDetail()
+            this.getNodeInfo();
         },
         //监视
         watch: {

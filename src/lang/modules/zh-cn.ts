@@ -186,7 +186,8 @@ export default {
     breadCrumb:{
         pending:'待处理交易',
         trade:'交易',
-        block:'区块'
+        block:'区块',
+        node:'节点'
     },
     indexInfo:{
         blockHeight:'当前区块高度',
@@ -231,8 +232,29 @@ export default {
         placeHolder:'输入节点账户名称查询',
         candidate:'候选前100名',
         standby:'备选前100名',
-
-
+        nodeinfo:'节点详情',
+        jointime:'加入时间',
+        stakedrank:'质押排名',
+        totalincome:'累计收益',
+        blocks:'累计出块',
+        averagetime:'平均出块时长',
+        totalreward:'累计分红',
+        nodeinfo1:'节点信息',
+        nodeblock:'节点出的区块',
+        baseinfo:'基本信息',
+        nodeaddress:'节点地址',
+        nodepublickey:'节点公钥',
+        nodewallet:'节点钱包',
+        nodedes:'节点简介',
+        plan:'收益计划',
+        info:'机构信息',
+        jigouname:'机构名称',
+        jigounet:'机构官网',
+        block:'区块',
+        timestamp:'时间戳',
+        transactions:'交易数',
+        blockreward:'区块奖励',
+        export:'导出csv'
     },
     ...zhLocale
 }

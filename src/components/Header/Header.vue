@@ -197,8 +197,10 @@
                     //节点详情
                     case 'node':
                         return this.$router.push({
-                            path:'',
-                            query:{}
+                            path:'/node-detail',
+                            query:{
+                                address:struct.address
+                            }
                         });
                         break;
                     //合约详情

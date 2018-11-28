@@ -31,29 +31,29 @@
                     <div class="view">
                         <div class="left">
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <span class='row-title'>{{$t('totalInfo.overview')}}</span>
                                 </el-col>
-                                <el-col :span="20"></el-col>
+                                <el-col :span="21"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
-                                <el-col :span="20">
+                                <el-col :span="21">
                                     <span>{{balance}}ATP</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
-                                <el-col :span="20">
+                                <el-col :span="21">
                                     <span>{{detailInfo.tradeCount}}</span>
                                 </el-col>
                             </el-row>
                         </div>
-                        <div class="right">
+                        <!-- <div class="right">
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
                                     <span class='row-title'>{{$t('totalInfo.votes')}}</span>
@@ -76,7 +76,7 @@
                                     <span>{{detailInfo.nodeCount}}</span>
                                 </el-col>
                             </el-row>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="data-detail">
@@ -240,11 +240,13 @@
                     pending : 'pending',
                     trade : 'trade',
                     block : 'block',
+                    node : 'node'
                 },
                 pathFn: {
                     pending : '/trade-pending',
                     trade : '/trade',
-                    block:'/block'
+                    block:'/block',
+                    node : '/node'
                 },
                 description:'',
                 descriptionProp:'',
@@ -486,7 +488,8 @@
                 background: #0F133A;
                 overflow:hidden;
                 .left,.right{
-                    width:50%;
+                    // width:50%;
+                    width:100%;
                     .el-row{
                         margin-bottom:12px;
                     }
@@ -501,11 +504,11 @@
                     font-family: ArialMT;
                     color: #FFFFFF;
                 }
-                .el-col-4{
+                .el-col-3{
                     font-size: 12px;
                     color: #93A5C8;
                 }
-                .el-col-20{
+                .el-col-21{
                     font-size: 12px;
                     color: #D7DDE9;
                 }

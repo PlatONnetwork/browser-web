@@ -20,8 +20,8 @@
                         <span class='normal'>({{$t('nodeInfo.rule')}})</span>
                     </div>
                     <div class="input-search">
-                        <el-button type="primary" class='icon-search'  icon="el-icon-search"></el-button>
-                        <el-input :placeholder="$t('nodeInfo.placeHolder')" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini" clearable></el-input>
+                        <el-button type="primary" class='icon-search'  icon="el-icon-search" @click='getNodeList'></el-button>
+                        <el-input :placeholder="$t('nodeInfo.placeHolder')" v-model.trim="searchKey"  @keyup.enter.native="getNodeList" size="mini" clearable></el-input>
                     </div>
                 </div>
                 <div class="table">
@@ -33,7 +33,7 @@
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.name')">
                             <template slot-scope="scope">
-                                <img src="./image/user.png" alt="" class='images'>
+                                <img :src="scope.row.logo" alt="" class='images'>
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
@@ -45,7 +45,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.location')"  >
                             <template slot-scope="scope">
-                                <img :src="'data:image/png;base64,'+flag" alt=""  class='images images1'>
+                                <img :src="'data:image/png;base64,' + scope.row.countryCode" alt=""  class='images images1'>
                                 <span>{{scope.row.location}}</span>
                             </template>
                         </el-table-column>
@@ -63,7 +63,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.rewardRatio')" >
                             <template slot-scope="scope">
-                                <span>{{scope.row.rewardRatio}}</span>
+                                <span>{{scope.row.rewardRatio * 100}} %</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -88,29 +88,9 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
         data () {
             return {
                 searchKey:'',
-                tableData:[{
-                "ranking": 1,// 排名
-                "logo":"", // 节点LOGO，具体形式待定
-                "name": "node-1",// 账户名称
-                "electionStatus": 1,// 竞选状态:1-候选前100名,2-出块中,3-验证节点,4-备选前100名
-                "countryCode":"CN", // 国家代码
-                "location": "中国广东深圳",// 地理位置
-                "deposit": "1.254555555", // 质押金，单位-ATP
-                "blockCount": 252125,// 产生的总区块数
-                "rewardRatio": 0.02,// 分红比例:小数
-                "address": "0xsfjl34jfljsl435kd", // 节点地址
-                },{
-                "ranking": 1,// 排名
-                "logo":"", // 节点LOGO，具体形式待定
-                "name": "node-1",// 账户名称
-                "electionStatus": 4,// 竞选状态:1-候选前100名,2-出块中,3-验证节点,4-备选前100名
-                "countryCode":"CN", // 国家代码
-                "location": "中国广东深圳",// 地理位置
-                "deposit": "1.254555555", // 质押金，单位-ATP
-                "blockCount": 252125,// 产生的总区块数
-                "rewardRatio": 0.02,// 分红比例:小数
-                "address": "0xsfjl34jfljsl435kd", // 节点地址
-                }],
+                tableData:[
+
+                ],
                 statusFn:{
                     '1':'candidate',
                     '2':'出块中',
@@ -140,8 +120,38 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 console.warn('子组件告诉node链id更改》》》》')
                 this.getNodeList()
             },
+            //获取节点列表
             getNodeList(){
-
+                let param = {
+                    keyword:this.searchKey
+                };
+                console.warn(apiService)
+                apiService.node.list(param).then(res=>{
+                    let {errMsg,code,data}=res,newList=[];
+                    if(code == 0){
+                        data.forEach((item,index)=>{
+                            // console.warn(this.getFlag(item.countryCode))
+                            // let countryCode = this.getFlag(item.countryCode)
+                            newList.push({
+                                ranking : item.ranking,
+                                logo : item.logo,
+                                name : item.name,
+                                electionStatus : item.electionStatus,
+                                countryCode : this.getFlag(item.countryCode),
+                                location : item.location,
+                                deposit : item.deposit,
+                                blockCount : item.blockCount,
+                                rewardRatio : item.rewardRatio,
+                                address : item.address
+                            })
+                        })
+                        this.tableData = newList
+                    }else{
+                        this.$message.error(errMsg);
+                    }
+                }).catch(error=>{
+                    this.$message.error(error);
+                })
             },
             //根据国家code获取国家国旗
             getFlag(code){
@@ -149,23 +159,29 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                     return code == item._id
                 });
                 // debugger;
-                console.warn(arr)
+                // console.warn(arr)
                 // debugger
                 if(arr.length){
-                    this.flag = arr[0].Flag
+                    return arr[0].Flag
                 }
             },
+            //根据国家code获取相应的中英文国家名称
+
             rowClick(row,event,column){
                 console.log(row)
                 this.$router.push({
                     path:'/node-detail',
-                    address:row.address
+                    query:{
+                        address:row.address
+                    }
                 })
             }
         },
         //生命周期函数
         created(){
-            this.getFlag('CN')
+            // this.getFlag('CN')
+            console.warn(222222222)
+            this.getNodeList();
         },
         //监视
         watch: {
