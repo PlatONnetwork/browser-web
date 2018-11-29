@@ -22,15 +22,15 @@
                         <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
-                <!-- <el-menu-item index="/node" disabled>
+                <el-menu-item index="/node" disabled>
                     <el-tooltip class="item" effect="light" content="敬请期待" placement="bottom">
                     <span>{{ $t("menu.node") }}</span>
                     </el-tooltip>
-                </el-menu-item> -->
-                <el-menu-item index="/node">
+                </el-menu-item>
+                <!-- <el-menu-item index="/node">
                     <router-link to="/node">{{ $t("menu.node") }}</router-link>
                     </el-tooltip>
-                </el-menu-item>
+                </el-menu-item> -->
                 <el-submenu index="3">
                     <template slot="title">{{ $t("menu.more") }}</template>
                     <el-menu-item index="/wallet">
@@ -48,8 +48,11 @@
         </div>
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start">
+                <!-- <span class="el-dropdown-link">
+                    {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon-right"></i>
+                </span> -->
                 <span class="el-dropdown-link">
-                    {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{getNetObj(chainId)}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
@@ -111,11 +114,20 @@
             ...mapGetters(['chainList','chainId','chainHttp']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
-            }
+            },
         },
         //方法
         methods: {
             ...mapActions(['changeChainId']),
+            getNetObj(id){
+                console.warn('首次id》》》',id);
+                let arr = this.chainList.filter((item,index)=>{
+                    return item.cid == id
+                })
+                let arr1=arr[0]
+                console.warn('首次id》》》',arr1['en']);
+                return arr1['en']
+            },
             handleCommand(command){
                 console.log('网络切换》》》',command)
                 store.commit("CHANGE_ID",command)

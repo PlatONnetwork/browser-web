@@ -241,11 +241,6 @@
         },
         //方法
         methods: {
-             //将科学计数法转为数值
-            toNonExponential(num){
-                let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
-                return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
-            },
             searchFn(data){
                 console.warn('子组件header向节点地址详情data>>>>',data)
                 this.address = this.$route.query.address;
