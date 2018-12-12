@@ -231,6 +231,7 @@
 
                 ],
                 total:0,
+                id:'',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -294,7 +295,7 @@
             //获取节点信息
             getNodeInfo(){
                 let param = {
-                    address:this.address
+                    id:this.id
                 };
                 apiService.node.detail(param).then(res=>{
                     let {errMsg,code,data}=res;
@@ -347,6 +348,7 @@
         //生命周期函数
         created() {
             this.address = this.$route.query.address;
+            this.id = this.$route.query.id;
             this.getNodeInfo();
         },
         //监视

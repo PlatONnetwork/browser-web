@@ -125,7 +125,6 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 let param = {
                     keyword:this.searchKey
                 };
-                console.warn(apiService)
                 apiService.node.list(param).then(res=>{
                     let {errMsg,code,data}=res,newList=[];
                     if(code == 0){
@@ -142,7 +141,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                                 deposit : item.deposit,
                                 blockCount : item.blockCount,
                                 rewardRatio : item.rewardRatio,
-                                address : item.address
+                                address : item.address,
+                                id : item.id
                             })
                         })
                         this.tableData = newList
@@ -158,29 +158,23 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 let arr = this.country.filter((item,index)=>{
                     return code == item._id
                 });
-                // debugger;
-                // console.warn(arr)
-                // debugger
                 if(arr.length){
                     return arr[0].Flag
                 }
             },
             //根据国家code获取相应的中英文国家名称
-
             rowClick(row,event,column){
-                console.log(row)
                 this.$router.push({
                     path:'/node-detail',
                     query:{
-                        address:row.address
+                        address:row.address,
+                        id:row.id
                     }
                 })
             }
         },
         //生命周期函数
         created(){
-            // this.getFlag('CN')
-            console.warn(222222222)
             this.getNodeList();
         },
         //监视
