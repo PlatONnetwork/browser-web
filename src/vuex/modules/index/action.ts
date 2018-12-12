@@ -32,16 +32,16 @@ export const indexAction = {
         commit('UPDATE_EARTH_DADA', list)
     },
     updateEarthData({ commit, state }, list: Array<object>) {
-        let oldData = state.earthData
-        const newData = list.map((item, index) => {
-            return oldData[index].concat(item)
-        })
-        commit('UPDATE_EARTH_DADA', newData)
+        // let oldData = state.earthData
+        // const newData = list.map((item, index) => {
+        //     return oldData[index].concat(item)
+        // })
+        commit('UPDATE_EARTH_DADA', list)
     },
     updateMapData({ commit, state }, data) {
-        let oldMapData = state.mapData
-        let newMapData = data.concat(oldMapData)
-        commit('UPDATE_MAP_DADA', newMapData)
+        // let oldMapData = state.mapData
+        // let newMapData = data.concat(oldMapData)
+        commit('UPDATE_MAP_DADA', data)
     },
     setMapData({ commit, state }, data) {
         commit('UPDATE_MAP_DADA', data)

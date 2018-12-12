@@ -212,6 +212,7 @@
                             path:'/node-detail',
                             query:{
                                 address:struct.address,
+                                id:struct.id
                             }
                         });
                         break;
