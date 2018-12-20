@@ -26,25 +26,30 @@
             <p class="link-top">{{ $t("footer.community") }}</p>
             <ul class="clearfix">
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-1" target="_blank"></a>
+                    <a href="https://t.me/PlatONHK" class="icon-link-1" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-2" target="_blank"></a>
+                    <el-tooltip class="item" effect="dark" placement="top">
+                        <div slot="content">
+                            <img src="./images/weixin.jpg" alt="" class="wx-img">
+                        </div>
+                        <a href="javascript:volid(0);" class="icon-link-2" ></a>
+                    </el-tooltip>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-3" target="_blank"></a>
+                    <a href="https://twitter.com/PlatON_Network" class="icon-link-3" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-4" target="_blank"></a>
+                    <a href="https://www.reddit.com/user/PlatON_Network" class="icon-link-4" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-5" target="_blank"></a>
+                    <a href="https://medium.com/@PlatON_Network" class="icon-link-5" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-6" target="_blank"></a>
+                    <a href="https://github.com/PlatONnetwork" class="icon-link-6" target="_blank"></a>
                 </li>
                 <li>
-                    <a href="http://www.baidu.com" class="icon-link-7" target="_blank"></a>
+                    <a href="https://www.facebook.com/PlatONNetwork/" class="icon-link-7" target="_blank"></a>
                 </li>
             </ul>
         </div>
@@ -184,6 +189,11 @@
                     background-position: -336px 0;
             }
         }
+    }
+    .wx-img{
+        display: inline-block;
+        width:100px;
+        height:100px;
     }
 </style>
 
