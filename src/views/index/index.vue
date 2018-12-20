@@ -33,7 +33,7 @@
                         <p>{{currentOverViewData.addressAmount}}</p>
                         <span>{{$t("indexInfo.addressAmount")}}</span>
                     </li>
-                    <li>
+                    <!-- <li>
                         <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
                         <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
                     </li>
@@ -42,7 +42,7 @@
                             <span class="atp">ATP</span>
                         </p>
                         <span>{{$t("indexInfo.ticketPrice")}}</span>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
             </slideritem>
@@ -655,8 +655,8 @@ div.slider-item {
     display: flex;
     > li {
         height: 56px;
-        width: 100/7%;
-        flex: 1/7;
+        width: 100/5%;
+        flex: 1/5;
         text-align: center;
     }
     p {
