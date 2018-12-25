@@ -8,10 +8,10 @@
             <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
-                    <a href="http://www.baidu.com" target="_blank">{{ $t("footer.help") }}</a>
+                    <a href=" https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("footer.help") }}</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank">{{ $t("footer.wallet") }}</a>
+                    <a href="https://github.com/PlatONnetwork/Samurai/releases" target="_blank">{{ $t("footer.wallet") }}</a>
                 </li>
                 <li>
                     <a href="https://www.platon.network/" target="_blank">{{ $t("footer.officialWebsite") }}</a>
