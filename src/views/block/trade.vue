@@ -95,7 +95,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('tradeAbout.value')" >
                             <template slot-scope="scope">
-                                <span>{{scope.row.value}}ATP</span>
+                                <span>{{scope.row.value}}E</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')"></el-table-column>

@@ -34,7 +34,7 @@
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.deposit')}}</span>
-                                <span>{{detailInfo.deposit}} ATP</span>
+                                <span>{{detailInfo.deposit}} E</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.blocks')}}</span>
@@ -58,13 +58,13 @@
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.totalreward')}}</span>
-                                <span>{{detailInfo.rewardAmount}} ATP</span>
+                                <span>{{detailInfo.rewardAmount}} E</span>
                             </p>
                         </div>
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.totalincome')}}</span>
-                                <span>{{detailInfo.profitAmount}} ATP</span>
+                                <span>{{detailInfo.profitAmount}} E</span>
                             </p>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                                     </el-table-column>
                                     <el-table-column :label="$t('nodeInfo.blockreward')">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.blockReward}}ATP</span>
+                                            <span>{{scope.row.blockReward}}E</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>

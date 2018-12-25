@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <p class="color2">{{currentOverViewData.ticketPrice}}
-                            <span class="atp">ATP</span>
+                            <span class="atp">Energon</span>
                         </p>
                         <span>{{$t("indexInfo.ticketPrice")}}</span>
                     </li> -->
@@ -177,7 +177,7 @@
                             </el-table-column>
                             <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                                 <template slot-scope="scope">
-                                    <span>{{scope.row.value}}ATP</span>
+                                    <span>{{scope.row.value}}E</span>
                                 </template>
                             </el-table-column>
                         </el-table>

@@ -64,7 +64,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.blockReward')">
                             <template slot-scope="scope">
-                                <span>{{scope.row.blockReward}}ATP</span>
+                                <span>{{scope.row.blockReward}}E</span>
                             </template>
                         </el-table-column>
                     </el-table>

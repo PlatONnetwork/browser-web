@@ -71,7 +71,7 @@
                                     <span>{{$t('tradeAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.value}}ATP</span>
+                                    <span>{{detailInfo.value}}E</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -108,7 +108,7 @@
                                     <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} ATP</span>
+                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} E</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -132,7 +132,7 @@
                                     <span>{{$t('tradeAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} ATP ({{Math.pow(10,9)*detailInfo.energonPrice}}Energon)</span>
+                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

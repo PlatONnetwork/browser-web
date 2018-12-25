@@ -121,7 +121,7 @@
                                     <span>{{$t('blockAbout.blockReward1')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.blockReward}}ATP</span>
+                                    <span>{{detailInfo.blockReward}}E</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

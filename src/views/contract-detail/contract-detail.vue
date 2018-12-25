@@ -45,7 +45,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{balance}}ATP</span>
+                                    <span>{{balance}}E</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -173,7 +173,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.value")' show-overflow-tooltip>
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.value}}ATP</span>
+                                            <span>{{scope.row.value}}E</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip>
