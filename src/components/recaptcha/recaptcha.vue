@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <div id='g-recaptcha' class="g-recaptcha" :data-sitekey="sitekey"></div> -->
-        <div id='g-recaptcha' class="g-recaptcha" data-sitekey="6LcHGHoUAAAAADDcn7bejGjLAhAuNG6Y7TnuMBYM"  data-callback="flushStatus"></div>
+        <div id='g-recaptcha' class="g-recaptcha" data-sitekey="6LevyYQUAAAAAAhDCvW6ZwxNQ64Zox_XEGuSNJyE"  data-callback="flushStatus"></div>
         <div id='message'></div>
         <remote-js1></remote-js1>
         <remote-js src="https://www.google.com/recaptcha/api.js" ></remote-js>
@@ -12,8 +12,8 @@
         data(){
             return {
                 grecaptcha:null,
-                // sitekey:'6Ld7HHgUAAAAAAVlPtxPBJtxdthQ6c55Wp9J8Xjq',
-                sitekey:'6Ld7HHgUAAAAAAVlPtxPBJtxdthQ6c55Wp9J8Xjq',
+                // sitekey:'6LevyYQUAAAAAAhDCvW6ZwxNQ64Zox_XEGuSNJyE',
+                sitekey:'6LcHGHoUAAAAADDcn7bejGjLAhAuNG6Y7TnuMBYM',
             }
         },
         computed:{
