@@ -25,7 +25,7 @@ export default {
         wallet: 'Wallet'
     },
     footer: {
-        desc: 'platScan is a Block Explorer and Analytics Platform for PlatON',
+        desc: 'PlatScan is a Block Explorer and Analytics Platform for PlatON',
         links: 'Links',
         help: 'Help',
         wallet: 'Wallet',

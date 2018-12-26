@@ -2,7 +2,7 @@
     <div class="footer-wrap">
         <div class="platon">
             <p class="footer-intro">{{ $t("footer.desc") }}</p>
-            <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
+            <p class="copyright">COPYRIGHT © 2018 PLATSCAN INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
             <p class="link-top">{{ $t("footer.links") }}</p>
@@ -114,11 +114,11 @@
         height: 170px; // UI设计图 190px改为170px 2018-11-2
         color: #FFF;
         background-color: #0D1333;
-        padding: 20px 100px 0 100px;
+        padding: 20px 5.2% 0 5.2%;
     }
     .platon{
-        background: url('./images/footer-logo.png') no-repeat;
-        background-size: 155px 54px;
+        background: url('./images/logo-footer.png') no-repeat;
+        // background-size: 155px 54px;
         >p{
             // font-family: ArialMT;
             font-size: 12px;

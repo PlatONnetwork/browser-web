@@ -25,7 +25,7 @@ export default {
         wallet: '钱包'
     },
     footer: {
-        desc: 'platScan是PlatON区块链资源管理与分析平台',
+        desc: 'PlatScan是PlatON区块链资源管理与分析平台',
         links: '链接',
         help: '开发帮助',
         wallet: '钱包',

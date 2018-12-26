@@ -2,7 +2,7 @@
     <div class="header-wrap">
         <div class="logo">
             <img class="icon1" src='./images/herder-logo-a.png'/>
-            <img class="icon2" src='./images/herder-logo-b.png'/>
+            <img class="icon2" src='./images/logo-font.png'/>
             <p>The platScan Block Exploer</p>
         </div>
         <div class="menu">
@@ -263,7 +263,7 @@
         display: flex;
         height: 60px;
         z-index:9999;
-        padding:0 100px;
+        padding:0 5.2%;
         margin: 0 auto;
         background: #040B27;
         align-items: center;   //居中对齐
@@ -337,6 +337,11 @@
         }
         :first-child{
             margin: 9px 0 0 0;
+        }
+    }
+    @media only screen and (max-width: 1500px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
         }
     }
 

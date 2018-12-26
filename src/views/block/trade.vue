@@ -1,6 +1,7 @@
 <template>
     <div class="trade-wrap">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
+        <div>`1111</div>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
