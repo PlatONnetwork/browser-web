@@ -158,7 +158,7 @@ export default {
     },
     download:{
         info:'下载数据',
-        title:'下载当前地址的交易\出块记录，在下载之前，请验证您是否是机器人！',
+        title:'下载当前地址的交易\出块记录，在下载之前，请验证您是否是机器人！(请确保当前VPN可用)',
         date:'数据日期',
         placeholder:'选择日期',
         download:'下载',

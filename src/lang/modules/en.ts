@@ -158,7 +158,7 @@ export default {
     },
     download: {
         info: 'Download Data',
-        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
+        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot! (Make sure the VPN is currently available)',
         date: 'Date Date',
         placeholder: 'Select a date',
         download: 'Download',

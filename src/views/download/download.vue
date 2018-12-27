@@ -65,7 +65,7 @@
         data () {
             return {
                 src:'',
-                disabledBtn:true,
+                disabledBtn:false,
                 address:'',
                 form:{
                     value:'2018-01-01',
@@ -101,10 +101,10 @@
                 console.warn('传给父组件的token',data)
                 this.response = data
                 if(this.response){
-                    this.disabledBtn=false;
+                    // this.disabledBtn=false;
                     this.sameFn();
                 }else{
-                    this.$message.error(this.$t('download.robot'));
+                    // this.$message.error(this.$t('download.robot'));
                 }
                 // this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
@@ -139,17 +139,17 @@
 
         },
         mounted(){
-            setTimeout(() => {
-                this.$nextTick(()=>{
-                    if(document.getElementById('message').innerText){
-                        // console.log(111)
-                        this.disabledBtn=false;
-                    }else{
-                        this.disabledBtn=true;
-                        this.$message.error(this.$t('menu.goole'))
-                    }
-                })
-            }, 300);
+            // setTimeout(() => {
+            //     this.$nextTick(()=>{
+            //         if(document.getElementById('message').innerText){
+            //             // console.log(111)
+            //             this.disabledBtn=false;
+            //         }else{
+            //             this.disabledBtn=true;
+            //             this.$message.error(this.$t('menu.goole'))
+            //         }
+            //     })
+            // }, 300);
         },
         //组件
         components: {
