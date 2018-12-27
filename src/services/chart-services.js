@@ -108,9 +108,9 @@ class ChartService {
                 normal: {
                     areaColor: 'transparent',
                     borderColor: '#608bce',
-                    borderWidth: 2,
+                    borderWidth: 1.5,
                     shadowColor: 'rgba(63, 218, 255, 0.3)',
-                    shadowBlur: 10
+                    shadowBlur: 2
                 },
                 emphasis: {
                     areaColor: '#2B91B7',
@@ -127,7 +127,7 @@ class ChartService {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 data: [],
-                symbolSize: 13,
+                symbolSize: 8,
                 showEffectOn: 'render',
                 rippleEffect: {
                     period: 5,
@@ -149,7 +149,7 @@ class ChartService {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 data: [],
-                //   symbolSize: 10,
+                symbolSize: 6,
                 showEffectOn: 'render',
                 rippleEffect: {
                     period: 5,
@@ -171,7 +171,7 @@ class ChartService {
                 type: 'scatter',
                 coordinateSystem: 'geo',
                 data: [],
-                // symbolSize: 15,
+                symbolSize: 4,
                 itemStyle: {
                     normal: {
                         color: '#b0b0b0',
@@ -200,7 +200,7 @@ class ChartService {
             },
             top: '5%',
             bottom:'8%',
-            globeRadius:70
+            globeRadius:70,
         },
         series: [{
             name: '共识节点',
@@ -370,10 +370,10 @@ class ChartService {
                     areaStyle: {
                         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                             offset: 0,
-                            color: '#1142FA'
+                            color: 'rgba(17,66,250,0.20)'
                         }, {
                             offset: 1,
-                            color: 'rgba(35,112,160,0.20)'
+                            color: 'rgba(35,112,160,0.05)'
                         }])
                     },
                     symbol: 'none', //去掉折线图中的节点

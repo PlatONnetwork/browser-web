@@ -85,7 +85,8 @@
                     ]
                 },
                 response:'',
-                exportname:''
+                exportname:'',
+                response1:'',
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -99,27 +100,13 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
+                this.response ? this.sameFn() : this.$message.error(this.$t('menu.goole'))
             },
             downloadFn(){
                 //父组件调用子组件方法
                 this.$refs.recaptcha.getResponse()
             },
             sameFn(){
-                // this.$refs.form.validate((valid)=>{
-                //     if(valid){
-                //         let param = {
-                //             cid:this.chainId,
-                //             address:this.address,
-                //             date:this.form.value
-                //         }
-                //         if(this.exportname=='account'){
-                //             this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
-                //         }else if(this.exportname=='contract'){
-                //             this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
-                //         }
-                //     }
-                // })
                 let param = {
                     cid:this.chainId,
                     address:this.address,
@@ -143,8 +130,11 @@
             this.description = this.$route.query.description
             this.descriptionProp = this.$route.query.description
             this.exportname = this.$route.query.exportname
+
         },
         mounted(){
+            // this.$refs.recaptcha.getResponse1()
+            console.warn('调用方法',this.$refs.recaptcha.getResponse())
         },
         //组件
         components: {
@@ -185,25 +175,7 @@
             }
         }
     }
-    .time-and-number{
-        position:relative;
-        width:592px;
-        height:48px;
-        font-size:64px;
-        line-height:30px;
-        letter-spacing: 3.8px;
-        color: #3c425d;
-        opacity: 0.2;
-    }
-    .second-floor-text{
-        position: absolute;
-        top:125px;
-        font-size:16px;
-        line-height: 16px;
-        color: #ffffff;
-        opacity: 1;
-        letter-spacing: 1px;
-    }
+
     .margin20{
         margin-right:20px;
     }

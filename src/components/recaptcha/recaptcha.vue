@@ -21,7 +21,7 @@
         methods:{
             getResponse(){
                 this.$nextTick(()=>{
-                    console.log("document.getElementById('message').innerText",document.getElementById('message').innerText)
+                    console.warn("document.getElementById('message').innerText",document.getElementById('message').innerText)
                     let response = document.getElementById('message').innerText
                     this.$emit('verify',response)
                 })

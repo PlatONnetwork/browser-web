@@ -13,7 +13,9 @@ export default {
         moreItem: {
             wallet: 'Wallet',
             help: 'Help'
-        }
+        },
+        comesoon: 'Coming soon',
+        goole: 'Google reCAPTCHA is not available!'
     },
     search: {
         searchBtn: 'Search',

@@ -3,7 +3,7 @@
         <com-header :descriptionProp='descriptionProp'></com-header>
             <div class="content-area">
                 <header class="time-and-number">
-                    {{ $t("breadcrumb.walletWatermark") }}
+                    Wallet
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -115,7 +115,7 @@
         h1{
             padding: 15px 0 6px 0;
             // font-family: ArialMT;
-            font-size: 14px;
+            font-size: 18px;
             letter-spacing: 0;
         }
         p{
@@ -196,25 +196,6 @@
             letter-spacing: 0;
         }
     }
-    .time-and-number {
-        position: relative;
-        width: 592px;
-        height: 48px;
-        font-size: 64px;
-        font-weight: 600;
-        line-height: 30px;
-        letter-spacing: 3.8px;
-        color: #3c425d;
-        opacity: 0.2;
-    }
-    .second-floor-text {
-        position: absolute;
-        top: 125px;
-        font-size: 16px;
-        line-height: 16px;
-        color: #ffffff;
-        opacity: 1;
-        letter-spacing: 1px;
-    }
+
 </style>
 

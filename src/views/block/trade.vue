@@ -1,7 +1,6 @@
 <template>
     <div class="trade-wrap">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
-        <div>`1111</div>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
@@ -94,12 +93,12 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.value')" >
+                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.value}}E</span>
+                                <span>{{scope.row.value}}Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -302,24 +301,6 @@ export default {
         }
     }
 }
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
-}
+
 </style>
 

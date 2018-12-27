@@ -87,7 +87,7 @@
                     <div class="data">
                         <div v-if='activeTab == 1'>
                             <div class='data-top'>
-                                <div class='count'>{{count}}{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
@@ -566,25 +566,7 @@
             }
         }
     }
-    .time-and-number{
-        position:relative;
-        width:592px;
-        height:48px;
-        font-size:64px;
-        line-height:30px;
-        letter-spacing: 3.8px;
-        color: #3c425d;
-        opacity: 0.2;
-    }
-    .second-floor-text{
-        position: absolute;
-        top:125px;
-        font-size:16px;
-        line-height: 16px;
-        color: #ffffff;
-        opacity: 1;
-        letter-spacing: 1px;
-    }
+
 </style>
 <style lang='less'>
     .search-address{

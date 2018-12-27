@@ -19,6 +19,7 @@
                             <div slot="content">{{currentOverViewData.node}}</div>
                             <p class='ellipsis'>{{currentOverViewData.node}}</p>
                         </el-tooltip>
+                        <!-- <p class=''>{{currentOverViewData.node}}</p> -->
                         <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
@@ -47,143 +48,145 @@
                 <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
             </slideritem>
             <slideritem class="second-floor">
-                <header class="time-and-number">
-                    Time And Number
-                </header>
-                <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
-                <div class="chart-box">
-                    <div class="chart" ref="blockChart"></div>
-                    <ul class="chart-aside">
-                        <li>
-                            <p>{{$t("indexInfo.avgTime")}}</p>
-                            <span>{{secondFloorData.avgTime}} s</span>
-                        </li>
-                        <li>
-                            <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
-                            <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
-                        </li>
-                        <li>
-                            <p>{{$t("indexInfo.avgTransaction")}}</p>
-                            <span>{{secondFloorData.avgTransaction}}</span>
-                        </li>
+                <div class='slide-top'></div>
+                <div class='slide-bottom'>
+                    <header class="time-and-number">
+                        Time And Number
+                    </header>
+                    <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
+                    <div class="chart-box">
+                        <div class="chart" ref="blockChart"></div>
+                        <ul class="chart-aside">
+                            <li>
+                                <p>{{$t("indexInfo.avgTime")}}</p>
+                                <span>{{secondFloorData.avgTime}} s</span>
+                            </li>
+                            <li>
+                                <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
+                                <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
+                            </li>
+                            <li>
+                                <p>{{$t("indexInfo.avgTransaction")}}</p>
+                                <span>{{secondFloorData.avgTransaction}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <header class="time-and-number">
+                        Transactions
+                    </header>
+                    <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
+                    <p class="transactions">{{$t("indexInfo.monitor")}}</p>
+                    <ul class="num-box clearfix">
+                        <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
+                        <!-- secondFloorData.dayTransaction -->
+                        <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
+                        <!-- <li>2</li>
+                        <li>0</li>
+                        <li>2</li>
+                        <li>0</li>
+                        <li>2</li> -->
                     </ul>
                 </div>
-                <header class="time-and-number">
-                    Transactions
-                </header>
-                <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
-                <p class="transactions">{{$t("indexInfo.monitor")}}</p>
-                <ul class="num-box clearfix">
-                    <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
-                    <!-- secondFloorData.dayTransaction -->
-                    <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
-                    <!-- <li>2</li>
-                    <li>0</li>
-                    <li>2</li>
-                    <li>0</li>
-                    <li>2</li> -->
-                </ul>
+
             </slideritem>
             <slideritem class="third-floor">
-                <div class="floor-area">
-                    <div class="floor-area-box">
-                        <header class="time-and-number">
-                            Blocks
-                        </header>
-                        <!-- <p class="second-floor-text">最新区块</p> -->
-                        <div class="second-floor-text2">
-                            <p class='fl'>{{$t("indexInfo.blocks")}}</p>
-                            <p class='fr index-btn'>
-                                <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
-                            </p>
+                <div class='slide-top slide-top1'></div>
+                <div class='slide-bottom slide-bottom1'>
+                    <div class="floor-area">
+                        <div class="floor-area-box">
+                            <header class="time-and-number time-and-number2">
+                                <span class='block'>Blocks</span>
+                                <div class="second-floor-text2">
+                                    <p class='fl'>{{$t("indexInfo.blocks")}}</p>
+                                    <p class='fr index-btn'>
+                                        <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                    </p>
+                                </div>
+                            </header>
+                            <!-- <div class="second-floor-text2">
+                                <p class='fl'>{{$t("indexInfo.blocks")}}</p>
+                                <p class='fr index-btn'>
+                                    <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                </p>
+                            </div> -->
+                            <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484'>
+                                <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
+                                    <template slot-scope="scope">
+                                        <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label='$t("indexInfo.age")' width="180">
+                                    <template slot-scope="scope">
+                                        <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip></el-table-column>
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column>
+                            </el-table>
+                            <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
                         </div>
-                        <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" height="484">
-                            <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
-                                <template slot-scope="scope">
-                                    <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column :label='$t("indexInfo.age")' width="180">
-                                <template slot-scope="scope">
-                                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip>
-                            </el-table-column>
-                            <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip>
-                            </el-table-column>
-                            <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
-                            </el-table-column>
-                        </el-table>
-                        <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
-                    </div>
-                    <div class="floor-area-box">
-                        <!-- <el-button class="fr el-same">Realtime</el-button> -->
-                        <header class="time-and-number">
-                            Transactions
-                        </header>
-                        <!-- <p class="second-floor-text">最新交易</p> -->
-                        <div class="second-floor-text2">
-                            <p class='fl'>{{$t("indexInfo.transactions")}}</p>
-                            <p class='fr index-btn'>
-                                <!-- <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{$t('indexInfo.realtime')}}</el-button> -->
-                                <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
-                            </p>
+                        <div class="floor-area-box">
+                            <header class="time-and-number time-and-number2">
+                                <span class='block'>Transactions</span>
+                                <div class="second-floor-text2">
+                                    <p class='fl'>{{$t("indexInfo.transactions")}}</p>
+                                    <p class='fr index-btn'>
+                                        <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                    </p>
+                                </div>
+                            </header>
+
+                            <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484'>
+                                <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
+                                    <template slot-scope="scope">
+                                        <div class='flex-special'>
+                                            <el-tooltip class="item" effect="dark" placement="top">
+                                                <div slot="content">{{scope.row.txHash}}</div>
+                                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                            </el-tooltip>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="from" label="From" width='190'>
+                                    <template slot-scope="scope">
+                                        <div class='flex-special'>
+                                            <el-tooltip class="item" effect="dark" placement="top">
+                                                <div slot="content">{{scope.row.from}}</div>
+                                                <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                            </el-tooltip>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="" width="40">
+                                    <template slot-scope="scope">
+                                        <span>
+                                            <i class='iconfont icon--icon-to iconto'></i>
+                                        </span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="to" label="To" width='190'>
+                                    <template slot-scope="scope">
+                                        <div class='flex-special'>
+                                            <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                            <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.txType !== "contractCreate"'>
+                                                <div slot="content">{{scope.row.to}}</div>
+                                                <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                            </el-tooltip>
+                                        </div>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+                                    <template slot-scope="scope">
+                                        <span>{{scope.row.value}}Energon</span>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                            <div class="view-all cursor" @click='tradeAllFn'>{{$t('indexInfo.view')}}</div>
                         </div>
-                        <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" height="484">
-                            <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <el-tooltip class="item" effect="dark" placement="top">
-                                            <div slot="content">{{scope.row.txHash}}</div>
-                                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="from" label="From" width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <el-tooltip class="item" effect="dark" placement="top">
-                                            <div slot="content">{{scope.row.from}}</div>
-                                            <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column label="" width="40">
-                                <template slot-scope="scope">
-                                    <span>
-                                        <i class='iconfont icon--icon-to iconto'></i>
-                                    </span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="to" label="To" width='190'>
-                                <template slot-scope="scope">
-                                    <div class='flex-special'>
-                                        <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span> -->
-                                        <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                        <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.txType !== "contractCreate"'>
-                                            <div slot="content">{{scope.row.to}}</div>
-                                            <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                        </el-tooltip>
-                                    </div>
-                                    <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                    <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
-                                </template>
-                            </el-table-column>
-                            <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
-                                <template slot-scope="scope">
-                                    <span>{{scope.row.value}}E</span>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <div class="view-all cursor" @click='tradeAllFn'>{{$t('indexInfo.view')}}</div>
                     </div>
                 </div>
+
                 <com-footer></com-footer>
             </slideritem>
             <!-- 设置loading,可自定义 -->
@@ -299,6 +302,25 @@ export default class Index extends Vue {
         this.updateEarthChart(this.earthData)
     }
     updateEarthChart(data:Array<Array<any>>){
+        console.log(earthChart)
+        // if(earthChart.earthOption.globe.baseTexture){
+        //     earthChart.update({
+        //         series: [
+        //             {
+        //                 data: data[0],
+        //             },
+        //             {
+        //                 data: data[1],
+        //             },
+        //             {
+        //                 data: data[2],
+        //             }
+        //         ],
+        //         globe:{
+        //             show:true
+        //         }
+        //     });
+        // }
         earthChart.update({
             series: [
                 {
@@ -312,12 +334,14 @@ export default class Index extends Vue {
                 }
             ],
         });
+
     }
     changeEarth(): void {
         this.isWorldMap = !this.isWorldMap;
         setTimeout(() => {
             this.isWorldMap ? this.initWorldMapChart() : this.initEarthChart();
             // this.isWorldMap ?  this.updateMapData(this.mapData) : this.initEarthChart()
+            this.isWorldMap ? worldMapChart.chart.resize() : earthChart.chart.resize();
         }, 0);
     }
     tableRowClassName({row: object, rowIndex}) {
@@ -490,9 +514,19 @@ export default class Index extends Vue {
         //初始化图表
         this.initChart();
         this.initWorldMapChart();
-        // this.initEarthChart();
+        this.initEarthChart();
         indexService.getChartData()
         indexService.updateChartData()
+
+        //重置图表尺寸
+		window.onresize = function() {
+            // console.warn(blockChart)
+            // console.warn(worldMapChart)
+            // console.warn(earthChart)
+            blockChart.chart.resize();
+            worldMapChart.chart.resize();
+            earthChart.chart.resize()
+		};
     }
     created() {
         indexService = new IndexService();
@@ -539,6 +573,9 @@ export default class Index extends Vue {
 }
 </script>
 <style lang="less">
+.slider-item{
+    box-sizing: border-box;
+}
 .swiper-container-vertical .slider-pagination-bullet {
     background: #3c4fa1;
     opacity: 1;
@@ -654,14 +691,14 @@ div.slider-item {
     bottom: 30px;
     display: flex;
     > li {
-        height: 56px;
+        // height: 56px;
         width: 100/5%;
         flex: 1/5;
         text-align: center;
     }
     p {
-        margin: 0 0 13px;
-        height: 45px;
+        margin: 0 0 2px;
+        // height: 45px;
         font-size: 40px;
         letter-spacing: 2.4px;
         color: #d2daea;
@@ -705,7 +742,8 @@ div.slider-item {
 }
 
 .second-floor {
-    padding: 100px 100px 0 100px;
+    // padding: 100px 100px 0 100px;
+    padding:100px 5.2% 0 5.2%
 }
 .third-floor {
     padding: 100px 0 0;
@@ -716,38 +754,26 @@ div.slider-item {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    padding: 0 50px;
-    min-height: calc(100% - 170px);
+    // padding: 0 50px;
+    padding:0 5.2%;
+    // min-height: calc(100% - 170px);
 }
 .floor-area-box {
-    padding: 0 50px;
+    // padding: 0 50px;
     width: 50%;
-}
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
+    padding-right:2.6%;
+    &:first-child{
+
+    }
 }
 .second-floor-text1 {
     top: 590px;
 }
-
 .chart-box {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 .chart {
     flex: 1;
@@ -755,11 +781,13 @@ div.slider-item {
     height: 415px;
 }
 .chart-aside {
-    width: 163+89+88px;
-    height: 415px;
+    // width: 163+89+88px;
+    // height: 415px;
     font-family: DINCond-Regular;
     li {
-        padding: 10px 0 87px 88px;
+        // padding: 10px 0 87px 88px;
+        padding: 10px 0 48px 88px;
+        padding-left:0;
     }
     p {
         padding: 0 0 12px;
@@ -799,7 +827,6 @@ div.slider-item {
         text-align: center;
     }
 }
-
 .view-all {
     margin: 0 0;
     height: 34px;
@@ -807,6 +834,7 @@ div.slider-item {
     background: #0d1333;
     text-align: center;
     color: #fcff0a;
+    margin-top:5px;
 }
 .second-floor-text2 {
     position: relative;
@@ -828,12 +856,149 @@ div.slider-item {
 .world-map1 {
     background: url(images/background-big.png) no-repeat center,
         url(images/background-big2.png) no-repeat center;
-    background-size: contain;
+    background-size: 100% 100%;
 }
 .earch-box1 {
     background: url(images/background-big2.png) no-repeat center;
     // background:url(images/background-big.png)  no-repeat center,
     // url(images/background-big2.png) no-repeat center;
-    background-size: contain;
+    background-size: 100% 100%;
+}
+.second-floor{
+    padding-top:0;
+}
+.slide-top{
+    height:100px;
+    width:100%;
+}
+.slide-bottom{
+    min-height: calc(100% - 100px);
+}
+.third-floor {
+    padding-top:0;
+}
+.slide-top1{
+    height:100px;
+}
+.slide-bottom1{
+    min-height: calc(100% - 270px);
+}
+.time-and-number2{
+    opacity: 1;
+    width:100%;
+    .block{
+        opacity: 0.2;
+    }
+}
+@media screen and (max-width: 1680px) {
+    .footer-box p{
+        font-size:34px;
+    }
+    .footer-box span{
+        font-size:14px;
+    }
+    .chart-aside span{
+        font-size:36px;
+    }
+    .chart-aside li{
+        padding: 10px 0 48px 0px;
+    }
+    .num-box > li{
+        width:102px;
+        height:120px;
+        line-height:120px;
+        margin:0 24px 0 0;
+        font-size:88px;
+    }
+    .num-box{
+        padding-top:10px;
+    }
+    .slide-top1{
+        height:75px;
+    }
+    .slide-bottom1{
+        min-height: calc(100% - 245px);
+    }
+}
+@media screen and (max-width: 1440px) {
+    .footer-box p{
+        font-size:28px;
+    }
+    .footer-box span{
+        font-size:14px;
+    }
+    .chart-aside span{
+        font-size:30px;
+    }
+    .chart-aside li{
+        padding: 10px 0 48px 0px;
+    }
+    .num-box > li{
+        width:88px;
+        height:100px;
+        line-height:100px;
+        margin:0 20px 0 0;
+        font-size:76px;
+    }
+    .num-box{
+        padding-top:10px;
+    }
+
+}
+@media screen and (max-width: 1368px) {
+    .footer-box p{
+        font-size:26px;
+    }
+    .footer-box span{
+        font-size:13px;
+    }
+    .chart-aside span{
+        font-size:26px;
+    }
+    .chart-aside li{
+        padding: 10px 0 48px 0px;
+    }
+    .num-box > li{
+        width:82px;
+        height:94px;
+        line-height:94px;
+        margin:0 20px 0 0;
+        font-size:74px;
+    }
+    .num-box{
+        padding-top:10px;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .footer-box p{
+        font-size:24px;
+    }
+    .footer-box span{
+        font-size:13px;
+    }
+    .chart-aside span{
+        font-size:26px;
+    }
+    .chart-aside li{
+        padding: 10px 0 48px 0px;
+    }
+    .num-box > li{
+        width:78px;
+        height:91px;
+        line-height:91px;
+        margin:0 18px 0 0;
+        font-size:70px;
+    }
+    .num-box{
+        padding-top:10px;
+    }
+}
+@media screen and (max-height: 768px) {
+    .chart{
+        height:405px;
+    }
+    .second-floor-text1{
+        top:575px;
+    }
 }
 </style>

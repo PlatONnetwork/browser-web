@@ -22,8 +22,8 @@
                         <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
-                <el-menu-item index="/node" disabled>
-                    <el-tooltip class="item" effect="light" content="敬请期待" placement="bottom">
+                <el-menu-item index="/node">
+                    <el-tooltip class="item" :content="$t('menu.comesoon')" placement="bottom">
                     <span>{{ $t("menu.node") }}</span>
                     </el-tooltip>
                 </el-menu-item>
@@ -36,8 +36,9 @@
                     <el-menu-item index="/wallet">
                         <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
                     </el-menu-item>
-                    <el-menu-item index="/document">
-                        <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link>
+                    <el-menu-item index="">
+                        <a href="https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("menu.moreItem.help") }}</a>
+                        <!-- <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link> -->
                     </el-menu-item>
                 </el-submenu>
             </el-menu>
@@ -262,7 +263,7 @@
         left: 0;
         display: flex;
         height: 60px;
-        z-index:9999;
+        z-index:99;
         padding:0 5.2%;
         margin: 0 auto;
         background: #040B27;
@@ -339,11 +340,30 @@
             margin: 9px 0 0 0;
         }
     }
-    @media only screen and (max-width: 1500px) {
+    @media only screen and (max-width: 1680px) {
         .header-wrap .menu {
             margin: 0 0 0 0;
         }
     }
+    @media only screen and (max-width: 1440px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
+        }
+    }
+    @media only screen and (max-width: 1366px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
+        }
+        .el-menu-demo{
+            width:350px;
+        }
+    }
+    @media screen and (max-width: 1280px) {
+        .el-menu-demo{
+            width:350px;
+        }
+    }
+
 
 </style>
 <style lang="less">
@@ -427,4 +447,30 @@
     .el-dropdown-menu__item.is-disabled{
         opacity: 0.25;
     }
+    @media screen and (max-width: 1680px) {
+        .search {
+            .el-input{
+                width:300px;
+            }
+        }
+    }
+    @media screen and (max-width: 1440px) {
+        .search {
+            .el-input{
+                width:270px;
+            }
+        }
+    }
+    @media screen and (max-width: 1366px) {
+        .search {
+            .el-input{
+                width:200px;
+            }
+        }
+
+    }
+
+
+
+
 </style>

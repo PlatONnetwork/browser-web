@@ -71,7 +71,7 @@
                                     <span>{{$t('tradeAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.value}}E</span>
+                                    <span>{{detailInfo.value}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -108,7 +108,7 @@
                                     <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} E</span>
+                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -542,25 +542,7 @@ button {
         }
     }
 }
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
-}
+
 
 .iconcontract {
     margin-right: 4px;

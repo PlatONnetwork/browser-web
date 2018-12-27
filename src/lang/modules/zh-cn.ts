@@ -13,7 +13,9 @@ export default {
         moreItem: {
             wallet: '钱包',
             help: '开发帮助'
-        }
+        },
+        comesoon:'敬请期待',
+        goole:'Google reCAPTCHA无法获取！'
     },
     search: {
         searchBtn: '查询',

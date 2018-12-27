@@ -17,7 +17,7 @@
                 <div class="title">
                     <div class='record'>
                         <span>{{$t('tradePendingAbout.address')}}-{{address}}</span>
-                        <span>{{$t('tradePendingAbout.morethen')}}{{pageTotal}}{{$t('tradePendingAbout.transactions1')}}</span>
+                        <span>{{$t('tradePendingAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('tradePendingAbout.transactions1')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -90,7 +90,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate" && scope.row.to !== address' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.value')">
+                        <el-table-column :label="$t('tradePendingAbout.value')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}}E</span>
                             </template>
@@ -321,24 +321,6 @@ export default {
         }
     }
 }
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
-}
+
 </style>
 
