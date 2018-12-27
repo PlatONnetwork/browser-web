@@ -45,6 +45,7 @@
                     </el-form>
                 </div>
             </div>
+            <div id='test'>1111</div>
         </div>
        <com-footer></com-footer>
        <iframe id="ifile" style="display:none" :src="src"></iframe>
@@ -65,7 +66,7 @@
         data () {
             return {
                 src:'',
-                disabledBtn:false,
+                disabledBtn:true,
                 address:'',
                 form:{
                     value:'2018-01-01',
@@ -94,6 +95,14 @@
         //计算
         computed: {
             ...mapGetters(['chainId']),
+            'disabledBtn'(){
+                if( this.$refs.recaptcha){
+                    return false;
+                }else{
+                    return true;
+                        // this.$message.error(this.$t('menu.goole'))
+                }
+            }
         },
         //方法
         methods: {
@@ -150,6 +159,21 @@
             //         }
             //     })
             // }, 300);
+            this.$nextTick(()=>{
+                    // console.log(document.getElementById("test").value)
+                })
+            // setTimeout(() => {
+            //     this.$nextTick(()=>{
+            //         document.getElementById("test").value='11111'
+            //     })
+            // }, 300);
+            // this.$nextTick(()=>{
+            //     let test = document.getElementById("test");
+            //     test.addEventListener("DOMNodeInserted",function(e){
+            //         console.log("inputting!!");
+            //     })
+            // })
+
         },
         //组件
         components: {
