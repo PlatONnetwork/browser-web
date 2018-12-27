@@ -966,7 +966,7 @@ div.slider-item {
         font-size:26px;
     }
     .chart-aside li{
-        padding: 10px 0 48px 0px;
+        padding: 10px 0 30px 0px;
     }
     .num-box > li{
         width:82px;
@@ -982,7 +982,7 @@ div.slider-item {
         height:70px;
     }
     .second-floor-text1{
-        top:520px;
+        top:475px;
     }
     .slide-top1{
         height:70px;
@@ -992,10 +992,20 @@ div.slider-item {
         padding-top:0;
     }
     .chart-box{
-        height:380px;
+        height:333px;
     }
     .chart{
         padding-top:0;
+        height:350px;
+        padding-bottom: 20px;
+    }
+    .view-all{
+        height:25px;
+        line-height:25px;
+        margin-bottom:5px;
+    }
+    .transactions{
+        line-height:20px;
     }
 }
 @media screen and (max-width: 1280px) {

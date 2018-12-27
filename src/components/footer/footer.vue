@@ -195,5 +195,14 @@
         width:100px;
         height:100px;
     }
+    @media screen and (max-width: 1368px) {
+        .link-top{
+            padding-top:10px;
+            padding-bottom:12px;
+        }
+        .platon .footer-intro{
+            padding-top:70px;
+        }
+    }
 </style>
 
