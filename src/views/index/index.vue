@@ -708,6 +708,8 @@ div.slider-item {
         margin: 0 0 2px;
         // height: 45px;
         font-size: 40px;
+        height: 40px;
+        line-height: 40px;
         letter-spacing: 2.4px;
         color: #d2daea;
     }
@@ -901,6 +903,8 @@ div.slider-item {
 @media screen and (max-width: 1680px) {
     .footer-box p{
         font-size:34px;
+        height: 34px;
+        line-height: 34px;
     }
     .footer-box span{
         font-size:14px;
@@ -933,6 +937,8 @@ div.slider-item {
 @media screen and (max-width: 1440px) {
     .footer-box p{
         font-size:28px;
+        height: 28px;
+        line-height: 28px;
     }
     .footer-box span{
         font-size:14px;
@@ -958,6 +964,8 @@ div.slider-item {
 @media screen and (max-width: 1368px) {
     .footer-box p{
         font-size:26px;
+        height: 26px;
+        line-height: 26px;
     }
     .footer-box span{
         font-size:13px;
@@ -988,8 +996,8 @@ div.slider-item {
         height:70px;
     }
     .footerss{
-        height:150px;
-        padding-top:0;
+        height:177px;
+        padding-top:4px;
     }
     .chart-box{
         height:333px;
@@ -1011,6 +1019,8 @@ div.slider-item {
 @media screen and (max-width: 1280px) {
     .footer-box p{
         font-size:24px;
+        height: 24px;
+        line-height: 24px;
     }
     .footer-box span{
         font-size:13px;
