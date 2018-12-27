@@ -100,7 +100,6 @@
                     return false;
                 }else{
                     return true;
-                        // this.$message.error(this.$t('menu.goole'))
                 }
             }
         },
@@ -113,7 +112,7 @@
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{
-                    // this.$message.error(this.$t('download.robot'));
+                    this.$message.error(this.$t('download.robot'));
                 }
                 // this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
@@ -148,31 +147,7 @@
 
         },
         mounted(){
-            // setTimeout(() => {
-            //     this.$nextTick(()=>{
-            //         if(document.getElementById('message').innerText){
-            //             // console.log(111)
-            //             this.disabledBtn=false;
-            //         }else{
-            //             this.disabledBtn=true;
-            //             this.$message.error(this.$t('menu.goole'))
-            //         }
-            //     })
-            // }, 300);
-            this.$nextTick(()=>{
-                    // console.log(document.getElementById("test").value)
-                })
-            // setTimeout(() => {
-            //     this.$nextTick(()=>{
-            //         document.getElementById("test").value='11111'
-            //     })
-            // }, 300);
-            // this.$nextTick(()=>{
-            //     let test = document.getElementById("test");
-            //     test.addEventListener("DOMNodeInserted",function(e){
-            //         console.log("inputting!!");
-            //     })
-            // })
+
 
         },
         //组件
