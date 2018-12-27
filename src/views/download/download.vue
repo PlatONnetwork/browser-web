@@ -100,7 +100,13 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
+                if(this.response){
+                    this.disabledBtn=false;
+                    this.sameFn();
+                }else{
+                    this.$message.error(this.$t('download.robot'));
+                }
+                // this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
             downloadFn(){
                 //父组件调用子组件方法

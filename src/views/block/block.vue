@@ -59,7 +59,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.energonAverage')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.energonAverage}}E</span>
+                                <span>{{scope.row.energonAverage}} E</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip>
