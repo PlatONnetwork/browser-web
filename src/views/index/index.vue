@@ -129,7 +129,12 @@
                                 </el-table-column>
                                 <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip></el-table-column>
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip></el-table-column>
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column>
+                                <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
+                                    <template slot-scope="scope">
+                                        <span>{{scope.row.blockReward}} Energon</span>
+                                    </template>
+                                </el-table-column>
                             </el-table>
                             <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
                         </div>

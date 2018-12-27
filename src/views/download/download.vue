@@ -65,7 +65,7 @@
         data () {
             return {
                 src:'',
-                disabledBtn:false,
+                disabledBtn:true,
                 address:'',
                 form:{
                     value:'2018-01-01',
@@ -100,7 +100,7 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                this.response ? this.sameFn() : this.$message.error(this.$t('menu.goole'))
+                this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
             downloadFn(){
                 //父组件调用子组件方法
@@ -133,8 +133,17 @@
 
         },
         mounted(){
-            // this.$refs.recaptcha.getResponse()
-            // console.warn('调用方法',this.$refs.recaptcha.getResponse())
+            setTimeout(() => {
+                this.$nextTick(()=>{
+                    if(document.getElementById('message').innerText){
+                        // console.log(111)
+                        this.disabledBtn=false;
+                    }else{
+                        this.disabledBtn=true;
+                        this.$message.error(this.$t('menu.goole'))
+                    }
+                })
+            }, 300);
         },
         //组件
         components: {
