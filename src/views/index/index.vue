@@ -109,7 +109,7 @@
                                     <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
                                 </p>
                             </div> -->
-                            <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484'>
+                            <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484' class='tables'>
                                 <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
                                     <template slot-scope="scope">
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
@@ -137,7 +137,7 @@
                                 </div>
                             </header>
 
-                            <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484'>
+                            <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484'  class='tables'>
                                 <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
@@ -188,6 +188,7 @@
                 </div>
 
                 <com-footer></com-footer>
+
             </slideritem>
             <!-- 设置loading,可自定义 -->
             <div slot="loading">loading...</div>
@@ -919,6 +920,8 @@ div.slider-item {
     .slide-bottom1{
         min-height: calc(100% - 245px);
     }
+
+
 }
 @media screen and (max-width: 1440px) {
     .footer-box p{
@@ -968,6 +971,15 @@ div.slider-item {
     .num-box{
         padding-top:10px;
     }
+    .slide-top{
+        height:0;
+    }
+    .second-floor-text1{
+        top:477px;
+    }
+    .slide-top1{
+        height:70px;
+    }
 }
 @media screen and (max-width: 1280px) {
     .footer-box p{
@@ -993,12 +1005,10 @@ div.slider-item {
         padding-top:10px;
     }
 }
-@media screen and (max-height: 768px) {
-    .chart{
-        height:405px;
-    }
-    .second-floor-text1{
-        top:575px;
-    }
-}
+// @media screen and (max-height: 768px) {
+//     .chart{
+//         height:405px;
+//     }
+
+// }
 </style>
