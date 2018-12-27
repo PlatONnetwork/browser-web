@@ -64,7 +64,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.blockReward}}Energon</span>
+                                <span>{{scope.row.blockReward}} Energon</span>
                             </template>
                         </el-table-column>
                     </el-table>

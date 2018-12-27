@@ -185,7 +185,7 @@
                                 </el-table-column>
                                 <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                                     <template slot-scope="scope">
-                                        <span>{{scope.row.value}}Energon</span>
+                                        <span>{{scope.row.value}} Energon</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
