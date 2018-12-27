@@ -33,9 +33,9 @@
                 </el-menu-item> -->
                 <el-submenu index="3">
                     <template slot="title">{{ $t("menu.more") }}</template>
-                    <el-menu-item index="/wallet">
+                    <!-- <el-menu-item index="/wallet">
                         <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
-                    </el-menu-item>
+                    </el-menu-item> -->
                     <el-menu-item index="">
                         <a href="https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("menu.moreItem.help") }}</a>
                         <!-- <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link> -->

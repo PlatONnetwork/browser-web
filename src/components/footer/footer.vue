@@ -10,9 +10,9 @@
                 <li>
                     <a href=" https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("footer.help") }}</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="/wallet">{{ $t("footer.wallet") }}</a>
-                </li>
+                </li> -->
                 <li>
                     <a href="https://www.platon.network/" target="_blank">{{ $t("footer.officialWebsite") }}</a>
                 </li>

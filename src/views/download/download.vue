@@ -133,8 +133,8 @@
 
         },
         mounted(){
-            // this.$refs.recaptcha.getResponse1()
-            console.warn('调用方法',this.$refs.recaptcha.getResponse())
+            // this.$refs.recaptcha.getResponse()
+            // console.warn('调用方法',this.$refs.recaptcha.getResponse())
         },
         //组件
         components: {

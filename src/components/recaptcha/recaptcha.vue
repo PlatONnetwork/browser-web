@@ -25,6 +25,12 @@
                     let response = document.getElementById('message').innerText
                     this.$emit('verify',response)
                 })
+            },
+            flushStatus(data){
+                console.warn('data>>>>>',data)
+                this.$nextTick(()=>{
+                    document.getElementById('message').innerText=data
+                })
             }
         },
         mounted(){
