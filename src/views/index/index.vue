@@ -50,10 +50,17 @@
             <slideritem class="second-floor">
                 <div class='slide-top'></div>
                 <div class='slide-bottom'>
-                    <header class="time-and-number">
+                    <!-- <header class="time-and-number">
                         Time And Number
+                    </header> -->
+                    <header class="time-and-number time-and-number2">
+                        <span class='block'>Time And Number</span>
+                        <div class="second-floor-text2">
+                            <p class='fl'>{{$t("indexInfo.timeandnum")}}</p>
+                        </div>
+                        <!-- <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p> -->
                     </header>
-                    <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p>
+                    <!-- <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p> -->
                     <div class="chart-box">
                         <div class="chart" ref="blockChart"></div>
                         <ul class="chart-aside">
@@ -187,7 +194,7 @@
                     </div>
                 </div>
 
-                <com-footer></com-footer>
+                <com-footer class='footerss'></com-footer>
 
             </slideritem>
             <!-- 设置loading,可自定义 -->
@@ -839,7 +846,7 @@ div.slider-item {
 }
 .second-floor-text2 {
     position: relative;
-    top: -43px;
+    top: -31px;
     font-size: 16px;
     line-height: 16px;
     color: #ffffff;
@@ -972,13 +979,23 @@ div.slider-item {
         padding-top:10px;
     }
     .slide-top{
-        height:0;
+        height:70px;
     }
     .second-floor-text1{
-        top:477px;
+        top:520px;
     }
     .slide-top1{
         height:70px;
+    }
+    .footerss{
+        height:150px;
+        padding-top:0;
+    }
+    .chart-box{
+        height:380px;
+    }
+    .chart{
+        padding-top:0;
     }
 }
 @media screen and (max-width: 1280px) {
