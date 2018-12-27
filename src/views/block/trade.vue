@@ -41,7 +41,7 @@
                                 <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='150'>
+                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='100'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>

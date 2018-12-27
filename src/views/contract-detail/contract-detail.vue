@@ -126,13 +126,13 @@
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.blockTime")' width='200'>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='180'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.txType")' width='150'>
+                                    <el-table-column :label='$t("totalInfo.txType")' width='120'>
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
