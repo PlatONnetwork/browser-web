@@ -45,7 +45,7 @@
                     </el-form>
                 </div>
             </div>
-            <div id='test'>1111</div>
+
         </div>
        <com-footer></com-footer>
        <iframe id="ifile" style="display:none" :src="src"></iframe>
@@ -66,7 +66,7 @@
         data () {
             return {
                 src:'',
-                // disabledBtn:true,
+                disabledBtn:false,
                 address:'',
                 form:{
                     value:'2018-01-01',
@@ -95,13 +95,13 @@
         //计算
         computed: {
             ...mapGetters(['chainId']),
-            'disabledBtn'(){
-                if( this.$refs.recaptcha){
-                    return false;
-                }else{
-                    return true;
-                }
-            }
+            // 'disabledBtn'(){
+            //     if( this.$refs.recaptcha){
+            //         return false;
+            //     }else{
+            //         return true;
+            //     }
+            // }
         },
         //方法
         methods: {
