@@ -203,7 +203,7 @@
 
             </div>
             <!-- 设置loading,可自定义 -->
-            <div slot="loading">loading...</div>
+            <!-- <div slot="loading">loading...</div> -->
         </div>
     </div>
 </template>
@@ -685,6 +685,9 @@ export default class Index extends Vue {
 }
 .index {
     height: 100%;
+    .header-wrap{
+            background:#040b27;
+    }
 }
 div.slider-item {
     display: initial;
