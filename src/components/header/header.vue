@@ -22,7 +22,7 @@
                         <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
-                <el-menu-item index="/node">
+                <el-menu-item index="">
                     <el-tooltip class="item" :content="$t('menu.comesoon')" placement="bottom">
                     <span>{{ $t("menu.node") }}</span>
                     </el-tooltip>

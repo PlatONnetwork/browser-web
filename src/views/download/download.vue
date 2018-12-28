@@ -112,7 +112,7 @@
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{
-                    this.$message.error(this.$t('download.robot'));
+                    // this.$message.error(this.$t('download.robot'));
                 }
                 // this.response ? this.sameFn() : this.$message.error(this.$t('download.robot'))
             },
