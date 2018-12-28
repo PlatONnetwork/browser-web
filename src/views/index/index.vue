@@ -47,7 +47,7 @@
                 </ul>
                 <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
             </div>
-            <div class="second-floor tmp-class">
+            <div class="second-floor tmp-class tmp-class1">
                 <div class='slide-top'></div>
                 <div class='slide-bottom'>
                     <!-- <header class="time-and-number">
@@ -914,6 +914,9 @@ div.slider-item {
     position: relative;
     width: 100%;
     height: 990px;
+}
+.tmp-class1{
+    height:800px;
 }
 @media screen and (max-width: 1680px) {
     .footer-box p{
