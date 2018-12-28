@@ -22,7 +22,7 @@
                         <router-link to="/block">{{ $t("menu.blockChainItem.viewBlocks") }}</router-link>
                     </el-menu-item>
                 </el-submenu>
-                <el-menu-item index="">
+                <el-menu-item index="" disabled>
                     <el-tooltip class="item" :content="$t('menu.comesoon')" placement="bottom">
                     <span>{{ $t("menu.node") }}</span>
                     </el-tooltip>
@@ -417,6 +417,9 @@
         }
         .el-menu--horizontal > .el-submenu .el-submenu__title{
             line-height: 62px;
+        }
+        .el-menu-item.is-disabled{
+            opacity: 1;
         }
     }
     .el-menu--horizontal,.el-menu--horizontal>ul{
