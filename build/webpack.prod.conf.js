@@ -59,7 +59,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true,
       uglifyOptions: {
         compress: {
-          warnings: false,
+          warnings: true,
           /* eslint-disable */
           drop_debugger: true,
           drop_console: true
