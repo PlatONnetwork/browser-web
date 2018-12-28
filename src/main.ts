@@ -40,8 +40,8 @@ if (GetQueryString('lang')){
         localStorage.setItem('i18nLocale', 'en')
     }
 }
+console.warn('GetQueryString>>>>>.', GetQueryString('lang'))
 const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):navigator.language.toLowerCase()
-// console.warn(navigator.language.toLowerCase())
 const i18n = new VueI18n({
     locale: browserLanguage,
     messages
