@@ -52,7 +52,7 @@
                         <el-table-column :label="$t('nodeInfo.deposit')" >
                             <template slot-scope="scope">
                                 <span>
-                                    {{scope.row.deposit}} ATP
+                                    {{scope.row.deposit}} E
                                 </span>
                             </template>
                         </el-table-column>

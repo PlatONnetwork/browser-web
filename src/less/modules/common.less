@@ -22,8 +22,14 @@ body{
     height:auto;
     // min-height:calc(100% - 170px);
     min-height:820px;
-    padding:0 100px;
+    padding:0 5.2%;
+    // padding-top:100px;
     padding-top:100px;
+}
+@media screen and (max-width: 1368px) {
+    // .content-area {
+    //     min-height:720px;
+    // }
 }
 //面包屑导航
 .crumb{
@@ -198,4 +204,48 @@ body{
     color: #F3364A;
     padding:6px;
     border-radius: 4px;
+}
+
+.time-and-number{
+    position:relative;
+    width:592px;
+    height:48px;
+    font-size:64px;
+    line-height:30px;
+    letter-spacing: 3.8px;
+    color: #3c425d;
+    opacity: 0.2;
+}
+.second-floor-text{
+    position: absolute;
+    top:125px;
+    font-size:16px;
+    line-height: 16px;
+    color: #ffffff;
+    opacity: 1;
+    letter-spacing: 1px;
+}
+@media screen and (max-width: 1680px) {
+    .time-and-number{
+        // height:56px;
+        font-size:56px;
+    }
+}
+@media screen and (max-width: 1440px) {
+    .time-and-number{
+        // height:48px;
+        font-size:48px;
+    }
+}
+@media screen and (max-width: 1368px) {
+    .time-and-number{
+        // height:46px;
+        font-size:46px;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .time-and-number{
+        // height:44px;
+        font-size:44px;
+    }
 }

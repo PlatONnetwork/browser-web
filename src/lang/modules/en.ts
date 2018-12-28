@@ -13,7 +13,9 @@ export default {
         moreItem: {
             wallet: 'Wallet',
             help: 'Help'
-        }
+        },
+        comesoon: 'Coming soon',
+        goole: 'Google reCAPTCHA is not available!'
     },
     search: {
         searchBtn: 'Search',
@@ -25,7 +27,7 @@ export default {
         wallet: 'Wallet'
     },
     footer: {
-        desc: 'XXXX is a Block Explorer and Analytics Platform for PlatON',
+        desc: 'PlatScan is a Block Explorer and Analytics Platform for PlatON',
         links: 'Links',
         help: 'Help',
         wallet: 'Wallet',
@@ -156,7 +158,7 @@ export default {
     },
     download: {
         info: 'Download Data',
-        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
+        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot! (Make sure the VPN is currently available)',
         date: 'Date Date',
         placeholder: 'Select a date',
         download: 'Download',

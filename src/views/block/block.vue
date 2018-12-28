@@ -16,7 +16,7 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>{{$t('blockAbout.morethen')}}{{displayTotalCount}}{{$t('blockAbout.block')}}</span>
+                        <span>{{$t('blockAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('blockAbout.block')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -52,19 +52,19 @@
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.energonUsed')">
+                        <el-table-column :label="$t('blockAbout.energonUsed')" show-overflow-tooltip>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonUsed}}({{(scope.row.energonUsed/scope.row.energonLimit)*100}}%)</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.energonAverage')">
+                        <el-table-column :label="$t('blockAbout.energonAverage')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.energonAverage}}Ene</span>
+                                <span>{{scope.row.energonAverage}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.blockReward')">
+                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.blockReward}}ATP</span>
+                                <span>{{scope.row.blockReward}} Energon</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -219,24 +219,6 @@ export default {
         }
     }
 }
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
-}
+
 </style>
 

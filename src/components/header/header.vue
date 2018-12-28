@@ -2,8 +2,8 @@
     <div class="header-wrap">
         <div class="logo">
             <img class="icon1" src='./images/herder-logo-a.png'/>
-            <img class="icon2" src='./images/herder-logo-b.png'/>
-            <p>The PlatON Block Exploer</p>
+            <img class="icon2" src='./images/logo-font.png'/>
+            <p>The platScan Block Exploer</p>
         </div>
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#D7DDE9" active-text-color="#FFFF00">
@@ -33,11 +33,12 @@
                 </el-menu-item>
                 <el-submenu index="3">
                     <template slot="title">{{ $t("menu.more") }}</template>
-                    <el-menu-item index="/wallet">
+                    <!-- <el-menu-item index="/wallet">
                         <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="/document">
-                        <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link>
+                    </el-menu-item> -->
+                    <el-menu-item index="">
+                        <a href="https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("menu.moreItem.help") }}</a>
+                        <!-- <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link> -->
                     </el-menu-item>
                 </el-submenu>
             </el-menu>
@@ -263,8 +264,8 @@
         left: 0;
         display: flex;
         height: 60px;
-        z-index:9999;
-        padding:0 100px;
+        z-index:99;
+        padding:0 5.2%;
         margin: 0 auto;
         background: #040B27;
         align-items: center;   //居中对齐
@@ -340,6 +341,30 @@
             margin: 9px 0 0 0;
         }
     }
+    @media only screen and (max-width: 1680px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
+        }
+    }
+    @media only screen and (max-width: 1440px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
+        }
+    }
+    @media only screen and (max-width: 1366px) {
+        .header-wrap .menu {
+            margin: 0 0 0 0;
+        }
+        .el-menu-demo{
+            width:390px;
+        }
+    }
+    @media screen and (max-width: 1280px) {
+        .el-menu-demo{
+            width:350px;
+        }
+    }
+
 
 </style>
 <style lang="less">
@@ -394,6 +419,9 @@
         .el-menu--horizontal > .el-submenu .el-submenu__title{
             line-height: 62px;
         }
+        .el-menu-item.is-disabled{
+            opacity: 1;
+        }
     }
     .el-menu--horizontal,.el-menu--horizontal>ul{
         border: 0 !important;
@@ -423,4 +451,30 @@
     .el-dropdown-menu__item.is-disabled{
         opacity: 0.25;
     }
+    @media screen and (max-width: 1680px) {
+        .search {
+            .el-input{
+                width:300px;
+            }
+        }
+    }
+    @media screen and (max-width: 1440px) {
+        .search {
+            .el-input{
+                width:270px;
+            }
+        }
+    }
+    @media screen and (max-width: 1366px) {
+        .search {
+            .el-input{
+                width:200px;
+            }
+        }
+
+    }
+
+
+
+
 </style>

@@ -8,14 +8,14 @@ import { indexMutation } from './mutation'
 export const index: object = {
     state: {
         currentOverViewData: {
-            currentHeight: '666666', //当前区块高度
-            node: '666666', //出块节点
-            currentTransaction: '666666', //当前交易笔数
-            consensusNodeAmount: '666666', //共识节点数
-            addressAmount: '666666', //地址数
-            voteAmount: '666666', //投票数
-            proportion: '666666', //占比
-            ticketPrice: '666666' //票价
+            currentHeight: '------', //当前区块高度
+            node: '------', //出块节点
+            currentTransaction: '------', //当前交易笔数
+            consensusNodeAmount: '------', //共识节点数
+            addressAmount: '------', //地址数
+            voteAmount: '------', //投票数
+            proportion: '------', //占比
+            ticketPrice: '------' //票价
         },
         secondFloorData: {
             avgTime: 365, //平均出块时长

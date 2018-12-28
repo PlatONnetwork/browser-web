@@ -41,7 +41,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="21">
-                                    <span>{{balance}}ATP</span>
+                                    <span>{{balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -65,7 +65,7 @@
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.votePledge || 0}}ATP</span>
+                                    <span>{{detailInfo.votePledge || 0}}E</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -87,7 +87,7 @@
                     <div class="data">
                         <div v-if='activeTab == 1'>
                             <div class='data-top'>
-                                <div class='count'>{{count}}{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
@@ -122,7 +122,7 @@
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.blockTime")' width='200'>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='150'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
@@ -178,7 +178,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.value")' show-overflow-tooltip>
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.value}}ATP</span>
+                                            <span>{{scope.row.value}} Energon</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip>
@@ -566,25 +566,7 @@
             }
         }
     }
-    .time-and-number{
-        position:relative;
-        width:592px;
-        height:48px;
-        font-size:64px;
-        line-height:30px;
-        letter-spacing: 3.8px;
-        color: #3c425d;
-        opacity: 0.2;
-    }
-    .second-floor-text{
-        position: absolute;
-        top:125px;
-        font-size:16px;
-        line-height: 16px;
-        color: #ffffff;
-        opacity: 1;
-        letter-spacing: 1px;
-    }
+
 </style>
 <style lang='less'>
     .search-address{

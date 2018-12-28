@@ -2,17 +2,17 @@
     <div class="footer-wrap">
         <div class="platon">
             <p class="footer-intro">{{ $t("footer.desc") }}</p>
-            <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
+            <p class="copyright">COPYRIGHT © 2018 PLATSCAN INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
             <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
-                    <a href="http://www.baidu.com" target="_blank">{{ $t("footer.help") }}</a>
+                    <a href=" https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("footer.help") }}</a>
                 </li>
-                <li>
-                    <a href="#" target="_blank">{{ $t("footer.wallet") }}</a>
-                </li>
+                <!-- <li>
+                    <a href="/wallet">{{ $t("footer.wallet") }}</a>
+                </li> -->
                 <li>
                     <a href="https://www.platon.network/" target="_blank">{{ $t("footer.officialWebsite") }}</a>
                 </li>
@@ -115,11 +115,11 @@
         height: 170px; // UI设计图 190px改为170px 2018-11-2
         color: #FFF;
         background-color: #0D1333;
-        padding: 20px 100px 0 100px;
+        padding: 20px 5.2% 0 5.2%;
     }
     .platon{
-        background: url('./images/footer-logo.png') no-repeat;
-        background-size: 155px 54px;
+        background: url('./images/logo-footer.png') no-repeat;
+        // background-size: 155px 54px;
         >p{
             // font-family: ArialMT;
             font-size: 12px;
@@ -196,6 +196,14 @@
         width:100px;
         height:100px;
     }
-
+    @media screen and (max-width: 1368px) {
+        .link-top{
+            padding-top:10px;
+            padding-bottom:12px;
+        }
+        .platon .footer-intro{
+            padding-top:70px;
+        }
+    }
 </style>
 

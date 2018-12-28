@@ -121,7 +121,7 @@
                                     <span>{{$t('blockAbout.blockReward1')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.blockReward}}ATP</span>
+                                    <span>{{detailInfo.blockReward}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -481,25 +481,7 @@ button {
         }
     }
 }
-.time-and-number {
-    position: relative;
-    width: 592px;
-    height: 48px;
-    font-size: 64px;
-    line-height: 30px;
-    letter-spacing: 3.8px;
-    color: #3c425d;
-    opacity: 0.2;
-}
-.second-floor-text {
-    position: absolute;
-    top: 125px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #ffffff;
-    opacity: 1;
-    letter-spacing: 1px;
-}
+
 .el-col-20 {
     color: #d7dde9;
 }
