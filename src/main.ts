@@ -25,6 +25,21 @@ Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 // window.responseInfo = '';
 // const browserLanguage: string = navigator.language.toLowerCase()
+//获取location后的search信息
+const GetQueryString = (name) => {
+    let  reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURI(decodeURI(r[2])); return null;
+}
+if (GetQueryString('lang')){
+    if (GetQueryString('lang')=='zh'){
+        //中文
+        localStorage.setItem('i18nLocale', 'zh-cn')
+    } else if (GetQueryString('lang') == 'en'){
+        //英文
+        localStorage.setItem('i18nLocale', 'en')
+    }
+}
 const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):navigator.language.toLowerCase()
 // console.warn(navigator.language.toLowerCase())
 const i18n = new VueI18n({
