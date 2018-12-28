@@ -908,6 +908,7 @@ div.slider-item {
     }
 }
 .tmp-class{
+    position: relative;
     width: 100%;
     height: 990px;
 }
