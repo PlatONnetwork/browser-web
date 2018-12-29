@@ -93,10 +93,11 @@
         props: {},
         //计算
         computed: {
-            ...mapGetters(['chainId']),
+            ...mapGetters(['chainId','googleApi']),
         },
         //方法
         methods: {
+            ...mapActions(['updateApiStatus']),
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
@@ -150,13 +151,20 @@
             //         }
             //     })
             // }, 300);
+            this.disabledBtn = !this.googleApi;
         },
         //组件
         components: {
             comHeader,
             comFooter,
             comRecaptcha
-        }
+        },
+        watch:{
+            'googleApi':function(){
+                this.disabledBtn = !this.googleApi;
+            },
+           
+        },
     }
 </script>
 <style lang="less" scoped>
