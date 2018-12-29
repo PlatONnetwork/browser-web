@@ -45,6 +45,7 @@
                     </el-form>
                 </div>
             </div>
+
         </div>
        <com-footer></com-footer>
        <iframe id="ifile" style="display:none" :src="src"></iframe>
@@ -93,7 +94,18 @@
         props: {},
         //计算
         computed: {
+<<<<<<< HEAD
             ...mapGetters(['chainId','googleApi']),
+=======
+            ...mapGetters(['chainId']),
+            // 'disabledBtn'(){
+            //     if( this.$refs.recaptcha){
+            //         return false;
+            //     }else{
+            //         return true;
+            //     }
+            // }
+>>>>>>> 804785650da31b3ab428d98b0f644ba88a1e2bcd
         },
         //方法
         methods: {
@@ -140,6 +152,7 @@
 
         },
         mounted(){
+<<<<<<< HEAD
             // setTimeout(() => {
             //     this.$nextTick(()=>{
             //         if(document.getElementById('message').innerText){
@@ -152,6 +165,10 @@
             //     })
             // }, 300);
             this.disabledBtn = !this.googleApi;
+=======
+
+
+>>>>>>> 804785650da31b3ab428d98b0f644ba88a1e2bcd
         },
         //组件
         components: {

@@ -1,8 +1,8 @@
 <template>
     <div class="index">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
-        <div ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit' v-scroll="mousewheel">
-            <div class="tmp-class">
+        <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit' v-scroll="mousewheel">
+            <slideritem>
                 <div v-show="isWorldMap" class="world-map world-map1">
                     <div ref="worldMap" class="world-map"></div>
                 </div>
@@ -46,8 +46,8 @@
                     </li> -->
                 </ul>
                 <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
-            </div>
-            <div class="second-floor tmp-class tmp-class1">
+            </slideritem>
+            <slideritem class="second-floor">
                 <div class='slide-top'></div>
                 <div class='slide-bottom'>
                     <!-- <header class="time-and-number">
@@ -95,8 +95,8 @@
                     </ul>
                 </div>
 
-            </div>
-            <div class="third-floor tmp-class">
+            </slideritem>
+            <slideritem class="third-floor">
                 <div class='slide-top slide-top1'></div>
                 <div class='slide-bottom slide-bottom1'>
                     <div class="floor-area">
@@ -201,10 +201,10 @@
 
                 <com-footer class='footerss'></com-footer>
 
-            </div>
+            </slideritem>
             <!-- 设置loading,可自定义 -->
-            <!-- <div slot="loading">loading...</div> -->
-        </div>
+            <div slot="loading">loading...</div>
+        </slider>
     </div>
 </template>
 
@@ -507,8 +507,6 @@ export default class Index extends Vue {
         });
     }
     mousewheel(direction:string){
-        return false;
-
         const slider:any=this.$refs.slider
         const len:number=slider.$children.length
         let page:number=this.options['currentPage']
@@ -685,9 +683,6 @@ export default class Index extends Vue {
 }
 .index {
     height: 100%;
-    .header-wrap{
-            background:#040b27;
-    }
 }
 div.slider-item {
     display: initial;
@@ -910,14 +905,6 @@ div.slider-item {
         opacity: 0.2;
     }
 }
-.tmp-class{
-    position: relative;
-    width: 100%;
-    height: 990px;
-}
-.tmp-class1{
-    height:800px;
-}
 @media screen and (max-width: 1680px) {
     .footer-box p{
         font-size:34px;
@@ -1032,10 +1019,6 @@ div.slider-item {
     }
     .transactions{
         line-height:20px;
-    }
-    .tmp-class{
-        width: 100%;
-        height: 720px;
     }
 }
 @media screen and (max-width: 1280px) {
