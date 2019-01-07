@@ -16,5 +16,8 @@ export const commonMutation = {
     },
     ['DONE_COUNTRY'](state, data) {
       state.country = data
+    },
+    ['GOOGLE_API'](state, data) {
+      state.googleApi = data
     }
 }

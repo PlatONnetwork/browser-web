@@ -94,17 +94,11 @@
         props: {},
         //计算
         computed: {
-            ...mapGetters(['chainId']),
-            // 'disabledBtn'(){
-            //     if( this.$refs.recaptcha){
-            //         return false;
-            //     }else{
-            //         return true;
-            //     }
-            // }
+            ...mapGetters(['chainId','googleApi']),
         },
         //方法
         methods: {
+            ...mapActions(['updateApiStatus']),
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
@@ -147,15 +141,31 @@
 
         },
         mounted(){
-
-
+            // setTimeout(() => {
+            //     this.$nextTick(()=>{
+            //         if(document.getElementById('message').innerText){
+            //             // console.log(111)
+            //             this.disabledBtn=false;
+            //         }else{
+            //             this.disabledBtn=true;
+            //             this.$message.error(this.$t('menu.goole'))
+            //         }
+            //     })
+            // }, 300);
+            this.disabledBtn = !this.googleApi;
         },
         //组件
         components: {
             comHeader,
             comFooter,
             comRecaptcha
-        }
+        },
+        watch:{
+            'googleApi':function(){
+                this.disabledBtn = !this.googleApi;
+            },
+           
+        },
     }
 </script>
 <style lang="less" scoped>

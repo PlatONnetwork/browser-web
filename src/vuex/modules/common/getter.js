@@ -20,4 +20,7 @@ export const commonGetter = {
     country(state) {
       return state.country
     },
+    googleApi(state) {
+      return state.googleApi
+    },
 }

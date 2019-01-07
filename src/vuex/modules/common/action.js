@@ -30,4 +30,7 @@ export const commonAction = {
             commit('DONE_COUNTRY', data.countrys)
         });
     },
+    updateApiStatus({ commit, state },apiStatus){
+        commit('GOOGLE_API', apiStatus)
+    }
 }
