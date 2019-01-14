@@ -43,7 +43,7 @@
                         <div class="data-title">{{$t('tradeAbout.information')}}</div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -51,7 +51,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.txHash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -59,7 +59,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.txReceiptStatus')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -67,7 +67,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -75,7 +75,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.from')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -83,7 +83,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -96,7 +96,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txReceiptStatus==0'>
-                                <el-col :span="4">
+                                <el-col :span="7">
                                 </el-col>
                                 <el-col :span="20">
                                     <span><i class="iconfont iconxinxi">&#xe63f;</i></span>
@@ -104,7 +104,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -112,7 +112,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.energonLimit')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -120,7 +120,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -128,7 +128,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -136,7 +136,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.blockHeight')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -144,15 +144,15 @@
                                         <span class='cursor normal' @click='viewBlock(detailInfo.blockHeight)'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                            <!-- <el-row type="flex" class="row-bg">
+                                <el-col :span="7">
                                     <span>{{$t('tradeAbout.inputData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true">
                                     </el-input>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
                         </div>
                     </div>
                 </div>
@@ -549,6 +549,11 @@ button {
 }
 .el-col-20 {
     color: #d7dde9;
+}
+@media only screen and (min-width: 1400px) {
+    .data {
+        margin-left: 15%;
+    }
 }
 </style>
 

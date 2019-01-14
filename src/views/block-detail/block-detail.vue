@@ -124,16 +124,16 @@
                                     <span>{{detailInfo.blockReward}} Energon</span>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" class="row-bg">
+                            <!-- <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
                                     <span>{{$t('blockAbout.extraData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.extraData" :disabled="true">
                                     </el-input>
-                                    <!-- <span>{{detailInfo.inputData}}</span> -->
+                                    <span>{{detailInfo.inputData}}</span>
                                 </el-col>
-                            </el-row>
+                            </el-row> -->
                         </div>
                     </div>
                 </div>
@@ -444,7 +444,7 @@ button {
         }
         .inputdata {
             position: relative;
-            width: 540px;
+            width: 100px;
             height: 30px;
             background-color: rgba(48, 56, 104, 0.3);
             margin: 0 auto;
@@ -485,5 +485,15 @@ button {
 .el-col-20 {
     color: #d7dde9;
 }
+@media only screen and (min-width: 1400px) {
+    .data {
+        margin-left: 15%;
+    }
+}
 </style>
 
+<style lang="less">
+.el-message--success{
+    min-width: auto
+}
+</style>

@@ -37,7 +37,14 @@
                     </el-tooltip>
                 </li>
                 <li>
+                    <a href="https://github.com/PlatONnetwork" class="icon-link-6" target="_blank"></a>
+                </li>
+                
+                <li>
                     <a href="https://twitter.com/PlatON_Network" class="icon-link-3" target="_blank"></a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/PlatONNetwork/" class="icon-link-7" target="_blank"></a>
                 </li>
                 <li>
                     <a href="https://www.reddit.com/user/PlatON_Network" class="icon-link-4" target="_blank"></a>
@@ -45,12 +52,8 @@
                 <li>
                     <a href="https://medium.com/@PlatON_Network" class="icon-link-5" target="_blank"></a>
                 </li>
-                <li>
-                    <a href="https://github.com/PlatONnetwork" class="icon-link-6" target="_blank"></a>
-                </li>
-                <li>
-                    <a href="https://www.facebook.com/PlatONNetwork/" class="icon-link-7" target="_blank"></a>
-                </li>
+                
+                
             </ul>
 
         </div>

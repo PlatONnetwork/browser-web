@@ -22,6 +22,10 @@ Vue.use(ElementUI)
 Vue.use(VueClipboard)
 Vue.use(VueAwesomeSwiper)
 
+router.afterEach(function (to) {
+    window.scrollTo(0, 0)
+})
+
 Vue.config.productionTip = false
 // window.responseInfo = '';
 // const browserLanguage: string = navigator.language.toLowerCase()

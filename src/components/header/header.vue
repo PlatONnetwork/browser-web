@@ -3,7 +3,7 @@
         <div class="logo">
             <img class="icon1" src='./images/herder-logo-a.png'/>
             <img class="icon2" src='./images/logo-font.png'/>
-            <p>The platScan Block Exploer</p>
+            <p>The platON Block Exploer</p>
         </div>
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#D7DDE9" active-text-color="#FFFF00">

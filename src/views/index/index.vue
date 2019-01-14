@@ -45,7 +45,8 @@
                         <span>{{$t("indexInfo.ticketPrice")}}</span>
                     </li> -->
                 </ul>
-                <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div>
+                <!-- UI去掉球形展示 -->
+                <!-- <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div> -->
             </div>
             <div class="second-floor tmp-class tmp-class1">
                 <div class='slide-top'></div>
@@ -69,8 +70,8 @@
                                 <span>{{secondFloorData.avgTime}} s</span>
                             </li>
                             <li>
-                                <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
-                                <span>{{secondFloorData.current}} / {{secondFloorData.maxTps}}</span>
+                                <p>{{$t("indexInfo.current")}} / {{$t("indexInfo.maxTps")}}</p>
+                                <span>{{secondFloorData.current}}/{{secondFloorData.maxTps}}</span>
                             </li>
                             <li>
                                 <p>{{$t("indexInfo.avgTransaction")}}</p>
@@ -260,8 +261,8 @@ export default class Index extends Vue {
     @Getter earthData
     @Getter mapData
 
-    isRealtimeBlock: boolean = true;
-    isRealtimeTrade: boolean = true;
+    isRealtimeBlock: boolean = false;
+    isRealtimeTrade: boolean = false;
     descriptionProp: string = '';
     isWorldMap: boolean = true;
 
@@ -403,15 +404,15 @@ export default class Index extends Vue {
     changeRealtimeBlock() {
         this.isRealtimeBlock = !this.isRealtimeBlock;
         //重启订阅
-        this.isRealtimeBlock ? this.getBlock() : indexService.unsubBlock();
+        // this.isRealtimeBlock ? this.getBlock() : indexService.unsubBlock();
+        this.isRealtimeBlock ?  indexService.unsubBlock() : this.getBlock();
     }
     //交易 订阅
     changeRealtimeTrade() {
         this.isRealtimeTrade = !this.isRealtimeTrade;
         //重启订阅
-        this.isRealtimeTrade
-            ? this.getTransaction()
-            : indexService.unsubTransaction();
+        // this.isRealtimeTrade ? this.getTransaction() : indexService.unsubTransaction();
+        this.isRealtimeTrade ? indexService.unsubTransaction() : this.getTransaction();
     }
     //交易查看全部
     tradeAllFn() {
@@ -625,7 +626,7 @@ export default class Index extends Vue {
         width: 90px;
         padding: 12px 0;
         span {
-            padding-left: 8px;
+            padding-left: 15px;
             font-size: 14px;
         }
     }
@@ -811,13 +812,13 @@ div.slider-item {
     }
     p {
         padding: 0 0 12px;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 30px;
         letter-spacing: 1.6px;
         color: #6d81a9;
     }
     span {
-        font-size: 42px;
+        font-size: 34px;
         font-weight: normal;
         font-stretch: normal;
         line-height: 30px;

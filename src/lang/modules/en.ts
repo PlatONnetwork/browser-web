@@ -4,7 +4,7 @@ export default {
         home: 'Home',
         blockChain: 'BlockChain',
         blockChainItem: {
-            viewTxns: 'ViewTxns',
+            viewTxns: 'View Txns',
             viewPendingTxns: 'View Pending Txns',
             viewBlocks: 'View Blocks'
         },

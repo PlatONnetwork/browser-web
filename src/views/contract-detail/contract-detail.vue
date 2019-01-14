@@ -446,22 +446,23 @@
         .title{
             margin-bottom:40px;
             background: #0C1035;
-            padding:20px 0;
+            padding:0 0 20px 0;
             .record{
-                height:36px;
+                height:56px;
                 padding-left:20px;
                 border-bottom:1px solid #151C45;
                 display: flex;
                 flex-direction: row;
                 flex-wrap:nowrap;
                 justify-content: flex-start;
+                align-items: center;
                 .left{
                     font-size: 14px;
                     color: #FFFFFF;
                     margin-right:20px;
                 }
                 .right{
-                    margin-top:4px;
+                    // margin-top:4px;
                     width:430px;
                     height:26px;
                     padding-left:9px;
