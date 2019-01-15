@@ -581,4 +581,7 @@
             border:none;
         }
     }
+    .el-message--success{
+        min-width: auto
+    }
 </style>

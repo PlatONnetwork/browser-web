@@ -26,7 +26,7 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('tradeAbout.hash')" width='200'>
+                        <el-table-column :label="$t('tradeAbout.hash')" >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -51,7 +51,7 @@
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.from')"  width='200'>
+                        <el-table-column :label="$t('tradeAbout.from')" width="300">
                             <template slot-scope="scope">
                                 <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 <div class='flex-special'>
@@ -63,14 +63,14 @@
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='150' align='center'>
+                        <el-table-column label="" width='50' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.to')" width='200'>
+                        <el-table-column :label="$t('tradeAbout.to')" >
                             <template slot-scope="scope">
                                 <!-- <div class='flex-special'>
                                     <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -93,12 +93,12 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="150">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip width="200"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">

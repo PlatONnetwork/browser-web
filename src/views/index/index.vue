@@ -54,9 +54,9 @@
                     <!-- <header class="time-and-number">
                         Time And Number
                     </header> -->
-                    <header class="time-and-number time-and-number2">
-                        <span class='block'>Time And Number</span>
-                        <div class="second-floor-text2">
+                    <header class="time-and-number time-and-number2 text-center">
+                        <span class='block'>Time and Number</span>
+                        <div class="div-center second-floor-text2">
                             <p class='fl'>{{$t("indexInfo.timeandnum")}}</p>
                         </div>
                         <!-- <p class="second-floor-text">{{$t("indexInfo.timeandnum")}}</p> -->
@@ -79,15 +79,15 @@
                             </li>
                         </ul>
                     </div>
-                    <header class="time-and-number">
+                    <header class="time-and-number p-width-center">
                         Transactions
                     </header>
-                    <p class="second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
-                    <p class="transactions">{{$t("indexInfo.monitor")}}</p>
+                    <p class="second-floor-text second-floor-text1 p-center">{{$t("indexInfo.transactionsperday")}}</p>
+                    <p class="transactions text-center">{{$t("indexInfo.monitor")}}</p>
                     <ul class="num-box clearfix">
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                         <!-- secondFloorData.dayTransaction -->
-                        <li v-for='(item,index) in secondFloorData.dayTransaction.toString()' :key='index'>{{item}}</li>
+                        <li v-for="(item,index) in (Array(11).join(0)+secondFloorData.dayTransaction).slice(-11).split('')" :key='index'>{{item}}</li>
                         <!-- <li>2</li>
                         <li>0</li>
                         <li>2</li>
@@ -118,20 +118,20 @@
                                 </p>
                             </div> -->
                             <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="height" :label='$t("indexInfo.height")' width="180">
+                                <el-table-column prop="height" :label='$t("indexInfo.height")'  width="100">
                                     <template slot-scope="scope">
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")' width="180">
+                                <el-table-column :label='$t("indexInfo.age")' width="180" >
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="node" :label='$t("indexInfo.node")' show-overflow-tooltip></el-table-column>
-                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip></el-table-column>
+                                 <el-table-column prop="node" :label='$t("indexInfo.node")' fit='true' show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
+                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip>
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="100" show-overflow-tooltip>
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
@@ -150,7 +150,7 @@
                                 </div>
                             </header>
 
-                            <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484'  class='tables'>
+                            <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484' class='tables'>
                                 <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
@@ -161,7 +161,7 @@
                                         </div>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="from" label="From" width='190'>
+                                <el-table-column prop="from" label="From" fit='true'>
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
                                             <el-tooltip class="item" effect="dark" placement="top">
@@ -178,7 +178,7 @@
                                         </span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="to" label="To" width='190'>
+                                <el-table-column prop="to" label="To" >
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
                                             <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
@@ -189,7 +189,7 @@
                                         </div>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+                                <el-table-column :label="$t('tradeAbout.value')"  width='100'show-overflow-tooltip>
                                     <template slot-scope="scope">
                                         <span>{{scope.row.value}} Energon</span>
                                     </template>
@@ -679,6 +679,20 @@ export default class Index extends Vue {
         border-width: 0;
     }
 }
+.text-center{
+    text-align: center;
+}
+.div-center{
+    justify-content: center !important;
+}
+.p-center{
+    text-align: center;
+    position: unset;
+}
+.p-width-center{
+    text-align: center;
+    width: 100%;
+}
 </style>
 <style lang="less" scoped>
 .header-special {
@@ -835,9 +849,9 @@ div.slider-item {
 .num-box {
     padding: 30px 0 0;
     > li {
-        margin: 0 50px 0 0;
+        margin: 0 30px 0 0;
         float: left;
-        width: 121px;
+        width: 120px;
         height: 140px;
         background-color: rgba(20, 33, 87, 0.5);
         font-family: DINCond-Regular;
@@ -875,8 +889,9 @@ div.slider-item {
     }
 }
 .world-map1 {
-    background: url(images/background-big.png) no-repeat center,
-        url(images/background-big2.png) no-repeat center;
+    // background: url(images/background-big.png) no-repeat center,
+    //     url(images/background-big2.png) no-repeat center;
+    background: url(images/background-big2.png) no-repeat center;
     background-size: 100% 100%;
 }
 .earch-box1 {

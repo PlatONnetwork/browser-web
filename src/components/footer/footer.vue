@@ -52,8 +52,9 @@
                 <li>
                     <a href="https://medium.com/@PlatON_Network" class="icon-link-5" target="_blank"></a>
                 </li>
-                
-                
+                <li>
+                    <a href="https://www.linkedin.com/company/platonnetwork/" class="icon-link-8" target="_blank"></a>
+                </li>
             </ul>
 
         </div>
@@ -160,7 +161,7 @@
         letter-spacing: 0;
         ul{
             padding-top: 2px;
-            width: 400px;
+            width: 455px;
         }
         li{
             float: left;
@@ -172,25 +173,52 @@
                 background: url('./images/Sprite-figure.png')
             }
             .icon-link-1{
-                    background-position: 0 0;
+                background-position: 0 0;
+            }
+            .icon-link-1:hover{
+                background: url('./images/icon-Telegram-h.png') no-repeat;
             }
             .icon-link-2{
-                    background-position: -56px 0;
+                background-position: -56px 0;
+            }
+            .icon-link-2:hover{
+                background: url('./images/icon-WeChat-h.png') no-repeat;
             }
             .icon-link-3{
-                    background-position: -112px 0;
+                background-position: -112px 0;
+            }
+            .icon-link-3:hover{
+                background: url('./images/icon-Twitter-h.png') no-repeat;
             }
             .icon-link-4{
-                    background-position: -168px 0;
+                background-position: -168px 0;
+            }
+            .icon-link-4:hover{
+                background: url('./images/icon-Reddit-h.png') no-repeat;
             }
             .icon-link-5{
-                    background-position: -224px 0;
+                background-position: -224px 0;
+            }
+            .icon-link-5:hover{
+                background: url('./images/icon-Medium-h.png') no-repeat;
             }
             .icon-link-6{
-                    background-position: -280px 0;
+                background-position: -280px 0;
+            }
+            .icon-link-6:hover{
+                background: url('./images/icon-GitHub-h.png') no-repeat;
             }
             .icon-link-7{
-                    background-position: -336px 0;
+                background-position: -336px 0;
+            }
+            .icon-link-7:hover{
+                background: url('./images/icon-Facebook-h.png') no-repeat;
+            }
+            .icon-link-8{
+                background: url('./images/icon-in-n.png') no-repeat;
+            }
+            .icon-link-8:hover{
+                background: url('./images/icon-in-h.png') no-repeat;
             }
         }
     }

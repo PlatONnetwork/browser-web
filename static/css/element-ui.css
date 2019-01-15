@@ -564,12 +564,12 @@
 .el-icon-download:before {
   content: "\e617"; }
 
-.el-icon-loading:before {
-  content: "\e61e"; }
+/* .el-icon-loading:before {
+  content: "\e61e"; } */
 
-.el-icon-loading {
+/* .el-icon-loading {
   -webkit-animation: rotating 2s linear infinite;
-  animation: rotating 2s linear infinite; }
+  animation: rotating 2s linear infinite; } */
 
 .el-icon--right {
   margin-left: 5px; }

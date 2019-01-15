@@ -27,7 +27,10 @@
                     v-loading="loading"
                     :element-loading-text="$t('elseInfo.loading')"
                     element-loading-spinner="el-icon-loading"
-                    element-loading-background="rgba(4,11,39, 0.5)">
+                    element-loading-background="rgba(5,12,46, 0.7)"> 
+                    <!--:element-loading-text="$t('elseInfo.loading')"
+                        element-loading-spinner="el-icon-loading" 
+                        element-loading-background="rgba(4,11,39, 0.5) -->
                     <div class='record'>
                         <header class="time-and-number time2">
                             Transactions
@@ -144,7 +147,7 @@
                                         <span class='cursor normal' @click='viewBlock(detailInfo.blockHeight)'>{{detailInfo.blockHeight}}</span><span>({{detailInfo.confirmNum}}{{$t('tradeAbout.confirmNum')}})</span></span>
                                 </el-col>
                             </el-row>
-                            <!-- <el-row type="flex" class="row-bg">
+                            <el-row type="flex" class="row-bg">
                                 <el-col :span="7">
                                     <span>{{$t('tradeAbout.inputData')}}:</span>
                                 </el-col>
@@ -152,7 +155,7 @@
                                     <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true">
                                     </el-input>
                                 </el-col>
-                            </el-row> -->
+                            </el-row>
                         </div>
                     </div>
                 </div>
@@ -557,4 +560,17 @@ button {
 }
 </style>
 
-
+<style lang="less">
+.el-message--success{
+    min-width: auto;
+}
+.el-loading-spinner{
+    // height: 50px;
+    background:url(images/loading-big.gif) no-repeat center top;
+    // background-size:30px 30px;
+    .el-loading-text{
+        font-size:12px;
+        margin-top: 16px;
+    }
+}
+</style>

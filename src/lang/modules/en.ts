@@ -179,7 +179,7 @@ export default {
         minutes: 'm ',
         seconds: 's ',
         day: 'd ',
-        loading: 'Loading'
+        loading: 'Loading...'
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',
@@ -200,7 +200,7 @@ export default {
         voteAmount: 'Votes',
         proportion: 'Ratio',
         ticketPrice: 'Vote Price',
-        timeandnum: 'Block Time And Number Of Transactions',
+        timeandnum: 'Block Time and Number of Transactions',
         avgTime: 'Average Block Time',
         current: 'Current',
         maxTps: 'Max TPS',

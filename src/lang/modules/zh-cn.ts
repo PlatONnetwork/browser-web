@@ -179,7 +179,7 @@ export default {
         minutes:'分',
         seconds:'秒',
         day:'天',
-        loading:'拼命加载中'
+        loading:'加载中...'
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',

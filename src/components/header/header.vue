@@ -277,7 +277,7 @@
     .logo{
         display: inline-block;
         height: 100%;
-        width: 289px;
+        width: 200px;
         overflow: hidden;
         .logo-right{
             margin-top: 5px;

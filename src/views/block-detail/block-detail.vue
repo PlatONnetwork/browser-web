@@ -124,7 +124,7 @@
                                     <span>{{detailInfo.blockReward}} Energon</span>
                                 </el-col>
                             </el-row>
-                            <!-- <el-row type="flex" class="row-bg">
+                            <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
                                     <span>{{$t('blockAbout.extraData')}}:</span>
                                 </el-col>
@@ -133,7 +133,7 @@
                                     </el-input>
                                     <span>{{detailInfo.inputData}}</span>
                                 </el-col>
-                            </el-row> -->
+                            </el-row>
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@
                         </div>
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.expectTime')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -52,7 +52,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -60,7 +60,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.txHash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -68,7 +68,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.value')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -76,7 +76,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.from')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -84,7 +84,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -94,7 +94,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.fee')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -102,7 +102,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.energonLimit')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -110,7 +110,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -118,7 +118,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -126,7 +126,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.blockHeight')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -134,7 +134,7 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="7">
                                     <span>{{$t('tradePendingAbout.inputData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
@@ -375,6 +375,7 @@ button {
     outline: none;
 }
 .bottom {
+    // height: 630px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -465,5 +466,15 @@ button {
 .pending {
     color: #6d81a9;
 }
+@media only screen and (min-width: 1400px) {
+    .data {
+        margin-left: 15%;
+    }
+}
 </style>
 
+<style lang="less">
+.el-message--success{
+    min-width: auto
+}
+</style>

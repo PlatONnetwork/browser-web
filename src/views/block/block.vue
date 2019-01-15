@@ -41,7 +41,7 @@
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.miner')"  width='200' >
+                        <el-table-column :label="$t('blockAbout.miner')" >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -52,17 +52,17 @@
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.energonUsed')" show-overflow-tooltip>
+                        <el-table-column :label="$t('blockAbout.energonUsed')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonUsed}}({{(scope.row.energonUsed/scope.row.energonLimit)*100}}%)</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.energonAverage')" show-overflow-tooltip>
+                        <el-table-column :label="$t('blockAbout.energonAverage')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonAverage}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip>
+                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip width='150'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockReward}} Energon</span>
                             </template>
