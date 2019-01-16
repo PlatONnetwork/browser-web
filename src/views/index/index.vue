@@ -82,7 +82,7 @@
                     <header class="time-and-number p-width-center">
                         Transactions
                     </header>
-                    <p class="second-floor-text second-floor-text1 p-center">{{$t("indexInfo.transactionsperday")}}</p>
+                    <p class="p-center second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
                     <p class="transactions text-center">{{$t("indexInfo.monitor")}}</p>
                     <ul class="num-box clearfix">
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
@@ -687,11 +687,11 @@ export default class Index extends Vue {
 }
 .p-center{
     text-align: center;
-    position: unset;
+    position: unset !important;
 }
 .p-width-center{
     text-align: center;
-    width: 100%;
+    width: 100% !important;
 }
 </style>
 <style lang="less" scoped>
