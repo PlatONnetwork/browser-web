@@ -129,7 +129,7 @@
                                     <span>{{$t('blockAbout.extraData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
-                                    <el-input type="textarea" :rows="2" v-model="detailInfo.extraData" :disabled="true">
+                                    <el-input type="textarea" :rows="2" v-model="detailInfo.extraData" :disabled="true" resize="none">
                                     </el-input>
                                     <span>{{detailInfo.inputData}}</span>
                                 </el-col>
@@ -487,7 +487,7 @@ button {
 }
 @media only screen and (min-width: 1400px) {
     .data {
-        margin-left: 15%;
+        margin-left: 18%;
     }
 }
 </style>
@@ -495,5 +495,8 @@ button {
 <style lang="less">
 .el-message--success{
     min-width: auto
+}
+.special-input .el-textarea.is-disabled .el-textarea__inner{
+    border:inherit
 }
 </style>

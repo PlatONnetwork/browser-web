@@ -152,7 +152,7 @@
                                     <span>{{$t('tradeAbout.inputData')}}:</span>
                                 </el-col>
                                 <el-col :span="20" class='special-input'>
-                                    <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true">
+                                    <el-input type="textarea" :rows="2" v-model="detailInfo.inputData" :disabled="true" resize="none">
                                     </el-input>
                                 </el-col>
                             </el-row>
@@ -572,5 +572,8 @@ button {
         font-size:12px;
         margin-top: 16px;
     }
+}
+.special-input .el-textarea.is-disabled .el-textarea__inner{
+    border:inherit
 }
 </style>

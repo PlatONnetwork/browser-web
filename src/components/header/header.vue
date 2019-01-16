@@ -3,7 +3,7 @@
         <div class="logo">
             <img class="icon1" src='./images/herder-logo-a.png'/>
             <img class="icon2" src='./images/logo-font.png'/>
-            <p>The platON Block Exploer</p>
+            <p>The PlatON Block Explorer</p>
         </div>
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#D7DDE9" active-text-color="#FFFF00">
@@ -271,7 +271,7 @@
         align-items: center;   //居中对齐
         justify-content: space-between;   //两端对齐
         .menu{
-            margin: 0 10% 0 0;
+            margin: 0 20% 0 0;
         }
     }
     .logo{
@@ -376,7 +376,7 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px 2px rgba(7,11,48,0.30);
         .el-input{
-            width:300px;
+            width:345px;
             height:40px;
         }
         .el-input__inner{

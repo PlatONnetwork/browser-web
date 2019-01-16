@@ -116,10 +116,10 @@
         bottom: 0;
         display: flex;
         justify-content: space-between;   //弹性布局，从上到下顺序排列子div
-        height: 170px; // UI设计图 190px改为170px 2018-11-2
+        height: 190px; // UI设计图 190px改为170px 2018-11-2  修改为190 2019年1月16日
         color: #FFF;
         background-color: #0D1333;
-        padding: 20px 5.2% 0 5.2%;
+        padding: 40px 5.2% 0 5.2%;
     }
     .platon{
         background: url('./images/logo-footer.png') no-repeat;
@@ -131,11 +131,11 @@
             letter-spacing: 0;
         }
         .footer-intro{
-            padding-top: 80px;
+            padding-top: 63px;
         }
         .copyright{
             font-size: 11px;
-            margin: 25px 0 0 0;
+            margin: 10px 0 0 0;
         }
     }
     .link {
@@ -146,11 +146,15 @@
         a{
             color: #FFFFFF;
         }
+        a:hover{
+            color: #2faaf8;
+        }
         ul li{
             padding-bottom: 8px;
         }
     }
     .link-top{
+        color: #94a3c2;
         width: 200px;
         padding-bottom: 25px;
     }

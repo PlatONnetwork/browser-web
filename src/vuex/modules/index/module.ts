@@ -9,7 +9,8 @@ export const index: object = {
     state: {
         currentOverViewData: {
             currentHeight: '------', //当前区块高度
-            node: '------', //出块节点
+            node: '------', //出块节点地址
+            nodeName: '------', //出块节点名称
             currentTransaction: '------', //当前交易笔数
             consensusNodeAmount: '------', //共识节点数
             addressAmount: '------', //地址数

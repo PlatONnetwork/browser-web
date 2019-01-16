@@ -62,7 +62,7 @@
                                 <span>{{scope.row.energonAverage}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip width='150'>
+                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip width='230'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockReward}} Energon</span>
                             </template>

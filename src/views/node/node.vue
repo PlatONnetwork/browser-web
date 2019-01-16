@@ -17,7 +17,7 @@
                 <div class="title">
                     <div class='record '>
                         <span class='margin20'>{{$t('nodeInfo.validate')}}</span>
-                        <span class='normal'>({{$t('nodeInfo.rule')}})</span>
+                        <!-- <span class='normal'>({{$t('nodeInfo.rule')}})</span> -->
                     </div>
                     <div class="input-search">
                         <el-button type="primary" class='icon-search'  icon="el-icon-search" @click='getNodeList'></el-button>
@@ -33,7 +33,7 @@
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.name')">
                             <template slot-scope="scope">
-                                <img :src="scope.row.logo" alt="" class='images'>
+                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images'>
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
@@ -52,7 +52,7 @@
                         <el-table-column :label="$t('nodeInfo.deposit')" >
                             <template slot-scope="scope">
                                 <span>
-                                    {{scope.row.deposit}} E
+                                    {{scope.row.deposit}} Energon
                                 </span>
                             </template>
                         </el-table-column>

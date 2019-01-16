@@ -16,8 +16,8 @@
                     </li>
                     <li>
                         <el-tooltip class="item" effect="dark" placement="bottom">
-                            <div slot="content">{{currentOverViewData.node}}</div>
-                            <p class='ellipsis'>{{currentOverViewData.node}}</p>
+                            <div slot="content">{{currentOverViewData.nodeName}}</div>
+                            <p class='ellipsis'>{{currentOverViewData.nodeName}}</p>
                         </el-tooltip>
                         <!-- <p class=''>{{currentOverViewData.node}}</p> -->
                         <span>{{$t("indexInfo.node")}}</span>
@@ -84,15 +84,11 @@
                     </header>
                     <p class="p-center second-floor-text second-floor-text1">{{$t("indexInfo.transactionsperday")}}</p>
                     <p class="transactions text-center">{{$t("indexInfo.monitor")}}</p>
-                    <ul class="num-box clearfix">
+                    <ul class="num-box">
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                         <!-- secondFloorData.dayTransaction -->
                         <li v-for="(item,index) in (Array(11).join(0)+secondFloorData.dayTransaction).slice(-11).split('')" :key='index'>{{item}}</li>
-                        <!-- <li>2</li>
-                        <li>0</li>
-                        <li>2</li>
-                        <li>0</li>
-                        <li>2</li> -->
+                        
                     </ul>
                 </div>
 
@@ -101,7 +97,7 @@
                 <div class='slide-top slide-top1'></div>
                 <div class='slide-bottom slide-bottom1'>
                     <div class="floor-area">
-                        <div class="floor-area-box">
+                        <div class="floor-area-box right-space">
                             <header class="time-and-number time-and-number2">
                                 <span class='block'>Blocks</span>
                                 <div class="second-floor-text2">
@@ -123,15 +119,15 @@
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")' width="180" >
+                                <el-table-column :label='$t("indexInfo.age")'  >
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
                                 </el-table-column>
-                                 <el-table-column prop="node" :label='$t("indexInfo.node")' fit='true' show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
+                                 <el-table-column prop="node" :label='$t("indexInfo.node")' fit='true' width="100" show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="100" show-overflow-tooltip>
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="230" show-overflow-tooltip>
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
@@ -189,7 +185,7 @@
                                         </div>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label="$t('tradeAbout.value')"  width='100'show-overflow-tooltip>
+                                <el-table-column :label="$t('tradeAbout.value')"  width='150' show-overflow-tooltip>
                                     <template slot-scope="scope">
                                         <span>{{scope.row.value}} Energon</span>
                                     </template>
@@ -636,7 +632,7 @@ export default class Index extends Vue {
         border-width: 0;
     }
     .el-sameoff {
-        background: url(images/off.png) no-repeat #252c57 8px center;
+        background: url(images/off.png) no-repeat #252c57 13px center;
         color: #ffffff;
         border-width: 0;
     }
@@ -660,19 +656,19 @@ export default class Index extends Vue {
         border-width: 0;
     }
     .el-sameoff:hover {
-        background: url(images/off.png) no-repeat #252c57 8px center;
+        background: url(images/off.png) no-repeat #252c57 13px center;
         color: #ffffff;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameoff:focus {
-        background: url(images/off.png) no-repeat #252c57 8px center;
+        background: url(images/off.png) no-repeat #252c57 13px center;
         color: #ffffff;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameoff:active {
-        background: url(images/off.png) no-repeat #252c57 8px center;
+        background: url(images/off.png) no-repeat #252c57 13px center;
         color: #ffffff;
         outline: none;
         border-color: transparent;
@@ -692,6 +688,7 @@ export default class Index extends Vue {
 .p-width-center{
     text-align: center;
     width: 100% !important;
+    height: 21px !important;
 }
 </style>
 <style lang="less" scoped>
@@ -796,7 +793,7 @@ div.slider-item {
 .floor-area-box {
     // padding: 0 50px;
     width: 50%;
-    padding-right:2.6%;
+    // padding-right:2.6%;
     &:first-child{
 
     }
@@ -848,6 +845,8 @@ div.slider-item {
 }
 .num-box {
     padding: 30px 0 0;
+    display: flex;
+    justify-content: space-between;
     > li {
         margin: 0 30px 0 0;
         float: left;
@@ -917,7 +916,7 @@ div.slider-item {
     height:100px;
 }
 .slide-bottom1{
-    min-height: calc(100% - 270px);
+    min-height: calc(100% - 290px);
 }
 .time-and-number2{
     opacity: 1;
@@ -929,7 +928,7 @@ div.slider-item {
 .tmp-class{
     position: relative;
     width: 100%;
-    height: 990px;
+    height: 950px;
 }
 .tmp-class1{
     height:800px;
@@ -1086,4 +1085,7 @@ div.slider-item {
 //     }
 
 // }
+.right-space{
+    padding-right:2.6%;
+}
 </style>
