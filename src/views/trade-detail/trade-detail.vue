@@ -115,7 +115,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <!-- <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} Energon</span> 不需要转换-->
-                                    <span>{{ toNonExponential(detailInfo.actualTxCost)}} Energon</span>
+                                    <span>{{ detailInfo.actualTxCost}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -140,7 +140,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <!-- <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span> -->
-                                    <span>{{ toNonExponential(detailInfo.priceInEnergon )}} Energon ({{detailInfo.priceInE}}E)</span>
+                                    <span>{{detailInfo.priceInEnergon}} Energon ({{detailInfo.priceInE}}E)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

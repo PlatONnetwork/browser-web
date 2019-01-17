@@ -256,7 +256,8 @@ export default {
         timestamp:'时间戳',
         transactions:'交易数',
         blockreward:'区块奖励',
-        export:'导出csv'
+        export:'导出csv',
+        validator:'验证节点'
     },
     ...zhLocale
 }

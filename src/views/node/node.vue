@@ -94,7 +94,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 statusFn:{
                     '1':'candidate',
                     '2':'出块中',
-                    '3':'验证节点',
+                    '3':'validator',
                     '4':'standby'
                 },
                 descriptionProp: 'node',

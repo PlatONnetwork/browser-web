@@ -256,7 +256,8 @@ export default {
         timestamp: 'TimeStamp',
         transactions: 'Txn',
         blockreward: 'Block Reward',
-        export:'Download csv'
+        export:'Download csv',
+        validator:'Validator Node'
     },
     ...enLocale
 }

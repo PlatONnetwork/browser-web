@@ -19,7 +19,7 @@
                     <div class='record'>
                         <div class="left">
                             <p>
-                                <img :src="detailInfo.logo" alt="" class='images'>
+                                <img :src="'../static/images/'+'characters-'+detailInfo.logo+'.jpg'" alt="" class='images'>
                             </p>
                             <p>
                                 <span class='account-name'>{{detailInfo.name}} <i>({{detailInfo.location}})</i></span>
