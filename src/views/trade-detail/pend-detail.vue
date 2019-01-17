@@ -89,8 +89,10 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                    <!-- <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span> -->
+                                    <span v-if='!detailInfo.to'>{{$t('elseInfo.create')}}</span>
+                                    <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -122,7 +124,8 @@
                                     <span>{{$t('tradePendingAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span>
+                                    <!-- <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span> -->
+                                    <span>{{ toNonExponential(detailInfo.priceInEnergon )}} Energon ({{detailInfo.priceInE}}E)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -390,7 +393,7 @@ button {
     }
     .center {
         width: 80%;
-        box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
+        // box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
         background: url(images/background.png) no-repeat center;
         background-size: 100% 100%;
     }
@@ -470,11 +473,5 @@ button {
     .data {
         margin-left: 15%;
     }
-}
-</style>
-
-<style lang="less">
-.el-message--success{
-    min-width: auto
 }
 </style>

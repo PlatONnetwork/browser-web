@@ -29,7 +29,7 @@
                 </el-menu-item> -->
                 <el-menu-item index="/node">
                     <router-link to="/node">{{ $t("menu.node") }}</router-link>
-                    </el-tooltip>
+                    <!-- </el-tooltip> -->
                 </el-menu-item>
                 <el-submenu index="3">
                     <template slot="title">{{ $t("menu.more") }}</template>
@@ -263,11 +263,12 @@
         right: 0;
         left: 0;
         display: flex;
-        height: 60px;
+        height: 80px;
         z-index:99;
         padding:0 5.2%;
         margin: 0 auto;
-        background: #040B27;
+        background:url(../../../static/images/dian.png) repeat center #040b27;
+        // background: #040B27;
         align-items: center;   //居中对齐
         justify-content: space-between;   //两端对齐
         .menu{
@@ -276,7 +277,7 @@
     }
     .logo{
         display: inline-block;
-        height: 100%;
+        // height: 100%;
         width: 200px;
         overflow: hidden;
         .logo-right{
@@ -284,12 +285,12 @@
             margin-left: 42px;
         }
         .icon1{
-            padding-top: 10px;
+            // padding-top: 10px;
             padding-right: 4px;
             float: left;
         }
         .icon2{
-            padding-top: 20px;
+            padding-top: 6px;
             padding-bottom: 2px;
         }
         p{

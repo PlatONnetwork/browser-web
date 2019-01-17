@@ -88,7 +88,7 @@
                                     <span>{{$t('blockAbout.miner')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor'>{{detailInfo.miner}}</span>
+                                    <span class='normal cursor'>{{detailInfo.nodeName}}</span>
                                     <span>【{{ $t('blockAbout.in',{ timeDiff:(detailInfo.timeDiff)/1000 }) }}】</span>
                                 </el-col>
                             </el-row>
@@ -428,7 +428,7 @@ button {
     }
     .center {
         width: 80%;
-        box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
+        // box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
         background: url(images/background.png) no-repeat center;
         background-size: 100% 100%;
     }
@@ -489,14 +489,5 @@ button {
     .data {
         margin-left: 18%;
     }
-}
-</style>
-
-<style lang="less">
-.el-message--success{
-    min-width: auto
-}
-.special-input .el-textarea.is-disabled .el-textarea__inner{
-    border:inherit
 }
 </style>

@@ -41,7 +41,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="21">
-                                    <span>{{balance}} Energon</span>
+                                    <span>{{detailInfo.balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -160,8 +160,8 @@
                                             </div> -->
                                             <div class='flex-special'>
                                                 <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                                <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                                <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.receiveType == "contract"'>
+                                                <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
+                                                <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
                                                     <div slot="content">{{scope.row.to}}</div>
                                                     <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                                 </el-tooltip>
@@ -584,9 +584,6 @@
             padding:0 10px;
             border:none;
         }
-    }
-    .el-message--success{
-        min-width: auto
     }
 </style>
 

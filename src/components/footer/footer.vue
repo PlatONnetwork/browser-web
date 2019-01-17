@@ -28,13 +28,16 @@
                 <li>
                     <a href="https://t.me/PlatONHK" class="icon-link-1" target="_blank"></a>
                 </li>
-                <li>
+                <li class="wxImg">
                     <el-tooltip class="item" effect="dark" placement="top">
                         <div slot="content">
                             <img src="./images/weixin.jpg" alt="" class="wx-img">
                         </div>
-                        <a href="javascript:volid(0);" class="icon-link-2" ></a>
+                        <a href="javascript:volid(0);" class="icon-link-2" >
+                            <img src="./images/weixin.jpg" alt="" class="wx-img">
+                        </a>
                     </el-tooltip>
+                    
                 </li>
                 <li>
                     <a href="https://github.com/PlatONnetwork" class="icon-link-6" target="_blank"></a>
@@ -226,11 +229,20 @@
             }
         }
     }
+    .wxImg{
+        position: relative;
+    }
     .wx-img{
-        display: inline-block;
+        position:absolute;
+        display:none; 
         width:100px;
         height:100px;
+        bottom: 55px;
+        left: -31px;
     }
+    .wxImg:hover .wx-img{ 
+        display:inline-block; 
+    } 
     @media screen and (max-width: 1368px) {
         .link-top{
             padding-top:10px;

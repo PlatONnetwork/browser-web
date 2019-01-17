@@ -94,8 +94,11 @@
                                     <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                     <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.txType,detailInfo.to)'>{{detailInfo.to}}</span> -->
                                     <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                    <!-- 15390 如果有合约地址就显示合约地址 -->
+                                    <!-- <span v-if='detailInfo.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                    <span v-if='detailInfo.txType !== "contractCreate"' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span> -->
+                                    <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                    <span v-else >{{$t('elseInfo.create')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txReceiptStatus==0'>
@@ -111,7 +114,8 @@
                                     <span>{{$t('tradeAbout.actualTxCost')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} Energon</span>
+                                    <!-- <span>{{ toNonExponential(detailInfo.actualTxCost / Math.pow(10,18) )}} Energon</span> 不需要转换-->
+                                    <span>{{ toNonExponential(detailInfo.actualTxCost)}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -135,7 +139,8 @@
                                     <span>{{$t('tradeAbout.energonPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span>
+                                    <!-- <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span> -->
+                                    <span>{{ toNonExponential(detailInfo.priceInEnergon )}} Energon ({{detailInfo.priceInE}}E)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -491,7 +496,7 @@ button {
     }
     .center {
         width: 80%;
-        box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
+        // box-shadow: 0px 5px 19px 1px rgba(2, 4, 23, 0.3);
         background: url(images/background.png) no-repeat center;
         background-size: 100% 100%;
     }
@@ -561,9 +566,6 @@ button {
 </style>
 
 <style lang="less">
-.el-message--success{
-    min-width: auto;
-}
 .el-loading-spinner{
     // height: 50px;
     background:url(images/loading-big.gif) no-repeat center top;
@@ -572,8 +574,5 @@ button {
         font-size:12px;
         margin-top: 16px;
     }
-}
-.special-input .el-textarea.is-disabled .el-textarea__inner{
-    border:inherit
 }
 </style>

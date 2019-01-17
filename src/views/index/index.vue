@@ -104,6 +104,7 @@
                                     <p class='fl'>{{$t("indexInfo.blocks")}}</p>
                                     <p class='fr index-btn'>
                                         <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                        <!-- <el-button type="primary" class="el-same " :class="[localLang=='zh-cn'?'el-same-zh':'',isRealtimeBlock?'el-sameon':'el-sameoff']" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button> -->
                                     </p>
                                 </div>
                             </header>
@@ -124,10 +125,10 @@
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
                                 </el-table-column>
-                                 <el-table-column prop="node" :label='$t("indexInfo.node")' fit='true' width="100" show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
+                                 <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true' width="100" show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="230" show-overflow-tooltip>
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip >
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
@@ -177,8 +178,13 @@
                                 <el-table-column prop="to" label="To" >
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
-                                            <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                            <!-- <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                             <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.txType !== "contractCreate"'>
+                                                <div slot="content">{{scope.row.to}}</div>
+                                                <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                            </el-tooltip> -->
+                                            <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
+                                            <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.to'>
                                                 <div slot="content">{{scope.row.to}}</div>
                                                 <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                             </el-tooltip>
@@ -275,6 +281,7 @@ export default class Index extends Vue {
     //     // preventDocumentMove:true,//触发触摸事件时，整个页面会滚动
     //     effect:'slide',//切换效果
     // };
+    localLang:string = window.localStorage.getItem('i18nLocale');
     options: object = {
         currentPage: 0, // 当前页码
         autoplay: 0, // 自动滚动[ms]
@@ -729,7 +736,7 @@ div.slider-item {
     p {
         margin: 0 0 2px;
         // height: 45px;
-        font-size: 40px;
+        font-size: 34px;
         height: 40px;
         line-height: 40px;
         letter-spacing: 2.4px;
@@ -848,13 +855,14 @@ div.slider-item {
     display: flex;
     justify-content: space-between;
     > li {
-        margin: 0 30px 0 0;
+        margin: 0 0 0 0;
         float: left;
         width: 120px;
         height: 140px;
         background-color: rgba(20, 33, 87, 0.5);
         font-family: DINCond-Regular;
-        font-size: 100px;
+        // font-size: 100px;
+        font-size: 86px;
         line-height: 140px;
         letter-spacing: 6px;
         color: #fcff0a;
@@ -952,7 +960,8 @@ div.slider-item {
         width:102px;
         height:120px;
         line-height:120px;
-        margin:0 24px 0 0;
+        // margin:0 24px 0 0;
+        margin:0 0 0 0;
         font-size:88px;
     }
     .num-box{
@@ -986,7 +995,8 @@ div.slider-item {
         width:88px;
         height:100px;
         line-height:100px;
-        margin:0 20px 0 0;
+        // margin:0 20px 0 0;
+        margin:0 0 0 0;
         font-size:76px;
     }
     .num-box{
@@ -1013,7 +1023,8 @@ div.slider-item {
         width:82px;
         height:94px;
         line-height:94px;
-        margin:0 20px 0 0;
+        // margin:0 20px 0 0;
+        margin:0 0 0 0;
         font-size:74px;
     }
     .num-box{
@@ -1072,7 +1083,8 @@ div.slider-item {
         width:78px;
         height:91px;
         line-height:91px;
-        margin:0 18px 0 0;
+        // margin:0 18px 0 0;
+        margin:0 0 0 0;
         font-size:70px;
     }
     .num-box{
@@ -1087,5 +1099,8 @@ div.slider-item {
 // }
 .right-space{
     padding-right:2.6%;
+}
+.el-same-zh{
+    background-position:16px center!important;
 }
 </style>

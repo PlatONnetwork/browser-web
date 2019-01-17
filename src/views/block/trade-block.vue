@@ -77,8 +77,8 @@
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                    <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.txType !== "contractCreate"'>
+                                    <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
+                                    <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.to'>
                                         <div slot="content">{{scope.row.to}}</div>
                                         <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                     </el-tooltip>

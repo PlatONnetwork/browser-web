@@ -45,8 +45,8 @@
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
-                                        <div slot="content">{{scope.row.miner}}</div>
-                                        <span class='cursor normal ellipsis'>{{scope.row.miner}}</span>
+                                        <div slot="content">{{scope.row.nodeName}}</div>
+                                        <span class='cursor normal ellipsis'>{{scope.row.nodeName}}</span>
                                     </el-tooltip>
                                 </div>
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
