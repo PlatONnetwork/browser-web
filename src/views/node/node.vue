@@ -26,14 +26,14 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName" @row-click='rowClick'>
-                        <el-table-column :label="$t('nodeInfo.ranking')" width='50'>
+                        <el-table-column :label="$t('nodeInfo.ranking')" width='100'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.ranking}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.name')">
                             <template slot-scope="scope">
-                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images'>
+                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images iconImage'>
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
@@ -61,7 +61,7 @@
                                 <span>{{scope.row.blockCount}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.rewardRatio')" >
+                        <el-table-column :label="$t('nodeInfo.rewardRatio')" width="100">
                             <template slot-scope="scope">
                                 <span>{{scope.row.rewardRatio * 100}} %</span>
                             </template>
@@ -235,6 +235,9 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 }
 .images1{
     width:30px;
+}
+.iconImage{
+    border-radius: 50%
 }
 </style>
 <style lang="less">

@@ -187,7 +187,7 @@
                                             <span>{{scope.row.transaction}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label="$t('nodeInfo.blockreward')">
+                                    <el-table-column :label="$t('nodeInfo.blockreward')" width="300">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.blockReward}}Energon</span>
                                         </template>
@@ -219,7 +219,7 @@
                 statusFn:{
                     '1':'candidate',
                     '2':'出块中',
-                    '3':'验证节点',
+                    '3':'validator',
                     '4':'standby'
                 },
                 address:'',
@@ -425,21 +425,22 @@
                     }
                 }
                 .right{
-                    // width:430px;
-                    // height:26px;
-                    // padding-left:9px;
-                    // margin-top:4px;
-                    // background: rgba(48,56,104,0.30);
-                    // position: relative;
-                    // span{
-                    //     letter-spacing: 0.8px;
-                    //     color: #93A5C8;;
-                    //     line-height:26px;
-                    //     &:last-child{
-                    //         position: absolute;
-                    //         right:9px;
-                    //     }
-                    // }
+                    width:77px;
+                    height:28px;
+                    padding-left:9px;
+                    margin-top:4px;
+                    background: rgba(115,130,173,0.20);
+                    border-radius: 2px;
+                    position: relative;
+                    span{
+                        letter-spacing: 0.8px;
+                        color: #93A5C8;;
+                        line-height:28px;
+                        &:last-child{
+                            position: absolute;
+                            right:9px;
+                        }
+                    }
 
                 }
             }
@@ -560,6 +561,9 @@
         color: #ffffff;
         opacity: 1;
         letter-spacing: 1px;
+    }
+    .images{
+        border-radius: 50%;
     }
 </style>
 <style lang='less'>

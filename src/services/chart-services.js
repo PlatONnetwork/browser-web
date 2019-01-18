@@ -92,7 +92,7 @@ class ChartService {
 
     worldMapOption = {
         tooltip: {
-            show:false,
+            show:true,
             trigger: 'item'
         },
         geo: {
@@ -106,10 +106,11 @@ class ChartService {
             silent: true,
             itemStyle: {
                 normal: {
-                    areaColor: 'transparent',
-                    borderColor: '#608bce',
-                    borderWidth: 1.5,
-                    shadowColor: 'rgba(63, 218, 255, 0.3)',
+                    // areaColor: 'transparent',
+                    areaColor: '#242C51',
+                    borderColor: 'transparent',
+                    // borderWidth: 1.5,
+                    // shadowColor: 'rgba(63, 218, 255, 0.3)',
                     shadowBlur: 2
                 },
                 emphasis: {
@@ -127,7 +128,7 @@ class ChartService {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 data: [],
-                symbolSize: 8,
+                symbolSize: 6,
                 showEffectOn: 'render',
                 rippleEffect: {
                     period: 5,

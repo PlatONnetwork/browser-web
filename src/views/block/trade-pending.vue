@@ -91,7 +91,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.value')" show-overflow-tooltip>
+                        <el-table-column :label="$t('tradePendingAbout.value')" show-overflow-tooltip width='150'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} Energon</span>
                             </template>

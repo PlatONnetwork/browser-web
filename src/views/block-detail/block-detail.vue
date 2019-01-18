@@ -88,7 +88,7 @@
                                     <span>{{$t('blockAbout.miner')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor'>{{detailInfo.nodeName}}</span>
+                                    <span class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
                                     <span>【{{ $t('blockAbout.in',{ timeDiff:(detailInfo.timeDiff)/1000 }) }}】</span>
                                 </el-col>
                             </el-row>
@@ -379,6 +379,16 @@ export default {
                 path: '/trade-block',
                 query: {
                     height: height,
+                },
+            });
+        },
+        // 跳转到节点区块
+        goNodeDetail(nodeId) {
+            this.$router.push({
+                path: '/node-detail',
+                query: {
+                    cid: this.chainId,
+                    nodeId: nodeId,
                 },
             });
         },
