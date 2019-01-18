@@ -311,7 +311,8 @@
             //获取区块列表信息
             getList(){
                 let param = {
-                    address:this.address
+                    // address:this.address 入参改为nodeId
+                    nodeId:this.detailInfo.nodeId
                 };
                 apiService.node.blockList(param).then(res=>{
                     let {errMsg,code,data}=res;
