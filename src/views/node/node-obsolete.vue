@@ -1,5 +1,5 @@
 <template>
-    <div class="node-wrap">
+    <div class="node-obsolete-wrap">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
@@ -9,39 +9,14 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>{{$t('nodeInfo.validatorNode')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('nodeInfo.obsoleteNode')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
-
-            <ul class="validator-Node">
-                <li>
-                    <p class="color1 cursor">{{statusFn[1]}}</p>
-                    <span>{{$t("nodeInfo.ratio")}}</span>
-                </li>
-                <li>
-                    <span>{{$t("nodeInfo.blockReward")}}</span>
-                </li>
-                <li>
-                    <!-- <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p> -->
-                    <p class="color-red cursor" >1 <span class="subsize">ATP</span></p>
-                    <span>{{$t("nodeInfo.ticketPrice")}}</span>
-                </li>
-                <li>
-                    <!-- <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p> -->
-                    <span>{{$t("nodeInfo.validatorNode")}}</span>
-                </li>
-                <li>
-                    <!-- <p>{{currentOverViewData.addressAmount}}</p> -->
-                    <span>{{$t("nodeInfo.minMaxstaked")}}</span>
-                </li>
-            </ul>
-
             <div class="bottom">
                 <div class="title">
                     <div class='record '>
                         <span class='margin20'>{{$t('nodeInfo.validate')}}</span>
-                        <!-- <span class='normal'>({{$t('nodeInfo.rule')}})</span>  去掉竞选规则-->
                     </div>
                     <div class="input-search">
                         <el-button type="primary" class='icon-search'  icon="el-icon-search" @click='getNodeList'></el-button>
@@ -114,7 +89,7 @@ import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
     export default {
         //组件名
-        name: 'node-wrap',
+        name: 'node-obsolete-wrap',
         //实例的数据对象
         data () {
             return {
@@ -221,7 +196,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 </script>
 
 <style lang="less" scoped>
-.node-wrap {
+.node-obsolete-wrap {
     .bottom {
         padding: 26px 0 28px;
         .title {

@@ -34,13 +34,13 @@
                                 <el-col :span="3">
                                     <span class='row-title'>{{$t('totalInfo.overview')}}</span>
                                 </el-col>
-                                <el-col :span="21"></el-col>
+                                <el-col :span="4"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="3">
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
-                                <el-col :span="21">
+                                <el-col :span="4">
                                     <span>{{detailInfo.balance}} Energon</span>
                                 </el-col>
                             </el-row>
@@ -48,41 +48,42 @@
                                 <el-col :span="3">
                                     <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
-                                <el-col :span="21">
+                                <el-col :span="4">
                                     <span>{{detailInfo.tradeCount}}</span>
                                 </el-col>
                             </el-row>
                         </div>
-                        <!-- <div class="right">
+                        <div class="center-blank"></div>
+                        <div class="right">
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
-                                    <span class='row-title'>{{$t('totalInfo.votes')}}</span>
+                                <el-col :span="3">
+                                    <span class='row-title'>{{$t('totalInfo.others')}}</span>
                                 </el-col>
-                                <el-col :span="20"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
-                                <el-col :span="20">
-                                    <span>{{detailInfo.votePledge || 0}}E</span>
+                                <el-col :span="4">
+                                    <span>{{detailInfo.votePledge || 0}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
-                                <el-col :span="20">
-                                    <span>{{detailInfo.nodeCount}}</span>
+                                <el-col :span="4">
+                                    <span>{{detailInfo.trades.voteNumber || 0}}</span>
                                 </el-col>
                             </el-row>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="data-detail">
-                    <ul class="ul-nav">
+                    <ul class="ul-nav cursor">
                         <li :class="{active: activeTab == 1}" @click="changeTab(1)">{{$t('totalInfo.transactions')}}</li>
-                        <!-- <li :class="{active: activeTab == 2}" @click="changeTab(2)">{{$t('totalInfo.votes')}}</li> -->
+                        <li :class="{active: activeTab == 2}" @click="changeTab(2)">{{$t('totalInfo.votes')}}</li>
+                        <li :class="{active: activeTab == 3}" @click="changeTab(3)">{{$t('totalInfo.dectarations')}}</li>
                     </ul>
                     <div class="data">
                         <div v-if='activeTab == 1'>
@@ -190,7 +191,161 @@
                                 </el-table>
                             </div>
                         </div>
-                        <div v-if='activeTab == 2'></div>
+                        <div v-if='activeTab == 2'>
+                            <div class='data-top'>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='search-address'>
+                                    <!-- <span class='count types'>Type：</span>
+                                    <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
+                                        <el-option
+                                            v-for="item in typeList"
+                                            :key="item.value"
+                                            :label="$t('elseInfo.'+item.label)"
+                                            :value="item.value">
+                                        </el-option>
+                                    </el-select> -->
+                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
+                                </div>
+                            </div>
+                            <div class="table">
+                                <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
+                                    <el-table-column :label='$t("totalInfo.txHash")' >
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                                                    <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
+                                                    <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                                                </el-tooltip>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.txHash}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='180'>
+                                        <template slot-scope="scope">
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.voteFor")' width='100'>
+                                        <template slot-scope="scope">
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='300'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.from}}</div>
+                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.ticketPrice")' width='300'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                                <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
+                                                <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
+                                                    <div slot="content">{{scope.row.to}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                </el-tooltip>
+                                                <el-tooltip class="item" effect="dark" placement="top"  v-else>
+                                                    <div slot="content">{{scope.row.to}}</div>
+                                                    <span class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.votesStaked")' show-overflow-tooltip width="150px">
+                                        <template slot-scope="scope">
+                                            <span>{{scope.row.value}} Energon</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.profit")' show-overflow-tooltip width="150px">
+                                        <template slot-scope="scope">
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.txFee")' show-overflow-tooltip width="150px">
+                                        <template slot-scope="scope">
+                                            <span>{{scope.row.value}} Energon</span>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </div>
+                        <div v-if='activeTab == 3'>
+                            <div class='data-top'>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='search-address'>
+                                    <span class='count types'>Type：</span>
+                                    <el-select v-model="dectarationType"  class="margin20" style='width:150px;' @change='getDetail'>
+                                        <el-option
+                                            v-for="item in dectarationList"
+                                            :key="item.value"
+                                            :label="$t('elseInfo.'+item.label)"
+                                            :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                    <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
+                                </div>
+                            </div>
+                            <div class="table">
+                                <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
+                                    <el-table-column :label='$t("totalInfo.txHash")' >
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                                                    <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
+                                                    <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                                                </el-tooltip>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.txHash}}</div>
+                                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='180'>
+                                        <template slot-scope="scope">
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.txType")' width='100'>
+                                        <template slot-scope="scope">
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.nodeName")'  width='300'>
+                                        <template slot-scope="scope">
+                                            <div class='flex-special'>
+                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                    <div slot="content">{{scope.row.from}}</div>
+                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                                </el-tooltip>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.staked")' show-overflow-tooltip width="150px">
+                                        <template slot-scope="scope">
+                                            <span>{{scope.row.staked}} Energon</span>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip width="150px">
+                                        <template slot-scope="scope">
+                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
+                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -216,13 +371,22 @@
                 balance:'',
                 count:0,
                 activeTab:1,
-                type:'transfer',
+                selectAll:[],
+                type:'send',
+                dectarationType:'validatorStake',
                 typeList:[
-                    {label:'transfer',value:'transfer'},
-                    {label:'vote',value:'vote'},
+                    // {label:'transfer',value:'transfer'}, 4.0转账细分发送和接收，投票独立
+                    {label:'All',value:'All'},
+                    {label:'send',value:'send'},
+                    {label:'receive',value:'receive'},
                     {label:'contractCreate',value:'contractCreate'},
                     {label:'transactionExecute',value:'transactionExecute'},
                     {label:'MPCtransaction',value:'MPCtransaction'},
+                ],
+                dectarationList:[
+                    {label:'validatorStake',value:'validatorStake'},
+                    {label:'reduceStake',value:'reduceStake'},
+                    {label:'withdrawStake',value:'withdrawStake'},
                 ],
                 txTypeFn: {
                     transfer : 'transfer',
@@ -485,22 +649,25 @@
             .view{
                 margin:30px 40px;
                 margin-bottom:0;
-                padding:10px;
-                background: #0F133A;
+                // padding:10px;
+                background: #0C1035;
                 overflow:hidden;
+                display: flex;
                 .left,.right{
-                    // width:50%;
                     width:100%;
+                    padding: 10px;
+                    background: #0F133A;
+                    border-radius: 4px;
                     .el-row{
                         margin-bottom:12px;
                     }
                 }
-                .left{
-                    float:left;
-                }
-                .right{
-                    float:right;
-                }
+                // .left{
+                //     float:left;
+                // }
+                // .right{
+                //     float:right;
+                // }
                 .row-title{
                     font-family: ArialMT;
                     color: #FFFFFF;
@@ -509,7 +676,7 @@
                     font-size: 12px;
                     color: #93A5C8;
                 }
-                .el-col-21{
+                .el-col-4{
                     font-size: 12px;
                     color: #D7DDE9;
                 }
@@ -527,6 +694,9 @@
                 border: 1px solid #252C57;
                 &:first-child{
                     border-right:none;
+                }
+                &:last-child{
+                    border-left:none;
                 }
             }
             .active{
@@ -566,6 +736,10 @@
                 }
             }
         }
+    }
+    .center-blank{
+        width: 40px;
+        background: #0C1035;
     }
 
 </style>

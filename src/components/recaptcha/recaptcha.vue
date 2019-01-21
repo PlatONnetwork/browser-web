@@ -49,6 +49,7 @@
                         // this.forIframe = true;
                     }else if(this.is_timeout){
                         // this.$message.error(this.$t('menu.goole'))
+                        this.$message.warning(123)
                         this.updateApiStatus(false)
                     }
                     this.is_timeout = false;

@@ -27,11 +27,22 @@
                     <span>{{ $t("menu.node") }}</span>
                     </el-tooltip>
                 </el-menu-item> -->
-                <el-menu-item index="/node">
+                <!-- <el-menu-item index="/node">
                     <router-link to="/node">{{ $t("menu.node") }}</router-link>
-                    <!-- </el-tooltip> -->
-                </el-menu-item>
+                </el-menu-item> -->
                 <el-submenu index="3">
+                    <template slot="title">{{ $t("menu.node") }}</template>
+                    <!-- <el-menu-item index="/wallet">
+                        <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
+                    </el-menu-item> -->
+                    <el-menu-item index="/node">
+                        <router-link to="/node">{{ $t("menu.nodeItem.validatorNode") }}</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/node-obsolete">
+                        <router-link to="/node-obsolete">{{ $t("menu.nodeItem.obsoleteNode") }}</router-link>
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="4">
                     <template slot="title">{{ $t("menu.more") }}</template>
                     <!-- <el-menu-item index="/wallet">
                         <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
@@ -301,7 +312,7 @@
         }
     }
     .el-menu-demo{
-        width: 380px;
+        width: 400px;
         // border: 0px;
         // border-bottom-color: #040B27;
         li.el-menu-item.is-active{

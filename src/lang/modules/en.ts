@@ -9,6 +9,10 @@ export default {
             viewBlocks: 'View Blocks'
         },
         node: 'Node',
+        nodeItem:{
+            validatorNode:'Validator Node',
+            obsoleteNode:'Obsolete Node',
+        },
         more: 'More',
         moreItem: {
             wallet: 'Wallet',
@@ -139,6 +143,8 @@ export default {
         balance: 'Balance',
         transactions: 'Transactions',
         votes: 'Votes',
+        voteFor:'Vote for',
+        dectarations:'Dectarations',
         votesNodes: 'Vote Nodes',
         votesStaked: 'Vote Staked',
         pendtransaction: 'pending Transactions',
@@ -154,7 +160,15 @@ export default {
         info1: 'Contract Info',
         else: 'Other',
         contractcreator: 'Contract Creator',
-        contractowner: 'Contract Owner'
+        contractowner: 'Contract Owner',
+        nodeName:'Node Name',
+        staked:'Staked',
+        validInvaildTickets:'Valid/Invalid Tickets',
+        ticketPrice:'Ticket Price',
+        profit:'Profit',
+        txFee:'Txfee',
+        others:'Others',
+        validTickets:'Valid Tickets'
     },
     download: {
         info: 'Download Data',
@@ -163,7 +177,8 @@ export default {
         placeholder: 'Select a date',
         download: 'Download',
         placeholder1: 'Please select date',
-        robot: 'Please verify that you are a robot!'
+        robot: 'Please verify that you are a robot!',
+        googleAPINotAvailable:'Google reCAPTCHA is not available！'
     },
     elseInfo: {
         transfer: 'Transfer',
@@ -179,7 +194,12 @@ export default {
         minutes: 'm ',
         seconds: 's ',
         day: 'd ',
-        loading: 'Loading...'
+        loading: 'Loading...',
+        validatorStake:'Validator Stake',
+        reduceStake:'Reduce Stake',
+        withdrawStake:'Withdraw Stake',
+        send:'Send',
+        receive:'Receive'
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',
@@ -245,7 +265,7 @@ export default {
         nodeblock: 'Produced Blocks',
         baseinfo: 'Basic Information',
         nodeaddress: 'Node URL',
-        nodepublickey: 'Node Public Key',
+        nodepublickey: 'Node ID',
         nodewallet: 'Node Wallet',
         nodedes: 'Node Introduction',
         plan: 'Profit Plan',
@@ -257,7 +277,16 @@ export default {
         transactions: 'Txn',
         blockreward: 'Block Reward',
         export:'Download csv',
-        validator:'Validator Node'
+        validator:'Validator Node',
+        ratio:'Tickets/Ratio',
+        blockReward:'Block Reward',
+        ticketPrice:'Ticket Price',
+        validatorNode:'Validator Node',
+        obsoleteNode:'Obsolete Node',
+        minMaxstaked:'Minimum/maximum Staked',
+        selected:'Selected',
+        tickets:'Tickets',
+        ticketage:'Ticket Age'
     },
     ...enLocale
 }

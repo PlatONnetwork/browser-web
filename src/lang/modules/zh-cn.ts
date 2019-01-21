@@ -9,6 +9,10 @@ export default {
             viewBlocks: '查看区块'
         },
         node: '节点',
+        nodeItem:{
+            validatorNode:'竞选节点',
+            obsoleteNode:'历史节点',
+        },
         more: '更多',
         moreItem: {
             wallet: '钱包',
@@ -139,6 +143,8 @@ export default {
         balance:'余额',
         transactions:'交易',
         votes:'投票',
+        voteFor:'投票给',
+        dectarations:'竞选',
         votesNodes:'投票节点数',
         votesStaked:'投票质押',
         pendtransaction:'个待处理交易',
@@ -155,6 +161,14 @@ export default {
         else:'其他',
         contractcreator:'合约开发者',
         contractowner:'合约拥有者',
+        nodeName:'节点名称',
+        staked:'质押金',
+        validInvaildTickets:'有效票/投票数',
+        ticketPrice:'票价',
+        profit:'收益',
+        txFee:'交易费用',
+        others:'其他',
+        validTickets:'有效票'
     },
     download:{
         info:'下载数据',
@@ -163,7 +177,8 @@ export default {
         placeholder:'选择日期',
         download:'下载',
         placeholder1:'请选择日期',
-        robot:'请验证您是否是机器人！'
+        robot:'请验证您是否是机器人！',
+        googleAPINotAvailable:'Google reCAPTCHA无法获取！'
     },
     elseInfo:{
         transfer:'转账',
@@ -179,7 +194,12 @@ export default {
         minutes:'分',
         seconds:'秒',
         day:'天',
-        loading:'加载中...'
+        loading:'加载中...',
+        validatorStake:'竞选质押',
+        reduceStake:'减持质押',
+        withdrawStake:'提取质押',
+        send:'发送',
+        receive:'接收'
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',
@@ -245,7 +265,7 @@ export default {
         nodeblock:'节点出的区块',
         baseinfo:'基本信息',
         nodeaddress:'节点地址',
-        nodepublickey:'节点公钥',
+        nodepublickey:'节点ID',
         nodewallet:'节点钱包',
         nodedes:'节点简介',
         plan:'收益计划',
@@ -257,7 +277,16 @@ export default {
         transactions:'交易数',
         blockreward:'区块奖励',
         export:'导出csv',
-        validator:'验证节点'
+        validator:'验证节点',
+        ratio:'投票数/占比',
+        blockReward:'每区块奖励',
+        ticketPrice:'票价',
+        validatorNode:'竞选节点',
+        obsoleteNode:'历史节点',
+        minMaxstaked:'最低/最高质押',
+        selected:'中选次数',
+        tickets:'得票数',
+        ticketage:'票龄'
     },
     ...zhLocale
 }

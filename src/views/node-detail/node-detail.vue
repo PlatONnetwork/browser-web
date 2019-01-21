@@ -37,8 +37,8 @@
                                 <span>{{detailInfo.deposit}} Energon</span>
                             </p>
                             <p>
-                                <span>{{$t('nodeInfo.blocks')}}</span>
-                                <span>{{detailInfo.blockCount}}</span>
+                                <span>{{$t('nodeInfo.selected')}}</span>
+                                <span>{{detailInfo.selected}}</span>
                             </p>
                         </div>
                         <div>
@@ -47,14 +47,26 @@
                                 <span>{{detailInfo.rewardRatio * 100}}%</span>
                             </p>
                             <p>
-                                <span>{{$t('nodeInfo.averagetime')}}</span>
-                                <span>{{detailInfo.avgBlockTime}}s</span>
+                                <span>{{$t('nodeInfo.blocks')}}</span>
+                                <span>{{detailInfo.blockCount}}</span>
                             </p>
+                            
                         </div>
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.stakedrank')}}</span>
                                 <span>{{detailInfo.ranking}}</span>
+                            </p>
+                            <p>
+                                <span>{{$t('nodeInfo.averagetime')}}</span>
+                                <span>{{detailInfo.avgBlockTime}}s</span>
+                            </p>
+                            
+                        </div>
+                        <div>
+                            <p>
+                                <span>{{$t('nodeInfo.totalincome')}}</span>
+                                <span>{{detailInfo.profitAmount}} Energon</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.totalreward')}}</span>
@@ -63,8 +75,12 @@
                         </div>
                         <div>
                             <p>
-                                <span>{{$t('nodeInfo.totalincome')}}</span>
-                                <span>{{detailInfo.profitAmount}} Energon</span>
+                                <span>{{$t('nodeInfo.tickets')}}</span>
+                                <span>{{detailInfo.tickets}} Energon</span>
+                            </p>
+                            <p>
+                                <span>{{$t('nodeInfo.ticketage')}}</span>
+                                <span>{{detailInfo.ticketage}} Energon</span>
                             </p>
                         </div>
                     </div>
