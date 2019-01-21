@@ -92,8 +92,11 @@ class ChartService {
 
     worldMapOption = {
         tooltip: {
-            show:false,
-            trigger: 'item'
+            show:true,
+            trigger: 'item',
+            formatter:function(params){
+                console.warn('params>>>>',params)
+            }
         },
         geo: {
             map: 'world',
