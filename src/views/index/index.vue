@@ -2,7 +2,7 @@
     <div class="index">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn' class='header-special'></com-header>
         <div ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit' v-scroll="mousewheel">
-            <div class="tmp-class">
+            <div class="tmp-class compatibility">
                 <div v-show="isWorldMap" class="world-map world-map1">
                     <div ref="worldMap" class="world-map"></div>
                 </div>
@@ -48,7 +48,7 @@
                 <!-- UI去掉球形展示 -->
                 <!-- <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div> -->
             </div>
-            <div class="second-floor tmp-class tmp-class1">
+            <div class="second-floor tmp-class1">
                 <div class='slide-top'></div>
                 <div class='slide-bottom'>
                     <!-- <header class="time-and-number">
@@ -103,7 +103,10 @@
                                 <div class="second-floor-text2">
                                     <p class='fl'>{{$t("indexInfo.blocks")}}</p>
                                     <p class='fr index-btn'>
-                                        <el-button type="primary" class="el-same " :class="isRealtimeBlock?'el-sameon':'el-sameoff'" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                        <el-button type="primary" class="el-same"  @click="changeRealtimeBlock">
+                                            <span class='icon-Realtime' :class="isRealtimeBlock?'el-sameon':'el-sameoff'"></span>
+                                            <span :class="isRealtimeBlock?'el-sameon-text':'el-sameoff-text'">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</span>
+                                        </el-button>
                                         <!-- <el-button type="primary" class="el-same " :class="[localLang=='zh-cn'?'el-same-zh':'',isRealtimeBlock?'el-sameon':'el-sameoff']" @click="changeRealtimeBlock">{{ isRealtimeBlock?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button> -->
                                     </p>
                                 </div>
@@ -115,25 +118,30 @@
                                 </p>
                             </div> -->
                             <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="height" :label='$t("indexInfo.height")'  width="100">
+                                <el-table-column prop="height" :label='$t("indexInfo.height")'  width="150">
                                     <template slot-scope="scope">
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")'  >
+                                <el-table-column :label='$t("indexInfo.age")' width="200">
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
                                 </el-table-column>
-                                 <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true' width="100" show-overflow-tooltip ></el-table-column> <!-- 去掉：当内容过长被隐藏时显示 show-overflow-tooltip -->
+                                <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true'  show-overflow-tooltip >
+                                    <template slot-scope="scope">
+                                        <span class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                    </template>
+                                </el-table-column>
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip >
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip width="230">
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
                                 </el-table-column>
                             </el-table>
+
                             <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
                         </div>
                         <div class="floor-area-box">
@@ -142,7 +150,10 @@
                                 <div class="second-floor-text2">
                                     <p class='fl'>{{$t("indexInfo.transactions")}}</p>
                                     <p class='fr index-btn'>
-                                        <el-button type="primary" class="el-same" :class="isRealtimeTrade?'el-sameon':'el-sameoff'" @click="changeRealtimeTrade">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</el-button>
+                                        <el-button type="primary" class="el-same"  @click="changeRealtimeTrade">
+                                            <span class='icon-Realtime' :class="isRealtimeTrade?'el-sameon':'el-sameoff'"></span>
+                                            <span :class="isRealtimeTrade?'el-sameon-text':'el-sameoff-text'">{{ isRealtimeTrade?$t('indexInfo.realtime'):$t('indexInfo.cancel')}}</span>
+                                        </el-button>
                                     </p>
                                 </div>
                             </header>
@@ -439,6 +450,17 @@ export default class Index extends Vue {
             },
         });
     }
+    goNodeDetail(index, row) {
+        console.log(row,'hufu')
+        this.$router.push({
+            path: '/node-detail',
+            query: {
+                // nodeName: row.nodeName,
+                cid:this.chainId,
+                nodeId:row.nodeId,
+            },
+        });
+    }
     //进入交易哈希详情
     goTradeDetail(index, row) {
         this.$router.push({
@@ -628,54 +650,55 @@ export default class Index extends Vue {
         border-color: transparent;
         width: 90px;
         padding: 12px 0;
-        span {
-            padding-left: 15px;
-            font-size: 14px;
-        }
+        background:#252c57;
+        // span {
+        //     // padding-left: 15px;
+        //     font-size: 14px;
+        // }
     }
     .el-sameon {
-        background: url(images/on.png) no-repeat #252c57 8px center;
+        background: url(images/on.png) no-repeat #252c57 center bottom;
         color: #ffff00;
         border-width: 0;
     }
     .el-sameoff {
-        background: url(images/off.png) no-repeat #252c57 13px center;
+        background: url(images/off.png) no-repeat #252c57 center bottom;
         color: #ffffff;
         border-width: 0;
     }
     .el-sameon:hover {
-        background: url(images/on.png) no-repeat #252c57 8px center;
+        background: url(images/on.png) no-repeat #252c57 center bottom;
         color: #ffff00;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameon:focus {
-        background: url(images/on.png) no-repeat #252c57 8px center;
+        background: url(images/on.png) no-repeat #252c57 center bottom;
         color: #ffff00;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameon:active {
-        background: url(images/on.png) no-repeat #252c57 8px center;
+        background: url(images/on.png) no-repeat #252c57 center bottom;
         color: #ffff00;
         outline: none;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameoff:hover {
-        background: url(images/off.png) no-repeat #252c57 13px center;
+        background: url(images/off.png) no-repeat #252c57 center bottom;
         color: #ffffff;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameoff:focus {
-        background: url(images/off.png) no-repeat #252c57 13px center;
+        background: url(images/off.png) no-repeat #252c57 center bottom;
         color: #ffffff;
         border-color: transparent;
         border-width: 0;
     }
     .el-sameoff:active {
-        background: url(images/off.png) no-repeat #252c57 13px center;
+        background: url(images/off.png) no-repeat #252c57 center bottom;
         color: #ffffff;
         outline: none;
         border-color: transparent;
@@ -822,7 +845,7 @@ div.slider-item {
 .chart-aside {
     // width: 163+89+88px;
     // height: 415px;
-    font-family: DINCond-Regular;
+    // font-family: DINCond-Regular;
     li {
         // padding: 10px 0 87px 88px;
         padding: 10px 0 48px 88px;
@@ -939,6 +962,8 @@ div.slider-item {
     height: 950px;
 }
 .tmp-class1{
+    position: relative;
+    width: 100%;
     height:800px;
 }
 @media screen and (max-width: 1680px) {
@@ -970,9 +995,7 @@ div.slider-item {
     .slide-top1{
         height:75px;
     }
-    .slide-bottom1{
-        min-height: calc(100% - 245px);
-    }
+    
 
 
 }
@@ -1002,7 +1025,18 @@ div.slider-item {
     .num-box{
         padding-top:10px;
     }
-
+    .slide-bottom1{
+        height: 560px
+    }
+    .time-and-number {
+        margin-top: 30px;
+    }
+    .second-floor {
+        height: 605px;
+    }
+    .tmp-class{
+        height: 685px;
+    }
 }
 @media screen and (max-width: 1368px) {
     .footer-box p{
@@ -1031,13 +1065,13 @@ div.slider-item {
         padding-top:10px;
     }
     .slide-top{
-        height:70px;
+        height:0;
     }
     .second-floor-text1{
         top:475px;
     }
     .slide-top1{
-        height:70px;
+        height:0;
     }
     .footerss{
         height:177px;
@@ -1059,10 +1093,7 @@ div.slider-item {
     .transactions{
         line-height:20px;
     }
-    .tmp-class{
-        width: 100%;
-        height: 720px;
-    }
+    
 }
 @media screen and (max-width: 1280px) {
     .footer-box p{
@@ -1100,7 +1131,27 @@ div.slider-item {
 .right-space{
     padding-right:2.6%;
 }
-.el-same-zh{
-    background-position:16px center!important;
+// .el-same-zh{
+//     background-position:16px center!important;
+// }
+.icon-Realtime{
+    width: 12px;
+    height: 15px;
+    display: inline-block;
+}
+
+.el-sameon-text{
+    color: #ffff00
+}
+.el-sameoff-text{
+    color: #ffffff
+}
+</style>
+
+<style lang="less" scoped>
+.el-button--primary{
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 </style>

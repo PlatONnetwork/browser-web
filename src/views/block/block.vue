@@ -25,28 +25,28 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.height')" width='150'>
+                        <el-table-column :label="$t('blockAbout.height')" width='180'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')" width='180'>
+                        <el-table-column :label="$t('blockAbout.age')" width='260'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')" width='150'></el-table-column>
+                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')" width='180'></el-table-column>
                         <el-table-column prop="size" :label="$t('blockAbout.size')" width='180'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.miner')" >
+                        <el-table-column :label="$t('blockAbout.miner')" width='260'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.nodeName}}</div>
-                                        <span class='cursor normal ellipsis'>{{scope.row.nodeName}}</span>
+                                        <span class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                     </el-tooltip>
                                 </div>
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
@@ -62,7 +62,7 @@
                                 <span>{{scope.row.energonAverage}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip width='230'>
+                        <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip >
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockReward}} Energon</span>
                             </template>
@@ -176,6 +176,16 @@ export default {
                 },
             });
         },
+        goNodeDetail(index, row) {
+            this.$router.push({
+                path: '/node-detail',
+                query: {
+                    // nodeName: row.nodeName,
+                    cid:this.chainId,
+                    nodeId:row.nodeId,
+                },
+            });
+        }
     },
     //生命周期函数
     created() {
