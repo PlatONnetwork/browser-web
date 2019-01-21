@@ -44,6 +44,7 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         transactionDetailNavigate:`${TRADE_URL}transactionDetailNavigate`,
         pendingDetailNavigate:`${TRADE_URL}pendingDetailNavigate`,
         blockTransaction:`${TRADE_URL}blockTransaction`,
+        voteList:`${TRADE_URL}voteList`,
     },
     // TRADE
     ACCOUNT = {

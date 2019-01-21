@@ -46,6 +46,7 @@ class ApiService {
             transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
             pendingDetailNavigate: this.post.bind(this, API.TRADE.pendingDetailNavigate),
             blockTransaction: this.post.bind(this, API.TRADE.blockTransaction),
+            voteList: this.post.bind(this, API.TRADE.voteList),
         }
         this.account = {
             accountDetails: this.post.bind(this, API.ACCOUNT.accountDetails),

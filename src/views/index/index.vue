@@ -88,7 +88,7 @@
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                         <!-- secondFloorData.dayTransaction -->
                         <li v-for="(item,index) in (Array(11).join(0)+secondFloorData.dayTransaction).slice(-11).split('')" :key='index'>{{item}}</li>
-                        
+
                     </ul>
                 </div>
 
@@ -159,7 +159,7 @@
                             </header>
 
                             <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='190'>
+                                <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='210'>
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
                                             <el-tooltip class="item" effect="dark" placement="top">
@@ -179,7 +179,7 @@
                                         </div>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="" width="40">
+                                <!-- <el-table-column label="" width="40">
                                     <template slot-scope="scope">
                                         <span>
                                             <i class='iconfont icon--icon-to iconto'></i>
@@ -189,17 +189,17 @@
                                 <el-table-column prop="to" label="To" >
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
-                                            <!-- <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                            <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.txType !== "contractCreate"'>
-                                                <div slot="content">{{scope.row.to}}</div>
-                                                <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                            </el-tooltip> -->
                                             <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
                                             <el-tooltip class="item" effect="dark" placement="top" v-if='scope.row.to'>
                                                 <div slot="content">{{scope.row.to}}</div>
                                                 <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                             </el-tooltip>
                                         </div>
+                                    </template>
+                                </el-table-column> -->
+                                <el-table-column label="类型"  width="150">
+                                    <template slot-scope="scope">
+                                        <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column :label="$t('tradeAbout.value')"  width='150' show-overflow-tooltip>
@@ -278,7 +278,18 @@ export default class Index extends Vue {
     isRealtimeTrade: boolean = false;
     descriptionProp: string = '';
     isWorldMap: boolean = true;
-
+    txTypeFn: object={
+        transfer : 'transfer',
+        MPCtransaction : 'MPCtransaction',
+        contractCreate : 'contractCreate',
+        vote : 'vote',
+        transactionExecute :'transactionExecute',
+        authorization :'authorization',
+        candidateDeposit :'candidateDeposit',
+        candidateApplyWithdraw :'candidateApplyWithdraw',
+        candidateWithdraw :'candidateWithdraw',
+        unknown :'unknown'
+    };
     // 滑动配置[obj]
     // options: object = {
     //     currentPage: 0, // 当前页码
@@ -995,7 +1006,7 @@ div.slider-item {
     .slide-top1{
         height:75px;
     }
-    
+
 
 
 }
@@ -1093,7 +1104,7 @@ div.slider-item {
     .transactions{
         line-height:20px;
     }
-    
+
 }
 @media screen and (max-width: 1280px) {
     .footer-box p{

@@ -179,7 +179,14 @@ export default {
         minutes:'分',
         seconds:'秒',
         day:'天',
-        loading:'加载中...'
+        loading:'加载中...',
+        candidateDeposit:'竞选质押',
+        candidateApplyWithdraw:'减持质押',
+        candidateWithdraw:'提取质押',
+        unknown:'未知',
+        normalVote:'中选票',
+        houxuanVote:'候选中',
+        guoqiVote:'已过期'
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',

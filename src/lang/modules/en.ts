@@ -179,7 +179,14 @@ export default {
         minutes: 'm ',
         seconds: 's ',
         day: 'd ',
-        loading: 'Loading...'
+        loading: 'Loading...',
+        candidateDeposit:'ValidatorStake',
+        candidateApplyWithdraw:'ReduceStake',
+        candidateWithdraw:'WithdrawStake',
+        unknown:'unknown',
+        normalVote:'Selected',
+        houxuanVote:'Candidate',
+        guoqiVote:'Expired'
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',
