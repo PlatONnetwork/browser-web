@@ -55,7 +55,29 @@ export const index: object = {
         ],
         chartData: [],
         earthData:[],
-        mapData:[]
+        mapData:[
+            {
+               "longitude": "118.1",//经度
+               "latitude":"24.46",//纬度
+               "nodeType":1,//节点状态：1-共识节点 2-非共识
+               "netState":1 ,//节点状态 1 正常 2 异常
+               "nodeName":1
+            },
+            {
+               "longitude": "118.1",//经度
+               "latitude":"24.46",//纬度
+                  "nodeType":1,//节点状态：1-共识节点 2-非共识
+               "netState":1 ,//节点状态 1 正常 2 异常
+               "nodeName":2
+            },
+            {
+               "longitude": "118.1",//经度
+               "latitude":"24.46",//纬度
+               "nodeType":1,//节点状态：1-共识节点 2-非共识
+               "netState":1 ,//节点状态 1 正常 2 异常
+               "nodeName":3
+            },
+        ]
     },
     actions: indexAction,
     getters: indexGetter,
