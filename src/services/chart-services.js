@@ -93,7 +93,10 @@ class ChartService {
     worldMapOption = {
         tooltip: {
             show:true,
-            trigger: 'item'
+            trigger: 'item',
+            formatter:function(params,ticket,callback){
+                console.log('params>>>',params)
+            }
         },
         geo: {
             map: 'world',

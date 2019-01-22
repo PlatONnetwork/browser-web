@@ -88,7 +88,7 @@
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                         <!-- secondFloorData.dayTransaction -->
                         <li v-for="(item,index) in (Array(11).join(0)+secondFloorData.dayTransaction).slice(-11).split('')" :key='index'>{{item}}</li>
-                        
+
                     </ul>
                 </div>
 
@@ -509,10 +509,25 @@ export default class Index extends Vue {
         data.forEach((item)=>{
             if(item.netState===1){
                 //正常 判断是否是共识节点
-                item.nodeType===1?nodeNormal.push([item.longitude,item.latitude]):normal.push([item.longitude,item.latitude])
+                // item.nodeType===1?nodeNormal.push([item.longitude,item.latitude]):normal.push([item.longitude,item.latitude])
+                if(item.nodeType===1){
+                    nodeNormal.push({
+                        name:item.nodeName,
+                        value:[item.longitude,item.latitude]
+                    })
+                }else{
+                    normal.push({
+                        name:item.nodeName,
+                        value:[item.longitude,item.latitude]
+                    })
+                }
             }else if(item.netState===2){
                 //异常
-                annormal.push([item.longitude,item.latitude])
+                //annormal.push([item.longitude,item.latitude])
+                annormal.push({
+                    name:item.nodeName,
+                    value:[item.longitude,item.latitude]
+                })
             }
         });
         console.warn("nodeNormal",nodeNormal)
@@ -995,7 +1010,7 @@ div.slider-item {
     .slide-top1{
         height:75px;
     }
-    
+
 
 
 }
@@ -1093,7 +1108,7 @@ div.slider-item {
     .transactions{
         line-height:20px;
     }
-    
+
 }
 @media screen and (max-width: 1280px) {
     .footer-box p{
