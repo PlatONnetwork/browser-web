@@ -87,6 +87,7 @@ export default {
         from: 'From',
         to: 'To',
         value: 'Value',
+        value1:'Value',
         fee: 'Tx Cost/Fee',
         before: 'ago',
         txInfo: 'Tx Info',
@@ -206,8 +207,8 @@ export default {
         unknown:'unknown',
         normalVote:'Selected',
         houxuanVote:'Candidate',
-        guoqiVote:'Expired'
-
+        guoqiVote:'Expired',
+        waitsure:'Unconfirmed'
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',

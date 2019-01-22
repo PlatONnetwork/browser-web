@@ -87,6 +87,7 @@ export default {
         from: '发送方',
         to: '接收方',
         value: '数额',
+        value1:'价值',
         fee: '交易费用',
         before: '前',
         txInfo: '交易信息',
@@ -206,7 +207,8 @@ export default {
         unknown:'未知',
         normalVote:'中选票',
         houxuanVote:'候选中',
-        guoqiVote:'已过期'
+        guoqiVote:'已失效',
+        waitsure:'待确认'
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',
