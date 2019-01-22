@@ -206,7 +206,7 @@ export default {
         maxTps: 'Max TPS',
         avgTransaction: 'Average Block Txns',
         transactionsperday: 'Transactions Per Day',
-        monitor: 'The number of bitcoin transactions in the last 24 hours',
+        monitor: 'The number of transactions in the last 24 hours',
         blocks: 'Blocks',
         height: 'Block Height',
         age: 'Age',
