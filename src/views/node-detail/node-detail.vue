@@ -187,9 +187,9 @@
                                             <span>{{scope.row.transaction}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label="$t('nodeInfo.blockreward')" width="300">
+                                    <el-table-column :label="$t('nodeInfo.blockreward')" :width="currentScreenWidth<1440? 150:300">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.blockReward}}Energon</span>
+                                            <span>{{scope.row.blockReward}} Energon</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -232,6 +232,8 @@
                 ],
                 total:0,
                 id:'',
+                nodeId:'',
+                currentScreenWidth:0
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -295,7 +297,8 @@
             //获取节点信息
             getNodeInfo(){
                 let param = {
-                    id:this.id
+                    id:this.id,
+                    nodeId:this.nodeId
                 };
                 apiService.node.detail(param).then(res=>{
                     let {errMsg,code,data}=res;
@@ -350,7 +353,10 @@
         created() {
             this.address = this.$route.query.address;
             this.id = this.$route.query.id;
+            this.nodeId = this.$route.query.nodeId
             this.getNodeInfo();
+            //获取当前屏幕尺寸
+            this.currentScreenWidth = document.body.clientWidth; 
         },
         //监视
         watch: {

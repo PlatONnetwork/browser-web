@@ -41,7 +41,7 @@
                                 <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='100'>
+                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='80'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
@@ -51,7 +51,7 @@
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.from')" width="300">
+                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1440? 200:300">
                             <template slot-scope="scope">
                                 <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 <div class='flex-special'>
@@ -99,7 +99,7 @@
                                 <span>{{scope.row.value}} Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip width="200"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:200"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -134,6 +134,7 @@ export default {
             pageTotal: null,
             descriptionProp: 'trade',
             displayTotalCount:0,
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -271,6 +272,9 @@ export default {
         console.log(this.currentPage)
         //获取交易列表
         this.getTradeList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth; 
+
     },
     //监视
     watch: {

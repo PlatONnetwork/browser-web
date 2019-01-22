@@ -53,7 +53,7 @@
                                 <span>{{scope.row.energonPrice}}E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.from')"   width='200'>
+                        <el-table-column :label="$t('tradePendingAbout.from')"  :width="currentScreenWidth<1440? 100:200">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -129,6 +129,7 @@ export default {
             pageTotal: null,
             currentPage1: 1,
             descriptionProp: 'pending',
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -283,6 +284,9 @@ export default {
         console.log(this.currentPage)
         //获取交易列表
         this.getTradeList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth; 
+
     },
     //监视
     watch: {

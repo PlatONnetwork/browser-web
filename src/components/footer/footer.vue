@@ -249,7 +249,7 @@
             padding-bottom:12px;
         }
         .platon .footer-intro{
-            padding-top:70px;
+            padding-top:66px;
         }
     }
 </style>

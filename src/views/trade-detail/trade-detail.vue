@@ -567,12 +567,13 @@ button {
 
 <style lang="less">
 .el-loading-spinner{
-    // height: 50px;
+    display: flex;
+    height: 50px;
     background:url(images/loading-big.gif) no-repeat center top;
-    // background-size:30px 30px;
+    justify-content: center;
+    align-items: flex-end;
     .el-loading-text{
-        font-size:12px;
-        margin-top: 16px;
+        font-size: 12px;
     }
 }
 </style>

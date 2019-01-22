@@ -139,6 +139,7 @@ export default {
         balance:'余额',
         transactions:'交易',
         votes:'投票',
+        Declarations:'竞选',
         votesNodes:'投票节点数',
         votesStaked:'投票质押',
         pendtransaction:'个待处理交易',

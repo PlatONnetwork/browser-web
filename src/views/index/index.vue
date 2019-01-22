@@ -118,12 +118,12 @@
                                 </p>
                             </div> -->
                             <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="height" :label='$t("indexInfo.height")'  width="150">
+                                <el-table-column prop="height" :label='$t("indexInfo.height")'  :width="currentScreenWidth<1440? 90:150">
                                     <template slot-scope="scope">
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")' width="200">
+                                <el-table-column :label='$t("indexInfo.age")' :width="currentScreenWidth<1440? 150:200">
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
@@ -135,7 +135,7 @@
                                 </el-table-column>
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip width="230">
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip :width="currentScreenWidth<1440? 150:230">
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
@@ -293,6 +293,7 @@ export default class Index extends Vue {
     //     effect:'slide',//切换效果
     // };
     localLang:string = window.localStorage.getItem('i18nLocale');
+    currentScreenWidth:number = 0
     options: object = {
         currentPage: 0, // 当前页码
         autoplay: 0, // 自动滚动[ms]
@@ -567,7 +568,9 @@ export default class Index extends Vue {
             blockChart.chart.resize();
             worldMapChart.chart.resize();
             earthChart.chart.resize()
-		};
+        };
+        // this.currentScreenWidth = document.documentElement.clientHeight || document.body.clientHeight;
+        this.currentScreenWidth = document.body.clientWidth; //获取当前屏幕尺寸
     }
     created() {
         indexService = new IndexService();
@@ -1075,7 +1078,7 @@ div.slider-item {
     }
     .footerss{
         height:177px;
-        padding-top:4px;
+        padding-top:25px;
     }
     .chart-box{
         height:333px;
