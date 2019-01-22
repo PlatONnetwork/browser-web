@@ -195,13 +195,11 @@ export default {
         seconds:'秒',
         day:'天',
         loading:'加载中...',
-<<<<<<< HEAD
         validatorStake:'竞选质押',
         reduceStake:'减持质押',
         withdrawStake:'提取质押',
         send:'发送',
-        receive:'接收'
-=======
+        receive:'接收',
         candidateDeposit:'竞选质押',
         candidateApplyWithdraw:'减持质押',
         candidateWithdraw:'提取质押',
@@ -209,7 +207,6 @@ export default {
         normalVote:'中选票',
         houxuanVote:'候选中',
         guoqiVote:'已过期'
->>>>>>> origin/develop
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',
