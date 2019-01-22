@@ -49,7 +49,7 @@ class Ws {
     connectFlag: boolean = false
 
     constructor() {
-        // this.connect()
+        this.connect()
     }
 
     connect(): void {

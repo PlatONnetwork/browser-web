@@ -94,9 +94,9 @@ class ChartService {
         tooltip: {
             show:true,
             trigger: 'item',
-            formatter:function(params,ticket,callback){
-                console.log('params>>>',params)
-            }
+            // formatter:function(params,ticket,callback){
+            //     console.log('params>>>',params)
+            // }
         },
         geo: {
             map: 'world',
