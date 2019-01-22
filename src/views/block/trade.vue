@@ -15,7 +15,7 @@
             </div>
             <div class="bottom">
                 <div class="title">
-                    <div class='record '>
+                    <div class='record'>
                         <span>{{$t('tradeAbout.morethen')}}&nbsp;>&nbsp;{{displayTotalCount}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
                         <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
                     </div>
@@ -46,7 +46,7 @@
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  :label="$t('tradeAbout.age')"  width='180'>
+                        <el-table-column  label="间隔"  width='180'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
@@ -63,13 +63,13 @@
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='50' align='center'>
+                        <!-- <el-table-column label="" width='50' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('tradeAbout.to')" >
                             <template slot-scope="scope">
                                 <!-- <div class='flex-special'>
@@ -92,6 +92,11 @@
                                 <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="类型"  width="150">
+                            <template slot-scope="scope">
+                                <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="150">
@@ -134,6 +139,18 @@ export default {
             pageTotal: null,
             descriptionProp: 'trade',
             displayTotalCount:0,
+            txTypeFn:{
+                transfer : 'transfer',
+                MPCtransaction : 'MPCtransaction',
+                contractCreate : 'contractCreate',
+                vote : 'vote',
+                transactionExecute :'transactionExecute',
+                authorization :'authorization',
+                candidateDeposit :'candidateDeposit',
+                candidateApplyWithdraw :'candidateApplyWithdraw',
+                candidateWithdraw :'candidateWithdraw',
+                unknown :'unknown'
+            }
         };
     },
     //数组或对象，用于接收来自父组件的数据

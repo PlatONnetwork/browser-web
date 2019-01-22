@@ -199,7 +199,15 @@ export default {
         reduceStake:'Reduce Stake',
         withdrawStake:'Withdraw Stake',
         send:'Send',
-        receive:'Receive'
+        receive:'Receive',
+        candidateDeposit:'ValidatorStake',
+        candidateApplyWithdraw:'ReduceStake',
+        candidateWithdraw:'WithdrawStake',
+        unknown:'unknown',
+        normalVote:'Selected',
+        houxuanVote:'Candidate',
+        guoqiVote:'Expired'
+
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',
