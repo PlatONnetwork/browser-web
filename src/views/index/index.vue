@@ -901,7 +901,7 @@ div.slider-item {
         width: 120px;
         height: 140px;
         background-color: rgba(20, 33, 87, 0.5);
-        font-family: DINCond-Regular;
+        // font-family: DINCond-Regular;
         // font-size: 100px;
         font-size: 86px;
         line-height: 140px;
