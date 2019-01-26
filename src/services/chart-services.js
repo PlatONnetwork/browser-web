@@ -98,6 +98,7 @@ class ChartService {
         geo: {
             map: 'world',
             roam: false,
+            zoom: 0.9,
             label: {
                 emphasis: {
                     show: false

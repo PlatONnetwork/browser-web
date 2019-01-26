@@ -41,10 +41,10 @@ export const indexAction = {
     updateMapData({ commit, state }, data) {
         // let oldMapData = state.mapData
         // let newMapData = data.concat(oldMapData)
-        
-        data.forEach((item,index)=>{
-            item.latitude = item.latitude - index *1 + index *2
-        })
+        // 当坐标相同时偏移
+        // data.forEach((item,index)=>{
+        //     item.latitude = item.latitude - index *1 + index *2
+        // })
         commit('UPDATE_MAP_DADA', data)
     },
     setMapData({ commit, state }, data) {
