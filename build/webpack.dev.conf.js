@@ -32,7 +32,7 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true,
-      // favicon: path.resolve('./static/images/favicon.ico'), // 引入图片地址
+      favicon: path.resolve('./static/images/favicon.ico'), // 引入图片地址
     }),
     new FriendlyErrorsPlugin()
   ]

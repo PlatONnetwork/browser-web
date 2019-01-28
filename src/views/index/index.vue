@@ -1043,6 +1043,9 @@ div.slider-item {
     .num-box{
         padding-top:10px;
     }
+    .slide-top{
+        height:0;
+    }
     .slide-bottom1{
         height: 560px
     }
@@ -1050,13 +1053,13 @@ div.slider-item {
         margin-top: 30px;
     }
     .second-floor {
-        height: 605px;
+        height: 750px;
     }
     .tmp-class{
         height: 685px;
     }
 }
-@media screen and (max-width: 1368px) {
+@media screen and (min-width: 1300px) and  (max-width: 1368px){
     .footer-box p{
         font-size:26px;
         height: 26px;
@@ -1110,6 +1113,9 @@ div.slider-item {
     }
     .transactions{
         line-height:20px;
+    }
+    .second-floor {
+        height: 630px;
     }
 
 }
