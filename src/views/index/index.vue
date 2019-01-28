@@ -452,7 +452,6 @@ export default class Index extends Vue {
         });
     }
     goNodeDetail(index, row) {
-        console.log(row,'hufu')
         this.$router.push({
             path: '/node-detail',
             query: {

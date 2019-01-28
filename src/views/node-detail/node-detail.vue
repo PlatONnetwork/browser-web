@@ -354,7 +354,13 @@
             this.address = this.$route.query.address;
             this.id = this.$route.query.id;
             this.nodeId = this.$route.query.nodeId
-            this.getNodeInfo();
+            // this.getNodeInfo();
+            // 防止参数丢失
+            if(this.id){
+                this.getNodeInfo();
+            }else{
+                setTimeout(this.getNodeInfo(),1000)
+            }
             //获取当前屏幕尺寸
             this.currentScreenWidth = document.body.clientWidth; 
         },
