@@ -26,7 +26,7 @@
                                 <span>{{$t('nodeInfo.jointime')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </p>
                         </div>
-                        <div class="right">
+                        <div :class="[$i18n.locale=='en'?'en-right':'','right']">
                             <span :class='{"node-candidate":detailInfo.electionStatus == 1,"node-standby":detailInfo.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[detailInfo.electionStatus])}}</span>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>{{detailInfo.rewardRatio * 100}}%</span>
+                                                <span>{{detailInfo.rewardRatio * 10000/100}}%</span>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -165,7 +165,7 @@
                         </div>
                         <div v-if='activeTab == 2'>
                             <div class="data-top data-top1">
-                                <span>{{$t('nodeInfo.blocks')}}：{{total}}</span>
+                                <span>{{$t('nodeInfo.blocks')}}：{{detailInfo.blockCount}}</span>
                                 <div class='search-address'>
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('nodeInfo.export')}}</el-button>
                                 </div>
@@ -576,6 +576,9 @@
     }
     .images{
         border-radius: 50%;
+    }
+    .bottom .title .record .en-right{
+        width: 122px
     }
 </style>
 <style lang='less'>

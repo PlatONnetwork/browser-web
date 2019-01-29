@@ -123,7 +123,7 @@
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")' :width="currentScreenWidth<1440? 150:200">
+                                <el-table-column :label='$t("indexInfo.age")' :width="currentScreenWidth<1440? 110:160">
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
@@ -133,7 +133,11 @@
                                         <span class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
+                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100">
+                                    <template slot-scope="scope">
+                                        <span>{{scope.row.transaction}}</span>
+                                    </template>
+                                </el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
                                 <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip :width="currentScreenWidth<1440? 150:230">
                                     <template slot-scope="scope">
