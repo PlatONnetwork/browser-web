@@ -148,6 +148,8 @@ export default {
         votesNodes: 'Vote Nodes',
         votesStaked: 'Vote Staked',
         pendtransaction: 'pending Transactions',
+        pendVoteTransaction: 'pending Vote Transactions',
+        pendDectransaction: 'pending Declaration Transactions',
         download: 'Download ',
         txHash: 'TxHash',
         blockTime: 'Time',

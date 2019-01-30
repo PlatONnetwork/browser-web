@@ -148,6 +148,8 @@ export default {
         votesNodes:'投票节点数',
         votesStaked:'投票质押',
         pendtransaction:'个待处理交易',
+        pendVoteTransaction: '个待处理投票交易',
+        pendDectransaction: '个待处理竞选交易',
         download:'下载',
         txHash:'交易哈希值',
         blockTime:'确认时间',

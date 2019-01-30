@@ -73,7 +73,7 @@
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
                                 <el-col :span="4">
-                                    <span>{{detailInfo.trades.voteNumber || 0}}</span>
+                                    <span >{{detailInfo.tradeCount || 0}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -123,13 +123,13 @@
                                             <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.blockTime")' width='180'>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='160'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.txType")' width='100'>
+                                    <el-table-column :label='$t("totalInfo.txType")' width='120'>
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
@@ -193,7 +193,7 @@
                         </div>
                         <div v-if='activeTab == 2'>
                             <div class='data-top'>
-                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendVoteTransaction')}}</div>
                                 <div class='search-address'>
                                     <!-- <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
@@ -231,49 +231,32 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.voteFor")' width='100'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='300'>
                                         <template slot-scope="scope">
-                                            <div class='flex-special'>
-                                                <el-tooltip class="item" effect="dark" placement="top">
-                                                    <div slot="content">{{scope.row.from}}</div>
-                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                                </el-tooltip>
-                                            </div>
+                                            <span v-if='scope.row.nodeName'>{{scope.row.voteNumber || 0}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.ticketPrice")' width='300'>
                                         <template slot-scope="scope">
-                                            <div class='flex-special'>
-                                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                                <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
-                                                <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
-                                                    <div slot="content">{{scope.row.to}}</div>
-                                                    <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                                </el-tooltip>
-                                                <el-tooltip class="item" effect="dark" placement="top"  v-else>
-                                                    <div slot="content">{{scope.row.to}}</div>
-                                                    <span class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                                </el-tooltip>
-                                            </div>
+                                            <span>{{scope.row.votePrice}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.votesStaked")' show-overflow-tooltip width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.value}} Energon</span>
+                                            <span>{{scope.row.votePledge}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.profit")' show-overflow-tooltip width="150px">
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
-                                            <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
+                                            <span>{{scope.row.income}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.txFee")' show-overflow-tooltip width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.value}} Energon</span>
+                                            <span>{{scope.row.actualTxCost}}</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -281,7 +264,7 @@
                         </div>
                         <div v-if='activeTab == 3'>
                             <div class='data-top'>
-                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
+                                <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendDectransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="dectarationType"  class="margin20" style='width:150px;' @change='getDetail'>
@@ -371,12 +354,12 @@
                 balance:'',
                 count:0,
                 activeTab:1,
-                selectAll:[],
+                // selectAll:[],
                 type:'send',
                 dectarationType:'validatorStake',
                 typeList:[
                     // {label:'transfer',value:'transfer'}, 4.0转账细分发送和接收，投票独立
-                    {label:'All',value:'All'},
+                    // {label:'All',value:'All'},
                     {label:'send',value:'send'},
                     {label:'receive',value:'receive'},
                     {label:'contractCreate',value:'contractCreate'},
@@ -452,6 +435,10 @@
             },
             changeTab(type) {
                 this.activeTab = type;
+                if(type==2){
+                    this.type = 'vote'
+                    this.getDetail()
+                }
             },
             onCopy() {
                 this.$message.success(this.$t('modalInfo.copysuccess'));
@@ -555,6 +542,7 @@
                         let {errMsg, code, data} = res;
                         if (code == 0) {
                             this.detailInfo = data;
+                            console.warn('地址详情detailInfo 11》》》》', this.detailInfo);
                             data.trades.forEach(item => {
                                 if (item.txReceiptStatus == -1) {
                                     ++this.count;
@@ -564,9 +552,10 @@
                             contractService.serProvider(this.chainHttp)
                             //获取余额
                             // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
-                            this.balance = contractService.getBalance(this.address)
+                            this.balance = contractService.getBalance(this.address) //返回的参数错误0(error) 导致data functions should return an object:
                         } else {
                             this.detailInfo = {};
+                            console.warn('地址详情detailInfo》》》》', this.detailInfo);
                             this.$message.error(errMsg);
                         }
                     })
