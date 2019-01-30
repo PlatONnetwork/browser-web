@@ -129,11 +129,7 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-<<<<<<< HEAD
-                                    <el-table-column :label='$t("totalInfo.txType")' width='120'>
-=======
                                     <el-table-column :label='$t("totalInfo.txType")' width='140'>
->>>>>>> origin/0.3.0
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
