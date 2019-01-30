@@ -26,7 +26,7 @@
                                 <span>{{$t('nodeInfo.jointime')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </p>
                         </div>
-                        <div class="right">
+                        <div :class="[$i18n.locale=='en'?'en-right':'','right']">
                             <span :class='{"node-candidate":detailInfo.electionStatus == 1,"node-standby":detailInfo.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[detailInfo.electionStatus])}}</span>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>{{detailInfo.rewardRatio * 100}}%</span>
+                                                <span>{{detailInfo.rewardRatio * 10000/100}}%</span>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -181,7 +181,7 @@
                         </div>
                         <div v-if='activeTab == 2'>
                             <div class="data-top data-top1">
-                                <span>{{$t('nodeInfo.blocks')}}：{{total}}</span>
+                                <span>{{$t('nodeInfo.blocks')}}：{{detailInfo.blockCount}}</span>
                                 <div class='search-address'>
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('nodeInfo.export')}}</el-button>
                                 </div>
@@ -203,9 +203,9 @@
                                             <span>{{scope.row.transaction}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label="$t('nodeInfo.blockreward')" width="300">
+                                    <el-table-column :label="$t('nodeInfo.blockreward')" :width="currentScreenWidth<1440? 150:300">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.blockReward}}Energon</span>
+                                            <span>{{scope.row.blockReward}} Energon</span>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -248,6 +248,8 @@
                 ],
                 total:0,
                 id:'',
+                nodeId:'',
+                currentScreenWidth:0
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -311,7 +313,8 @@
             //获取节点信息
             getNodeInfo(){
                 let param = {
-                    id:this.id
+                    id:this.id,
+                    nodeId:this.nodeId
                 };
                 apiService.node.detail(param).then(res=>{
                     let {errMsg,code,data}=res;
@@ -366,7 +369,16 @@
         created() {
             this.address = this.$route.query.address;
             this.id = this.$route.query.id;
-            this.getNodeInfo();
+            this.nodeId = this.$route.query.nodeId
+            // this.getNodeInfo();
+            // 防止参数丢失
+            if(this.id){
+                this.getNodeInfo();
+            }else{
+                setTimeout(this.getNodeInfo(),1000)
+            }
+            //获取当前屏幕尺寸
+            this.currentScreenWidth = document.body.clientWidth; 
         },
         //监视
         watch: {
@@ -580,6 +592,9 @@
     }
     .images{
         border-radius: 50%;
+    }
+    .bottom .title .record .en-right{
+        width: 122px
     }
 </style>
 <style lang='less'>

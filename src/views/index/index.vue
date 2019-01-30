@@ -118,12 +118,12 @@
                                 </p>
                             </div> -->
                             <el-table :data="blockData" style="width: 100%" :row-class-name="tableRowClassName" key='firstTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="height" :label='$t("indexInfo.height")'  width="150">
+                                <el-table-column prop="height" :label='$t("indexInfo.height")'  :width="currentScreenWidth<1440? 90:150">
                                     <template slot-scope="scope">
                                         <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column :label='$t("indexInfo.age")' width="200">
+                                <el-table-column :label='$t("indexInfo.age")' :width="currentScreenWidth<1440? 110:160">
                                     <template slot-scope="scope">
                                         <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
                                     </template>
@@ -133,9 +133,13 @@
                                         <span class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100"></el-table-column>
+                                <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100">
+                                    <template slot-scope="scope">
+                                        <span>{{scope.row.transaction}}</span>
+                                    </template>
+                                </el-table-column>
                                 <!-- <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' width="180" show-overflow-tooltip></el-table-column> -->
-                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip width="230">
+                                <el-table-column prop="blockReward" :label='$t("indexInfo.blockReward")' show-overflow-tooltip :width="currentScreenWidth<1440? 150:230">
                                     <template slot-scope="scope">
                                         <span>{{scope.row.blockReward}} Energon</span>
                                     </template>
@@ -304,6 +308,7 @@ export default class Index extends Vue {
     //     effect:'slide',//切换效果
     // };
     localLang:string = window.localStorage.getItem('i18nLocale');
+    currentScreenWidth:number = 0
     options: object = {
         currentPage: 0, // 当前页码
         autoplay: 0, // 自动滚动[ms]
@@ -462,7 +467,6 @@ export default class Index extends Vue {
         });
     }
     goNodeDetail(index, row) {
-        console.log(row,'hufu')
         this.$router.push({
             path: '/node-detail',
             query: {
@@ -520,10 +524,25 @@ export default class Index extends Vue {
         data.forEach((item)=>{
             if(item.netState===1){
                 //正常 判断是否是共识节点
-                item.nodeType===1?nodeNormal.push([item.longitude,item.latitude]):normal.push([item.longitude,item.latitude])
+                // item.nodeType===1?nodeNormal.push([item.longitude,item.latitude]):normal.push([item.longitude,item.latitude])
+                if(item.nodeType===1){
+                    nodeNormal.push({
+                        name:item.nodeName,
+                        value:[item.longitude,item.latitude]
+                    })
+                }else{
+                    normal.push({
+                        name:item.nodeName,
+                        value:[item.longitude,item.latitude]
+                    })
+                }
             }else if(item.netState===2){
                 //异常
-                annormal.push([item.longitude,item.latitude])
+                //annormal.push([item.longitude,item.latitude])
+                annormal.push({
+                    name:item.nodeName,
+                    value:[item.longitude,item.latitude]
+                })
             }
         });
         console.warn("nodeNormal",nodeNormal)
@@ -578,7 +597,9 @@ export default class Index extends Vue {
             blockChart.chart.resize();
             worldMapChart.chart.resize();
             earthChart.chart.resize()
-		};
+        };
+        // this.currentScreenWidth = document.documentElement.clientHeight || document.body.clientHeight;
+        this.currentScreenWidth = document.body.clientWidth; //获取当前屏幕尺寸
     }
     created() {
         indexService = new IndexService();
@@ -894,7 +915,7 @@ div.slider-item {
         width: 120px;
         height: 140px;
         background-color: rgba(20, 33, 87, 0.5);
-        font-family: DINCond-Regular;
+        // font-family: DINCond-Regular;
         // font-size: 100px;
         font-size: 86px;
         line-height: 140px;
@@ -1036,6 +1057,9 @@ div.slider-item {
     .num-box{
         padding-top:10px;
     }
+    .slide-top{
+        height:0;
+    }
     .slide-bottom1{
         height: 560px
     }
@@ -1043,13 +1067,13 @@ div.slider-item {
         margin-top: 30px;
     }
     .second-floor {
-        height: 605px;
+        height: 750px;
     }
     .tmp-class{
         height: 685px;
     }
 }
-@media screen and (max-width: 1368px) {
+@media screen and (min-width: 1300px) and  (max-width: 1368px){
     .footer-box p{
         font-size:26px;
         height: 26px;
@@ -1086,7 +1110,7 @@ div.slider-item {
     }
     .footerss{
         height:177px;
-        padding-top:4px;
+        padding-top:25px;
     }
     .chart-box{
         height:333px;
@@ -1103,6 +1127,9 @@ div.slider-item {
     }
     .transactions{
         line-height:20px;
+    }
+    .second-floor {
+        height: 630px;
     }
 
 }

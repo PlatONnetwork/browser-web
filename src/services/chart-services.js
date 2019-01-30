@@ -93,11 +93,12 @@ class ChartService {
     worldMapOption = {
         tooltip: {
             show:true,
-            trigger: 'item'
+            trigger: 'item',
         },
         geo: {
             map: 'world',
             roam: false,
+            zoom: 0.9,
             label: {
                 emphasis: {
                     show: false

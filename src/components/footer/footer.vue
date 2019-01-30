@@ -8,7 +8,10 @@
             <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
-                    <a href=" https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("footer.help") }}</a>
+                    <a :href='$i18n.locale=="zh-cn"
+                    ? "https://developer.platon.network/#/?lang=zh" 
+                    : "https://developer.platon.network/#/?lang=en"' 
+                    target="_blank">{{ $t("footer.help") }}</a>
                 </li>
                 <!-- <li>
                     <a href="/wallet">{{ $t("footer.wallet") }}</a>
@@ -18,7 +21,10 @@
                 </li>
                 <li>
                     <!-- <a href="" target="_blank">{{ $t("footer.whitePaper") }}</a> -->
-                    <a :href='$i18n.locale=="zh-cn" ? "https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf" : "https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf"' target="_blank">{{ $t("footer.whitePaper") }}</a>
+                    <a :href='$i18n.locale=="zh-cn"
+                    ? "https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf" 
+                    : "https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf"' 
+                    target="_blank">{{ $t("footer.whitePaper") }}</a>
                 </li>
             </ul>
         </div>
@@ -249,7 +255,7 @@
             padding-bottom:12px;
         }
         .platon .footer-intro{
-            padding-top:70px;
+            padding-top:66px;
         }
     }
 </style>

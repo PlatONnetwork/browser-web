@@ -48,7 +48,10 @@
                         <router-link to="/wallet">{{ $t("menu.moreItem.wallet") }}</router-link>
                     </el-menu-item> -->
                     <el-menu-item index="">
-                        <a href="https://github.com/PlatONnetwork/wiki/wiki" target="_blank">{{ $t("menu.moreItem.help") }}</a>
+                        <a class="to-help" :href='$i18n.locale=="zh-cn"
+                        ? "https://developer.platon.network/#/?lang=zh" 
+                        : "https://developer.platon.network/#/?lang=en"' 
+                        target="_blank">{{ $t("menu.moreItem.help") }}</a>
                         <!-- <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link> -->
                     </el-menu-item>
                 </el-submenu>
@@ -253,6 +256,7 @@
         },
         //生命周期函数
         created(){
+            console.log(this.$i18n.locale,'hufu')
 
         },
         //监视
@@ -376,7 +380,10 @@
             width:350px;
         }
     }
-
+    .to-help{
+        width: 100%;
+        display:inline-block; 
+    }
 
 </style>
 <style lang="less">

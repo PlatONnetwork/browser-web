@@ -94,7 +94,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.rewardRatio')" width="100">
                             <template slot-scope="scope">
-                                <span>{{scope.row.rewardRatio * 100}} %</span>
+                                <span>{{scope.row.rewardRatio * 10000/100}} %</span>
                             </template>
                         </el-table-column>
                     </el-table>

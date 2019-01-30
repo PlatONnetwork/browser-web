@@ -19,29 +19,29 @@
                         <span>{{$t('blockAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('blockAbout.block')}}</span>
                     </div>
                     <div class="pagination-box1">
-                        <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
+                        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
                         </el-pagination>
                     </div>
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.height')" width='180'>
+                        <el-table-column :label="$t('blockAbout.height')" :width="currentScreenWidth<1440? 90:180">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')" width='260'>
+                        <el-table-column :label="$t('blockAbout.age')" :width="currentScreenWidth<1440? 180:260">
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')" width='180'></el-table-column>
-                        <el-table-column prop="size" :label="$t('blockAbout.size')" width='180'>
+                        <el-table-column prop="transaction" :label="$t('blockAbout.transaction')" :width="currentScreenWidth<1440? 120:180"></el-table-column>
+                        <el-table-column prop="size" :label="$t('blockAbout.size')" :width="currentScreenWidth<1440? 130:180">
                             <template slot-scope="scope">
                                 <span>{{scope.row.size}}Byte</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.miner')" width='260'>
+                        <el-table-column :label="$t('blockAbout.miner')" :width="currentScreenWidth<1440? 130:260">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -102,6 +102,7 @@ export default {
             currentPage1: 1,
             descriptionProp: 'block',
             displayTotalCount:0,
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -185,7 +186,7 @@ export default {
                     nodeId:row.nodeId,
                 },
             });
-        }
+        },
     },
     //生命周期函数
     created() {
@@ -198,6 +199,8 @@ export default {
         console.log(this.currentPage)
         //获取交易列表
         this.getBlockList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth; 
     },
     //监视
     watch: {

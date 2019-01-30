@@ -19,7 +19,7 @@
                         <span>{{$t('tradePendingAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('tradePendingAbout.transactions1')}}</span>
                     </div>
                     <div class="pagination-box1">
-                        <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
+                        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
                         </el-pagination>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                 <span>{{scope.row.energonPrice}}E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.from')"   width='200'>
+                        <el-table-column :label="$t('tradePendingAbout.from')"  :width="currentScreenWidth<1440? 100:200">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -145,7 +145,8 @@ export default {
                 candidateApplyWithdraw :'candidateApplyWithdraw',
                 candidateWithdraw :'candidateWithdraw',
                 unknown :'unknown'
-            }
+            },
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -300,6 +301,9 @@ export default {
         console.log(this.currentPage)
         //获取交易列表
         this.getTradeList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth; 
+
     },
     //监视
     watch: {

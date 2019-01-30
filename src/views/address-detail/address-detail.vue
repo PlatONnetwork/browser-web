@@ -129,12 +129,16 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
+<<<<<<< HEAD
                                     <el-table-column :label='$t("totalInfo.txType")' width='120'>
+=======
+                                    <el-table-column :label='$t("totalInfo.txType")' width='140'>
+>>>>>>> origin/0.3.0
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.from")'  width='300'>
+                                    <el-table-column :label='$t("totalInfo.from")'  :width="currentScreenWidth<1440? 200:300">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark" placement="top">
@@ -397,6 +401,7 @@
                 },
                 description:'',
                 descriptionProp:'',
+                currentScreenWidth:0
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -577,6 +582,8 @@
             // console.log(1)
             //获取交易列表
             this.getDetail()
+            //获取当前屏幕尺寸
+            this.currentScreenWidth = document.body.clientWidth;
         },
         //监视
         watch: {

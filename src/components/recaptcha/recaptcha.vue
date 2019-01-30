@@ -39,8 +39,9 @@
                 })
             },
             getref() {
-                
+
                 return Http.get('https://www.google.com/recaptcha/api.js?timeStrp='+new Date().getTime()).then((res)=>{
+                    console.warn('res>>>>>',res)
                     setTimeout (function () {
                         this.is_timeout = true;
                     },10000)
@@ -53,6 +54,9 @@
                         this.updateApiStatus(false)
                     }
                     this.is_timeout = false;
+                }).catch(error=>{
+                    this.$message.error(this.$t('menu.goole'))
+                    console.warn('error>>>>>',error)
                 })
            }
         },
@@ -88,11 +92,11 @@
         //         if(this.googleApi)
         //         this.forIframe = false;
         //     },
-           
+
         // },
-        
+
     }
-    
+
 </script>
 <style lang='less'>
     #message{

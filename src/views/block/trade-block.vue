@@ -19,7 +19,7 @@
                         <span>{{$t('blockAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('blockAbout.transactions')}}</span>
                     </div>
                     <div class="pagination-box1">
-                        <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
+                        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
                         </el-pagination>
                     </div>
                 </div>
