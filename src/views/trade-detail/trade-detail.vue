@@ -156,7 +156,7 @@
                                     <span>节点名称:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click=''>节点名称未知</span>
+                                    <span class='cursor normal' @click='voteFn'>节点名称未知</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote" || detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="candidateWithdraw"'>
@@ -270,37 +270,7 @@ export default {
             disabledRight: false,
             address: '11111111111',
             detailInfo: {
-                  "txHash": "0x234234",//交易hash
-                  "timestamp": 123123123879,//交易时间
-                  "txReceiptStatus": 1,//交易状态 -1 pending 1 成功  0 失败
-                  "blockHeight": "15566",//交易所在区块高度
-                  "confirmNum":444, // 区块确认数
-                  "from": "0x667766",//发送者
-                  "to": "0x667766",//接收方, 此字段存储的可能是钱包地址，也可能是合约地址，需要使用receiveType来进一步区分：
-                               // 如果receiveType的值为account，则是钱包地址；如果receiveType的值为contract，则是合约地址
-                  "txType": "vote", // 交易类型
-                            // transfer ：转账
-                            // MPCtransaction ： MPC交易
-                            // contractCreate ： 合约创建
-                            // vote ： 投票
-                            // transactionExecute ： 合约执行
-                            // authorization ： 权限
-                            // candidateDeposit ： 竞选质押
-                            // candidateApplyWithdraw ： 减持质押
-                            // candidateWithdraw ： 提取质押
-                            // unknown ： 未知
-                  "value": "222",//数额(单位:Energon)
-                  "actualTxCost": "22",//实际交易手续费(单位:Energon)
-                  "energonLimit": 232,//能量限制
-                  "energonUsed": 122,//能量消耗
-                  "priceInE":"1000000000000000000", // 能量价格(单位:E)
-                  "priceInEnergon":"0.1", // 能量价格(单位:Energon)
-                  "inputData": "",//附加输入数据
-                  "expectTime": 12312333, // 预计确认时间
-                  "failReason":"",//失败原因
-                  "first":false, // 是否第一条记录
-                  "last":true, // 是否最后一条记录
-                  "receiveType":"account", // 此字段表示的是to字段存储的账户类型：account-钱包地址，contract-合约地址
+
             },
             descriptionProp: 'trade',
             txTypeFn:{
@@ -588,7 +558,7 @@ export default {
         this.pageSize=this.$route.query.pageSize;
         this.txHash = this.$route.query.txHash;
         //获取交易列表
-        // this.getDetail();
+        this.getDetail();
     },
     //监视
     watch: {

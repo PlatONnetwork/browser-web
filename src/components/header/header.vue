@@ -368,7 +368,7 @@
             margin: 0 0 0 0;
         }
         .el-menu-demo{
-            width:390px;
+            width:394px;
         }
     }
     @media screen and (max-width: 1280px) {

@@ -67,13 +67,13 @@
                                 <span @click='filterFn(scope.row.from)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='150' align='center'>
+                        <!-- <el-table-column label="" width='150' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('tradePendingAbout.to')"   width='200'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
@@ -91,7 +91,12 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradePendingAbout.value')" show-overflow-tooltip width='150'>
+                        <el-table-column label="类型"  width="150">
+                            <template slot-scope="scope">
+                                <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('tradePendingAbout.value1')" show-overflow-tooltip width='150'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} Energon</span>
                             </template>
@@ -129,6 +134,18 @@ export default {
             pageTotal: null,
             currentPage1: 1,
             descriptionProp: 'pending',
+            txTypeFn:{
+                transfer : 'transfer',
+                MPCtransaction : 'MPCtransaction',
+                contractCreate : 'contractCreate',
+                vote : 'vote',
+                transactionExecute :'transactionExecute',
+                authorization :'authorization',
+                candidateDeposit :'candidateDeposit',
+                candidateApplyWithdraw :'candidateApplyWithdraw',
+                candidateWithdraw :'candidateWithdraw',
+                unknown :'unknown'
+            }
         };
     },
     //数组或对象，用于接收来自父组件的数据

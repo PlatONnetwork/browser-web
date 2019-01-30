@@ -11,7 +11,8 @@
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
                         <el-breadcrumb-item :to="{ path: '/trade' }" v-if='description == "trade"'>{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
                         <el-breadcrumb-item :to="{ path: '/block' }" v-if='description == "block"'>区块</el-breadcrumb-item>
-                        <el-breadcrumb-item v-if='description == "trade"'>选票-交易-{{hash}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade-pending' }" v-if='description == "pending"'>待处理交易</el-breadcrumb-item>
+                        <el-breadcrumb-item v-if='description == "trade" || description == "pending"'>选票-交易-{{hash}}</el-breadcrumb-item>
                         <el-breadcrumb-item v-if='description == "block"'>选票-区块-{{height}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -44,7 +45,7 @@
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.nodeName}}</div>
-                                        <span class='cursor normal ellipsis' @click=''>{{scope.row.nodeName}}</span>
+                                        <span class='cursor normal ellipsis' @click='giveVoteFn(scope.row)'>{{scope.row.nodeName}}</span>
                                     </el-tooltip>
                                 </div>
                             </template>
@@ -54,7 +55,7 @@
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.owner}}</div>
-                                        <span class='cursor normal ellipsis' @click=''>{{scope.row.owner}}</span>
+                                        <span class='cursor normal ellipsis' @click='hasVoteFn(scope.row)'>{{scope.row.owner}}</span>
                                     </el-tooltip>
                                 </div>
                             </template>
@@ -62,7 +63,7 @@
                         <el-table-column label="状态"  width="150">
                             <template slot-scope="scope">
                                 <!-- <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span> -->
-                                <span>中选票</span>
+                                <span>{{statusFn(scope.row.status)}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column label="收益" width="150">
@@ -70,7 +71,7 @@
                                 <span>{{scope.row.income?scope.row.income:'-'}} Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" label="预计/实际过期时间" >
+                        <el-table-column prop="" label="预计/实际过期时间" >
                             <template slot-scope="scope">{{scope.row.status==3?new Date(scope.row.time).Format('yyyy-MM-dd HH:mm:ss'):new Date(scope.row.expectTime).Format('yyyy-MM-dd HH:mm:ss')}}</template>
                         </el-table-column>
                     </el-table>
@@ -99,32 +100,7 @@ export default {
         return {
             paginationFlag: true,
             tableData: [
-                {
-                     "ticketId":  "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//票id
-                     "nodeName":  "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//投票给
-                     "owner": "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//所有者
-                     "status":1 ,//票状态
-                     // 1->正常
-                     // 2->被选中
-                     // 3->过期
-                     // 4->掉榜
-                     "income": "11111", //收益
-                     "time": 1547641874000,//实际过期时间（只有status = 3显示该时间的值，其他情况显示预期时间的值）
-                     "expectTime":1547641874000//预期时间
-                },
-                {
-                     "ticketId":  "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//票id
-                     "nodeName":  "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//投票给
-                     "owner": "0x35961a259f9103XXXXXXXXXXXXXXXXXX",//所有者
-                     "status":2 ,//票状态
-                     // 1->正常
-                     // 2->被选中
-                     // 3->过期
-                     // 4->掉榜
-                     "income": "1111", //收益
-                     "time": 1547641874000,//实际过期时间（只有status = 3显示该时间的值，其他情况显示预期时间的值）
-                     "expectTime":1547641874000//预期时间
-                }
+
             ],
             currentPage:1,
             pageSize: 10,
@@ -159,7 +135,7 @@ export default {
         //查询
         searchFn() {},
         changeDataFn(){
-            console.warn('子组件告诉trade链id更改》》》》')
+            console.warn('子组件告诉选座列表链id更改》》》》')
             this.getTradeList()
         },
         timeDiffFn(beginTime,endTime){
@@ -209,19 +185,51 @@ export default {
                     this.$message.error(error);
                 });
         },
+        statusFn(value){
+            if(value==1){
+                //候选中
+                return this.$t('elseInfo.houxuanVote');
+            }else if(value==2){
+                //中选票
+                return this.$t('elseInfo.normalVote');
+            }else if(value==3){
+                //已失效
+                return this.$t('elseInfo.guoqiVote');
+            }else if(value==4){
+                //待确认
+                return this.$t('elseInfo.waitsure');
+            }
+        },
+        //投票给
+        giveVoteFn(row){
 
+        },
+        //拥有者 进入账户地址详情
+        hasVoteFn(row){
+            this.$router.push({
+                path: '/address-detail',
+                query: {
+                    address: row.owner,
+                    description: this.description
+                },
+            });
+        }
     },
     //生命周期函数
     created() {
         this.description=this.$route.query.description;
+        this.descriptionProp=this.$route.query.description;
         this.height=this.$route.query.height;
         this.hash=this.$route.query.hash;
         //获取选座列表
-        // this.getTradeList();
+        this.getTradeList();
     },
     //监视
     watch: {
         // chainId: 'getTradeList',
+    },
+    filters: {
+
     },
     //组件
     components: {
