@@ -119,6 +119,7 @@ export default {
     data() {
         return {
             height: '',
+            txType: '',
             newRecordFlag: false,
             paginationFlag: true,
             tableData: [
@@ -171,6 +172,7 @@ export default {
                 height: this.height,
                 pageNo: this.currentPage,
                 pageSize: this.pageSize,
+                txType: this.txType // 交易类型
             };
             console.warn('获取区块交易列表》》》', param);
             apiService.trade
@@ -255,6 +257,7 @@ export default {
     //生命周期函数
     created() {
         this.height = this.$route.query.height;
+        this.txType = this.$route.query.txType;
         //获取交易列表
         this.getTradeList();
     },
