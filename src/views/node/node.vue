@@ -24,7 +24,7 @@
                 </li>
                 <li>
                     <!-- <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p> -->
-                    <p class="color-red cursor" >1 <span class="subsize">ATP</span></p>
+                    <p class="color-red cursor" >1 <span class="subsize">Energon</span></p>
                     <span>{{$t("nodeInfo.ticketPrice")}}</span>
                 </li>
                 <li>

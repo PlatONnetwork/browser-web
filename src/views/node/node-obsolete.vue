@@ -16,7 +16,7 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record '>
-                        <span class='margin20'>{{$t('nodeInfo.validate')}}</span>
+                        <span class='margin20'>{{$t('nodeInfo.obsoleteNode')}}</span>
                     </div>
                     <div class="input-search">
                         <el-button type="primary" class='icon-search'  icon="el-icon-search" @click='getNodeList'></el-button>
@@ -30,7 +30,7 @@
                                 <span>{{scope.row.ranking}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  :label="$t('nodeInfo.name')">
+                        <el-table-column  :label="$t('nodeInfo.nodeName')">
                             <template slot-scope="scope">
                                 <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images iconImage'>
                                 <span class='normal'>{{scope.row.name}}</span>
@@ -38,17 +38,16 @@
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.electionStatus')">
                             <template slot-scope="scope">
-                                <!-- <span>{{scope.row.electionStatus}}</span> -->
                                 <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[scope.row.electionStatus])}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.location')"  >
+                        <el-table-column :label="$t('nodeInfo.location')">
                             <template slot-scope="scope">
                                 <img :src="'data:image/png;base64,' + scope.row.countryCode" alt=""  class='images images1'>
                                 <span>{{scope.row.location}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.deposit')" >
+                        <!-- <el-table-column :label="$t('nodeInfo.deposit')" >
                             <template slot-scope="scope">
                                 <span>
                                     {{scope.row.deposit}} Energon
@@ -61,15 +60,20 @@
                                     {{scope.row.tickets}}
                                 </span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('nodeInfo.blockCount')" >
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockCount}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.rewardRatio')" width="100">
+                        <el-table-column :label="$t('nodeInfo.rewardRatio')" >
                             <template slot-scope="scope">
                                 <span>{{scope.row.rewardRatio * 100}} %</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('nodeInfo.dateObsolete')" >
+                            <template slot-scope="scope">
+                                <span>{{scope.row.dateObsolete}}</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -171,7 +175,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
             //根据国家code获取相应的中英文国家名称
             rowClick(row,event,column){
                 this.$router.push({
-                    path:'/node-detail',
+                    path:'/node-obsolete-detail',
                     query:{
                         address:row.address,
                         id:row.id

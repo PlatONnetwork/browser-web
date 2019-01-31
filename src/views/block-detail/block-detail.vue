@@ -69,6 +69,26 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="4">
+                                    <span>{{$t('blockAbout.votes')}}:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='normal cursor' @click='tradeVoteFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span>TX</span>
+                                    <span>( {{$t('blockAbout.ticket')}}</span>
+                                    <span class='normal cursor' @click='voteNumFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span>)</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
+                                    <span>{{$t('blockAbout.declarations')}}:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg">
+                                <el-col :span="4">
                                     <span>{{$t('blockAbout.hash')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
@@ -390,6 +410,16 @@ export default {
                     cid: this.chainId,
                     nodeId: nodeId,
                 },
+            });
+        },
+        //跳转到选票列表
+        voteNumFn(height){
+            this.$router.push({
+                path:'/trade-vote',
+                query:{
+                    height:height,
+                    description: 'block',
+                }
             });
         },
     },

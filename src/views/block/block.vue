@@ -52,16 +52,27 @@
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
                         </el-table-column>
+                        <el-table-column :label="$t('blockAbout.votes')" width='200'>
+                            <template slot-scope="scope">
+                                <span>{{scope.row.blockVoteAmount}}</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('blockAbout.tickets')" width='200'>
+                            <template slot-scope="scope">
+                                <span>{{scope.row.blockVoteNumber}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column :label="$t('blockAbout.energonUsed')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonUsed}}({{(scope.row.energonUsed/scope.row.energonLimit)*100}}%)</span>
                             </template>
                         </el-table-column>
+                        <!-- 0.4.0去掉 平均能量价值（内部可保留，方便后续统计能量价值）
                         <el-table-column :label="$t('blockAbout.energonAverage')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.energonAverage}} E</span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('blockAbout.blockReward')" show-overflow-tooltip >
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockReward}} Energon</span>

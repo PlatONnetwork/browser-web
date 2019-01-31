@@ -46,12 +46,12 @@
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  label="间隔"  width='180'>
+                        <el-table-column  label="间隔"  width='120'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1440? 200:300">
+                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1440? 200:350">
                             <template slot-scope="scope">
                                 <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 <div class='flex-special'>
@@ -94,17 +94,18 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="类型"  width="150">
+                        <el-table-column label="类型"  width="120">
                             <template slot-scope="scope">
                                 <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="150">
+                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="160">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:200"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:150">
+                        </el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">

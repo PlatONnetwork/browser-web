@@ -534,7 +534,7 @@
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: this.type,
+                    txType: this.activeTab == 3?this.dectarationType:this.type,
                 };
                 console.warn('地址详情入参》》》》', param);
                 apiService.trade

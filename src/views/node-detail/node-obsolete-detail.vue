@@ -1,5 +1,5 @@
 <template>
-    <div class="node-detail-wrap">
+    <div class="node-obsolete-detail-wrap">
         <com-header :descriptionProp='descriptionProp' @searchFn='searchFn' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
@@ -9,7 +9,7 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/node'}" >{{$t('nodeInfo.validatorNode')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/node'}" >{{$t('nodeInfo.obsoleteNode')}}</el-breadcrumb-item>
                         <el-breadcrumb-item>{{$t('nodeInfo.nodeinfo')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
@@ -32,20 +32,20 @@
                     </div>
                     <div class="view">
                         <div>
-                            <p>
+                            <!-- <p>
                                 <span>{{$t('nodeInfo.deposit')}}</span>
                                 <span>{{detailInfo.deposit}} Energon</span>
-                            </p>
+                            </p> -->
                             <p>
                                 <span>{{$t('nodeInfo.selected')}}</span>
                                 <span>{{detailInfo.selected}}</span>
                             </p>
                         </div>
                         <div>
-                            <p>
+                            <!-- <p>
                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                 <span>{{detailInfo.rewardRatio * 100}}%</span>
-                            </p>
+                            </p> -->
                             <p>
                                 <span>{{$t('nodeInfo.blocks')}}</span>
                                 <span>{{detailInfo.blockCount}}</span>
@@ -53,10 +53,10 @@
                             
                         </div>
                         <div>
-                            <p>
+                            <!-- <p>
                                 <span>{{$t('nodeInfo.stakedrank')}}</span>
                                 <span>{{detailInfo.ranking}}</span>
-                            </p>
+                            </p> -->
                             <p>
                                 <span>{{$t('nodeInfo.averagetime')}}</span>
                                 <span>{{detailInfo.avgBlockTime}}s</span>
@@ -68,19 +68,23 @@
                                 <span>{{$t('nodeInfo.totalincome')}}</span>
                                 <span>{{detailInfo.profitAmount}} Energon</span>
                             </p>
-                            <p>
+                            <!-- <p>
                                 <span>{{$t('nodeInfo.totalreward')}}</span>
                                 <span>{{detailInfo.rewardAmount}} Energon</span>
-                            </p>
+                            </p> -->
                         </div>
                         <div>
-                            <p>
+                            <!-- <p>
                                 <span>{{$t('nodeInfo.tickets')}}</span>
                                 <span>{{detailInfo.tickets}} Energon</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.ticketage')}}</span>
                                 <span>{{detailInfo.ticketage}} Energon</span>
+                            </p> -->
+                            <p>
+                                <span>{{$t('nodeInfo.totalreward')}}</span>
+                                <span>{{detailInfo.rewardAmount}} Energon</span>
                             </p>
                         </div>
                     </div>
@@ -227,7 +231,7 @@
     import contractService from '@/services/web3-services'
     export default {
         //组件名
-        name: 'node-detail-wrap',
+        name: 'node-obsolete-detail-wrap',
         //实例的数据对象
         data () {
             return {

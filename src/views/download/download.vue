@@ -42,6 +42,9 @@
                         <el-form-item>
                             <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>{{$t('download.download')}}</el-button>
                         </el-form-item>
+                        <el-form-item>
+                            <span class="tip">{{$t('download.downloadTip')}}</span>
+                        </el-form-item>
                     </el-form>
                 </div>
             </div>
@@ -202,6 +205,10 @@
 
     .margin20{
         margin-right:20px;
+    }
+    .tip{
+        color: #94A3C2;
+        font-size: 12px;
     }
 </style>
 <style lang='less'>

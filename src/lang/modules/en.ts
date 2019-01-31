@@ -10,7 +10,7 @@ export default {
         },
         node: 'Node',
         nodeItem:{
-            validatorNode:'Validator Node',
+            validatorNode:'Block Producers',
             obsoleteNode:'Obsolete Node',
         },
         more: 'More',
@@ -109,6 +109,7 @@ export default {
         address: '地址',
         morethen: 'Total ',
         block: 'Blocks',
+        blockH: 'Block',
         height: 'Height',
         age: 'Age',
         transaction: 'Txn',
@@ -136,7 +137,11 @@ export default {
         actualTxCost: 'TxFee',
         from: 'From',
         to: 'To',
-        value: 'Value'
+        value: 'Value',
+        votes: 'Votes',
+        tickets:'Tickets',
+        ticket:'Tickets',
+        declarations:'Declarations'
     },
     totalInfo: {
         info: 'Address Info',
@@ -181,7 +186,8 @@ export default {
         download: 'Download',
         placeholder1: 'Please select date',
         robot: 'Please verify that you are a robot!',
-        googleAPINotAvailable:'Google reCAPTCHA is not available！'
+        googleAPINotAvailable:'Google reCAPTCHA is not available！',
+        downloadTip:'(Up to support 30,000 data downloads)'
     },
     elseInfo: {
         transfer: 'Transfer',
@@ -256,13 +262,14 @@ export default {
         validate: 'Validator Node',
         rule: 'Validator Node Rules',
         ranking: 'Rank',
-        name: 'VN Name',
+        name: 'BP Name',
+        nodeName: 'Node Name',
         electionStatus: 'Status',
         location: 'Location',
         deposit: 'Staked',
         blockCount: 'Blocks',
         rewardRatio: 'Reward Ratio',
-        placeHolder: 'Search by Validator Node Name',
+        placeHolder: 'Search by Block Producers Name',
         candidate: 'Candidate',
         standby: 'Standby',
         nodeinfo: 'Node Info',
@@ -292,8 +299,9 @@ export default {
         ratio:'Tickets/Ratio',
         blockReward:'Block Reward',
         ticketPrice:'Ticket Price',
-        validatorNode:'Validator Node',
+        validatorNode:'Block Producers',
         obsoleteNode:'Obsolete Node',
+        dateObsolete:'date obsolete',
         minMaxstaked:'Minimum/maximum Staked',
         selected:'Selected',
         tickets:'Tickets',
