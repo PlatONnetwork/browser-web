@@ -73,7 +73,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.dateObsolete')" >
                             <template slot-scope="scope">
-                                <span>{{scope.row.dateObsolete}}</span>
+                                <span>{{new Date(scope.row.eliminateTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -135,7 +135,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 let param = {
                     keyword:this.searchKey
                 };
-                apiService.node.list(param).then(res=>{
+                apiService.node.historyList(param).then(res=>{
                     let {errMsg,code,data}=res,newList=[];
                     if(code == 0){
                         data.forEach((item,index)=>{
@@ -152,7 +152,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                                 blockCount : item.blockCount,
                                 rewardRatio : item.rewardRatio,
                                 address : item.address,
-                                id : item.id
+                                id : item.id,
+                                eliminateTime : item.eliminateTime
                             })
                         })
                         this.tableData = newList

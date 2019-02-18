@@ -112,6 +112,7 @@ export default {
         blockH: 'Block',
         height: 'Height',
         age: 'Age',
+        interval:'Age',
         transaction: 'Txn',
         size: 'Size',
         miner: 'Producer',

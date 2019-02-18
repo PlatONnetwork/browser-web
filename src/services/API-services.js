@@ -54,9 +54,13 @@ class ApiService {
         }
         this.node = {
             list: this.post.bind(this, API.NODE.list),
+            historyList: this.post.bind(this, API.NODE.historyList),
             detail: this.post.bind(this, API.NODE.detail),
             blockList: this.post.bind(this, API.NODE.blockList),
             blockDownload: this.post.bind(this, API.NODE.blockDownload),
+        }
+        this.ticket = {
+	        ticketList: this.post.bind(this, API.TICKET.ticketList),
         }
         // this.file = {
         //     upload:this.uploadFile.bind(this, API.FILE.upload),//文件上传

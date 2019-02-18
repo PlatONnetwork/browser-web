@@ -14,9 +14,11 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
    	TRADE_URL = `${TOTAL}transaction/`,
     ACCOUNT_URL = `${TOTAL}account/`,
     NODE_URL = `${TOTAL}node/`,
+    TICKET_URL = `${TOTAL}ticket/`,
     //NODE
     NODE = {
         list: `${NODE_URL}list`,
+        historyList: `${NODE_URL}historyList`,
         detail: `${NODE_URL}detail`,
         blockList: `${NODE_URL}blockList`,
         blockDownload: `${NODE_URL}blockDownload`
@@ -44,7 +46,10 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         transactionDetailNavigate:`${TRADE_URL}transactionDetailNavigate`,
         pendingDetailNavigate:`${TRADE_URL}pendingDetailNavigate`,
         blockTransaction:`${TRADE_URL}blockTransaction`,
-        voteList:`${TRADE_URL}voteList`,
+    },
+    //TICKET
+    TICKET = {
+		ticketList: `${TICKET_URL}list`,
     },
     // TRADE
     ACCOUNT = {
@@ -75,5 +80,6 @@ export default {
     ACCOUNT,
     WS_CONFIG,
     JSON_BASE,
-    NODE
+    NODE,
+    TICKET
 }

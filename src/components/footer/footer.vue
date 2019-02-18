@@ -2,7 +2,7 @@
     <div class="footer-wrap">
         <div class="platon">
             <p class="footer-intro">{{ $t("footer.desc") }}</p>
-            <p class="copyright">COPYRIGHT © 2018 PLATSCAN INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
+            <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
             <p class="link-top">{{ $t("footer.links") }}</p>

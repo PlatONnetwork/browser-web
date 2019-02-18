@@ -75,7 +75,7 @@
                                     <span class='normal cursor' @click='tradeBlockFn(detailInfo.height,"vote")'>{{detailInfo.transaction}}</span>
                                     <span>TX</span>
                                     <span>( {{$t('blockAbout.ticket')}}</span>
-                                    <span class='normal cursor' @click='voteNumFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='voteNumFn(detailInfo.hash)'>{{detailInfo.transaction}}</span>
                                     <span>)</span>
                                 </el-col>
                             </el-row>
@@ -414,11 +414,12 @@ export default {
             });
         },
         //跳转到选票列表
-        voteNumFn(height){
+        voteNumFn(hash){
             this.$router.push({
                 path:'/trade-vote',
                 query:{
-                    height:height,
+                    hash:hash,
+                    height:this.height,
                     description: 'block',
                 }
             });

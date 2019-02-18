@@ -160,13 +160,15 @@ export default {
         //获取交易列表 下分页
         getTradeList() {
             let param = {
-                "pageNo": this.pageNo,//页数(必填)
-                "pageSize": this.pageSize,//页大小(必填)
-                "parameter": this.height//区块高度/hash(必填)
+                // "pageNo": this.pageNo,//页数(必填)
+                // "pageNo": this.currentPage,//页数(必填)
+                // "pageSize": this.pageSize,//页大小(必填)
+                // "parameter": this.height,//区块高度/hash(必填)
+                "txHash":this.hash //voteList不要了
             };
             console.warn('获取选座列表》》》', param);
-            apiService.trade
-                .voteList(param)
+            apiService.ticket
+                .ticketList(param)
                 .then(res => {
                     let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                     if (code == 0) {

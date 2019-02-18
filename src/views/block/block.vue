@@ -25,12 +25,12 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.height')" :width="currentScreenWidth<1440? 90:180">
+                        <el-table-column :label="$t('blockAbout.height')" :width="currentScreenWidth<1440? 90:150">
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')" :width="currentScreenWidth<1440? 180:260">
+                        <el-table-column :label="$t('blockAbout.age')" :width="currentScreenWidth<1440? 180:180">
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
