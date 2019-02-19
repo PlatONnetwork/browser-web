@@ -46,7 +46,7 @@
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  label="间隔"  width='120'>
+                        <el-table-column  :label="$t('blockAbout.interval')"  width='120'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
@@ -94,7 +94,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="类型"  width="120">
+                        <el-table-column :label="$t('totalInfo.txType')"  width="120">
                             <template slot-scope="scope">
                                 <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
@@ -144,7 +144,7 @@ export default {
                 transfer : 'transfer',
                 MPCtransaction : 'MPCtransaction',
                 contractCreate : 'contractCreate',
-                vote : 'vote',
+                voteTicket : 'voteTicket',
                 transactionExecute :'transactionExecute',
                 authorization :'authorization',
                 candidateDeposit :'candidateDeposit',

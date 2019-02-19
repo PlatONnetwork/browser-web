@@ -157,7 +157,7 @@ export default {
             this.pageSize = val;
             this.getTradeList();
         },
-        //获取交易列表 下分页
+        //通过hash获取交易列表 下分页
         getTradeList() {
             let param = {
                 // "pageNo": this.pageNo,//页数(必填)

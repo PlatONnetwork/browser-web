@@ -30,6 +30,8 @@ class ApiService {
 		    blockList: this.post.bind(this, API.BLOCK.blockList),
 		    blockDetails: this.post.bind(this, API.BLOCK.blockDetails),
             blockDetailNavigate: this.post.bind(this, API.BLOCK.blockDetailNavigate),
+            blockTransactionList: this.post.bind(this, API.BLOCK.blockTransactionList),
+            blockTicketList: this.post.bind(this, API.BLOCK.blockTicketList),
 	    }
         this.search = {
 	        query: this.post.bind(this, API.SEARCH.query),

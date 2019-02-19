@@ -75,7 +75,14 @@ export default {
         inputData:'发出数据',
         confirmNum:'区块确认',
         success:'成功',
-        fail:'失败'
+        fail:'失败',
+        type:'交易类型',
+        voteStaked:'投票质押',
+        votefor:'投票给',
+        tickets:'票数',
+        nodeID:'节点ID',
+        reduction:'减持',
+        withdraw:'提取'
     },
     tradePendingAbout: {
         address:'地址',
@@ -194,6 +201,7 @@ export default {
     elseInfo:{
         transfer:'转账',
         vote:'投票',
+        voteTicket:'投票',
         contractCreate:'合约创建',
         transactionExecute:'合约执行',
         MPCtransaction :'MPC交易',
@@ -211,7 +219,7 @@ export default {
         withdrawStake:'提取质押',
         send:'发送',
         receive:'接收',
-        candidateDeposit:'竞选质押',
+        candidateDeposit:'质押',
         candidateApplyWithdraw:'减持质押',
         candidateWithdraw:'提取质押',
         unknown:'未知',

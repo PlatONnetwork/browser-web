@@ -12,6 +12,7 @@ const tradeBlockComponent = resolve => require(['@/views/block/trade-block.vue']
 const tradeBlockFilterComponent = resolve => require(['@/views/block/trade-block-filter.vue'], resolve)
 const tradePendDetailComponent = resolve => require(['@/views/trade-detail/pend-detail.vue'], resolve)
 const tradeVoteComponent = resolve => require(['@/views/block/trade-vote.vue'], resolve)
+const tradeVoteBlockComponent = resolve => require(['@/views/block/trade-vote-block.vue'], resolve)
 export const tradeVoteCom = {
     path:'/trade-vote',
     component:tradeVoteComponent,
@@ -66,4 +67,9 @@ export const tradePendDetailCom = {
     path:'/trade-pending-detail',
     component:tradePendDetailComponent,
     name:'tradePendDetailComponent',
+}
+export const tradeVoteBlockCom = {
+    path:'/trade-vote-block',
+    component:tradeVoteBlockComponent,
+    name:'tradeVoteBlockComponent',
 }

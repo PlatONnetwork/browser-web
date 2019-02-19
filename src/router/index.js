@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './map/index'
-import {tradeCom,tradeVoteCom,tradePendingCom,blockCom,tradeDetailCom,addressDetailCom,contractDetailCom,blockDetailCom,tradeBlock,tradeBlockFilter,tradePendDetailCom} from './map/block'
+import {tradeCom,tradeVoteCom,tradeVoteBlockCom,tradePendingCom,blockCom,tradeDetailCom,
+    addressDetailCom,contractDetailCom,blockDetailCom,tradeBlock,tradeBlockFilter,tradePendDetailCom} from './map/block'
 import {nodeCom, nodeDetailCom, nodeObsoleteCom,nodeObsoleteDetailCom} from './map/node'
 import {walletCom,documentCom} from './map/more'
 import DownLoad from './map/download'
@@ -13,6 +14,7 @@ export default new Router({
         Index,//主页
         tradeCom,
         tradeVoteCom,
+        tradeVoteBlockCom,
         tradePendingCom,
         blockCom,
         tradeDetailCom,

@@ -72,7 +72,7 @@
                                     <span>{{$t('blockAbout.votes')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeBlockFn(detailInfo.height,"vote")'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.transaction}}</span>
                                     <span>TX</span>
                                     <span>( {{$t('blockAbout.ticket')}}</span>
                                     <span class='normal cursor' @click='voteNumFn(detailInfo.hash)'>{{detailInfo.transaction}}</span>
@@ -84,7 +84,7 @@
                                     <span>{{$t('blockAbout.declarations')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeBlockFn(detailInfo.height,"Declaration")'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.transaction}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -410,6 +410,16 @@ export default {
                 query: {
                     cid: this.chainId,
                     nodeId: nodeId,
+                },
+            });
+        },
+        // 区块投票、声明交易
+        tradeVoteBlockFn(height,txType) {
+            this.$router.push({
+                path: '/trade-vote-block',
+                query: {
+                    height: height,
+                    txType: txType
                 },
             });
         },

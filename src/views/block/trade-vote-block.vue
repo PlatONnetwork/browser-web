@@ -1,5 +1,5 @@
 <template>
-    <div class="trade-block-wrap">
+    <div class="trade-vote-block-wrap">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
@@ -66,14 +66,14 @@
                                 <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='150' align='center'>
+                        <!-- <el-table-column label="" width='150' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('blockAbout.to')"  width='200'>
+                        </el-table-column> 去掉箭头-->
+                        <el-table-column :label="$t('totalInfo.voteFor')"  width='200'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -88,12 +88,13 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.worth')" show-overflow-tooltip>
+                        <el-table-column :label="$t('blockAbout.worth')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="value" :label="$t('totalInfo.votesStaked')"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -114,7 +115,7 @@ import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     //组件名
-    name: 'trade-block-wrap',
+    name: 'trade-vote-block-wrap',
     //实例的数据对象
     data() {
         return {
@@ -169,15 +170,16 @@ export default {
         getTradeList() {
             let param = {
                 // cid:'',
-                height: this.height,
+                blockNumber: 4324,//this.height,
                 pageNo: this.currentPage,
                 pageSize: this.pageSize,
                 txType: this.txType // 交易类型
             };
             console.warn('获取区块交易列表》》》', param);
-            apiService.trade
-                .blockTransaction(param)
+            apiService.block
+                .blockTransactionList(param)
                 .then(res => {
+                    console.log(res)
                     let {data, totalPages, totalCount, code, errMsg} = res;
                     if (code == 0) {
                         this.tableData = data;
@@ -273,7 +275,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.trade-block-wrap {
+.trade-vote-block-wrap {
     .bottom {
         padding: 26px 0 28px;
         .title {

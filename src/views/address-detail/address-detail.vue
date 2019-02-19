@@ -229,9 +229,9 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.voteFor")' width='100'>
+                                    <el-table-column :label='$t("totalInfo.voteFor")' width='200'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span>
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.to}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='300'>
@@ -246,7 +246,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.votesStaked")' show-overflow-tooltip width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.votePledge}}</span>
+                                            <span>{{scope.row.value}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.profit")' show-overflow-tooltip width="150px">
@@ -375,9 +375,13 @@
                     transfer : 'transfer',
                     MPCtransaction : 'MPCtransaction',
                     contractCreate : 'contractCreate',
-                    vote : 'vote',
+                    voteTicket : 'voteTicket',
                     transactionExecute :'transactionExecute',
-                    authorization :'authorization'
+                    authorization :'authorization',
+                    candidateDeposit :'candidateDeposit',
+                    candidateApplyWithdraw :'candidateApplyWithdraw',
+                    candidateWithdraw :'candidateWithdraw',
+                    unknown :'unknown'
                 },
                 address:'',
                 detailInfo:{
@@ -436,8 +440,14 @@
             },
             changeTab(type) {
                 this.activeTab = type;
-                if(type==2){
-                    this.type = 'vote'
+                if(type==1){
+                    this.type = 'transfer'
+                    this.getDetail()
+                }else if(type==2){
+                    this.type = 'voteTicket'
+                    this.getDetail()
+                }else{
+                    this.type = 'candidateDeposit '
                     this.getDetail()
                 }
             },
@@ -534,7 +544,8 @@
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: this.activeTab == 3?this.dectarationType:this.type,
+                    // txType: this.activeTab == 3?this.dectarationType:this.type,
+                    txType: this.type,
                 };
                 console.warn('地址详情入参》》》》', param);
                 apiService.trade
@@ -553,7 +564,7 @@
                             contractService.serProvider(this.chainHttp)
                             //获取余额
                             // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
-                            this.balance = contractService.getBalance(this.address) //返回的参数错误0(error) 导致data functions should return an object:
+                            // this.balance = contractService.getBalance(this.address) //返回的参数错误0(error) 导致data functions should return an object:
                         } else {
                             this.detailInfo = {};
                             console.warn('地址详情detailInfo》》》》', this.detailInfo);

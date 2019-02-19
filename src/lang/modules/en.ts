@@ -75,7 +75,14 @@ export default {
         inputData: 'Input Date',
         confirmNum: 'Block Confirmations',
         success: 'Success',
-        fail: 'Fail'
+        fail: 'Fail',
+        type:'Type',
+        voteStaked:'Vote Staked',
+        votefor:'Vote for',
+        tickets:'Tickets',
+        nodeID:'Node ID',
+        reduction:'Reduction',
+        withdraw:'Withdraw'
     },
     tradePendingAbout: {
         address: 'Address',
@@ -193,6 +200,7 @@ export default {
     elseInfo: {
         transfer: 'Transfer',
         vote: 'Vote',
+        voteTicket:'Vote Ticket',
         contractCreate: 'Contract Create',
         transactionExecute: 'Contract Execute',
         MPCtransaction: 'MPC',

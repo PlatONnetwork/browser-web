@@ -28,6 +28,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 		blockList: `${BLOCK_URL}blockList`,
 		blockDetails: `${BLOCK_URL}blockDetails`,
         blockDetailNavigate: `${BLOCK_URL}blockDetailNavigate`,
+        blockTransactionList: `${BLOCK_URL}transactionList`,
+        blockTicketList: `${BLOCK_URL}ticketList`,
 	},
     // SOUSUO
 	SEARCH = {

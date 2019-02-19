@@ -43,7 +43,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.location')">
                             <template slot-scope="scope">
-                                <img :src="'data:image/png;base64,' + scope.row.countryCode" alt=""  class='images images1'>
+                                <img :src="'data:image/png;base64,' + scope.row.countryCode" alt="img"  class='images images1'>
                                 <span>{{scope.row.location}}</span>
                             </template>
                         </el-table-column>
