@@ -496,7 +496,7 @@ button {
         }
         .inputdata {
             position: relative;
-            width: 100px;
+            width: 105px;
             height: 30px;
             background-color: rgba(48, 56, 104, 0.3);
             margin: 0 auto;

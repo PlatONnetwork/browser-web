@@ -184,7 +184,8 @@
                             this.$emit('searchFn',data);
                         }
                     }else{
-                        this.$message.error(errMsg)
+                        this.$message.warning(this.$t('indexInfo.searchno'))
+                        // this.$message.error(errMsg) 替换为search无结果
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
@@ -256,7 +257,7 @@
         },
         //生命周期函数
         created(){
-            console.log(this.$i18n.locale,'hufu')
+            // console.log(this.$i18n.locale,'hufu')
 
         },
         //监视

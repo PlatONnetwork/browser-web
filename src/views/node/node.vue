@@ -16,23 +16,24 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{statusFn[1]}}</p>
+                    <p class="color1 cursor">{{listData.voteCount}}/{{listData.proportion}}%</p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li>
+                    <p class="color1 cursor">{{listData.blockReward}}Energon</p>
                     <span>{{$t("nodeInfo.blockReward")}}</span>
                 </li>
                 <li>
                     <!-- <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p> -->
-                    <p class="color-red cursor" >1 <span class="subsize">Energon</span></p>
+                    <p class="color-red cursor" >{{listData.ticketPrice}} <span class="subsize">Energon</span></p>
                     <span>{{$t("nodeInfo.ticketPrice")}}</span>
                 </li>
                 <li>
-                    <!-- <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p> -->
+                    <p class="color1">{{listData.selectedNodeCount}}</p>
                     <span>{{$t("nodeInfo.validatorNode")}}</span>
                 </li>
                 <li>
-                    <!-- <p>{{currentOverViewData.addressAmount}}</p> -->
+                    <p>{{listData.lowestDeposit}}/{{listData.highestDeposit}}Energon</p>
                     <span>{{$t("nodeInfo.minMaxstaked")}}</span>
                 </li>
             </ul>
@@ -130,6 +131,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 },
                 descriptionProp: 'node',
                 flag:'',
+                listData:{}
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -158,6 +160,9 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                 };
                 apiService.node.list(param).then(res=>{
                     let {errMsg,code,data}=res,newList=[];
+                    // let {errMsg,code,data,blockReward,displayTotalCount,highestDeposit,lowestDeposit,proportion,
+                    // selectedNodeCount,ticketPrice,totalCount,totalNodeCount,totalPages,voteCount}=res,newList=[];
+                    this.listData=res
                     if(code == 0){
                         data.forEach((item,index)=>{
                             // console.warn(this.getFlag(item.countryCode))

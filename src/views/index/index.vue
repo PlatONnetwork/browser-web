@@ -201,7 +201,7 @@
                                         </div>
                                     </template>
                                 </el-table-column> -->
-                                <el-table-column label="类型"  width="150">
+                                <el-table-column :label="$t('totalInfo.txType')"  width="150">
                                     <template slot-scope="scope">
                                         <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                     </template>
@@ -286,7 +286,7 @@ export default class Index extends Vue {
         transfer : 'transfer',
         MPCtransaction : 'MPCtransaction',
         contractCreate : 'contractCreate',
-        vote : 'vote',
+        voteTicket : 'voteTicket',
         transactionExecute :'transactionExecute',
         authorization :'authorization',
         candidateDeposit :'candidateDeposit',

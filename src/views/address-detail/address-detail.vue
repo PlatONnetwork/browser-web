@@ -231,30 +231,30 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.voteFor")' width='200'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.to}}</span>
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='300'>
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.nodeName'>{{scope.row.voteNumber || 0}}</span>
+                                            <span v-if='scope.row.nodeName'>{{scope.row.voteCount || 0}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.ticketPrice")' width='300'>
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.votePrice}}</span>
+                                            <span>{{scope.row.ticketPrice}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.votesStaked")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.votesStaked")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.profit")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.profit")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.income}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.txFee")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.txFee")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.actualTxCost}}</span>
                                         </template>
@@ -317,7 +317,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.staked")' show-overflow-tooltip width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.staked}} Energon</span>
+                                            <span>{{scope.row.deposit}} Energon</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip width="150px">
