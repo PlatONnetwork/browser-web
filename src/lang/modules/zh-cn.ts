@@ -185,7 +185,10 @@ export default {
         profit:'收益',
         txFee:'交易费用',
         others:'其他',
-        validTickets:'有效票'
+        validTickets:'有效票',
+        ticketID:'选票ID',
+        owner:'拥有者',
+        EAtime:'预计/实际过期时间'
     },
     download:{
         info:'下载数据',

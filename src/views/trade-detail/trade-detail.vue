@@ -148,7 +148,7 @@
                                     <span>{{$t('tradeAbout.votefor')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click='voteFn(detailInfo.nodeId)'>{{detailInfo.value}}</span>
+                                    <span class='cursor normal' @click='voteFn(detailInfo.nodeId)'>{{detailInfo.nodeName}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="candidateWithdraw"'>
@@ -172,7 +172,7 @@
                                     <span>{{$t('totalInfo.ticketPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>票价未知</span>
+                                    <span>{{detailInfo.ticketPrice}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="voteTicket"'>

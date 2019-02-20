@@ -34,8 +34,8 @@
                         <p>{{currentOverViewData.addressAmount}}</p>
                         <span>{{$t("indexInfo.addressAmount")}}</span>
                     </li>
-                    <!-- <li>
-                        <p>{{currentOverViewData.voteAmount}}/{{currentOverViewData.proportion}}</p>
+                    <li>
+                        <p>{{currentOverViewData.voteCount}}/{{currentOverViewData.proportion}}%</p>
                         <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
                     </li>
                     <li>
@@ -43,7 +43,7 @@
                             <span class="atp">Energon</span>
                         </p>
                         <span>{{$t("indexInfo.ticketPrice")}}</span>
-                    </li> -->
+                    </li>
                 </ul>
                 <!-- UI去掉球形展示 -->
                 <!-- <div class="earth" :class="isWorldMap?'earth2':'earth1'" @click="changeEarth"></div> -->

@@ -91,7 +91,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="类型"  width="150">
+                        <el-table-column :label="$t('totalInfo.txType')" width="150">
                             <template slot-scope="scope">
                                 <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
@@ -138,7 +138,7 @@ export default {
                 transfer : 'transfer',
                 MPCtransaction : 'MPCtransaction',
                 contractCreate : 'contractCreate',
-                vote : 'vote',
+                voteTicket : 'voteTicket',
                 transactionExecute :'transactionExecute',
                 authorization :'authorization',
                 candidateDeposit :'candidateDeposit',

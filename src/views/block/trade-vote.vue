@@ -10,17 +10,17 @@
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
                         <el-breadcrumb-item :to="{ path: '/trade' }" v-if='description == "trade"'>{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/block' }" v-if='description == "block"'>区块</el-breadcrumb-item>
-                        <el-breadcrumb-item :to="{ path: '/trade-pending' }" v-if='description == "pending"'>待处理交易</el-breadcrumb-item>
-                        <el-breadcrumb-item v-if='description == "trade" || description == "pending"'>选票-交易-{{hash}}</el-breadcrumb-item>
-                        <el-breadcrumb-item v-if='description == "block"'>选票-区块-{{height}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/block' }" v-if='description == "block"'>{{$t('tradeAbout.block')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/trade-pending' }" v-if='description == "pending"'>{{$t('tradePendingAbout.transactions')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item v-if='description == "trade" || description == "pending"'>{{$t('blockAbout.ticket')}}-{{$t('breadCrumb.trade')}}-{{hash}}</el-breadcrumb-item>
+                        <el-breadcrumb-item v-if='description == "block"'>{{$t('blockAbout.ticket')}}-{{$t('breadCrumb.block')}}-{{height}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>总共&nbsp;&nbsp;{{displayTotalCount}}&nbsp;&nbsp;选票</span>
+                        <span>{{$t('blockAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('blockAbout.ticket')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column label="选票ID" >
+                        <el-table-column :label="$t('totalInfo.ticketID')" >
                             <template slot-scope="scope">
                                 <!-- <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -40,17 +40,17 @@
                                 <span>{{scope.row.ticketId}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop=""  label="投票给">
+                        <el-table-column prop="" :label="$t('totalInfo.voteFor')" >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.nodeName}}</div>
-                                        <span class='cursor normal ellipsis' @click='giveVoteFn(scope.row)'>{{scope.row.nodeName}}</span>
+                                        <span class='cursor normal ellipsis' @click='voteFn(scope.row.candidateId)'>{{scope.row.candidateId}}</span>
                                     </el-tooltip>
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop=""  label="拥有者">
+                        <el-table-column prop="" :label="$t('totalInfo.voteFor')">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
@@ -60,19 +60,19 @@
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column label="状态"  width="150">
+                        <el-table-column :label="$t('nodeInfo.electionStatus')" width="150">
                             <template slot-scope="scope">
                                 <!-- <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span> -->
-                                <span>{{statusFn(scope.row.status)}}</span>
+                                <span>{{statusFn(scope.row.state)}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="收益" width="150">
+                        <el-table-column :label="$t('totalInfo.profit')" width="150">
                             <template slot-scope="scope">
-                                <span>{{scope.row.income?scope.row.income:'-'}} Energon</span>
+                                <span>{{scope.row.income==null?'-':scope.row.income}} Energon</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="预计/实际过期时间" >
-                            <template slot-scope="scope">{{scope.row.status==3?new Date(scope.row.time).Format('yyyy-MM-dd HH:mm:ss'):new Date(scope.row.expectTime).Format('yyyy-MM-dd HH:mm:ss')}}</template>
+                        <el-table-column prop="" :label="$t('totalInfo.EAtime')">
+                            <template slot-scope="scope">{{scope.row.status==3?new Date(scope.row.actualExpireTime).Format('yyyy-MM-dd HH:mm:ss'):new Date(scope.row.estimateExpireTime).Format('yyyy-MM-dd HH:mm:ss')}}</template>
                         </el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
@@ -114,7 +114,7 @@ export default {
                 transfer : 'transfer',
                 MPCtransaction : 'MPCtransaction',
                 contractCreate : 'contractCreate',
-                vote : 'vote',
+                voteTicket : 'voteTicket',
                 transactionExecute :'transactionExecute',
                 authorization :'authorization',
                 candidateDeposit :'candidateDeposit',
@@ -202,9 +202,14 @@ export default {
                 return this.$t('elseInfo.waitsure');
             }
         },
-        //投票给
-        giveVoteFn(row){
-
+        //投票给 进入节点详情页
+        voteFn(nodeId){
+            this.$router.push({
+                path:'/node-detail',
+                query:{
+                    nodeId:nodeId
+                }
+            });
         },
         //拥有者 进入账户地址详情
         hasVoteFn(row){

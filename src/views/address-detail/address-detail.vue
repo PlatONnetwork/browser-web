@@ -131,7 +131,9 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.txType")' width='140'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>
+                                                {{ scope.row.from == address?$t('elseInfo.' + txTypeFn[scope.row.txType]):$t('elseInfo.' + txTypeFnTo[scope.row.txType])}}
+                                            </span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.from")'  :width="currentScreenWidth<1440? 200:300">
@@ -355,13 +357,13 @@
                 count:0,
                 activeTab:1,
                 // selectAll:[],
-                type:'send',
+                type:'transfer',
                 dectarationType:'validatorStake',
                 typeList:[
-                    // {label:'transfer',value:'transfer'}, 4.0转账细分发送和接收，投票独立
+                    {label:'transfer',value:'transfer'}, //4.0转账细分发送和接收，投票独立
                     // {label:'All',value:'All'},
-                    {label:'send',value:'send'},
-                    {label:'receive',value:'receive'},
+                    // {label:'send',value:'send'},
+                    // {label:'receive',value:'receive'},
                     {label:'contractCreate',value:'contractCreate'},
                     {label:'transactionExecute',value:'transactionExecute'},
                     {label:'MPCtransaction',value:'MPCtransaction'},
@@ -372,7 +374,19 @@
                     {label:'withdrawStake',value:'withdrawStake'},
                 ],
                 txTypeFn: {
-                    transfer : 'transfer',
+                    transfer : 'send',
+                    MPCtransaction : 'MPCtransaction',
+                    contractCreate : 'contractCreate',
+                    voteTicket : 'voteTicket',
+                    transactionExecute :'transactionExecute',
+                    authorization :'authorization',
+                    candidateDeposit :'candidateDeposit',
+                    candidateApplyWithdraw :'candidateApplyWithdraw',
+                    candidateWithdraw :'candidateWithdraw',
+                    unknown :'unknown'
+                },
+                txTypeFnTo: {
+                    transfer : 'receive',
                     MPCtransaction : 'MPCtransaction',
                     contractCreate : 'contractCreate',
                     voteTicket : 'voteTicket',
@@ -420,7 +434,10 @@
             searchFn(data){
                 console.warn('子组件header向地址详情data>>>>',data)
                 this.address = this.$route.query.address;
-                this.detailInfo = data.struct;
+                //搜索query没有字段，增加判断，后期优化
+                if(!this.detailInfo){
+                    this.detailInfo = data.struct;
+                }
                 data.struct.trades.forEach(item => {
                     if (item.txReceiptStatus == -1) {
                         ++this.count;

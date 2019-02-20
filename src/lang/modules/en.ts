@@ -184,7 +184,10 @@ export default {
         profit:'Profit',
         txFee:'Txfee',
         others:'Others',
-        validTickets:'Valid Tickets'
+        validTickets:'Valid Tickets',
+        ticketID:'Ticket ID',
+        owner:'Owner',
+        EAtime:'Estimated/Actual expiration time'
     },
     download: {
         info: 'Download Data',

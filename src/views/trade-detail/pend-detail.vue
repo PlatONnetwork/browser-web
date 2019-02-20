@@ -45,7 +45,7 @@
                         <div class="data" v-if='detailInfo'>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="7">
-                                    <span>交易类型:</span>
+                                    <span>{{$t('tradeAbout.type')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span>{{ $t('elseInfo.' + txTypeFn[detailInfo.txType])}}</span>
@@ -85,34 +85,34 @@
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote"'>
                                 <el-col :span="7">
-                                    <span>投票质押:</span>
+                                    <span>{{$t('tradeAbout.voteStaked')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>投票未知</span>
+                                    <span>{{detailInfo.value}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateDeposit"'>
                                 <el-col :span="7">
-                                    <span>质押金:</span>
+                                    <span>{{$t('totalInfo.staked')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>质押金未知</span>
+                                    <span>{{detailInfo.value}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateApplyWithdraw"'>
                                 <el-col :span="7">
-                                    <span>减持:</span>
+                                    <span>{{$t('tradeAbout.reduction')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>减持未知</span>
+                                    <span>{{detailInfo.value}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateWithdraw"'>
                                 <el-col :span="7">
-                                    <span>提取:</span>
+                                    <span>{{$t('tradeAbout.withdraw')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>提取未知</span>
+                                    <span>{{detailInfo.value}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="authorization" || detailInfo.txType=="transactionExecute" || detailInfo.txType=="vote" || detailInfo.txType=="contractCreate" || detailInfo.txType=="MPCtransaction" || detailInfo.txType=="transfer"'>
@@ -133,44 +133,44 @@
                                     <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote"'>
+                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="voteTicket"'>
                                 <el-col :span="7">
-                                    <span>投票给:</span>
+                                    <span>{{$t('tradeAbout.votefor')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click='voteFn'>投票给未知</span>
+                                    <span class='cursor normal' @click='voteFn(detailInfo.nodeId)'>{{detailInfo.nodeName}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="candidateWithdraw"'>
                                 <el-col :span="7">
-                                    <span>节点名称:</span>
+                                    <span>{{$t('totalInfo.nodeName')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click='voteFn'>节点名称未知</span>
+                                    <span class='cursor normal' @click='voteFn(detailInfo.nodeId)'>{{detailInfo.nodeName}}</span>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote" || detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="candidateWithdraw"'>
+                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="voteTicket" || detailInfo.txType=="candidateDeposit" || detailInfo.txType=="candidateApplyWithdraw" || detailInfo.txType=="candidateWithdraw"'>
                                 <el-col :span="7">
-                                    <span>节点ID:</span>
+                                    <span>{{$t('tradeAbout.nodeID')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>节点ID未知</span>
-                                </el-col>
-                            </el-row>
-                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote"'>
-                                <el-col :span="7">
-                                    <span>票价:</span>
-                                </el-col>
-                                <el-col :span="20">
-                                    <span>票价未知</span>
+                                    <span class="nodeIDBreak">{{detailInfo.nodeId}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote"'>
                                 <el-col :span="7">
-                                    <span>票数:</span>
+                                    <span>{{$t('totalInfo.ticketPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click='voteNumFn(detailInfo.blockHeight,detailInfo.txHash)'>票数未知</span>
+                                    <span>{{detailInfo.ticketPrice}}</span>
+                                </el-col>
+                            </el-row>
+                            <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="vote"'>
+                                <el-col :span="7">
+                                    <span>{{$t('tradeAbout.tickets')}}:</span>
+                                </el-col>
+                                <el-col :span="20">
+                                    <span class='cursor normal' @click='voteNumFn(detailInfo.blockHeight,detailInfo.txHash)'>{{detailInfo.voteCount}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -203,7 +203,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <!-- <span>{{ toNonExponential(detailInfo.energonPrice / Math.pow(10,18) )}} Energon ({{Math.pow(10,9)*detailInfo.energonPrice}}E)</span> -->
-                                    <span>{{ toNonExponential(detailInfo.priceInEnergon )}} Energon ({{detailInfo.priceInE}}E)</span>
+                                    <span>{{ (detailInfo.priceInEnergon )}} Energon ({{detailInfo.priceInE}}E)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -264,7 +264,7 @@ export default {
                 transfer : 'transfer',
                 MPCtransaction : 'MPCtransaction',
                 contractCreate : 'contractCreate',
-                vote : 'vote',
+                voteTicket : 'voteTicket',
                 transactionExecute :'transactionExecute',
                 authorization :'authorization',
                 candidateDeposit :'candidateDeposit',
@@ -283,8 +283,13 @@ export default {
     //方法
     methods: {
         //投票给 跳转到竞选节点详情
-        voteFn(){
-
+        voteFn(nodeId){
+            this.$router.push({
+                path:'/node-detail',
+                query:{
+                    nodeId:nodeId
+                }
+            });
         },
         //票数 跳转到选票列表
         voteNumFn(height,hash){
@@ -578,5 +583,8 @@ button {
     .data {
         margin-left: 15%;
     }
+}
+.nodeIDBreak{
+    word-break: break-all;
 }
 </style>

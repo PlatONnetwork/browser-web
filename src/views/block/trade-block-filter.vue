@@ -138,7 +138,7 @@ export default {
                 transfer : 'transfer',
                 MPCtransaction : 'MPCtransaction',
                 contractCreate : 'contractCreate',
-                vote : 'vote',
+                voteTicket : 'voteTicket',
                 transactionExecute :'transactionExecute',
                 authorization :'authorization',
                 candidateDeposit :'candidateDeposit',
