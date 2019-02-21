@@ -84,7 +84,7 @@
                         <el-table-column :label="$t('nodeInfo.tickets')" >
                             <template slot-scope="scope">
                                 <span>
-                                    {{scope.row.tickets}}
+                                    {{scope.row.ticketCount}}
                                 </span>
                             </template>
                         </el-table-column>
@@ -178,7 +178,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                                 blockCount : item.blockCount,
                                 rewardRatio : item.rewardRatio,
                                 address : item.address,
-                                id : item.id
+                                id : item.id,
+                                ticketCount : item.ticketCount
                             })
                         })
                         this.tableData = newList
