@@ -50,7 +50,7 @@
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" :label="$t('totalInfo.voteFor')">
+                        <el-table-column prop="" :label="$t('totalInfo.owner')">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">

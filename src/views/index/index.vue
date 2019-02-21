@@ -35,7 +35,7 @@
                         <span>{{$t("indexInfo.addressAmount")}}</span>
                     </li>
                     <li>
-                        <p>{{currentOverViewData.voteCount}}/{{currentOverViewData.proportion}}%</p>
+                        <p>{{currentOverViewData.voteCount}}/{{currentOverViewData.proportion*100}}%</p>
                         <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
                     </li>
                     <li>
