@@ -38,7 +38,7 @@
                             </p> -->
                             <p>
                                 <span>{{$t('nodeInfo.selected')}}</span>
-                                <span>{{detailInfo.selected}}</span>
+                                <span>{{detailInfo.hitCount}}</span>
                             </p>
                         </div>
                         <div>
@@ -331,11 +331,14 @@
                     this.$message.error(error);
                 })
             },
-            //获取区块列表信息
+            //获取区块列表信息/节点出的区块
             getList(){
                 let param = {
                     // address:this.address 入参改为nodeId
-                    nodeId:this.detailInfo.nodeId
+                    // nodeId:this.detailInfo.nodeId
+                    id: this.detailInfo.id,
+                    beginNumber: this.detailInfo.beginNumber,
+                    endNumber: this.detailInfo.endNumber
                 };
                 apiService.node.blockList(param).then(res=>{
                     let {errMsg,code,data}=res;
