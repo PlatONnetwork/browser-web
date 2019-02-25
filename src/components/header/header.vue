@@ -140,7 +140,7 @@
                     return item.cid == id
                 })
                 let arr1=arr[0]
-                console.warn('首次id》》》',arr1['en']);
+                console.warn('首次net》》》',arr1['en']);
                 return arr1['en']
             },
             handleCommand(command){
