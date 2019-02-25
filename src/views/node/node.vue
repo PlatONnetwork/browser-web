@@ -95,7 +95,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.rewardRatio')" width="100">
                             <template slot-scope="scope">
-                                <span>{{scope.row.rewardRatio * 10000/100}} %</span>
+                                <span>{{parseFloat((scope.row.rewardRatio*100).toPrecision(12))}} %</span> <!-- 使用toPrecision解决精度问题 -->
                             </template>
                         </el-table-column>
                     </el-table>

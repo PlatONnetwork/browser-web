@@ -68,7 +68,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.rewardRatio')" >
                             <template slot-scope="scope">
-                                <span>{{scope.row.rewardRatio * 100}} %</span>
+                                <span>{{parseFloat((scope.row.rewardRatio*100).toPrecision(12))}} %</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.dateObsolete')" >

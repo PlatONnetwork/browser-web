@@ -44,7 +44,7 @@
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
-                                <span>{{detailInfo.rewardRatio * 100}}%</span>
+                                <span>{{parseFloat((detailInfo.rewardRatio*100).toPrecision(12))}} %</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.blocks')}}</span>
@@ -151,7 +151,7 @@
                                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>{{detailInfo.rewardRatio * 10000/100}}%</span>
+                                                <span>{{parseFloat((detailInfo.rewardRatio*100).toPrecision(12))}} %</span>
                                             </el-col>
                                         </el-row>
                                     </div>
