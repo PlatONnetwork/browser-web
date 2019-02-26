@@ -353,7 +353,8 @@ class ChartService {
                     name: '出块时间',
                     type: 'line',
                     yAxisIndex: 0,
-                    data: [1, 2.3, 4, 3, 3.5, 4],
+                    // data: [1, 2.3, 4, 3, 3.5, 4],去掉默认数据
+                    data: [],
                     lineStyle: {
                         color: '#2FAAF8',
                         width: 2,
@@ -386,7 +387,8 @@ class ChartService {
                     type: 'bar',
                     yAxisIndex: 1,
                     smooth: true,
-                    data: [20, 4, 5, 30, 14, 25],
+                    // data: [20, 4, 5, 30, 14, 25], 去掉默认数据
+                    data: [],
                     itemStyle: {
                         color: '#30EAF6',
                         opacity: 0.3

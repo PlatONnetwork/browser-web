@@ -19,6 +19,7 @@ export const commonAction = {
             commit('DONE_CHAINLIST', data.chainList)
             sessionStorage.getItem('commandId') ? commit('CHANGE_ID', sessionStorage.getItem('commandId')) : commit('CHANGE_ID', data.chainList[0].cid)
             // commit('CHANGE_ID', data.chainList[0].cid)
+            localStorage.setItem('cid',data.chainList[0].cid)
             sessionStorage.getItem('commandHttp') ? commit('CHANGE_HTTP', sessionStorage.getItem('commandHttp')) : commit('CHANGE_HTTP', data.chainList[0].http)
         });
         apiService.get(config.JSON_BASE + "/walletConfig.json").then((data) => {
