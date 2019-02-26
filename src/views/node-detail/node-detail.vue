@@ -76,11 +76,11 @@
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.tickets')}}</span>
-                                <span>{{detailInfo.tickets}} Energon</span>
+                                <span>{{detailInfo.ticketCount}} Energon</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.ticketage')}}</span>
-                                <span>{{detailInfo.ticketage}} Energon</span>
+                                <span>{{detailInfo.ticketEpoch}} Energon</span>
                             </p>
                         </div>
                     </div>
