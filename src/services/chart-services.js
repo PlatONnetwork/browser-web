@@ -185,8 +185,8 @@ class ChartService {
     earthOption = {
         // backgroundColor: '#000',
         globe: {
-            baseTexture: '../../static/images/earth2.jpg',
-            heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
+            // baseTexture: '../../static/images/earth2.jpg',
+            // heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
             shading: 'color',
             light: {
                 ambient: {
