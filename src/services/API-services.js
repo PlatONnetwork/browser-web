@@ -86,7 +86,7 @@ class ApiService {
         // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
         // params.cid =
         // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : store.state.common.chainId
-        params.cid = sessionStorage.getItem('commandId') ? store.state.common.chainId:localStorage.getItem('commandId')
+        params.cid = sessionStorage.getItem('commandId') ? store.state.common.chainId : localStorage.getItem('cid')
         return Http.post(url, params).then(res => res.data)
     }
     encodeParams(url,params){

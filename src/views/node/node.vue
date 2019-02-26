@@ -16,10 +16,10 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{listData.voteCount}}/{{listData.proportion*100}}%</p>
+                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion*100).toPrecision(12))}}%</p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
-                <li>
+                <li class="flexLayout">
                     <p class="color1 cursor">{{listData.blockReward}} Energon</p>
                     <span>{{$t("nodeInfo.blockReward")}}</span>
                 </li>
@@ -32,8 +32,8 @@
                     <p class="color1">{{listData.selectedNodeCount}}</p>
                     <span>{{$t("nodeInfo.validatorNode")}}</span>
                 </li>
-                <li>
-                    <p>{{listData.lowestDeposit}}/{{listData.highestDeposit}} Energon</p>
+                <li class="flexLayout">
+                    <p >{{listData.lowestDeposit}}/{{listData.highestDeposit}} Energon</p>
                     <span>{{$t("nodeInfo.minMaxstaked")}}</span>
                 </li>
             </ul>
@@ -275,6 +275,11 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 }
 .iconImage{
     border-radius: 50%
+}
+.validator-Node{
+    .flexLayout{
+        flex:0.4;
+    }
 }
 .validator-Node{
     display: flex;
