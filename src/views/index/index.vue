@@ -830,10 +830,10 @@ div.slider-item {
     background-image: url('./images/big.png');
     background-position: center center;
 }
-.earth2 {
-    background-image: url('./images/small.png');
-    background-position: center center;
-}
+// .earth2 {
+//     background-image: url('./images/small.png');
+//     background-position: center center;
+// }
 
 .second-floor {
     // padding: 100px 100px 0 100px;
@@ -953,11 +953,11 @@ div.slider-item {
 .world-map1 {
     // background: url(images/background-big.png) no-repeat center,
     //     url(images/background-big2.png) no-repeat center;
-    background: url(images/background-big2.png) no-repeat center;
+    // background: url(images/background-big2.png) no-repeat center;
     background-size: 100% 100%;
 }
 .earch-box1 {
-    background: url(images/background-big2.png) no-repeat center;
+    // background: url(images/background-big2.png) no-repeat center;
     // background:url(images/background-big.png)  no-repeat center,
     // url(images/background-big2.png) no-repeat center;
     background-size: 100% 100%;
