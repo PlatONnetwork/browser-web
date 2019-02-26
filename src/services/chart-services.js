@@ -182,72 +182,72 @@ class ChartService {
             }
         ]
     }
-    // earthOption = {
-    //     // backgroundColor: '#000',
-    //     globe: {
-    //         baseTexture: '../../static/images/earth2.jpg',
-    //         heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
-    //         shading: 'color',
-    //         light: {
-    //             ambient: {
-    //                 intensity: 0.4
-    //             },
-    //             main: {
-    //                 intensity: 0.4
-    //             }
-    //         },
-    //         viewControl: {
-    //             autoRotate: true,
-    //             zoomSensitivity:0
-    //         },
-    //         top: '5%',
-    //         bottom:'8%',
-    //         globeRadius:70,
-    //     },
-    //     series: [{
-    //         name: '共识节点',
-    //         type: 'scatter3D',
-    //         coordinateSystem: 'globe',
-    //         data: data1,
-    //         symbol:'pin',
-    //         symbolSize: 13,
-    //         itemStyle: {
-    //             normal: {
-    //                 color: 'rgba(255,255,0,1)',
-    //                 shadowBlur: 10,
-    //                 shadowColor: '#333'
-    //             }
-    //         },
-    //         zlevel: 1
-    //     }, {
-    //             name: '普通节点',
-    //             type: 'scatter3D',
-    //             coordinateSystem: 'globe',
-    //             data: data2,
-    //             symbol:'arrow',
-    //             //   symbolSize: 10,
-    //             hoverAnimation: true,
-    //             itemStyle: {
-    //                 normal: {
-    //                     color: 'rgba(44,213,230,0.8)',
-    //                     shadowBlur: 10,
-    //                     shadowColor: '#333'
-    //                 }
-    //             },
-    //             zlevel: 1
-    //         }, {
-    //             name: '异常离线节点',
-    //             type: 'scatter3D',
-    //             coordinateSystem: 'globe',
-    //             blendMode: 'lighter',
-    //             symbol:'pin',
-    //             itemStyle: {
-    //                 color: '#b0b0b0',
-    //                 opacity: 1
-    //             },
-    //             data:data3
-    //         }]
-    // }
+    earthOption = {
+        // backgroundColor: '#000',
+        globe: {
+            baseTexture: '../../static/images/earth2.jpg',
+            heightTexture: 'http://echarts.baidu.com/examples/data-gl/asset/bathymetry_bw_composite_4k.jpg',
+            shading: 'color',
+            light: {
+                ambient: {
+                    intensity: 0.4
+                },
+                main: {
+                    intensity: 0.4
+                }
+            },
+            viewControl: {
+                autoRotate: true,
+                zoomSensitivity:0
+            },
+            top: '5%',
+            bottom:'8%',
+            globeRadius:70,
+        },
+        series: [{
+            name: '共识节点',
+            type: 'scatter3D',
+            coordinateSystem: 'globe',
+            data: data1,
+            symbol:'pin',
+            symbolSize: 13,
+            itemStyle: {
+                normal: {
+                    color: 'rgba(255,255,0,1)',
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
+            },
+            zlevel: 1
+        }, {
+                name: '普通节点',
+                type: 'scatter3D',
+                coordinateSystem: 'globe',
+                data: data2,
+                symbol:'arrow',
+                //   symbolSize: 10,
+                hoverAnimation: true,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(44,213,230,0.8)',
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                zlevel: 1
+            }, {
+                name: '异常离线节点',
+                type: 'scatter3D',
+                coordinateSystem: 'globe',
+                blendMode: 'lighter',
+                symbol:'pin',
+                itemStyle: {
+                    color: '#b0b0b0',
+                    opacity: 1
+                },
+                data:data3
+            }]
+    }
 
     constructor() {
         this.chart = null
