@@ -16,25 +16,25 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion*100).toPrecision(12))}}%</p>
+                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion*100).toPrecision(12))}}<span class="unitSize">% </span></p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li class="flexLayout">
-                    <p class="color1 cursor">{{listData.blockReward}} <span class="unitSize">Energon</span></p>
-                    <span>{{$t("nodeInfo.blockReward")}}</span>
+                    <p class="color1 cursor">{{listData.blockReward}}</p>
+                    <span>{{$t("nodeInfo.blockReward")}}(Energon)</span>
                 </li>
                 <li>
                     <!-- <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p> -->
-                    <p class="color-red cursor" >{{listData.ticketPrice}} <span class="subsize">Energon</span></p>
-                    <span>{{$t("nodeInfo.ticketPrice")}}</span>
+                    <p class="color-red cursor" >{{listData.ticketPrice}}</p>
+                    <span>{{$t("nodeInfo.ticketPrice")}}(Energon)</span>
                 </li>
                 <li>
                     <p class="color1">{{listData.selectedNodeCount}}</p>
                     <span>{{$t("nodeInfo.validatorNode")}}</span>
                 </li>
                 <li class="flexLayout">
-                    <p >{{listData.lowestDeposit}}/{{listData.highestDeposit}} <span class="unitSize">Energon</span></p>
-                    <span>{{$t("nodeInfo.minMaxstaked")}}</span>
+                    <p >{{listData.lowestDeposit}}/{{listData.highestDeposit}}</p>
+                    <span>{{$t("nodeInfo.minMaxstaked")}}(Energon)</span>
                 </li>
             </ul>
 
@@ -298,7 +298,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
     p {
         margin: 0 0 2px;
         // height: 45px;
-        font-size: 34px;
+        // font-size: 34px;
+        font-size: 28px;
         height: 40px;
         line-height: 40px;
         letter-spacing: 2.4px;
@@ -315,7 +316,7 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
         font-size: 24px
     }
     .unitSize{
-        font-size: 24px;
+        font-size: 12px;
         color: #d2daea;
     }
 }

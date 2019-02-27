@@ -154,6 +154,7 @@
                 //切换网络之后，将当前网络存在sessionStorage
                 sessionStorage.setItem('commandId',command)
                 sessionStorage.setItem('commandHttp',arr[0].http)
+                localStorage.setItem('cid',command)
                 this.$router.push({
                     path:'/'
                 })
