@@ -413,7 +413,11 @@
         }
         .el-input--mini .el-input__inner{
             height:40px;
-            line-height:40px;
+            // line-height:40px;
+            // 解决Safari搜索光标太高问题
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 20px;
         }
         .el-searchs{
             height:40px;
