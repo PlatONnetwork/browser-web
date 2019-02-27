@@ -20,7 +20,7 @@
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li class="flexLayout">
-                    <p class="color1 cursor">{{listData.blockReward}} Energon</p>
+                    <p class="color1 cursor">{{listData.blockReward}} <span class="unitSize">Energon</span></p>
                     <span>{{$t("nodeInfo.blockReward")}}</span>
                 </li>
                 <li>
@@ -33,7 +33,7 @@
                     <span>{{$t("nodeInfo.validatorNode")}}</span>
                 </li>
                 <li class="flexLayout">
-                    <p >{{listData.lowestDeposit}}/{{listData.highestDeposit}} Energon</p>
+                    <p >{{listData.lowestDeposit}}/{{listData.highestDeposit}} <span class="unitSize">Energon</span></p>
                     <span>{{$t("nodeInfo.minMaxstaked")}}</span>
                 </li>
             </ul>
@@ -313,6 +313,10 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
     }
     .subsize{
         font-size: 24px
+    }
+    .unitSize{
+        font-size: 24px;
+        color: #d2daea;
     }
 }
 </style>
