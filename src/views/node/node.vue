@@ -58,7 +58,7 @@
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.name')">
                             <template slot-scope="scope">
-                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images iconImage'>
+                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="logo" class='images iconImage'>
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
