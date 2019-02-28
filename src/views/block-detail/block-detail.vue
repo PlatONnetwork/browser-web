@@ -72,10 +72,10 @@
                                     <span>{{$t('blockAbout.votes')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.blockVoteAmount}}</span>
                                     <span>TX</span>
                                     <span>( {{$t('blockAbout.ticket')}}</span>
-                                    <span class='normal cursor' @click='voteNumFn(detailInfo.hash)'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='voteNumFn(detailInfo.hash)'>{{detailInfo.blockVoteNumber}}</span>
                                     <span>)</span>
                                 </el-col>
                             </el-row>
@@ -84,7 +84,7 @@
                                     <span>{{$t('blockAbout.declarations')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.transaction}}</span>
+                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

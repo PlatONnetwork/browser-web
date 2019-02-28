@@ -64,7 +64,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('blockAbout.energonUsed')" show-overflow-tooltip width='200'>
                             <template slot-scope="scope">
-                                <span>{{scope.row.energonUsed}}({{(scope.row.energonUsed/scope.row.energonLimit)*100}}%)</span>
+                                <span>{{scope.row.energonUsed}}({{((scope.row.energonUsed/scope.row.energonLimit)*100).toFixed(2)}}%)</span>
                             </template>
                         </el-table-column>
                         <!-- 0.4.0去掉 平均能量价值（内部可保留，方便后续统计能量价值）

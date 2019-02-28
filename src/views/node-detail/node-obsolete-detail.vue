@@ -23,7 +23,7 @@
                             </p>
                             <p>
                                 <span class='account-name'>{{detailInfo.name}} <i>({{detailInfo.location}})</i></span>
-                                <span>{{$t('nodeInfo.jointime')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
+                                <span>{{$t('nodeInfo.dateObsolete')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </p>
                         </div>
                         <!-- <div :class="[$i18n.locale=='en'?'en-right':'','right']">

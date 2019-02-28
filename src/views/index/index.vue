@@ -17,17 +17,19 @@
                     <li>
                         <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">{{currentOverViewData.nodeName}}</div>
-                            <p class='ellipsis'>{{currentOverViewData.nodeName}}</p>
+                            <p class='ellipsis cursor' @click="goNodeDetail(chainId,currentOverViewData)">{{currentOverViewData.nodeName}}</p>
                         </el-tooltip>
                         <!-- <p class=''>{{currentOverViewData.node}}</p> -->
                         <span>{{$t("indexInfo.node")}}</span>
                     </li>
                     <li>
-                        <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p>
+                        <p class="color1 cursor" @click='tradeAllFn'>
+                            {{currentOverViewData.currentTransaction>1000? currentOverViewData.currentTransaction:(currentOverViewData.currentTransaction/1000).toFixed(2)+'K'}}
+                        </p>
                         <span>{{$t("indexInfo.currentTransaction")}}</span>
                     </li>
                     <li>
-                        <p class="color1">{{currentOverViewData.consensusNodeAmount}}</p>
+                        <p class="color1 cursor" @click="viewNode">{{currentOverViewData.consensusNodeAmount}}</p>
                         <span>{{$t("indexInfo.consensusNodeAmount")}}</span>
                     </li>
                     <li>
@@ -451,9 +453,13 @@ export default class Index extends Vue {
     }
     //区块查看全部
     viewBlock() {
-        console.log(11111);
         this.$router.push({
             path: '/block',
+        });
+    }
+    viewNode() {
+        this.$router.push({
+            path: '/node',
         });
     }
     //进入区块详情
@@ -894,7 +900,7 @@ div.slider-item {
         color: #6d81a9;
     }
     span {
-        font-size: 34px;
+        font-size: 30px;
         font-weight: normal;
         font-stretch: normal;
         line-height: 30px;

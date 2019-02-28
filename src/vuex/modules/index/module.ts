@@ -16,7 +16,8 @@ export const index: object = {
             addressAmount: '------', //地址数
             voteAmount: '------', //投票数
             proportion: '------', //占比
-            ticketPrice: '------' //票价
+            ticketPrice: '------', //票价
+            nodeId:''
         },
         secondFloorData: {
             avgTime: 365, //平均出块时长

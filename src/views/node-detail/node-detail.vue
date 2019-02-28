@@ -80,7 +80,7 @@
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.ticketage')}}</span>
-                                <span>{{detailInfo.ticketEpoch}}</span>
+                                <span>{{detailInfo.ticketEpoch}} Bs</span>
                             </p>
                         </div>
                     </div>

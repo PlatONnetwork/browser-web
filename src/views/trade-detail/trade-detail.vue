@@ -172,7 +172,7 @@
                                     <span>{{$t('totalInfo.ticketPrice')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.ticketPrice}}</span>
+                                    <span>{{detailInfo.ticketPrice}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" v-if='detailInfo.txType=="voteTicket"'>

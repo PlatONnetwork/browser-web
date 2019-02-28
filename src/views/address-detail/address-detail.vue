@@ -40,7 +40,7 @@
                                 <el-col :span="3">
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
-                                <el-col :span="4">
+                                <el-col :span="6">
                                     <span>{{detailInfo.balance}} Energon</span>
                                 </el-col>
                             </el-row>
@@ -73,7 +73,7 @@
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
                                 <el-col :span="4">
-                                    <span >{{detailInfo.tradeCount || 0}}</span>
+                                    <span >{{detailInfo.nodeCount || 0}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -211,7 +211,7 @@
                             </div>
                             <div class="table">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' >
+                                    <el-table-column :label='$t("totalInfo.txHash")' width='500'>
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -236,12 +236,12 @@
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='300'>
+                                    <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='200'>
                                         <template slot-scope="scope">
-                                            <span v-if='scope.row.nodeName'>{{scope.row.voteCount || 0}}</span>
+                                            <span v-if='scope.row.nodeName'>{{scope.row.validVoteCount || 0}}/{{scope.row.voteCount}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.ticketPrice")' width='300'>
+                                    <el-table-column :label='$t("totalInfo.ticketPrice")'>
                                         <template slot-scope="scope">
                                             <span>{{scope.row.ticketPrice}}</span>
                                         </template>
@@ -251,11 +251,11 @@
                                             <span>{{scope.row.value}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.profit")' width="150px">
+                                    <!-- <el-table-column :label='$t("totalInfo.profit")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.income}}</span>
                                         </template>
-                                    </el-table-column>
+                                    </el-table-column> -->
                                     <el-table-column :label='$t("totalInfo.txFee")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.actualTxCost}}</span>
@@ -269,7 +269,7 @@
                                 <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendDectransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
-                                    <el-select v-model="dectarationType"  class="margin20" style='width:150px;' @change='getDetail'>
+                                    <el-select v-model="dectarationType"  class="margin20" style='width:150px;' @change='getDetail(dectarationType)'>
                                         <el-option
                                             v-for="item in dectarationList"
                                             :key="item.value"
@@ -282,7 +282,7 @@
                             </div>
                             <div class="table">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' >
+                                    <el-table-column :label='$t("totalInfo.txHash")' width='600'>
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -296,13 +296,13 @@
                                             </div>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.blockTime")' width='180'>
+                                    <el-table-column :label='$t("totalInfo.blockTime")' width='230'>
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.txType")' width='100'>
+                                    <el-table-column :label='$t("totalInfo.txType")' width='230'>
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
@@ -317,12 +317,12 @@
                                             </div>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.staked")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.staked")' show-overflow-tooltip width="200">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.deposit}} Energon</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.actualTxCost")' show-overflow-tooltip >
                                         <template slot-scope="scope">
                                             <span v-if='scope.row.txReceiptStatus == -1' class='pending'>({{$t('totalInfo.pending')}})</span>
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{scope.row.actualTxCost}}</span>
@@ -359,6 +359,7 @@
                 // selectAll:[],
                 type:'transfer',
                 dectarationType:'validatorStake',
+                voteType:'voteTicket',
                 typeList:[
                     {label:'transfer',value:'transfer'}, //4.0转账细分发送和接收，投票独立
                     // {label:'All',value:'All'},
@@ -457,16 +458,17 @@
             },
             changeTab(type) {
                 this.activeTab = type;
-                if(type==1){
-                    this.type = 'transfer'
-                    this.getDetail()
-                }else if(type==2){
-                    this.type = 'voteTicket'
-                    this.getDetail()
-                }else{
-                    this.type = 'candidateDeposit '
-                    this.getDetail()
-                }
+                // if(type==1){
+                //     this.type = 'transfer'
+                //     // this.getDetail()
+                // }else if(type==2){
+                //     this.type = 'voteTicket'
+                //     // this.getDetail()
+                // }else{
+                //     this.type = 'candidateDeposit'
+                //     // this.getDetail()
+                // }
+                this.getDetail();
             },
             onCopy() {
                 this.$message.success(this.$t('modalInfo.copysuccess'));
@@ -556,13 +558,13 @@
                 }
             },
             //获取地址信息详情
-            getDetail() {
+            getDetail(type) {
 
                 let param = {
                     // cid:'',
                     address: this.address,
-                    // txType: this.activeTab == 3?this.dectarationType:this.type,
-                    txType: this.type,
+                    txType: this.activeTab == 3?this.dectarationType:this.activeTab == 2?this.voteType:this.activeTab == 1?this.type:this.type,
+                    // txType: this.type,
                 };
                 console.warn('地址详情入参》》》》', param);
                 apiService.trade
@@ -697,6 +699,10 @@
                     color: #93A5C8;
                 }
                 .el-col-4{
+                    font-size: 12px;
+                    color: #D7DDE9;
+                }
+                .el-col-6{
                     font-size: 12px;
                     color: #D7DDE9;
                 }

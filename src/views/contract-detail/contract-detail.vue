@@ -215,7 +215,7 @@
                 type:'transfer',
                 typeList:[
                     {label:'transfer',value:'transfer'},
-                    {label:'vote',value:'vote'},
+                    // {label:'vote',value:'vote'},
                     {label:'contractCreate',value:'contractCreate'},
                     {label:'transactionExecute',value:'transactionExecute'},
                     {label:'MPCtransaction',value:'MPCtransaction'},
