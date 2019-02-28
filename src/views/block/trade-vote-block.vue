@@ -170,7 +170,7 @@ export default {
         getTradeList() {
             let param = {
                 // cid:'',
-                blockNumber: 4324,//this.height,
+                blockNumber: this.height,
                 pageNo: this.currentPage,
                 pageSize: this.pageSize,
                 txType: this.txType // 交易类型

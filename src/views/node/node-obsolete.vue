@@ -25,7 +25,7 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName" @row-click='rowClick'>
-                        <el-table-column :label="$t('nodeInfo.ranking')" width='100'>
+                        <el-table-column :label="$t('nodeInfo.No')" width='100'>
                             <template slot-scope="scope">
                                 <span>{{scope.row.ranking}}</span>
                             </template>
@@ -36,11 +36,11 @@
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column  :label="$t('nodeInfo.electionStatus')">
+                        <!-- <el-table-column  :label="$t('nodeInfo.electionStatus')">
                             <template slot-scope="scope">
                                 <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[scope.row.electionStatus])}}</span>
                             </template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column :label="$t('nodeInfo.location')">
                             <template slot-scope="scope">
                                 <img :src="'data:image/png;base64,' + scope.row.countryCode" alt="img"  class='images images1'>

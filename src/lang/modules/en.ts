@@ -274,6 +274,7 @@ export default {
         validate: 'Validator Node',
         rule: 'Validator Node Rules',
         ranking: 'Rank',
+        No:'N.',
         name: 'BP Name',
         nodeName: 'Node Name',
         electionStatus: 'Status',

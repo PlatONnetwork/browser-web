@@ -26,9 +26,9 @@
                                 <span>{{$t('nodeInfo.jointime')}}：{{new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                             </p>
                         </div>
-                        <div :class="[$i18n.locale=='en'?'en-right':'','right']">
+                        <!-- <div :class="[$i18n.locale=='en'?'en-right':'','right']">
                             <span :class='{"node-candidate":detailInfo.electionStatus == 1,"node-standby":detailInfo.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[detailInfo.electionStatus])}}</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="view">
                         <div>

@@ -275,6 +275,7 @@ export default {
         validate:'节点',
         rule:'规则',
         ranking:'排名',
+        No:'序号',
         name:'节点',
         nodeName:'节点',
         electionStatus:'状态',
