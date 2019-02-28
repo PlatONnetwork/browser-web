@@ -471,11 +471,10 @@
                             right:9px;
                         }
                     }
-
                 }
             }
             .view{
-                padding:20px 0 0px 50px;
+                padding:20px 50px 0px 50px;
                 display:flex;
                 flex-direction: row;
                 flex-wrap: nowrap;

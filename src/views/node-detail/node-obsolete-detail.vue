@@ -476,7 +476,6 @@
                             right:9px;
                         }
                     }
-
                 }
             }
             .view{
@@ -498,7 +497,7 @@
                                 margin-bottom:5px;
                             }
                             &:last-child{
-                                color: #D8DDEA;;
+                                color: #D8DDEA;
                             }
                         }
                         &:first-child{

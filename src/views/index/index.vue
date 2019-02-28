@@ -88,7 +88,6 @@
                         <!-- <li>{{secondFloorData.dayTransaction}}</li> -->
                         <!-- secondFloorData.dayTransaction -->
                         <li v-for="(item,index) in (Array(11).join(0)+secondFloorData.dayTransaction).slice(-11).split('')" :key='index'>{{item}}</li>
-
                     </ul>
                 </div>
 
