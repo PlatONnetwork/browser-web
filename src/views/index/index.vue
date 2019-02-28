@@ -35,7 +35,7 @@
                         <span>{{$t("indexInfo.addressAmount")}}</span>
                     </li>
                     <li>
-                        <p>{{currentOverViewData.voteCount}}/{{parseFloat((currentOverViewData.proportion*100).toPrecision(12))}}%</p>
+                        <p>{{currentOverViewData.voteCount}}/{{parseFloat((currentOverViewData.proportion*100).toPrecision(12))}}<span class="unitSize">%</span></p>
                         <span>{{$t("indexInfo.voteAmount")}}/{{$t("indexInfo.proportion")}}</span>
                     </li>
                     <li>
@@ -796,6 +796,10 @@ div.slider-item {
         line-height: 40px;
         letter-spacing: 2.4px;
         color: #d2daea;
+        .unitSize{
+            font-size: 17px;
+            color: #d2daea;
+        }
     }
     .atp {
         font-size: 30px;
@@ -1036,6 +1040,10 @@ div.slider-item {
         font-size:28px;
         height: 28px;
         line-height: 28px;
+        .unitSize{
+            font-size: 14px;
+            color: #d2daea;
+        }
     }
     .footer-box span{
         font-size:14px;
@@ -1078,6 +1086,10 @@ div.slider-item {
         font-size:26px;
         height: 26px;
         line-height: 26px;
+        .unitSize{
+            font-size: 13px;
+            color: #d2daea;
+        }
     }
     .footer-box span{
         font-size:13px;
@@ -1138,6 +1150,10 @@ div.slider-item {
         font-size:24px;
         height: 24px;
         line-height: 24px;
+        .unitSize{
+            font-size: 12px;
+            color: #d2daea;
+        }
     }
     .footer-box span{
         font-size:13px;

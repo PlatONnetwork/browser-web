@@ -16,7 +16,7 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion*100).toPrecision(12))}}<span class="unitSize">% </span></p>
+                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion*100).toPrecision(12))}}<span class="unitSize">%</span></p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li class="flexLayout">
