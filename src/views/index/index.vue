@@ -24,7 +24,7 @@
                     </li>
                     <li>
                         <p class="color1 cursor" @click='tradeAllFn'>
-                            {{currentOverViewData.currentTransaction>1000? currentOverViewData.currentTransaction:(currentOverViewData.currentTransaction/1000).toFixed(2)+'K'}}
+                            {{currentOverViewData.currentTransaction > 1000 ? (currentOverViewData.currentTransaction/1000).toFixed(2)+'K': currentOverViewData.currentTransaction}}
                         </p>
                         <span>{{$t("indexInfo.currentTransaction")}}</span>
                     </li>
