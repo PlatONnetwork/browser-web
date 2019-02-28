@@ -40,9 +40,9 @@
                     </li>
                     <li>
                         <p class="color2">{{currentOverViewData.ticketPrice}}
-                            <span class="atp">Energon</span>
+                            <!-- <span class="atp">Energon</span> -->
                         </p>
-                        <span>{{$t("indexInfo.ticketPrice")}}</span>
+                        <span>{{$t("indexInfo.ticketPrice")}}(Energon)</span>
                     </li>
                 </ul>
                 <!-- UI去掉球形展示 -->
