@@ -640,7 +640,7 @@ button {
         }
     }
     .data-detail {
-        padding: 0 190px;
+        padding: 0 170px;
         margin-bottom: 58px;
         .data-title {
             letter-spacing: 1px;

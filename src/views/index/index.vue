@@ -72,7 +72,7 @@
                                 <span>{{secondFloorData.avgTime}} s</span>
                             </li>
                             <li>
-                                <p>{{$t("indexInfo.current")}} / {{$t("indexInfo.maxTps")}}</p>
+                                <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
                                 <span>{{secondFloorData.current}}/{{secondFloorData.maxTps}}</span>
                             </li>
                             <li>
@@ -1101,6 +1101,9 @@ div.slider-item {
     }
     .chart-aside span{
         font-size:26px;
+    }
+    .chart-aside p{
+        font-size:13px;
     }
     .chart-aside li{
         padding: 10px 0 30px 0px;

@@ -30,7 +30,7 @@
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.height}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.age')" :width="currentScreenWidth<1440? 180:180">
+                        <el-table-column :label="$t('blockAbout.age')" :width="currentScreenWidth<1440? 150:180">
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('blockAbout.before')}}</span>
                             </template>
@@ -52,12 +52,12 @@
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.votes')" width='200'>
+                        <el-table-column :label="$t('blockAbout.votes')" :width="currentScreenWidth<1440? 130:200">
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockVoteAmount}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.tickets')" width='200'>
+                        <el-table-column :label="$t('blockAbout.tickets')" :width="currentScreenWidth<1440? 130:200">
                             <template slot-scope="scope">
                                 <span>{{scope.row.blockVoteNumber}}</span>
                             </template>
