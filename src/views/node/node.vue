@@ -68,7 +68,7 @@
                                 <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[scope.row.electionStatus])}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.location')"  >
+                        <el-table-column :label="$t('nodeInfo.location')" width="280">
                             <template slot-scope="scope">
                                 <img :src="'data:image/png;base64,' + scope.row.countryCode" alt=""  class='images images1'>
                                 <span>{{scope.row.location}}</span>

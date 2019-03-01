@@ -312,7 +312,7 @@
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.from}}</div>
-                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                                    <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                                 </el-tooltip>
                                             </div>
                                         </template>
@@ -539,6 +539,15 @@
                     query: {
                         address: row.to,
                         description: this.description,
+                    },
+                });
+            },
+            goNodeDetail(index, row) {
+                this.$router.push({
+                    path: '/node-detail',
+                    query: {
+                        cid: this.chainId,
+                        nodeId: row.nodeId,
                     },
                 });
             },

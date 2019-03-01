@@ -1,5 +1,5 @@
 //请求地址
-const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT"http://10.10.8.232:8888"
+const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT"http://10.10.8.232:8888" 'https://scan.platon.network'
     // FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
     JSON_BASE = process.env.JSON_ROOT,
 	TOTAL = `${BASE}/browser-api/`,

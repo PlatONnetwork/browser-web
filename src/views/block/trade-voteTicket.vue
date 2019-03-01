@@ -1,5 +1,5 @@
 <template>
-    <div class="trade-vote">
+    <div class="trade-voteTicket">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
@@ -94,7 +94,7 @@ import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     //组件名
-    name: 'trade-vote',
+    name: 'trade-voteTicket',
     //实例的数据对象
     data() {
         return {
@@ -164,13 +164,11 @@ export default {
                 // "pageNo": this.currentPage,//页数(必填)
                 // "pageSize": this.pageSize,//页大小(必填)
                 // "parameter": this.height,//区块高度/hash(必填)
-                "txHash":this.hash //voteList不要了
+                "blockNumber":this.height //voteList不要了
             };
             console.warn('获取选座列表》》》', param);
-            apiService.ticket
-                .ticketList(param)
-            // apiService.block
-            //     .blockTicketList(param)
+            apiService.block
+                .blockTicketList(param)
                 .then(res => {
                     let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                     if (code == 0) {
