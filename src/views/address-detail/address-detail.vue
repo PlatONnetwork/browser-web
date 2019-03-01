@@ -64,7 +64,7 @@
                                 <el-col :span="3">
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
-                                <el-col :span="4">
+                                <el-col :span="12">
                                     <span>{{detailInfo.votePledge || 0}} Energon</span>
                                 </el-col>
                             </el-row>
@@ -102,7 +102,10 @@
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
                                 </div>
                             </div>
-                            <div class="table">
+                            <div class="table"
+                                v-loading="loading"
+                                element-loading-spinner="el-icon-loading"
+                                element-loading-background="rgba(4,11,39, 0.5)">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
                                     <el-table-column :label='$t("totalInfo.txHash")' >
                                         <template slot-scope="scope">
@@ -164,10 +167,10 @@
                                             <div class='flex-special'>
                                                 <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
                                                 <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
-                                                <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
                                                     <div slot="content">{{scope.row.to}}</div>
                                                     <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
                                                 <el-tooltip class="item" effect="dark" placement="top"  v-else>
                                                     <div slot="content">{{scope.row.to}}</div>
                                                     <span class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
@@ -209,9 +212,12 @@
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
                                 </div>
                             </div>
-                            <div class="table">
+                            <div class="table"
+                                v-loading="loading"
+                                element-loading-spinner="el-icon-loading"
+                                element-loading-background="rgba(4,11,39, 0.5)">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' width='500'>
+                                    <el-table-column :label='$t("totalInfo.txHash")' :width="currentScreenWidth<1440? 200:500">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -280,9 +286,12 @@
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('totalInfo.download')}}csv</el-button>
                                 </div>
                             </div>
-                            <div class="table">
+                            <div class="table"
+                                v-loading="loading"
+                                element-loading-spinner="el-icon-loading"
+                                element-loading-background="rgba(4,11,39, 0.5)">
                                 <el-table :data="detailInfo.trades" style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
-                                    <el-table-column :label='$t("totalInfo.txHash")' width='600'>
+                                    <el-table-column :label='$t("totalInfo.txHash")' :width="currentScreenWidth<1440? 200:500">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -307,7 +316,7 @@
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.nodeName")'  width='300'>
+                                    <el-table-column :label='$t("totalInfo.nodeName")'  :width="currentScreenWidth<1440? 180:300">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark" placement="top">
@@ -357,6 +366,7 @@
                 count:0,
                 activeTab:1,
                 // selectAll:[],
+                loading:false,
                 type:'transfer',
                 dectarationType:'validatorStake',
                 voteType:'voteTicket',
@@ -436,14 +446,15 @@
                 console.warn('子组件header向地址详情data>>>>',data)
                 this.address = this.$route.query.address;
                 //搜索query没有字段，增加判断，后期优化
-                if(!this.detailInfo){
-                    this.detailInfo = data.struct;
-                }
-                data.struct.trades.forEach(item => {
-                    if (item.txReceiptStatus == -1) {
-                        ++this.count;
-                    }
-                });
+                // if(!this.detailInfo){
+                //     this.detailInfo = data.struct;
+                // }
+                // data.struct.trades.forEach(item => {
+                //     if (item.txReceiptStatus == -1) {
+                //         ++this.count;
+                //     }
+                // });
+                this.getDetail()
             },
             changeDataFn(){
                 console.warn('子组件告诉地址详情链id更改》》》》')
@@ -568,7 +579,7 @@
             },
             //获取地址信息详情
             getDetail(type) {
-
+                this.loading = true;
                 let param = {
                     // cid:'',
                     address: this.address,
@@ -580,6 +591,7 @@
                     .addressDetails(param)
                     .then(res => {
                         let {errMsg, code, data} = res;
+                        this.loading = false;
                         if (code == 0) {
                             this.detailInfo = data;
                             console.warn('地址详情detailInfo 11》》》》', this.detailInfo);
@@ -715,6 +727,10 @@
                     font-size: 12px;
                     color: #D7DDE9;
                 }
+                .el-col-12{
+                    font-size: 12px;
+                    color: #D7DDE9;
+                }
             }
         }
         .ul-nav{
@@ -793,6 +809,10 @@
             padding:0 10px;
             border:none;
         }
+    }
+    .el-loading-spinner{
+        height: 50px;
+        background:url('images/loading-big.gif') no-repeat center top;
     }
 </style>
 

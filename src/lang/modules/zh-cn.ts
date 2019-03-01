@@ -57,6 +57,7 @@ export default {
         age:'块龄',
         from:'发送方',
         to:'接收方',
+        toA:'接收地址',
         value:'数额',
         fee:'交易费用',
         before:'前',

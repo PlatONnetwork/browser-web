@@ -57,6 +57,7 @@ export default {
         age: 'Age',
         from: 'From',
         to: 'To',
+        toA: 'Recipient',
         value: 'Value',
         fee: 'TxFee',
         before: 'ago',

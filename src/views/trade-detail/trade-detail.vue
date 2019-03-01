@@ -127,11 +127,11 @@
                             </el-row>
                             <el-row type="flex" class="row-bg">
                                 <el-col :span="7">
-                                    <span>{{ detailInfo.txType=="candidateWithdraw" ? '接收地址' : $t('tradeAbout.to')}}:</span>
+                                    <span>{{ detailInfo.txType=="candidateWithdraw" ? $t('tradeAbout.toA'): $t('tradeAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
                                     <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
-                                    <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
+                                    <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.txType=="candidateWithdraw" ? detailInfo.from: detailInfo.to)'>{{detailInfo.txType=="candidateWithdraw" ? detailInfo.from: detailInfo.to}}</span>
                                     <span v-else >{{$t('elseInfo.create')}}</span>
                                 </el-col>
                             </el-row>

@@ -81,7 +81,7 @@
                                     </el-tooltip>
                                 </div> -->
                                 <div class='flex-special'>
-                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" || scope.row.txType == "voteTicket" || scope.row.txType == "candidateDeposit" || scope.row.txType == "candidateApplyWithdraw" || scope.row.txType == "candidateWithdraw"' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
                                     <!-- <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span> -->
                                     <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
                                     <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.to'>

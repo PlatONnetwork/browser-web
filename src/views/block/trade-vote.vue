@@ -169,8 +169,6 @@ export default {
             console.warn('获取选座列表》》》', param);
             apiService.ticket
                 .ticketList(param)
-            // apiService.block
-            //     .blockTicketList(param)
                 .then(res => {
                     let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                     if (code == 0) {

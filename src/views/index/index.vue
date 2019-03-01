@@ -24,7 +24,7 @@
                     </li>
                     <li>
                         <p class="color1 cursor" @click='tradeAllFn'>
-                            {{currentOverViewData.currentTransaction > 1000 ? (currentOverViewData.currentTransaction/1000).toFixed(2)+'K': currentOverViewData.currentTransaction}}
+                            {{currentOverViewData.currentTransaction | unit}}
                         </p>
                         <span>{{$t("indexInfo.currentTransaction")}}</span>
                     </li>
@@ -262,7 +262,20 @@ let indexService = null;
                 })
             }
         }
-    }
+    },
+    filters:{
+        unit(value){
+            //超过1k,以K为单位，超过1000K，单位M，小数点2位
+            if ( (value) < 1000){
+                return value
+            }else if(1000 < (value) && (value) < 1000000){
+                return (value/1000).toFixed(2)+'K'
+            }else if((value) >1000000 ){
+                return (value/1000000).toFixed(2)+'M'
+            }
+        }
+        
+    },
 })
 export default class Index extends Vue {
     @Getter
