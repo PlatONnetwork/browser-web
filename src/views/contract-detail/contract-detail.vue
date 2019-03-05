@@ -45,7 +45,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{balance}} Energon</span>
+                                    <span>{{detailInfo.balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -69,7 +69,7 @@
                                     <span>{{$t('totalInfo.contractcreator')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.developer}}</span>
+                                    <span>{{detailInfo.developer?detailInfo.developer:'unkonwn'}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -397,7 +397,7 @@
                                 }
                             });
                             //设置节点地址
-                            contractService.serProvider(this.chainHttp)
+                            // contractService.serProvider(this.chainHttp)
                             //获取余额
                             // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
                             // this.balance = contractService.getBalance(this.address)

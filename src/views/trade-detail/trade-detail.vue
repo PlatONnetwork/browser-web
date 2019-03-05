@@ -50,7 +50,7 @@
                                     <span>{{$t('tradeAbout.type')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{ $t('elseInfo.' + txTypeFn[detailInfo.txType])}}</span>
+                                    <span>{{ detailInfo.txType?$t('elseInfo.' + txTypeFn[detailInfo.txType]):''}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -58,7 +58,7 @@
                                     <span>{{$t('tradeAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
+                                    <span>{{detailInfo.timestamp?new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss'):0}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -355,12 +355,14 @@ export default {
                 // cid:'',
                 txHash: this.txHash,
             };
+            this.loading = true;
             console.warn('交易详情》》》》', param);
             apiService.trade
                 .transactionDetails(param)
                 .then(res => {
                     let {errMsg, code, data} = res;
                     if (code == 0) {
+                        this.loading = false;
                         this.detailInfo = data;
                         // this.extraInfo = JSON.parse(data.txInfo)
                         //是否第一条记录
@@ -671,6 +673,9 @@ button {
 @media only screen and (min-width: 1400px) {
     .data {
         margin-left: 15%;
+    }
+    .bottom .data-detail {
+        padding: 0 120px;
     }
 }
 .nodeIDBreak{

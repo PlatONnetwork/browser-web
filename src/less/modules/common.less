@@ -167,11 +167,6 @@ body{
     text-overflow:ellipsis;
     white-space: nowrap;
     word-break:break-all;
-    //兼容Safari
-    -webkit-overflow: hidden;
-    -webkit-text-overflow:ellipsis;
-    -webkit-white-space: nowrap;
-    -webkit-word-break:break-all;
 }
 
 ::-webkit-scrollbar-track-piece { //滚动条凹槽的颜色，还可以设置边框属性
@@ -196,6 +191,7 @@ body{
     color: #D7DDE9;
 }
 .el-loading-spinner .el-loading-text{
+    margin: 14px 3px 0;
     color: #D7DDE9;
 }
 .flex-special{

@@ -98,7 +98,10 @@
                 <div class='slide-top slide-top1'></div>
                 <div class='slide-bottom slide-bottom1'>
                     <div class="floor-area">
-                        <div class="floor-area-box right-space">
+                        <div class="floor-area-box right-space"
+                            v-loading="loading"
+                            element-loading-spinner="el-icon-loading"
+                            element-loading-background="rgba(4,11,39, 0.5)">
                             <header class="time-and-number time-and-number2">
                                 <span class='block'>Blocks</span>
                                 <div class="second-floor-text2">
@@ -126,7 +129,7 @@
                                 </el-table-column>
                                 <el-table-column :label='$t("indexInfo.age")' :width="currentScreenWidth<1440? 110:160">
                                     <template slot-scope="scope">
-                                        <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('indexInfo.before')}}</span>
+                                        <span>{{scope.row.serverTime?timeDiffFn(scope.row.serverTime,scope.row.timestamp):0}}{{$t('indexInfo.before')}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true'  show-overflow-tooltip >
@@ -149,7 +152,10 @@
 
                             <div class="view-all cursor" @click='viewBlock'>{{$t('indexInfo.view')}}</div>
                         </div>
-                        <div class="floor-area-box">
+                        <div class="floor-area-box"
+                            v-loading="loading"
+                            element-loading-spinner="el-icon-loading"
+                            element-loading-background="rgba(4,11,39, 0.5)">
                             <header class="time-and-number time-and-number2">
                                 <span class='block'>Transactions</span>
                                 <div class="second-floor-text2">
@@ -164,12 +170,12 @@
                             </header>
 
                             <el-table :data="transactionData" style="width: 100%" :row-class-name="tableRowClassName" key='twoTable' size="mini" max-height='484' class='tables'>
-                                <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' width='210'>
+                                <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' :width="currentScreenWidth<1480? 180:210">
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
                                             <el-tooltip class="item" effect="dark" placement="top">
                                                 <div slot="content">{{scope.row.txHash}}</div>
-                                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                                <span class='cursor normal ellipsis ellipsisWidth' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                             </el-tooltip>
                                         </div>
                                     </template>
@@ -179,7 +185,7 @@
                                         <div class='flex-special'>
                                             <el-tooltip class="item" effect="dark" placement="top">
                                                 <div slot="content">{{scope.row.from}}</div>
-                                                <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                                <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                             </el-tooltip>
                                         </div>
                                     </template>
@@ -204,7 +210,7 @@
                                 </el-table-column> -->
                                 <el-table-column :label="$t('totalInfo.txType')"  width="150">
                                     <template slot-scope="scope">
-                                        <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
+                                        <span>{{scope.row.txType ? $t('elseInfo.' + txTypeFn[scope.row.txType]):'loading'}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column :label="$t('tradeAbout.value')"  width='150' show-overflow-tooltip>
@@ -322,7 +328,8 @@ export default class Index extends Vue {
     //     effect:'slide',//切换效果
     // };
     localLang:string = window.localStorage.getItem('i18nLocale');
-    currentScreenWidth:number = 0
+    currentScreenWidth:number = 0;
+    loading:boolean = true;
     options: object = {
         currentPage: 0, // 当前页码
         autoplay: 0, // 自动滚动[ms]
@@ -660,6 +667,14 @@ export default class Index extends Vue {
     @Watch('mapData')
     onMapDateChanges(val: object, oldVal: object): void{
         this.updateMapData(val)
+    }
+    @Watch('blockData')
+    onblockDateChanges(val: object, oldVal: object): void{
+        if(val){
+            this.loading = false;
+        }else{
+            this.loading = true;
+        }
     }
 }
 </script>
@@ -1049,11 +1064,14 @@ div.slider-item {
     .slide-top1{
         height:75px;
     }
-
-
-
+    .ellipsisWidth{
+        width:180px;
+    }
 }
 @media screen and (max-width: 1440px) {
+    .footer-box{
+        margin: 0 120px;
+    }
     .footer-box p{
         font-size:28px;
         height: 28px;
@@ -1228,5 +1246,12 @@ div.slider-item {
     display:flex;
     justify-content:center;
     align-items:center;
+}
+</style>
+<style lang="less">
+.el-loading-spinner{
+    top:20%;
+    height: 50px;
+    background:url('images/loading-big.gif') no-repeat center top;
 }
 </style>

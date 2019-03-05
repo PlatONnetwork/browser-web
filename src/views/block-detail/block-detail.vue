@@ -55,7 +55,7 @@
                                     <span>{{$t('blockAbout.timestamp')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss')}}</span>
+                                    <span>{{detailInfo.timestamp?new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss'):''}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -109,7 +109,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-                                    <span>【{{ $t('blockAbout.in',{ timeDiff:(detailInfo.timeDiff)/1000 }) }}】</span>
+                                    <span>【{{ $t('blockAbout.in',detailInfo.timeDiff?{ timeDiff:(detailInfo.timeDiff)/1000 }:0) }}】</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -133,7 +133,7 @@
                                     <span>{{$t('blockAbout.energonUsed')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.energonUsed}}({{(detailInfo.energonUsed/detailInfo.energonLimit)*100}}%)</span>
+                                    <span>{{detailInfo.energonUsed}}({{detailInfo.energonUsed?(detailInfo.energonUsed/detailInfo.energonLimit)*100:0}}%)</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -222,6 +222,8 @@ export default {
                 // cid:'',
                 height: this.height,
             };
+            this.loading = true;
+            console.log(this.loading,'hufu')
             console.warn('区块详情》》》', param);
             apiService.block
                 .blockDetails(param)
@@ -229,6 +231,7 @@ export default {
                     let {errMsg, code, data} = res;
                     if (code == 0) {
                         this.detailInfo = data;
+                        this.loading = false;
                         //是否第一条记录
                         if(data.first){
                             this.btnLeftFlag = false;
@@ -248,6 +251,7 @@ export default {
                     } else {
                         this.detailInfo = {};
                         this.$message.error(errMsg);
+                        this.loading = true;
                     }
                 })
                 .catch(error => {
@@ -542,4 +546,9 @@ button {
         margin-left: 18%;
     }
 }
+</style>
+<style lang='less'>
+    .el-loading-spinner{
+        background:url('images/loading-big.gif') no-repeat center top;
+    }
 </style>

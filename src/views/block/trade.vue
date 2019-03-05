@@ -51,13 +51,13 @@
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1440? 200:350">
+                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1480? 200:350">
                             <template slot-scope="scope">
                                 <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.from}}</div>
-                                        <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                        <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                     </el-tooltip>
                                     <!-- <span  class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                                 </div>
@@ -86,7 +86,7 @@
                                     <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
                                     <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.to'>
                                         <div slot="content">{{scope.row.to}}</div>
-                                        <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                        <span class='cursor normal ellipsis ellipsisWidth' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                     </el-tooltip>
                                 </div>
                                 <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -94,7 +94,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('totalInfo.txType')"  width="120">
+                        <el-table-column :label="$t('totalInfo.txType')"  width="130">
                             <template slot-scope="scope">
                                 <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
@@ -254,7 +254,7 @@ export default {
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.receiveType == 'contract') {
+            if (row.receiveType == 'contract'|| row.txType == "voteTicket" || row.txType == "candidateDeposit" || row.txType == "candidateApplyWithdraw" || row.txType == "candidateWithdraw") {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',
@@ -324,6 +324,13 @@ export default {
         }
     }
 }
-
+@media screen and (max-width: 1480px) {
+    .ellipsis{
+        width: 220px;
+    }
+    .ellipsisWidth{
+        width: 180px;
+    }
+}
 </style>
 

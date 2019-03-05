@@ -44,7 +44,7 @@
                         <div>
                             <p>
                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
-                                <span>{{parseFloat((detailInfo.rewardRatio*100).toPrecision(12))}} %</span>
+                                <span>{{detailInfo.rewardRatio?parseFloat((detailInfo.rewardRatio*100).toPrecision(12)):0}} %</span>
                             </p>
                             <p>
                                 <span>{{$t('nodeInfo.blocks')}}</span>
@@ -151,7 +151,7 @@
                                                 <span>{{$t('nodeInfo.rewardRatio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
-                                                <span>{{parseFloat((detailInfo.rewardRatio*100).toPrecision(12))}} %</span>
+                                                <span>{{detailInfo.rewardRatio?parseFloat((detailInfo.rewardRatio*100).toPrecision(12)):0}} %</span>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -186,7 +186,10 @@
                                     <el-button type="primary" class="el-btn el-download" @click="exportFn">{{$t('nodeInfo.export')}}</el-button>
                                 </div>
                             </div>
-                            <div class="table">
+                            <div class="table"
+                                v-loading="loading"
+                                element-loading-spinner="el-icon-loading"
+                                element-loading-background="rgba(4,11,39, 0.5)">
                                 <el-table :data='tableData' style="width: 100%"  key='firstTable'  size="mini" :row-class-name="tableRowClassName">
                                     <el-table-column :label="$t('nodeInfo.block')" >
                                         <template slot-scope="scope">
@@ -249,7 +252,8 @@
                 total:0,
                 id:'',
                 nodeId:'',
-                currentScreenWidth:0
+                currentScreenWidth:0,
+                loading:false
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -335,9 +339,11 @@
                     beginNumber: this.detailInfo.beginNumber,
                     endNumber: this.detailInfo.endNumber
                 };
+                this.loading = true
                 apiService.node.blockList(param).then(res=>{
                     let {errMsg,code,data}=res;
                     if(code==0){
+                        this.loading = false
                         this.total = data.length;
                         this.tableData = data;
                     }else{
@@ -613,6 +619,9 @@
             padding:0 10px;
             border:none;
         }
+    }
+    .el-loading-spinner i{
+        height: 50px;
     }
 </style>
 

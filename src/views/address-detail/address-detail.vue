@@ -132,14 +132,14 @@
                                             <span v-if='scope.row.txReceiptStatus == 0 || scope.row.txReceiptStatus == 1 '>{{new Date(scope.row.blockTime).Format('yyyy-MM-dd HH:mm:ss')}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.txType")' width='140'>
+                                    <el-table-column :label='$t("totalInfo.txType")' :width="currentScreenWidth<1480? 100:140">
                                         <template slot-scope="scope">
                                             <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>
                                                 {{ scope.row.from == address?$t('elseInfo.' + txTypeFn[scope.row.txType]):$t('elseInfo.' + txTypeFnTo[scope.row.txType])}}
                                             </span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.from")'  :width="currentScreenWidth<1440? 200:300">
+                                    <el-table-column :label='$t("totalInfo.from")'  :width="currentScreenWidth<1480? 220:300">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
                                                 <el-tooltip class="item" effect="dark" placement="top">
@@ -150,7 +150,7 @@
                                             <!-- <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.to")' width='300'>
+                                    <el-table-column :label='$t("totalInfo.to")' :width="currentScreenWidth<1480? 220:300">
                                         <template slot-scope="scope">
                                             <!-- <div class='flex-special'>
                                                 <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -182,7 +182,7 @@
                                             <span v-else :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.value")' show-overflow-tooltip width="150px">
+                                    <el-table-column :label='$t("totalInfo.value")' width="200px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.value}} Energon</span>
                                         </template>
@@ -479,7 +479,9 @@
                 //     this.type = 'candidateDeposit'
                 //     // this.getDetail()
                 // }
-                this.getDetail();
+                this.detailInfo = {};
+                let tabType = this.activeTab == 3?this.dectarationType:this.activeTab == 2?this.voteType:this.activeTab == 1?this.type:this.type;
+                this.getDetail(tabType);
             },
             onCopy() {
                 this.$message.success(this.$t('modalInfo.copysuccess'));
@@ -583,7 +585,7 @@
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: this.activeTab == 3?this.dectarationType:this.activeTab == 2?this.voteType:this.activeTab == 1?this.type:this.type,
+                    txType: type?type:this.type
                     // txType: this.type,
                 };
                 console.warn('地址详情入参》》》》', param);
@@ -601,7 +603,7 @@
                                 }
                             });
                             //设置节点地址
-                            contractService.serProvider(this.chainHttp)
+                            // contractService.serProvider(this.chainHttp)
                             //获取余额
                             // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
                             // this.balance = contractService.getBalance(this.address) //返回的参数错误0(error) 导致data functions should return an object:
@@ -792,7 +794,11 @@
         width: 40px;
         background: #0C1035;
     }
-
+    @media screen and (max-width: 1440px) {
+        .ellipsis{
+            width: 190px
+        }
+    }
 </style>
 <style lang='less'>
     .search-address{
@@ -811,6 +817,8 @@
         }
     }
     .el-loading-spinner{
+        top: 0;
+        margin-top: 0;
         height: 50px;
         background:url('images/loading-big.gif') no-repeat center top;
     }

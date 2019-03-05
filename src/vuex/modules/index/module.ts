@@ -15,7 +15,7 @@ export const index: object = {
             consensusNodeAmount: '------', //共识节点数
             addressAmount: '------', //地址数
             voteAmount: '------', //投票数
-            proportion: '------', //占比
+            proportion: '0', //占比
             ticketPrice: '------', //票价
             nodeId:''
         },
@@ -35,22 +35,22 @@ export const index: object = {
         },
         blockData: [
             {
-                height: 33, //区块高度
-                timeStamp: 33333, //出块时间
-                serverTime: 44444, //服务器时间
-                node: 'node-1', //出块节点
-                transaction: 333, //交易数
-                blockReward: 333 //区块奖励
+                height: 0, //区块高度
+                timeStamp: 0, //出块时间
+                serverTime: 0, //服务器时间
+                node: 'loading', //出块节点
+                transaction: 0, //交易数
+                blockReward: 0 //区块奖励
             }
         ],
         transactionData: [
             {
-                txHash: 'x3222', //交易Hash
+                txHash: 'loading', //交易Hash
                 blockHeight: 5555, // 区块高度
                 transactionIndex: 33, // 交易在区块中位置
-                from: 'ddddd', //交易发起方地址
-                to: 'aaaa', //交易接收方地址
-                value: 3.6, //数额
+                from: 'loading', //交易发起方地址
+                to: 'loading', //交易接收方地址
+                value: 0, //数额
                 timestamp: 155788 //交易时间
             }
         ],

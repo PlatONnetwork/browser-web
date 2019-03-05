@@ -16,7 +16,7 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion?listData.proportion:0*100).toPrecision(12))}}<span class="unitSize">%</span></p>
+                    <p class="color1 cursor">{{listData.voteCount}}/{{parseFloat((listData.proportion?listData.proportion*100:0).toPrecision(12))}}<span class="unitSize">%</span></p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li class="flexLayout">
@@ -345,9 +345,12 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
         }
         .el-input--mini .el-input__inner{
             height:34px;
-            // line-height:34px;
             padding-top: 10px;
             padding-bottom: 10px;
+            line-height: 14px;
+        }
+        .el-input--mini .el-input__inner, .input-search .icon-search{
+            height:34px;
             line-height: 14px;
         }
         .icon-search{
