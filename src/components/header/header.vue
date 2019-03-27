@@ -150,14 +150,17 @@
                     return item.cid == command
                 })
                 store.commit("CHANGE_HTTP",arr[0].http)
+                store.commit("CHANGE_CONTEXT",arr[0].context)
                 // this.$emit('changeDataFn')
                 //切换网络之后，将当前网络存在sessionStorage
                 sessionStorage.setItem('commandId',command)
                 sessionStorage.setItem('commandHttp',arr[0].http)
+                sessionStorage.setItem('commandContext',arr[0].context)
+                localStorage.setItem('commandContext',arr[0].context)
                 localStorage.setItem('cid',command)
-                this.$router.push({
-                    path:'/'
-                })
+                // this.$router.push({
+                //     path:'/'
+                // })
             },
             handleCommandLangage(command){
                 console.warn('command>>>>',command)

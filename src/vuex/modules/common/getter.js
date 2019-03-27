@@ -14,6 +14,9 @@ export const commonGetter = {
     chainHttp(state) {
       return state.chainHttp
     },
+    chainContext(state) {
+      return state.chainContext
+    },
     walletList(state) {
       return state.walletList
     },

@@ -643,8 +643,15 @@ export default class Index extends Vue {
         indexService.disconnect();
     }
 
-    @Watch('chainId')
+   @Watch('chainId')
     onChainIdChanged(val: string, oldVal: string): void {
+        console.warn('wobianlalallaa我便啦啦啦啦')
+        indexService.disconnect();
+        indexService.connect();
+    }
+    @Watch('chainContext')
+    onChainContextChanged(val: string, oldVal: string): void {
+        console.warn('wobianlalallaa我便啦啦啦啦')
         indexService.disconnect();
         indexService.connect();
     }

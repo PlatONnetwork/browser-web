@@ -9,6 +9,7 @@ export const common = {
         chainList:[],
         chainId: '',
         chainHttp:'',
+        chainContext:'',
         walletList:[],
         country:[],
         googleApi:false

@@ -44,7 +44,9 @@ const sub = new Sub()
 
 class Ws {
     stompClient: StompClientConfigConfig = null
-    websocketUrl: string = API.WS_CONFIG.root
+    allUrl:string = API.TOTAL
+    // websocketUrl: string = API.WS_CONFIG.root
+    websocketUrl: string = API.TOTAL+sessionStorage.getItem('commandContext')+'/platon-websocket'
     timeSettimeout: number = null
     connectFlag: boolean = false
 
@@ -54,7 +56,7 @@ class Ws {
 
     connect(): void {
         // if (this.stompClient) { return }
-        let socket = new window['SockJS'](this.websocketUrl)
+        let socket = new window['SockJS'](API.TOTAL+sessionStorage.getItem('commandContext')+'/platon-websocket')
         this.stompClient = window['Stomp'].over(socket)
         this.stompClient.heartbeat.outgoing = 10000
         this.stompClient.heartbeat.incoming = 10000

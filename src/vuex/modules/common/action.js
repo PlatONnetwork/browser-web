@@ -15,12 +15,16 @@ export const commonAction = {
         //     commit('CHANGE_ID',data.chainList[0].cid)
         //     commit('CHANGE_HTTP', data.chainList[0].http)
         // });
-        apiService.get(config.JSON_BASE + "/mock.json").then((data) => {
+        apiService.get(config.JSON_BASE +'/config'+ "/mock.json").then((data) => {
             commit('DONE_CHAINLIST', data.chainList)
+            sessionStorage.setItem('commandId',data.chainList[0].cid)
+            sessionStorage.setItem('commandHttp',data.chainList[0].http)
+            sessionStorage.setItem('commandContext',data.chainList[0].context)
             sessionStorage.getItem('commandId') ? commit('CHANGE_ID', sessionStorage.getItem('commandId')) : commit('CHANGE_ID', data.chainList[0].cid)
             // commit('CHANGE_ID', data.chainList[0].cid)
             localStorage.setItem('cid',data.chainList[0].cid)
             sessionStorage.getItem('commandHttp') ? commit('CHANGE_HTTP', sessionStorage.getItem('commandHttp')) : commit('CHANGE_HTTP', data.chainList[0].http)
+            sessionStorage.getItem('commandContext') ? commit('CHANGE_CONTEXT', sessionStorage.getItem('commandContext')) : commit('CHANGE_CONTEXT', data.chainList[0].context)
         });
         apiService.get(config.JSON_BASE + "/walletConfig.json").then((data) => {
             commit('DONE_WALLETLIST', data.wallList)

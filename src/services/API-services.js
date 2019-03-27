@@ -118,6 +118,11 @@ class ApiService {
         return Http.interceptors.request.use(
             config => {
                 config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase();
+                if(config.url.search('json')!= -1){
+                    config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+config.url.split("/").slice(3).join('/');
+                }else{
+                    config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+(sessionStorage.getItem('commandContext') ? sessionStorage.getItem('commandContext'):'')+'/'+config.url.split("/").slice(3).join('/');
+                }
                 console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
                 return config
             },

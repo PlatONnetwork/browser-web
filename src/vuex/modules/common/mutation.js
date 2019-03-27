@@ -11,6 +11,9 @@ export const commonMutation = {
     ['CHANGE_HTTP'](state, http) {
       state.chainHttp = http
     },
+    ['CHANGE_CONTEXT'](state, Context) {
+      state.chainContext = Context
+    },
     ['DONE_WALLETLIST'](state, data) {
       state.walletList = data
     },

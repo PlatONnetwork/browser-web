@@ -257,11 +257,11 @@
                                             <span>{{scope.row.value}}</span>
                                         </template>
                                     </el-table-column>
-                                    <!-- <el-table-column :label='$t("totalInfo.profit")' width="150px">
+                                    <el-table-column :label='$t("totalInfo.profit")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.income}}</span>
                                         </template>
-                                    </el-table-column> -->
+                                    </el-table-column>
                                     <el-table-column :label='$t("totalInfo.txFee")' width="150px">
                                         <template slot-scope="scope">
                                             <span>{{scope.row.actualTxCost}}</span>
