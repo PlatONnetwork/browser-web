@@ -65,7 +65,7 @@
                         <el-table-column  :label="$t('nodeInfo.electionStatus')">
                             <template slot-scope="scope">
                                 <!-- <span>{{scope.row.electionStatus}}</span> -->
-                                <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + statusFn[scope.row.electionStatus])}}</span>
+                                <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + scope.row.nodeType)}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.location')" width="280">
@@ -179,7 +179,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                                 rewardRatio : item.rewardRatio,
                                 address : item.address,
                                 id : item.id,
-                                ticketCount : item.ticketCount
+                                ticketCount : item.ticketCount,
+                                nodeType: item.nodeType
                             })
                         })
                         this.tableData = newList

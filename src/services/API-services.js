@@ -84,7 +84,7 @@ class ApiService {
         typeof params === 'undefined' ? params = {} : '';
         localStorage.sessionid ? params.sessionid = localStorage.sessionid : ''
         // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
-        // params.cid =
+        // params.cid = 1
         // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : store.state.common.chainId
         params.cid = sessionStorage.getItem('commandId') ? store.state.common.chainId : localStorage.getItem('cid')
         return Http.post(url, params).then(res => res.data)
@@ -122,8 +122,10 @@ class ApiService {
                     config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+config.url.split("/").slice(3).join('/');
                 }else{
                     config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+(sessionStorage.getItem('commandContext') ? sessionStorage.getItem('commandContext'):'')+'/'+config.url.split("/").slice(3).join('/');
+                    // config.url = 'https://scan.platon.network/browser-api'+'/'+config.url.split("/").slice(3).join('/');
                 }
                 console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
+                // config.url  = 'http://10.10.8.8:8061/browser-server'
                 return config
             },
             err => {

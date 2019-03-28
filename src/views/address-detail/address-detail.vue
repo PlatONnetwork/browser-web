@@ -41,7 +41,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="6">
-                                    <span>{{detailInfo.balance}} Energon</span>
+                                    <span>{{topList[0].balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -49,7 +49,7 @@
                                     <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
                                 <el-col :span="4">
-                                    <span>{{detailInfo.tradeCount}}</span>
+                                    <span>{{topList[0].tradeCount}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -65,7 +65,7 @@
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
                                 <el-col :span="12">
-                                    <span>{{detailInfo.votePledge || 0}} Energon</span>
+                                    <span>{{topList[0].votePledge || 0}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -73,7 +73,7 @@
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
                                 <el-col :span="4">
-                                    <span >{{detailInfo.nodeCount || 0}}</span>
+                                    <span >{{topList[0].nodeCount || 0}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -426,7 +426,9 @@
                 },
                 description:'',
                 descriptionProp:'',
-                currentScreenWidth:0
+                currentScreenWidth:0,
+                topList:[],
+                num:true
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -481,6 +483,7 @@
                 // }
                 this.detailInfo = {};
                 let tabType = this.activeTab == 3?this.dectarationType:this.activeTab == 2?this.voteType:this.activeTab == 1?this.type:this.type;
+                this.num = false;
                 this.getDetail(tabType);
             },
             onCopy() {
@@ -596,19 +599,29 @@
                         this.loading = false;
                         if (code == 0) {
                             this.detailInfo = data;
+                            if(this.num){
+                                    this.topList.push({
+                                        balance: data.balance,
+                                        nodeCount: data.nodeCount,
+                                        tradeCount: data.tradeCount,
+                                        votePledge: data.votePledge
+                                    })
+                                }
+                            console.log(this.topList,'this.topList')
                             console.warn('地址详情detailInfo 11》》》》', this.detailInfo);
                             data.trades.forEach(item => {
                                 if (item.txReceiptStatus == -1) {
                                     ++this.count;
                                 }
                             });
-                            //设置节点地址
+                            
+                            // 设置节点地址
                             // contractService.serProvider(this.chainHttp)
                             //获取余额
                             // this.balance = contractService.getBalance('0x81e2233101cc64be1194b71973ba536a93bd998f')
                             // this.balance = contractService.getBalance(this.address) //返回的参数错误0(error) 导致data functions should return an object:
                         } else {
-                            this.detailInfo = {};
+                            // this.detailInfo = {};
                             console.warn('地址详情detailInfo》》》》', this.detailInfo);
                             this.$message.error(errMsg);
                         }

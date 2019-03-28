@@ -309,7 +309,6 @@ export default {
         transactions: 'Txn',
         blockreward: 'Block Reward',
         export:'Download csv',
-        validator:'Validator Node',
         ratio:'Tickets/Ratio',
         blockReward:'Block Reward',
         ticketPrice:'Ticket Price',
@@ -319,7 +318,10 @@ export default {
         minMaxstaked:'Minimum/maximum Staked',
         selected:'Selected',
         tickets:'Tickets',
-        ticketage:'Ticket Age'
+        ticketage:'Ticket Age',
+        candidates:'Candidates Node',
+        nominees:'Nominees Node',
+        validator:'Validator Node'
     },
     ...enLocale
 }

@@ -310,7 +310,6 @@ export default {
         transactions:'交易数',
         blockreward:'区块奖励',
         export:'导出csv',
-        validator:'验证节点',
         ratio:'投票数/占比',
         blockReward:'每区块奖励',
         ticketPrice:'票价',
@@ -320,7 +319,10 @@ export default {
         minMaxstaked:'最低/最高质押',
         selected:'中选次数',
         tickets:'得票数',
-        ticketage:'票龄'
+        ticketage:'票龄',
+        candidates:'候选节点',
+        nominees:'提名节点',
+        validator:'验证节点'
     },
     ...zhLocale
 }
