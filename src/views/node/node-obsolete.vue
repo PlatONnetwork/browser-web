@@ -32,7 +32,8 @@
                         </el-table-column>
                         <el-table-column  :label="$t('nodeInfo.nodeName')">
                             <template slot-scope="scope">
-                                <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images iconImage'>
+                                <!-- <img :src="'../static/images/'+'characters-'+scope.row.logo+'.jpg'" alt="" class='images iconImage'> -->
+                                <img :src="scope.row.logo.length==1?'../../../static/images/characters-0'+scope.row.logo+'.jpg':'../../../static/images/characters-'+scope.row.logo+'.jpg'" alt="logo" class='images iconImage'>
                                 <span class='normal'>{{scope.row.name}}</span>
                             </template>
                         </el-table-column>

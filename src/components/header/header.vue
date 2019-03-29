@@ -49,8 +49,8 @@
                     </el-menu-item> -->
                     <el-menu-item index="">
                         <a class="to-help" :href='$i18n.locale=="zh-cn"
-                        ? "https://developer.platon.network/#/?lang=zh" 
-                        : "https://developer.platon.network/#/?lang=en"' 
+                        ? "https://developer.platon.network/#/?lang=zh"
+                        : "https://developer.platon.network/#/?lang=en"'
                         target="_blank">{{ $t("menu.moreItem.help") }}</a>
                         <!-- <router-link to="/document">{{ $t("menu.moreItem.help") }}</router-link> -->
                     </el-menu-item>
@@ -158,9 +158,9 @@
                 sessionStorage.setItem('commandContext',arr[0].context)
                 localStorage.setItem('commandContext',arr[0].context)
                 localStorage.setItem('cid',command)
-                // this.$router.push({
-                //     path:'/'
-                // })
+                this.$router.push({
+                    path:'/'
+                })
             },
             handleCommandLangage(command){
                 console.warn('command>>>>',command)
@@ -387,7 +387,7 @@
     }
     .to-help{
         width: 100%;
-        display:inline-block; 
+        display:inline-block;
     }
 
 </style>
