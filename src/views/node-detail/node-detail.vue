@@ -43,7 +43,7 @@
                         </div>
                         <div>
                             <p>
-                                <span>{{$t('nodeInfo.rewardRatio')}}</span>
+                                <span>{{$t('nodeInfo.rewardratio')}}</span>
                                 <span>{{detailInfo.rewardRatio?parseFloat((detailInfo.rewardRatio*100).toPrecision(12)):0}} %</span>
                             </p>
                             <p>
