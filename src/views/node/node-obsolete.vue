@@ -67,7 +67,7 @@
                                 <span>{{scope.row.blockCount}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.rewardRatio')" >
+                        <el-table-column :label="$t('nodeInfo.rewardratio')" >
                             <template slot-scope="scope">
                                 <span>{{parseFloat((scope.row.rewardRatio*100).toPrecision(12))}} %</span>
                             </template>

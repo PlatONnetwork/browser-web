@@ -271,6 +271,10 @@ export default {
         cancel: 'Cancel'
     },
     nodeInfo: {
+        incentiveplan:'Incentive Plan',
+        rewardratio:'Reward Ratio',
+        totalbp:'Total BP Reward',
+        totalvot:'Total Voting Reward',
         index: 'Node',
         validate: 'Validator Node',
         rule: 'Validator Node Rules',

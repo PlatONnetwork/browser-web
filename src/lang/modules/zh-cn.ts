@@ -272,6 +272,10 @@ export default {
         cancel:'取消'
     },
     nodeInfo:{
+        incentiveplan:'激励计划',
+        rewardratio:'投票激励',
+        totalbp:'累计共识奖励',
+        totalvot:'累计投票奖励',
         index:'节点',
         validate:'节点',
         rule:'规则',

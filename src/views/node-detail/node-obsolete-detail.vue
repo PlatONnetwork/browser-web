@@ -50,7 +50,7 @@
                                 <span>{{$t('nodeInfo.blocks')}}</span>
                                 <span>{{detailInfo.blockCount}}</span>
                             </p>
-                            
+
                         </div>
                         <div>
                             <!-- <p>
@@ -61,15 +61,15 @@
                                 <span>{{$t('nodeInfo.averagetime')}}</span>
                                 <span>{{detailInfo.avgBlockTime}}s</span>
                             </p>
-                            
+
                         </div>
                         <div>
                             <p>
-                                <span>{{$t('nodeInfo.totalincome')}}</span>
+                                <span>{{$t('nodeInfo.totalbp')}}</span>
                                 <span>{{detailInfo.profitAmount}} Energon</span>
                             </p>
                             <!-- <p>
-                                <span>{{$t('nodeInfo.totalreward')}}</span>
+                                <span>{{$t('nodeInfo.totalvot')}}</span>
                                 <span>{{detailInfo.rewardAmount}} Energon</span>
                             </p> -->
                         </div>
@@ -83,7 +83,7 @@
                                 <span>{{detailInfo.ticketage}} Energon</span>
                             </p> -->
                             <p>
-                                <span>{{$t('nodeInfo.totalreward')}}</span>
+                                <span>{{$t('nodeInfo.totalvot')}}</span>
                                 <span>{{detailInfo.rewardAmount}} Energon</span>
                             </p>
                         </div>
@@ -148,11 +148,11 @@
                                     </div>
                                 </div>
                                 <div class="data-line">
-                                    <div class="data-title">{{$t('nodeInfo.plan')}}</div>
+                                    <div class="data-title">{{$t('nodeInfo.incentiveplan')}}</div>
                                     <div class="rows">
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
-                                                <span>{{$t('nodeInfo.rewardRatio')}}</span>
+                                                <span>{{$t('nodeInfo.rewardratio')}}</span>
                                             </el-col>
                                             <el-col :span="21">
                                                 <span>{{parseFloat((detailInfo.rewardRatio*100).toPrecision(12))}}%</span>
@@ -385,7 +385,7 @@
                 setTimeout(this.getNodeInfo(),1000)
             }
             //获取当前屏幕尺寸
-            this.currentScreenWidth = document.body.clientWidth; 
+            this.currentScreenWidth = document.body.clientWidth;
         },
         //监视
         watch: {

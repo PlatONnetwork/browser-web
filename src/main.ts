@@ -21,7 +21,9 @@ Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
 Vue.use(VueAwesomeSwiper)
-
+// router.beforeEach((to,from,next)=>{
+//     console.log('开始啦啦啦')
+// })
 router.afterEach(function (to) {
     window.scrollTo(0, 0)
 })

@@ -118,7 +118,7 @@ class ApiService {
         return Http.interceptors.request.use(
             config => {
                 config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase();
-                console.warn('请求URL== ' + config.url)
+                console.log('请求URL== ' + config.url)
                 if(config.url.indexOf('json')!==-1){
                     console.log('json数据请求',config.url);
                     // return config;
@@ -127,21 +127,15 @@ class ApiService {
                     let arr=config.url.split('//');
                     console.log(arr)
                     //本地调试
-                    // let arr1=arr[1].split('/');
-                    // console.log(arr1)
-                    // let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
-                    let url='/'+sessionStorage.getItem('commandContext')+arr[0];
+                    let arr1=arr[1].split('/');
+                    console.log(arr1)
+                    let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
+                    //测试环境
+                    // let url='/'+sessionStorage.getItem('commandContext')+arr[0];
                     config.url=url
                     console.log(url)
                     // return config;
                 }
-                // if(config.url.search('json')!= -1){
-                //     config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+config.url.split("/").slice(3).join('/');
-                // }else{
-                //     config.url = config.url.split("//")[0]+'//'+config.url.split("//")[1].split("/")[0]+'/'+(sessionStorage.getItem('commandContext') ? sessionStorage.getItem('commandContext'):'')+'/'+config.url.split("/").slice(3).join('/');
-                // }
-                // console.log('请求URL== ' + config.url, '\n请求参数==', config.data);
-                // config.url  = 'http://10.10.8.8:8061/browser-server'
                 return config;
             },
             err => {
