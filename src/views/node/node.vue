@@ -206,7 +206,8 @@ import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
                     path:'/node-detail',
                     query:{
                         address:row.address,
-                        id:row.id
+                        id:row.id,
+                        nodeId:row.nodeId
                     }
                 })
             }

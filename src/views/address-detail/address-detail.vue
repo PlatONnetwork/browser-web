@@ -31,24 +31,24 @@
                     <div class="view">
                         <div class="left">
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span class='row-title'>{{$t('totalInfo.overview')}}</span>
                                 </el-col>
                                 <el-col :span="4"></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="20">
                                     <span>{{topList[0].balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
-                                <el-col :span="4">
+                                <el-col :span="20">
                                     <span>{{topList[0].tradeCount}}</span>
                                 </el-col>
                             </el-row>
@@ -56,23 +56,23 @@
                         <div class="center-blank"></div>
                         <div class="right">
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span class='row-title'>{{$t('totalInfo.others')}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
-                                <el-col :span="12">
+                                <el-col :span="20">
                                     <span>{{topList[0].votePledge || 0}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
-                                <el-col :span="3">
+                                <el-col :span="4">
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
-                                <el-col :span="4">
+                                <el-col :span="20">
                                     <span >{{topList[0].nodeCount || 0}}</span>
                                 </el-col>
                             </el-row>
@@ -239,7 +239,9 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.voteFor")' width='200'>
                                         <template slot-scope="scope">
-                                            <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span>
+                                            <!-- <span :class='{"border-abnormal":scope.row.from == address,"border-normal":scope.row.to == address}'>{{scope.row.nodeName}}</span> -->
+                                            <span class='cursor normal' v-if='scope.row.flag==0||scope.row.flag==1' @click='goNode(scope.row)'>{{scope.row.nodeName}}</span>
+                                            <span v-if='scope.row.flag==2'>{{scope.row.nodeName}}</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.validInvaildTickets")'  width='200'>
@@ -439,7 +441,29 @@
         },
         //方法
         methods: {
-             //将科学计数法转为数值
+            //跳转到节点详情
+            goNode(row){
+                if(row.flag==0){
+                    //历史节点详情
+                    this.$router.push({
+                        path:'/node-obsolete-detail',
+                        query:{
+                            nodeId:row.nodeId
+                        }
+                    })
+
+                }else if(row.flag==1){
+                    //共识节点详情
+                    this.$router.push({
+                        path:'/node-detail',
+                        query:{
+                            // address:row.address,
+                            nodeId:row.nodeId
+                        }
+                    });
+                }
+            },
+            //将科学计数法转为数值
             toNonExponential(num){
                 let m = num.toExponential().match(/\d(?:\.(\d*))?e([+-]\d+)/);
                 return num.toFixed(Math.max(0, (m[1] || '').length - m[2]));
@@ -614,7 +638,7 @@
                                     ++this.count;
                                 }
                             });
-                            
+
                             // 设置节点地址
                             // contractService.serProvider(this.chainHttp)
                             //获取余额
@@ -735,14 +759,20 @@
                     color: #93A5C8;
                 }
                 .el-col-4{
+                    // font-size: 12px;
+                    // color: #D7DDE9;
                     font-size: 12px;
-                    color: #D7DDE9;
+                    color: #93A5C8;
                 }
                 .el-col-6{
                     font-size: 12px;
                     color: #D7DDE9;
                 }
                 .el-col-12{
+                    font-size: 12px;
+                    color: #D7DDE9;
+                }
+                .el-col-20{
                     font-size: 12px;
                     color: #D7DDE9;
                 }
