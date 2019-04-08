@@ -65,8 +65,14 @@ export default window.vueVm= new Vue({
         ...mapActions(['initJsonData'])
     },
     beforeCreate(){
-        console.warn('hahahahahahaha')
+        // console.warn('hahahahahahaha')
         store.dispatch('initJsonData', i18n.locale);
+        // if(sessionStorage.getItem('commandId')){
+
+        // }else{
+        //     store.dispatch('initJsonData', i18n.locale);
+        // }
+
     },
     created() {
         // this.initJsonData(i18n.locale)

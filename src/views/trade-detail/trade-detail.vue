@@ -642,7 +642,7 @@ button {
         }
     }
     .data-detail {
-        padding: 0 170px;
+        padding: 0 160px;
         margin-bottom: 58px;
         .data-title {
             letter-spacing: 1px;

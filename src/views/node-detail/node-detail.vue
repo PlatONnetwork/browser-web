@@ -30,7 +30,7 @@
                             </p>
                         </div>
                         <div :class="[$i18n.locale=='en'?'en-right':'','right']">
-                            <span :class='{"node-candidate":detailInfo.electionStatus == 1,"node-standby":detailInfo.electionStatus == 4}'>{{ $t('nodeInfo.' + detailInfo.nodeType)}}</span>
+                            <span :class='{"node-candidate":detailInfo.nodeType == "candidates","node-standby":detailInfo.nodeType == "validator"}'>{{ $t('nodeInfo.' + detailInfo.nodeType)}}</span>
                         </div>
                     </div>
                     <div class="view">
@@ -468,12 +468,12 @@
                     height:28px;
                     padding-left:9px;
                     margin-top:4px;
-                    background: rgba(115,130,173,0.20);
+                    // background: rgba(115,130,173,0.20);
                     border-radius: 2px;
                     position: relative;
                     span{
                         letter-spacing: 0.8px;
-                        color: #93A5C8;;
+                        // color: #93A5C8;;
                         line-height:28px;
                         &:last-child{
                             position: absolute;

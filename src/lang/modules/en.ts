@@ -150,7 +150,8 @@ export default {
         votes: 'Votes',
         tickets:'Tickets',
         ticket:'Tickets',
-        declarations:'Declarations'
+        declarations:'Declarations',
+        piaoshu:'TxFee'
     },
     totalInfo: {
         info: 'Address Info',
@@ -188,7 +189,8 @@ export default {
         validTickets:'Valid Tickets',
         ticketID:'Ticket ID',
         owner:'Owner',
-        EAtime:'Estimated/Actual expiration time'
+        EAtime:'Estimated/Actual expiration time',
+        reward:'Reward'
     },
     download: {
         info: 'Download Data',

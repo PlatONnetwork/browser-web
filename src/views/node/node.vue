@@ -65,7 +65,7 @@
                         <el-table-column  :label="$t('nodeInfo.electionStatus')">
                             <template slot-scope="scope">
                                 <!-- <span>{{scope.row.electionStatus}}</span> -->
-                                <span :class='{"node-candidate":scope.row.electionStatus == 1,"node-standby":scope.row.electionStatus == 4}'>{{ $t('nodeInfo.' + scope.row.nodeType)}}</span>
+                                <span :class='{"node-candidate":scope.row.nodeType == "candidates","node-standby":scope.row.nodeType == "validator"}'>{{ $t('nodeInfo.' + scope.row.nodeType)}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.location')" width="280">

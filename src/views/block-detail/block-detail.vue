@@ -109,7 +109,7 @@
                                 </el-col>
                                 <el-col :span="20">
                                     <span class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-                                    <span>【{{ $t('blockAbout.in',detailInfo.timeDiff?{ timeDiff:(detailInfo.timeDiff)/1000 }:0) }}】</span>
+                                    <span>【{{ $t('blockAbout.in',detailInfo.timeDiff?{ timeDiff:(detailInfo.timeDiff)/1000 }:{timeDiff:0}) }}】</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

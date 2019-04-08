@@ -259,9 +259,10 @@
                                             <span>{{scope.row.value}}</span>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column :label='$t("totalInfo.profit")' width="150px">
+                                    <el-table-column :label='$t("totalInfo.reward")+"(Energon)"' width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.income}}</span>
+                                            <span>{{getEth(scope.row.income)}}</span>
+                                            <!-- <span>{{scope.row.income}}</span> -->
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.txFee")' width="150px">
@@ -356,6 +357,9 @@
     import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     import contractService from '@/services/web3-services'
+    import Web3 from 'web3'
+    let web3 = new Web3();
+    // console.log('web3>>>>>',web3)
     export default {
         //组件名
         name: 'address-detail-wrap',
@@ -441,6 +445,12 @@
         },
         //方法
         methods: {
+            //wei转eth
+            getEth(number){
+                let result = web3.fromWei(number,'ether');
+                console.log('result>>>>>>>',result)
+                return result;
+            },
             //跳转到节点详情
             goNode(row){
                 if(row.flag==0){
@@ -667,7 +677,7 @@
             // contractService.serProvider(this.chainHttp)
             // console.log(1)
             //获取交易列表
-            this.getDetail()
+            this.getDetail();
             //获取当前屏幕尺寸
             this.currentScreenWidth = document.body.clientWidth;
         },

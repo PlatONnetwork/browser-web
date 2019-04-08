@@ -280,7 +280,7 @@ let indexService = null;
                 return (value/1000000).toFixed(2)+'M'
             }
         }
-        
+
     },
 })
 export default class Index extends Vue {
@@ -1142,6 +1142,7 @@ div.slider-item {
     }
     .chart-aside p{
         font-size:13px;
+        letter-spacing: 0;
     }
     .chart-aside li{
         padding: 10px 0 30px 0px;

@@ -139,6 +139,9 @@
                 let arr = this.chainList.filter((item,index)=>{
                     return item.cid == id
                 })
+                // let arr = sessionStorage.getItem('chainList').filter((item,index)=>{
+                //     return item.cid == id
+                // })
                 let arr1=arr[0]
                 console.warn('首次net》》》',arr1['en']);
                 return arr1['en']
@@ -149,6 +152,9 @@
                 let arr = this.chainList.filter((item,index)=>{
                     return item.cid == command
                 })
+                // let arr = sessionStorage.getItem('chainList').filter((item,index)=>{
+                //     return item.cid == command
+                // })
                 store.commit("CHANGE_HTTP",arr[0].http)
                 store.commit("CHANGE_CONTEXT",arr[0].context)
                 // this.$emit('changeDataFn')

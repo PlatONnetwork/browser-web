@@ -86,7 +86,7 @@ class ApiService {
         // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
         // params.cid = 1
         // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : store.state.common.chainId
-        params.cid = sessionStorage.getItem('commandId') ? store.state.common.chainId : localStorage.getItem('cid')
+        params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : localStorage.getItem('cid')
         return Http.post(url, params).then(res => res.data)
     }
     encodeParams(url,params){
@@ -127,11 +127,11 @@ class ApiService {
                     let arr=config.url.split('//');
                     console.log(arr)
                     //本地调试
-                    // let arr1=arr[1].split('/');
-                    // console.log(arr1)
-                    // let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
+                    let arr1=arr[1].split('/');
+                    console.log(arr1)
+                    let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
                     //测试环境
-                    let url='/'+sessionStorage.getItem('commandContext')+arr[0];
+                    // let url='/'+sessionStorage.getItem('commandContext')+arr[0];
                     config.url=url
                     console.log(url)
                     // return config;

@@ -88,7 +88,7 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.worth')">
+                        <el-table-column :label="$t('blockAbout.piaoshu')">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} E</span>
                             </template>

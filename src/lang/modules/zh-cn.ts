@@ -151,7 +151,8 @@ export default {
         votes:'投票',
         tickets:'选票数',
         ticket:'选票',
-        declarations:'声明'
+        declarations:'声明',
+        piaoshu:'票数'
     },
     totalInfo:{
         info:'地址信息',
@@ -189,7 +190,8 @@ export default {
         validTickets:'有效票',
         ticketID:'选票ID',
         owner:'拥有者',
-        EAtime:'预计/实际过期时间'
+        EAtime:'预计/实际过期时间',
+        reward:'奖励'
     },
     download:{
         info:'下载数据',
