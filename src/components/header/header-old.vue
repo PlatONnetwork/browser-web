@@ -59,15 +59,15 @@
         </div>
         <div class="search">
             <el-input :placeholder="$t('search.placeHolder')" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
-            <el-button type="primary" class="el-btn el-searchs" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
+            <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
         </div>
         <div class="right-most">
-            <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
+            <el-dropdown @command="handleCommand" placement="bottom-start">
                 <!-- <span class="el-dropdown-link">
-                    {{getNetObj(chainId)}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{netObj[chainId]}}<i class="el-icon-arrow-down el-icon-right"></i>
                 </span> -->
                 <span class="el-dropdown-link">
-                    {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
+                    {{getNetObj(chainId)}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
@@ -75,9 +75,9 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
+            <el-dropdown @command="handleCommandLangage" placement="bottom-start">
                 <span class="el-dropdown-link">
-                    {{languageObj[language]}}<i class="el-icon--right" :class='iconClass2'></i>
+                    {{languageObj[language]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in options' :key='index' :command='item.value'>
@@ -85,24 +85,6 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
-            <!-- <el-select v-model='chainId'>
-                <el-option
-                    v-for='item in chainList'
-                    :key='item.cid'
-                    :label='item[lang]'
-                    :value='item.cid'
-                >
-                </el-option>
-            </el-select> -->
-            <!-- <el-select v-model='languageObj[language]'>
-                <el-option
-                    v-for='(item,index) in options'
-                    :key='item.value'
-                    :label='item.label'
-                    :value='item.value'
-                >
-                </el-option>
-            </el-select> -->
         </div>
     </div>
 </template>
@@ -117,9 +99,6 @@
         //实例的数据对象
         data () {
             return {
-                iconClass1:'el-icon-arrow-down',
-                iconClass2:'el-icon-arrow-down',
-                disabledBtn:false,
                 dropDisabled:false,
                 searchKey:'',//搜索
                 language: localStorage.getItem('i18nLocale')?localStorage.getItem('i18nLocale'):'zh-cn',
@@ -155,21 +134,6 @@
         //方法
         methods: {
             ...mapActions(['changeChainId']),
-            visibleChange1(val){
-                if(val){
-                    this.iconClass1='el-icon-arrow-up';
-                }else{
-                    this.iconClass1='el-icon-arrow-down';
-                }
-            },
-            visibleChange2(val){
-                console.warn('val>>>>>',val)
-                if(val){
-                    this.iconClass2='el-icon-arrow-up';
-                }else{
-                    this.iconClass2='el-icon-arrow-down';
-                }
-            },
             getNetObj(id){
                 console.warn('首次id》》》',id);
                 let arr = this.chainList.filter((item,index)=>{
@@ -188,8 +152,12 @@
                 let arr = this.chainList.filter((item,index)=>{
                     return item.cid == command
                 })
+                // let arr = sessionStorage.getItem('chainList').filter((item,index)=>{
+                //     return item.cid == command
+                // })
                 store.commit("CHANGE_HTTP",arr[0].http)
                 store.commit("CHANGE_CONTEXT",arr[0].context)
+                // this.$emit('changeDataFn')
                 //切换网络之后，将当前网络存在sessionStorage
                 sessionStorage.setItem('commandId',command)
                 sessionStorage.setItem('commandHttp',arr[0].http)
@@ -210,8 +178,8 @@
             },
             //查询
             searchFn(){
-                this.disabledBtn=true;
                 let param = {
+                    // cid:'',
                     parameter:this.searchKey,
                 }
                 console.warn('搜索内容》》》',param)
@@ -227,14 +195,11 @@
                         }
                     }else{
                         this.$message.warning(this.$t('indexInfo.searchno'))
-                            // this.$message.error(errMsg) 替换为search无结果
+                        // this.$message.error(errMsg) 替换为search无结果
                     }
                 }).catch((error)=>{
                     this.$message.error(error)
-                });
-                setTimeout(()=>{
-                    this.disabledBtn=false;
-                },2000);
+                })
             },
             switchFn(type,struct){
                 switch (type){
@@ -372,7 +337,6 @@
     .right-most{
         flex-shrink: 0;   // 网络切换+中英文不缩小
         width: 200px;
-        display: flex;
         div{
             font-family: ArialMT;
             font-size: 14px;
@@ -521,46 +485,6 @@
     .el-dropdown-menu__item.is-disabled{
         opacity: 0.25;
     }
-    .right-most{
-        .el-select .el-input .el-input__inner{
-            font-family: ArialMT;
-            font-size: 14px;
-            color: #D7DDE9;
-            letter-spacing: 0;
-            border:none;
-            background: transparent;
-        }
-        .el-select:hover .el-input__inner {
-            background: transparent;
-            border: none;
-            color: #D7DDE9;
-        }
-        .el-select .el-input.is-focus .el-input__inner{
-            background: transparent;
-            border: none;
-            color: #D7DDE9;
-        }
-    }
-    // .el-popper{
-    //     background: #0E1438;
-    //     border: none;
-    //     box-shadow: 0 0px 0px 0 rgba(0,0,0,0.10);
-    // }
-    // .el-popper[x-placement^="bottom"] .popper__arrow::after{
-    //     top:0;
-    //     border-bottom-color:transparent;
-    // }
-    // .el-select-dropdown__item{
-    //     color: #8D9BB8;
-    // }
-    // .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
-    //     background: #1F254C;
-    //     color: #8D9BB8;
-    // }
-    // .el-select-dropdown__item.selected{
-    //     background-color: #1F254C;
-    //     color: #8D9BB8;
-    // }
     @media screen and (max-width: 1680px) {
         .search {
             .el-input{

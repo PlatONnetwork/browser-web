@@ -875,5 +875,25 @@
         height: 50px;
         background:url('images/loading-big.gif') no-repeat center top;
     }
+    .el-popper{
+        background: #0E1438;
+        border: 1px solid rgba(180,185,194,0.20);
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    }
+    .el-popper[x-placement^="bottom"] .popper__arrow::after{
+        top:0;
+        border-bottom-color:transparent;
+    }
+    .el-select-dropdown__item{
+        color: #8D9BB8;
+    }
+    .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+        background: #1F254C;
+        color: #8D9BB8;
+    }
+    .el-select-dropdown__item.selected{
+        background: #0F83CD;
+        color: #FFFFFF;
+    }
 </style>
 

@@ -30,7 +30,7 @@
                             </p>
                         </div>
                         <div :class="[$i18n.locale=='en'?'en-right':'','right']">
-                            <span :class='{"node-candidate":detailInfo.nodeType == "candidates","node-standby":detailInfo.nodeType == "validator"}'>{{ $t('nodeInfo.' + detailInfo.nodeType)}}</span>
+                            <span :class='{"node-candidate":detailInfo.nodeType == "candidates","node-validator":detailInfo.nodeType == "validator","node-nominees":detailInfo.nodeType == "nominees"}'>{{ $t('nodeInfo.' + detailInfo.nodeType)}}</span>
                         </div>
                     </div>
                     <div class="view">

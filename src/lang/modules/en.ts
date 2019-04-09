@@ -325,9 +325,9 @@ export default {
         selected:'Selected',
         tickets:'Tickets',
         ticketage:'Ticket Age',
-        candidates:'Candidates Node',
-        nominees:'Nominees Node',
-        validator:'Validator Node'
+        candidates:'Candidates',
+        nominees:'Nominees',
+        validator:'Validator'
     },
     ...enLocale
 }
