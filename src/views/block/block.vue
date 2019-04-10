@@ -48,7 +48,8 @@
                                         <div slot="content">{{scope.row.nodeName}}</div>
                                         <span class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                     </el-tooltip> -->
-                                    <span class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                    <span v-if='scope.row.nodeName!=="GenesisNode"' class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                    <span v-else>{{scope.row.nodeName}}</span>
                                 </div>
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>

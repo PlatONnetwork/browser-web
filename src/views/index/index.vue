@@ -135,8 +135,8 @@
                                 </el-table-column>
                                 <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true'  show-overflow-tooltip >
                                     <template slot-scope="scope">
-                                        <span v-if='scope.row.nodeName' class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
-                                        <span v-else>GenesisNode</span>
+                                        <span v-if='scope.row.nodeName!=="GenesisNode"' class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                        <span v-else>{{scope.row.nodeName}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100">
