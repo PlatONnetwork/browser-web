@@ -154,7 +154,7 @@ class IndexService extends Ws {
                 if (code === 0) {
                     store.dispatch('setMapData', data)
                     // store.dispatch('setChartData', IndexService.dealChartList(data))
-                    store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
+                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
@@ -172,7 +172,7 @@ class IndexService extends Ws {
                     store.dispatch('updateMapData', data)
                     const list = IndexService.dealChartList(data)
                     // store.dispatch('updateChartData', list)
-                    store.dispatch('updateEarthData', IndexService.dealEarthCHartList(data))
+                    // store.dispatch('updateEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }

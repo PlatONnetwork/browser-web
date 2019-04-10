@@ -43,20 +43,22 @@
                         <el-table-column prop="" :label="$t('totalInfo.voteFor')" >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <el-tooltip class="item" effect="dark" placement="top">
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.nodeName}}</div>
                                         <span class='cursor normal ellipsis' @click='voteFn(scope.row.candidateId)'>{{scope.row.candidateId}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span class='cursor normal ellipsis' @click='voteFn(scope.row.candidateId)'>{{scope.row.candidateId}}</span>
                                 </div>
                             </template>
                         </el-table-column>
                         <el-table-column prop="" :label="$t('totalInfo.owner')">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <el-tooltip class="item" effect="dark" placement="top">
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.owner}}</div>
                                         <span class='cursor normal ellipsis' @click='hasVoteFn(scope.row)'>{{scope.row.owner}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span class='cursor normal ellipsis' @click='hasVoteFn(scope.row)'>{{scope.row.owner}}</span>
                                 </div>
                             </template>
                         </el-table-column>

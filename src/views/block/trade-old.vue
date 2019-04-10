@@ -1,22 +1,23 @@
 <template>
-    <div class="trade-block-wrap">
+    <div class="trade-wrap">
         <com-header :descriptionProp='descriptionProp' @changeDataFn='changeDataFn'></com-header>
         <div class="content-area">
             <div class='top'>
                 <header class="time-and-number">
-                    Transactions-Blocks
+                    Transactions
                 </header>
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>{{$t('blockAbout.transactionBlock')}}#{{height}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('tradeAbout.transactions')}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>{{$t('blockAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('blockAbout.transactions')}}</span>
+                        <span>{{$t('tradeAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
+                        <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -25,78 +26,88 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.txHash')"  width='200'>
+                        <el-table-column :label="$t('tradeAbout.hash')" >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
                                         <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
                                         <i class="iconfont iconxinxi cursor">&#xe63f;</i>
                                     </el-tooltip>
-                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
+                                    <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.txHash}}</div>
                                         <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                    </el-tooltip> -->
-                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                                    </el-tooltip>
                                 </div>
-                                <!-- <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
-                                    <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
-                                    <i class="iconfont iconxinxi cursor">&#xe63f;</i>
-                                </el-tooltip>
-                                <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
+                                <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" :label="$t('blockAbout.blockH')" width='150'>
+                        <el-table-column prop="blockHeight"  :label="$t('tradeAbout.block')" width='80'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.interval')" width='180'>
+                        <el-table-column  :label="$t('blockAbout.interval')"  width='120'>
                             <template slot-scope="scope">
-                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('blockAbout.before')}}</span>
+                                <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.from')"  width='200'>
+                        <el-table-column :label="$t('tradeAbout.from')" :width="currentScreenWidth<1480? 200:350">
                             <template slot-scope="scope">
+                                <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                 <div class='flex-special'>
-                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
+                                    <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.from}}</div>
-                                        <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                    </el-tooltip> -->
-                                    <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                        <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                                    </el-tooltip>
                                     <!-- <span  class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span> -->
                                 </div>
-                                <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column label="" width='150' align='center'>
+                        <!-- <el-table-column label="" width='50' align='center'>
                             <template slot-scope="scope">
                                 <span>
                                     <i class='iconfont icon--icon-to iconto'></i>
                                 </span>
                             </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('blockAbout.to')"  width='200'>
+                        </el-table-column> -->
+                        <el-table-column :label="$t('tradeAbout.to')" >
                             <template slot-scope="scope">
-                                <div class='flex-special'>
-                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"'><i class="iconfont iconcontract">&#xe63e;</i></span>
-                                    <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
-                                    <!-- <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.to'>
+                                <!-- <div class='flex-special'>
+                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
+                                    <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.txType !== "contractCreate"'>
                                         <div slot="content">{{scope.row.to}}</div>
                                         <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                    </el-tooltip> -->
-                                    <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                    </el-tooltip>
+                                </div> -->
+                                <div class='flex-special'>
+                                    <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" || scope.row.txType == "voteTicket" || scope.row.txType == "candidateDeposit" || scope.row.txType == "candidateApplyWithdraw" || scope.row.txType == "candidateWithdraw"' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span> -->
+
+                                    <span :title='$t("elseInfo.contract")' v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <!-- <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span> -->
+                                    <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
+                                    <el-tooltip class="item" effect="dark" placement="top"  v-if='scope.row.to'>
+                                        <div slot="content">{{scope.row.to}}</div>
+                                        <span class='cursor normal ellipsis ellipsisWidth' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                    </el-tooltip>
                                 </div>
                                 <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                 <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.worth')" show-overflow-tooltip>
+                        <el-table-column :label="$t('totalInfo.txType')"  width="130">
                             <template slot-scope="scope">
-                                <span>{{scope.row.value}} E</span>
+                                <span>{{ $t('elseInfo.' + txTypeFn[scope.row.txType])}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')" show-overflow-tooltip></el-table-column>
+                        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="160">
+                            <template slot-scope="scope">
+                                <span>{{scope.row.value}} Energon</span>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:150">
+                        </el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -117,22 +128,33 @@ import { timeDiff } from '@/services/time-services';
 import {mapState, mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     //组件名
-    name: 'trade-block-wrap',
+    name: 'trade-wrap',
     //实例的数据对象
     data() {
         return {
-            height: '',
-            txType: '',
             newRecordFlag: false,
             paginationFlag: true,
             tableData: [
 
             ],
-            currentPage: 1,
+            currentPage:1,
             pageSize: 10,
-            pageTotal: 0,
-            currentPage1: 1,
-            descriptionProp: 'block',
+            pageTotal: null,
+            descriptionProp: 'trade',
+            displayTotalCount:0,
+            txTypeFn:{
+                transfer : 'transfer',
+                MPCtransaction : 'MPCtransaction',
+                contractCreate : 'contractCreate',
+                voteTicket : 'voteTicket',
+                transactionExecute :'transactionExecute',
+                authorization :'authorization',
+                candidateDeposit :'candidateDeposit',
+                candidateApplyWithdraw :'candidateApplyWithdraw',
+                candidateWithdraw :'candidateWithdraw',
+                unknown :'unknown'
+            },
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -146,8 +168,8 @@ export default {
         //查询
         searchFn() {},
         changeDataFn(){
-            console.warn('子组件告诉交易区块链id更改》》》》')
-            this.getTradeList();
+            console.warn('子组件告诉trade链id更改》》》》')
+            this.getTradeList()
         },
         timeDiffFn(beginTime,endTime){
             return timeDiff(beginTime,endTime)
@@ -172,19 +194,22 @@ export default {
         getTradeList() {
             let param = {
                 // cid:'',
-                height: this.height,
                 pageNo: this.currentPage,
                 pageSize: this.pageSize,
-                txType: this.txType // 交易类型
             };
-            console.warn('获取区块交易列表》》》', param);
+            console.warn('获取交易列表》》》', param);
             apiService.trade
-                .blockTransaction(param)
+                .transactionList(param)
                 .then(res => {
-                    let {data, totalPages, totalCount, code, errMsg} = res;
+                    let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                     if (code == 0) {
                         this.tableData = data;
                         this.pageTotal = totalCount;
+                        this.displayTotalCount = displayTotalCount;
+                        //判断最新记录是否显示  总数
+                        totalCount > 500000
+                            ? (this.newRecordFlag = true)
+                            : (this.newRecordFlag = false);
                         //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                         totalPages == 1
                             ? (this.paginationFlag = false)
@@ -208,21 +233,14 @@ export default {
         },
         //进入交易哈希详情
         goTradeDetail(index, row) {
-            if(row.txReceiptStatus == -1){
-                this.$router.push({
-                    path: '/trade-pending-detail',
-                    query: {
-                        txHash: row.txHash,
-                    },
-                });
-            }else{
-                this.$router.push({
-                    path: '/trade-detail',
-                    query: {
-                        txHash: row.txHash,
-                    },
-                });
-            }
+            this.$router.push({
+                path: '/trade-detail',
+                query: {
+                    txHash: row.txHash,
+                    currentPage:this.currentPage,
+                    pageSize:this.pageSize
+                },
+            });
         },
         //进入钱包地址详情
         goAddressDetail(index, row) {
@@ -230,19 +248,23 @@ export default {
                 path: '/address-detail',
                 query: {
                     address: row.from,
-                    description: 'block',
+                    description: 'trade',
+                    currentPage:this.currentPage,
+                    pageSize:this.pageSize
                 },
             });
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.receiveType == 'contract') {
+            if (row.receiveType == 'contract'|| row.txType == "voteTicket" || row.txType == "candidateDeposit" || row.txType == "candidateApplyWithdraw" || row.txType == "candidateWithdraw") {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',
                     query: {
                         address: row.to,
-                        description: 'block',
+                        description: 'trade',
+                        currentPage:this.currentPage,
+                        pageSize:this.pageSize
                     },
                 });
             } else {
@@ -251,7 +273,9 @@ export default {
                     path: '/address-detail',
                     query: {
                         address: row.to,
-                        description: 'block',
+                        description: 'trade',
+                        currentPage:this.currentPage,
+                        pageSize:this.pageSize
                     },
                 });
             }
@@ -259,10 +283,18 @@ export default {
     },
     //生命周期函数
     created() {
-        this.height = this.$route.query.height;
-        this.txType = this.$route.query.txType;
+        if(this.$route.query.currentPage){
+            this.currentPage = Number(this.$route.query.currentPage);
+        };
+        if(this.$route.query.pageSize){
+            this.pageSize = Number(this.$route.query.pageSize);
+        };
+        console.log(this.currentPage)
         //获取交易列表
         this.getTradeList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth;
+
     },
     //监视
     watch: {
@@ -276,7 +308,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.trade-block-wrap {
+.trade-wrap {
     .bottom {
         padding: 26px 0 28px;
         .title {
@@ -294,6 +326,13 @@ export default {
         }
     }
 }
-
+@media screen and (max-width: 1480px) {
+    .ellipsis{
+        width: 220px;
+    }
+    .ellipsisWidth{
+        width: 180px;
+    }
+}
 </style>
 

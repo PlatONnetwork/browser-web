@@ -44,10 +44,11 @@
                         <el-table-column :label="$t('blockAbout.miner')" :width="currentScreenWidth<1440? 130:260">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <el-tooltip class="item" effect="dark" placement="top">
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.nodeName}}</div>
                                         <span class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span class='cursor normal ellipsis' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                 </div>
                                 <!-- <span class='cursor normal'>{{scope.row.miner}}</span> -->
                             </template>
@@ -211,7 +212,7 @@ export default {
         //获取交易列表
         this.getBlockList();
         //获取当前屏幕尺寸
-        this.currentScreenWidth = document.body.clientWidth; 
+        this.currentScreenWidth = document.body.clientWidth;
     },
     //监视
     watch: {

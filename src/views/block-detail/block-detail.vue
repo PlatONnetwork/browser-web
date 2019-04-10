@@ -63,7 +63,8 @@
                                     <span>{{$t('blockAbout.transactions')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span v-if='detailInfo.transaction!=0' class='normal cursor' @click='tradeBlockFn(detailInfo.height)'>{{detailInfo.transaction}}</span>
+                                    <span v-else>{{detailInfo.transaction}}</span>
                                     <span>TX</span>
                                 </el-col>
                             </el-row>
@@ -72,10 +73,12 @@
                                     <span>{{$t('blockAbout.votes')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.blockVoteAmount}}</span>
+                                    <!-- <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.blockVoteAmount}}</span> -->
+                                    <span v-if='detailInfo.blockVoteAmount!=0' class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"voteTicket")'>{{detailInfo.blockVoteAmount}}</span>
+                                    <span v-else>{{detailInfo.blockVoteAmount}}</span>
                                     <span>TX</span>
                                     <span>( {{$t('blockAbout.ticket')}}</span>
-                                    <span class='normal cursor' @click='voteNumFn()'>{{detailInfo.blockVoteNumber}}</span>
+                                    <span>{{detailInfo.blockVoteNumber}}</span>
                                     <span>)</span>
                                 </el-col>
                             </el-row>
@@ -84,7 +87,8 @@
                                     <span>{{$t('blockAbout.declarations')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span>
+                                    <span  v-if='detailInfo.blockCampaignAmount!=0' class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span>
+                                    <span v-else>{{detailInfo.blockCampaignAmount}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

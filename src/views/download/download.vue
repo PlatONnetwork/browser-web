@@ -167,7 +167,7 @@
             'googleApi':function(){
                 this.disabledBtn = !this.googleApi;
             },
-           
+
         },
     }
 </script>

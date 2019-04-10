@@ -114,10 +114,11 @@
                                                     <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
                                                     <i class="iconfont iconxinxi cursor">&#xe63f;</i>
                                                 </el-tooltip>
-                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.txHash}}</div>
                                                     <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
+                                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                             </div>
                                             <!-- <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
                                                 <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
@@ -142,10 +143,11 @@
                                     <el-table-column :label='$t("totalInfo.from")'  :width="currentScreenWidth<1480? 220:300">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
-                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.from}}</div>
                                                     <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
+                                                <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                             </div>
                                             <!-- <span :class='[scope.row.from !== address ? "cursor normal":""]' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                                         </template>
@@ -165,16 +167,19 @@
                                                 </el-tooltip>
                                             </div> -->
                                             <div class='flex-special'>
-                                                <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" ' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                                <span :title='$t("elseInfo.contract")' v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"' class='margin5'><i class="iconfont iconcontract">&#xe63e;</i></span>
                                                 <span v-if='!scope.row.to'>{{$t('elseInfo.create')}}</span>
                                                 <!-- <el-tooltip class="item" effect="dark" placement="top"  v-else-if='scope.row.to'>
                                                     <div slot="content">{{scope.row.to}}</div>
                                                     <span class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                                 </el-tooltip> -->
-                                                <el-tooltip class="item" effect="dark" placement="top"  v-else>
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top"  v-else>
                                                     <div slot="content">{{scope.row.to}}</div>
-                                                    <span class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                                </el-tooltip>
+                                                    <span v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"' class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                    <span v-else class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                </el-tooltip> -->
+                                                <span v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"' class='cursor normal ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
+                                                    <span v-else class='ellipsis' :class='[scope.row.to !== address ? "cursor normal":""]' @click='goDetail1(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                             </div>
                                             <!-- <span :title='$t("elseInfo.contract")' v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
                                             <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
@@ -224,10 +229,11 @@
                                                     <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
                                                     <i class="iconfont iconxinxi cursor">&#xe63f;</i>
                                                 </el-tooltip>
-                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.txHash}}</div>
                                                     <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
+                                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                             </div>
                                         </template>
                                     </el-table-column>
@@ -301,10 +307,11 @@
                                                     <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
                                                     <i class="iconfont iconxinxi cursor">&#xe63f;</i>
                                                 </el-tooltip>
-                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.txHash}}</div>
                                                     <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
+                                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                             </div>
                                         </template>
                                     </el-table-column>
@@ -322,10 +329,11 @@
                                     <el-table-column :label='$t("totalInfo.nodeName")'  :width="currentScreenWidth<1440? 180:300">
                                         <template slot-scope="scope">
                                             <div class='flex-special'>
-                                                <el-tooltip class="item" effect="dark" placement="top">
+                                                <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                     <div slot="content">{{scope.row.from}}</div>
                                                     <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
-                                                </el-tooltip>
+                                                </el-tooltip> -->
+                                                <span class='ellipsis' :class='[scope.row.from !== address ? "cursor normal":""]' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                                             </div>
                                         </template>
                                     </el-table-column>
@@ -374,7 +382,7 @@
                 // selectAll:[],
                 loading:false,
                 type:'transfer',
-                dectarationType:'validatorStake',
+                dectarationType:'candidateDeposit',
                 voteType:'voteTicket',
                 typeList:[
                     {label:'transfer',value:'transfer'}, //4.0转账细分发送和接收，投票独立
@@ -386,9 +394,9 @@
                     {label:'MPCtransaction',value:'MPCtransaction'},
                 ],
                 dectarationList:[
-                    {label:'validatorStake',value:'validatorStake'},
-                    {label:'reduceStake',value:'reduceStake'},
-                    {label:'withdrawStake',value:'withdrawStake'},
+                    {label:'validatorStake',value:'candidateDeposit'},
+                    {label:'reduceStake',value:'candidateApplyWithdraw'},
+                    {label:'withdrawStake',value:'candidateWithdraw'},
                 ],
                 txTypeFn: {
                     transfer : 'send',

@@ -128,7 +128,7 @@
                                     <span>{{ detailInfo.txType=="candidateWithdraw" ? '接收地址' : $t('tradePendingAbout.to')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.txType == "contractCreate" || detailInfo.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
+                                    <span :title='$t("elseInfo.contract")' v-if='detailInfo.receiveType == "contract" || detailInfo.to == "0x1000000000000000000000000000000000000001" || detailInfo.to == "0x1000000000000000000000000000000000000002"'><i class="iconfont iconcontract">&#xe63e;</i>Contract</span>
                                     <span v-if='!detailInfo.to'>{{$t('elseInfo.create')}}</span>
                                     <span v-if='detailInfo.to' class='cursor normal' @click='goDetail(detailInfo.receiveType,detailInfo.to)'>{{detailInfo.to}}</span>
                                 </el-col>
@@ -170,7 +170,7 @@
                                     <span>{{$t('tradeAbout.tickets')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='cursor normal' @click='voteNumFn(detailInfo.blockHeight,detailInfo.txHash)'>{{detailInfo.voteCount}}</span>
+                                    <span>{{detailInfo.voteCount}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

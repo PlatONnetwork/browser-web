@@ -41,6 +41,7 @@
             getref() {
 
                 return Http.get('https://www.google.com/recaptcha/api.js?timeStrp='+new Date().getTime()).then((res)=>{
+                    console.warn('哈哈哈哈哈')
                     console.warn('res>>>>>',res)
                     setTimeout (function () {
                         this.is_timeout = true;
@@ -55,6 +56,7 @@
                     }
                     this.is_timeout = false;
                 }).catch(error=>{
+                    this.updateApiStatus(false)
                     this.$message.error(this.$t('menu.goole'))
                     console.warn('error>>>>>',error)
                 })

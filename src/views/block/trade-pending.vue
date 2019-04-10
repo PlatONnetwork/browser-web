@@ -28,10 +28,11 @@
                         <el-table-column :label="$t('tradePendingAbout.hash')"   width='200' >
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <el-tooltip class="item" effect="dark" placement="top">
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.txHash}}</div>
                                         <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                 </div>
                                 <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                             </template>
@@ -56,10 +57,11 @@
                         <el-table-column :label="$t('tradePendingAbout.from')"  :width="currentScreenWidth<1440? 100:200">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <el-tooltip class="item" effect="dark" placement="top">
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top">
                                         <div slot="content">{{scope.row.from}}</div>
                                         <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span class='cursor normal ellipsis' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                     <span @click='filterFn(scope.row.from)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                                 </div>
 
@@ -77,12 +79,13 @@
                         <el-table-column :label="$t('tradePendingAbout.to')"   width='200'>
                             <template slot-scope="scope">
                                 <div class='flex-special'>
-                                    <span :title='$t("elseInfo.contract")'  v-if='scope.row.txType == "contractCreate" || scope.row.receiveType == "contract" '><i class="iconfont iconcontract">&#xe63e;</i></span>
+                                    <span :title='$t("elseInfo.contract")'  v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"'><i class="iconfont iconcontract">&#xe63e;</i></span>
                                     <span v-if='scope.row.txType == "contractCreate"'>{{$t('elseInfo.create')}}</span>
-                                    <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"'>
+                                    <!-- <el-tooltip class="item" effect="dark" placement="top"   v-if='scope.row.txType !== "contractCreate"'>
                                         <div slot="content">{{scope.row.to}}</div>
                                         <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal  ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
-                                    </el-tooltip>
+                                    </el-tooltip> -->
+                                    <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal  ellipsis' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span>
                                     <span v-if='scope.row.txType !== "contractCreate"' @click='filterFn(scope.row.to)' class='cursor'><i class="iconfont iconfilter">&#xe641;</i></span>
                                 </div>
                                 <!-- <span :title='$t("elseInfo.contract")'  v-if='scope.row.txType == "contractCreate" || scope.row.txType == "transactionExecute" '><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -302,7 +305,7 @@ export default {
         //获取交易列表
         this.getTradeList();
         //获取当前屏幕尺寸
-        this.currentScreenWidth = document.body.clientWidth; 
+        this.currentScreenWidth = document.body.clientWidth;
 
     },
     //监视

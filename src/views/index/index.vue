@@ -610,7 +610,7 @@ export default class Index extends Vue {
         //初始化图表
         this.initChart();
         this.initWorldMapChart();
-        this.initEarthChart();
+        // this.initEarthChart();
         indexService.getChartData()
         indexService.updateChartData()
 
@@ -621,7 +621,7 @@ export default class Index extends Vue {
             // console.warn(earthChart)
             blockChart.chart.resize();
             worldMapChart.chart.resize();
-            earthChart.chart.resize()
+            // earthChart.chart.resize()
         };
         // this.currentScreenWidth = document.documentElement.clientHeight || document.body.clientHeight;
         this.currentScreenWidth = document.body.clientWidth; //获取当前屏幕尺寸
@@ -667,10 +667,10 @@ export default class Index extends Vue {
         //     data:val,
         // });
     // }
-    @Watch('earthData')
-    onEarthDataChanged(val: Array<Array<object>>, oldVal: Array<Array<object>>): void {
-        this.updateEarthChart(val)
-    }
+    // @Watch('earthData')
+    // onEarthDataChanged(val: Array<Array<object>>, oldVal: Array<Array<object>>): void {
+    //     this.updateEarthChart(val)
+    // }
     @Watch('mapData')
     onMapDateChanges(val: object, oldVal: object): void{
         this.updateMapData(val)
