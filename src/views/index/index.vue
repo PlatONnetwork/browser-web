@@ -17,7 +17,8 @@
                     <li>
                         <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">{{currentOverViewData.nodeName}}</div>
-                            <p class='ellipsis cursor' @click="goNodeDetail(chainId,currentOverViewData)">{{currentOverViewData.nodeName}}</p>
+                            <p v-if='currentOverViewData.nodeName !== "GenesisNode"' class='ellipsis cursor' @click="goNodeDetail(chainId,currentOverViewData)">{{currentOverViewData.nodeName}}</p>
+                            <p v-else class='ellipsis'>{{currentOverViewData.nodeName}}</p>
                         </el-tooltip>
                         <!-- <p class=''>{{currentOverViewData.node}}</p> -->
                         <span>{{$t("indexInfo.node")}}</span>
@@ -134,7 +135,8 @@
                                 </el-table-column>
                                 <el-table-column prop="nodeName" :label='$t("indexInfo.node")' fit='true'  show-overflow-tooltip >
                                     <template slot-scope="scope">
-                                        <span class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                        <span v-if='scope.row.nodeName' class='cursor normal' @click='goNodeDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                                        <span v-else>GenesisNode</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="transaction" :label='$t("indexInfo.txn")' show-overflow-tooltip width="100">
