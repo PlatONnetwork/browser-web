@@ -69,7 +69,8 @@
                                     <span>{{$t('totalInfo.contractcreator')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{detailInfo.developer?detailInfo.developer:'unkonwn'}}</span>
+                                    <span v-if='address=="0x1000000000000000000000000000000000000001" ||address=="0x1000000000000000000000000000000000000002" '>System Contract</span>
+                                    <span v-else>{{detailInfo.developer}}</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">

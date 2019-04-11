@@ -83,7 +83,9 @@ export default {
         tickets:'Tickets',
         nodeID:'Node ID',
         reduction:'Reduction',
-        withdraw:'Withdraw'
+        withdraw:'Withdraw',
+        tradein:'{count} Transactions Found',
+        moretradein:'More than > {count} Transactions Found'
     },
     tradePendingAbout: {
         address: 'Address',
@@ -151,7 +153,15 @@ export default {
         tickets:'Tickets',
         ticket:'Tickets',
         declarations:'Declarations',
-        piaoshu:'TxFee'
+        piaoshu:'TxFee',
+        worth:'Value',
+        transactionBlockss:'Votes-Block',
+        votetransaction:'Votes',
+        delacvote:'Declarations-Block',
+        delacvotes:'Declarations',
+        nodename:'Node Name',
+        type:'Type',
+        zhiyajin:'Staked'
     },
     totalInfo: {
         info: 'Address Info',

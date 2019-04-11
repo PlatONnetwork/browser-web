@@ -9,14 +9,15 @@
                 <div class="crumb second-floor-text">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/' }">{{$t('menu.home')}}</el-breadcrumb-item>
-                        <el-breadcrumb-item>{{$t('blockAbout.transactionBlock')}}#{{height}}</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/block' }">{{$t('blockAbout.block')}}</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{$t('blockAbout.transactionBlockss')}}#{{height}}</el-breadcrumb-item>
                     </el-breadcrumb>
                 </div>
             </div>
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>{{$t('blockAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('blockAbout.transactions')}}</span>
+                        <span>{{$t('blockAbout.morethen')}}&nbsp;{{pageTotal}}&nbsp;{{$t('blockAbout.votetransaction')}}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -25,7 +26,7 @@
                 </div>
                 <div class="table">
                     <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini" :row-class-name="tableRowClassName">
-                        <el-table-column :label="$t('blockAbout.txHash')"  width='200'>
+                        <el-table-column :label="$t('blockAbout.txHash')"  :width="currentScreenWidth<1480? 200:350">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
@@ -45,17 +46,17 @@
                                 <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column prop="blockHeight" :label="$t('blockAbout.blockH')" width='150'>
+                        <el-table-column prop="blockHeight" :label="$t('blockAbout.blockH')" width='80'>
                             <template slot-scope="scope">
                                 <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.interval')" width='180'>
+                        <el-table-column :label="$t('blockAbout.interval')" width='120'>
                             <template slot-scope="scope">
                                 <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('blockAbout.before')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.from')"  width='200'>
+                        <el-table-column :label="$t('blockAbout.from')"    :width="currentScreenWidth<1480? 200:350">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <!-- <el-tooltip class="item" effect="dark" placement="top">
@@ -75,7 +76,7 @@
                                 </span>
                             </template>
                         </el-table-column> 去掉箭头-->
-                        <el-table-column :label="$t('totalInfo.voteFor')"  width='200'>
+                        <el-table-column :label="$t('totalInfo.voteFor')"    :width="currentScreenWidth<1480? 200:350">
                             <template slot-scope="scope">
                                 <div class='flex-special'>
                                     <span :title='$t("elseInfo.contract")' v-if='scope.row.receiveType == "contract" || scope.row.to == "0x1000000000000000000000000000000000000001" || scope.row.to == "0x1000000000000000000000000000000000000002"'><i class="iconfont iconcontract">&#xe63e;</i></span>
@@ -91,13 +92,13 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.piaoshu')">
+                        <el-table-column :label="$t('blockAbout.piaoshu')" show-overflow-tooltip width="160">
                             <template slot-scope="scope">
                                 <span>{{scope.row.value}} E</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="value" :label="$t('totalInfo.votesStaked')"></el-table-column>
-                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')"></el-table-column>
+                        <el-table-column prop="value" :label="$t('totalInfo.votesStaked')" show-overflow-tooltip width="160"></el-table-column>
+                        <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')" show-overflow-tooltip width="160"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
@@ -134,6 +135,7 @@ export default {
             pageTotal: 0,
             currentPage1: 1,
             descriptionProp: 'block',
+            currentScreenWidth:0
         };
     },
     //数组或对象，用于接收来自父组件的数据
@@ -238,7 +240,7 @@ export default {
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.receiveType == 'contract') {
+            if (row.receiveType == 'contract'|| row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002") {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',
@@ -265,6 +267,8 @@ export default {
         this.txType = this.$route.query.txType;
         //获取交易列表
         this.getTradeList();
+        //获取当前屏幕尺寸
+        this.currentScreenWidth = document.body.clientWidth;
     },
     //监视
     watch: {

@@ -87,7 +87,8 @@
                                     <span>{{$t('blockAbout.declarations')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span  v-if='detailInfo.blockCampaignAmount!=0' class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span>
+                                    <!-- <span  v-if='detailInfo.blockCampaignAmount!=0' class='normal cursor' @click='tradeVoteBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span> -->
+                                    <span  v-if='detailInfo.blockCampaignAmount!=0' class='normal cursor' @click='tradeDelacBlockFn(detailInfo.height,"candidateDeposit")'>{{detailInfo.blockCampaignAmount}}</span>
                                     <span v-else>{{detailInfo.blockCampaignAmount}}</span>
                                 </el-col>
                             </el-row>
@@ -421,10 +422,20 @@ export default {
                 },
             });
         },
-        // 区块投票、声明交易
+        // 区块投票、
         tradeVoteBlockFn(height,txType) {
             this.$router.push({
                 path: '/trade-vote-block',
+                query: {
+                    height: height,
+                    txType: txType
+                },
+            });
+        },
+        //声明交易
+        tradeDelacBlockFn(height,txType){
+            this.$router.push({
+                path: '/trade-declaration',
                 query: {
                     height: height,
                     txType: txType

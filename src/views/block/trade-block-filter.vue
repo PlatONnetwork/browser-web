@@ -257,7 +257,7 @@ export default {
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.receiveType == 'contract') {
+            if (row.receiveType == 'contract'|| row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002") {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',

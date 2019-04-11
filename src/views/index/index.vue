@@ -70,7 +70,7 @@
                         <ul class="chart-aside">
                             <li>
                                 <p>{{$t("indexInfo.avgTime")}}</p>
-                                <span>{{secondFloorData.avgTime}} s</span>
+                                <span>{{secondFloorData.avgTime}}s</span>
                             </li>
                             <li>
                                 <p>{{$t("indexInfo.current")}}/{{$t("indexInfo.maxTps")}}</p>
@@ -175,20 +175,22 @@
                                 <el-table-column prop="txHash" :label='$t("indexInfo.txhash")' :width="currentScreenWidth<1480? 180:210">
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
-                                            <el-tooltip class="item" effect="dark" placement="top">
+                                            <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                 <div slot="content">{{scope.row.txHash}}</div>
                                                 <span class='cursor normal ellipsis ellipsisWidth' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                                            </el-tooltip>
+                                            </el-tooltip> -->
+                                            <span class='cursor normal ellipsis ellipsisWidth' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
                                         </div>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="from" label="From" fit='true'>
                                     <template slot-scope="scope">
                                         <div class='flex-special'>
-                                            <el-tooltip class="item" effect="dark" placement="top">
+                                            <!-- <el-tooltip class="item" effect="dark" placement="top">
                                                 <div slot="content">{{scope.row.from}}</div>
                                                 <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
-                                            </el-tooltip>
+                                            </el-tooltip> -->
+                                            <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
                                         </div>
                                     </template>
                                 </el-table-column>
@@ -941,7 +943,7 @@ div.slider-item {
         font-weight: normal;
         font-stretch: normal;
         line-height: 30px;
-        letter-spacing: 2.5px;
+        letter-spacing: 0;
         color: #d2daea;
     }
 }
@@ -1141,6 +1143,7 @@ div.slider-item {
     }
     .chart-aside span{
         font-size:26px;
+        letter-spacing: 0;
     }
     .chart-aside p{
         font-size:13px;

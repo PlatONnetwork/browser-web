@@ -16,8 +16,10 @@
             <div class="bottom">
                 <div class="title">
                     <div class='record'>
-                        <span>{{$t('tradeAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
-                        <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span>
+                        <!-- <span>{{$t('tradeAbout.morethen')}}&nbsp;{{displayTotalCount}}&nbsp;{{$t('tradeAbout.transactions1')}}</span>
+                        <span v-if='newRecordFlag'>（{{$t('tradeAbout.record')}}）</span> -->
+                        <span v-if='!newRecordFlag'>{{ $t('tradeAbout.tradein',{count:displayTotalCount}) }}</span>
+                        <span v-if='newRecordFlag'>{{ $t('tradeAbout.moretradein',{count:displayTotalCount}) }}</span>
                     </div>
                     <div class="pagination-box1">
                         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes,prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9">
@@ -258,7 +260,7 @@ export default {
         },
         //进入钱包地址详情或者合约详情
         goDetail(index, row) {
-            if (row.receiveType == 'contract'|| row.txType == "voteTicket" || row.txType == "candidateDeposit" || row.txType == "candidateApplyWithdraw" || row.txType == "candidateWithdraw") {
+            if (row.receiveType == 'contract'|| row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002" ) {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',

@@ -83,7 +83,9 @@ export default {
         tickets:'票数',
         nodeID:'节点ID',
         reduction:'减持',
-        withdraw:'提取'
+        withdraw:'提取',
+        tradein:'总共寻获 {count} 交易',
+        moretradein:'总共寻获超过> {count} 交易'
     },
     tradePendingAbout: {
         address:'地址',
@@ -152,7 +154,14 @@ export default {
         tickets:'选票数',
         ticket:'选票',
         declarations:'声明',
-        piaoshu:'票数'
+        piaoshu:'票数',
+        transactionBlockss:'投票交易',
+        votetransaction:'投票交易',
+        delacvote:'声明交易-区块',
+        delacvotes:'声明交易',
+        nodename:'节点名称',
+        type:'类型',
+        zhiyajin:'质押金'
     },
     totalInfo:{
         info:'地址信息',

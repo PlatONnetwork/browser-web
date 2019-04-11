@@ -401,7 +401,7 @@ export default {
             });
         },
         goDetail(type, to) {
-            if (type == 'contract') {
+            if (type == 'contract'|| to == "0x1000000000000000000000000000000000000001" || to == "0x1000000000000000000000000000000000000002") {
                 //进入合约详情
                 this.$router.push({
                     path: '/contract-detail',
