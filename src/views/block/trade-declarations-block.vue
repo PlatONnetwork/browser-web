@@ -74,7 +74,7 @@
                         </el-table-column>
                         <el-table-column prop="value" :label="$t('blockAbout.zhiyajin')" show-overflow-tooltip  :width="currentScreenWidth<1480? 160:200">
                             <template slot-scope="scope">
-                                <span>{{ scope.row.value}}ATP</span>
+                                <span>{{ scope.row.value}}Energon</span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')" show-overflow-tooltip    :width="currentScreenWidth<1480? 160:200"></el-table-column>

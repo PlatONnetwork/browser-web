@@ -17254,7 +17254,7 @@
     padding: 5px;
     color: #030303;
     font-weight: 400;
-    border-bottom: solid 1px #ebeef5; }
+    border-bottom: solid 1px #151C45; }
 
 /* Element Chalk Variables */
 /* Transition
@@ -21422,7 +21422,7 @@
     position: relative;
     margin: 15px; }
   .el-picker-panel__footer {
-    border-top: 1px solid #e4e4e4;
+    border-top: 1px solid #151C45;
     padding: 4px;
     text-align: right;
     background-color: #fff;

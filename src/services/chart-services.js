@@ -345,6 +345,7 @@ class ChartService {
                             width: 1
                         }
                     },
+                    minInterval:1
                 },
 
             ],

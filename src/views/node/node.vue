@@ -16,16 +16,16 @@
 
             <ul class="validator-Node">
                 <li>
-                    <p class="color1 cursor">{{listData.voteCount}}/{{listData.proportion?parseFloat((listData.proportion*100).toPrecision(12)):0}}<span class="unitSize">%</span></p>
+                    <p class="color1">{{listData.voteCount}}/{{listData.proportion?parseFloat((listData.proportion*100).toPrecision(12)):0}}<span class="unitSize">%</span></p>
                     <span>{{$t("nodeInfo.ratio")}}</span>
                 </li>
                 <li class="flexLayout">
-                    <p class="color1 cursor">{{listData.blockReward}}</p>
+                    <p class="color1">{{listData.blockReward}}</p>
                     <span>{{$t("nodeInfo.blockReward")}}(Energon)</span>
                 </li>
                 <li>
                     <!-- <p class="color1 cursor" @click='tradeAllFn'>{{currentOverViewData.currentTransaction}}</p> -->
-                    <p class="color-red cursor" >{{listData.ticketPrice}}</p>
+                    <p class="color-red" >{{listData.ticketPrice}}</p>
                     <span>{{$t("nodeInfo.ticketPrice")}}(Energon)</span>
                 </li>
                 <li>

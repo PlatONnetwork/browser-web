@@ -241,7 +241,12 @@ export default {
         normalVote:'Selected',
         houxuanVote:'Candidate',
         guoqiVote:'Expired',
-        waitsure:'Unconfirmed'
+        waitsure:'Unconfirmed',
+        voteTicket1:'vote Ticket',
+        authorization1:'Authorization',
+        candidateDeposit1:'ProducerStake',
+        candidateApplyWithdraw1:'ReduceStake',
+        candidateWithdraw1:'WithdrawStake',
     },
     modalInfo: {
         copysuccess: 'Copied to clipboard',

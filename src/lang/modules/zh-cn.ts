@@ -155,7 +155,7 @@ export default {
         ticket:'选票',
         declarations:'声明',
         piaoshu:'票数',
-        transactionBlockss:'投票交易',
+        transactionBlockss:'投票交易-区块',
         votetransaction:'投票交易',
         delacvote:'声明交易-区块',
         delacvotes:'声明交易',
@@ -241,7 +241,12 @@ export default {
         normalVote:'中选票',
         houxuanVote:'候选中',
         guoqiVote:'已失效',
-        waitsure:'待确认'
+        waitsure:'待确认',
+        voteTicket1:'投票',
+        authorization1:'权限',
+        candidateDeposit1:'竞选质押',
+        candidateApplyWithdraw1:'减持质押',
+        candidateWithdraw1:'提取质押',
     },
     modalInfo:{
         copysuccess:'已复制到剪贴板',

@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="data-line">
                                     <div class="data-title">{{$t('nodeInfo.info')}}</div>
-                                    <div class="rows">
+                                    <div class="rows rows-two">
                                         <el-row type="flex" class="row-bg">
                                             <el-col :span="3">
                                                 <span>{{$t('nodeInfo.jigouname')}}</span>
@@ -558,6 +558,7 @@
                 margin-bottom:20px;
                 &:last-child{
                     border-bottom:0;
+                    margin-bottom:0px;
                 }
                 .data-title{
                     font-size: 14px;
@@ -572,6 +573,13 @@
                     }
                     .el-col-21 {
                         color: #D9DDEB;
+                    }
+                }
+                .rows-two{
+                    .el-row{
+                        &:last-child{
+                            margin-bottom:0;
+                        }
                     }
                 }
                 .copys{

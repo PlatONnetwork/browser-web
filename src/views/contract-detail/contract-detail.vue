@@ -217,8 +217,13 @@
                 balance:'',
                 count:0,
                 activeTab:1,
-                type:'transfer',
+                type:'voteTicket',
                 typeList:[
+                    {label:'voteTicket1',value:'voteTicket'},
+                    {label:'authorization1',value:'authorization'},
+                    {label:'candidateDeposit1',value:'candidateDeposit'},
+                    {label:'candidateApplyWithdraw1',value:'candidateApplyWithdraw'},
+                    {label:'candidateWithdraw1',value:'candidateWithdraw'},
                     {label:'transfer',value:'transfer'},
                     // {label:'vote',value:'vote'},
                     {label:'contractCreate',value:'contractCreate'},
@@ -497,6 +502,9 @@
                     width:50%;
                     .el-row{
                         margin-bottom:12px;
+                        &:last-child{
+                            margin-bottom:0;
+                        }
                     }
                 }
                 .left{
