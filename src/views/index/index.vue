@@ -933,9 +933,9 @@ div.slider-item {
     }
     p {
         padding: 0 0 12px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 30px;
-        letter-spacing: 1.6px;
+        letter-spacing: 0px;
         color: #6d81a9;
     }
     span {
@@ -1095,6 +1095,10 @@ div.slider-item {
     .footer-box span{
         font-size:14px;
     }
+    .chart-aside p{
+        font-size:12px;
+        letter-spacing: 0;
+    }
     .chart-aside span{
         font-size:30px;
     }
@@ -1146,7 +1150,7 @@ div.slider-item {
         letter-spacing: 0;
     }
     .chart-aside p{
-        font-size:13px;
+        font-size:12px;
         letter-spacing: 0;
     }
     .chart-aside li{

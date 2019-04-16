@@ -262,7 +262,7 @@
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.votesStaked")' width="150px">
                                         <template slot-scope="scope">
-                                            <span>{{scope.row.value}}Energon</span>
+                                            <span>{{scope.row.value}} Energon</span>
                                         </template>
                                     </el-table-column>
                                     <el-table-column :label='$t("totalInfo.reward")+"(Energon)"' width="150px">
