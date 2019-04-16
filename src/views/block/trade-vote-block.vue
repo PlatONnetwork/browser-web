@@ -92,12 +92,16 @@
                                 <span v-if='scope.row.txType !== "contractCreate"' class='cursor normal' @click='goDetail(scope.$index,scope.row)'>{{scope.row.to}}</span> -->
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('blockAbout.piaoshu')" show-overflow-tooltip width="160">
+                        <el-table-column :label="$t('blockAbout.piaoshu')" show-overflow-tooltip>
                             <template slot-scope="scope">
-                                <span>{{scope.row.value}} E</span>
+                                <span>{{scope.row.count}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="value" :label="$t('totalInfo.votesStaked')" show-overflow-tooltip width="160"></el-table-column>
+                        <el-table-column prop="value" :label="$t('totalInfo.votesStaked')" show-overflow-tooltip width="160">
+                            <template slot-scope="scope">
+                                <span>{{scope.row.value}} ATP</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column prop="actualTxCost" :label="$t('blockAbout.actualTxCost')" show-overflow-tooltip width="160"></el-table-column>
                     </el-table>
                     <div class="pagination-box" v-if='paginationFlag'>
@@ -187,7 +191,27 @@ export default {
                     console.log(res)
                     let {data, totalPages, totalCount, code, errMsg} = res;
                     if (code == 0) {
-                        this.tableData = data;
+                        let arr=[];
+                        data.forEach(item=>{
+                            let extra = JSON.parse(item.txInfo).parameters.Extra;
+                            arr.push({
+                                actualTxCost : item.actualTxCost,
+                                blockHash : item.blockHash,
+                                blockHeight : item.blockHeight,
+                                blockTime : item.blockTime,
+                                failReason : item.failReason,
+                                from : item.from,
+                                receiveType : item.receiveType,
+                                serverTime : item.serverTime,
+                                to : item.to,
+                                txHash : item.txHash,
+                                txReceiptStatus : item.txReceiptStatus,
+                                txType : item.txType,
+                                value : item.value,
+                                count:JSON.parse(item.txInfo).parameters.count
+                            })
+                        });
+                        this.tableData = arr;
                         this.pageTotal = totalCount;
                         //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                         totalPages == 1
