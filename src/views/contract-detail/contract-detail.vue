@@ -95,9 +95,17 @@
                                 <div class='count'>{{count}}&nbsp;{{$t('totalInfo.pendtransaction')}}</div>
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
-                                    <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
+                                    <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail' v-if='address=="0x1000000000000000000000000000000000000001" ||address=="0x1000000000000000000000000000000000000002" '>
                                         <el-option
                                             v-for="item in typeList"
+                                            :key="item.value"
+                                            :label="$t('elseInfo.'+item.label)"
+                                            :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                    <el-select v-model="type1"  class="margin20" style='width:150px;' @change='getDetail' v-else>
+                                        <el-option
+                                            v-for="item in typeList1"
                                             :key="item.value"
                                             :label="$t('elseInfo.'+item.label)"
                                             :value="item.value">
@@ -218,12 +226,20 @@
                 count:0,
                 activeTab:1,
                 type:'voteTicket',
+                type1:'transfer',
                 typeList:[
                     {label:'voteTicket1',value:'voteTicket'},
                     {label:'authorization1',value:'authorization'},
                     {label:'candidateDeposit1',value:'candidateDeposit'},
                     {label:'candidateApplyWithdraw1',value:'candidateApplyWithdraw'},
                     {label:'candidateWithdraw1',value:'candidateWithdraw'},
+                    {label:'transfer',value:'transfer'},
+                    // {label:'vote',value:'vote'},
+                    {label:'contractCreate',value:'contractCreate'},
+                    {label:'transactionExecute',value:'transactionExecute'},
+                    {label:'MPCtransaction',value:'MPCtransaction'},
+                ],
+                typeList1:[
                     {label:'transfer',value:'transfer'},
                     // {label:'vote',value:'vote'},
                     {label:'contractCreate',value:'contractCreate'},
@@ -363,7 +379,7 @@
                 if (row.to == this.address) {
                     return false;
                 } else {
-                    if (row.receiveType == 'contract') {
+                    if (row.receiveType == 'contract'|| row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002") {
                         //进入合约详情
                         this.address = row.to;
                         this.$router.replace({
@@ -388,11 +404,16 @@
             },
             //获取地址信息详情
             getDetail() {
-
+                let type='';
+                if(this.address == "0x1000000000000000000000000000000000000001" || this.address == "0x1000000000000000000000000000000000000002"){
+                    type=this.type;
+                }else{
+                    type=this.type1;
+                }
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: this.type,
+                    txType: type,
                 };
                 console.warn('合约详情》》》', param);
                 apiService.trade
