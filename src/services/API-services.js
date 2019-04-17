@@ -10,6 +10,7 @@ import Http from 'axios'
 import API from '@/config/API-config'
 import store from '@/vuex/store'
 Http.defaults.headers.post['Content-Type'] = "application/json;charset=utf-8"
+Http.defaults.headers.get['Access-Control-Allow-Origin'] = "*"
 // Http.defaults.headers.post['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase()
 
 console.warn(localStorage.getItem('i18nLocale'))
