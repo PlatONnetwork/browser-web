@@ -113,7 +113,9 @@
                                     <span>{{$t('blockAbout.miner')}}:</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
+                                    <span v-if='detailInfo.nodeName!=="GenesisNode"' class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
+                                    <span v-else>{{detailInfo.nodeName}}</span>
+                                    <!-- <span class='normal cursor' @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span> -->
                                     <span>【{{ $t('blockAbout.in',detailInfo.timeDiff?{ timeDiff:(detailInfo.timeDiff)/1000 }:{timeDiff:0}) }}】</span>
                                 </el-col>
                             </el-row>

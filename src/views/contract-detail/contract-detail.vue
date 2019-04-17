@@ -250,9 +250,12 @@
                     transfer : 'transfer',
                     MPCtransaction : 'MPCtransaction',
                     contractCreate : 'contractCreate',
-                    voteTicket : 'voteTicket',
-                    transactionExecute :'transactionExecute',
-                    authorization :'authorization'
+                    voteTicket  : 'voteTicket',
+                    transactionExecute  :'transactionExecute',
+                    authorization  :'authorization',
+                    candidateDeposit :'candidateDeposit1',
+                    candidateApplyWithdraw :'candidateApplyWithdraw1',
+                    candidateWithdraw :'candidateWithdraw1'
                 },
                 address:'',
                 detailInfo:{

@@ -234,7 +234,7 @@ export default {
         withdrawStake:'Withdraw Stake',
         send:'Send',
         receive:'Receive',
-        candidateDeposit:'ValidatorStake',
+        candidateDeposit:'ProducerStake',
         candidateApplyWithdraw:'ReduceStake',
         candidateWithdraw:'WithdrawStake',
         unknown:'unknown',
