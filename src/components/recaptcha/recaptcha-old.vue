@@ -1,10 +1,9 @@
 <template>
-    <div class='script-area' id='script-area'>
+    <div>
         <!-- <div id='g-recaptcha' class="g-recaptcha" :data-sitekey="sitekey"></div> -->
-        <!-- <script src="https://www.google.com/recaptcha/api.js?onloadCallback&render=explicit" async defer></script> -->
         <div id='g-recaptcha' class="g-recaptcha" data-sitekey="6LevyYQUAAAAAAhDCvW6ZwxNQ64Zox_XEGuSNJyE"  data-callback="flushStatus" ></div>
         <div id='message'></div>
-        <!-- <remote-js1></remote-js1>-->
+        <remote-js1></remote-js1>
         <remote-js src="https://www.google.com/recaptcha/api.js" ></remote-js>
     </div>
 </template>
@@ -18,7 +17,6 @@
                 // sitekey:'6LevyYQUAAAAAAhDCvW6ZwxNQ64Zox_XEGuSNJyE',
                 sitekey:'6LcHGHoUAAAAADDcn7bejGjLAhAuNG6Y7TnuMBYM',
                 is_timeout:false,
-                testFlag:0,
             }
         },
         computed:{
@@ -62,42 +60,11 @@
                     this.$message.error(this.$t('menu.goole'))
                     console.warn('error>>>>>',error)
                 })
-           },
-           getFlag(){
-               console.log('this.testFlag>>>>',this.testFlag)
-                if(this.testFlag==0){
-                    console.log('未开启vpn')
-                   //未加载
-                    this.$message.error(this.$t('menu.goole'))
-                    this.updateApiStatus(false)
-                }else if(this.testFlag==1){
-                    console.log('已开启vpn')
-                   this.updateApiStatus(true)
-                }
            }
-
         },
         mounted(){
             console.log('mounted')
-            const script=document.getElementById('script-area');
-            const s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.src = 'https://www.google.com/recaptcha/api.js?onloadCallback&render=explicit';
-                s.async=true;
-            document.head.appendChild(s);
-            console.log('s>>>>>',s)
-            s.onload=()=>{
-                console.log(1)
-                function onloadCallback(){
-                    console.log("grecaptcha is ready!");
-                }
-                onloadCallback();
-                this.testFlag=1;
-                this.updateApiStatus(true)
-            };
-            this.getFlag();
-            // this.getref();
-
+            this.getref();
 
         },
         components: {

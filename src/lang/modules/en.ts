@@ -153,7 +153,7 @@ export default {
         tickets:'Tickets',
         ticket:'Tickets',
         declarations:'Declarations',
-        piaoshu:'TxFee',
+        piaoshu:'Tickets',
         worth:'Value',
         transactionBlockss:'Votes-Block',
         votetransaction:'Votes',
