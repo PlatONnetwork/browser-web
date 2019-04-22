@@ -96,7 +96,18 @@ class ApiService {
         for(let key in params) {
             p.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
         }
-        return url + r + p.join('&')
+        console.warn('url>>>',url)
+        console.warn('r>>>',r)
+        console.warn('p>>>',p)
+        let arr=url.split('//');
+        console.warn(arr)
+        //本地调试
+        // let arr1=arr[1].split('/');
+        // console.warn(arr1)
+        // let url1=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
+        //测试环境
+        let url1='/'+sessionStorage.getItem('commandContext')+arr[0];
+        return url1 + r + p.join('&')
     }
     /**
      * 上传文件

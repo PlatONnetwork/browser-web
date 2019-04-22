@@ -4,7 +4,7 @@
         <!-- <script src="https://www.google.com/recaptcha/api.js?onloadCallback&render=explicit" async defer></script> -->
         <div id='g-recaptcha' class="g-recaptcha" data-sitekey="6Ldqe58UAAAAABJzf6SD7I7eSY_AqGR7vt3XWGEt"  data-callback="flushStatus" ></div>
         <div id='message'></div>
-        <!-- <remote-js1></remote-js1>-->
+         <remote-js1></remote-js1>
         <remote-js src="https://www.google.com/recaptcha/api.js" ></remote-js>
     </div>
 </template>

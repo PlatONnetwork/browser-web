@@ -72,11 +72,12 @@
                 disabledBtn:false,
                 address:'',
                 form:{
-                    value:'2018-01-01',
+                    value:'2019-01-01',
                 },
                 pickerOptions:{
                     disabledDate(time){
                         let myDate = new Date()
+                        // console.warn("myDate.getFullYear()",myDate.getFullYear())
                         let val = myDate.setFullYear(myDate.getFullYear(),0,1)
                         return time.getTime() < new Date(val).getTime()- 8.64e7 || time.getTime() > Date.now()
                     }
@@ -116,6 +117,7 @@
             downloadFn(){
                 //父组件调用子组件方法
                 this.$refs.recaptcha.getResponse()
+                // this.sameFn();
             },
             sameFn(){
                 let param = {
@@ -123,6 +125,7 @@
                     address:this.address,
                     date:this.form.value
                 }
+
                 if(this.exportname=='account'){
                     console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressDownload,param))
                     this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
