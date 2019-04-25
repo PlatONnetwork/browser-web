@@ -2,15 +2,15 @@
     <div class="footer-wrap">
         <div class="platon">
             <p class="footer-intro">{{ $t("footer.desc") }}</p>
-            <p class="copyright">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
+            <p class="copyright">COPYRIGHT © 2019 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
         </div>
         <div class="link">
             <p class="link-top">{{ $t("footer.links") }}</p>
             <ul>
                 <li>
                     <a :href='$i18n.locale=="zh-cn"
-                    ? "https://developer.platon.network/#/?lang=zh" 
-                    : "https://developer.platon.network/#/?lang=en"' 
+                    ? "https://developer.platon.network/#/?lang=zh"
+                    : "https://developer.platon.network/#/?lang=en"'
                     target="_blank">{{ $t("footer.help") }}</a>
                 </li>
                 <!-- <li>
@@ -22,8 +22,8 @@
                 <li>
                     <!-- <a href="" target="_blank">{{ $t("footer.whitePaper") }}</a> -->
                     <a :href='$i18n.locale=="zh-cn"
-                    ? "https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf" 
-                    : "https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf"' 
+                    ? "https://www.platon.network/static/pdf/zh/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_ZH.pdf"
+                    : "https://www.platon.network/static/pdf/en/PlatON_A%20High-Efficiency%20Trustless%20Computing%20Network_Whitepaper_EN.pdf"'
                     target="_blank">{{ $t("footer.whitePaper") }}</a>
                 </li>
             </ul>
@@ -43,12 +43,12 @@
                             <img src="./images/weixin.jpg" alt="" class="wx-img">
                         </a>
                     </el-tooltip>
-                    
+
                 </li>
                 <li>
                     <a href="https://github.com/PlatONnetwork" class="icon-link-6" target="_blank"></a>
                 </li>
-                
+
                 <li>
                     <a href="https://twitter.com/PlatON_Network" class="icon-link-3" target="_blank"></a>
                 </li>
@@ -240,15 +240,15 @@
     }
     .wx-img{
         position:absolute;
-        display:none; 
+        display:none;
         width:100px;
         height:100px;
         bottom: 55px;
         left: -31px;
     }
-    .wxImg:hover .wx-img{ 
-        display:inline-block; 
-    } 
+    .wxImg:hover .wx-img{
+        display:inline-block;
+    }
     @media screen and (max-width: 1368px) {
         .link-top{
             padding-top:10px;
