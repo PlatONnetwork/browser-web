@@ -259,6 +259,7 @@ export default {
         node:'节点'
     },
     indexInfo:{
+        selectAll:'全部',
         blockHeight:'当前区块高度',
         node:'出块节点',
         currentTransaction:'当前交易笔数',

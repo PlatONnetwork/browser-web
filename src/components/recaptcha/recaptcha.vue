@@ -95,7 +95,10 @@
                 this.testFlag=1;
                 this.updateApiStatus(true)
             };
-            this.getFlag();
+            setTimeout(()=>{
+               this.getFlag();
+            },2000)
+            // this.getFlag();
             // this.getref();
 
 

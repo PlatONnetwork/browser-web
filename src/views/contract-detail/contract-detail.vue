@@ -96,6 +96,7 @@
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail' v-if='address=="0x1000000000000000000000000000000000000001" ||address=="0x1000000000000000000000000000000000000002" '>
+                                        <!--<el-option value="" :label="$t('indexInfo.selectAll')"></el-option>-->
                                         <el-option
                                             v-for="item in typeList"
                                             :key="item.value"
@@ -104,6 +105,7 @@
                                         </el-option>
                                     </el-select>
                                     <el-select v-model="type1"  class="margin20" style='width:150px;' @change='getDetail' v-else>
+                                        <!--<el-option value="" :label="$t('indexInfo.selectAll')"></el-option>-->
                                         <el-option
                                             v-for="item in typeList1"
                                             :key="item.value"
@@ -413,10 +415,12 @@
                 }else{
                     type=this.type1;
                 }
+                let _type = [];
+                _type.push(type);
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: type,
+                    txTypes: _type,
                 };
                 console.warn('合约详情》》》', param);
                 apiService.trade

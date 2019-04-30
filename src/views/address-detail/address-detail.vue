@@ -92,6 +92,7 @@
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="type"  class="margin20" style='width:150px;' @change='getDetail'>
+                                        <!--<el-option :value="typeStr" :label="$t('indexInfo.selectAll')"></el-option>-->
                                         <el-option
                                             v-for="item in typeList"
                                             :key="item.value"
@@ -285,6 +286,7 @@
                                 <div class='search-address'>
                                     <span class='count types'>Type：</span>
                                     <el-select v-model="dectarationType"  class="margin20" style='width:150px;' @change='getDetail(dectarationType)'>
+                                        <!--<el-option :value="dectarationStr" :label="$t('indexInfo.selectAll')"></el-option>-->
                                         <el-option
                                             v-for="item in dectarationList"
                                             :key="item.value"
@@ -393,11 +395,13 @@
                     {label:'transactionExecute',value:'transactionExecute'},
                     {label:'MPCtransaction',value:'MPCtransaction'},
                 ],
+                typeStr:'transfer,contractCreate,transactionExecute,MPCtransaction',
                 dectarationList:[
                     {label:'validatorStake',value:'candidateDeposit'},
                     {label:'reduceStake',value:'candidateApplyWithdraw'},
                     {label:'withdrawStake',value:'candidateWithdraw'},
                 ],
+                dectarationStr:'candidateDeposit,candidateApplyWithdraw,candidateWithdraw',
                 txTypeFn: {
                     transfer : 'send',
                     MPCtransaction : 'MPCtransaction',
@@ -541,9 +545,11 @@
                     query:{
                         address:this.address,
                         description: this.description,
-                        exportname:'account'
+                        exportname:'account',
+                        tab:this.activeTab-1
                     }
                 })
+
                 window.open(href,'_blank')
                 // this.$router.push({
                 //     path:'/download',
@@ -627,11 +633,17 @@
             //获取地址信息详情
             getDetail(type) {
                 this.loading = true;
+                let _type=[];
+                if(type){
+                  _type.push(type)
+                }else{
+                  _type.push(this.type)
+                }
                 let param = {
                     // cid:'',
                     address: this.address,
-                    txType: type?type:this.type
-                    // txType: this.type,
+                    // txType: type?type:this.type
+                    txTypes: _type,
                 };
                 console.warn('地址详情入参》》》》', param);
                 apiService.trade
