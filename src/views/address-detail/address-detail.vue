@@ -630,7 +630,7 @@
                     this.getDetail();
                 }
             },
-            //获取地址信息详情
+             //获取地址信息详情
             getDetail(type) {
                 this.loading = true;
                 let _type=[];
