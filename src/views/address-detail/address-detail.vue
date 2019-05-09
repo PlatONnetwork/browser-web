@@ -41,7 +41,7 @@
                                     <span>{{$t('totalInfo.balance')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{topList[0].balance}} Energon</span>
+                                    <span>{{detailInfo.balance}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -49,7 +49,7 @@
                                     <span>{{$t('totalInfo.transactions')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{topList[0].tradeCount}}</span>
+                                    <span>{{detailInfo.tradeCount}}</span>
                                 </el-col>
                             </el-row>
                         </div>
@@ -65,7 +65,7 @@
                                     <span>{{$t('totalInfo.votesStaked')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span>{{topList[0].votePledge || 0}} Energon</span>
+                                    <span>{{detailInfo.votePledge || 0}} Energon</span>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg">
@@ -73,7 +73,7 @@
                                     <span>{{$t('totalInfo.votesNodes')}}</span>
                                 </el-col>
                                 <el-col :span="20">
-                                    <span >{{topList[0].nodeCount || 0}}</span>
+                                    <span >{{detailInfo.nodeCount || 0}}</span>
                                 </el-col>
                             </el-row>
                         </div>
