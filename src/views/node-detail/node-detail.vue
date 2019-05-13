@@ -310,7 +310,7 @@
                 const {href} = this.$router.resolve({
                     path:'/download',
                     query:{
-                        address:this.address,
+                        address:this.detailInfo.nodeId,
                         description: this.description,
                         exportname:'node'
                     }
