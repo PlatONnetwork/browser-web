@@ -51,7 +51,7 @@
 
         </div>
        <com-footer></com-footer>
-       <iframe id="ifile" style="display:none" :src="src"></iframe>
+       <!--<iframe id="ifile" style="display:none" :src="src"></iframe>-->
     </div>
 </template>
 <script lang="ts">
@@ -141,6 +141,7 @@
                     console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.NODE.blockDownload,this.param))
                     this.src=apiService.encodeParams(apiConfig.NODE.blockDownload,this.param)
                 }
+                window.open(this.src);
             }
         },
         //生命周期函数
