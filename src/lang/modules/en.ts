@@ -259,6 +259,7 @@ export default {
         node:'Node'
     },
     indexInfo: {
+        selectAll:'All',
         blockHeight: 'Block Height',
         node: 'Producer',
         currentTransaction: 'Total Transactions',

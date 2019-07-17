@@ -51,7 +51,7 @@
 
         </div>
        <com-footer></com-footer>
-       <iframe id="ifile" style="display:none" :src="src"></iframe>
+       <!--<iframe id="ifile" style="display:none" :src="src"></iframe>-->
     </div>
 </template>
 <script lang="ts">
@@ -68,6 +68,8 @@
         //实例的数据对象
         data () {
             return {
+                param:{},
+                tab:0,
                 src:'',
                 disabledBtn:false,
                 address:'',
@@ -120,22 +122,26 @@
                 // this.sameFn();
             },
             sameFn(){
-                let param = {
+                this.param = {
                     cid:this.chainId,
-                    address:this.address,
-                    date:this.form.value
+                    // address:this.address,
+                    date:this.form.value,
                 }
-
                 if(this.exportname=='account'){
-                    console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressDownload,param))
-                    this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,param)
+                    this.param.address = this.address;
+                    this.param.tab = this.tab;
+                    console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressDownload,this.param))
+                    this.src=apiService.encodeParams(apiConfig.TRADE.addressDownload,this.param)
                 }else if(this.exportname=='contract'){
-                    console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,param))
-                    this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                    this.param.address = this.address;
+                    console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
+                    this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param)
                 }else if(this.exportname=='node'){
-                    console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.NODE.blockDownload,param))
-                    this.src=apiService.encodeParams(apiConfig.TRADE.contractDownload,param)
+                    this.param.nodeId = this.address;
+                    console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.NODE.blockDownload,this.param))
+                    this.src=apiService.encodeParams(apiConfig.NODE.blockDownload,this.param)
                 }
+                window.open(this.src);
             }
         },
         //生命周期函数
@@ -144,6 +150,7 @@
             this.description = this.$route.query.description
             this.descriptionProp = this.$route.query.description
             this.exportname = this.$route.query.exportname
+            this.tab = this.$route.query.tab-0
 
         },
         mounted(){
