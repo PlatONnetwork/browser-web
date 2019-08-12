@@ -1,47 +1,37 @@
 //按钮
-.el-btn{
-    // width:90px;
-    height:40px;
-    // line-height: 38px;
-    font-size: 14px;
-    color: #FFFF00;
-    background: #252C57;
-    border-radius: 4px;
-    &:hover{
-        background: #2F3665;
-        color: #C9CA1A;
+.el-button.el-button--primary{
+    color: #fff;
+    border: 1px solid @blue;
+    &:not(.is-disabled):hover{
+      background: @lightblue;
+      border-color:@blue;
+    }
+    &:not(.is-disabled):active{
+      background: #0189CA;
+      border-color:#0189CA;
+    }
+    &.is-disabled{
+      color:#eee;
+      background: #D8D8D8;
     }
     &:focus{
-        background: #232B5F;
-        color: #B7B810;
+      background: #0D6CDA;
     }
-    &:active{
-        background: #232B5F;
-        color: #B7B810;
+  }
+  
+  .el-button--default{
+    color: @blue;
+    border: 1px solid @blue;
+    &:not(.is-disabled):hover{
+        background: #5CB2DB;
+        border-color:#5CB2DB;
     }
-}
-.el-button--primary:hover,  {
-    background: #2F3665;
-    color: #C9CA1A;
-    border-color: transparent;
-    border-width:0;
-}
-.el-button--primary:focus{
-    background: #232B5F;
-    color: #B7B810;
-    border-color: transparent;
-    border-width:0;
-}
-.el-button--primary:active {
-    background: #232B5F;
-    color: #B7B810;
-    outline: none;
-    border-color: transparent;
-    border-width:0;
-}
-.el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active{
-    background: #101637;
-    color: #292D46;
-    border-color: transparent;
-    border-width:0;
-}
+    &:not(.is-disabled):active{
+        background: #0E52AC;
+        border-color:#0E52AC;
+    }
+    &.is-disabled{
+      border: 1px solid #D8D8D8;
+      color: #D8D8D8;
+    }
+  }

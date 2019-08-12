@@ -8,6 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
@@ -19,10 +20,32 @@ const env =
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
+    // rules: utils.styleLoaders({
+    //   sourceMap: config.build.productionSourceMap,
+    //   extract: true
+    // })
+    rules: [
+
+      {
+        test: /\.css/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => [require('autoprefixer')]
+          }
+        }]
+      },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => [require('autoprefixer')]
+          }
+        }, "less-loader"]
+      }
+
+    ]
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -31,20 +54,28 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   optimization: {
+    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
+    splitChunks: {
+      chunks: "all",  // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
+      // name:'commons',
+      cacheGroups: {  //这层没设置的属性取上层对象的属性，这层设置了的属性会覆盖上层的属性
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,   //用于控制哪些模块被这个缓存组匹配到、它默认会选择所有的模块
+          priority: -10,   //缓存组打包的先后优先级
+          name: 'vendor',
+          minSize: 0
+        },
+        utilCommon: {   // 抽离自定义工具库
+          name: "common",
+          minSize: 0,     // 将引用模块分离成新代码文件的最小体积
+          minChunks: 2,   // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
+          priority: -20
+        },
+      }
+    },
     // chunk for the webpack runtime code and chunk manifest
     runtimeChunk: {
       name: 'manifest'
-    },
-    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          priority: -20,
-          chunks: 'all'
-        }
-      }
     }
   },
   plugins: [
@@ -68,9 +99,13 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[hash].css'),
+    //   allChunks: true
+    // }),
+
+    new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].[hash].css'),
-      allChunks:true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.

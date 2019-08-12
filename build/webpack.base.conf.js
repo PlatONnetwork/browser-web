@@ -7,7 +7,7 @@ const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -32,6 +32,11 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  externals: {
+    'element-ui': 'ELEMENT',
+    'vue':'Vue',
+    'echarts':'echarts'
+  },
   module: {
     rules: [
       {
@@ -49,10 +54,10 @@ module.exports = {
             loader: "ts-loader",
             options: { appendTsxSuffixTo: [/\.vue$/] }
           },
-          {
-            loader: 'tslint-loader'
-          }
-          ,
+          // {
+          //   loader: 'tslint-loader'
+          // }
+          // ,
         ]
       },
       {

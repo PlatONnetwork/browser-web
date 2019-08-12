@@ -1,15 +1,17 @@
+
+@blue:#0798DE;
+@lightblue:#66B7DE;
+@black:#000;
+@red:#CF326E;
+@white:#fff;
+@green:#3BB012;
+@yellow:#FFC017;
+@gray:#666;
+@lightgray:#999;
+
 body{
     // background:#040b27;
     font-family: Helvetica;
-    background:url(../../../static/images/dian.png) repeat center #040b27;
-}
-.com-container{
-    // position: relative;
-    // margin:0 auto;
-    // box-sizing: border-box;
-    // width:1400px;
-    // height:auto;
-    // min-height:calc(100% - 190px);
 }
 .trade-wrap, .pend-wrap, .trade-block-wrap, .trade-filter-wrap, .block-wrap,  .trade-detail-wrap, .pend-detail-wrap, .contract-detail-wrap, .block-detail-wrap, .address-detail-wrap, .node-detail-wrap, .download-wrap ,.wallet-wrap ,.document-wrap{
     height:100%;
@@ -30,6 +32,83 @@ body{
     .content-area {
         min-height:900px;
     }
+}
+// 颜色相关
+.red{
+    color:@red;
+}
+.blue{
+    color:@blue;
+}
+.green{
+    color:@green;
+}
+.yellow{
+    color:@yellow;
+}
+.white{
+    color:@white;
+}
+.gray{
+    color:@gray;
+}
+.lightgray{
+    color:@lightgray;
+}
+
+// 字体相关
+.fontMixin(@font-size:12px;@color:#24272b;@line-height){
+    font-size:@font-size;
+    color:@color;
+    line-height:@line-height;
+}
+.fontSize10{
+    font-size: 10px;
+    line-height: 14px;
+}
+.fontSize12{
+    font-size: 12px;
+    line-height: 14px;
+}
+.fontSize13{
+    font-size: 13px;
+    line-height: 15px;
+}
+.fontSize14{
+    font-size: 14px;
+    line-height: 16px;
+}
+.fontSize16{
+    font-size: 16px;
+    line-height: 14px;
+}
+.fontSize24{
+    font-size: 24px;
+    line-height: 28px;
+}
+.fontSize34{
+    font-size: 34px;
+    line-height: 64px;
+}
+
+.colorMixin(@bg;@color){
+  background: @bg;
+  color: @color;
+}
+
+// 定位相关
+.positiontlMixin(@position;@top;@left){
+    position:@position;
+    top:@top;
+    left:@left;
+}
+.positionbrMixin(@position;@bottom;@right){
+    position:@position;
+    bottom:@bottom;
+    right:@right;
+}
+.relative{
+    position: relative;
 }
 //面包屑导航
 .crumb{
@@ -57,111 +136,13 @@ body{
 .cursor{
     cursor: pointer;
 }
-.margin10{
-    margin-right:10px;
-}
-.margin5{
-    margin-right:5px;
-}
-//失败
-.market-abnormal{
-    color: #FF3030;
-}
-//成功
-.market-normal{
-    color: #00FF12;
-}
-//出
-.border-abnormal{
-    color: #FF374F;
-}
-//进
-.border-normal{
-    color: #00FF12;
-}
-.normal{
-    color:#2faaf8;
-}
-// tab切换
-.header-nav{
-    // padding-top:10px;
-    height:39px;
-    border-bottom:1px solid #eaeaea;
-    // margin-bottom:24px;
-    ul{
-        overflow:hidden;
-        cursor: pointer;
-        padding-left:30px;
-        li{
-            float:left;
-            // width:105px;
-            padding:0px 21px;
-            line-height: 38px;
-            font-size:14px;
-            color:#666;
-            text-align: center;
-            border: 1px solid #EAEAEA;
-            border-radius: 4px 4px 0 0 0;
-            border-bottom:none;
-            box-sizing: border-box;
-            margin-right:6px;
-        }
-        .active{
-            color: #0067FC;
-            border: 1px solid #0067FC;
-            border-radius: 4px 4px 0 0;
-            border-bottom:1px solid #fff;
-        }
-    }
-}
 .el-message-box__wrapper{
     z-index:10000;
 }
 .el-message{
     top:80px;
 }
-//详情页的textarea
-.special-input{
-    .el-textarea.is-disabled .el-textarea__inner{
-        width:468px;
-        height:100px;
-        background: #0E1438;
-        // border: 1px solid #15223D;
-        color: #D7DDE9;
-        padding-left: 6px;
-        font-family: Helvetica;
-        font-size: 12px;
-        letter-spacing: 0.8px;
-        opacity: 0.8;
-    }
-}
-//icon
-.iconcontract{
-    color:#FF374F;
-    font-size:14px;
-}
-.iconcopy{
-    color:#FFED54;
-}
-.iconto{
-    color:#FCFF0A;
-}
-.iconxinxi{
-    font-size:14px;
-    color:#ff7b37;
-}
-.iconfilter{
-    font-size:14px;
-    color:#FF374F;
-}
-.iconleft{
-    color:#5c6493;
-    font-size:96px;
-}
-.title-warning{
-    font-size: 12px;
-    color: #FF7B37;
-}
+
 .ellipsis{
     overflow: hidden;
     text-overflow:ellipsis;

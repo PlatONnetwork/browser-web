@@ -1,19 +1,16 @@
 <template>
-    <div class="index-wrap">
-        首页
+    <div class="address-detail-wrap">
+        
     </div>
 </template>
 <script>
     import apiService from '@/services/API-services'
-    // import List from '@/components/list/list'
-    // import Item from '@/components/list/item'
-
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
-    
     export default {
-        name: 'index',
+        name: 'address-detail',
         data() {
-            return {   
+            return {
+
             }
         },
         props: {
@@ -26,8 +23,7 @@
 		
 		},
         components: {
-            List,
-            Item
+
         },
         methods: {
 
@@ -42,6 +38,6 @@
     }
 </script>
 <style lang="less" scoped>
-  
+
 </style>
 

@@ -1,3 +1,5 @@
+import "babel-polyfill"
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -47,7 +49,8 @@ if (GetQueryString('lang')){
     }
 }
 console.warn('GetQueryString>>>>>.', GetQueryString('lang'))
-const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):navigator.language.toLowerCase()
+const language = navigator.language || window.navigator['browserLanguage'];
+const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):language.toLowerCase()
 const i18n = new VueI18n({
     locale: browserLanguage,
     messages

@@ -1,6 +1,5 @@
 import echarts from 'echarts'
-import 'echarts-gl';
-import 'echarts/map/js/world';
+// import 'echarts-gl';
 // import store from '@/vuex/store'
 /*
  * fun init(ele, option) 初始化

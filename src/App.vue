@@ -1,7 +1,6 @@
 <template>
     <div id="app">
         <router-view></router-view>
-
     </div>
 </template>
 
@@ -16,7 +15,8 @@ import Vue from 'vue'
 //         // comFooter
 //     }
 // })
-export default class App extends Vue {
-
+export default {
+    //组件名
+    name: 'app',
 }
 </script>

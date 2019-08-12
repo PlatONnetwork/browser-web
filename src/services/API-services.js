@@ -102,11 +102,11 @@ class ApiService {
         let arr=url.split('//');
         console.warn(arr)
         //本地调试
-         /*let arr1=arr[1].split('/');
+         let arr1=arr[1].split('/');
          console.warn(arr1)
-         let url1=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];*/
+         let url1=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
         //测试环境
-        let url1='/'+sessionStorage.getItem('commandContext')+arr[0];
+        // let url1='/'+sessionStorage.getItem('commandContext')+arr[0];
         return url1 + r + p.join('&')
     }
     /**
@@ -129,7 +129,8 @@ class ApiService {
     interceptorsOfReq() {
         return Http.interceptors.request.use(
             config => {
-                config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase();
+                const language = navigator.language || navigator.browserLanguage;
+                config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : language.toLowerCase();
                 console.log('请求URL== ' + config.url)
                 if(config.url.indexOf('json')!==-1 || config.url.indexOf('recaptcha')!==-1){
                     console.log('json数据请求',config.url);
@@ -139,11 +140,11 @@ class ApiService {
                     let arr=config.url.split('//');
                     console.log(arr)
                     //本地调试
-                     /*let arr1=arr[1].split('/');
+                     let arr1=arr[1].split('/');
                      console.log(arr1)
-                     let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];*/
+                     let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
                     //测试环境
-                    let url='/'+sessionStorage.getItem('commandContext')+arr[0];
+                    // let url='/'+sessionStorage.getItem('commandContext')+arr[0];
                     config.url=url
                     console.log(url)
                 }
