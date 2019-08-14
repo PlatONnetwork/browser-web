@@ -25,7 +25,7 @@
             },
             width:{
                 type: Number,
-                default: 120
+                default: 135
             },
             label:{
                 type: String,
@@ -42,7 +42,11 @@
 
         },
         methods: {
-
+            // goDetail(){
+            //     if(this.type=='link'){
+            //         this.$emit('')
+            //     }
+            // }
         },
         //生命周期函数
         created() {

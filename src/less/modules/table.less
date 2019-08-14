@@ -1,120 +1,16 @@
-
-@baseColor: #0B0C24;
-.el-card{
-    background-color: @baseColor;
-    border-color: @baseColor;
-    color: #fff;
-}
-.el-card__header{
-    border: 0;
-}
-.el-table{
-    color: #fff;
-    background-color: @baseColor;
-    letter-spacing: 0.7px;
-}
-.el-table{
-    font-size: 12px;
-    th{
-        padding: 3px 0;
-        background: #040b27;
-        letter-spacing: 0.8px;
-        color: #94a3c2;
+.table{
+    margin-top: 24px;
+    .el-table td{
+        padding: 10px 0;
+        border-bottom:1px solid #F5F5F5;
+    }
+    .el-table th{
+        color:@gray;
+        font-size:14px;
         font-weight: normal;
+        border-bottom:1px solid #F5F5F5;
     }
-    tr{
-        height:44px;
-        // line-break: 44px;
-    }
-    td{
-        padding:9px 0 8px;
-    }
-    &.hasNoSort{
-        th{
-            padding:9px 0 8px;
-        }
-    }
-
-}
-
-.cur{
-    cursor:pointer;
-}
-.el-table .even-row{
-    // background: #0F1229;
-    background-color: #0d1333;
-}
-
-.el-table .odd-row{
-    background: #040b27;
-}
-.el-table__empty-block{
-    // background: rgba(36,37,73,0.30);
-    background: #0A1134;
-}
-.el-table tr:hover{
-    background: #1B1F45;
-}
-.el-table th.is-leaf, .el-table td {
-    border-bottom: none;
-}
-.el-table::before {
-    height: 0;
-}
-.el-input__inner, .el-radio-button__inner{
-    background-color: #1B1F45;
-    border-color: #1B1F45;
-}
-.el-radio-button:first-child .el-radio-button__inner {
-    border-left: 1px solid #1B1F45;
-}
-
-.el-table {
-    .ascending{
-        .sort-caret{
-            &.ascending{
-                border-bottom-color: #fff;
-            }
-        }
-    }
-    .descending{
-        .sort-caret{
-            &.descending{
-                border-top-color: #fff;
-            }
-        }
-    }
-
-}
-@media screen and (max-width: 1680px) {
-    .el-table{
-        tr{
-            height:38px;
-        }
-        td{
-            padding:5px 0 5px;
-        }
-        &.hasNoSort{
-            th{
-                padding:5px 0 8px;
-            }
-        }
+    .el-table tbody tr:hover>td {
+        background: #FBFBFC
     }
 }
-@media screen and (max-width: 1368px) {
-    .el-table{
-        tr{
-            height:35px;
-        }
-        td{
-            // padding:0px 0 8px;
-            padding:0 0 0;
-        }
-        &.hasNoSort{
-            th{
-                padding:0px 0 8px;
-            }
-        }
-    }
-}
-

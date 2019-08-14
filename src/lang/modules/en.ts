@@ -1,29 +1,17 @@
 import enLocale from 'element-ui/lib/locale/lang/en'
 export default {
     menu: { // 菜单
-        home: 'Home',
-        blockChain: 'BlockChain',
-        blockChainItem: {
-            viewTxns: 'View Txns',
-            viewPendingTxns: 'View Pending Txns',
-            viewBlocks: 'View Blocks'
-        },
-        node: 'Node',
-        nodeItem:{
-            validatorNode:'Block Producers',
-            obsoleteNode:'Obsolete Node',
-        },
-        more: 'More',
-        moreItem: {
-            wallet: 'Wallet',
-            help: 'Help'
-        },
+        home: 'HOME',
+        block: 'BLOCK',
+        transaction: 'TRANSACTIONS',
+        validator: 'VALIDATORS',
+        proposal: 'PROPOSALS',
         comesoon: 'Coming soon',
         goole: 'Google reCAPTCHA is not available!'
     },
     search: {
         searchBtn: 'Search',
-        placeHolder: 'Search by block height /Address/Block hash/Txhash'
+        placeHolder: 'Search by block/Address/Block hash/Txn hash'
     },
     breadcrumb: {
         walletWatermark: 'Wallet',
@@ -48,7 +36,55 @@ export default {
         submitBtn: 'Submit'
     },
     tradeAbout: {
+        foundTransactions:'Transactions Found',
+        showingLast:'(Showing The Last 500k Records)',
+        transactionUp:'TRANSACTIONS',
+        tradeDetail:'TRANSACTION DETAILS',
         morethen: 'More Than',
+        status:'Status',
+        txhash:'Txhash',
+        timeStamp:'TimeStamp',
+        blockHeight:'Block Height',
+        gasLimit:'Gas Limit',
+        gasUsed:'Gas Used',
+        gasPrice:'Gas Price',
+        rawData:'Raw Data',
+
+        sender:'Sender',
+        recipient:'Recipient',
+        amount:'Amount',
+        transactionFee:'Transaction Fee',
+
+        restrictedAccount:'Restricted Account',
+        restrictedAmount:'Restricted Amount',
+        restrictedPlan:'Restricted Plan',
+
+        delegator:'Delegator',
+        validator:'Validator',
+        delegationAmount:'Delegation Amount',
+
+        proposer:'Proposer',
+        operatorAddress:'Operator Address',
+        proposalType:'Proposal Type',
+        proposalID:'Proposal ID',
+        PIPSN:'PIP SN',
+        proposalTitle:'Proposal Title',
+        vote:'Vote',
+        version:'Version',
+
+        identity:'Identity',
+        rewardAddress:'Reward Address',
+        website:'Website',
+        introduction:'Introduction',
+        stakeAmount:'Stake Amount',
+        returnAmount:'Return Amount',
+        reporter:'Reporter',
+        reportType:'Report Type',
+        reportEvidence:'ReportEvidence',
+        reportResult:'ReportResult',
+        reportReward:'Report Reward',
+        returnBlock:'Return Block',
+
         transactions: 'Transactions',
         transactions1: 'Transactions Found',
         record: 'Showing The Last 500k Records',
@@ -59,20 +95,18 @@ export default {
         to: 'To',
         toA: 'Recipient',
         value: 'Value',
-        fee: 'TxFee',
+        fee: 'TxFee(LAT)',
         before: 'ago',
         txInfo: 'Tx Info',
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
         information: 'Transaction Information',
         timestamp: 'Time Stamp',
-        txHash: 'Txhash',
         txReceiptStatus: 'TxReceipt Status',
         actualTxCost: 'Tx Cost/Fee',
         energonLimit: 'Energon Limit',
         energonUsed: 'Energon Used By Transaction',
         energonPrice: 'Energon Price',
-        blockHeight: 'Block Height',
         inputData: 'Input Date',
         confirmNum: 'Block Confirmations',
         success: 'Success',
@@ -86,6 +120,25 @@ export default {
         withdraw:'Withdraw',
         tradein:'{count} Transactions Found',
         moretradein:'More than > {count} Transactions Found'
+    },
+    contract:{
+        contractDetail:'CONTRACT DETAILS',
+        contract: 'Contract',
+        overview: 'Overview',
+        balance: 'Balance',
+        others: 'Others',
+        totxn:'at txn',
+        contractName: 'Contract Name',
+        transactions: 'Transactions',
+        contractCreator: 'Contract Creator',
+        showingLast: '(Showing The Last 5k Records)',
+        delegationsTxns:'Delegations Txns',
+        transfers:'Transfers',
+        validatorTxns:'Validator Txns',
+        governanceTxns:'Governance Txns',
+    },
+    deleget:{
+
     },
     tradePendingAbout: {
         address: 'Address',

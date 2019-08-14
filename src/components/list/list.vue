@@ -48,12 +48,14 @@
 </script>
 <style lang="less" scoped>
     .list-wrap{
+        border: 1px solid #F5F5F5;
         .title{
             font-size: 20px;
             color: #000;
             line-height: 24px;
             padding: 9px 20px;
-            border-top:1px solid #000;
+            border-top:2px solid #000;
+            border-bottom: 1px solid #F5F5F5;
             margin-bottom: 31px;
         }
     }
@@ -61,6 +63,7 @@
         display: flex;
         flex-flow: column wrap;
         padding-left: 50px;
+        padding-bottom: 15px;
         &.flex-inline{
             flex-flow: row wrap;
         }

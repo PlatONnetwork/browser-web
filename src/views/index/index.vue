@@ -26,8 +26,8 @@
 		
 		},
         components: {
-            List,
-            Item
+            // List,
+            // Item
         },
         methods: {
 

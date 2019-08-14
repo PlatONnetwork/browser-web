@@ -24,18 +24,18 @@ export const commonAction = {
                 sessionStorage.setItem('commandId',data.chainList[0].cid);
                 commit('CHANGE_ID', data.chainList[0].cid);
             }
-            if(sessionStorage.getItem('commandHttp')){
-                commit('CHANGE_HTTP', sessionStorage.getItem('commandHttp'));
-            }else{
-                sessionStorage.setItem('commandHttp',data.chainList[0].http);
-                commit('CHANGE_HTTP', data.chainList[0].http)
-            }
-            if(sessionStorage.getItem('commandContext')){
-                commit('CHANGE_CONTEXT', sessionStorage.getItem('commandContext'))
-            }else{
-                sessionStorage.setItem('commandContext',data.chainList[0].context);
-                commit('CHANGE_CONTEXT', data.chainList[0].context);
-            }
+            // if(sessionStorage.getItem('commandHttp')){
+            //     commit('CHANGE_HTTP', sessionStorage.getItem('commandHttp'));
+            // }else{
+            //     sessionStorage.setItem('commandHttp',data.chainList[0].http);
+            //     commit('CHANGE_HTTP', data.chainList[0].http)
+            // }
+            // if(sessionStorage.getItem('commandContext')){
+            //     commit('CHANGE_CONTEXT', sessionStorage.getItem('commandContext'))
+            // }else{
+            //     sessionStorage.setItem('commandContext',data.chainList[0].context);
+            //     commit('CHANGE_CONTEXT', data.chainList[0].context);
+            // }
         });
         apiService.get(config.JSON_BASE  +'/config' + "/country.json").then((data) => {
             commit('DONE_COUNTRY', data.countrys)

@@ -1,13 +1,13 @@
 <template>
     <div class="footer-wrap">
-        
+        脚步
     </div>
 </template>
 <script lang="ts">
     import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
     export default {
-        name: 'footer',
+        name: '',
         data() {
             return {
 

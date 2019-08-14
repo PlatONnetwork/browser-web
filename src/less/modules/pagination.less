@@ -1,5 +1,10 @@
+.pagination-box{
+    .el-pagination{
+        float: right;
+    }
+}
 .pagination-box {
-    padding: 25px 0 45px;
+    padding: 20px 0 45px;
     .el-pagination {
         float: right;
         padding-right:0;
@@ -8,22 +13,22 @@
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li{
     background: transparent;
     border: 1px solid #0444A1;
-    color: #fff;
+    // color: #fff;
     border-radius: 4px;
     margin: 0;
     /* border: 0; */
     border-radius: 0;
-    border-top: 1px solid #12183d;
-    border-right: 0.5px solid #12183d;
-    border-left: 0.5px solid #12183d;
-    border-bottom: 1px solid #12183d;
+    border-top: 1px solid #F5F5F5;
+    border-right: 0.5px solid #F5F5F5;
+    border-left: 0.5px solid #F5F5F5;
+    border-bottom: 1px solid #F5F5F5;
 
-    color: #93a5c8;
+    color: #000;
     font-size:12px;
 }
 .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background: #1A2047;
-    color: #2FAAF8;
+    background: #000;
+    color: #fff;
     border: 0;
 
 }
@@ -32,17 +37,18 @@
 }
 .el-pagination__total{
     letter-spacing: 0.7px;
-	color: #93a5c8;
+	color: #000;
 }
 .el-pagination .el-select .el-input .el-input__inner{
     letter-spacing: 0.7px;
-    color: #8D9BB8;
+    color: #fff;
     font-size:12px;
+    background: #000;
 }
 .el-pagination__sizes .el-input .el-input__inner:hover{
-    background: #121940;
+    // background: #121940;
     border: 1px solid rgba(180,185,194,0.20);
-    color: #8D9BB8;
+    // color: #8D9BB8;
 }
 .el-pagination .el-select .el-input.is-focus .el-input__inner{
     background: #0E143B;

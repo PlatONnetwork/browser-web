@@ -1,4 +1,5 @@
-const Index = resolve => require(['@/views/index/index.vue'], resolve)
+
+const Index = () => import('@/views/index/index.vue')
 export default {
     path: '/',
     component: Index,

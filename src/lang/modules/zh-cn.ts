@@ -2,22 +2,10 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 export default {
     menu: { // 菜单
         home: '首页',
-        blockChain: '区块链',
-        blockChainItem:{
-            viewTxns: '查看交易',
-            viewPendingTxns: '查看待处理交易',
-            viewBlocks: '查看区块'
-        },
-        node: '节点',
-        nodeItem:{
-            validatorNode:'共识节点',
-            obsoleteNode:'历史节点',
-        },
-        more: '更多',
-        moreItem: {
-            wallet: '钱包',
-            help: '开发帮助'
-        },
+        block: '区块',
+        transaction: '交易',
+        validator: '验证人',
+        proposal: '提案',
         comesoon:'敬请期待',
         goole:'Google reCAPTCHA无法获取！'
     },
@@ -48,7 +36,56 @@ export default {
         submitBtn: '提交'
     },
     tradeAbout:{
+        foundTransactions:'交易',
+        showingLast:'(仅显示最新500k记录)',
+        transactionUp:'交易',
         morethen:'总共寻获超过',
+        tradeDetail:'交易详情',
+
+        status:'状态',
+        txhash:'交易哈希',
+        timeStamp:'时间戳',
+        blockHeight:'区块',
+        gasLimit:'燃料限制',
+        gasUsed:'燃料消耗',
+        gasPrice:'燃料价格',
+        rawData:'交易数据',
+
+        sender:'发送方',
+        recipient:'接收方',
+        amount:'数额',
+        transactionFee:'交易手续费',
+
+        restrictedAccount:'锁仓地址',
+        restrictedAmount:'锁仓数量',
+        restrictedPlan:'锁仓计划',
+
+        delegator:'委托人',
+        validator:'验证人',
+        delegationAmount:'委托数量',
+
+        proposer:'提案人',
+        operatorAddress:'操作地址',
+        proposalType:'提案类型',
+        proposalID:'提案ID',
+        PIPSN:'PIP编号',
+        proposalTitle:'提案标题',
+        vote:'投票',
+        version:'声明版本',
+
+        identity:'身份认证ID',
+        rewardAddress:'奖励账户',
+        website:'官网',
+        introduction:'描述',
+        stakeAmount:'质押数量',
+        returnAmount:'预计到账区块',
+        reporter:'举报人',
+        reportType:'举报类型',
+        reportEvidence:'举报证据',
+        reportResult:'举报结果',
+        returnBlock:'预计到账区块',
+        reportReward:'举报奖励',
+
         transactions:'交易',
         transactions1:'交易',
         record:'显示最新500k记录',
@@ -59,7 +96,7 @@ export default {
         to:'接收方',
         toA:'接收地址',
         value:'数额',
-        fee:'交易费用',
+        fee:'交易费用(LAT)',
         before:'前',
         txInfo:'交易信息',
         viewLeft:'查看前一个交易',
@@ -72,7 +109,6 @@ export default {
         energonLimit:'能量限制',
         energonUsed:'消耗的能量',
         energonPrice:'能量价格',
-        blockHeight:'区块高度',
         inputData:'发出数据',
         confirmNum:'区块确认',
         success:'成功',
@@ -86,6 +122,22 @@ export default {
         withdraw:'提取',
         tradein:'总共寻获 {count} 交易',
         moretradein:'总共寻获超过> {count} 交易'
+    },
+    contract:{
+        contractDetail:'合约详情',
+        contract: '合约',
+        overview: '概览',
+        balance: '余额',
+        others: '其他',
+        totxn:'于交易',
+        contractName: '合约名称',
+        transactions: '交易',
+        contractCreator: '合约创建信息',
+        showingLast: '仅显示最新5k记录',
+        delegationsTxns:'委托交易',
+        transfers:'转账',
+        validatorTxns:'验证人交易',
+        governanceTxns:'治理交易',
     },
     tradePendingAbout: {
         address:'地址',
