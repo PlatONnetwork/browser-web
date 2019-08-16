@@ -1,6 +1,6 @@
 <template>
     <div class="list-item">
-        <label :style="{width:width+'px'}">
+        <label>
             {{label}}：
         </label>
         <p v-if="prop" :class="{red:type=='fail',blue:type=='link',green:type=='success',}">{{prop}}</p>
@@ -24,8 +24,12 @@
                 default: 'normal'
             },
             width:{
-                type: Number,
-                default: 135
+                type: String,
+                default: '135'
+            },
+            inline:{
+                type: Boolean,
+                default: true
             },
             label:{
                 type: String,
@@ -66,6 +70,7 @@
             font-size: 13px;
             color: #666;
             line-height: 15px;
+            width: 135px;
         }
     }
 </style>

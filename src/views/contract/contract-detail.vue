@@ -5,8 +5,8 @@
             <div class="detail-copy">
                 <span>{{$t('contract.contract')}}</span>
                 <i>#{{detailInfo.contractCreate}}</i>
-                <b v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
-                <a class="code"></a>
+                <b class="cursor" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
+                <a class="code cursor"></a>
             </div>
         </div>
         <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -16,7 +16,7 @@
                     <ul>
                         <li>
                             <label>{{$t('contract.balance')}}</label> 
-                            <div>{{detailInfo.balance}}</div>   
+                            <div>{{detailInfo.balance}}LAT</div>   
                         </li>
                         <li>
                             <label>{{$t('contract.transactions')}}</label> 
@@ -49,10 +49,7 @@
             <div class="tabs">
                 <el-button size="medium" class="active">{{$t('contract.transactions')}}</el-button>
             </div>
-            <div class="address-trade-last">            
-                {{$t('blockAbout.morethen')}} 23234 {{$t('contract.transactions')}} 
-                <span style="color: #3F3F3F;">{{$t('contract.showingLast')}}</span>
-            </div>
+            <trade-list :address="address"></trade-list>          
         </div>
         
     </div>
@@ -60,10 +57,14 @@
 <script>
     import apiService from '@/services/API-services'
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+
+    import tradeList from '@/components/trade-list'
+
     export default {
         name: 'contract-detail',
         data() {
             return {
+                selectIndex:1,
                 currentScreenWidth:0,
                 currentPage:null,
                 pageSize:null,
@@ -130,7 +131,7 @@
 		
 		},
         components: {
-
+            tradeList
         },
         methods: {
             //获取地址信息详情
@@ -231,5 +232,6 @@
       vertical-align: middle;
   }
 }
+
 </style>
 

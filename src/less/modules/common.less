@@ -10,7 +10,7 @@
 @lightgray:#999;
 
 body{
-    // background:#040b27;
+    // background: #FBFBFC;
     font-family: MicrosoftYaHei;
     // font-family: Gilroy-Regular
 }
@@ -349,6 +349,13 @@ body{
         padding: 0;
     }
 }
+.copyicon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../../assets/images/icon-copy.png) no-repeat;
+    margin-left: 4px;
+}
 
 // 地址详情头部
 .overview-wrap{
@@ -391,11 +398,14 @@ body{
         border: 1px solid #E6E6E6;
         border-radius: 2px;
         font-size: 20px;
+        min-width: 60px;
+        padding: 10px 10px;
         color: #666666;
         background: #fff;
         &:hover{
-            background: #000000 !important;
-            color: #fff;
+            background: #fff !important;
+            color: #666;
+            border: 1px solid #E6E6E6 !important;
         }
         &.active{
             background: #000000 !important;
@@ -404,10 +414,40 @@ body{
     }
 }
 .address-trade{
-    background: #FBFBFC;
+    // background: #FBFBFC;
     margin-top: 50px;
     padding: 20px 0 50px;
 }
 .address-trade-last{
     margin: 23px 0 20px;
+}
+.trade-tab-wrap{
+    display: flex;
+    justify-content: space-between;
+    ul{
+        display: flex;
+        font-size: 16px;
+        line-height: 19px;
+        li{
+            margin-right: 20px;
+            color: #999;
+            cursor: pointer;           
+            &.active{
+                color: @blue;
+            }
+        }
+    }
+}
+
+// 验证人
+.icon-low-block,.icon-two-sign{
+    width: 14px;
+    height: 14px;
+    display: inline-block;   
+}
+.icon-low-block{
+    background: url(../../assets/images/icon-low-block.png) no-repeat;
+}
+.icon-two-sign{
+    background: url(../../assets/images/icon-two-sign.png) no-repeat;
 }

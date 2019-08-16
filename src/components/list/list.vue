@@ -1,5 +1,5 @@
 <template>
-    <div class="list-wrap">
+    <div class="list-wrap" :class="{'border':border}">
         <div class="title" v-if="title">
             {{title}}
         </div>
@@ -20,6 +20,7 @@
         },
         props: {
             title:String,
+            border:Boolean,
             inline:{
                 type: Boolean,
                 default: false
@@ -48,7 +49,9 @@
 </script>
 <style lang="less" scoped>
     .list-wrap{
-        border: 1px solid #F5F5F5;
+        &.border{
+            border: 1px solid #F5F5F5;
+        }       
         .title{
             font-size: 20px;
             color: #000;
@@ -62,7 +65,7 @@
     .item-wrap{
         display: flex;
         flex-flow: column wrap;
-        padding-left: 50px;
+        // padding-left: 50px;
         padding-bottom: 15px;
         &.flex-inline{
             flex-flow: row wrap;

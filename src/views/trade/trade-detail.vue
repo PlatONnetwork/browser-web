@@ -14,7 +14,7 @@
         </div>
         <div class="infomation">
             <!-- 基础交易 -->
-            <List title="DeclareVersion" v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='5' || detailInfo.txType=='4000'">
+            <List title="DeclareVersion" :border="true" v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='5' || detailInfo.txType=='4000'">
                 <Item :label="$t('tradeAbout.sender')">
                     <span class="blue" @click="goDetail(type,detailInfo.from)">{{detailInfo.from}}</span>
                 </Item>
@@ -41,7 +41,7 @@
                 <Item :label="$t('tradeAbout.transactionFee')" :prop="detailInfo.actualTxCost + 'LAT'"></Item>
             </List>
             <!-- 委托交易 -->
-            <List title="DeclareVersion" v-if="detailInfo.txType=='1005' || detailInfo.txType=='1004'">
+            <List title="DeclareVersion" :border="true" v-if="detailInfo.txType=='1005' || detailInfo.txType=='1004'">
                 <Item :label="$t('tradeAbout.delegator')">
                     <span class="blue" @click="goDetail(type,detailInfo.from)">{{detailInfo.from}}</span>
                 </Item>
@@ -53,7 +53,7 @@
             </List>   
 
             <!-- 治理交易 -->
-            <List title="DeclareVersion" v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'">
+            <List title="DeclareVersion" :border="true" v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'">
                 <Item :label="$t('tradeAbout.proposer')">
                     <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
                 </Item>
@@ -76,7 +76,7 @@
             </List>
 
             <!-- 验证人交易 -->
-            <List title="DeclareVersion" v-if="detailInfo.txType=='1000' || detailInfo.txType=='1001' || detailInfo.txType=='1002' || detailInfo.txType=='1003' || detailInfo.txType=='3000'">
+            <List title="DeclareVersion" :border="true" v-if="detailInfo.txType=='1000' || detailInfo.txType=='1001' || detailInfo.txType=='1002' || detailInfo.txType=='1003' || detailInfo.txType=='3000'">
                 <Item :label="$t('tradeAbout.reporter')">
                     <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
                 </Item>
@@ -110,7 +110,7 @@
                 <Item :label="$t('tradeAbout.returnBlock')" v-if="detailInfo.txType=='1003'" :prop="detailInfo.redeemUnLockedBlock"></Item>
                 <Item :label="$t('tradeAbout.transactionFee')" :prop="detailInfo.actualTxCost + 'LAT'"></Item>
             </List>
-            <List title="infomation" class="common-info">
+            <List title="infomation" class="common-info" :border="true">
                 <div class="warn-info">
                     <span class="yellow">Warning:</span>
                     <span>{{detailInfo.failReason}}</span>
@@ -351,6 +351,14 @@
         border-radius: 2px;
         line-height: 26px;
         padding: 0 6px;
+    }
+
+</style>
+<style lang="less">
+    .trade-detail-wrap{
+        .item-wrap{
+            padding-left: 50px;
+        }
     }
 </style>
 
