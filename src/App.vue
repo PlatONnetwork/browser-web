@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <com-header></com-header>
-        <div class="content-area">
+        <div class="content-area" :class="{'index-area':$route.path=='/'}">
             <router-view></router-view>
         </div>
         <com-footer></com-footer>

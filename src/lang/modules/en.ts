@@ -24,6 +24,7 @@ export default {
     },
     common:{
         time:'Time',
+        serialnumber:'N.'
     },
     tradeAbout: {
         foundTransactions:'Transactions Found',
@@ -194,34 +195,20 @@ export default {
         node:'Node'
     },
     indexInfo: {
-        selectAll:'All',
-        blockHeight: 'Block Height',
-        node: 'Producer',
-        currentTransaction: 'Total Transactions',
-        consensusNodeAmount: 'Block Producers',
-        addressAmount: 'Total Address',
-        voteAmount: 'Votes',
-        proportion: 'Ratio',
-        ticketPrice: 'Vote Price',
-        timeandnum: 'Block Time and Number of Transactions',
-        avgTime: 'Average Block Time',
-        current: 'Current',
-        maxTps: 'Max TPS',
-        avgTransaction: 'Average Block Txns',
-        transactionsperday: 'Transactions Per Day',
-        monitor: 'The number of transactions in the last 24 hours',
-        blocks: 'Blocks',
-        height: 'Block Height',
-        age: 'Age',
+        WelcomeToPlatON:'Welcome to PlatON Blockchain Explorer',
+        LIVEBLOCKTIME:'LIVE BLOCK TIME',
+        LIVEBLOCKTRANSACTIONS:'LIVE BLOCK TRANSACTIONS',
+        LIVEBLOCKHEIGHT:'LIVE BLOCK HEIGHT',
+        CIRCULATINGSUPPLY:'CIRCULATING SUPPLY',
+        LIVETRANSACTIONS:'LIVE TRANSACTIONS',
+        CURRNTMAXTPS:'CURRNT/MAX TPS',
+        LIVEADDRESS:'LIVE ADDRESS',
+        PENDINGTOTAL:'PENDING/TOTAL PROPOSALS',
+        currentValidators:'Current Round of Validators',
+        viewAll: 'View all',
+
         txn: 'Txn',
-        blockReward: 'Reward',
-        transactions: 'Transactions',
-        txhash: 'TxHash',
-        before: 'ago',
-        realtime: 'Realtime',
-        view: 'View All',
         searchno: 'Search no results!',
-        cancel: 'Cancel'
     },
     nodeInfo: {
         validator:'validator',
@@ -253,14 +240,23 @@ export default {
         stakingReward:'Staking reward',
         nextRewardAdjustment:'Next reward adjustment',
         updateEpoch:'Update validator status once per epoch',
-        active:'Active',
-        candidate:'Candidate',
+
         searchValidator:'Search by Validator Name',
         historicalValidators:'Historical Validators',
         rank:'Rank',
         validatorName:'Validator Name',
         delegationsDelegators:'Delegations\\Delegators',
         producedBlock:'Blocks',
+        exitTime:'Exit time',
+        pendingDelegations:'Pending Delegations'
+
+    },
+    nodeStatus:{
+        1:'Active',
+        2:'Producing…',
+        3:'Candidate',
+        4:'Exited',
+        5:'Exiting',
     },
     ...enLocale
 }

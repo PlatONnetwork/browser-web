@@ -1,24 +1,37 @@
 <template>
     <div>
-        <el-row>
+        <el-row v-if="type!='history'">
             <el-col :span="18" class="validators-tab">
                 <div class="tabs">
                     <el-button size="medium" :class="{active:tabIndex==1}" @click="tabChange(1)">{{$t('contract.all')}}</el-button>
-                    <el-button size="medium" :class="{active:tabIndex==2}" @click="tabChange(2)">{{$t('nodeInfo.active')}}</el-button>
-                    <el-button size="medium" :class="{active:tabIndex==3}" @click="tabChange(3)">{{$t('nodeInfo.candidate')}}</el-button>
+                    <el-button size="medium" :class="{active:tabIndex==2}" @click="tabChange(2)">{{$t('nodeStatus.1')}}</el-button>
+                    <el-button size="medium" :class="{active:tabIndex==3}" @click="tabChange(3)">{{$t('nodeStatus.3')}}</el-button>
                 </div>         
                 <div class="validators-search">
-                    <el-input :placeholder="$t('nodeInfo.searchValidator')" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+                    <el-input :placeholder="$t('nodeInfo.searchValidator')" v-model.trim="keyword"  @keyup.enter.native="searchFn" size="mini"></el-input>
                     <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
                 </div>   
             </el-col>
             <el-col :span="6" class="historical-validators">
-                <el-button type="text" class="historical-btn">{{$t('nodeInfo.searchValidator')}}>></el-button>
+                <el-button type="text" class="historical-btn">{{$t('nodeInfo.historicalValidators')}}>></el-button>
+            </el-col>
+        </el-row>
+        <el-row class="history-validators-header" type="flex" justify="space-between" v-if="type=='history'">
+            <el-col :span="12">
+                <div style="margin-top: 14px;">
+                    {{$t('nodeInfo.historicalValidators')}}(<b>{{pageTotal}}</b>)
+                </div>                          
+            </el-col>
+            <el-col :span="12" class="historical-validators">
+                <div class="validators-search history-validators-search">
+                    <el-input :placeholder="$t('nodeInfo.searchValidator')" v-model.trim="keyword"  @keyup.enter.native="searchFn" size="mini"></el-input>
+                    <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
+                </div> 
             </el-col>
         </el-row>
         <div class="table">
             <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
-                <el-table-column type="index" :label="$t('nodeInfo.rank')" show-overflow-tooltip>
+                <el-table-column type="index" :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')" show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column :label="$t('nodeInfo.validatorName')">
                     <template slot-scope="scope">
@@ -32,37 +45,45 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('nodeInfo.Status')">
+                <el-table-column :label="$t('tradeAbout.status')">
                     <template slot-scope="scope">
-                        <span class='cursor normal ellipsis'>{{scope.row.txHash}}</span>
+                        <span :class='{green:scope.row.status==1,yellow:(scope.row.status==2 || scope.row.status==5),red:scope.row.status==3,}'>{{$t('nodeStatus.'+[scope.row.status])}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('nodeInfo.totalStakePower')">
+                <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'">
                     <template slot-scope="scope">
                         <span class='cursor normal ellipsis'>{{scope.row.totalValue}}LAT</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('nodeInfo.delegationsDelegators')">
+                <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'">
                     <template slot-scope="scope">
                         <span>{{scope.row.delegateValue}}LAT\{{scope.row.delegateQty}}</span>
                     </template>
                 </el-table-column>
+                <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.statDelegateReduction}}LAT</span>
+                    </template>
+                </el-table-column>
                 <el-table-column  :label="$t('nodeInfo.stability')">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark"  placement="top" :content="$t('nodeInfo.lowBlockRate')">
-                            <div style="margin-right:10px;">
-                                <i class="icon-low-block cursor"></i>
-                                <span>{{scope.row.delegateQty}}</span>
-                            </div>
-                            
-                        </el-tooltip>   
-                        <el-tooltip class="item" effect="dark"  placement="top" :content="$t('nodeInfo.twoSignNum')">
-                            <div>
-                                <i class="icon-two-sign cursor"></i>
-                                <span>{{scope.row.delegateQty}}</span>
-                            </div>
-                            
-                        </el-tooltip> 
+                        <div class="node-stability">
+                            <el-tooltip class="item" effect="dark"  placement="top" :content="$t('nodeInfo.lowBlockRate')">
+                                <div style="margin-right:10px;">
+                                    <i class="icon-low-block cursor"></i>
+                                    <span>{{scope.row.delegateQty}}</span>
+                                </div>
+                                
+                            </el-tooltip>   
+                            <el-tooltip class="item" effect="dark"  placement="top" :content="$t('nodeInfo.twoSignNum')">
+                                <div>
+                                    <i class="icon-two-sign cursor"></i>
+                                    <span>{{scope.row.delegateQty}}</span>
+                                </div>
+                                
+                            </el-tooltip> 
+                        </div>
+                        
                     </template>
                 </el-table-column>
                 <el-table-column  :label="$t('nodeInfo.producedBlock')">
@@ -70,9 +91,14 @@
                         <span>{{scope.row.blockQty}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column  :label="$t('nodeInfo.yield')">
+                <el-table-column  :label="$t('nodeInfo.yield')" v-if="type!='history'">
                     <template slot-scope="scope">
                         <span>{{scope.row.expectedIncome}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column  :label="$t('nodeInfo.exitTime')" v-if="type=='history'">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.leaveTime?new Date(scope.row.leaveTime).Format('yyyy-MM-dd HH:mm:ss'):0}}</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -91,16 +117,17 @@
         name: 'Validator',
         data() {
             return {
+                tabIndex:1,
                 tableData: [],
                 currentPage: 1,
-                pageSize: 20,
+                pageSize: 150,
                 pageTotal: 1,
                 keyword:'',
-                queryStatus:'all'
+                queryStatus:'all',
             }
         },
         props: {
-
+            type:String
         },
         computed: {
 
@@ -221,6 +248,10 @@
                 this.pageSize = val;
                 this.getList();
             },
+            //查询
+            searchFn(){
+                this.getList();
+            },
         },
         //生命周期函数
         created() {
@@ -261,6 +292,15 @@
         }
     }
     
+}
+.node-stability{
+    display: flex;
+    i{
+        vertical-align: sub;
+    }
+}
+.history-validators-search{
+    float: right;
 }
 </style>
 <style lang="less">
