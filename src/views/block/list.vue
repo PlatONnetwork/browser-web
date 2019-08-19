@@ -10,7 +10,7 @@
       <div class="pagination-box1">
         <el-pagination
           background
-          @size-change="handleSizeChange" 
+          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
           :page-sizes="[10, 20, 50, 100]"
@@ -118,6 +118,7 @@ export default {
             .then(res => {
                 debugger
                 let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
+                console.log(res);
                 if (code == 0) {
                     this.tableData = data;
                     this.pageTotal = totalCount;

@@ -6,6 +6,7 @@ import {contractDetail} from './map/contract'
 import {addressDetail,restrictingInfo} from './map/address'
 import {blockDetail,blockList} from './map/block'
 import {nodeDetail,nodeList,historyNode} from './map/node'
+import {proposalList} from './map/proposal.js'
 import DownLoad from './map/download'
 import Redirect from './map/Redirect'
 Vue.use(Router)
@@ -24,6 +25,7 @@ export default new Router({
         blockDetail,
         blockList,
         DownLoad,
+        proposalList,
         Redirect, //路由重定向(访问不存在的页面时，重定向到这个页面) 放最后面
     ]
 })

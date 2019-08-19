@@ -103,4 +103,18 @@ export default window.vueVm= new Vue({
 //     }
 // })
 
+//提案类型   1：文本提案； 2：升级提案；  3参数提案。
+Vue.filter("proposalType", (type: string): string => {
+  if (type === "1") return "文本提案";
+  if (type === "2") return "升级提案";
+  if (type === "3") return "参数提案";
+  return "未知类型"
+});
 
+//状态  1：投票中  2：通过  3：失败   4：预升级  5：升级完成    已通过=2 或4 或 5
+Vue.filter("proposalStatus", (status: string): string => {
+  if (status === "1") return "投票中";
+  if (status === "2" || status === "4" || status === "5") return "已通过";
+  if (status === "3") return "已拒绝";
+  return "未知状态"
+});
