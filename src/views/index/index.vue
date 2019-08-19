@@ -2,59 +2,72 @@
     <div class="index-wrap">
         <div class="welcome-wrap">
             <h3>{{$t('indexInfo.WelcomeToPlatON')}}</h3>
-            <div class="search search-header" :class="{'search-active':isFocus}">
+            <div class="search search-index" :class="{'search-active':isFocus}">
                 <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
                 <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
             </div>
+            <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron.png">
+            <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron.png">
         </div>
         <el-row>
-            <el-col :span="12" class="bar-left">
+            <el-col :span="12" class="bar-left bar">
                 <h3>{{$t('indexInfo.LIVEBLOCKTIME')}}</h3>
                 <div class="chart" ref="blockTimeChart"></div>
                 <ul class="block-statistics">
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
+                        <div class="statistics-label">{{$t('indexInfo.LIVEBLOCKHEIGHT')}}</div>
                         <a class="cursor">113</a>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
+                        <div class="statistics-label">{{$t('blockAbout.producer').toUpperCase()}}</div>
                         <a class="cursor">113</a>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
-                        <p></p>
+                        <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}</div>
+                        <p>
+                            10.21&nbsp;/ <b>12044M</b> 
+                        </p>
                         <el-progress :percentage="50"></el-progress>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
-                        <p></p>
+                        <div class="statistics-label">{{$t('nodeInfo.stakeRate').toUpperCase()}}</div>
+                        <p>10.21&nbsp;<b>12044M</b> </p>
                         <el-progress :percentage="50"></el-progress>
                     </li>
                 </ul>
+                <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron.png">
             </el-col>
-            <el-col :span="12" class="bar-left">
-                <h3>{{$t('indexInfo.LIVEBLOCKTIME')}}</h3>
+            <el-col :span="12" class="bar-right bar">
+                <h3>{{$t('indexInfo.LIVEBLOCKTRANSACTIONS')}}</h3>
                 <div class="chart" ref="blockTradeChart"></div>
                 <ul class="block-statistics">
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
+                        <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
                         <a class="cursor">113</a>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
+                        <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
                         <a class="cursor">113</a>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
-                        <p></p>
-                        <el-progress :percentage="50"></el-progress>
+                        <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
+                        <a class="cursor">113</a>
                     </li>
                     <li>
-                        <div>{{$t('indexInfo.LIVEBLOCKTIME')}}</div>
-                        <p></p>
-                        <el-progress :percentage="50"></el-progress>
+                        <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
+                        <a class="cursor">113</a>
                     </li>
                 </ul>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="12">
+                <h3></h3>
+                <div class="block-list-wrap">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
             </el-col>
         </el-row>
     </div>
@@ -74,6 +87,7 @@
             return {  
                 searchKey:'',
                 disabledBtn:false, 
+                isFocus:false,
             }
         },
         props: {
@@ -141,28 +155,95 @@
 <style lang="less" scoped>
     .index-wrap{
         // background: #000;
+        position: relative;
         .block-statistics{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             li{
-                width: 50%;                
+                width: 50%; 
+                margin-bottom: 40px;
+                .statistics-label{
+                    color: #999;
+                    font-size: 16px;
+                    line-height: 19px;
+                    margin-bottom: 13px;
+                }
+                a{
+                    color: #fff;
+                    font-size: 24px;
+                    line-height: 28px;
+                }    
+                p{
+                    color: #fff;
+                    font-size: 20px;
+                    line-height: 23px;
+                    b{
+                        color: #999;                    
+                        color: #7D7D7D;
+                        font-weight: normal;
+                    }
+                }           
             }
+        }
+        .search-index{
+            height: 69px;
         }
         .chart{
             min-height: 80px;
         }
-        .welcome-wrap{
+        .bar{
+            h3{
+                color: #999;
+                font-size: 16px;
+                line-height: 19px;
+            }
+            &.bar-left{
+                position: relative;
+            }
+        }       
+        .welcome-wrap{       
             width: 50%;
-            margin: 180px auto;
+            margin: 180px auto;           
             h3{
                 font-size: 40px;
                 line-height: 47px;
                 text-align: center;
                 color: #fff;
             }
+            .search{
+                margin-top: 70px;
+                &.search-index .el-button.el-searchs{
+                    width: 120px;
+                }
+            }
+        }
+        .polyhedron{
+            position: absolute;
+            top: -70px;                
+            animation: rotating 8s infinite linear;
+            &.polyhedron-big{
+                width: 180px;
+                height: 180px;
+                left: -20px;
+            }
+            &.polyhedron-mid{
+                width: 86px;
+                height: 86px;
+                top: 250px;
+                right: -43px;
+            }
+            &.polyhedron-mini{
+                width: 50px;
+                height: 50px;
+                top: 52px;
+                left: -80px;
+            }
         }
     }
+    // @keyframes rotate{
+
+    // }
     
 </style>
 <style lang="less">
@@ -173,6 +254,16 @@
     }
     .chart canvas{
         left: -23px !important;
-    }       
+    }    
+    .bar .el-progress{
+        width: 80%;
+        margin-top: 5px;
+        .el-progress-bar__outer{
+            background: #3E3E3E;
+        }
+        .el-progress-bar__inner{
+            background: #fff;
+        }
+    }   
 </style>
 
