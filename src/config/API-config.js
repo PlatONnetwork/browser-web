@@ -52,6 +52,8 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
   },
   PROPOSAL = {
     proposalList: `${PROPOSAL_URL}proposalList`,
+    proposalDetails: `${PROPOSAL_URL}proposalDetails`,
+    voteList: `${PROPOSAL_URL}voteList`,
   },
   //TICKET
   TICKET = {

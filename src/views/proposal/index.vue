@@ -21,7 +21,7 @@
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.proposalTitle')" min-width="50%">
           <template slot-scope="scope">
-            <div class="flex-special">
+            <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
               <span class="cursor normal ellipsis" style="font-weight:bold">{{scope.row.title}}</span>
             </div>
           </template>
@@ -82,21 +82,7 @@ export default {
       currentPage: 1,
       pageSize: 10,
       pageTotal: 1,
-      descriptionProp: "trade",
       displayTotalCount: 0,
-      txTypeFn: {
-        transfer: "transfer",
-        MPCtransaction: "MPCtransaction",
-        contractCreate: "contractCreate",
-        voteTicket: "voteTicket",
-        transactionExecute: "transactionExecute",
-        authorization: "authorization",
-        candidateDeposit: "candidateDeposit",
-        candidateApplyWithdraw: "candidateApplyWithdraw",
-        candidateWithdraw: "candidateWithdraw",
-        unknown: "unknown"
-      },
-      currentScreenWidth: 0
     };
   },
   props: {},
@@ -105,7 +91,7 @@ export default {
   components: {},
   methods: {
     //获取交易列表 下分页
-    async getTradeList() {
+    async getProposalList() {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
@@ -123,83 +109,36 @@ export default {
       }
     },
     //进入钱包地址详情或者合约详情
-    goDetail(index, row) {
-      if (row.receiveType == 'contract' || row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002") {
-        //进入合约详情
-        this.$router.push({
-          path: '/contract-detail',
-          query: {
-            address: row.to,
-            description: 'trade',
-            currentPage: this.currentPage,
-            pageSize: this.pageSize
-          },
-        });
-      } else {
-        //进入钱包地址详情
-        this.$router.push({
-          path: '/address-detail',
-          query: {
-            address: row.to,
-            description: 'trade',
-            currentPage: this.currentPage,
-            pageSize: this.pageSize
-          },
-        });
-      }
+    async goDetail(proposalHash) {
+      this.$router.push({
+        path: '/proposal-detail',
+        query: {
+          proposalHash: proposalHash,
+        },
+      });
     },
     timeDiffFn(beginTime, endTime) {
       return timeDiff(beginTime, endTime)
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.getTradeList();
+      this.getProposalList();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
-      this.getTradeList();
-    },
-    //进入区块详情
-    goBlockDetail(index, row) {
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: row.blockHeight,
-        },
-      });
-    },
-    //进入交易哈希详情
-    goTradeDetail(index, row) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: row.txHash,
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
-        },
-      });
-    },
-    //进入钱包地址详情
-    goAddressDetail(index, row) {
-      this.$router.push({
-        path: '/address-detail',
-        query: {
-          address: row.from,
-          description: 'trade',
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
-        },
-      });
+      this.getProposalList();
     },
   },
   //生命周期函数
   created() {
-    this.getTradeList();
+    this.getProposalList();
   },
   filters: {
     dateFormat: function (v, isUTC = true, dateFormat = "YYYY-MM-DD HH:mm:ss") {
-      if(typeof v === "number") {
+      // 返回秒的转为返回ms
+      if (typeof v === "number" && v <= 9999999999) {
+        v = v * 1000;
       }
       return v ? isUTC ? moment.utc(v).local().format(dateFormat) : moment.utc(v).format(dateFormat) : "";
     }

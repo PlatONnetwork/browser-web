@@ -64,6 +64,7 @@ export default {
         proposalTitle:'标题',
         proposalEndBlock:'投票结束区块',
         proposalTime:'提案时间',
+        proposalDetail:'提案详情',
         vote:'投票',
         version:'声明版本',
 

@@ -53,7 +53,9 @@ class ApiService {
       voteList: this.post.bind(this, API.TRADE.voteList)
     };
     this.proposal = {
-      proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
+      // proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
+      // proposalDetails: this.post.bind(this, API.PROPOSAL.proposalDetails),
+      // voteList: this.post.bind(this, API.PROPOSAL.voteList),
       proposalList: function() {
         mock.proposalList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
         let proposal = mock.proposalList.data[0];
@@ -66,6 +68,20 @@ class ApiService {
           mock.proposalList.data.push(newProposal);
         }
         return mock.proposalList.code ? Promise.reject(mock.proposalList) : Promise.resolve(mock.proposalList);
+      },
+      proposalDetails: function() {
+        mock.proposalDetails.code = 0;
+        return mock.proposalDetails.code ? Promise.reject(mock.proposalDetails) : Promise.resolve(mock.proposalDetails);
+      },
+      voteList: function() {
+        mock.voteList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
+        let vote = mock.voteList.data[0];
+        let i = 1;
+        while (i++ <= mock.voteList.totalCount) {
+          let newVote = JSON.parse(JSON.stringify(vote));
+          mock.vote.data.push(newVote);
+        }
+        return mock.voteList.code ? Promise.reject(mock.voteList) : Promise.resolve(mock.voteList);
       }
     };
     this.account = {
