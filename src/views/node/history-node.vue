@@ -1,10 +1,11 @@
 <template>
     <div class="history-node-wrap">
-        <div class="page-title fontSize34">{{$t('contract.contractDetail')}}</div> 
+        <div class="page-title fontSize34">{{$t('nodeInfo.historicalValidators').toUpperCase()}}</div> 
+         <Validator type="history"></Validator>
     </div>
 </template>
 <script>
-
+    import Validator from './list'
     export default {
         name: 'history-node',
         data() {
@@ -22,7 +23,7 @@
 		
 		},
         components: {
-
+            Validator
         },
         methods: {
 

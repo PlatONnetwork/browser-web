@@ -24,6 +24,7 @@ export default {
     },
     common:{
         time:'时间',
+        serialnumber:'序号'
     },
     tradeAbout:{
         foundTransactions:'交易',
@@ -123,6 +124,7 @@ export default {
         balance: '余额',
         others: '其他',
         totxn:'于交易',
+        all:'所有',
         contractName: '合约名称',
         transactions: '交易',
         contractCreator: '合约创建信息',
@@ -192,34 +194,20 @@ export default {
         copyfail:'复制失败'
     },
     indexInfo:{
-        selectAll:'全部',
-        blockHeight:'当前区块高度',
-        node:'出块节点',
-        currentTransaction:'当前交易笔数',
-        consensusNodeAmount:'共识节点数',
-        addressAmount:'地址数',
-        voteAmount:'投票数',
-        proportion:'占比',
-        ticketPrice:'票价',
-        timeandnum:'出块时间及交易数量',
-        avgTime:'平均出块时长',
-        current:'当前',
-        maxTps:'最大交易TPS',
-        avgTransaction:'平均区块交易数',
-        transactionsperday:'每日交易笔数',
-        monitor:'过去24小时交易笔数实时统计',
-        blocks:'最新区块',
-        height:'区块高度',
-        age:'块龄',
+        WelcomeToPlatON:'欢迎来到PlatON 区块链浏览器',
+        LIVEBLOCKTIME:'实时出块时长',
+        LIVEBLOCKTRANSACTIONS:'实时区块交易数',
+        LIVEBLOCKHEIGHT:'当前区块高度',
+        CIRCULATINGSUPPLY:'流通量',
+        LIVETRANSACTIONS:'实时交易笔数',
+        CURRNTMAXTPS:'当前/最大交易',
+        LIVEADDRESS:'地址数',
+        PENDINGTOTAL:'进行中提案/总提案',
+        currentValidators:'当前轮验证人',
+        viewAll: '查看所有',
+
         txn:'交易数',
-        blockReward:'奖励',
-        transactions:'最新交易',
-        txhash:'交易哈希',
-        before: '前',
-        realtime: '实时',
-        view:'查看全部',
         searchno:'查询无结果！',
-        cancel:'取消'
     },
     nodeInfo:{
         validator:'验证节点',
@@ -251,14 +239,22 @@ export default {
         stakingReward:'质押奖励',
         nextRewardAdjustment:'下个奖励调整期',
         updateEpoch:'每个结算周期更新一次验证人状态',
-        active:'活跃中',
-        candidate:'候选中',
+
         searchValidator:'输入验证人名称查询',
         historicalValidators:'历史验证人',
         rank:'排名',
         validatorName:'验证人',
         delegationsDelegators:'委托数\\委托者',
         producedBlock:'已产生区块数',
+        exitTime:'退出时间',
+        pendingDelegations:'待提取委托数'
+    },
+    nodeStatus:{
+        1:'活跃中',
+        2:'出块中...',
+        3:'候选中',
+        4:'已退出',
+        5:'退出中',
     },
     ...zhLocale
 }
