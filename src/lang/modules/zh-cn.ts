@@ -59,8 +59,12 @@ export default {
         operatorAddress:'操作地址',
         proposalType:'提案类型',
         proposalID:'提案ID',
+        proposalStatus:'状态',
         PIPSN:'PIP编号',
-        proposalTitle:'提案标题',
+        proposalTitle:'标题',
+        proposalEndBlock:'投票结束区块',
+        proposalTime:'提案时间',
+        proposalDetail:'提案详情',
         vote:'投票',
         version:'声明版本',
 

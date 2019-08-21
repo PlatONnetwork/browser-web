@@ -49,6 +49,11 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         pendingDetailNavigate:`${TRADE_URL}pendingDetailNavigate`,
         blockTransaction:`${TRADE_URL}blockTransaction`,
     },
+    PROPOSAL = {
+        proposalList: `${PROPOSAL_URL}proposalList`,
+        proposalDetails: `${PROPOSAL_URL}proposalDetails`,
+        voteList: `${PROPOSAL_URL}voteList`,
+    },
     //TICKET
     TICKET = {
 		ticketList: `${TICKET_URL}list`,
@@ -70,13 +75,14 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	// 	upload:`${FILE_URL}upload`,
 	// };
 export default {
-    TOTAL,
-	BLOCK,
-	SEARCH,
-	TRADE,
-    ACCOUNT,
-    WS_CONFIG,
-    JSON_BASE,
-    NODE,
-    TICKET
-}
+  TOTAL,
+  BLOCK,
+  SEARCH,
+  TRADE,
+  PROPOSAL,
+  ACCOUNT,
+  WS_CONFIG,
+  JSON_BASE,
+  NODE,
+  TICKET
+};

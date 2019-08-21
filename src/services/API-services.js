@@ -6,81 +6,115 @@
 //  Copyright 2017 yann_liang. All rights reserved.
 //
 
-import Http from 'axios'
-import API from '@/config/API-config'
-import store from '@/vuex/store'
-Http.defaults.headers.post['Content-Type'] = "application/json;charset=utf-8"
+import Http from "axios";
+import API from "@/config/API-config";
+import store from "@/vuex/store";
+import mock from "./mock";
+Http.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
 // Http.defaults.headers.get['Access-Control-Allow-Origin'] = "*"
 // Http.defaults.headers.post['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase()
 
-console.warn(localStorage.getItem('i18nLocale'))
+console.warn(localStorage.getItem("i18nLocale"));
 
-const encodeParams = (params) => {
-    let r = '?',
-        p = [];
-    for(let key in params) {
-        p.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    }
-    return r + p.join('&')
+const encodeParams = params => {
+  let r = "?",
+    p = [];
+  for (let key in params) {
+    p.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+  }
+  return r + p.join("&");
 };
 
 //请求类
 class ApiService {
-    constructor() {
-	    this.block = {
-		    blockList: this.post.bind(this, API.BLOCK.blockList),
-		    blockDetails: this.post.bind(this, API.BLOCK.blockDetails),
-            blockDetailNavigate: this.post.bind(this, API.BLOCK.blockDetailNavigate),
-            blockTransactionList: this.post.bind(this, API.BLOCK.blockTransactionList),
-            blockTicketList: this.post.bind(this, API.BLOCK.blockTicketList),
-	    }
-        this.search = {
-	        query: this.post.bind(this, API.SEARCH.query),
+  constructor() {
+    this.block = {
+      blockList: this.post.bind(this, API.BLOCK.blockList),
+      blockDetails: this.post.bind(this, API.BLOCK.blockDetails),
+      blockDetailNavigate: this.post.bind(this, API.BLOCK.blockDetailNavigate),
+      blockTransactionList: this.post.bind(this, API.BLOCK.blockTransactionList),
+      blockTicketList: this.post.bind(this, API.BLOCK.blockTicketList)
+    };
+    this.search = {
+      query: this.post.bind(this, API.SEARCH.query)
+    };
+    this.trade = {
+      transactionList: this.post.bind(this, API.TRADE.transactionList),
+      transactionDetails: this.post.bind(this, API.TRADE.transactionDetails),
+      pendingList: this.post.bind(this, API.TRADE.pendingList),
+      pendingDetails: this.post.bind(this, API.TRADE.pendingDetails),
+      addressDetails: this.post.bind(this, API.TRADE.addressDetails),
+      addressDownload: this.post.bind(this, API.TRADE.addressDownload),
+      contractDetails: this.post.bind(this, API.TRADE.contractDetails),
+      contractDownload: this.post.bind(this, API.TRADE.contractDownload),
+      transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
+      pendingDetailNavigate: this.post.bind(this, API.TRADE.pendingDetailNavigate),
+      blockTransaction: this.post.bind(this, API.TRADE.blockTransaction),
+      voteList: this.post.bind(this, API.TRADE.voteList)
+    };
+    this.proposal = {
+      // proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
+      // proposalDetails: this.post.bind(this, API.PROPOSAL.proposalDetails),
+      // voteList: this.post.bind(this, API.PROPOSAL.voteList),
+      proposalList: function() {
+        mock.proposalList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
+        let proposal = mock.proposalList.data[0];
+        let i = 1;
+        while (i++ <= mock.proposalList.totalCount) {
+          let newProposal = JSON.parse(JSON.stringify(proposal));
+          newProposal.url = "PIP" + i;
+          newProposal.type = String((i % 3) + 1);
+          newProposal.status = String((i % 5) + 1);
+          mock.proposalList.data.push(newProposal);
         }
-        this.trade = {
-	        transactionList: this.post.bind(this, API.TRADE.transactionList),
-	        transactionDetails: this.post.bind(this, API.TRADE.transactionDetails),
-            pendingList: this.post.bind(this, API.TRADE.pendingList),
-            pendingDetails: this.post.bind(this, API.TRADE.pendingDetails),
-            addressDetails: this.post.bind(this, API.TRADE.addressDetails),
-            addressDownload: this.post.bind(this, API.TRADE.addressDownload),
-            contractDetails: this.post.bind(this, API.TRADE.contractDetails),
-            contractDownload: this.post.bind(this, API.TRADE.contractDownload),
-            transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
-            pendingDetailNavigate: this.post.bind(this, API.TRADE.pendingDetailNavigate),
-            blockTransaction: this.post.bind(this, API.TRADE.blockTransaction),
-            voteList: this.post.bind(this, API.TRADE.voteList),
+        return mock.proposalList.code ? Promise.reject(mock.proposalList) : Promise.resolve(mock.proposalList);
+      },
+      proposalDetails: function() {
+        mock.proposalDetails.code = 0;
+        return mock.proposalDetails.code ? Promise.reject(mock.proposalDetails) : Promise.resolve(mock.proposalDetails);
+      },
+      voteList: function() {
+        mock.voteList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
+        let vote = mock.voteList.data[0];
+        let i = 1;
+        while (i++ <= mock.voteList.totalCount) {
+          let newVote = JSON.parse(JSON.stringify(vote));
+          mock.vote.data.push(newVote);
         }
-        this.account = {
-            accountDetails: this.post.bind(this, API.ACCOUNT.accountDetails),
-            download: this.post.bind(this, API.ACCOUNT.download),
-        }
-        this.node = {
-            list: this.post.bind(this, API.NODE.list),
-            historyList: this.post.bind(this, API.NODE.historyList),
-            detail: this.post.bind(this, API.NODE.detail),
-            blockList: this.post.bind(this, API.NODE.blockList),
-            blockDownload: this.post.bind(this, API.NODE.blockDownload),
-        }
-        this.ticket = {
-	        ticketList: this.post.bind(this, API.TICKET.ticketList),
-        }
-        // this.file = {
-        //     upload:this.uploadFile.bind(this, API.FILE.upload),//文件上传
-        // }
-        this.interceptorsOfReq()
-        this.interceptorsOfRes()
+        return mock.voteList.code ? Promise.reject(mock.voteList) : Promise.resolve(mock.voteList);
+      }
+    };
+    this.account = {
+      accountDetails: this.post.bind(this, API.ACCOUNT.accountDetails),
+      download: this.post.bind(this, API.ACCOUNT.download)
+    };
+    this.node = {
+      list: this.post.bind(this, API.NODE.list),
+      historyList: this.post.bind(this, API.NODE.historyList),
+      detail: this.post.bind(this, API.NODE.detail),
+      blockList: this.post.bind(this, API.NODE.blockList),
+      blockDownload: this.post.bind(this, API.NODE.blockDownload)
+    };
+    this.ticket = {
+      ticketList: this.post.bind(this, API.TICKET.ticketList)
+    };
+    // this.file = {
+    //     upload:this.uploadFile.bind(this, API.FILE.upload),//文件上传
+    // }
+    this.interceptorsOfReq();
+    this.interceptorsOfRes();
+  }
+  get(url, params) {
+    if (params) {
+      url += encodeParams(params);
     }
-    get(url, params) {
-        if(params) {
-            url += encodeParams(params);
-        }
-        return Http.get(url).then(res => res.data)
-    }
-    put(url, params) { //
-        typeof params === 'undefined' ? params = {} : ''
-        return Http.put(url, params).then(res => res.data)
-    }
+    return Http.get(url).then(res => res.data);
+  }
+  put(url, params) {
+    //
+    typeof params === "undefined" ? (params = {}) : "";
+    return Http.put(url, params).then(res => res.data);
+  }
     post(url, params) {
         typeof params === 'undefined' ? params = {} : '';
         localStorage.sessionid ? params.sessionid = localStorage.sessionid : ''
@@ -169,4 +203,4 @@ class ApiService {
     }
 }
 //导出一个对象
-export default new ApiService()
+export default new ApiService();
