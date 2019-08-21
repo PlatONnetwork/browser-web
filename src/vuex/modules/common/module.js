@@ -12,7 +12,8 @@ export const common = {
         chainContext:'',
         walletList:[],
         country:[],
-        googleApi:false
+        googleApi:false,
+        i18nLocale:''
     },
     actions: commonAction,
     getters: commonGetter,

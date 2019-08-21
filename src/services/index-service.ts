@@ -46,7 +46,7 @@ class Ws {
     stompClient: StompClientConfigConfig = null
     allUrl:string = API.TOTAL
     // websocketUrl: string = API.WS_CONFIG.root
-    websocketUrl: string = API.TOTAL+sessionStorage.getItem('commandContext')+'/platon-websocket'
+    websocketUrl: string = API.WS_CONFIG.root
     timeSettimeout: number = null
     connectFlag: boolean = false
 
@@ -56,7 +56,7 @@ class Ws {
 
     connect(): void {
         // if (this.stompClient) { return }
-        let socket = new window['SockJS'](API.TOTAL+sessionStorage.getItem('commandContext')+'/platon-websocket')
+        let socket = new window['SockJS'](API.WS_CONFIG.root)
         this.stompClient = window['Stomp'].over(socket)
         this.stompClient.heartbeat.outgoing = 10000
         this.stompClient.heartbeat.incoming = 10000
@@ -147,12 +147,29 @@ class IndexService extends Ws {
     }
     getChartData(): any {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.nodeInit + this.getChainId(), (msg: MsgConfig) => {
+            this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                //console.log(`getChartData`, res)
+                console.log(`getChartData`, res)
                 if (code === 0) {
-                    store.dispatch('setMapData', data)
+                    store.dispatch('updateChartData', data)
+                    // store.dispatch('setChartData', IndexService.dealChartList(data))
+                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
+                } else {
+                    throw new Error(`todo`)
+                }
+            })
+        })
+    }
+    
+    getStatisticData(): any {
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg: MsgConfig) => {                
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`updateBlockStatisticData`, res)
+                if (code === 0) {
+                    store.dispatch('updateBlockStatisticData', data)
                     // store.dispatch('setChartData', IndexService.dealChartList(data))
                     // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
                 } else {
@@ -162,94 +179,28 @@ class IndexService extends Ws {
         })
     }
 
-    updateChartData(): any {
+    getValidatorData(): any {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.nodeUpdate + this.getChainId(), (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                //console.log(`updateChartData`, res)
-                const { data, code } = res
-                if (res.code === 0) {
-                    store.dispatch('updateMapData', data)
-                    const list = IndexService.dealChartList(data)
-                    // store.dispatch('updateChartData', list)
-                    // store.dispatch('updateEarthData', IndexService.dealEarthCHartList(data))
-                } else {
-                    throw new Error(`todo`)
-                }
-            })
-        })
-    }
-
-    getOverviewData(): any {
-        sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.indexInit + this.getChainId(), (msg: MsgConfig) => {
+            this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                //console.log(`getOverviewData`, res)
+                //console.log(`updateValidatorData`, res)
                 if (code === 0) {
-                    (data.node === null) && (data.node = ' ')
-                    store.dispatch('updateOverviewData', data)
+                    store.dispatch('updateValidatorData', data)
+                    // store.dispatch('setChartData', IndexService.dealChartList(data))
+                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
             })
         })
-    }
-
-    updateOverviewData(): any {
-        sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.indexUpdate + this.getChainId(), (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                const { data, code } = res
-                //console.log(`updateOverviewData`, res)
-                if (code === 0) {
-                    store.dispatch('updateOverviewData', data)
-                } else {
-                    throw new Error(`todo`)
-                }
-            })
-        })
-    }
-
-    getSecondFloorData(): any {
-        sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.secondInit + this.getChainId(), (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                const { data, code } = res
-                //console.log(`getSecondFloorData`, res)
-                if (res.code === 0) {
-                    store.dispatch('updateSecondFloorData', data)
-                } else {
-                    throw new Error(`todo`)
-                }
-            })
-        })
-    }
-
-    updateSecondFloorData() {
-        return new Promise((resolve, reject) => {
-            sub.addSub(() => {
-                this.stompClient.subscribe(API.WS_CONFIG.secondUpdate + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    const { data, code } = res
-                    //console.log(`updateSecondFloorData`, res)
-                    if (code === 0) {
-                        store.dispatch('updateSecondFloorData', data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-
-                })
-            })
-        })
-
     }
 
     getBlockData() {
         const fn = () => {
-            this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockInit + this.getChainId(), (msg: MsgConfig) => {
+            this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                //console.log(`getBlockData`, res)
+                //console.log(`updateBlockData`, res)
                 if (res.code === 0) {
                     store.dispatch('updateBlockData', res.data)
                 } else {
@@ -260,66 +211,6 @@ class IndexService extends Ws {
         }
         this.connectFlag ? fn() : sub.addSub(fn)
     }
-
-    updateBlockData() {
-        const fn = () => {
-            this.updateBlackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockUpdate + this.getChainId(), (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                //data为对象
-                const { data, code } = res
-                //console.log(`updateBlockData`, res)
-                if (code === 0) {
-                    //陈东明说：改为服务器处理
-                    // const newList = IndexService.dealData(data, store.state.index.blockData)
-                    store.dispatch('updateBlockData', data)
-                } else {
-                    throw new Error(`todo`)
-                }
-            })
-        }
-
-        this.connectFlag ? fn() : sub.addSub(fn)
-    }
-
-    getTransactionData() {
-        return new Promise((resolve, reject) => {
-            const fn = () => {
-                this.transactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionInit + this.getChainId(), (msg: MsgConfig) => {
-                    const res: ResConfig = JSON.parse(msg.body)
-                    const { data, code } = res
-                    //console.log(`getTransactionData`, res)
-                    if (code === 0) {
-                        store.dispatch('updateTransactionData', data)
-                    } else {
-                        throw new Error(`todo`)
-                    }
-
-                })
-            }
-            this.connectFlag ? fn() : sub.addSub(fn)
-        })
-    }
-
-    updateTransactionData() {
-        const fn = () => {
-            this.updateTransactionSubHandle = this.stompClient.subscribe(API.WS_CONFIG.transactionUpdate + this.getChainId(), (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                //data为数组
-                const { data, code } = res
-                //console.log(`updateTransactionData`, res)
-                if (code === 0) {
-                    //陈东明说：改为服务器处理
-                    // const newList = IndexService.dealData(data, store.state.index.transactionData)
-                    store.dispatch('updateTransactionData', data)
-                } else {
-                    throw new Error(`todo`)
-                }
-
-            })
-        }
-        this.connectFlag ? fn() : sub.addSub(fn)
-    }
-
     unsubBlock() {
         this.blackSubHandle.unsubscribe()
         this.updateBlackSubHandle.unsubscribe()

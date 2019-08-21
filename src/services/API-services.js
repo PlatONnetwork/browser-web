@@ -87,7 +87,7 @@ class ApiService {
         // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
         // params.cid = 1
         // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : store.state.common.chainId
-        params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : localStorage.getItem('cid')
+        // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : localStorage.getItem('cid')
         return Http.post(url, params).then(res => res.data)
     }
     encodeParams(url,params){
@@ -132,22 +132,22 @@ class ApiService {
                 const language = navigator.language || navigator.browserLanguage;
                 config.headers['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : language.toLowerCase();
                 console.log('请求URL== ' + config.url)
-                if(config.url.indexOf('json')!==-1 || config.url.indexOf('recaptcha')!==-1){
-                    console.log('json数据请求',config.url);
-                    // return config;
-                }else{
-                    console.log('常规请求',config.url);
-                    let arr=config.url.split('//');
-                    console.log(arr)
-                    //本地调试
-                     let arr1=arr[1].split('/');
-                     console.log(arr1)
-                     let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
-                    //测试环境
-                    // let url='/'+sessionStorage.getItem('commandContext')+arr[0];
-                    config.url=url
-                    console.log(url)
-                }
+                // if(config.url.indexOf('json')!==-1 || config.url.indexOf('recaptcha')!==-1){
+                //     console.log('json数据请求',config.url);
+                //     // return config;
+                // }else{
+                //     console.log('常规请求',config.url);
+                //     let arr=config.url.split('//');
+                //     console.log(arr)
+                //     //本地调试
+                //      let arr1=arr[1].split('/');
+                //      console.log(arr1)
+                //      let url=arr[0]+'//'+arr1[0]+'/'+sessionStorage.getItem('commandContext')+'/'+arr1[1]+'/'+arr1[2];
+                //     //测试环境
+                //     // let url='/'+sessionStorage.getItem('commandContext')+arr[0];
+                //     config.url=url
+                //     console.log(url)
+                // }
                 return config;
             },
             err => {

@@ -165,6 +165,7 @@ export default {
     blockAbout: {
         morethen: '总共',
         blockH: '区块',
+        block: '区块',
         interval:'间隔',
         blockReward:'出块奖励',
         size:'区块大小',
@@ -204,13 +205,28 @@ export default {
         viewAll: '查看所有',
 
         txn:'交易数',
+        txns:'交易',
         searchno:'查询无结果！',
+
+        resource:'资源',
+        aboutPlatON:'关于PlatON',
+        platONWhitePaper:'PlatON白皮书',
+        atonDownload:'ATON钱包下载',
+        developer:'开发者帮助',
+        platScan:'PlatScan是PlatON区块链资源管理与分析平台',
+        international:'COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
+    },
+    elseInfo: {
+        hour:'时',
+        minutes:'分',
+        seconds:'秒',
+        day:'天',
     },
     nodeInfo:{
         validator:'验证节点',
         createdat:'创建时间',
         electedRoundValidator:'当选当前轮验证人',
-        blocks:'累计出块',
+        blocks:'累计出块',        
         blockRate:'出块率',
         totalStakePower:'总质押\\权重',
         totalReward:'累计奖励',

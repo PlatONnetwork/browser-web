@@ -162,6 +162,7 @@ export default {
     blockAbout: {
         morethen: 'Total ',
         blockH: 'Block',
+        block: 'block',
         interval:'Age',
         blockReward:'Block Reward',
         size:'Size',
@@ -205,10 +206,25 @@ export default {
         LIVEADDRESS:'LIVE ADDRESS',
         PENDINGTOTAL:'PENDING/TOTAL PROPOSALS',
         currentValidators:'Current Round of Validators',
-        viewAll: 'View all',
+        viewAll: 'View all ',
 
         txn: 'Txn',
+        txns: 'Txns',
         searchno: 'Search no results!',
+
+        resource:'RESOURCE',
+        aboutPlatON:'About PlatON',
+        platONWhitePaper:'PlatON White Paper',
+        atonDownload:'ATON Download',
+        developer:'Developer',
+        platScan:'PlatScan is a Block Explorer and Analytics Platform for PlatON',
+        international:'COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
+    },
+    elseInfo: {
+        hour: 'h ',
+        minutes: 'm ',
+        seconds: 's ',
+        day: 'd ',
     },
     nodeInfo: {
         validator:'validator',

@@ -8,13 +8,13 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	// FILES = `${FILES_STORE}/`,
 	// FILES = `${FILES_PUBLIC_STORE}/`,//公有
     // FILES = `${FILES_PRIVITE_STORE}/`,//私有
-    BLOCK_URL = `${TOTAL}block/`,
-    HOME_URL = `${TOTAL}home/`,
+    BLOCK_URL = `${TOTAL}browser-server/block/`,
+    HOME_URL = `${TOTAL}browser-server/home/`,
     // HOME_URL = `http://10.10.8.8:8080/browser-server/home/`,
-   	TRADE_URL = `${TOTAL}transaction/`,
-    ACCOUNT_URL = `${TOTAL}account/`,
-    NODE_URL = `${TOTAL}node/`,
-    TICKET_URL = `${TOTAL}ticket/`,
+   	TRADE_URL = `${TOTAL}browser-server/transaction/`,
+    ACCOUNT_URL = `${TOTAL}browser-server/account/`,
+    NODE_URL = `${TOTAL}browser-server/node/`,
+    TICKET_URL = `${TOTAL}browser-server/ticket/`,
     //NODE
     NODE = {
         list: `${NODE_URL}list`,
@@ -33,7 +33,7 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	},
     // SOUSUO
 	SEARCH = {
-		query: `${HOME_URL}query`,
+		query: `${HOME_URL}queryNavigation`,
     },
     // TRADE
 	TRADE = {
@@ -59,17 +59,11 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         download: `${ACCOUNT_URL}download`,
     },
     WS_CONFIG = {
-        root: `${TOTAL}platon-websocket`,
-        nodeInit: `/app/node/init?cid=`,
-        nodeUpdate:`/topic/node/new?cid=`,
-        indexInit: `/app/index/init?cid=`,
-        indexUpdate: `/topic/index/new?cid=`,
-        secondInit: `/app/statistic/init?cid=`,
-        secondUpdate: `/topic/statistic/new?cid=`,
-        blockInit: `/app/block/init?cid=`,
-        blockUpdate: `/topic/block/new?cid=`,
-        transactionInit: `/app/transaction/init?cid=`,
-        transactionUpdate: `/topic/transaction/new?cid=`
+        root: `${TOTAL}browser-server/platon-websocket`,
+        blockStatistic: `/topic/block/statistic/new`,
+        chainStatistic: `/topic/chain/statistic/new`,
+        blockList: `/topic/block/list/new`,
+        stakingList: `/topic/staking/list/new`,
     };
 	//文件上传
 	// FILE = {

@@ -16,8 +16,8 @@
                 <el-menu-item index="/trade">
                     <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/validator">
-                    <router-link to="/validator">{{ $t("menu.validator") }}</router-link>
+                <el-menu-item index="/node">
+                    <router-link to="/node">{{ $t("menu.validator") }}</router-link>
                 </el-menu-item>
                 <el-menu-item index="/proposal">
                     <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
@@ -177,7 +177,7 @@
                             this.$message.warning(this.$t('indexInfo.searchno'))
                         }else{
                             this.switchFn(data.type,data.struct)
-                            this.$emit('searchFn',data);
+                            // this.$emit('searchFn',data);
                         }
                     }else{
                         this.$message.warning(this.$t('indexInfo.searchno'))
@@ -197,7 +197,7 @@
                         return this.$router.push({
                             path:'/block-detail',
                             query:{
-                                height:struct.height
+                                height:struct.number
                             }
                         });
                         break;
@@ -212,42 +212,21 @@
                             }
                         });
                         break;
-                    //待处理
-                    case 'pending':
-                        return this.$router.push({
-                            path:'/trade-pending-detail',
-                            query:{
-                                txHash:struct.txHash
-                            }
-                        });
-                        break;
                     //节点详情
-                    case 'node':
+                    case 'staking':
                         return this.$router.push({
                             path:'/node-detail',
                             query:{
-                                address:struct.address,
-                                id:struct.id
-                            }
-                        });
-                        break;
-                    //合约详情
-                    case 'contract':
-                        return this.$router.push({
-                            path:'/contract-detail',
-                            query:{
-                                address:this.searchKey,
-                                description:this.descriptionProp
+                                address:struct.nodeId,
                             }
                         });
                         break;
                     //地址详情
-                    case 'account':
+                    case 'address':
                         return this.$router.push({
                             path:'/address-detail',
                             query:{
-                                address:this.searchKey,
-                                description:this.descriptionProp
+                                address:struct.address,
                             }
                         });
                         break;
@@ -406,7 +385,7 @@
         .el-menu-demo  > .el-menu-item{
             background: transparent !important;
             &:hover{
-                color: #fff;
+                color: #fff !important;
                 // background: transparent !important;
             }
         }

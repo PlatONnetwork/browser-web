@@ -26,4 +26,7 @@ export const commonGetter = {
     googleApi(state) {
       return state.googleApi
     },
+    i18nLocale(state) {
+      return state.i18nLocale
+    },
 }

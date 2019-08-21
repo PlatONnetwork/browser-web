@@ -22,5 +22,8 @@ export const commonMutation = {
     },
     ['GOOGLE_API'](state, data) {
       state.googleApi = data
+    },
+    ['LOCALE'](state, data) {
+      state.i18nLocale = data
     }
 }
