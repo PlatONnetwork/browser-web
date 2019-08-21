@@ -15,6 +15,7 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     ACCOUNT_URL = `${TOTAL}browser-server/account/`,
     NODE_URL = `${TOTAL}browser-server/node/`,
     TICKET_URL = `${TOTAL}browser-server/ticket/`,
+    PROPOSAL_URL = `${TOTAL}browser-server/proposal/`,
     //NODE
     NODE = {
         list: `${NODE_URL}list`,
@@ -25,7 +26,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     },
 	// BLOCK
 	BLOCK = {
-		blockList: `${BLOCK_URL}blockList`,
+        blockList: `${BLOCK_URL}blockList`,
+        blockListByNodeId: `${BLOCK_URL}blockListByNodeId`,
 		blockDetails: `${BLOCK_URL}blockDetails`,
         blockDetailNavigate: `${BLOCK_URL}blockDetailNavigate`,
         blockTransactionList: `${BLOCK_URL}transactionList`,
