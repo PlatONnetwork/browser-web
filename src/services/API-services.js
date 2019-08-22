@@ -32,8 +32,8 @@ class ApiService {
       blockList: this.post.bind(this, API.BLOCK.blockList),
       blockDetails: this.post.bind(this, API.BLOCK.blockDetails),
       blockDetailNavigate: this.post.bind(this, API.BLOCK.blockDetailNavigate),
-      blockTransactionList: this.post.bind(this, API.BLOCK.blockTransactionList),
-      blockTicketList: this.post.bind(this, API.BLOCK.blockTicketList)
+      blockListByNodeId: this.post.bind(this, API.BLOCK.blockListByNodeId),
+      blockListByNodeIdDownload: this.post.bind(this, API.BLOCK.blockListByNodeIdDownload)
     };
     this.search = {
       query: this.post.bind(this, API.SEARCH.query)
@@ -41,16 +41,10 @@ class ApiService {
     this.trade = {
       transactionList: this.post.bind(this, API.TRADE.transactionList),
       transactionDetails: this.post.bind(this, API.TRADE.transactionDetails),
-      pendingList: this.post.bind(this, API.TRADE.pendingList),
-      pendingDetails: this.post.bind(this, API.TRADE.pendingDetails),
-      addressDetails: this.post.bind(this, API.TRADE.addressDetails),
-      addressDownload: this.post.bind(this, API.TRADE.addressDownload),
-      contractDetails: this.post.bind(this, API.TRADE.contractDetails),
-      contractDownload: this.post.bind(this, API.TRADE.contractDownload),
+      transactionListByBlock: this.post.bind(this, API.TRADE.transactionListByBlock),
+      transactionListByAddress: this.post.bind(this, API.TRADE.transactionListByAddress),
+      addressTransactionDownload: this.post.bind(this, API.TRADE.addressTransactionDownload),
       transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
-      pendingDetailNavigate: this.post.bind(this, API.TRADE.pendingDetailNavigate),
-      blockTransaction: this.post.bind(this, API.TRADE.blockTransaction),
-      voteList: this.post.bind(this, API.TRADE.voteList)
     };
     this.proposal = {
       // proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
@@ -85,22 +79,16 @@ class ApiService {
       }
     };
     this.account = {
-      accountDetails: this.post.bind(this, API.ACCOUNT.accountDetails),
-      download: this.post.bind(this, API.ACCOUNT.download)
+      details: this.post.bind(this, API.ACCOUNT.details),
     };
     this.node = {
-      list: this.post.bind(this, API.NODE.list),
-      historyList: this.post.bind(this, API.NODE.historyList),
+      aliveStakingList: this.post.bind(this, API.NODE.aliveStakingList),
+      historyStakingList: this.post.bind(this, API.NODE.historyStakingList),
       detail: this.post.bind(this, API.NODE.detail),
-      blockList: this.post.bind(this, API.NODE.blockList),
-      blockDownload: this.post.bind(this, API.NODE.blockDownload)
+      stakingOptRecordList: this.post.bind(this, API.NODE.stakingOptRecordList),
+      delegationListByStaking: this.post.bind(this, API.NODE.delegationListByStaking),
+      delegationListByAddress: this.post.bind(this, API.NODE.delegationListByAddress)
     };
-    this.ticket = {
-      ticketList: this.post.bind(this, API.TICKET.ticketList)
-    };
-    // this.file = {
-    //     upload:this.uploadFile.bind(this, API.FILE.upload),//文件上传
-    // }
     this.interceptorsOfReq();
     this.interceptorsOfRes();
   }

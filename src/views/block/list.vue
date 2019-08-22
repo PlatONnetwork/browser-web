@@ -40,9 +40,9 @@
                     <span>{{scope.row.statTxQty | formatNumber}}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('blockAbout.size')" show-overflow-tooltip width="160">
+            <el-table-column :label="$t('blockAbout.size')" width="160">
                 <template slot-scope="scope">
-                    <span>{{scope.row.size}}</span>
+                    <span>{{scope.row.size}}&nbsp;bytes</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('blockAbout.producer')">
@@ -52,12 +52,15 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('tradeAbout.gasUsed')" show-overflow-tooltip width="160">
+            <el-table-column :label="$t('tradeAbout.gasUsed')" width="160">
                 <template slot-scope="scope">
                     <span>{{scope.row.gasUsed | formatNumber}}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:150">
+            <el-table-column :label="$t('blockAbout.blockReward')" width="160">
+                <template slot-scope="scope">
+                    <span>{{scope.row.gasUsed | formatNumber}}</span>
+                </template>
             </el-table-column>
         </el-table>
         <div class="pagination-box" v-if='paginationFlag'>

@@ -12,26 +12,26 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     HOME_URL = `${TOTAL}browser-server/home/`,
     // HOME_URL = `http://10.10.8.8:8080/browser-server/home/`,
    	TRADE_URL = `${TOTAL}browser-server/transaction/`,
-    ACCOUNT_URL = `${TOTAL}browser-server/account/`,
-    NODE_URL = `${TOTAL}browser-server/node/`,
+    ACCOUNT_URL = `${TOTAL}browser-server/address/`,
+    NODE_URL = `${TOTAL}browser-server/staking/`,
     TICKET_URL = `${TOTAL}browser-server/ticket/`,
     PROPOSAL_URL = `${TOTAL}browser-server/proposal/`,
     //NODE
     NODE = {
-        list: `${NODE_URL}list`,
-        historyList: `${NODE_URL}historyList`,
-        detail: `${NODE_URL}detail`,
-        blockList: `${NODE_URL}blockList`,
-        blockDownload: `${NODE_URL}blockDownload`
+        aliveStakingList: `${NODE_URL}aliveStakingList`,
+        historyStakingList: `${NODE_URL}historyStakingList`,
+        detail: `${NODE_URL}stakingDetails`,
+        stakingOptRecordList: `${NODE_URL}stakingOptRecordList`,
+        delegationListByStaking: `${NODE_URL}delegationListByStaking`,
+        delegationListByAddress: `${NODE_URL}delegationListByAddress`
     },
 	// BLOCK
 	BLOCK = {
         blockList: `${BLOCK_URL}blockList`,
         blockListByNodeId: `${BLOCK_URL}blockListByNodeId`,
 		blockDetails: `${BLOCK_URL}blockDetails`,
+        blockListByNodeIdDownload: `${BLOCK_URL}blockListByNodeIdDownload`,
         blockDetailNavigate: `${BLOCK_URL}blockDetailNavigate`,
-        blockTransactionList: `${BLOCK_URL}transactionList`,
-        blockTicketList: `${BLOCK_URL}ticketList`,
 	},
     // SOUSUO
 	SEARCH = {
@@ -40,30 +40,20 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     // TRADE
 	TRADE = {
 		transactionList: `${TRADE_URL}transactionList`,
-		transactionDetails: `${TRADE_URL}transactionDetails`,
-        pendingList: `${TRADE_URL}pendingList`,
-        pendingDetails: `${TRADE_URL}pendingDetails`,
-        addressDetails: `${TRADE_URL}addressDetails`,
-        addressDownload: `${TRADE_URL}addressDownload`,
-        contractDetails: `${TRADE_URL}contractDetails`,
-        contractDownload: `${TRADE_URL}contractDownload`,
-        transactionDetailNavigate:`${TRADE_URL}transactionDetailNavigate`,
-        pendingDetailNavigate:`${TRADE_URL}pendingDetailNavigate`,
-        blockTransaction:`${TRADE_URL}blockTransaction`,
+		transactionListByBlock: `${TRADE_URL}transactionListByBlock`,
+        transactionListByAddress: `${TRADE_URL}transactionListByAddress`,
+        addressTransactionDownload: `${TRADE_URL}addressTransactionDownload`,
+        transactionDetails: `${TRADE_URL}transactionDetails`,
+        transactionDetailNavigate: `${TRADE_URL}transactionDetailNavigate`,
     },
     PROPOSAL = {
         proposalList: `${PROPOSAL_URL}proposalList`,
         proposalDetails: `${PROPOSAL_URL}proposalDetails`,
         voteList: `${PROPOSAL_URL}voteList`,
     },
-    //TICKET
-    TICKET = {
-		ticketList: `${TICKET_URL}list`,
-    },
     // TRADE
     ACCOUNT = {
-        accountDetails: `${ACCOUNT_URL}accountDetails`,
-        download: `${ACCOUNT_URL}download`,
+        details: `${ACCOUNT_URL}details`,
     },
     WS_CONFIG = {
         root: `${TOTAL}browser-server/platon-websocket`,
@@ -71,11 +61,10 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         chainStatistic: `/topic/chain/statistic/new`,
         blockList: `/topic/block/list/new`,
         stakingList: `/topic/staking/list/new`,
+
+        stakingStatistic: `/topic/staking/statistic/new`,
+        stakingChange: `/topic/staking/change/new`,
     };
-	//文件上传
-	// FILE = {
-	// 	upload:`${FILE_URL}upload`,
-	// };
 export default {
   TOTAL,
   BLOCK,
@@ -86,5 +75,4 @@ export default {
   WS_CONFIG,
   JSON_BASE,
   NODE,
-  TICKET
 };
