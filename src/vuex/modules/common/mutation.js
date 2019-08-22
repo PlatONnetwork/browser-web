@@ -25,5 +25,8 @@ export const commonMutation = {
     },
     ['LOCALE'](state, data) {
       state.i18nLocale = data
+    },
+    ['HIDE_SEARCH'](state, data) {
+      state.hideSearch = data
     }
 }

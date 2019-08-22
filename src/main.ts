@@ -11,6 +11,8 @@ import ElementLocale from 'element-ui/lib/locale'
 import VueClipboard from 'vue-clipboard2'
 import { mapActions } from 'vuex'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+import './filters'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'

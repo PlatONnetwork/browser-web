@@ -184,7 +184,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                //console.log(`updateValidatorData`, res)
+                console.log(`updateValidatorData`, res)
                 if (code === 0) {
                     store.dispatch('updateValidatorData', data)
                     // store.dispatch('setChartData', IndexService.dealChartList(data))
@@ -200,7 +200,7 @@ class IndexService extends Ws {
         const fn = () => {
             this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                //console.log(`updateBlockData`, res)
+                console.log(`updateBlockData`, res)
                 if (res.code === 0) {
                     store.dispatch('updateBlockData', res.data)
                 } else {

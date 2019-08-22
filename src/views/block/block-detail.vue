@@ -64,8 +64,7 @@
         computed: {
 
         },
-		watch: {
-		
+		watch: {	
 		},
         components: {
             List,

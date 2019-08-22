@@ -29,4 +29,7 @@ export const commonGetter = {
     i18nLocale(state) {
       return state.i18nLocale
     },
+    hideSearch(state) {
+      return state.hideSearch
+    },
 }

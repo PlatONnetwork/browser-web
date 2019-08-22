@@ -13,7 +13,8 @@ export const common = {
         walletList:[],
         country:[],
         googleApi:false,
-        i18nLocale:''
+        i18nLocale:'',
+        hideSearch:true
     },
     actions: commonAction,
     getters: commonGetter,

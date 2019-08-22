@@ -26,37 +26,35 @@
             <el-table-column :label="$t('tradeAbout.blockHeight')">
                 <template slot-scope="scope">
                     <div class='flex-special'>
-                        <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                        <span class='cursor blue ellipsis' @click='goDetail(scope.row.number)'>{{scope.row.number}}</span>
                     </div>
-                    <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                 </template>
             </el-table-column>
-            <el-table-column prop="blockHeight"  :label="$t('tradeAbout.interval')" width='80'>
+            <el-table-column :label="$t('blockAbout.interval')" width='80'>
                 <template slot-scope="scope">
-                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
+                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
                 </template>
             </el-table-column>
             <el-table-column  :label="$t('indexInfo.txn')"  width='120'>
                 <template slot-scope="scope">
-                    <span>{{timeDiffFn(scope.row.serverTime,scope.row.blockTime)}}{{$t('tradeAbout.before')}}</span>
+                    <span>{{scope.row.statTxQty | formatNumber}}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('blockAbout.size')" show-overflow-tooltip width="160">
                 <template slot-scope="scope">
-                    <span>{{scope.row.value}} LAT</span>
+                    <span>{{scope.row.size}}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('blockAbout.producer')">
                 <template slot-scope="scope">
-                    <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
                     <div class='flex-special'>
-                        <span class='cursor normal ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span>
+                        <span class='cursor blue ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
                     </div>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('tradeAbout.gasUsed')" show-overflow-tooltip width="160">
                 <template slot-scope="scope">
-                    <span>{{scope.row.value}} LAT</span>
+                    <span>{{scope.row.gasUsed | formatNumber}}</span>
                 </template>
             </el-table-column>
             <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip :width="currentScreenWidth<1440? 120:150">
@@ -113,20 +111,16 @@ export default {
             pageSize: this.pageSize,
         };
         console.warn('获取交易列表》》》', param);
-        apiService.trade
-            .transactionList(param)
+        apiService.block
+            .blockList(param)
             .then(res => {
-                debugger
                 let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                 console.log(res);
                 if (code == 0) {
                     this.tableData = data;
+                    console.log(this.tableData);
                     this.pageTotal = totalCount;
                     this.displayTotalCount = displayTotalCount;
-                    //判断最新记录是否显示  总数
-                    totalCount > 500000
-                        ? (this.newRecordFlag = true)
-                        : (this.newRecordFlag = false);
                     //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
                     totalPages == 1
                         ? (this.paginationFlag = false)

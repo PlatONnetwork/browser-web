@@ -24,7 +24,7 @@
                 </el-menu-item>
             </el-menu>
         </div>
-        <div class="search search-header" :class="{'search-active':isFocus}">
+        <div class="search search-header" :class="{'search-active':isFocus,'search-hide':(!hideSearch || ($route.path!='/'))}">
             <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
             <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
         </div>
@@ -92,7 +92,7 @@
             }
         },
         computed: {
-            ...mapGetters(['chainList','chainId','chainHttp']),
+            ...mapGetters(['chainList','chainId','chainHttp','hideSearch']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             },
@@ -103,6 +103,7 @@
         components: {
 
         },
+        inject:['reload'],
         methods: {
             ...mapActions(['changeChainId']),
             visibleChange1(val){
@@ -193,52 +194,63 @@
             switchFn(type,struct){
                 switch (type){
                     //区块详情
-                    case 'block':
-                        return this.$router.push({
+                    case 'block':                       
+                        this.$router.push({
                             path:'/block-detail',
                             query:{
                                 height:struct.number
                             }
                         });
+                        if(this.$route.path=='/block-detail'){
+                            this.reload();
+                        }
                         break;
                     //交易详情
                     case 'transaction':
                         // let path = ''
                         // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
-                        return this.$router.push({
+                        this.$router.push({
                             path:'/trade-detail',
                             query:{
                                 txHash:struct.txHash
                             }
                         });
+                        if(this.$route.path=='/trade-detail'){
+                            this.reload();
+                        }
                         break;
                     //节点详情
                     case 'staking':
-                        return this.$router.push({
+                        this.$router.push({
                             path:'/node-detail',
                             query:{
                                 address:struct.nodeId,
                             }
                         });
+                        if(this.$route.path=='/node-detail'){
+                            this.reload();
+                        }
                         break;
                     //地址详情
                     case 'address':
-                        return this.$router.push({
+                        this.$router.push({
                             path:'/address-detail',
                             query:{
                                 address:struct.address,
                             }
                         });
+                        if(this.$route.path=='/address-detail'){
+                            this.reload();
+                        }
                         break;
                 }
             }
         },
         //生命周期函数
         created() {
-
+            
         },
         mounted() {
-
         }    
     }
 </script>
@@ -258,6 +270,13 @@
         justify-content: space-between;   //两端对齐
         .menu{
             margin: 0 20% 0 0;
+        }
+        .search{
+            opacity: 0;
+            transition: opacity 3.0s ease;  
+            &.search-hide{                     
+                opacity: 1;
+            }
         }
     }
     .logo{

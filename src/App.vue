@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <com-header></com-header>
-        <div class="content-area" :class="{'index-area':$route.path=='/'}">
+        <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/'}">
             <router-view></router-view>
         </div>
         <com-footer></com-footer>
@@ -17,9 +17,27 @@ import comFooter from '@/components/footer/footer.vue'
 export default {
     //组件名
     name: 'app',
+    data () {
+        return {
+            isRouterAlive: true
+        }
+    },
+    provide () {
+        return {
+            reload: this.reload
+        }
+    },
     components:{
         comHeader,
         comFooter
+    },
+    methods: {
+        reload () {
+            this.isRouterAlive = false
+            this.$nextTick(function () {
+                this.isRouterAlive = true
+            })
+        }
     }
 }
 </script>

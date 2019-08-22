@@ -2,7 +2,7 @@
     <div class="index-wrap">
         <div class="welcome-wrap">
             <h3>{{$t('indexInfo.WelcomeToPlatON')}}</h3>
-            <div class="search search-index" :class="{'search-active':isFocus}">
+            <div class="search search-index" :class="{'search-active':isFocus,'search-hide':!hideSearch}">
                 <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
                 <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
             </div>
@@ -27,12 +27,12 @@
                         <p>
                             {{blockStatisticData.turnValue | unit}}&nbsp;/ <b>{{blockStatisticData.issueValue | unit}}</b> 
                         </p>
-                        <el-progress :percentage="(blockStatisticData.issueValue?(blockStatisticData.issueValue-0)/(blockStatisticData.turnValue-0):0)"></el-progress>
+                        <el-progress :percentage="blockStatisticData.turnValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('nodeInfo.stakeRate').toUpperCase()}}</div>
-                        <p>{{blockStatisticData.currentNumber}}&nbsp;<b>{{blockStatisticData.currentNumber}}M</b> </p>
-                        <el-progress :percentage="50"></el-progress>
+                        <p>{{blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)}}%&nbsp;<b>{{blockStatisticData.stakingDelegationValue | formatNumber}}</b> </p>
+                        <el-progress :percentage="blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
                 </ul>
                 <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron.png">
@@ -43,19 +43,19 @@
                 <ul class="block-statistics">
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
-                        <a class="cursor">113</a>
+                        <a class="cursor">{{blockStatisticData.txQty | unit}}</a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
-                        <a class="cursor">113</a>
+                        <a class="cursor">{{blockStatisticData.currentTps | formatNumber}}<span class="blue">/{{blockStatisticData.maxTps | formatNumber}}</span> </a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
-                        <a class="cursor">113</a>
+                        <a class="cursor">{{blockStatisticData.addressQty | formatNumber}}</a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
-                        <a class="cursor">113</a>
+                        <a class="cursor">{{blockStatisticData.doingProposalQty | formatNumber}}<span class="blue">/{{blockStatisticData.proposalQty | formatNumber}}</span></a>
                     </li>
                 </ul>
             </el-col>
@@ -71,8 +71,8 @@
                                 <p>{{$t('blockAbout.producer')}}<a>{{item.nodeName}}</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.statTxQty}}{{$t('indexInfo.txns')}}</span>
-                                <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}</span>
+                                <span class="item-txns">{{item.statTxQty}}&nbsp;{{$t('indexInfo.txns')}}</span>
+                                <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}&nbsp;{{$t('tradeAbout.before')}}</span>
                             </div>
                         </li>
                     </ul>
@@ -85,14 +85,14 @@
                 <h3>{{$t('indexInfo.currentValidators')}}</h3>
                 <div class="block-list-wrap">
                     <ul class="node-ul">
-                        <li v-for="(item,index) in blockData" :key="index">
+                        <li v-for="(item,index) in ValidatorData" :key="index">
                             <div class="list-item">
-                                <span class="item-number">{{item.number}}</span>
+                                <span class="item-number">{{item.nodeName}}</span>
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.nodeName}}</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.statTxQty}}{{$t('indexInfo.txns')}}</span>
-                                <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}</span>
+                                <span class="item-txns">{{item.expectedIncome}}%&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img src="../../assets/images/avtor-black.png">
                         </li>
@@ -112,6 +112,8 @@
     import { timeDiff } from '@/services/time-services';
 
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+
+    import comHeader from '@/components/header/header.vue'
 
     const blockTimeChart = new ChartService();
     const blockTradeChart = new ChartService();
@@ -134,7 +136,7 @@
 
         },
         computed: {
-            ...mapGetters(['chartData','blockStatisticData','blockData','ValidatorData']),
+            ...mapGetters(['chartData','blockStatisticData','blockData','ValidatorData','hideSearch']),
 
         },
 		watch: {
@@ -153,10 +155,82 @@
 		
 		},
         components: {
-            // List,
-            // Item
+            comHeader
         },
         methods: {
+            ...mapMutations({
+                hide:'HIDE_SEARCH'
+            }),
+            //查询
+            searchFn(){
+                this.disabledBtn=true;
+                let param = {
+                    parameter:this.searchKey,
+                }
+                console.warn('搜索内容》》》',param)
+                apiService.search.query(param).then((res)=>{
+                    let {errMsg,code,data}=res
+                    if(code==0){
+                        //根据type不同进入不同的详情页
+                        if(data.type==null){
+                            this.$message.warning(this.$t('indexInfo.searchno'))
+                        }else{
+                            this.switchFn(data.type,data.struct)
+                            // this.$emit('searchFn',data);
+                        }
+                    }else{
+                        this.$message.warning(this.$t('indexInfo.searchno'))
+                            // this.$message.error(errMsg) 替换为search无结果
+                    }
+                }).catch((error)=>{
+                    this.$message.error(error)
+                });
+                setTimeout(()=>{
+                    this.disabledBtn=false;
+                },2000);
+            },
+            switchFn(type,struct){
+                switch (type){
+                    //区块详情
+                    case 'block':
+                        return this.$router.push({
+                            path:'/block-detail',
+                            query:{
+                                height:struct.number
+                            }
+                        });
+                        break;
+                    //交易详情
+                    case 'transaction':
+                        // let path = ''
+                        // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
+                        return this.$router.push({
+                            path:'/trade-detail',
+                            query:{
+                                txHash:struct.txHash
+                            }
+                        });
+                        break;
+                    //节点详情
+                    case 'staking':
+                        return this.$router.push({
+                            path:'/node-detail',
+                            query:{
+                                address:struct.nodeId,
+                            }
+                        });
+                        break;
+                    //地址详情
+                    case 'address':
+                        return this.$router.push({
+                            path:'/address-detail',
+                            query:{
+                                address:struct.address,
+                            }
+                        });
+                        break;
+                }
+            },
             initBlockTimeChart(){
                 let r = this.$refs;
                 blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
@@ -204,6 +278,13 @@
             timeDiffFn(beginTime,endTime){
                 return timeDiff(beginTime,endTime)
             },
+            // percentage(a,b){
+            //     console.log(a/b*100)
+            //     if(a&&b){
+            //         return (a/b*100).toFixed(2);
+            //     }
+            //     return 0;    
+            // },
             //查询
             searchFn(){
                 this.disabledBtn=true;
@@ -232,6 +313,15 @@
                     this.disabledBtn=false;
                 },2000);
             },
+            scrollHandle(){
+                const top = document.documentElement.scrollTop || document.body.scrollTop
+                if(top>240){
+                    this.hide(false);                 
+                }else{
+                    this.hide(true); 
+                }
+            }
+
         },
         //生命周期函数
         created() {
@@ -241,8 +331,8 @@
         mounted() {
             indexService.getChartData();
             indexService.getStatisticData();
-            // indexService.getValidatorData();
-            // indexService.getBlockData();
+            indexService.getValidatorData();
+            indexService.getBlockData();
 
             this.initBlockTimeChart();
             this.initBlockTradeChart();
@@ -252,25 +342,15 @@
                 blockTimeChart.chart.resize();
                 blockTradeChart.chart.resize();
             };
+            window.addEventListener('scroll',this.scrollHandle,false)
         },
         beforeDestroy() {
             indexService.disconnect();
         },
         destroyed() {
+            window.removeEventListener('scroll',this.scrollHandle);
             indexService.disconnect();
-        },
-        filters:{
-            unit(value){
-                //超过1k,以K为单位，超过1000K，单位M，小数点2位
-                if ( (value) < 1000){
-                    return value
-                }else if(1000 < (value) && (value) < 1000000){
-                    return (value/1000).toFixed(2)+'K'
-                }else if((value) >1000000 ){
-                    return (value/1000000).toFixed(2)+'M'
-                }
-            }
-        },    
+        },   
     }
 </script>
 <style lang="less" scoped>
@@ -335,7 +415,7 @@
                 }
             }       
             width: 50%;
-            margin: 180px auto;           
+            margin: 180px auto;         
             h3{
                 font-size: 40px;
                 line-height: 47px;
@@ -346,6 +426,11 @@
                 margin-top: 70px;
                 &.search-index .el-button.el-searchs{
                     width: 120px;
+                }
+                &.search-hide{
+                    transition: transform 3.0s ease, opacity 3.0s ease;       
+                    transform: translate(500px,-500px);
+                    opacity: 0.0;
                 }
             }
         }
