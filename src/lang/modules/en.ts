@@ -172,7 +172,9 @@ export default {
         extraData:'Extra Data',
         blockDetail:'BLOCK DETAILS',
         blockInformation:'Block Information',
-        operatorAddress:'Operator_Address'
+        operatorAddress:'Operator_Address',
+        lookNext:'Look at the next block',
+        lookLast:'Look at the last block',
     },
     download: {
         info: 'Download Data',

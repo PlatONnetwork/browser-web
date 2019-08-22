@@ -78,6 +78,7 @@ export const index: object = {
             
         },
         ValidatorData: [],
+        ValidatorStatisticData: {},
     },
     actions: indexAction,
     getters: indexGetter,

@@ -72,6 +72,10 @@
             line-height: 15px;
             width: 135px;
         }
+        p{
+            word-break: break-all;
+            width: 85%;
+        }
     }
 </style>
 

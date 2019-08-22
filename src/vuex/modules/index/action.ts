@@ -11,4 +11,7 @@ export const indexAction = {
     updateValidatorData({ commit, state }, list) {
         commit('UPDATE_VALIDATOR_DADA', list)
     },
+    updateValidatorStatisticData({ commit, state }, list) {
+        commit('UPDATE_VALIDATOR_STATIC_DADA', list)
+    },
 }

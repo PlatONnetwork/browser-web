@@ -26,21 +26,21 @@
             <el-table-column :label="$t('tradeAbout.blockHeight')">
                 <template slot-scope="scope">
                     <div class='flex-special'>
-                        <span class='cursor blue ellipsis' @click='goDetail(scope.row.number)'>{{scope.row.number}}</span>
+                        <span class='cursor blue ellipsis' @click='goBlockDetail(scope.row.number)'>{{scope.row.number}}</span>
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('blockAbout.interval')" width='80'>
+            <el-table-column :label="$t('tradeAbout.age')">
                 <template slot-scope="scope">
                     <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
                 </template>
             </el-table-column>
-            <el-table-column  :label="$t('indexInfo.txn')"  width='120'>
+            <el-table-column  :label="$t('indexInfo.txn')">
                 <template slot-scope="scope">
                     <span>{{scope.row.statTxQty | formatNumber}}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('blockAbout.size')" width="160">
+            <el-table-column :label="$t('blockAbout.size')">
                 <template slot-scope="scope">
                     <span>{{scope.row.size}}&nbsp;bytes</span>
                 </template>
@@ -48,18 +48,18 @@
             <el-table-column :label="$t('blockAbout.producer')">
                 <template slot-scope="scope">
                     <div class='flex-special'>
-                        <span class='cursor blue ellipsis ellipsisWidth' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.nodeName}}</span>
+                        <span class='cursor blue ellipsis ellipsisWidth' @click='goNodeDetail(scope.row.nodeId)'>{{scope.row.nodeName}}</span>
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('tradeAbout.gasUsed')" width="160">
+            <el-table-column :label="$t('tradeAbout.gasUsed')">
                 <template slot-scope="scope">
                     <span>{{scope.row.gasUsed | formatNumber}}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('blockAbout.blockReward')" width="160">
+            <el-table-column :label="$t('blockAbout.blockReward')+'(LAT)'">
                 <template slot-scope="scope">
-                    <span>{{scope.row.gasUsed | formatNumber}}</span>
+                    <span>{{scope.row.blockReward | formatMoney}}</span>
                 </template>
             </el-table-column>
         </el-table>
@@ -81,9 +81,10 @@ export default {
     return {
       newRecordFlag: false,
       paginationFlag: true,
+      loading:true,
       tableData: [],
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 20,
       pageTotal: 1,
       descriptionProp: "trade",
       displayTotalCount: 0,
@@ -151,76 +152,36 @@ export default {
                this.$message.error(error);
             });
     },
-    //进入钱包地址详情或者合约详情
-        goDetail(index, row) {
-            if (row.receiveType == 'contract'|| row.to == "0x1000000000000000000000000000000000000001" || row.to == "0x1000000000000000000000000000000000000002" ) {
-                //进入合约详情
-                this.$router.push({
-                    path: '/contract-detail',
-                    query: {
-                        address: row.to,
-                        description: 'trade',
-                        currentPage:this.currentPage,
-                        pageSize:this.pageSize
-                    },
-                });
-            } else {
-                //进入钱包地址详情
-                this.$router.push({
-                    path: '/address-detail',
-                    query: {
-                        address: row.to,
-                        description: 'trade',
-                        currentPage:this.currentPage,
-                        pageSize:this.pageSize
-                    },
-                });
-            }
-        },
-        timeDiffFn(beginTime,endTime){
-            return timeDiff(beginTime,endTime)
-        },
-        handleCurrentChange(val) {
-            this.currentPage = val;
-            this.getTradeList();
-        },
-        handleSizeChange(val) {
-            this.currentPage = 1;
-            this.pageSize = val;
-            this.getTradeList();
-        },
-        //进入区块详情
-        goBlockDetail(index, row) {
-            this.$router.push({
-                path: '/block-detail',
-                query: {
-                    height: row.blockHeight,
-                },
-            });
-        },
-        //进入交易哈希详情
-        goTradeDetail(index, row) {
-            this.$router.push({
-                path: '/trade-detail',
-                query: {
-                    txHash: row.txHash,
-                    currentPage:this.currentPage,
-                    pageSize:this.pageSize
-                },
-            });
-        },
-        //进入钱包地址详情
-        goAddressDetail(index, row) {
-            this.$router.push({
-                path: '/address-detail',
-                query: {
-                    address: row.from,
-                    description: 'trade',
-                    currentPage:this.currentPage,
-                    pageSize:this.pageSize
-                },
-            });
-        },
+    timeDiffFn(beginTime,endTime){
+        return timeDiff(beginTime,endTime)
+    },
+    handleCurrentChange(val) {
+        this.currentPage = val;
+        this.getTradeList();
+    },
+    handleSizeChange(val) {
+        this.currentPage = 1;
+        this.pageSize = val;
+        this.getTradeList();
+    },
+    //进入区块详情
+    goBlockDetail(blockHeight) {
+        this.$router.push({
+            path: '/block-detail',
+            query: {
+                height: blockHeight,
+            },
+        });
+    },
+    //进入节点详情
+    goNodeDetail(nodeId) {
+        this.$router.push({
+            path: '/node-detail',
+            query: {
+                address: nodeId,
+            },
+        });
+    },
   },
   //生命周期函数
   created() {

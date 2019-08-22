@@ -1,15 +1,29 @@
 import Vue from 'vue'
 
 // 数字国际千分位
-const formatNumber = Vue.filter("formatNumber", (num) => {
+const formatNumber = Vue.filter("formatNumber", (num,count) => {
     const reg=/\d{1,3}(?=(\d{3})+$)/g;
     let str= num + '';                                   
     if(str.indexOf('.')==-1){
         return str.replace(reg, '$&,'); 
     }else{
-        str=Number(num).toFixed(2).toString() 
+        if(count){
+            str=Number(num).toFixed(count).toString()
+        }else{
+            str=Number(num).toFixed(2).toString()
+        }         
         return str.split('.')[0].replace(reg, '$&,')+'.'+str.split('.')[1];
     } 
+});
+// 金额国际千分位
+const formatMoney = Vue.filter("formatMoney", (num) => {
+    const reg=/\d{1,3}(?=(\d{3})+$)/g;
+    let str= num + '';                                   
+    if(str.indexOf('.')==-1){
+        return str.replace(reg, '$&,'); 
+    }else{       
+        return str.split('.')[0].replace(reg, '$&,')+'.'+str.split('.')[1];
+    }
 });
 // 百分比
 const percentage = Vue.filter("percentage", (a,b) => {
@@ -32,4 +46,8 @@ const unit = Vue.filter("unit", (value) => {
         return (value/1000000).toFixed(2)+'M'
     }  
 });
-export default [formatNumber,percentage,unit]
+// 金额国际千分位
+const sliceStr = Vue.filter("sliceStr", (str,num) => {
+    return str.slice(0,num)
+});
+export default [formatNumber,percentage,unit,formatMoney,sliceStr]

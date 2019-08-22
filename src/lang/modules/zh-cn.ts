@@ -178,7 +178,10 @@ export default {
         parentHash:'上一区块哈希',
         extraData:'额外数据',
         blockDetail:'区块详情',
-        operatorAddress:'操作地址'
+        operatorAddress:'操作地址',
+        blockInformation:'区块信息',
+        lookNext:'查看下一个区块',
+        lookLast:'查看上一个区块',
     },
     download:{
         info:'下载数据',

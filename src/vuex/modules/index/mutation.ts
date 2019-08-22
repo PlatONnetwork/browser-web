@@ -14,4 +14,7 @@ export const indexMutation = {
     ['UPDATE_VALIDATOR_DADA'](state, data) {
         state.ValidatorData = data
     },
+    ['UPDATE_VALIDATOR_STATIC_DADA'](state, data) {
+        state.ValidatorStatisticData = data
+    },
 }
