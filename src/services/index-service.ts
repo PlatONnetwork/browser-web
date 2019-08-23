@@ -211,6 +211,22 @@ class IndexService extends Ws {
         }
         this.connectFlag ? fn() : sub.addSub(fn)
     }
+
+    getValidatorStatisticData() {
+        sub.addSub(() => {
+            this.stompClient.subscribe(API.WS_CONFIG.stakingStatistic, (msg: MsgConfig) => {
+                const res: ResConfig = JSON.parse(msg.body)
+                const { data, code } = res
+                console.log(`getValidatorStatisticData`, res)
+                if (code === 0) {
+                    store.dispatch('updateValidatorStatisticData', data)
+                } else {
+                    throw new Error(`todo`)
+                }
+            })
+        })
+    }
+
     unsubBlock() {
         this.blackSubHandle.unsubscribe()
         this.updateBlackSubHandle.unsubscribe()

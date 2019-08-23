@@ -144,7 +144,6 @@
                 this.updateChart(val);
             },
             chainId(val){
-                debugger
                 indexService.disconnect();
                 indexService.connect();
             },

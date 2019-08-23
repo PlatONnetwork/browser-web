@@ -29,8 +29,7 @@
                          <div style="margin-right:10px;">
                              <i class="icon-low-block cursor"></i>
                             <span>{{detailInfo.slashLowQty}}</span>
-                         </div>
-                        
+                         </div>                       
                     </el-tooltip>   
                     <el-tooltip class="item" effect="dark"  placement="top" :content="$t('nodeInfo.twoSignNum')">
                         <div>

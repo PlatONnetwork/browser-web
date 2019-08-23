@@ -4,14 +4,24 @@
         <div class="node-list-header">
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.liveStakingInfo')}}</h3>        
-                <Item :label="$t('nodeInfo.totalStakePower')" prop="111"></Item>
-                <Item :label="$t('nodeInfo.totalDelegations')" prop="111"></Item>
-                <Item :label="$t('nodeInfo.stakeRate')" prop="111"></Item>              
+                <Item :label="$t('nodeInfo.totalStakePower')">
+                    <p>{{ValidatorStatisticData.stakingDelegationValue | formatMoney}}LAT</p>
+                </Item>
+                <Item :label="$t('nodeInfo.totalDelegations')">
+                    <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}LAT</p>
+                </Item>
+                <Item :label="$t('nodeInfo.stakeRate')">
+                    <p>{{ValidatorStatisticData.stakingValue | percentage(ValidatorStatisticData.issueValue)}}%</p>
+                </Item>              
             </List>
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.currentPeriodReward')}}</h3>        
-                <Item :label="$t('blockAbout.blockReward')" prop="111"></Item>
-                <Item :label="$t('nodeInfo.stakingReward')" prop="111"></Item>
+                <Item :label="$t('blockAbout.blockReward')">
+                    <p>{{ValidatorStatisticData.blockReward | formatMoney}}LAT</p>
+                </Item>
+                <Item :label="$t('nodeInfo.stakingReward')">
+                    <p>{{ValidatorStatisticData.stakingReward | formatMoney}}LAT</p>
+                </Item>
                 <Item :label="$t('nodeInfo.nextRewardAdjustment')">
                     <div class="next-reward-adjustment">
                         <span>{{$t('tradeAbout.block')}}&nbsp;10.31</span>
@@ -32,12 +42,15 @@
 </template>
 <script>
     import apiService from '@/services/API-services'
+    import IndexService from '@/services/index-service';
+
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
 
     import List from '@/components/list/list'
     import Item from '@/components/list/item'
     import Validator from './list'
 
+    let indexService = null;
     export default {
         name: 'node-list',
         data() {
@@ -49,10 +62,10 @@
 
         },
         computed: {
-
+            ...mapGetters(['ValidatorStatisticData']),
         },
 		watch: {
-		
+
 		},
         components: {
             List,
@@ -64,11 +77,14 @@
         },
         //生命周期函数
         created() {
-            
+            indexService = new IndexService();
         },
         mounted() {
-
-        }    
+            indexService.getValidatorStatisticData();
+        },
+        destroyed() {
+            indexService.disconnect();
+        },    
     }
 </script>
 <style lang="less" scoped>
@@ -127,6 +143,7 @@
         line-height: 24px;
         label{
             width: 166px;
+            line-height: 21px;
         }
         p{
             font-size: 18px;

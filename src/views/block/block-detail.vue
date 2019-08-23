@@ -3,13 +3,18 @@
         <div class="page-title fontSize34">{{$t('blockAbout.blockDetail')}}</div> 
         <div class="detail-change">
             <div class="detail-copy">
-                <span>{{$t('nodeInfo.blocks')}}</span>
+                <span>{{$t('tradeAbout.block')}}</span>
                 <i>#{{detailInfo.number}}</i>
-                <b v-clipboard:copy="detailInfo.number" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
+                <b class="cursor" v-clipboard:copy="detailInfo.number" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
             </div>
             <div class="detail-arrow">
-                <el-button icon="el-icon-arrow-left"></el-button>
-                <el-button icon="el-icon-arrow-right"></el-button>
+                <el-tooltip class="item" effect="dark"  placement="top" :content="$t('blockAbout.lookLast')">
+                    <el-button icon="el-icon-arrow-left" @click="goDetail(height-1)"></el-button>                     
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark"  placement="top" :content="$t('blockAbout.lookNext')">
+                    <el-button icon="el-icon-arrow-right" @click="goDetail(height-0+1)"></el-button>                     
+                </el-tooltip>
+                <!-- <el-button icon="el-icon-arrow-right"></el-button> -->
             </div>
         </div>
         <div class="infomation">
@@ -17,18 +22,20 @@
             <List :title="$t('blockAbout.blockInformation')" :border="true">
                 <Item :label="$t('tradeAbout.blockHeight')" :prop="detailInfo.number"></Item>
                 <Item :label="$t('tradeAbout.timeStamp')" :prop="detailInfo.timestamp?new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss'):0"></Item>
-                <Item :label="$t('tradeAbout.transactions')" :prop="detailInfo.statTxQty+'XT'"></Item>
+                <Item :label="$t('tradeAbout.transactions')" :prop="detailInfo.statTxQty+' XT'"></Item>
                 <Item :label="$t('blockAbout.blockHash')" :prop="detailInfo.hash"></Item>
                 <Item :label="$t('blockAbout.parentHash')">
-                    <span class="blue" @click="goDetail(type,detailInfo.parentHash)">{{detailInfo.parentHash}}</span>
+                    <span class="blue cursor" @click="goDetail(height-1)">{{detailInfo.parentHash}}</span>
                 </Item>
                 <Item :label="$t('blockAbout.producer')" v-if="detailInfo.txType!='4000'">
-                    <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-                    【】
+                    <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
+                    【{{timeDiffFn(detailInfo.serverTime,detailInfo.timestamp)}}{{$t('tradeAbout.before')}}】
                 </Item>
-                <Item :label="$t('blockAbout.size')" :prop="detailInfo.size + 'Bytes'"></Item>
-                <Item :label="$t('tradeAbout.gasLimit')" :prop="detailInfo.gasLimit + 'Bytes'"></Item>
-                <Item :label="$t('tradeAbout.gasUsed')" :prop="detailInfo.gasUsed"></Item>
+                <Item :label="$t('blockAbout.size')" :prop="detailInfo.size + ' bytes'"></Item>
+                <Item :label="$t('tradeAbout.gasLimit')" :prop="detailInfo.gasLimit"></Item>
+                <Item :label="$t('tradeAbout.gasUsed')">
+                    <p>{{detailInfo.gasUsed | formatNumber}}&nbsp;({{detailInfo.gasUsed | percentage(detailInfo.gasLimit)}}%)</p>
+                </Item>
                 <Item :label="$t('blockAbout.blockReward')" :prop="detailInfo.blockReward + 'LAT'"></Item>
                 <Item :label="$t('blockAbout.extraData')" :prop="detailInfo.extraData"></Item>
             </List>
@@ -37,12 +44,14 @@
             <div class="block-trade-title">
                 {{$t('tradeAbout.transactions')}}({{detailInfo.statTxQty}})
             </div>
-            <trade-list class="common-trade" :address="height+''" type="block"></trade-list> 
+            <trade-list ref="blockTrade" class="common-trade" :address="height+''" :tradeCount="detailInfo" type="block"></trade-list> 
         </div>  
     </div>
 </template>
 <script>
     import apiService from '@/services/API-services'
+    import { timeDiff } from '@/services/time-services';
+
     import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
 
     import List from '@/components/list/list'
@@ -75,21 +84,14 @@
              //获取地址信息详情
             getDetail() {
                 let param = {
-                    // cid:'',
-                    height: this.height,
+                    number: this.height,
                 };
-                console.warn('合约详情》》》', param);
-                apiService.trade
-                    .contractDetails(param)
+                apiService.block
+                    .blockDetails(param)
                     .then(res => {
                         let {errMsg, code, data} = res;
                         if (code == 0) {
                             this.detailInfo = data;
-                            data.trades.forEach(item => {
-                                if (item.txReceiptStatus == -1) {
-                                    ++this.count;
-                                }
-                            });
                         } else {
                             this.detailInfo = {};
                             this.$message.error(errMsg);
@@ -137,6 +139,9 @@
                         }
                     });
             },
+            timeDiffFn(beginTime,endTime){
+                return timeDiff(beginTime,endTime)
+            },
             onCopy() {
                 this.$message.success(this.$t('modalInfo.copysuccess'));
             },
@@ -154,6 +159,29 @@
                 this.pageSize = val;
                 this.getBlockList();
             },
+            goDetail(height){
+                this.height = height;            
+                this.$router.replace({
+                    path:'/block-detail',
+                    query:{
+                        height:height
+                    }
+                })
+                this.getDetail();
+                this.$nextTick(()=>{
+                    this.$refs.blockTrade.getTradeList(1);
+                })
+                
+
+            },
+            goNodeDetail(nodeId){
+                this.$router.push({
+                    path:'/node-detail',
+                    query:{
+                        address:nodeId
+                    }
+                })
+            }
         },
         //生命周期函数
         created() {
@@ -189,5 +217,6 @@
         padding-left:50px;
     }
  }
+
 </style>
 

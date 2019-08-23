@@ -1,16 +1,16 @@
 <template>
     <div class="common-trade">
         <div class="address-trade-last" v-if="type!='block'">            
-            {{$t('blockAbout.morethen')}} 23234 {{$t('contract.transactions')}} 
-            <span style="color: #3F3F3F;">{{$t('contract.showingLast')}}</span>
+            {{$t('blockAbout.morethen')}} {{displayTotalCount}} {{$t('contract.transactions')}} 
+            <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
         </div>
         <div class="trade-tab-wrap">
             <ul class="trade-tab">
-                    <li :class="{active:selectIndex==1}" index="1" @click="typeChange(1)">{{$t('contract.all')}}</li>
-                    <li :class="{active:selectIndex==2}" index="2" @click="typeChange(2)">{{$t('contract.transfers')}}</li>
-                    <li :class="{active:selectIndex==3}" index="3" @click="typeChange(3)">{{$t('contract.delegationsTxns')}}</li>
-                    <li :class="{active:selectIndex==4}" index="4" @click="typeChange(4)">{{$t('contract.validatorTxns')}}</li>
-                    <li :class="{active:selectIndex==5}" index="5" @click="typeChange(5)">{{$t('contract.governanceTxns')}}</li>
+                    <li :class="{active:selectIndex==1}" index="1" @click="typeChange(1,'')">{{$t('contract.all')}}</li>
+                    <li :class="{active:selectIndex==2}" index="2" @click="typeChange(2,'transfer')">{{$t('contract.transfers')}}({{tradeCount.statTransferQty}})</li>
+                    <li :class="{active:selectIndex==3}" index="3" @click="typeChange(3,'delegate')">{{$t('contract.delegationsTxns')}}({{tradeCount.statDelegateQty}})</li>
+                    <li :class="{active:selectIndex==4}" index="4" @click="typeChange(4,'staking')">{{$t('contract.validatorTxns')}}({{tradeCount.statStakingQty}})</li>
+                    <li :class="{active:selectIndex==5}" index="5" @click="typeChange(5,'proposal')">{{$t('contract.governanceTxns')}}({{tradeCount.statProposalQty}})</li>
             </ul>   
             <el-button size="medium" v-if="type!='block'">{{$t('nodeInfo.export')}}</el-button>
         </div>
@@ -19,22 +19,17 @@
                 <el-table-column :label="$t('tradeAbout.hash')">
                     <template slot-scope="scope">
                         <div class='flex-special'>
-                            <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.txReceiptStatus==0'>
+                            <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.failReason'>
                                 <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
-                                <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                                <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
                             </el-tooltip>
-                            <!-- <el-tooltip class="item" effect="dark" placement="top">
-                                <div slot="content">{{scope.row.txHash}}</div>
-                                <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-                            </el-tooltip> -->
-                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.row.txHash)'>&nbsp;{{scope.row.txHash}}</span>
                         </div>
-                        <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
                     <template slot-scope="scope">
-                        <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
+                        <span class='cursor normal ellipsis' @click='goAddressDetail(scope.row.from)'>{{scope.row.from}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" v-if="type!='block'">
@@ -47,14 +42,14 @@
                         <span>{{$t('tradeAbout.before')}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('totalInfo.txType')">
+                <el-table-column :label="$t('tradeAbout.type')">
                     <template slot-scope="scope">
                         <span>Received</span>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
                     <template slot-scope="scope">
-                        <span>{{scope.row.value}} LAT</span>
+                        <span>{{scope.row.value | formatMoney}} LAT</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip>
@@ -86,7 +81,8 @@
         },
         props: {
             address:String,
-            type:String
+            type:String,
+            tradeCount:Object
         },
         computed: {
 
@@ -99,16 +95,25 @@
         },
         methods: {
              //获取交易列表 下分页
-            getTradeList() {
+            getTradeList(pageNo) {
                 let param = {
                     pageNo: this.currentPage,
                     pageSize: this.pageSize,
-                    address:this.address,
                     tradeType:this.tradeType
                 };
-                console.warn('获取交易列表》》》', param);
+                if(pageNo){
+                    param.pageNo=pageNo;
+                }
+                let methodName = '';
+                if(this.type=='block'){
+                    param.blockNumber = this.address;
+                    methodName='transactionListByBlock';
+                }else{
+                    param.address = this.address;
+                    methodName='transactionListByAddress';
+                }
                 apiService.trade
-                    .transactionList(param)
+                    [methodName](param)
                     .then(res => {
                         let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = res;
                         if (code == 0) {
@@ -147,8 +152,28 @@
                 this.pageSize = val;
                 this.getTradeList();
             },
-            typeChange(index){
+            typeChange(index,type){
                 this.selectIndex = index;
+                this.tradeType = type;
+
+                this.currentPage = 1;
+                this.getTradeList();
+            },
+            goTradeDetail(hash){
+                this.$router.push({
+                    path:'/trade-detail',
+                    query:{
+                        txHash:hash
+                    }
+                })
+            },
+            goAddressDetail(address){
+                this.$router.push({
+                    path:'/address-detail',
+                    query:{
+                        address:address
+                    }
+                })
             }
         },
         //生命周期函数
