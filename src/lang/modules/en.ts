@@ -91,7 +91,8 @@ export default {
         txInfo: 'Tx Info',
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
-        information: 'Transaction Information',
+        transfer: 'Transfer',
+        information: 'Information', //Transaction 
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',
         actualTxCost: 'Tx Cost/Fee',
@@ -109,7 +110,8 @@ export default {
         reduction: 'Reduction',
         withdraw: 'Withdraw',
         tradein: '{count} Transactions Found',
-        moretradein: 'More than > {count} Transactions Found'
+        moretradein: 'More than > {count} Transactions Found',
+        warn:'Warning'
     },
     contract: {
         contractDetail: 'CONTRACT DETAILS',

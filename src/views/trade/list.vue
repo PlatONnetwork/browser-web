@@ -49,13 +49,13 @@
               <span
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.$index,scope.row)"
-              >{{scope.row.txHash}}</span>
+              >{{scope.row.txHash | sliceStr(18)}}</span>
             </div>
             <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
           </template>
         </el-table-column>
         <!-- 区块（Block） -->
-        <el-table-column :label="$t('tradeAbout.block')" width="80">
+        <el-table-column :label="$t('tradeAbout.block')" >
           <template slot-scope="scope">
             <span
               class="cursor normal"
@@ -64,7 +64,7 @@
           </template>
         </el-table-column>
         <!-- 间隔（Age） -->
-        <el-table-column :label="$t('blockAbout.interval')" width="120">
+        <el-table-column :label="$t('blockAbout.interval')" >
           <template slot-scope="scope">
             <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
           </template>
@@ -77,20 +77,21 @@
               <span
                 class="cursor normal ellipsis ellipsisWidth"
                 @click="goAddressDetail(scope.$index,scope.row)"
-              >{{scope.row.from}}</span>
+              >{{scope.row.from|sliceStr(14)}}</span>
             </div>
           </template>
         </el-table-column>
         <!-- 交易类型（Type） -->
-        <el-table-column :label="$t('tradeAbout.type')" width="120">
+        <el-table-column :label="$t('tradeAbout.type')">
           <template slot-scope="scope">
             <span>{{ $t('TxType.'+scope.row.txType)}}</span>
+            <!-- <span>{{scope.row.txType}}</span> -->
           </template>
         </el-table-column>
         <!-- 数额(Value) -->
-        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip width="160">
+        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip >
           <template slot-scope="scope">
-            <span>{{scope.row.value | formatNumber}} LAT</span>
+            <span>{{scope.row.value | formatMoney}} LAT</span>
           </template>
         </el-table-column>
         <!-- 交易费用（TxFee） -->
@@ -101,7 +102,7 @@
         >
           <!-- prop="formatNumber(actualTxCost)" -->
           <template slot-scope="scope">
-            <span>{{scope.row.actualTxCost | formatNumber}}</span>
+            <span>{{scope.row.actualTxCost | formatMoney}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -186,9 +187,9 @@ export default {
               ? (this.newRecordFlag = true)
               : (this.newRecordFlag = false);
             //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
-            totalPages == 1
-              ? (this.paginationFlag = false)
-              : (this.paginationFlag = true);
+            // totalPages == 1
+            //   ? (this.paginationFlag = false)
+            //   : (this.paginationFlag = true);
           } else {
             this.$message.error(errMsg);
           }

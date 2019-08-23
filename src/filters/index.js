@@ -46,8 +46,8 @@ const unit = Vue.filter("unit", (value) => {
         return (value/1000000).toFixed(2)+'M'
     }  
 });
-// 金额国际千分位
+// 字符串截取
 const sliceStr = Vue.filter("sliceStr", (str,num) => {
-    return str.slice(0,num)
+    return str.slice(0,num)+"..."
 });
 export default [formatNumber,percentage,unit,formatMoney,sliceStr]
