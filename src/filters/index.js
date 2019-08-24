@@ -46,9 +46,10 @@ const unit = Vue.filter("unit", (value) => {
         return (value/1000000).toFixed(2)+'M'
     }  
 });
+
 // 截取字符串
 const sliceStr = Vue.filter("sliceStr", (str,num) => {
-    return str.slice(0,num)
+    return str.slice(0,num)+"..."
 });
 
 // 世界标准时间
