@@ -24,7 +24,8 @@ export default {
     },
     common:{
         time:'Time',
-        serialnumber:'N.'
+        serialnumber:'N.',
+        export:'Download csv',
     },
     tradeAbout: {
         foundTransactions:'Transactions Found',
@@ -178,14 +179,18 @@ export default {
     },
     download: {
         info: 'Download Data',
-        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot! (Make sure the VPN is currently available)',
+        downloadAddressMsg: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
+        downloadNodeMsg:'Download current node block record,Before downloading, please verify if you are a robot!',
         date: 'Date Date',
         placeholder: 'Select a date',
         download: 'Download',
         placeholder1: 'Please select date',
         robot: 'Please verify that you are a robot!',
         googleAPINotAvailable:'Google reCAPTCHA is not available！',
-        downloadTip:'(Up to support 30,000 data downloads)'
+        downloadTip:'(Up to support 30,000 data downloads)',
+        dataDate:'Data Date',
+        today:'-Today',
+        mostDownloads:'(Up to support 30,000 data downloads)'
     },
     modalInfo: {
         copysuccess: 'Copied',
@@ -230,6 +235,7 @@ export default {
     },
     nodeInfo: {
         validator:'validator',
+        validatorDetail:'VALIDATOR DETAILS',
         createdat:'Created at',
         electedRoundValidator:'Elected Round Validator',
         blocks:'Blocks',
@@ -242,8 +248,8 @@ export default {
         nodeInfo:'Node Info',
         producedBlocks:'Produced Blocks',
         validatorActions:'Validator Actions',
-        lowBlockRate:'Punishment Number of Low Output Rate',
-        twoSignNum:'Number of penalties for double signatures',
+        lowBlockRate:'Low block rate slashing',
+        twoSignNum:'Double signing slashing',
 
         nodeID:'Node ID',
         actions:'Actions',
@@ -266,15 +272,19 @@ export default {
         delegationsDelegators:'Delegations\\Delegators',
         producedBlock:'Blocks',
         exitTime:'Exit time',
-        pendingDelegations:'Pending Delegations'
+        pendingDelegations:'Pending Delegations',
+        nodeMsg:'PlatON blockchain initial built-in validator, does not accept Delegation',
+        systemBuilt:'System built-in reward pool account',
+        systemOperation:'System operation, no txn',
+        node:'Node',
 
     },
     nodeStatus:{
-        1:'Active',
-        2:'Producing…',
-        3:'Candidate',
-        4:'Exited',
-        5:'Exiting',
+        1:'Candidate',
+        2:'Active',
+        3:'Producing…',
+        4:'Exiting',
+        5:'Exited',
     },
     ...enLocale
 }

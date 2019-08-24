@@ -24,7 +24,8 @@ export default {
     },
     common:{
         time:'时间',
-        serialnumber:'序号'
+        serialnumber:'序号',
+        export:'导出csv',
     },
     tradeAbout:{
         foundTransactions:'交易',
@@ -185,14 +186,18 @@ export default {
     },
     download:{
         info:'下载数据',
-        title:'下载当前地址的交易\\投票\\声明记录，在下载之前，请验证您是否是机器人！(请确保当前VPN可用)',
+        downloadAddressMsg: '下载当前地址的交易记录，在下载之前，请验证您是否是机器人！',
+        downloadNodeMsg:'下载当前节点出块记录，在下载之前，请验证您是否是机器人！',
         date:'数据日期',
         placeholder:'选择日期',
         download:'下载',
         placeholder1:'请选择日期',
         robot:'请验证您是否是机器人！',
         googleAPINotAvailable:'Google reCAPTCHA无法获取！',
-        downloadTip:'（最多支持下载3万条数据）'
+        downloadTip:'（最多支持下载3万条数据）',
+        dataDate:'数据日期',
+        today:'-至今',
+        mostDownloads:'(最多支持下载3万条数据)'
     },
     modalInfo:{
         copysuccess:'已复制',
@@ -231,6 +236,7 @@ export default {
     },
     nodeInfo:{
         validator:'验证节点',
+        validatorDetail:'验证人详情',
         createdat:'创建时间',
         electedRoundValidator:'当选当前轮验证人',
         blocks:'累计出块',        
@@ -267,14 +273,18 @@ export default {
         delegationsDelegators:'委托数\\委托者',
         producedBlock:'已产生区块数',
         exitTime:'退出时间',
-        pendingDelegations:'待提取委托数'
+        pendingDelegations:'待提取委托数',
+        nodeMsg:'PlatON初始内置验证人，不接受委托',
+        systemBuilt:'System built-in reward pool account',
+        systemOperation:'系统操作，无交易',
+        node:'节点',        
     },
     nodeStatus:{
-        1:'活跃中',
-        2:'出块中...',
-        3:'候选中',
-        4:'已退出',
-        5:'退出中',
+        1:'候选中',
+        2:'活跃中',
+        3:'出块中...',
+        4:'退出中',
+        5:'已退出',
     },
     ...zhLocale
 }

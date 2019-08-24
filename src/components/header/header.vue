@@ -172,9 +172,11 @@
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{
                     let {errMsg,code,data}=res
+
+                    this.searchKey = '';
                     if(code==0){
                         //根据type不同进入不同的详情页
-                        if(data.type==null){
+                        if(!data.type){
                             this.$message.warning(this.$t('indexInfo.searchno'))
                         }else{
                             this.switchFn(data.type,data.struct)
@@ -185,6 +187,7 @@
                             // this.$message.error(errMsg) 替换为search无结果
                     }
                 }).catch((error)=>{
+                    this.searchKey = '';
                     this.$message.error(error)
                 });
                 setTimeout(()=>{

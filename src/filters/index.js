@@ -27,7 +27,7 @@ const formatMoney = Vue.filter("formatMoney", (num) => {
 });
 // 百分比
 const percentage = Vue.filter("percentage", (a,b) => {
-    if(a&&b){
+    if(a&&b&&b!=0){
         const x = a/b*100;
         if(x%1==0){
             return x;
@@ -46,8 +46,16 @@ const unit = Vue.filter("unit", (value) => {
         return (value/1000000).toFixed(2)+'M'
     }  
 });
-// 金额国际千分位
+// 截取字符串
 const sliceStr = Vue.filter("sliceStr", (str,num) => {
     return str.slice(0,num)
 });
-export default [formatNumber,percentage,unit,formatMoney,sliceStr]
+
+// 世界标准时间
+const formatTime = Vue.filter("formatTime", (data) => {
+    if(data){
+        return new Date(data).toUTCString();
+    }
+    return '';
+});
+export default [formatNumber,percentage,unit,formatMoney,sliceStr,formatTime]
