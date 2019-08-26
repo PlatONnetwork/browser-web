@@ -34,7 +34,7 @@
       ></i>
       <!-- 基础交易 -->
       <List
-        :title="$t('tradeAbout.transfer')"
+        :title="detailTitle(detailInfo.txType)"
         :border="true"
         v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='5' || detailInfo.txType=='4000'"
       >
@@ -416,6 +416,18 @@ export default {
     },
     onError() {
       this.$message.error(this.$t("modalInfo.copyfail"));
+    },
+    //根据类型返回标题
+    detailTitle(t) {
+      let s = "tradeAbout.";
+      if (t == 0) {
+        s += "transfer";
+      } else if (t == 1 || t == 2 || t == 5) {
+        s = "other";
+      } else if (4000) {
+        s = "";
+      }
+      return this.$t(s);
     }
   },
   //生命周期函数

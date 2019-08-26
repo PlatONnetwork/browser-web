@@ -92,7 +92,7 @@ export default {
         txInfo: 'Tx Info',
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
-        transfer: 'Transfer',
+        other: 'ContractCreation\ContractExecution\MPCTx\Others',
         information: 'Information', //Transaction 
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',

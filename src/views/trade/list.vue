@@ -6,7 +6,9 @@
         {{$t('tradeAbout.morethen')}}>
         <b>{{displayTotalCount}}</b>
         {{$t('tradeAbout.foundTransactions')}}
-        <span v-if="displayTotalCount>500000">{{$t('tradeAbout.showingLast')}}</span>
+        <span
+          v-if="displayTotalCount>500000"
+        >{{$t('tradeAbout.showingLast')}}</span>
       </div>
       <!-- 上部分页标签 -->
       <div class="pagination-box1">
@@ -55,7 +57,7 @@
           </template>
         </el-table-column>
         <!-- 区块（Block） -->
-        <el-table-column :label="$t('tradeAbout.block')" >
+        <el-table-column :label="$t('tradeAbout.block')">
           <template slot-scope="scope">
             <span
               class="cursor normal"
@@ -64,7 +66,7 @@
           </template>
         </el-table-column>
         <!-- 间隔（Age） -->
-        <el-table-column :label="$t('blockAbout.interval')" >
+        <el-table-column :label="$t('blockAbout.interval')">
           <template slot-scope="scope">
             <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
           </template>
@@ -89,7 +91,7 @@
           </template>
         </el-table-column>
         <!-- 数额(Value) -->
-        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip >
+        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{scope.row.value | formatMoney}} LAT</span>
           </template>

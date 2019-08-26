@@ -97,7 +97,7 @@ export default {
         txInfo: '交易信息',
         viewLeft: '查看前一个交易',
         viewRight: '查看后一个交易',
-        transfer: '转账',
+        other: '合约创建\合约执行\MPC交易\其他',
         information: '交易信息',    //Transaction Information
         timestamp: '时间戳',
         txHash: '交易hash',
