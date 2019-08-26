@@ -50,7 +50,7 @@
               </el-tooltip>-->
               <span
                 class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.$index,scope.row)"
+                @click="goTradeDetail(scope.row.txHash)"
               >{{scope.row.txHash | sliceStr(18)}}</span>
             </div>
             <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
@@ -61,7 +61,7 @@
           <template slot-scope="scope">
             <span
               class="cursor normal"
-              @click="goBlockDetail(scope.$index,scope.row)"
+              @click="goBlockDetail(scope.row.blockNumber)"
             >{{scope.row.blockNumber}}</span>
           </template>
         </el-table-column>
@@ -78,7 +78,7 @@
             <div class="flex-special">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.$index,scope.row)"
+                @click="goAddressDetail(scope.row.from)"
               >{{scope.row.from|sliceStr(14)}}</span>
             </div>
           </template>
@@ -455,34 +455,35 @@ export default {
       this.getTradeList();
     },
     //进入区块详情
-    goBlockDetail(index, row) {
+    goBlockDetail(height) {
+      console.warn("进入区块",height);
       this.$router.push({
         path: "/block-detail",
         query: {
-          height: row.blockHeight
+          height: height
         }
       });
     },
     //进入交易哈希详情
-    goTradeDetail(index, row) {
+    goTradeDetail(hash) {
       this.$router.push({
         path: "/trade-detail",
         query: {
-          txHash: row.txHash,
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
+          txHash: hash,
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
         }
       });
     },
     //进入钱包地址详情
-    goAddressDetail(index, row) {
+    goAddressDetail(adr) {
       this.$router.push({
         path: "/address-detail",
         query: {
-          address: row.from,
-          description: "trade",
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
+          address: adr,
+          // description: "trade",
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
         }
       });
     }

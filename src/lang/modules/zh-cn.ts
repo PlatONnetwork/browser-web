@@ -22,10 +22,10 @@ export default {
         whitePaper: '白皮书',
         community: '社区'
     },
-    common:{
-        time:'时间',
-        serialnumber:'序号',
-        export:'导出csv',
+    common: {
+        time: '时间',
+        serialnumber: '序号',
+        export: '导出csv',
     },
     tradeAbout: {
         foundTransactions: '交易',
@@ -55,6 +55,7 @@ export default {
         delegator: '委托人',
         validator: '验证人',
         delegationAmount: '委托数量',
+        withdrawal: "赎回数量",
 
         proposer: '提案人',
         operatorAddress: '操作地址',
@@ -68,15 +69,17 @@ export default {
         proposalDetail: '提案详情',
         vote: '投票',
         version: '声明版本',
+        version1: "版本",
 
         identity: '身份认证ID',
         rewardAddress: '奖励账户',
         website: '官网',
         introduction: '描述',
         stakeAmount: '质押数量',
-        returnAmount: '预计到账区块',
+        returnAmount: '退回数量',
         reporter: '举报人',
         reportType: '举报类型',
+        doubleSiging: "区块双签",
         reportEvidence: '举报证据',
         reportResult: '举报结果',
         returnBlock: '预计到账区块',
@@ -97,7 +100,25 @@ export default {
         txInfo: '交易信息',
         viewLeft: '查看前一个交易',
         viewRight: '查看后一个交易',
-        other: '合约创建\合约执行\MPC交易\其他',
+        transfer: "转账",
+        other: '合约创建\\合约执行\\MPC交易\\其他',
+        restricting: "创建锁仓",//CreateRestricting
+        delegate: "委托",
+        undelegate: "赎回委托",
+        proposal: "创建提案",
+        voting: "提案投票",
+        declare: "版本声明",
+        createValidator: "创建验证人",
+        increase: "增加自有质押",
+        editValidator: "编辑验证人",
+        exitValidator: "退出验证人",
+        reportValidator: "举报验证人",
+        pend: "退回中",
+        remain: "剩余退回",   
+        undelegat:"赎回中",
+        remain1: "剩余赎回",  //
+        successed: "退回成功",
+        successed1: "赎回成功",
         information: '交易信息',    //Transaction Information
         timestamp: '时间戳',
         txHash: '交易hash',
@@ -119,7 +140,7 @@ export default {
         withdraw: '提取',
         tradein: '总共寻获 {count} 交易',
         moretradein: '总共寻获超过> {count} 交易',
-        warn:'警告'
+        warn: '警告'
     },
     contract: {
         contractDetail: '合约详情',
@@ -186,20 +207,20 @@ export default {
         lookNext: '查看下一个区块',
         lookLast: '查看上一个区块',
     },
-    download:{
-        info:'下载数据',
+    download: {
+        info: '下载数据',
         downloadAddressMsg: '下载当前地址的交易记录，在下载之前，请验证您是否是机器人！',
-        downloadNodeMsg:'下载当前节点出块记录，在下载之前，请验证您是否是机器人！',
-        date:'数据日期',
-        placeholder:'选择日期',
-        download:'下载',
-        placeholder1:'请选择日期',
-        robot:'请验证您是否是机器人！',
-        googleAPINotAvailable:'Google reCAPTCHA无法获取！',
-        downloadTip:'（最多支持下载3万条数据）',
-        dataDate:'数据日期',
-        today:'-至今',
-        mostDownloads:'(最多支持下载3万条数据)'
+        downloadNodeMsg: '下载当前节点出块记录，在下载之前，请验证您是否是机器人！',
+        date: '数据日期',
+        placeholder: '选择日期',
+        download: '下载',
+        placeholder1: '请选择日期',
+        robot: '请验证您是否是机器人！',
+        googleAPINotAvailable: 'Google reCAPTCHA无法获取！',
+        downloadTip: '（最多支持下载3万条数据）',
+        dataDate: '数据日期',
+        today: '-至今',
+        mostDownloads: '(最多支持下载3万条数据)'
     },
     modalInfo: {
         copysuccess: '已复制',
@@ -237,23 +258,23 @@ export default {
         day: '天',
     },
 
-    nodeInfo:{
-        validator:'验证节点',
-        validatorDetail:'验证人详情',
-        createdat:'创建时间',
-        electedRoundValidator:'当选当前轮验证人',
-        blocks:'累计出块',        
-        blockRate:'出块率',
-        totalStakePower:'总质押\\权重',
-        totalReward:'累计奖励',
-        yield:'预计年化收益率',
-        stability:'稳定性',
-        selfstake:'自有质押',
-        nodeInfo:'节点信息',
-        producedBlocks:'已出区块',
-        validatorActions:'验证人操作',
-        lowBlockRate:'低出块率处罚次数',
-        twoSignNum:'双签处罚次数',
+    nodeInfo: {
+        validator: '验证节点',
+        validatorDetail: '验证人详情',
+        createdat: '创建时间',
+        electedRoundValidator: '当选当前轮验证人',
+        blocks: '累计出块',
+        blockRate: '出块率',
+        totalStakePower: '总质押\\权重',
+        totalReward: '累计奖励',
+        yield: '预计年化收益率',
+        stability: '稳定性',
+        selfstake: '自有质押',
+        nodeInfo: '节点信息',
+        producedBlocks: '已出区块',
+        validatorActions: '验证人操作',
+        lowBlockRate: '低出块率处罚次数',
+        twoSignNum: '双签处罚次数',
 
         nodeID: '节点ID',
         actions: '操作',
@@ -269,44 +290,44 @@ export default {
         nextRewardAdjustment: '下个奖励调整期',
         updateEpoch: '每个结算周期更新一次验证人状态',
 
-        searchValidator:'输入验证人名称查询',
-        historicalValidators:'历史验证人',
-        rank:'排名',
-        validatorName:'验证人',
-        delegationsDelegators:'委托数\\委托者',
-        producedBlock:'已产生区块数',
-        exitTime:'退出时间',
-        pendingDelegations:'待提取委托数',
-        nodeMsg:'PlatON初始内置验证人，不接受委托',
-        systemBuilt:'System built-in reward pool account',
-        systemOperation:'系统操作，无交易',
-        node:'节点',        
+        searchValidator: '输入验证人名称查询',
+        historicalValidators: '历史验证人',
+        rank: '排名',
+        validatorName: '验证人',
+        delegationsDelegators: '委托数\\委托者',
+        producedBlock: '已产生区块数',
+        exitTime: '退出时间',
+        pendingDelegations: '待提取委托数',
+        nodeMsg: 'PlatON初始内置验证人，不接受委托',
+        systemBuilt: 'System built-in reward pool account',
+        systemOperation: '系统操作，无交易',
+        node: '节点',
     },
-    nodeStatus:{
-        1:'候选中',
-        2:'活跃中',
-        3:'出块中...',
-        4:'退出中',
-        5:'已退出',
+    nodeStatus: {
+        1: '候选中',
+        2: '活跃中',
+        3: '出块中...',
+        4: '退出中',
+        5: '已退出',
     },
     TxType: {
         0: '转账',
-        1: '创建提案',
-        2: '合约调用',
+        1: '合约创建',  //创建提案
+        2: '合约执行',  //合约执行
         5: 'MPC交易',
-        1000: '发起质押',
-        1001: '修改质押信息',
-        1002: '增持质押',
-        1003: '撤销质押',
-        1004: '发起委托',
-        1005: '减持/撤销委托',
-        2000: '提交文本提案',
-        2001: '提交升级提案',
-        2002: '提交参数提案',
-        2003: '提案投票',
+        1000: '创建验证人',   //发起质押
+        1001: '编辑验证人',   //修改质押信息
+        1002: '增加自有质押',   //增持质押
+        1003: '退出验证人',   //撤销质押
+        1004: '委托',   //发起委托
+        1005: '赎回委托',  //减持/撤销委托
+        2000: '创建提案',   //提交文本提案
+        2001: '提交提案',   //提交升级提案
+        2002: '提交提案',   //提交参数提案
+        2003: '提案投票',   //提案投票
         2004: '版本声明',
-        3000: '举报多签',
-        4000: '创建锁仓计划'
+        3000: '举报验证人',   //举报多签
+        4000: '创建锁仓'    //创建锁仓计划
     },
     ...zhLocale
 }
