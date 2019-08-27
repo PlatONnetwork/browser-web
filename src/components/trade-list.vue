@@ -1,18 +1,18 @@
 <template>
     <div class="common-trade">
         <div class="address-trade-last" v-if="type!='block'">            
-            {{$t('blockAbout.morethen')}} {{displayTotalCount}} {{$t('contract.transactions')}} 
+            {{$t('blockAbout.morethen')}} {{pageTotal}} {{$t('contract.transactions')}} 
             <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
         </div>
         <div class="trade-tab-wrap">
             <ul class="trade-tab">
                     <li :class="{active:selectIndex==1}" index="1" @click="typeChange(1,'')">{{$t('contract.all')}}</li>
-                    <li :class="{active:selectIndex==2}" index="2" @click="typeChange(2,'transfer')">{{$t('contract.transfers')}}({{tradeCount.statTransferQty}})</li>
-                    <li :class="{active:selectIndex==3}" index="3" @click="typeChange(3,'delegate')">{{$t('contract.delegationsTxns')}}({{tradeCount.statDelegateQty}})</li>
-                    <li :class="{active:selectIndex==4}" index="4" @click="typeChange(4,'staking')">{{$t('contract.validatorTxns')}}({{tradeCount.statStakingQty}})</li>
-                    <li :class="{active:selectIndex==5}" index="5" @click="typeChange(5,'proposal')">{{$t('contract.governanceTxns')}}({{tradeCount.statProposalQty}})</li>
+                    <li :class="{active:selectIndex==2}" index="2" @click="typeChange(2,'transfer')">{{$t('contract.transfers')}}({{tradeCount.transferQty}})</li>
+                    <li :class="{active:selectIndex==3}" index="3" @click="typeChange(3,'delegate')">{{$t('contract.delegationsTxns')}}({{tradeCount.delegateQty}})</li>
+                    <li :class="{active:selectIndex==4}" index="4" @click="typeChange(4,'staking')">{{$t('contract.validatorTxns')}}({{tradeCount.stakingQty}})</li>
+                    <li :class="{active:selectIndex==5}" index="5" @click="typeChange(5,'proposal')">{{$t('contract.governanceTxns')}}({{tradeCount.proposalQty}})</li>
             </ul>   
-            <el-button size="medium" v-if="type!='block'">{{$t('nodeInfo.export')}}</el-button>
+            <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button>
         </div>
         <div class="table">
             <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
@@ -20,39 +20,39 @@
                     <template slot-scope="scope">
                         <div class='flex-special'>
                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.failReason'>
-                                <div slot="content"><span class='title-warning'>Warning：</span>{{scope.row.failReason}}</div>
+                                <div slot="content"><span class='title-warning'></span>{{scope.row.failReason}}</div>
                                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
                             </el-tooltip>
-                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.row.txHash)'>&nbsp;{{scope.row.txHash}}</span>
+                            <p class='cursor blue ellipsis percent60' @click='goTradeDetail(scope.row.txHash)'>&nbsp;{{scope.row.txHash}}</p>
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
                     <template slot-scope="scope">
-                        <span class='cursor normal ellipsis' @click='goAddressDetail(scope.row.from)'>{{scope.row.from}}</span>
+                        <span class='cursor blue ellipsis' @click='goAddressDetail(scope.row.from)'>{{scope.row.from}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" v-if="type!='block'">
                     <template slot-scope="scope">
-                        <span class='cursor normal' @click='goBlockDetail(scope.$index,scope.row)'>{{scope.row.blockHeight}}</span>
+                        <span class='cursor blue' @click='goBlockDetail(scope.row.blockNumber)'>{{scope.row.blockNumber}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column  :label="$t('totalInfo.blockTime')" v-if="type!='block'">
+                <el-table-column  :label="$t('tradeAbout.confirmTime')" v-if="type!='block'" width="300">
                     <template slot-scope="scope">
-                        <span>{{$t('tradeAbout.before')}}</span>
+                        <span>{{scope.row.timestamp | formatTime}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('tradeAbout.type')">
                     <template slot-scope="scope">
-                        <span>Received</span>
+                        <span :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}" class="red">{{$t('TxType.'+[scope.row.txType])}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+                <el-table-column :label="$t('tradeAbout.value')">
                     <template slot-scope="scope">
                         <span>{{scope.row.value | formatMoney}} LAT</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')" show-overflow-tooltip>
+                <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')">
                 </el-table-column>
             </el-table>
             <div class="pagination-box">
@@ -99,7 +99,7 @@
                 let param = {
                     pageNo: this.currentPage,
                     pageSize: this.pageSize,
-                    tradeType:this.tradeType
+                    txType:this.tradeType
                 };
                 if(pageNo){
                     param.pageNo=pageNo;
@@ -159,6 +159,17 @@
                 this.currentPage = 1;
                 this.getTradeList();
             },
+            exportFn() {
+                //跳转至下载页
+                const {href} = this.$router.resolve({
+                    path:'/download',
+                    query:{
+                        address:this.address,
+                        exportname:'account',
+                    }
+                })
+                window.open(href,'_blank')
+            },
             goTradeDetail(hash){
                 this.$router.push({
                     path:'/trade-detail',
@@ -174,7 +185,16 @@
                         address:address
                     }
                 })
-            }
+            },
+            //进入区块详情
+            goBlockDetail(blockHeight) {
+                this.$router.push({
+                    path: '/block-detail',
+                    query: {
+                        height: blockHeight,
+                    },
+                });
+            },
         },
         //生命周期函数
         created() {

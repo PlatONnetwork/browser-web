@@ -128,6 +128,7 @@
                 pageTotal: 1,
                 keyword:'',
                 queryStatus:'all',
+                timer:null,
             }
         },
         props: {
@@ -300,10 +301,19 @@
         //生命周期函数
         created() {
             this.getList();
+            if(this.type!='history'){
+                this.timer = setInterval(()=>{
+                    console.log(222)
+                    this.getList();
+                },5000)
+            }
         },
         mounted() {
 
-        }    
+        },
+        destroyed() {
+            clearInterval(this.timer);
+        },     
     }
 </script>
 <style lang="less" scoped>

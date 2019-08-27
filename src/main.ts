@@ -12,7 +12,11 @@ import VueClipboard from 'vue-clipboard2'
 import { mapActions } from 'vuex'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+import VueQriously from 'vue-qriously'
+Vue.use(VueQriously)
+
 import './filters'
+import './directives'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'

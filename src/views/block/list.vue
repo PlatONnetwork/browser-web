@@ -5,7 +5,7 @@
       <div class="fontSize14 trade-count">
         {{$t('blockAbout.morethen')}}
         <b>{{displayTotalCount}}</b>
-        {{$t('nodeInfo.blocks')}}
+        {{$t('blockAbout.blocks')}}
       </div>
       <div class="pagination-box1">
         <el-pagination

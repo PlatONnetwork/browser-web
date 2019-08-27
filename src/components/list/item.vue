@@ -61,7 +61,7 @@
         }    
     }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .list-item{
         display: flex;
         flex-flow: row nowrap;

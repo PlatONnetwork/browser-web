@@ -2,6 +2,9 @@ import Vue from 'vue'
 
 // 数字国际千分位
 const formatNumber = Vue.filter("formatNumber", (num,count) => {
+    if(!num){
+        return '0';
+    }
     const reg=/\d{1,3}(?=(\d{3})+$)/g;
     let str= num + '';                                   
     if(str.indexOf('.')==-1){
@@ -17,6 +20,9 @@ const formatNumber = Vue.filter("formatNumber", (num,count) => {
 });
 // 金额国际千分位
 const formatMoney = Vue.filter("formatMoney", (num) => {
+    if(!num){
+       return '0';
+    }
     const reg=/\d{1,3}(?=(\d{3})+$)/g;
     let str= num + '';                                   
     if(str.indexOf('.')==-1){

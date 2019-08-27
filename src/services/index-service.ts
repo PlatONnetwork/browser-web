@@ -167,7 +167,7 @@ class IndexService extends Ws {
             this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg: MsgConfig) => {                
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`updateBlockStatisticData`, res)
+                console.log(`getStatisticData`, data)
                 if (code === 0) {
                     store.dispatch('updateBlockStatisticData', data)
                     // store.dispatch('setChartData', IndexService.dealChartList(data))
@@ -183,12 +183,24 @@ class IndexService extends Ws {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                const { data, code } = res
+                const { data, code } = res                                
                 console.log(`updateValidatorData`, res)
                 if (code === 0) {
-                    store.dispatch('updateValidatorData', data)
-                    // store.dispatch('setChartData', IndexService.dealChartList(data))
-                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
+                    if(!data.isRefresh){
+                        const initData = store.state.index.ValidatorData;
+                        initData.dataList.forEach((value,index)=>{
+                            const obj = data.dataList.filter((val)=>{
+                                return val.nodeId == value.nodeId;
+                            })
+                            if(obj.length){
+                                initData.dataList[index] = obj[0];
+                            }
+                            
+                        })
+                    }else{
+                        store.dispatch('updateValidatorData', data)
+                    }
+                    
                 } else {
                     throw new Error(`todo`)
                 }

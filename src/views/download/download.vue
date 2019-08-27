@@ -21,7 +21,7 @@
                     </el-date-picker>          
                     <span class="tip">{{$t('download.today')}}</span>               
             </el-form>
-            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>{{$t('download.download')}}</el-button>
+            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='!disabledBtn'>{{$t('download.download')}}</el-button>
             <p class="most-downloads">{{$t('download.mostDownloads')}}</p>
         </div>
     </div>
@@ -77,7 +77,7 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                if(this.response){
+                if(true){
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{
@@ -100,7 +100,7 @@
                     this.param.address = this.address;
                     console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param)
-                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.data+'&address='+this.param.address;
+                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.date+'&address='+this.param.address;
                 }else if(this.exportname=='contract'){
                     this.param.address = this.address;
                     console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
@@ -109,8 +109,9 @@
                     this.param.nodeId = this.address;
                     console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param)
-                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.data+'&nodeId='+this.param.nodeId;
+                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.date+'&nodeId='+this.param.nodeId;
                 }
+                console.log(this.src)
                 window.open(this.src);
             }
         },
