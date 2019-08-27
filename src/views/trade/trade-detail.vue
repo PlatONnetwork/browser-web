@@ -14,10 +14,18 @@
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
         <el-tooltip :content="$t('tradeAbout.viewLeft')" placement="top">
-          <el-button icon="el-icon-arrow-left" @click="detailNavigate('prev')" :disabled="disabledLeft"></el-button>
+          <el-button
+            icon="el-icon-arrow-left"
+            @click="detailNavigate('prev')"
+            :disabled="detailInfo.preHash?false:true"
+          ></el-button>
         </el-tooltip>
         <el-tooltip :content="$t('tradeAbout.viewRight')" placement="top">
-          <el-button icon="el-icon-arrow-right" @click="detailNavigate('next')" :disabled="disabledRight"></el-button>
+          <el-button
+            icon="el-icon-arrow-right"
+            @click="detailNavigate('next')"
+            :disabled="detailInfo.nextHash?false:true"
+          ></el-button>
         </el-tooltip>
       </div>
     </div>
@@ -557,44 +565,20 @@ export default {
     },
     //前一条后一条
     detailNavigate(d) {
-      let param = {
-        txHash: this.txHash,
-        direction: d
-      };
-      apiService.trade.transactionDetailNavigate(param).then(res => {
-        let { errMsg, code, data } = res;
-        if (code == 0) {
-          this.loading = false;
-          this.detailInfo = data;
-          //是否第一条记录
-          if (data.first) {
-            this.btnLeftFlag = false;
-            this.disabledLeft = true;
-          } else {
-            this.btnLeftFlag = true;
-            this.disabledLeft = false;
-          }
-          //是否最后一条数据
-          if (data.last) {
-            this.btnRightFlag = false;
-            this.disabledRight = true;
-          } else {
-            this.btnRightFlag = true;
-            this.disabledRight = false;
-          }
-          this.txHash = data.txHash;
-          this.$router.replace({
-            path: "/trade-detail",
-            query: {
-              address: data.txHash
-            }
-          });
-        } else {
-          this.detailInfo = {};
-          this.$message.error(errMsg);
+      if (d == "prev") {
+        this.txHash = this.detailInfo.preHash;
+      } else if (d == "next") {
+        this.txHash = this.detailInfo.nextHash;
+      } else {
+        return;
+      }
+      this.$router.replace({
+        path: "/trade-detail",
+        query: {
+          txHash: this.txHash
         }
       });
-
+      this.getDetail();
       // this.txHash = adr;
       // this.getDetail();
       // history.pushState({}, "", "trade-detail?txHash=0xbd786677d5a6cc1c4ff79b2ec3b555b6a93d9be13a1249167bf801c18d0eace2");

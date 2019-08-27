@@ -4,10 +4,10 @@
     <div class="sub-title">
       <div class="fontSize14 trade-count">
         {{$t('tradeAbout.morethen')}}>
-        <b>{{displayTotalCount}}</b>
+        <b>{{pageTotal}}</b>
         {{$t('tradeAbout.foundTransactions')}}
         <span
-          v-if="displayTotalCount>500000"
+          v-if="pageTotal>500000"
         >{{$t('tradeAbout.showingLast')}}</span>
       </div>
       <!-- 上部分页标签 -->
