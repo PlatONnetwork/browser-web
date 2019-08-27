@@ -63,11 +63,17 @@
                     <ul>
                         <li>
                             <label>{{$t('nodeInfo.selfstake')}}：</label>
-                            <p>{{detailInfo.stakingValue | formatMoney}}&nbsp;LAT</p>
+                            <p>
+                                {{detailInfo.stakingValue | formatMoney}}&nbsp;LAT
+                                <span class="yellow" v-if="detailInfo.status==4">({{$t('nodeStatus.'+[detailInfo.status])}})</span>
+                            </p>
                         </li>
                         <li>
                             <label>{{$t('deleget.delegations')}}：</label>
-                            <p>{{detailInfo.delegateValue | formatMoney}}&nbsp;LAT</p>
+                            <p>
+                                {{detailInfo.delegateValue | formatMoney}}&nbsp;LAT
+                                <span class="yellow" v-if="detailInfo.delegateValue>0">({{$t('deleget.undelegating2')}})</span>
+                            </p>
                         </li>
                         <li>
                             <label>{{$t('deleget.delegators')}}：</label>
@@ -628,6 +634,11 @@
                 }
                 p{
                     font-weight: 700;
+                    span{
+                        display: block;
+                        font-size: 12px;
+                        font-weight: normal;
+                    }
                 }
             }
         }

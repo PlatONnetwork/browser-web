@@ -37,9 +37,9 @@ export const commonAction = {
                 commit('CHANGE_CONTEXT', data.chainList[0].context);
             }
         });
-        apiService.get(config.JSON_BASE  +'/config' + "/country.json").then((data) => {
-            commit('DONE_COUNTRY', data.countrys)
-        });
+        // apiService.get(config.JSON_BASE  +'/config' + "/country.json").then((data) => {
+        //     commit('DONE_COUNTRY', data.countrys)
+        // });
     },
     updateApiStatus({ commit, state },apiStatus){
         commit('GOOGLE_API', apiStatus)

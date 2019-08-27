@@ -8,7 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
@@ -20,11 +20,33 @@ const env =
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true,
-      // extract: false
-    })
+    // rules: utils.styleLoaders({
+    //   sourceMap: config.build.productionSourceMap,
+    //   extract: true,
+    //   // extract: false
+    // })
+    rules: [
+
+      {
+        test: /\.css/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => [require('autoprefixer')]
+          }
+        }]
+      },
+      {
+        test: /\.less$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", {
+          loader: "postcss-loader",
+          options: {
+            plugins: () => [require('autoprefixer')]
+          }
+        }, "less-loader"]
+      }
+
+    ]
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -78,14 +100,14 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[hash].css'),
-      allChunks: true
-    }),
-
-    // new MiniCssExtractPlugin({
+    // new ExtractTextPlugin({
     //   filename: utils.assetsPath('css/[name].[hash].css'),
+    //   allChunks: true
     // }),
+
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].[hash].css'),
+    }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
