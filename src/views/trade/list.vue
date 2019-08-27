@@ -6,7 +6,9 @@
         {{$t('tradeAbout.morethen')}}>
         <b>{{displayTotalCount}}</b>
         {{$t('tradeAbout.foundTransactions')}}
-        <span v-if="displayTotalCount>500000">{{$t('tradeAbout.showingLast')}}</span>
+        <span
+          v-if="displayTotalCount>500000"
+        >{{$t('tradeAbout.showingLast')}}</span>
       </div>
       <!-- 上部分页标签 -->
       <div class="pagination-box1">
@@ -33,11 +35,11 @@
               <el-tooltip
                 class="item"
                 effect="dark"
-                placement="bottom"
-                v-if="scope.row.txReceiptStatus==0"
+                placement="bottom-start"
+                v-if="scope.row.failReason"
               >
                 <div slot="content">
-                  <span class="title-warning">Warning：</span>
+                  <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
                   {{scope.row.failReason}}
                 </div>
                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
@@ -48,23 +50,23 @@
               </el-tooltip>-->
               <span
                 class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.$index,scope.row)"
+                @click="goTradeDetail(scope.row.txHash)"
               >{{scope.row.txHash | sliceStr(18)}}</span>
             </div>
             <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
           </template>
         </el-table-column>
         <!-- 区块（Block） -->
-        <el-table-column :label="$t('tradeAbout.block')" >
+        <el-table-column :label="$t('tradeAbout.block')">
           <template slot-scope="scope">
             <span
               class="cursor normal"
-              @click="goBlockDetail(scope.$index,scope.row)"
+              @click="goBlockDetail(scope.row.blockNumber)"
             >{{scope.row.blockNumber}}</span>
           </template>
         </el-table-column>
         <!-- 间隔（Age） -->
-        <el-table-column :label="$t('blockAbout.interval')" >
+        <el-table-column :label="$t('blockAbout.interval')">
           <template slot-scope="scope">
             <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
           </template>
@@ -76,7 +78,7 @@
             <div class="flex-special">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.$index,scope.row)"
+                @click="goAddressDetail(scope.row.from)"
               >{{scope.row.from|sliceStr(14)}}</span>
             </div>
           </template>
@@ -89,7 +91,7 @@
           </template>
         </el-table-column>
         <!-- 数额(Value) -->
-        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip >
+        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{scope.row.value | formatMoney}} LAT</span>
           </template>
@@ -453,34 +455,35 @@ export default {
       this.getTradeList();
     },
     //进入区块详情
-    goBlockDetail(index, row) {
+    goBlockDetail(height) {
+      console.warn("进入区块",height);
       this.$router.push({
         path: "/block-detail",
         query: {
-          height: row.blockHeight
+          height: height
         }
       });
     },
     //进入交易哈希详情
-    goTradeDetail(index, row) {
+    goTradeDetail(hash) {
       this.$router.push({
         path: "/trade-detail",
         query: {
-          txHash: row.txHash,
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
+          txHash: hash,
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
         }
       });
     },
     //进入钱包地址详情
-    goAddressDetail(index, row) {
+    goAddressDetail(adr) {
       this.$router.push({
         path: "/address-detail",
         query: {
-          address: row.from,
-          description: "trade",
-          currentPage: this.currentPage,
-          pageSize: this.pageSize
+          address: adr,
+          // description: "trade",
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
         }
       });
     }
@@ -499,6 +502,10 @@ export default {
 }
 .trade-count {
   color: #333;
+}
+.iconxinxi{
+  color: #ffc017;
+  margin-right: 5px;
 }
 </style>
 

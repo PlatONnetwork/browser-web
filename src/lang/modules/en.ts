@@ -22,10 +22,10 @@ export default {
         whitePaper: 'White Paper',
         community: 'Community'
     },
-    common:{
-        time:'Time',
-        serialnumber:'N.',
-        export:'Download csv',
+    common: {
+        time: 'Time',
+        serialnumber: 'N.',
+        export: 'Download csv',
     },
     tradeAbout: {
         confirmTime:'Time',
@@ -55,6 +55,7 @@ export default {
         delegator: 'Delegator',
         validator: 'Validator',
         delegationAmount: 'Delegation Amount',
+        withdrawal: 'Withdrawal Amount',
 
         proposer: 'Proposer',
         operatorAddress: 'Operator Address',
@@ -64,6 +65,7 @@ export default {
         proposalTitle: 'Proposal Title',
         vote: 'Vote',
         version: 'Version',
+        version1: 'Version',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',
@@ -73,6 +75,7 @@ export default {
         returnAmount: 'Return Amount',
         reporter: 'Reporter',
         reportType: 'Report Type',
+        doubleSiging: 'Double Siging',
         reportEvidence: 'ReportEvidence',
         reportResult: 'ReportResult',
         reportReward: 'Report Reward',
@@ -94,6 +97,24 @@ export default {
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
         transfer: 'Transfer',
+        other: 'ContractCreation\\ContractExecution\\MPCTx\\Others',
+        restricting: 'CreateRestricting',
+        delegate: 'Delegate',
+        undelegate: 'Undelegate',
+        proposal: 'CreateProposal',
+        voting: 'VotingProposal',
+        declare: 'DeclareVersion',
+        createValidator: 'CreateValidator',
+        increase: 'IncreaseStaking',
+        editValidator: 'EditValidator',
+        exitValidator: 'ExitValidator',
+        reportValidator: 'ReportValidator',
+        pend: 'Pending',
+        remain: 'Remaining',
+        undelegat: 'Undelegating',
+        remain1: 'Remaining',
+        successed: 'Successed',
+        successed1: 'Successed',
         information: 'Information', //Transaction 
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',
@@ -113,7 +134,7 @@ export default {
         withdraw: 'Withdraw',
         tradein: '{count} Transactions Found',
         moretradein: 'More than > {count} Transactions Found',
-        warn:'Warning'
+        warn: 'Warning'
     },
     contract: {
         contractDetail: 'CONTRACT DETAILS',
@@ -186,18 +207,18 @@ export default {
     download: {
         info: 'Download Data',
         downloadAddressMsg: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
-        downloadNodeMsg:'Download current node block record,Before downloading, please verify if you are a robot!',
+        downloadNodeMsg: 'Download current node block record,Before downloading, please verify if you are a robot!',
         date: 'Date Date',
         placeholder: 'Select a date',
         download: 'Download',
         placeholder1: 'Please select date',
         robot: 'Please verify that you are a robot!',
 
-        googleAPINotAvailable:'Google reCAPTCHA is not available！',
-        downloadTip:'(Up to support 30,000 data downloads)',
-        dataDate:'Data Date',
-        today:'-Today',
-        mostDownloads:'(Up to support 30,000 data downloads)'
+        googleAPINotAvailable: 'Google reCAPTCHA is not available！',
+        downloadTip: '(Up to support 30,000 data downloads)',
+        dataDate: 'Data Date',
+        today: '-Today',
+        mostDownloads: '(Up to support 30,000 data downloads)'
     },
     modalInfo: {
         copysuccess: 'Copied',
@@ -241,22 +262,22 @@ export default {
         day: 'd ',
     },
     nodeInfo: {
-        validator:'validator',
-        validatorDetail:'VALIDATOR DETAILS',
-        createdat:'Created at',
-        electedRoundValidator:'Elected Round Validator',
-        blocks:'Blocks',
-        blockRate:'Block Rate',
-        totalStakePower:'Total Stake\\Power',
-        totalReward:'Total Reward',
-        yield:'Yield',
-        stability:'Stability',
-        selfstake:'Self-stake',
-        nodeInfo:'Node Info',
-        producedBlocks:'Produced Blocks',
-        validatorActions:'Validator Actions',
-        lowBlockRate:'Low block rate slashing',
-        twoSignNum:'Double signing slashing',
+        validator: 'validator',
+        validatorDetail: 'VALIDATOR DETAILS',
+        createdat: 'Created at',
+        electedRoundValidator: 'Elected Round Validator',
+        blocks: 'Blocks',
+        blockRate: 'Block Rate',
+        totalStakePower: 'Total Stake\\Power',
+        totalReward: 'Total Reward',
+        yield: 'Yield',
+        stability: 'Stability',
+        selfstake: 'Self-stake',
+        nodeInfo: 'Node Info',
+        producedBlocks: 'Produced Blocks',
+        validatorActions: 'Validator Actions',
+        lowBlockRate: 'Low block rate slashing',
+        twoSignNum: 'Double signing slashing',
 
         nodeID: 'Node ID',
         actions: 'Actions',
@@ -272,31 +293,32 @@ export default {
         nextRewardAdjustment: 'Next reward adjustment',
         updateEpoch: 'Update validator status once per epoch',
 
-        searchValidator:'Search by Validator Name',
-        historicalValidators:'Historical Validators',
-        rank:'Rank',
-        validatorName:'Validator Name',
-        delegationsDelegators:'Delegations\\Delegators',
-        producedBlock:'Blocks',
-        exitTime:'Exit time',
-        pendingDelegations:'Pending Delegations',
-        nodeMsg:'PlatON blockchain initial built-in validator, does not accept Delegation',
-        systemBuilt:'System built-in reward pool account',
-        systemOperation:'System operation, no txn',
-        node:'Node',
+        searchValidator: 'Search by Validator Name',
+        historicalValidators: 'Historical Validators',
+        rank: 'Rank',
+        validatorName: 'Validator Name',
+        delegationsDelegators: 'Delegations\\Delegators',
+        producedBlock: 'Blocks',
+        exitTime: 'Exit time',
+        pendingDelegations: 'Pending Delegations',
+        nodeMsg: 'PlatON blockchain initial built-in validator, does not accept Delegation',
+        systemBuilt: 'System built-in reward pool account',
+        systemOperation: 'System operation, no txn',
+        node: 'Node',
 
     },
-    nodeStatus:{
-        1:'Candidate',
-        2:'Active',
-        3:'Producing…',
-        4:'Exiting',
-        5:'Exited',
+    nodeStatus: {
+        1: 'Candidate',
+        2: 'Active',
+        3: 'Producing…',
+        4: 'Exiting',
+        5: 'Exited',
     },
+    // 交易类型
     TxType: {
         0: 'Transfer',  //'转账',
         1: 'Create Proposal',   //'创建提案',
-        2: 'Contract Execution', //'合约调用',
+        2: 'Contract Execution', //'合约执行',
         5: 'MPCTx', //'MPC交易',
         1000: 'Create Validator',   //'发起质押',
         1001: 'Edit Validator',   //'修改质押信息',
@@ -309,8 +331,22 @@ export default {
         2002: 'Create Proposal',   //'提交参数提案',
         2003: 'Voting Proposal',    //'提案投票',
         2004: 'Declare Version',    //'版本声明',
+        2005: 'Cancel Proposal',    //取消提案
         3000: 'Report Validator',   //'举报多签',
         4000: 'Create Restricting', //'创建锁仓计划'
+    },
+    // 创建提案的提案类型
+    createType: {
+        2000: 'Text Proposal',   //文本提案
+        2001: 'Upgrade Proposal',   //升级提案
+        2002: 'Parameter Proposal',   //参数提案
+        2005: 'Cancel Proposal'    //取消提案
+    },
+    // 提案投票的提案类型
+    proposalOption: {
+        1: 'Text Proposal',  //文本提案
+        2: 'Upgrade Proposal',  //升级提案
+        3: 'Parameter Proposal',  //参数提案
     },
     ...enLocale
 }
