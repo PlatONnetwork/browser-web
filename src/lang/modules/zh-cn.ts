@@ -55,7 +55,7 @@ export default {
         delegator: '委托人',
         validator: '验证人',
         delegationAmount: '委托数量',
-        withdrawal: "赎回数量",
+        withdrawal: '赎回数量',
 
         proposer: '提案人',
         operatorAddress: '操作地址',
@@ -69,7 +69,7 @@ export default {
         proposalDetail: '提案详情',
         vote: '投票',
         version: '声明版本',
-        version1: "版本",
+        version1: '版本',
 
         identity: '身份认证ID',
         rewardAddress: '奖励账户',
@@ -79,7 +79,7 @@ export default {
         returnAmount: '退回数量',
         reporter: '举报人',
         reportType: '举报类型',
-        doubleSiging: "区块双签",
+        doubleSiging: '区块双签',
         reportEvidence: '举报证据',
         reportResult: '举报结果',
         returnBlock: '预计到账区块',
@@ -100,25 +100,25 @@ export default {
         txInfo: '交易信息',
         viewLeft: '查看前一个交易',
         viewRight: '查看后一个交易',
-        transfer: "转账",
+        transfer: '转账',
         other: '合约创建\\合约执行\\MPC交易\\其他',
-        restricting: "创建锁仓",//CreateRestricting
-        delegate: "委托",
-        undelegate: "赎回委托",
-        proposal: "创建提案",
-        voting: "提案投票",
-        declare: "版本声明",
-        createValidator: "创建验证人",
-        increase: "增加自有质押",
-        editValidator: "编辑验证人",
-        exitValidator: "退出验证人",
-        reportValidator: "举报验证人",
-        pend: "退回中",
-        remain: "剩余退回",   
-        undelegat:"赎回中",
-        remain1: "剩余赎回",  //
-        successed: "退回成功",
-        successed1: "赎回成功",
+        restricting: '创建锁仓',//CreateRestricting
+        delegate: '委托',
+        undelegate: '赎回委托',
+        proposal: '创建提案',
+        voting: '提案投票',
+        declare: '版本声明',
+        createValidator: '创建验证人',
+        increase: '增加自有质押',
+        editValidator: '编辑验证人',
+        exitValidator: '退出验证人',
+        reportValidator: '举报验证人',
+        pend: '退回中',
+        remain: '剩余退回',
+        undelegat: '赎回中',
+        remain1: '剩余赎回',  //
+        successed: '退回成功',
+        successed1: '赎回成功',
         information: '交易信息',    //Transaction Information
         timestamp: '时间戳',
         txHash: '交易hash',
@@ -310,6 +310,7 @@ export default {
         4: '退出中',
         5: '已退出',
     },
+    // 交易类型
     TxType: {
         0: '转账',
         1: '合约创建',  //创建提案
@@ -326,8 +327,22 @@ export default {
         2002: '提交提案',   //提交参数提案
         2003: '提案投票',   //提案投票
         2004: '版本声明',
+        2005: '创建提案',   //取消提案
         3000: '举报验证人',   //举报多签
         4000: '创建锁仓'    //创建锁仓计划
+    },
+    // 创建提案的提案类型
+    createType: {
+        2000: '文本提案',
+        2001: '升级提案',
+        2002: '参数提案',
+        2005: '取消提案'
+    },
+    // 提案投票的提案类型
+    proposalOption: {
+        1: '文本提案',
+        2: '升级提案',
+        3: '参数提案',
     },
     ...zhLocale
 }

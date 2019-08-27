@@ -35,11 +35,11 @@
               <el-tooltip
                 class="item"
                 effect="dark"
-                placement="bottom"
-                v-if="scope.row.txReceiptStatus==0"
+                placement="bottom-start"
+                v-if="scope.row.failReason"
               >
                 <div slot="content">
-                  <span class="title-warning">Warning：</span>
+                  <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
                   {{scope.row.failReason}}
                 </div>
                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
@@ -502,6 +502,10 @@ export default {
 }
 .trade-count {
   color: #333;
+}
+.iconxinxi{
+  color: #ffc017;
+  margin-right: 5px;
 }
 </style>
 

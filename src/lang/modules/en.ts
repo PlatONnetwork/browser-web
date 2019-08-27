@@ -54,7 +54,7 @@ export default {
         delegator: 'Delegator',
         validator: 'Validator',
         delegationAmount: 'Delegation Amount',
-        withdrawal: "Withdrawal Amount",
+        withdrawal: 'Withdrawal Amount',
 
         proposer: 'Proposer',
         operatorAddress: 'Operator Address',
@@ -64,7 +64,7 @@ export default {
         proposalTitle: 'Proposal Title',
         vote: 'Vote',
         version: 'Version',
-        version1: "Version",
+        version1: 'Version',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',
@@ -74,7 +74,7 @@ export default {
         returnAmount: 'Return Amount',
         reporter: 'Reporter',
         reportType: 'Report Type',
-        doubleSiging: "Double Siging",
+        doubleSiging: 'Double Siging',
         reportEvidence: 'ReportEvidence',
         reportResult: 'ReportResult',
         reportReward: 'Report Reward',
@@ -95,25 +95,25 @@ export default {
         txInfo: 'Tx Info',
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
-        transfer: "Transfer",
+        transfer: 'Transfer',
         other: 'ContractCreation\\ContractExecution\\MPCTx\\Others',
-        restricting: "CreateRestricting",
-        delegate: "Delegate",
-        undelegate: "Undelegate",
-        proposal: "CreateProposal",
-        voting: "VotingProposal",
-        declare: "DeclareVersion",
-        createValidator: "CreateValidator",
-        increase: "IncreaseStaking",
-        editValidator: "EditValidator",
-        exitValidator: "ExitValidator",
-        reportValidator: "ReportValidator",
-        pend: "Pending",
-        remain: "Remaining",
-        undelegat:"Undelegating",
-        remain1: "Remaining",
-        successed: "Successed",
-        successed1: "Successed",
+        restricting: 'CreateRestricting',
+        delegate: 'Delegate',
+        undelegate: 'Undelegate',
+        proposal: 'CreateProposal',
+        voting: 'VotingProposal',
+        declare: 'DeclareVersion',
+        createValidator: 'CreateValidator',
+        increase: 'IncreaseStaking',
+        editValidator: 'EditValidator',
+        exitValidator: 'ExitValidator',
+        reportValidator: 'ReportValidator',
+        pend: 'Pending',
+        remain: 'Remaining',
+        undelegat: 'Undelegating',
+        remain1: 'Remaining',
+        successed: 'Successed',
+        successed1: 'Successed',
         information: 'Information', //Transaction 
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',
@@ -310,6 +310,7 @@ export default {
         4: 'Exiting',
         5: 'Exited',
     },
+    // 交易类型
     TxType: {
         0: 'Transfer',  //'转账',
         1: 'Create Proposal',   //'创建提案',
@@ -326,8 +327,22 @@ export default {
         2002: 'Create Proposal',   //'提交参数提案',
         2003: 'Voting Proposal',    //'提案投票',
         2004: 'Declare Version',    //'版本声明',
+        2005: 'Cancel Proposal',    //取消提案
         3000: 'Report Validator',   //'举报多签',
         4000: 'Create Restricting', //'创建锁仓计划'
+    },
+    // 创建提案的提案类型
+    createType: {
+        2000: 'Text Proposal',   //文本提案
+        2001: 'Upgrade Proposal',   //升级提案
+        2002: 'Parameter Proposal',   //参数提案
+        2005: 'Cancel Proposal'    //取消提案
+    },
+    // 提案投票的提案类型
+    proposalOption: {
+        1: 'Text Proposal',  //文本提案
+        2: 'Upgrade Proposal',  //升级提案
+        3: 'Parameter Proposal',  //参数提案
     },
     ...enLocale
 }

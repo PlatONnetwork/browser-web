@@ -14,10 +14,10 @@
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
         <el-tooltip :content="$t('tradeAbout.viewLeft')" placement="top">
-          <el-button icon="el-icon-arrow-left" @click="goDetail('')"></el-button>
+          <el-button icon="el-icon-arrow-left" @click="detailNavigate('prev')" :disabled="disabledLeft"></el-button>
         </el-tooltip>
         <el-tooltip :content="$t('tradeAbout.viewRight')" placement="top">
-          <el-button icon="el-icon-arrow-right" @click="goDetail('')"></el-button>
+          <el-button icon="el-icon-arrow-right" @click="detailNavigate('next')" :disabled="disabledRight"></el-button>
         </el-tooltip>
       </div>
     </div>
@@ -29,7 +29,7 @@
         class="el-icon-success status-icon status-icon-success"
       ></i>
       <i
-        v-else-if="detailInfo.txReceiptStatus==2"
+        v-else-if="detailInfo.txReceiptStatus==0"
         class="el-icon-warning status-icon status-icon-warning"
       ></i>
       <!-- 基础交易 -->
@@ -130,7 +130,7 @@
       <List
         :title="detailTitle(detailInfo.txType)"
         :border="true"
-        v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'"
+        v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'|| detailInfo.txType=='2005'"
       >
         <!-- 提案人（创建提案特有2000） -->
         <Item :label="$t('tradeAbout.'+(detailInfo.txType=='2000'?'proposer':'validator'))">
@@ -155,14 +155,20 @@
         </Item>
         <template v-if="detailInfo.txType!='2004'">
           <!-- 提案类型 -->
-          <Item :label="$t('tradeAbout.proposalType')" :prop="detailInfo.proposalOption"></Item>
+          <Item :label="$t('tradeAbout.proposalType')">
+            <!-- :prop="detailInfo.proposalOption" -->
+            <span
+              v-if="detailInfo.txType=='2003'"
+            >{{$t("proposalOption."+detailInfo.proposalOption)}}</span>
+            <span v-else>{{$t("createType."+detailInfo.txType)}}</span>
+          </Item>
           <!-- 提案ID -->
-          <Item :label="$t('tradeAbout.proposalHash')" :prop="detailInfo.proposalHash"></Item>
+          <Item :label="$t('tradeAbout.proposalID')" :prop="detailInfo.proposalHash"></Item>
           <!-- PIP编号 -->
           <Item :label="$t('tradeAbout.PIPSN')">
             <span
               class="cursor normal ellipsis"
-              @click="goDetail(type,detailInfo.githubID)"
+              @click="goDetail(detailInfo.pipNum)"
             >{{detailInfo.pipNum}}</span>
           </Item>
           <!-- 提案标题 -->
@@ -309,7 +315,7 @@
       <!-- 交易信息infomation -->
       <List :title="$t('tradeAbout.information')" class="common-info" :border="true">
         <!-- 失败信息 -->
-        <div v-if="detailInfo.txReceiptStatus==2" class="warn-info">
+        <div v-if="detailInfo.txReceiptStatus==0" class="warn-info">
           <span class="yellow">{{$t('tradeAbout.warn')}}:</span>
           <span>{{detailInfo.failReason}}</span>
         </div>
@@ -319,10 +325,7 @@
             v-if="detailInfo.txReceiptStatus==1"
             class="status-icon-success"
           >{{$t('tradeAbout.success')}}</span>
-          <span
-            v-else-if="detailInfo.txReceiptStatus==2"
-            class=".status-icon-warning"
-          >{{$t('tradeAbout.fail')}}</span>
+          <span v-else-if="detailInfo.txReceiptStatus==0" class="pink">{{$t('tradeAbout.fail')}}</span>
         </Item>
         <!-- 交易哈希 -->
         <Item :label="$t('tradeAbout.txhash')" :prop="detailInfo.txHash"></Item>
@@ -373,21 +376,9 @@ export default {
       btnRightFlag: true,
       disabledLeft: false,
       disabledRight: false,
-      address: "11111111111",
+      address: "",
       detailInfo: {},
       descriptionProp: "trade",
-      txTypeFn: {
-        transfer: "transfer",
-        MPCtransaction: "MPCtransaction",
-        contractCreate: "contractCreate",
-        voteTicket: "voteTicket",
-        transactionExecute: "transactionExecute",
-        authorization: "authorization",
-        candidateDeposit: "candidateDeposit",
-        candidateApplyWithdraw: "candidateApplyWithdraw",
-        candidateWithdraw: "candidateWithdraw",
-        unknown: "unknown"
-      },
       extraInfo: {}
     };
   },
@@ -564,16 +555,49 @@ export default {
         }
       });
     },
-    //前1后1详情
-    goDetail(adr) {
-      // this.$router.replace({
-      //   path: "/address-detail",
-      //   query: {
-      //     address: adr
-      //   }
-      // });
-      this.txHash = adr;
-      this.getDetail();
+    //前一条后一条
+    detailNavigate(d) {
+      let param = {
+        txHash: this.txHash,
+        direction: d
+      };
+      apiService.trade.transactionDetailNavigate(param).then(res => {
+        let { errMsg, code, data } = res;
+        if (code == 0) {
+          this.loading = false;
+          this.detailInfo = data;
+          //是否第一条记录
+          if (data.first) {
+            this.btnLeftFlag = false;
+            this.disabledLeft = true;
+          } else {
+            this.btnLeftFlag = true;
+            this.disabledLeft = false;
+          }
+          //是否最后一条数据
+          if (data.last) {
+            this.btnRightFlag = false;
+            this.disabledRight = true;
+          } else {
+            this.btnRightFlag = true;
+            this.disabledRight = false;
+          }
+          this.txHash = data.txHash;
+          this.$router.replace({
+            path: "/trade-detail",
+            query: {
+              address: data.txHash
+            }
+          });
+        } else {
+          this.detailInfo = {};
+          this.$message.error(errMsg);
+        }
+      });
+
+      // this.txHash = adr;
+      // this.getDetail();
+      // history.pushState({}, "", "trade-detail?txHash=0xbd786677d5a6cc1c4ff79b2ec3b555b6a93d9be13a1249167bf801c18d0eace2");
     },
     //根据类型返回标题
     detailTitle(t) {
@@ -589,7 +613,7 @@ export default {
         s += "delegate";
       } else if (t == 1005) {
         s += "undelegate";
-      } else if (t == 2000 || t == 2001 || t == 2002) {
+      } else if (t == 2000 || t == 2001 || t == 2002 || t == 2005) {
         s += "proposal";
       } else if (t == 2003) {
         s += "voting";
@@ -625,7 +649,7 @@ export default {
 .warn-info {
   background: #fff7e3;
   border: 1px solid #ffc017;
-  width: 500px;
+  width: 900px;
   margin-bottom: 20px;
   border-radius: 4px;
   padding: 10px 15px;
@@ -657,6 +681,9 @@ export default {
 }
 .status-icon-warning {
   color: #ffc017;
+}
+.pink {
+  color: #cf326e;
 }
 </style>
 <style lang="less">
