@@ -3,8 +3,8 @@
     <div class="page-title fontSize34">{{$t('menu.proposal').toUpperCase()}}</div>
     <div class="sub-title">
       <div class="fontSize14 trade-count">&nbsp;</div>
-      <div class="pagination-box1">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9"></el-pagination>
+      <div class="pagination-box1" v-if="paginationFlag">
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes, total, prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -13,16 +13,17 @@
         <el-table-column :label="$t('tradeAbout.PIPSN')" min-width="10%">
           <template slot-scope="scope">
             <span style="font-weight:bold;">
-              <i class="el-icon-time"></i>
-              <!-- <img src="@/assets/images/icon-code.png" /> -->
-              {{scope.row.url}}
+              <!-- <i class="el-icon-time"></i> -->
+              <img class='iconlink' src="@/assets/images/icon-link.png" />
+              <!-- {{scope.row.url}} -->
+              <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md" target="_blank">{{scope.row.pipNum}}</a>
             </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.proposalTitle')" min-width="50%">
           <template slot-scope="scope">
             <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
-              <span class="cursor normal ellipsis" style="font-weight:bold">{{scope.row.title}}</span>
+              <span class="cursor normal ellipsis" style="font-weight:bold">{{scope.row.topic}}</span>
             </div>
           </template>
         </el-table-column>
@@ -34,23 +35,22 @@
         <el-table-column :label="$t('tradeAbout.proposalStatus')" show-overflow-tooltip min-width="10%">
           <template slot-scope="scope">
             <span v-if="scope.row.status == '1'">
-              <i class="el-icon-circle-plus-outline"></i>
               &nbsp;{{scope.row.status | proposalStatus}}
             </span>
             <span v-else-if="scope.row.status == '3'">
-              <i class="el-icon-circle-close"></i>
               &nbsp;{{scope.row.status | proposalStatus}}
             </span>
             <span v-else>
-              <i class="el-icon-circle-check"></i>
               &nbsp;{{scope.row.status | proposalStatus}}
             </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.proposalEndBlock')" min-width="10%">
           <template slot-scope="scope">
-            <div class="flex-special">
-              <span class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.$index,scope.row)">{{scope.row.endVotingBlock}}</span>
+            <div class="flex-special content progress">
+              <!-- <span class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.$index,scope.row)">{{scope.row.endVotingBlock}}</span> -->
+                <div class="percentage" :style="{'width': (scope.row.curBlock/scope.row.endVotingBlock)*100+'%'}"></div>
+                <div class="progress-text">Block {{scope.row.endVotingBlock}}</div>
             </div>
           </template>
         </el-table-column>
@@ -61,7 +61,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box" v-if="paginationFlag">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes, total, prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ export default {
       currentPage: 1,
       pageSize: 10,
       pageTotal: 1,
-      displayTotalCount: 0,
+
     };
   },
   props: {},
@@ -98,10 +98,15 @@ export default {
       };
       console.warn('获取提案列表》》》', param);
       try {
-        let { data, totalPages, totalCount, code, errMsg, displayTotalCount } = await apiService.proposal.proposalList(param);
-        this.tableData = data;
+        let { data, totalPages, totalCount, code, errMsg } = await apiService.proposal.proposalList(param);
+        console.log(data)
+        // let tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock)*100 + '%';
+
+
+        // debugger
+        let tmpdata = data.sort(this.proposalTimeCompare('timestamp'));
+        this.tableData = tmpdata;
         this.pageTotal = totalCount;
-        this.displayTotalCount = displayTotalCount || 10;
         this.newRecordFlag = (totalCount > 500000);
         this.paginationFlag = (totalPages !== 1)
       } catch (error) {
@@ -129,6 +134,14 @@ export default {
       this.pageSize = val;
       this.getProposalList();
     },
+    //提案时间排序
+    proposalTimeCompare(prop){
+        return function(a, b){
+            let value1 = a[prop];
+            let value2 = b[prop];
+            return value2 - value1;
+        }
+    }
   },
   //生命周期函数
   created() {
@@ -147,12 +160,40 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.iconlink{
+    display: inline-block;
+    vertical-align: middle;
+}
 .sub-title {
   display: flex;
   justify-content: space-between;
 }
 .trade-count {
   color: #333;
+}
+.progress {
+  position: relative;
+  width: 188px;
+  height: 20px;
+  background: #d5d5d5;
+  border-radius: 1px;
+}
+.percentage {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: #000000;
+}
+.progress-text {
+  position: absolute;
+  margin: 0px 0px 0px 35px;
+  top: 0;
+  font-family: Gilroy-Medium;
+  font-size: 12px;
+  color: white;
+  letter-spacing: 0;
+  height: 100%;
+  line-height: 20px;
 }
 </style>
 

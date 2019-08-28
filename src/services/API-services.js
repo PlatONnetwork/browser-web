@@ -47,36 +47,37 @@ class ApiService {
       transactionDetailNavigate: this.post.bind(this, API.TRADE.transactionDetailNavigate),
     };
     this.proposal = {
-      // proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
-      // proposalDetails: this.post.bind(this, API.PROPOSAL.proposalDetails),
-      // voteList: this.post.bind(this, API.PROPOSAL.voteList),
-      proposalList: function() {
-        mock.proposalList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
-        let proposal = mock.proposalList.data[0];
-        let i = 1;
-        while (i++ <= mock.proposalList.totalCount) {
-          let newProposal = JSON.parse(JSON.stringify(proposal));
-          newProposal.url = "PIP" + i;
-          newProposal.type = String((i % 3) + 1);
-          newProposal.status = String((i % 5) + 1);
-          mock.proposalList.data.push(newProposal);
-        }
-        return mock.proposalList.code ? Promise.reject(mock.proposalList) : Promise.resolve(mock.proposalList);
-      },
-      proposalDetails: function() {
-        mock.proposalDetails.code = 0;
-        return mock.proposalDetails.code ? Promise.reject(mock.proposalDetails) : Promise.resolve(mock.proposalDetails);
-      },
-      voteList: function() {
-        mock.voteList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
-        let vote = mock.voteList.data[0];
-        let i = 1;
-        while (i++ <= mock.voteList.totalCount) {
-          let newVote = JSON.parse(JSON.stringify(vote));
-          mock.vote.data.push(newVote);
-        }
-        return mock.voteList.code ? Promise.reject(mock.voteList) : Promise.resolve(mock.voteList);
-      }
+      proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
+      proposalDetails: this.post.bind(this, API.PROPOSAL.proposalDetails),
+      voteList: this.post.bind(this, API.PROPOSAL.voteList),
+    //   proposalList: function() {
+    //     mock.proposalList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
+    //     let proposal = mock.proposalList.data[0];
+    //     let i = 1;
+    //     while (i++ <= mock.proposalList.totalCount) {
+    //       let newProposal = JSON.parse(JSON.stringify(proposal));
+    //       newProposal.url = "PIP" + i;
+    //       newProposal.type = String((i % 3) + 1);
+    //       newProposal.status = String((i % 5) + 1);
+    //       newProposal.timestamp = 1566197087 + i;
+    //       mock.proposalList.data.push(newProposal);
+    //         }
+    //     return mock.proposalList.code ? Promise.reject(mock.proposalList) : Promise.resolve(mock.proposalList);
+    //   },
+    //   proposalDetails: function() {
+    //     mock.proposalDetails.code = 0;
+    //     return mock.proposalDetails.code ? Promise.reject(mock.proposalDetails) : Promise.resolve(mock.proposalDetails);
+    //   },
+    //     voteList: function () {
+    //     mock.voteList.code = 0; //Math.random() >= 0.5 ? 0 : 1;
+    //     let vote = mock.voteList.data[0];
+    //     let i = 1;
+    //     while (i++ <= mock.voteList.totalCount) {
+    //         let newVote = JSON.parse(JSON.stringify(vote));
+    //         mock.voteList.data.push(newVote);
+    //       }
+    //     return mock.voteList.code ? Promise.reject(mock.voteList) : Promise.resolve(mock.voteList);
+    //   }
     };
     this.account = {
       details: this.post.bind(this, API.ACCOUNT.details),
@@ -104,8 +105,9 @@ class ApiService {
     return Http.put(url, params).then(res => res.data);
   }
     post(url, params) {
+        console.log(this.node)
         typeof params === 'undefined' ? params = {} : '';
-        localStorage.sessionid ? params.sessionid = localStorage.sessionid : ''
+        localStorage.sessionid ? params.sessionid = localStorage.sessionid : '';
         // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
         // params.cid = 1
         // params.cid = sessionStorage.getItem('commandId') ? sessionStorage.getItem('commandId') : store.state.common.chainId

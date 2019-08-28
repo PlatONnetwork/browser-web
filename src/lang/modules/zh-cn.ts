@@ -67,6 +67,10 @@ export default {
         proposalDetail: '提案详情',
         vote: '投票',
         version: '声明版本',
+        voter: '投票人',
+        voteOption: '投票选项',
+        trasactionHash: '交易Hash',
+        trasactionTime:'投票时间',
 
         identity: '身份认证ID',
         rewardAddress: '奖励账户',

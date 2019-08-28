@@ -120,3 +120,11 @@ Vue.filter("proposalStatus", (status: string): string => {
   if (status === "3") return "已拒绝";
   return "未知状态"
 });
+
+//投票选型  1：支持；  2：反对；  3弃权
+Vue.filter("votePropotype", (status: string): string => {
+  if (status === "1") return "支持";
+  if (status === "2") return "反对";
+  if (status === "3") return "弃权";
+  return "未知类型"
+});

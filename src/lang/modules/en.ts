@@ -62,6 +62,10 @@ export default {
         proposalTitle: 'Proposal Title',
         vote: 'Vote',
         version: 'Version',
+        voter: 'Voter',
+        voteOption: 'voteOption',
+        trasactionHash:'txHash',
+        trasactionTime:'time',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',
@@ -92,7 +96,7 @@ export default {
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
         transfer: 'Transfer',
-        information: 'Information', //Transaction 
+        information: 'Information', //Transaction
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',
         actualTxCost: 'Tx Cost/Fee',
