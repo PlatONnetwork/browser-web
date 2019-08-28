@@ -7,4 +7,5 @@ export const indexGetter = {
     chartData: state => state.chartData,
     ValidatorData: state => state.ValidatorData,
     ValidatorStatisticData: state => state.ValidatorStatisticData,
+    isMove: state => state.isMove,
 }

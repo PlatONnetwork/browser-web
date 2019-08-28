@@ -152,7 +152,7 @@ class ChartService {
                     //     interval: 0,
                     //     lineStyle: {
                     //         color: ['#2b66f3'],
-                    //         opacity: 0,
+                    //         opacity: 0.5,
                     //         type: 'dashed',
                     //         width: 1
                     //     }

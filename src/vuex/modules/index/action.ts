@@ -9,7 +9,6 @@ export const indexAction = {
         list.yb.forEach((value,index)=>{
             list.yb[index] = value + 100;
         })
-        console.log(list)
         commit('UPDATE_CHART_DADA', list)
     },
     updateValidatorData({ commit, state }, list) {
@@ -17,5 +16,8 @@ export const indexAction = {
     },
     updateValidatorStatisticData({ commit, state }, list) {
         commit('UPDATE_VALIDATOR_STATIC_DADA', list)
+    },
+    updateIsMove({ commit, state }, data) {
+        commit('UPDATE_IS_MOVE', data)
     },
 }

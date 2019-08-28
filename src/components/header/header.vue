@@ -10,16 +10,16 @@
                 <el-menu-item index="/">
                     <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/block">
+                <el-menu-item index="/block" :class="{active:$route.path.indexOf('block')>-1}">
                     <router-link to="/block">{{ $t("menu.block") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/trade">
+                <el-menu-item index="/trade" :class="{active:$route.path.indexOf('trade')>-1}">
                     <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/node">
+                <el-menu-item index="/node" :class="{active:$route.path.indexOf('node')>-1}">
                     <router-link to="/node">{{ $t("menu.validator") }}</router-link>
                 </el-menu-item>
-                <el-menu-item index="/proposal">
+                <el-menu-item index="/proposal" :class="{active:$route.path.indexOf('proposal')>-1}">
                     <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
                 </el-menu-item>
             </el-menu>
@@ -280,6 +280,9 @@
             &.search-hide{                     
                 opacity: 1;
             }
+        }
+        .active{
+            color: #fff !important;
         }
     }
     .logo{

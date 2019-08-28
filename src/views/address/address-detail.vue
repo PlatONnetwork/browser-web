@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
                 <i>#{{address}}</i>
-                <b class="cursor" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"
@@ -149,6 +149,8 @@
                 detailInfo:{
 
                 },
+                isCopy:false,
+                copyText:''
             }
         },
         props: {
@@ -208,10 +210,20 @@
                     });
             },
             onCopy() {
-                this.$message.success(this.$t('modalInfo.copysuccess'));
+                this.copyText = this.$t('modalInfo.copysuccess');
+                this.isCopy = true;
+                setTimeout(()=>{
+                    this.isCopy = false;
+                    this.copyText = '';
+                },2000)
             },
             onError() {
-                this.$message.error(this.$t('modalInfo.copyfail'));
+                this.copyText = this.$t('modalInfo.copyfail');
+                this.isCopy = true;
+                setTimeout(()=>{
+                    this.isCopy = false;
+                    this.copyText = '';
+                },2000)
             },
             tabChange(index){
                 this.tabIndex = index;
