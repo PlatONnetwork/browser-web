@@ -142,6 +142,7 @@ export default {
       pageTotal: 1,
       descriptionProp: "trade",
       displayTotalCount: 0,
+      /*
       txTypeFn: {
         transfer: "transfer",
         MPCtransaction: "MPCtransaction",
@@ -154,6 +155,7 @@ export default {
         candidateWithdraw: "candidateWithdraw",
         unknown: "unknown"
       },
+      */
       currentScreenWidth: 0
     };
   },
@@ -197,7 +199,7 @@ export default {
           }
         })
         .catch(error => {
-          debugger;
+          /*
           console.info("请求出错");
           let obj = {
             errMsg: "成功",
@@ -409,6 +411,7 @@ export default {
             ? (this.paginationFlag = false)
             : (this.paginationFlag = true);
 
+          */
           this.$message.error(error);
         });
     },
@@ -456,7 +459,7 @@ export default {
     },
     //进入区块详情
     goBlockDetail(height) {
-      console.warn("进入区块",height);
+      console.warn("进入区块", height);
       this.$router.push({
         path: "/block-detail",
         query: {
@@ -469,7 +472,7 @@ export default {
       this.$router.push({
         path: "/trade-detail",
         query: {
-          txHash: hash,
+          txHash: hash
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
         }
@@ -480,7 +483,7 @@ export default {
       this.$router.push({
         path: "/address-detail",
         query: {
-          address: adr,
+          address: adr
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
@@ -503,7 +506,7 @@ export default {
 .trade-count {
   color: #333;
 }
-.iconxinxi{
+.iconxinxi {
   color: #ffc017;
   margin-right: 5px;
 }

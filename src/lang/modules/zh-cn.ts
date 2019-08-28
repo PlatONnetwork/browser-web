@@ -28,7 +28,7 @@ export default {
         export: '导出csv',
     },
     tradeAbout: {
-        confirmTime:'确认时间',
+        confirmTime: '确认时间',
         foundTransactions: '交易',
         showingLast: '(仅显示最新500k记录)',
         transactionUp: '交易',
@@ -319,6 +319,7 @@ export default {
         0: '转账',
         1: '合约创建',  //创建提案
         2: '合约执行',  //合约执行
+        4: '其他',      //其他
         5: 'MPC交易',
         1000: '创建验证人',   //发起质押
         1001: '编辑验证人',   //修改质押信息

@@ -319,6 +319,7 @@ export default {
         0: 'Transfer',  //'转账',
         1: 'Create Proposal',   //'创建提案',
         2: 'Contract Execution', //'合约执行',
+        4: 'Others',      //其他
         5: 'MPCTx', //'MPC交易',
         1000: 'Create Validator',   //'发起质押',
         1001: 'Edit Validator',   //'修改质押信息',

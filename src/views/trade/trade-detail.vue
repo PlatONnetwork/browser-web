@@ -44,7 +44,7 @@
       <List
         :title="detailTitle(detailInfo.txType)"
         :border="true"
-        v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='5' || detailInfo.txType=='4000'"
+        v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='4' || detailInfo.txType=='5'|| detailInfo.txType=='4000'"
       >
         <!-- 发送方 -->
         <Item :label="$t('tradeAbout.sender')">
@@ -113,7 +113,7 @@
         <!-- 委托数量 -->
         <Item v-if="detailInfo.txType=='1004'" :label="$t('tradeAbout.delegationAmount')">
           <!-- :prop="detailInfo.value + 'LAT'" -->
-          <span>{{detailInfo.value | formatMoney }} LAT</span>
+          <span>{{detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <!-- 赎回数量 -->
         <Item v-else-if="detailInfo.txType=='1005'" :label="$t('tradeAbout.withdrawal')">
@@ -123,7 +123,7 @@
           <!-- 1： 赎回中 -->
           <span v-if="detailInfo.redeemStatus==1">({{$t('tradeAbout.undelegat')}})</span>
           <!-- 2：赎回成功 -->
-          <span v-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
+          <span v-else-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
           <!-- 剩余赎回 -->
           <span v-else>({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked}} LAT)</span>
         </Item>
@@ -141,7 +141,9 @@
         v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'|| detailInfo.txType=='2005'"
       >
         <!-- 提案人（创建提案特有2000） -->
-        <Item :label="$t('tradeAbout.'+(detailInfo.txType=='2000'?'proposer':'validator'))">
+        <Item
+          :label="$t('tradeAbout.'+(detailInfo.txType=='2000'||detailInfo.txType=='2001'||detailInfo.txType=='2002'?'proposer':'validator'))"
+        >
           <span
             class="cursor normal ellipsis"
             @click="goNodeDetail(detailInfo.nodeId)"
@@ -174,25 +176,30 @@
           <Item :label="$t('tradeAbout.proposalID')" :prop="detailInfo.proposalHash"></Item>
           <!-- PIP编号 -->
           <Item :label="$t('tradeAbout.PIPSN')">
-            <span
+            <!-- <span
               class="cursor normal ellipsis"
               @click="goDetail(detailInfo.pipNum)"
-            >{{detailInfo.pipNum}}</span>
+            >{{detailInfo.pipNum}}</span>-->
+            <a
+              class="cursor normal ellipsis"
+              :href="detailInfo.proposalUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{detailInfo.pipNum}}</a>
           </Item>
           <!-- 提案标题 -->
           <Item :label="$t('tradeAbout.proposalTitle')">
             <span
               class="cursor normal ellipsis"
-              @click="goDetail(type,detailInfo.proposalHash)"
+              @click="goProposalDetail(detailInfo.proposalHash)"
             >{{detailInfo.proposalTitle}}</span>
           </Item>
         </template>
 
         <!-- 投票（提案投票特有） -->
         <Item :label="$t('tradeAbout.vote')" v-if="detailInfo.txType=='2003'">
-          <span
-            class="green vote-status"
-          >{{detailInfo.proposalOption==2?'SUPPORT':'YES NO ABSTAIN'}}</span>
+          <span v-if="detailInfo.proposalOption==2" class="green vote-status">SUPPORT</span>
+          <span class="green vote-status" v-else>{{detailInfo.voteStatus==1?'YES':detailInfo.voteStatus==2?'NO':'ABSTAIN'}}</span>
         </Item>
         <!-- 声明版本(版本声明特有) -->
         <Item
@@ -236,7 +243,7 @@
           <Item :label="$t('tradeAbout.reportResult')">
             <span
               class="green vote-status"
-            >{{detailInfo.reportStatus==2?'SUPPORT':'YES NO ABSTAIN'}}</span>
+            >{{detailInfo.reportStatus==2?'Success':'YES NO ABSTAIN'}}</span>
           </Item>
           <!-- 举报奖励 -->
           <Item :label="$t('tradeAbout.reportReward')">
@@ -295,7 +302,7 @@
           :label="$t('tradeAbout.stakeAmount')"
         >
           <!-- :prop="detailInfo.value" -->
-          <span>{{detailInfo.value | formatMoney}} LAT</span>
+          <span>{{detailInfo.txAmount | formatMoney}} LAT</span>
         </Item>
         <template v-if="detailInfo.txType=='1003'">
           <!-- 退回数量（退出验证人特有） -->
@@ -306,7 +313,7 @@
             <!-- 1： 退回中 -->
             <span v-if="detailInfo.redeemStatus==1">({{$t('tradeAbout.pend')}})</span>
             <!-- 2：退回成功 -->
-            <span v-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed')}})</span>
+            <span v-else-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed')}})</span>
             <!-- 剩余退回 -->
             <span v-else>({{$t('tradeAbout.remain')}}:{{detailInfo.redeemLocked}} LAT)</span>
           </Item>
@@ -398,6 +405,19 @@ export default {
     Item
   },
   methods: {
+    //进入提案详情
+    goProposalDetail(hx) {
+      this.$router.push({
+        path: "/proposal-detail",
+        query: {
+          proposalHash: hx
+          // description: "trade",
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
+        }
+      });
+    },
+    //
     goDetail(type, id) {},
     //获取交易信息详情
     getDetail() {
@@ -440,7 +460,7 @@ export default {
         })
         .catch(error => {
           this.$message.error(error);
-
+          /*  注释
           let { errMsg, code, data } = {
             errMsg: "", //描述信息
             code: 0, //成功（0），失败则由相关失败码
@@ -520,11 +540,14 @@ export default {
             this.detailInfo = {};
             this.$message.error(errMsg);
           }
+          */
         });
     },
+    // 复制到剪切板成功
     onCopy() {
       this.$message.success(this.$t("modalInfo.copysuccess"));
     },
+    // 复制到剪切板失败
     onError() {
       this.$message.error(this.$t("modalInfo.copyfail"));
     },
@@ -589,7 +612,7 @@ export default {
       let s = "tradeAbout.";
       if (t == 0) {
         s += "transfer";
-      } else if (t == 1 || t == 2 || t == 5) {
+      } else if (t == 1 || t == 2 || t == 4 || t == 5) {
         s += "other";
       } else if (t == 4000) {
         s += "restricting";
@@ -622,8 +645,8 @@ export default {
     this.txHash = this.$route.query.txHash;
     //获取交易列表
     this.getDetail();
-  },
-  mounted() {}
+  }
+  // mounted() {}
 };
 </script>
 <style lang="less" scoped>
