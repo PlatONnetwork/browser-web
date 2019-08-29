@@ -330,9 +330,10 @@ body{
     }
     b{
         display: inline-block;
-        width: 16px;
+        min-width: 16px;
         height: 16px;
-        background: url(../../assets/images/icon-copy.png) no-repeat;
+        font-weight: normal;
+        // background: url(../../assets/images/icon-copy.png) no-repeat;
         margin-left: 4px;
     }
     .code{
@@ -357,12 +358,15 @@ body{
 }
 .copyicon{
     display: inline-block;
-    width: 16px;
+    min-width: 16px;
     height: 16px;
-    background: url(../../assets/images/icon-copy.png) no-repeat;
+    font-weight: normal;
+    // background: url(../../assets/images/icon-copy.png) no-repeat;
     margin-left: 4px;
 }
-
+.copy{
+    background: url(../../assets/images/icon-copy.png) no-repeat;
+}
 // 地址详情头部
 .overview-wrap{
   display: flex;

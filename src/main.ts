@@ -8,6 +8,7 @@ import VueI18n from 'vue-i18n'
 import messages from '@/lang/index'
 import ElementUI from 'element-ui'
 import ElementLocale from 'element-ui/lib/locale'
+
 import VueClipboard from 'vue-clipboard2'
 import { mapActions } from 'vuex'
 import VueAwesomeSwiper from 'vue-awesome-swiper'

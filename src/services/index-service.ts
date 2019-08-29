@@ -183,7 +183,8 @@ class IndexService extends Ws {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                const { data, code } = res                                
+                const { data, code } = res  
+                // debugger                              
                 console.log(`updateValidatorData`, res)
                 if (code === 0) {
                     if(!data.isRefresh){
@@ -214,7 +215,10 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 console.log(`updateBlockData`, res)
                 if (res.code === 0) {
-                    store.dispatch('updateBlockData', res.data)
+                    store.dispatch('updateIsMove', true);
+                    setTimeout(()=>{
+                        store.dispatch('updateBlockData', res.data)  //动画完成后再更新数据
+                    },1000)                   
                 } else {
                     throw new Error(`todo`)
                 }

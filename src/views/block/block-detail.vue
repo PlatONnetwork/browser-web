@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('tradeAbout.block')}}</span>
                 <i>#{{detailInfo.number}}</i>
-                <b class="cursor" v-clipboard:copy="detailInfo.number" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="detailInfo.number" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>                
             </div>
             <div class="detail-arrow">
                 <el-tooltip class="item" effect="dark"  placement="top" :content="$t('blockAbout.lookLast')">
@@ -65,6 +65,8 @@
             return {
                 height:0,
                 detailInfo:{},
+                isCopy:false,
+                copyText:'',
             }
         },
         props: {
@@ -143,10 +145,20 @@
                 return timeDiff(beginTime,endTime)
             },
             onCopy() {
-                this.$message.success(this.$t('modalInfo.copysuccess'));
+                this.copyText = this.$t('modalInfo.copysuccess');
+                this.isCopy = true;
+                setTimeout(()=>{
+                    this.isCopy = false;
+                    this.copyText = '';
+                },2000)
             },
             onError() {
-                this.$message.error(this.$t('modalInfo.copyfail'));
+                this.copyText = this.$t('modalInfo.copyfail');
+                this.isCopy = true;
+                setTimeout(()=>{
+                    this.isCopy = false;
+                    this.copyText = '';
+                },2000)
             },
 
             // 区块列表

@@ -33,7 +33,7 @@ module.exports = {
     }
   },
   externals: {
-    'element-ui': 'ELEMENT',
+    // 'element-ui': 'ELEMENT',
     'vue':'Vue',
     'echarts':'echarts'
   },
