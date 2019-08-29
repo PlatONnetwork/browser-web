@@ -4,78 +4,100 @@
     <el-row>
       <el-col :span="12">
         <div>
-          <span class="proposal-id">#PIP1034</span>
-          <span class="github">See on github</span>
+          <span class="proposal-id">{{detailData.url.split('/')[detailData.url.split('/').length-1].split('.')[0]}}</span>
+          <a class="github" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md" target="_blank">See on github</a>
         </div>
       </el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple-light" style="float:right;margin-top:-50px;">
-          <el-button type="primary" size="small">投票中</el-button>
+          <el-button type="primary" size="small">
+            <span v-if="detailData.status == '1'">
+               &nbsp;{{detailData.status | proposalStatus}}
+            </span>
+            <span v-else-if="detailData.status == '3'">
+               &nbsp;{{detailData.status | proposalStatus}}
+            </span>
+            <span v-else>
+               &nbsp;{{detailData.status | proposalStatus}}
+            </span>
+          </el-button>
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="14">
-        <div class="update item">版本升级-V x.x.x</div>
+        <div class="update item">{{detailData.topoc}}</div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案类型：</div>
+              <div class="desc">
+                  {{$t('tradeAbout.proposalType')}}：
+              </div>
             </el-col>
             <el-col :span="15">
-              <div class="content">升级提案</div>
+              <div class="content">
+                   <span v-if="detailData.type == '1'">
+                        {{$t('tradeAbout.textProposal')}}
+                  </span>
+                  <span v-if="detailData.type == '2'">
+                        {{$t('tradeAbout.upgradeProposal')}}
+                  </span>
+                  <span v-if="detailData.type == '4'">
+                        {{$t('tradeAbout.quitProposal')}}
+                  </span>
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">升级版本：</div>
+              <div class="desc">{{$t('tradeAbout.upgradeVersion')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">V x.x.x</div>
+              <div class="content">{{detailData.newVersion}}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案人：</div>
+              <div class="desc">{{$t('tradeAbout.proposer')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content proposer">Jack</div>
+              <div class="content proposer">{{detailData.nodeName}}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案ID：</div>
+              <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">0x1da4b53ae05c28e8ee1679f2681fab24ccdf327f94cb98e29760296a799dc024</div>
+              <div class="content">{{detailData.nodeId}}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案时间：</div>
+              <div class="desc">{{$t('tradeAbout.proposalTime')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">Sep-26-2018 08:27:49 AM+UTC[835215]</div>
+              <div class="content">{{detailData.timestamp | formatTime}}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">投票结束区块：</div>
+              <div class="desc">{{$t('tradeAbout.proposalEndBlock')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
-                <div class="percentage"></div>
-                <div class="progress-text">Block 31,519,000</div>
+                <div class="percentage" :style="{'width': endVotingPercentage}"></div>
+                <div class="progress-text">Block {{detailData.endVotingBlock}}</div>
               </div>
             </el-col>
           </el-row>
@@ -84,19 +106,19 @@
               <div class="desc">&nbsp;</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">预计时间 Sep-26-2018 08:27:49 AM+UTC[835215]</div>
+              <div class="content">{{$t('contract.estimatedTime')}} {{detailData.endVotingBlockTime | formatTime}} </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">预设升级区块：</div>
+              <div class="desc">{{$t('tradeAbout.activeBlock')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
-                <div class="percentage"></div>
-                <div class="progress-text">Block 31,519,000</div>
+                <div class="percentage" :style="{'width': expectUpgradePercentage}"></div>
+                <div class="progress-text">Block {{detailData.activeBlock}}</div>
               </div>
             </el-col>
           </el-row>
@@ -105,60 +127,114 @@
               <div class="desc">&nbsp;</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">预计时间 Sep-26-2018 08:27:49 AM+UTC[835215]</div>
+              <div class="content">{{$t('contract.estimatedTime')}} {{detailData.activeBlockTime | formatTime}}</div>
             </el-col>
           </el-row>
         </div>
       </el-col>
       <el-col :span="10">
         <div class="item">
-          <div class="desc" style="margin:38px 0px 10px 0px;">提案描述：</div>
-          <div>暂无描述</div>
+          <div class="desc" style="margin:38px 0px 10px 0px;">{{$t('tradeAbout.propasalDescription')}}:</div>
+          <div>{{detailData.description}}</div>
         </div>
       </el-col>
     </el-row>
-    <div class="big-progress">
-      <div class="big-percentage"></div>
-      <div class="big-progress-text">Support 519,000 50.67%</div>
-      <div class="big-progress-pass">Pass Condition>=60%</div>
+
+    <!-- 升级提案进度 type==2 -->
+    <div class="big-progress" v-if="detailData.type=='2'">
+        <div class="big-percentage" :style="{'width': yesPercentage}" @mouseenter="mouseoverQuit(detailData.yeas/detailData.accuVerifiers,'yes')" @mouseleave="mouseleaveQuit()">
+             <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
+                 <div class='vote-text'>YES</div>
+                 <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
+        </div>
+        <div class="big-progress-text" :style="{'display':detailData.yeas/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
+            <div class='vote-text'>Support</div>
+            <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+        </div>
+        <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
+            <span>
+                Pass Condition>={{detailData.supportRateThreshold}}
+            </span>
+
+        </div>
     </div>
-    <div style="color:#33;font-family: Gilroy-Regular;font-size:14px;">Vote upgrade number: 135</div>
+    <!-- 其他提案进度 -->
+    <div class="other-progress" v-else>
+        <div class='voteYes'  :style="{'width': yesPercentage}" @mouseenter="mouseoverQuit(detailData.yeas/detailData.accuVerifiers,'yes')" @mouseleave="mouseleaveQuit()">
+            <div class="voteYesText" :style="{'display':detailData.yeas/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
+                <div class='vote-text'>YES</div>
+                <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
+             <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
+                 <div class='vote-text'>YES</div>
+                 <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
+        </div>
+        <div class='voteNo' :style="{'width': noPercentage}" @mouseenter="mouseoverQuit(detailData.nays/detailData.accuVerifiers,'no')" @mouseleave="mouseleaveQuit()">
+            <div class="voteNoText" :style="{'display':detailData.nays/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
+                <div class='vote-text'>NO</div>
+                <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
+            </div>
+            <div class="otherVoteNoText" :style="{'display': voteDisplayStyle.not ? 'block' : 'none'}">
+                 <div class='vote-text'>NO</div>
+                 <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
+            </div>
+        </div>
+        <div class='voteQuit' :style="{'width': quitPercentage}" @mouseenter="mouseoverQuit(detailData.abstentions/detailData.accuVerifiers,'quit')" @mouseleave="mouseleaveQuit()">
+            <div class="voteQuitText" :class="{'voteQuitDisplay':  'true' }" :style="{'display':detailData.abstentions/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
+                 <div class='vote-text'>ABSTAIN</div>
+                 <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
+            </div>
+            <div class="otherVoteQuitText" :style="{'display': voteDisplayStyle.quit ? 'block' : 'none'}">
+                 <div class='vote-text'>ABSTAIN</div>
+                 <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
+            </div>
+        </div>
+        <div class='passRatio' :style="{'left': detailData.supportRateThreshold}">
+            <span>
+                Pass Condition>={{detailData.supportRateThreshold}}
+            </span>
+        </div>
+
+    </div>
+    <div style="color:#33;font-family: Gilroy-Regular;font-size:14px;">Vote upgrade number: {{detailData.accuVerifiers}}</div>
+    <div class="voteOption">
+        <el-tag class="cursor" :style="styleall" @click="selectVoteOption($event)">All</el-tag>
+        <el-tag class="cursor" :style="styleyes" @click="selectVoteOption($event)">YES</el-tag>
+        <el-tag class="cursor" :style="styleno" @click="selectVoteOption($event)">NO</el-tag>
+        <el-tag class="cursor" :style="styleabs" @click="selectVoteOption($event)">ABSTAIN</el-tag>
+    </div>
     <div class="table">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column :label="$t('tradeAbout.PIPSN')" min-width="20%">
+        <el-table-column :label="$t('tradeAbout.voter')" min-width="20%">
           <template slot-scope="scope">
-            <span style="font-weight:bold;">
-              <i class="el-icon-time"></i>
-              {{scope.row.url}}
+            <span class="cursor" @click="goVerifierDetail(scope.row.nodeId)" style="font-weight:bold;">
+              {{scope.row.voterName}}
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalTitle')" min-width="20%">
+        <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
           <template slot-scope="scope">
-            <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
-              <span class="cursor normal ellipsis" style="font-weight:bold">{{scope.row.title}}</span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalType')" min-width="40%">
-          <template slot-scope="scope">
-            <span>{{scope.row.type | proposalType}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalStatus')" show-overflow-tooltip min-width="20%">
-          <template slot-scope="scope">
-            <span v-if="scope.row.status == '1'">
-              <i class="el-icon-circle-plus-outline"></i>
-              &nbsp;{{scope.row.status | proposalStatus}}
+            <span v-if="scope.row.option == '1'">
+              &nbsp;{{scope.row.option | votePropotype}}
             </span>
-            <span v-else-if="scope.row.status == '3'">
-              <i class="el-icon-circle-close"></i>
-              &nbsp;{{scope.row.status | proposalStatus}}
+            <span v-else-if="scope.row.option == '3'">
+              &nbsp;{{scope.row.option | votePropotype}}
             </span>
             <span v-else>
-              <i class="el-icon-circle-check"></i>
-              &nbsp;{{scope.row.status | proposalStatus}}
+              &nbsp;{{scope.row.option | votePropotype}}
             </span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tradeAbout.trasactionHash')" min-width="40%">
+          <template slot-scope="scope">
+            <span>{{scope.row.txHash}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tradeAbout.trasactionTime')" show-overflow-tooltip min-width="20%">
+          <template slot-scope="scope">
+              <span>{{scope.row.timestamp | formatTime}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -182,9 +258,45 @@ export default {
       paginationFlag: true,
       tableData: [],
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 20,
       pageTotal: 1,
-      displayTotalCount: 0,
+      endVotingPercentage: '',
+      expectUpgradePercentage: '',
+      yesPercentage: '40%',
+      noPercentage: '40%',
+      quitPercentage: '20%',
+      voteOptionTag: true,
+      voteDisplayStyle:{
+          quit: false,
+          not: false,
+          yes: false,
+      },
+      voteOptionStyle:{
+          all:'#0798DE',
+          yes: '#999999',
+          no:'#999999',
+          abs:'#999999',
+      },
+      detailData:{
+          url: '#PIP1034',
+          topoc: 'proposal title',
+          type: '1',
+          status:"",  //状态  1：投票中  2：通过  3：失败   4：预升级  5：升级完成   6：已取消  已通过=2 或4 或 5
+          newVersion: 'v.0.7.1',
+          nodeName: '节点名称',
+          nodeId: '发起提案的节点ID',
+          timestamp: 1566197087,
+          activeBlock: '',
+          description: '',
+          endVotingBlock: "23242",
+          endVotingBlockTime: "2018-09-09 23:04:45",
+          activeBlockTime: "2018-09-09 23:04:45",
+          yeas: 110, //同意的人
+          nays: 11, //反对的人
+          abstentions: 11, //弃权的人
+          accuVerifiers: "1000", //总人数
+          supportRateThreshold: "60%" //通过率
+      }
     };
   },
   props: {},
@@ -192,30 +304,59 @@ export default {
   watch: {},
   components: {},
   methods: {
-    //获取交易列表 下分页
-    async getVoteList() {
+    //获取投票列表
+    async getVoteList(option='') {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
+        proposalHash: this.$route.query.proposalHash,
+        option: option,
       };
       console.warn('获取提案详情》》》', param);
       try {
-        let { data, totalPages, totalCount, code, errMsg, displayTotalCount } = await apiService.proposal.proposalList(param);
+        let { data, totalPages, totalCount, code, errMsg } = await apiService.proposal.voteList(param);
         this.tableData = data;
         this.pageTotal = totalCount;
-        this.displayTotalCount = displayTotalCount || 10;
+
         this.newRecordFlag = (totalCount > 500000);
         this.paginationFlag = (totalPages !== 1)
+
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }
     },
+    //获取提案详情
+    async getProposalDetail(){
+        console.log(this.$route.query.proposalHash);
+        let param = {
+            proposalHash: this.$route.query.proposalHash
+        };
+        try {
+            let { data, code, errMsg } = await apiService.proposal.proposalDetails(param);
+            // debugger
+            this.detailData = data;
+            let tmpYesPercentage = (data.yeas/data.accuVerifiers)*100 + '%',
+                tmpNoPercentage = (data.nays/data.accuVerifiers)*100 + '%',
+                tmpQuitPercentage = (data.abstentions/data.accuVerifiers)*100 + '%',
+                tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock > 1 ? 1 : data.curBlock/data.endVotingBlock)*100 + '%',
+                tmpExpectUpgradePercentage = (data.activeBlock/data.endVotingBlock > 1 ? 1 : data.activeBlock/data.endVotingBlock)*100 + '%'
+                // debugger
+            this.expectUpgradePercentage = tmpExpectUpgradePercentage;
+            this.endVotingPercentage = tmpEndVotingPercentage;
+            this.yesPercentage = tmpYesPercentage;
+            this.noPercentage = tmpNoPercentage;
+            this.quitPercentage = tmpQuitPercentage;
+
+        } catch(error){
+            error.errMsg && this.$message.error(error.errMsg);
+        }
+    },
     //进入钱包地址详情或者合约详情
-    async detail(proposalHash) {
+    async goVerifierDetail(nodeid) {
       this.$router.push({
-        path: '/proposal-detail',
+        path: '/node-detail',
         query: {
-          proposalHash: proposalHash,
+          nodeId: nodeid,
         },
       });
     },
@@ -231,11 +372,61 @@ export default {
       this.pageSize = val;
       this.getVoteList();
     },
+    selectVoteOption(e){
+        console.log(typeof(e.currentTarget.innerHTML))
+        if(e.currentTarget.innerHTML == 'All'){
+            this.getVoteList();
+            this.voteOptionStyle = {
+                all:'#0798DE',
+                yes: '#999999',
+                no:'#999999',
+                abs:'#999999',
+            };
+        }else if(e.currentTarget.innerHTML == 'YES'){
+            this.getVoteList('1');
+            this.voteOptionStyle = {
+                all:'#999999',
+                yes: '#0798DE',
+                no:'#999999',
+                abs:'#999999',
+            };
+        }else if(e.currentTarget.innerHTML == 'NO'){
+            this.getVoteList('2');
+             this.voteOptionStyle = {
+                all:'#999999',
+                yes: '#999999',
+                no:'#0798DE',
+                abs:'#999999',
+            };
+        }else {
+            this.getVoteList('3');
+            this.voteOptionStyle = {
+                all:'#999999',
+                yes: '#999999',
+                no:'#999999',
+                abs:'#0798DE',
+            };
+        }
+    },
+    mouseoverQuit(param1, param2){
+        if(param1 < 0.06 && param2 == 'quit'){
+            this.voteDisplayStyle.quit = true;
+        } else if(param1 < 0.06 && param2 == 'no'){
+            this.voteDisplayStyle.not = true;
+        }else if(param1 < 0.06 && param2 == 'yes'){
+            this.voteDisplayStyle.yes = true;
+        }
+    },
+    mouseleaveQuit(){
+        this.voteDisplayStyle.quit = false;
+        this.voteDisplayStyle.not = false;
+        this.voteDisplayStyle.yes = false;
+    }
   },
   //生命周期函数
   created() {
-    console.log(this.$route.query.proposalHash);
-    // this.getVoteList();
+    this.getProposalDetail();
+    this.getVoteList();
   },
   filters: {
     dateFormat: function (v, isUTC = true, dateFormat = "YYYY-MM-DD HH:mm:ss") {
@@ -245,6 +436,40 @@ export default {
       }
       return v ? isUTC ? moment.utc(v).local().format(dateFormat) : moment.utc(v).format(dateFormat) : "";
     }
+  },
+  computed: {
+      styleall () {
+          return {
+              color: this.voteOptionStyle.all,
+              backgroundColor:'white',
+              borderColor: 'white',
+              fontSize: '16px',
+          };
+      },
+      styleyes(){
+           return {
+              color: this.voteOptionStyle.yes,
+              backgroundColor:'white',
+              borderColor: 'white',
+              fontSize: '16px',
+          };
+      },
+      styleno () {
+          return {
+              color: this.voteOptionStyle.no,
+              backgroundColor:'white',
+              borderColor: 'white',
+              fontSize: '16px',
+          };
+      },
+      styleabs () {
+          return {
+              color: this.voteOptionStyle.abs,
+              backgroundColor:'white',
+              borderColor: 'white',
+              fontSize: '16px',
+          };
+      },
   },
   mounted() { }
 };
@@ -303,7 +528,7 @@ export default {
 .percentage {
   position: absolute;
   top: 0;
-  width: 90px;
+//   width: 90px;
   height: 100%;
   background: #000000;
 }
@@ -328,30 +553,257 @@ export default {
 .big-percentage {
   position: absolute;
   top: 0;
-  width: 30%;
+//   width: 30%;
   height: 100%;
   background: #e2f3dc;
+  .otherVoteYesText{
+            position: absolute;
+            left:5px;
+            z-index:999;
+              .vote-text{
+            color:#3BB012;
+            font-size: 12px;
+            line-height: 24px;
+        }
+        .vote-number{
+            font-size: 16px;
+            color: #3BB012;
+            line-height: 24px;
+            position: relative;
+            span{
+                font-size: 14px;
+                color: #7DCB63;
+                line-height: 24px;
+                position: absolute;
+                left:30px;
+                top:1px;
+            }
+        }
+        }
 }
 .big-progress-text {
   position: absolute;
-  margin: 16px 0px 0px 20px;
   top: 0;
   font-family: Gilroy-Regular;
   font-size: 12px;
   color: #3bb012;
   letter-spacing: 0;
   line-height: 24px;
+  padding:3px 0 0 5px;
+  .vote-text{
+       color:#3BB012;
+       font-size: 12px;
+       line-height: 24px;
+  }
+  .vote-number{
+            font-size: 16px;
+            color: #3BB012;
+            line-height: 24px;
+            span{
+                font-size: 14px;
+                color: #7DCB63;
+                line-height: 24px;
+            }
+        }
 }
 .big-progress-pass {
   position: absolute;
-  margin: 0px 20px 16px 0px;
-  bottom: 0;
-  right: 0;
+  height: 100%;
+  width:1px;
+  border:1px solid #999;
   font-family: Gilroy-Regular;
   font-size: 12px;
   color: #999999;
   letter-spacing: 0;
   line-height: 24px;
+   span{
+        position: absolute;
+        bottom: 0;
+        width: 130px;
+        margin-left: 6px;
+        }
 }
+.other-progress{
+  margin: 10px 0px 30px 0px;
+  width: 100%;
+  height: 70px;
+  background: #EEEEEE;
+  border-radius: 1px;
+  position:relative;
+    .voteYes{
+        height: 100%;
+        background: #e2f3dc;
+        float:left;
+        padding:3px 0 0 5px;
+        position: relative;
+        .voteYesText{
+            .vote-text{
+            color:#3BB012;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #3BB012;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #7DCB63;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+        .otherVoteYesText{
+            position: absolute;
+            left:2px;
+            z-index:999;
+              .vote-text{
+            color:#3BB012;
+            font-size: 12px;
+            line-height: 24px;
+        }
+        .vote-number{
+            font-size: 16px;
+            color: #3BB012;
+            line-height: 24px;
+            position: relative;
+            span{
+                font-size: 14px;
+                color: #7DCB63;
+                line-height: 24px;
+                position: absolute;
+                left:22px;
+                top:1px;
+            }
+        }
+        }
+
+    }
+
+    .voteNo{
+        height: 100%;
+        background: #F8E0E9;
+        float:left;
+        padding:3px 0 0 5px;
+        position: relative;
+        .voteNoText{
+            //  display: none;
+            margin-left: 28px;
+              .vote-text{
+            color:#CF326E;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #CF326E;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #E798B6;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+        .otherVoteNoText{
+            position:absolute;
+            left:6px;
+               .vote-text{
+            color:#CF326E;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #CF326E;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #E798B6;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+    }
+    .voteQuit{
+        height: 100%;
+        background: #D9D9D9;
+        float:left;
+        padding:3px 0 0 5px;
+        .voteQuitText{
+            // display:none;
+            .vote-text{
+            color:#000000;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #000000;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #888888;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+        .otherVoteQuitText{
+              .vote-text{
+            color:#000000;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #000000;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #888888;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+
+    }
+
+    .passRatio{
+        float:left;
+        height: 100%;
+        width:1px;
+        position: absolute;
+        color: #999999;
+        font-size: 12px;
+        border:1px solid #999;
+        span{
+            position: absolute;
+            bottom: 0;
+            width: 130px;
+            margin-left: 6px;
+        }
+    }
+}
+
 </style>
 
