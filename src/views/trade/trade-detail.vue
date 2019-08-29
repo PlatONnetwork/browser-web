@@ -14,10 +14,10 @@
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
         <el-tooltip :content="$t('tradeAbout.viewLeft')" placement="top">
-          <el-button icon="el-icon-arrow-left"></el-button>
+          <el-button icon="el-icon-arrow-left" @click="detailNavigate('prev')" :disabled="disabledLeft"></el-button>
         </el-tooltip>
         <el-tooltip :content="$t('tradeAbout.viewRight')" placement="top">
-          <el-button icon="el-icon-arrow-right"></el-button>
+          <el-button icon="el-icon-arrow-right" @click="detailNavigate('next')" :disabled="disabledRight"></el-button>
         </el-tooltip>
       </div>
     </div>
@@ -29,12 +29,12 @@
         class="el-icon-success status-icon status-icon-success"
       ></i>
       <i
-        v-else-if="detailInfo.txReceiptStatus==2"
+        v-else-if="detailInfo.txReceiptStatus==0"
         class="el-icon-warning status-icon status-icon-warning"
       ></i>
       <!-- 基础交易 -->
       <List
-        :title="$t('tradeAbout.transfer')"
+        :title="detailTitle(detailInfo.txType)"
         :border="true"
         v-if="detailInfo.txType=='0' || detailInfo.txType=='1' || detailInfo.txType=='2' || detailInfo.txType=='5' || detailInfo.txType=='4000'"
       >
@@ -42,7 +42,7 @@
         <Item :label="$t('tradeAbout.sender')">
           <span
             class="cursor normal ellipsis"
-            @click="goDetail(type,detailInfo.from)"
+            @click="goAddressDetail(detailInfo.from)"
           >{{detailInfo.from}}</span>
         </Item>
         <!-- 接收方 -->
@@ -50,8 +50,9 @@
           <span
             v-if="detailInfo.receiveType=='account'"
             class="cursor normal ellipsis"
-            @click="goDetail(type,detailInfo.to)"
+            @click="goAddressDetail(detailInfo.to)"
           >{{detailInfo.to}}</span>
+          <!-- 如果是合约显示 -->
           <!-- <div class="isContract" v-if="detailInfo.receiveType!='account'">
             <i class="iconfont iconcontract red">&#xe63e;</i>
             <b>Contract</b>
@@ -77,139 +78,244 @@
           </Item>
         </template>
         <!-- 交易手续费 -->
-        <Item
-          :label="$t('tradeAbout.transactionFee')"
-        >{{detailInfo.actualTxCost | formatMoney }} LAT</Item>
+        <Item :label="$t('tradeAbout.transactionFee')">
+          <span>{{detailInfo.actualTxCost | formatMoney }} LAT</span>
+        </Item>
       </List>
       <!-- 委托交易 -->
       <List
-        title="DeclareVersion"
+        :title="detailTitle(detailInfo.txType)"
         :border="true"
         v-if="detailInfo.txType=='1005' || detailInfo.txType=='1004'"
       >
+        <!-- 委托人 -->
         <Item :label="$t('tradeAbout.delegator')">
           <span
             class="cursor normal ellipsis"
-            @click="goDetail(type,detailInfo.from)"
+            @click="goAddressDetail(detailInfo.from)"
           >{{detailInfo.from}}</span>
         </Item>
+        <!-- 验证人 -->
         <Item :label="$t('tradeAbout.validator')">
-          <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
+          <span
+            class="cursor normal ellipsis"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</span>
         </Item>
-        <Item :label="$t('tradeAbout.delegationAmount')" :prop="detailInfo.value + 'LAT'"></Item>
-        <Item :label="$t('tradeAbout.transactionFee')" :prop="detailInfo.actualTxCost + 'LAT'"></Item>
+        <!-- 委托数量 -->
+        <Item v-if="detailInfo.txType=='1004'" :label="$t('tradeAbout.delegationAmount')">
+          <!-- :prop="detailInfo.value + 'LAT'" -->
+          <span>{{detailInfo.value | formatMoney }} LAT</span>
+        </Item>
+        <!-- 赎回数量 -->
+        <Item v-else-if="detailInfo.txType=='1005'" :label="$t('tradeAbout.withdrawal')">
+          <!-- :prop="detailInfo.value + 'LAT'" -->
+          <span>{{detailInfo.value | formatMoney }} LAT</span>
+          <!-- <span>({{$t('tradeAbout.undelegat')}}:{{detailInfo.actualTxCost}} LAT/{{$t('tradeAbout.successed')}})</span> -->
+          <!-- 1： 赎回中 -->
+          <span v-if="detailInfo.redeemStatus==1">({{$t('tradeAbout.undelegat')}})</span>
+          <!-- 2：赎回成功 -->
+          <span v-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
+          <!-- 剩余赎回 -->
+          <span v-else>({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked}} LAT)</span>
+        </Item>
+        <!-- 交易手续费 -->
+        <Item :label="$t('tradeAbout.transactionFee')">
+          <!-- :prop="detailInfo.actualTxCost + 'LAT'" -->
+          <span>{{detailInfo.actualTxCost | formatMoney }} LAT</span>
+        </Item>
       </List>
 
       <!-- 治理交易 -->
       <List
-        title="DeclareVersion"
+        :title="detailTitle(detailInfo.txType)"
         :border="true"
-        v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'"
+        v-if="detailInfo.txType=='2000' || detailInfo.txType=='2001' || detailInfo.txType=='2002' || detailInfo.txType=='2003' || detailInfo.txType=='2004'|| detailInfo.txType=='2005'"
       >
-        <Item :label="$t('tradeAbout.proposer')">
-          <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-        </Item>
-        <Item :label="$t('tradeAbout.operatorAddress')">
-          <span class="blue" @click="goDetail(type,detailInfo.from)">{{detailInfo.from}}</span>
-        </Item>
-        <Item
-          :label="$t('tradeAbout.proposalType')"
-          v-if="detailInfo.txType!='2004'"
-          :prop="detailInfo.proposalOption"
-        ></Item>
-        <Item
-          :label="$t('tradeAbout.proposalID')"
-          v-if="detailInfo.txType!='2004'"
-          :prop="detailInfo.proposalHash"
-        ></Item>
-        <Item :label="$t('tradeAbout.PIPSN')" v-if="detailInfo.txType!='2004'">
-          <span class="blue" @click="goDetail(type,detailInfo.githubID)">{{detailInfo.githubID}}</span>
-        </Item>
-        <Item :label="$t('tradeAbout.proposalTitle')" v-if="detailInfo.txType!='2004'">
+        <!-- 提案人（创建提案特有2000） -->
+        <Item :label="$t('tradeAbout.'+(detailInfo.txType=='2000'?'proposer':'validator'))">
           <span
-            class="blue"
-            @click="goDetail(type,detailInfo.proposalHash)"
-          >{{detailInfo.proposalTopic}}</span>
+            class="cursor normal ellipsis"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</span>
         </Item>
+        <!-- 验证人 -->
+        <!-- <Item v-else :label="$t('tradeAbout.validator')">
+          <span
+            class="cursor normal ellipsis"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</span>
+        </Item>-->
+        <!-- 操作地址 -->
+        <Item :label="$t('tradeAbout.operatorAddress')">
+          <span
+            class="cursor normal ellipsis"
+            @click="goAddressDetail(detailInfo.from)"
+          >{{detailInfo.from}}</span>
+        </Item>
+        <template v-if="detailInfo.txType!='2004'">
+          <!-- 提案类型 -->
+          <Item :label="$t('tradeAbout.proposalType')">
+            <!-- :prop="detailInfo.proposalOption" -->
+            <span
+              v-if="detailInfo.txType=='2003'"
+            >{{$t("proposalOption."+detailInfo.proposalOption)}}</span>
+            <span v-else>{{$t("createType."+detailInfo.txType)}}</span>
+          </Item>
+          <!-- 提案ID -->
+          <Item :label="$t('tradeAbout.proposalID')" :prop="detailInfo.proposalHash"></Item>
+          <!-- PIP编号 -->
+          <Item :label="$t('tradeAbout.PIPSN')">
+            <span
+              class="cursor normal ellipsis"
+              @click="goDetail(detailInfo.pipNum)"
+            >{{detailInfo.pipNum}}</span>
+          </Item>
+          <!-- 提案标题 -->
+          <Item :label="$t('tradeAbout.proposalTitle')">
+            <span
+              class="cursor normal ellipsis"
+              @click="goDetail(type,detailInfo.proposalHash)"
+            >{{detailInfo.proposalTitle}}</span>
+          </Item>
+        </template>
+
+        <!-- 投票（提案投票特有） -->
         <Item :label="$t('tradeAbout.vote')" v-if="detailInfo.txType=='2003'">
           <span
             class="green vote-status"
           >{{detailInfo.proposalOption==2?'SUPPORT':'YES NO ABSTAIN'}}</span>
         </Item>
+        <!-- 声明版本(版本声明特有) -->
         <Item
           :label="$t('tradeAbout.version')"
           v-if="detailInfo.txType=='2004'"
           :prop="detailInfo.declareVersion"
         ></Item>
-        <Item :label="$t('tradeAbout.transactionFee')" :prop="detailInfo.actualTxCost + 'LAT'"></Item>
+        <!-- 交易手续费 -->
+        <Item :label="$t('tradeAbout.transactionFee')">
+          <span>{{detailInfo.actualTxCost | formatMoney }} LAT</span>
+        </Item>
       </List>
 
       <!-- 验证人交易 -->
       <List
-        title="DeclareVersion"
+        :title="detailTitle(detailInfo.txType)"
         :border="true"
         v-if="detailInfo.txType=='1000' || detailInfo.txType=='1001' || detailInfo.txType=='1002' || detailInfo.txType=='1003' || detailInfo.txType=='3000'"
       >
-        <Item :label="$t('tradeAbout.reporter')">
-          <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-        </Item>
-        <Item :label="$t('tradeAbout.validator')">
-          <span class="blue" @click="goDetail(type,detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-        </Item>
-        <template v-if="detailInfo.txType=='3000'">
-          <Item :label="$t('tradeAbout.ReportEvidence')" :prop="detailInfo.RPAccount"></Item>
-          <Item :label="$t('tradeAbout.reportType')" :prop="detailInfo.RPAccount"></Item>
-          <!-- <Item :label="$t('tradeAbout.reportResult')">
-                        <span class="green vote-status">{{detailInfo.proposalOption==2?'SUPPORT':'YES NO ABSTAIN'}}</span>
-          </Item>-->
-          <Item :label="$t('tradeAbout.reportReward')" :prop="detailInfo.RPAccount"></Item>
-        </template>
-        <Item :label="$t('tradeAbout.operatorAddress')">
-          <span class="blue" @click="goDetail(type,detailInfo.from)">{{detailInfo.from}}</span>
-        </Item>
-        <Item :label="$t('tradeAbout.identity')">
-          <span class="blue" @click="goDetail(type,detailInfo.externalId)">{{detailInfo.externalId}}</span>
-        </Item>
-        <Item :label="$t('tradeAbout.rewardAddress')">
+        <!-- 举报人（举报验证人特有） -->
+        <Item v-if="detailInfo.txType=='3000'" :label="$t('tradeAbout.reporter')">
           <span
-            class="blue"
-            @click="goDetail(type,detailInfo.benefitAddr)"
-          >{{detailInfo.benefitAddr}}</span>
+            class="cursor normal ellipsis"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</span>
         </Item>
-        <Item
-          :label="$t('tradeAbout.version')"
-          v-if="detailInfo.txType=='2004'"
-          :prop="detailInfo.programVersion"
-        ></Item>
-        <Item :label="$t('tradeAbout.website')">
-          <span class="blue" @click="goDetail(type,detailInfo.website)">{{detailInfo.website}}</span>
+        <!-- 验证人(都有) -->
+        <Item :label="$t('tradeAbout.validator')">
+          <span
+            class="cursor normal ellipsis"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</span>
         </Item>
+        <!-- 举报类型，举报证据（举报验证人特有） -->
+        <template v-if="detailInfo.txType=='3000'">
+          <!-- 举报类型 -->
+          <Item :label="$t('tradeAbout.reportType')" :prop="$t('tradeAbout.doubleSiging')"></Item>
+          <!-- 举报证据 -->
+          <Item :label="$t('tradeAbout.ReportEvidence')" :prop="detailInfo.evidence"></Item>
+          <!-- 举报结果 -->
+          <Item :label="$t('tradeAbout.reportResult')">
+            <span
+              class="green vote-status"
+            >{{detailInfo.reportStatus==2?'SUPPORT':'YES NO ABSTAIN'}}</span>
+          </Item>
+          <!-- 举报奖励 -->
+          <Item :label="$t('tradeAbout.reportReward')">
+            <!-- :prop="detailInfo.reportRewards|formatMoney" -->
+            <span>{{detailInfo.reportRewards | formatMoney}} LAT</span>
+          </Item>
+        </template>
+        <!-- 操作地址（举报验证人没有） -->
+        <Item v-if="detailInfo.txType!='3000'" :label="$t('tradeAbout.operatorAddress')">
+          <span
+            class="cursor normal ellipsis"
+            @click="goAddressDetail(detailInfo.from)"
+          >{{detailInfo.from}}</span>
+        </Item>
+        <template v-if="detailInfo.txType=='1000'||detailInfo.txType=='1001'">
+          <!-- 身份认证ID(创建，编辑验证人) -->
+          <Item :label="$t('tradeAbout.identity')">
+            <span
+              class="cursor normal ellipsis"
+              @click="goDetail(detailInfo.externalId)"
+            >{{detailInfo.externalId || "Null"}}</span>
+          </Item>
+          <!-- 奖励账户(创建，编辑验证人) -->
+          <Item :label="$t('tradeAbout.rewardAddress')">
+            <span
+              class="cursor normal ellipsis"
+              @click="goAddressDetail(detailInfo.benefitAddr)"
+            >{{detailInfo.benefitAddr}}</span>
+          </Item>
+        </template>
+
+        <!-- 版本（创建验证人特有） -->
         <Item
-          :label="$t('tradeAbout.introduction')"
-          v-if="detailInfo.txType!='2004'"
-          :prop="detailInfo.details"
+          :label="$t('tradeAbout.version1')"
+          v-if="detailInfo.txType=='1000'"
+          :prop="detailInfo.programVersion || 'Null'"
         ></Item>
+        <template v-if="detailInfo.txType=='1000'||detailInfo.txType=='1001'">
+          <!-- 官网(创建，编辑验证人) -->
+          <Item :label="$t('tradeAbout.website')">
+            <!-- <span class="blue" @click="goDetail(type,detailInfo.website)">{{detailInfo.website}}</span> -->
+            <a
+              class="cursor normal ellipsis"
+              :href="'http:\/\/'+detailInfo.website"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{detailInfo.website ||'Null'}}</a>
+          </Item>
+          <!-- 描述(创建，编辑验证人) -->
+          <Item :label="$t('tradeAbout.introduction')" :prop="detailInfo.details || 'Null'"></Item>
+        </template>
+
+        <!-- 质押数量（创建验证人，增加质押） -->
         <Item
+          v-if="detailInfo.txType=='1000'||detailInfo.txType=='1002'"
           :label="$t('tradeAbout.stakeAmount')"
-          v-if="detailInfo.txType!='2004'"
-          :prop="detailInfo.value"
-        ></Item>
-        <Item
-          :label="$t('tradeAbout.returnAmount')"
-          v-if="detailInfo.txType=='1003'"
-          :prop="detailInfo.applyAmount"
-        ></Item>
-        <Item
-          :label="$t('tradeAbout.returnBlock')"
-          v-if="detailInfo.txType=='1003'"
-          :prop="detailInfo.redeemUnLockedBlock"
-        ></Item>
-        <Item :label="$t('tradeAbout.transactionFee')" :prop="detailInfo.actualTxCost + 'LAT'"></Item>
+        >
+          <!-- :prop="detailInfo.value" -->
+          <span>{{detailInfo.value | formatMoney}} LAT</span>
+        </Item>
+        <template v-if="detailInfo.txType=='1003'">
+          <!-- 退回数量（退出验证人特有） -->
+          <Item :label="$t('tradeAbout.returnAmount')">
+            <!-- :prop="detailInfo.applyAmount" -->
+            <span>{{detailInfo.applyAmount | formatMoney}} LAT</span>
+            <!-- <span>:{{detailInfo.formatMoney}} LAT/</span> -->
+            <!-- 1： 退回中 -->
+            <span v-if="detailInfo.redeemStatus==1">({{$t('tradeAbout.pend')}})</span>
+            <!-- 2：退回成功 -->
+            <span v-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed')}})</span>
+            <!-- 剩余退回 -->
+            <span v-else>({{$t('tradeAbout.remain')}}:{{detailInfo.redeemLocked}} LAT)</span>
+          </Item>
+          <!-- 预计到账区块（退出验证人特有） -->
+          <Item :label="$t('tradeAbout.returnBlock')" :prop="detailInfo.redeemUnLockedBlock"></Item>
+        </template>
+        <template></template>
+        <!-- 交易手续费 -->
+        <Item :label="$t('tradeAbout.transactionFee')">
+          <!-- :prop="detailInfo.actualTxCost + 'LAT'" -->
+          <span>{{detailInfo.actualTxCost | formatMoney}} LAT</span>
+        </Item>
       </List>
       <!-- 交易信息infomation -->
       <List :title="$t('tradeAbout.information')" class="common-info" :border="true">
         <!-- 失败信息 -->
-        <div v-if="detailInfo.txReceiptStatus==2" class="warn-info">
+        <div v-if="detailInfo.txReceiptStatus==0" class="warn-info">
           <span class="yellow">{{$t('tradeAbout.warn')}}:</span>
           <span>{{detailInfo.failReason}}</span>
         </div>
@@ -219,25 +325,32 @@
             v-if="detailInfo.txReceiptStatus==1"
             class="status-icon-success"
           >{{$t('tradeAbout.success')}}</span>
-          <span
-            v-else-if="detailInfo.txReceiptStatus==2"
-            class=".status-icon-warning"
-          >{{$t('tradeAbout.fail')}}</span>
+          <span v-else-if="detailInfo.txReceiptStatus==0" class="pink">{{$t('tradeAbout.fail')}}</span>
         </Item>
+        <!-- 交易哈希 -->
         <Item :label="$t('tradeAbout.txhash')" :prop="detailInfo.txHash"></Item>
+        <!-- 时间戳 -->
         <Item
           :label="$t('tradeAbout.timeStamp')"
           :prop="detailInfo.timestamp?new Date(detailInfo.timestamp).toUTCString():0"
         ></Item>
+        <!-- 区块 -->
         <Item :label="$t('tradeAbout.blockHeight')">
           <div class="cursor">
-            <span class="blue">{{detailInfo.blockNumber}}</span>
+            <span
+              class="blue"
+              @click="goBlockDetail(detailInfo.blockNumber)"
+            >{{detailInfo.blockNumber}}</span>
             <span style="margin-left:5px;">({{detailInfo.confirmNum+$t('tradeAbout.confirmNum')}})</span>
           </div>
         </Item>
+        <!-- 燃料限制 -->
         <Item :label="$t('tradeAbout.gasLimit')" :prop="detailInfo.gasLimit"></Item>
+        <!-- 燃料消耗 -->
         <Item :label="$t('tradeAbout.gasUsed')" :prop="detailInfo.gasUsed"></Item>
+        <!-- 燃料价格 -->
         <Item :label="$t('tradeAbout.gasPrice')">{{detailInfo.gasPrice| formatMoney}} LAT</Item>
+        <!-- 交易数据 -->
         <Item :label="$t('tradeAbout.rawData')" :prop="detailInfo.txInfo"></Item>
       </List>
     </div>
@@ -263,21 +376,9 @@ export default {
       btnRightFlag: true,
       disabledLeft: false,
       disabledRight: false,
-      address: "11111111111",
+      address: "",
       detailInfo: {},
       descriptionProp: "trade",
-      txTypeFn: {
-        transfer: "transfer",
-        MPCtransaction: "MPCtransaction",
-        contractCreate: "contractCreate",
-        voteTicket: "voteTicket",
-        transactionExecute: "transactionExecute",
-        authorization: "authorization",
-        candidateDeposit: "candidateDeposit",
-        candidateApplyWithdraw: "candidateApplyWithdraw",
-        candidateWithdraw: "candidateWithdraw",
-        unknown: "unknown"
-      },
       extraInfo: {}
     };
   },
@@ -302,6 +403,8 @@ export default {
         .transactionDetails(param)
         .then(res => {
           let { errMsg, code, data } = res;
+          //改变detailInfo.txType=='1'测试
+          // data.txType = 2000;
           if (code == 0) {
             this.loading = false;
             this.detailInfo = data;
@@ -416,6 +519,118 @@ export default {
     },
     onError() {
       this.$message.error(this.$t("modalInfo.copyfail"));
+    },
+    //进入区块详情
+    goBlockDetail(height) {
+      console.warn("进入区块", height);
+      this.$router.push({
+        path: "/block-detail",
+        query: {
+          height: height
+        }
+      });
+    },
+    //进入钱包地址详情
+    goAddressDetail(adr) {
+      this.$router.push({
+        path: "/address-detail",
+        query: {
+          address: adr
+          // description: "trade",
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
+        }
+      });
+    },
+    //进入验证人地址详情
+    goNodeDetail(id) {
+      //node-detail
+      this.$router.push({
+        path: "/node-detail",
+        query: {
+          address: id
+          // description: "trade",
+          // currentPage: this.currentPage,
+          // pageSize: this.pageSize
+        }
+      });
+    },
+    //前一条后一条
+    detailNavigate(d) {
+      let param = {
+        txHash: this.txHash,
+        direction: d
+      };
+      apiService.trade.transactionDetailNavigate(param).then(res => {
+        let { errMsg, code, data } = res;
+        if (code == 0) {
+          this.loading = false;
+          this.detailInfo = data;
+          //是否第一条记录
+          if (data.first) {
+            this.btnLeftFlag = false;
+            this.disabledLeft = true;
+          } else {
+            this.btnLeftFlag = true;
+            this.disabledLeft = false;
+          }
+          //是否最后一条数据
+          if (data.last) {
+            this.btnRightFlag = false;
+            this.disabledRight = true;
+          } else {
+            this.btnRightFlag = true;
+            this.disabledRight = false;
+          }
+          this.txHash = data.txHash;
+          this.$router.replace({
+            path: "/trade-detail",
+            query: {
+              address: data.txHash
+            }
+          });
+        } else {
+          this.detailInfo = {};
+          this.$message.error(errMsg);
+        }
+      });
+
+      // this.txHash = adr;
+      // this.getDetail();
+      // history.pushState({}, "", "trade-detail?txHash=0xbd786677d5a6cc1c4ff79b2ec3b555b6a93d9be13a1249167bf801c18d0eace2");
+    },
+    //根据类型返回标题
+    detailTitle(t) {
+      console.warn("传入类型", t);
+      let s = "tradeAbout.";
+      if (t == 0) {
+        s += "transfer";
+      } else if (t == 1 || t == 2 || t == 5) {
+        s += "other";
+      } else if (t == 4000) {
+        s += "restricting";
+      } else if (t == 1004) {
+        s += "delegate";
+      } else if (t == 1005) {
+        s += "undelegate";
+      } else if (t == 2000 || t == 2001 || t == 2002 || t == 2005) {
+        s += "proposal";
+      } else if (t == 2003) {
+        s += "voting";
+      } else if (t == 2004) {
+        s += "declare";
+      } else if (t == 1000) {
+        s += "createValidator";
+      } else if (t == 1001) {
+        s += "editValidator";
+      } else if (t == 1002) {
+        s += "increase";
+      } else if (t == 1003) {
+        s += "exitValidator";
+      } else if (t == 3000) {
+        s += "reportValidator";
+      }
+      return this.$t(s);
     }
   },
   //生命周期函数
@@ -434,7 +649,7 @@ export default {
 .warn-info {
   background: #fff7e3;
   border: 1px solid #ffc017;
-  width: 500px;
+  width: 900px;
   margin-bottom: 20px;
   border-radius: 4px;
   padding: 10px 15px;
@@ -466,6 +681,9 @@ export default {
 }
 .status-icon-warning {
   color: #ffc017;
+}
+.pink {
+  color: #cf326e;
 }
 </style>
 <style lang="less">

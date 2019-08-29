@@ -47,6 +47,9 @@ body{
 .blue{
     color:@blue;
 }
+.lightblue{
+    color: @lightblue;
+}
 .green{
     color:@green;
 }
@@ -119,6 +122,9 @@ body{
 }
 .relative{
     position: relative;
+}
+.percent60{
+    max-width: 60%;
 }
 //面包屑导航
 .crumb{
@@ -392,6 +398,17 @@ body{
     }
 }
 
+.el-button--default{
+    &:hover{
+        background: #fff !important;
+        color: #5CB2DB;
+        border: 1px solid #5CB2DB !important;
+    }
+    &.active{
+        background: #fff !important;
+        color: #0E52AC;
+    }
+}
 // tabs
 .tabs{
     .el-button--default{

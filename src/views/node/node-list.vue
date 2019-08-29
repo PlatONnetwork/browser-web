@@ -24,8 +24,9 @@
                 </Item>
                 <Item :label="$t('nodeInfo.nextRewardAdjustment')">
                     <div class="next-reward-adjustment">
-                        <span>{{$t('tradeAbout.block')}}&nbsp;10.31</span>
-                        <span>of 32323332</span>
+                        <span :style="{width:getPercentage+'%'}"></span>
+                        <span></span>
+                        <p>{{$t('tradeAbout.block')}}&nbsp;{{getPercentage}}% of {{ValidatorStatisticData.addIssueEnd-ValidatorStatisticData.addIssueBegin}}</p>
                     </div>
                 </Item>              
             </List>
@@ -33,7 +34,7 @@
                 <h3>{{$t('nodeInfo.nextEpoch')}}</h3> 
                 <p>{{$t('nodeInfo.updateEpoch')}}</p> 
                 <ul>
-                    <li v-for="(item,index) in [0,2,3,5,6,5]" :key="index">{{item}}</li>
+                    <li v-for="(item,index) in nextSetting" :key="index">{{item}}</li>
                 </ul>
             </div>
         </div>
@@ -63,6 +64,34 @@
         },
         computed: {
             ...mapGetters(['ValidatorStatisticData']),
+            getPercentage(){
+                if(this.ValidatorStatisticData.addIssueEnd){
+                    const x = (this.ValidatorStatisticData.currentNumber-this.ValidatorStatisticData.addIssueBegin)/(this.ValidatorStatisticData.addIssueEnd-this.ValidatorStatisticData.addIssueBegin)*100;
+                    if(x%1==0){
+                        return x;
+                    }
+                    return x.toFixed(2);
+                }
+                return 0;  
+            },
+            nextSetting(){
+                let next = this.ValidatorStatisticData.nextSetting
+                if(next){
+                    if(next<10){
+                        return '00000'+ next
+                    }else if(next<100){
+                        return '0000'+ next
+                    }else if(next<1000){
+                        return '000'+ next
+                    }else if(next<10000){
+                        return '00'+ next
+                    }else if(next<100000){
+                        return '0'+ next
+                    }
+                }else{
+                    return '000000'
+                }
+            }
         },
 		watch: {
 
@@ -102,17 +131,28 @@
     }
     .next-reward-adjustment{
         display: flex;
-        :nth-of-type(1){
-            width: 91px;
+        width: 188px;
+        position: relative;
+        span:nth-of-type(1){
             background: #000;
             color: #fff;
             text-align: right;
         }
-        :nth-of-type(2){
+        span:nth-of-type(2){
+            flex: 1;
             background: #D5D5D5;
             color: #fff;
-            width: 97px;
             text-align: left;
+        }
+        p{
+            color: #fff;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 21px;
         }
     }
     .next-epoch{
@@ -147,6 +187,7 @@
         }
         p{
             font-size: 18px;
+            width: auto;
         }
     }   
 }

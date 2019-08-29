@@ -31,19 +31,19 @@
           <el-row>
             <el-col :span="5">
               <div class="desc">
-                  提案类型：
+                  {{$t('tradeAbout.proposalType')}}：
               </div>
             </el-col>
             <el-col :span="15">
               <div class="content">
                    <span v-if="detailData.type == '1'">
-                        文本提案
+                        {{$t('tradeAbout.textProposal')}}
                   </span>
                   <span v-if="detailData.type == '2'">
-                        升级提案
+                        {{$t('tradeAbout.upgradeProposal')}}
                   </span>
                   <span v-if="detailData.type == '4'">
-                        取消提案
+                        {{$t('tradeAbout.quitProposal')}}
                   </span>
               </div>
             </el-col>
@@ -52,7 +52,7 @@
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">升级版本：</div>
+              <div class="desc">{{$t('tradeAbout.upgradeVersion')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content">{{detailData.newVersion}}</div>
@@ -62,7 +62,7 @@
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案人：</div>
+              <div class="desc">{{$t('tradeAbout.proposer')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content proposer">{{detailData.nodeName}}</div>
@@ -72,7 +72,7 @@
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案ID：</div>
+              <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content">{{detailData.nodeId}}</div>
@@ -82,17 +82,17 @@
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">提案时间：</div>
+              <div class="desc">{{$t('tradeAbout.proposalTime')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">{{detailData.timestamp | dateFormat}} AM+UTC[835215]</div>
+              <div class="content">{{detailData.timestamp | formatTime}}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">投票结束区块：</div>
+              <div class="desc">{{$t('tradeAbout.proposalEndBlock')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
@@ -106,14 +106,14 @@
               <div class="desc">&nbsp;</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">预计时间 {{detailData.endVotingBlockTime | dateFormat}} AM+UTC[835215]</div>
+              <div class="content">{{$t('contract.estimatedTime')}} {{detailData.endVotingBlockTime | formatTime}} </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="5">
-              <div class="desc">预设升级区块：</div>
+              <div class="desc">{{$t('tradeAbout.activeBlock')}}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
@@ -127,38 +127,48 @@
               <div class="desc">&nbsp;</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">预计时间 {{detailData.activeBlockTime | dateFormat}} AM+UTC[835215]</div>
+              <div class="content">{{$t('contract.estimatedTime')}} {{detailData.activeBlockTime | formatTime}}</div>
             </el-col>
           </el-row>
         </div>
       </el-col>
       <el-col :span="10">
         <div class="item">
-          <div class="desc" style="margin:38px 0px 10px 0px;">提案描述：</div>
+          <div class="desc" style="margin:38px 0px 10px 0px;">{{$t('tradeAbout.propasalDescription')}}:</div>
           <div>{{detailData.description}}</div>
         </div>
       </el-col>
     </el-row>
-        <!-- <div class="big-progress">
+
+    <!-- 升级提案进度 -->
+    <div class="big-progress" >
         <div class="big-percentage" :style="{'width': yesPercentage}"></div>
         <div class="big-progress-text">
             <div class='vote-text'>Support</div>
             <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
         </div>
         <div class="big-progress-pass">Pass Condition>={{detailData.supportRateThreshold}}</div>
-        </div> -->
-    <div class="other-progress">
-        <div class='voteYes' :style="{'width': yesPercentage}">
-            <div class='vote-text'>YES</div>
-            <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+    </div>
+    <!-- 其他提案进度 -->
+    <div class="other-progress" >
+        <div class='voteYes'  :style="{'width': yesPercentage}">
+            <div class="voteYesText">
+                <div class='vote-text'>YES</div>
+                <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
         </div>
-        <div class='voteNo' :style="{'width': noPercentage}">
-            <div class='vote-text'>NO</div>
-            <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
+        <div class='voteNo' v-if=quitPercentage*100 :style="{'width': noPercentage}">
+            <div class="voteNoText">
+                <div class='vote-text'>NO</div>
+                <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
+            </div>
         </div>
-        <div class='voteQuit' :style="{'width': quitPercentage}">
-            <div class='vote-text'>ABSTAIN</div>
-            <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
+        <div class='voteQuit' v-if=quitPercentage*100 :style="{'width': quitPercentage}">
+            <div class="voteQuitText">
+                 <div class='vote-text'>ABSTAIN</div>
+                 <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
+            </div>
+
         </div>
         <div class='passRatio'>Pass Condition>={{detailData.supportRateThreshold}}</div>
     </div>
@@ -198,7 +208,7 @@
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.trasactionTime')" show-overflow-tooltip min-width="20%">
           <template slot-scope="scope">
-              <span>{{scope.row.timestamp | dateFormat}}</span>
+              <span>{{scope.row.timestamp | formatTime}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -297,8 +307,8 @@ export default {
             let tmpYesPercentage = (data.yeas/data.accuVerifiers)*100 + '%',
                 tmpNoPercentage = (data.nays/data.accuVerifiers)*100 + '%',
                 tmpQuitPercentage = (data.abstentions/data.accuVerifiers)*100 + '%',
-                tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock)*100 + '%',
-                tmpExpectUpgradePercentage = (data.activeBlock/data.endVotingBlock)*100 + '%'
+                tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock > 1 ? 1 : data.curBlock/data.endVotingBlock)*100 + '%',
+                tmpExpectUpgradePercentage = (data.activeBlock/data.endVotingBlock > 1 ? 1 : data.activeBlock/data.endVotingBlock)*100 + '%'
             this.expectUpgradePercentage = tmpExpectUpgradePercentage;
             this.endVotingPercentage = tmpEndVotingPercentage;
             this.yesPercentage = tmpYesPercentage;
@@ -387,6 +397,7 @@ export default {
               color: this.voteOptionStyle.all,
               backgroundColor:'white',
               borderColor: 'white',
+              fontSize: '16px',
           };
       },
       styleyes(){
@@ -394,6 +405,7 @@ export default {
               color: this.voteOptionStyle.yes,
               backgroundColor:'white',
               borderColor: 'white',
+              fontSize: '16px',
           };
       },
       styleno () {
@@ -401,6 +413,7 @@ export default {
               color: this.voteOptionStyle.no,
               backgroundColor:'white',
               borderColor: 'white',
+              fontSize: '16px',
           };
       },
       styleabs () {
@@ -408,6 +421,7 @@ export default {
               color: this.voteOptionStyle.abs,
               backgroundColor:'white',
               borderColor: 'white',
+              fontSize: '16px',
           };
       },
   },
@@ -540,12 +554,13 @@ export default {
   background: #EEEEEE;
   border-radius: 1px;
     .voteYes{
-        width:60px;
         height: 100%;
         background: #e2f3dc;
         float:left;
         padding:3px 0 0 5px;
-        .vote-text{
+        .voteYesText{
+            display: none;
+            .vote-text{
             color:#3BB012;
             font-size: 12px;
             line-height: 24px;
@@ -554,20 +569,30 @@ export default {
             font-size: 16px;
             color: #3BB012;
             line-height: 24px;
+            position: relative;
             span{
                 font-size: 14px;
                 color: #7DCB63;
                 line-height: 24px;
+                position: absolute;
+                left:30px;
+                top:1px;
             }
         }
+        }
+
+    }
+    .voteYes:hover .voteYesText{
+        display:block;
     }
     .voteNo{
-        width:60px;
         height: 100%;
         background: #F8E0E9;
         float:left;
         padding:3px 0 0 5px;
-        .vote-text{
+        .voteNoText{
+             display: none;
+              .vote-text{
             color:#CF326E;
             font-size: 12px;
             line-height: 24px;
@@ -576,20 +601,30 @@ export default {
             font-size: 16px;
             color: #CF326E;
             line-height: 24px;
+            position: relative;
             span{
                 font-size: 14px;
                 color: #E798B6;
                 line-height: 24px;
+                position: absolute;
+                left:30px;
+                top:1px;
             }
         }
+        }
+
+    }
+    .voteNo:hover .voteNoText{
+         display:block;
     }
     .voteQuit{
-        width:60px;
         height: 100%;
         background: #D9D9D9;
         float:left;
-         padding:3px 0 0 5px;
-        .vote-text{
+        padding:3px 0 0 5px;
+        .voteQuitText{
+            display:block;
+            .vote-text{
             color:#000000;
             font-size: 12px;
             line-height: 24px;
@@ -598,12 +633,21 @@ export default {
             font-size: 16px;
             color: #000000;
             line-height: 24px;
+            position: relative;
             span{
                 font-size: 14px;
                 color: #888888;
                 line-height: 24px;
+                position: absolute;
+                left:16px;
+                 top:1px;
             }
         }
+        }
+
+    }
+    .voteQuit:hover .voteQuitText{
+        display: block;
     }
     .passRatio{
         float:right;

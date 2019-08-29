@@ -6,6 +6,10 @@ export const indexAction = {
         commit('UPDATE_BLACK_DADA', list)
     },
     updateChartData({ commit, state }, list) {
+        list.yb.forEach((value,index)=>{
+            list.yb[index] = value + 100;
+        })
+        console.log(list)
         commit('UPDATE_CHART_DADA', list)
     },
     updateValidatorData({ commit, state }, list) {

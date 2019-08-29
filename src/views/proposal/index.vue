@@ -56,7 +56,7 @@
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.proposalTime')" show-overflow-tooltip min-width="10%">
           <template slot-scope="scope">
-            <span>{{scope.row.timestamp | dateFormat}}</span>
+            <span>{{scope.row.timestamp | formatTime}}</span>
           </template>
         </el-table-column>
       </el-table>

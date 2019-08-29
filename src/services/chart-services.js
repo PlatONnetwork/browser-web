@@ -41,7 +41,8 @@ class ChartService {
             xAxis: [
                 {   
                     show:false,
-                    data: [1,2,3,4,5,6,7,8],
+                    // data: [1,2,3,4,5,6,7,8],
+                    data: [],
                     splitLine: {
                         show: false
                     }
@@ -83,13 +84,13 @@ class ChartService {
                     name: '出块时间',
                     type: 'bar',
                     smooth: true,
-                    data: [20, 4, 5, 30, 14, 225,30,140], //去掉默认数据
-                    // data: [],
+                    // data: [20, 4, 5, 30, 14, 225,30,140], //去掉默认数据
+                    data: [],
                     // itemStyle: {
                     //     color: '#30EAF6',
                     //     opacity: 0.3
                     // },
-                    // barWidth: 10
+                    barWidth: 6
                 }
             ]
         },
@@ -112,7 +113,7 @@ class ChartService {
                 {  
                     var relVal = params[0].name;  
                     for (var i = 0, l = params.length; i < l; i++) {  
-                            relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"";  
+                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value-100)+"TXs";   //设置默认交易数高度20
                         }  
                     return relVal;  
                 }  
@@ -120,7 +121,8 @@ class ChartService {
             xAxis: [
                 {   
                     show:false,
-                    data: [1,2,3,4,5,6,7,8],
+                    // data: [1,2,3,4,5,6,7,8],
+                    data: [],
                     splitLine: {
                         show: false
                     }
@@ -159,16 +161,16 @@ class ChartService {
             ],
             series: [
                 {
-                    name: '出块时间',
+                    name: '交易数',
                     type: 'bar',
                     smooth: true,
-                    data: [120, 42, 500, 30, 14, 225,30,140], //去掉默认数据
-                    // data: [],
+                    // data: [120, 42, 500, 30, 14, 225,30,140], //去掉默认数据
+                    data: [],
                     // itemStyle: {
                     //     color: '#30EAF6',
                     //     opacity: 0.3
                     // },
-                    // barWidth: 10
+                    barWidth: 6
                 }
             ]
         }

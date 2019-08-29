@@ -64,16 +64,30 @@
             <el-col :span="11">
                 <h3>{{$t('nodeInfo.blocks')}}</h3>
                 <div class="block-list-wrap">
-                    <ul class="blocks-ul">
-                        <li v-for="(item,index) in blockData" :key="index">
+                    <ul class="blocks-ul blocks-ul-new" id="blocks-ul-new" :class="{'blocks-active':isMove2}">                  
+                        <li class="cursor" v-for="(item,index) in blockData" v-if="index<3" :key="index">
                             <div class="list-item">
-                                <span class="item-number">{{item.number}}</span>
-                                <p>{{$t('blockAbout.producer')}}<a>{{item.nodeName}}</a></p>
+                                <span class="item-number cursor" @click="goBlockDetail(item.number)">{{item.number}}</span>
+                                <p>{{$t('blockAbout.producer')}}<a class="cursor" @click="goNodeDetail(item.nodeId)">{{item.nodeName}}</a></p>
                             </div>
                             <div class="list-item item-right">
                                 <span class="item-txns">{{item.statTxQty}}&nbsp;{{$t('indexInfo.txns')}}</span>
                                 <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}&nbsp;{{$t('tradeAbout.before')}}</span>
                             </div>
+                            <!-- <img src="../../assets/images/avtor-black.png"> -->
+                        </li>
+                    </ul>
+                    <ul class="blocks-ul blocks-ul-new2" id="blocks-ul-new2" :class="{'blocks-active2':isMove}">                  
+                        <li class="cursor" v-for="(item,index) in blockData" :key="index">
+                            <div class="list-item">
+                                <span class="item-number cursor" @click="goBlockDetail(item.number)">{{item.number}}</span>
+                                <p>{{$t('blockAbout.producer')}}<a class="cursor" @click="goNodeDetail(item.nodeId)">{{item.nodeName}}</a></p>
+                            </div>
+                            <div class="list-item item-right">
+                                <span class="item-txns">{{item.statTxQty}}&nbsp;{{$t('indexInfo.txns')}}</span>
+                                <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}&nbsp;{{$t('tradeAbout.before')}}</span>
+                            </div>
+                            <!-- <img src="../../assets/images/avtor-black.png"> -->
                         </li>
                     </ul>
                 </div>
@@ -84,10 +98,10 @@
             <el-col :span="11">
                 <h3>{{$t('indexInfo.currentValidators')}}</h3>
                 <div class="block-list-wrap">
-                    <ul class="node-ul">
-                        <li v-for="(item,index) in ValidatorData" :key="index">
+                    <ul class="node-ul node-animation">
+                        <li class="cursor" v-for="(item,index) in ValidatorData.dataList" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
-                                <span class="item-number">{{item.nodeName}}</span>
+                                <span class="item-number cursor">{{item.nodeName}}</span>
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.nodeName}}</a></p>
                             </div>
                             <div class="list-item item-right">
@@ -96,7 +110,18 @@
                             </div>
                             <img src="../../assets/images/avtor-black.png">
                         </li>
-                    </ul>
+                        <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
+                            <div class="list-item">
+                                <span class="item-number cursor">{{item.nodeName}}</span>
+                                <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.nodeName}}</a></p>
+                            </div>
+                            <div class="list-item item-right">
+                                <span class="item-txns">{{item.expectedIncome}}%&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
+                            </div>
+                            <img src="../../assets/images/avtor-black.png">
+                        </li>
+                    </ul>                
                 </div>
                 <div class="view-blocks">
                     <router-link to="/node" class="view-link">{{ $t("indexInfo.viewAll")+ $t("nodeInfo.validator")}}</router-link>
@@ -130,6 +155,8 @@
                 isFocus:false,
                 tabIndex:1,
                 i18nLocale:'zh-cn',
+                isMove:false,
+                isMove2:false,
             }
         },
         props: {
@@ -137,7 +164,9 @@
         },
         computed: {
             ...mapGetters(['chartData','blockStatisticData','blockData','ValidatorData','hideSearch']),
-
+            showedValidatorData(){
+                return this.ValidatorData.dataList.slice(0,8);
+            }
         },
 		watch: {
             chartData(val){
@@ -168,10 +197,11 @@
                 }
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{
+                    this.searchKey = '';
                     let {errMsg,code,data}=res
-                    if(code==0){
+                    if(code==0){                        
                         //根据type不同进入不同的详情页
-                        if(data.type==null){
+                        if(!data.type){
                             this.$message.warning(this.$t('indexInfo.searchno'))
                         }else{
                             this.switchFn(data.type,data.struct)
@@ -182,6 +212,7 @@
                             // this.$message.error(errMsg) 替换为search无结果
                     }
                 }).catch((error)=>{
+                    this.searchKey = '';
                     this.$message.error(error)
                 });
                 setTimeout(()=>{
@@ -319,13 +350,41 @@
                 }else{
                     this.hide(true); 
                 }
-            }
+            },
+            //进入区块详情
+            goBlockDetail(blockHeight) {
+                this.$router.push({
+                    path: '/block-detail',
+                    query: {
+                        height: blockHeight,
+                    },
+                });
+            },
+            //进入节点详情
+            goNodeDetail(nodeId) {
+                this.$router.push({
+                    path: '/node-detail',
+                    query: {
+                        address: nodeId,
+                    },
+                });
+            },
 
         },
         //生命周期函数
         created() {
             console.log('aaa',IndexService)
-            indexService = new IndexService();
+            indexService = new IndexService();    
+            setInterval(()=>{
+                this.isMove = true;
+                // setTimeout(()=>{                   
+                //     this.isMove2 = true;
+                //     setTimeout(()=>{
+                //         this.isMove = false;
+                //         this.isMove2 = false;
+                //     },1000)
+                // },1000)
+            },3000)        
         },
         mounted() {
             indexService.getChartData();
@@ -342,6 +401,16 @@
                 blockTradeChart.chart.resize();
             };
             window.addEventListener('scroll',this.scrollHandle,false)
+
+            const block1 = document.getElementById('blocks-ul-new');
+            const block2 = document.getElementById('blocks-ul-new2');
+            block1.addEventListener('transitionend',()=>{
+                this.isMove = false;
+                this.isMove2 = false;
+            },false)
+            block2.addEventListener('transitionend',()=>{
+                this.isMove2 = true;
+            },false)
         },
         beforeDestroy() {
             indexService.disconnect();
@@ -390,7 +459,7 @@
             height: 69px;
         }
         .chart{
-            min-height: 80px;
+            min-height: 180px;
         }
         .bar{
             h3{
@@ -456,6 +525,11 @@
             }
         }
     }
+    .block-list-wrap{
+        height: 650px;
+        overflow: hidden;
+        position: relative;
+    }
     .block-and-node{
         margin-top: 98px;
         h3{
@@ -468,8 +542,33 @@
             padding-left: 71px; 
             &.blocks-ul{                
                 // margin-right: 106px;
-                background: url(../../assets/images/node-avtor.png) repeat-y;
-                // background-size:46px 46px; 
+                background: url(../../assets/images/block.png) repeat-y;
+                background-position-y:  -15px;          
+                &.blocks-ul-new{
+                    // height: 0;   
+                    // overflow: hidden;     
+                    position: absolute;
+                    top: 249px;
+                    left: 0;
+                    width: 100%; 
+                    visibility: hidden;        
+                    &.blocks-active{
+                        transition: all 1s linear;
+                        // height: 249px;
+                        top: 0;
+                        visibility: visible;
+                    }
+                } 
+                &.blocks-ul-new2{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    &.blocks-active2{
+                        transition: all 1s linear;
+                        top: 249px;
+                    }
+                }
             }
             &.node-ul{
                 li{
@@ -497,7 +596,11 @@
                     .item-number{
                         font-size: 18px;
                         color: #FFFFFF;
-                        line-height: 21px;                        
+                        line-height: 21px;  
+                        display: block;  
+                        &:hover{
+                            color: #66B7DE;
+                        }                    
                     }
                     .item-txns{
                         font-size: 16px;
@@ -511,6 +614,9 @@
                             margin-left: 18px;
                             font-size: 14px;
                             color: #DDDDDD;
+                            &:hover{
+                                color: #66B7DE;
+                            }
                         }
                         margin: 15px 0;
                     }
@@ -539,6 +645,12 @@
         }
 
     }
+    .node-animation{
+        animation: nodeMove 50s linear infinite;
+        &:hover{
+            animation-play-state:paused;
+        }
+    }
     .fromBottomIn{
         transition: transform 1.0s ease, opacity 1.0s ease;
         
@@ -551,6 +663,16 @@
         
         transform: translate(0,100%);
         opacity: 0.0;
+    }
+
+    @keyframes nodeMove {
+        from {
+            transform: translate(0,-2075px);
+        }
+    
+        to {
+            transform: translate(0,0);
+        }
     }
 </style>
 <style lang="less">

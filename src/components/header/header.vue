@@ -1,6 +1,6 @@
 <template>
     <div class="header-wrap">
-        <div class="logo">
+        <div class="logo cursor" @click="goIndex">
             <img class="icon1" src='@/assets/images/herder-logo-a.png'/>
             <img class="icon2" src='@/assets/images/herder-logo-b.png'/>
             <p>The PlatON Block Explorer</p>
@@ -31,16 +31,13 @@
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
                 <!-- <span class="el-dropdown-link">
-                    {{getNetObj(chainId)}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span> -->
-                <span class="el-dropdown-link">
                     {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
                         {{item[lang]}}
                     </el-dropdown-item>
-                </el-dropdown-menu>
+                </el-dropdown-menu> -->
             </el-dropdown>
             <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
                 <span class="el-dropdown-link">
@@ -106,6 +103,9 @@
         inject:['reload'],
         methods: {
             ...mapActions(['changeChainId']),
+            goIndex(){
+                this.$router.push('/');
+            },
             visibleChange1(val){
                 if(val){
                     this.iconClass1='el-icon-arrow-up';
@@ -172,9 +172,11 @@
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{
                     let {errMsg,code,data}=res
+
+                    this.searchKey = '';
                     if(code==0){
                         //根据type不同进入不同的详情页
-                        if(data.type==null){
+                        if(!data.type){
                             this.$message.warning(this.$t('indexInfo.searchno'))
                         }else{
                             this.switchFn(data.type,data.struct)
@@ -185,6 +187,7 @@
                             // this.$message.error(errMsg) 替换为search无结果
                     }
                 }).catch((error)=>{
+                    this.searchKey = '';
                     this.$message.error(error)
                 });
                 setTimeout(()=>{

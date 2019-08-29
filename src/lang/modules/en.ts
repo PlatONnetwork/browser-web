@@ -24,9 +24,11 @@ export default {
     },
     common: {
         time: 'Time',
-        serialnumber: 'N.'
+        serialnumber: 'N.',
+        export: 'Download csv',
     },
     tradeAbout: {
+        confirmTime:'Time',
         foundTransactions: 'Transactions Found',
         showingLast: '(Showing The Last 500k Records)',
         transactionUp: 'TRANSACTIONS',
@@ -53,11 +55,17 @@ export default {
         delegator: 'Delegator',
         validator: 'Validator',
         delegationAmount: 'Delegation Amount',
+        withdrawal: 'Withdrawal Amount',
 
         proposer: 'Proposer',
         operatorAddress: 'Operator Address',
         proposalType: 'Proposal Type',
         proposalID: 'Proposal ID',
+        proposalStatus: 'ProposalStatus',
+        proposalEndBlock: 'ProposalEndBlock',
+        activeBlock:'Expected Upgrade Block',
+        proposalTime: 'ProposalTime',
+        proposalDetail: 'ProposalDetail',
         PIPSN: 'PIP SN',
         proposalTitle: 'Proposal Title',
         vote: 'Vote',
@@ -66,6 +74,13 @@ export default {
         voteOption: 'voteOption',
         trasactionHash:'txHash',
         trasactionTime:'time',
+        version1: 'Version',
+
+        upgradeProposal: 'UpgradeProposal',
+        textProposal: 'TextProposal',
+        quitProposal: 'QuitProposal',
+        upgradeVersion: 'UpgradeVersion',
+        propasalDescription: 'Propasal Description',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',
@@ -75,6 +90,7 @@ export default {
         returnAmount: 'Return Amount',
         reporter: 'Reporter',
         reportType: 'Report Type',
+        doubleSiging: 'Double Siging',
         reportEvidence: 'ReportEvidence',
         reportResult: 'ReportResult',
         reportReward: 'Report Reward',
@@ -97,6 +113,24 @@ export default {
         viewRight: 'View the latter transaction',
         transfer: 'Transfer',
         information: 'Information', //Transaction
+        other: 'ContractCreation\\ContractExecution\\MPCTx\\Others',
+        restricting: 'CreateRestricting',
+        delegate: 'Delegate',
+        undelegate: 'Undelegate',
+        proposal: 'CreateProposal',
+        voting: 'VotingProposal',
+        declare: 'DeclareVersion',
+        createValidator: 'CreateValidator',
+        increase: 'IncreaseStaking',
+        editValidator: 'EditValidator',
+        exitValidator: 'ExitValidator',
+        reportValidator: 'ReportValidator',
+        pend: 'Pending',
+        remain: 'Remaining',
+        undelegat: 'Undelegating',
+        remain1: 'Remaining',
+        successed: 'Successed',
+        successed1: 'Successed',
         timestamp: 'Time Stamp',
         txReceiptStatus: 'TxReceipt Status',
         actualTxCost: 'Tx Cost/Fee',
@@ -115,12 +149,13 @@ export default {
         withdraw: 'Withdraw',
         tradein: '{count} Transactions Found',
         moretradein: 'More than > {count} Transactions Found',
-        warn:'Warning'
+        warn: 'Warning'
     },
     contract: {
         contractDetail: 'CONTRACT DETAILS',
         contract: 'Contract',
         overview: 'Overview',
+        lockOverview: 'Overview',
         balance: 'Balance',
         others: 'Others',
         totxn: 'at txn',
@@ -136,7 +171,7 @@ export default {
 
         addressDetail: 'ADDRESS DETAILS',
         restricted: 'Restricted',
-        Address: 'Address',
+        address: 'Address',
         delegations: 'Delegations',
         staking: 'Staking',
         inRedemption: 'In redemption',
@@ -157,6 +192,7 @@ export default {
         unlockedDelegate: 'Unlocked Delegate',
         releasedDelegate: 'Released Delegate',
         undelegating: 'Undelegating',
+        undelegating2: 'Undelegating',
         unlocked: 'Unlocked',
         released: 'Released',
         delegationAmount: 'Delegation Amount',
@@ -169,6 +205,7 @@ export default {
         morethen: 'Total ',
         blockH: 'Block',
         block: 'block',
+        blocks: 'blocks',
         interval:'Age',
         blockReward:'Block Reward',
         size:'Size',
@@ -184,14 +221,19 @@ export default {
     },
     download: {
         info: 'Download Data',
-        title: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot! (Make sure the VPN is currently available)',
+        downloadAddressMsg: 'Download the current address of the transaction ,Before downloading, please verify if you are a robot!',
+        downloadNodeMsg: 'Download current node block record,Before downloading, please verify if you are a robot!',
         date: 'Date Date',
         placeholder: 'Select a date',
         download: 'Download',
         placeholder1: 'Please select date',
         robot: 'Please verify that you are a robot!',
+
         googleAPINotAvailable: 'Google reCAPTCHA is not available！',
-        downloadTip: '(Up to support 30,000 data downloads)'
+        downloadTip: '(Up to support 30,000 data downloads)',
+        dataDate: 'Data Date',
+        today: '-Today',
+        mostDownloads: '(Up to support 30,000 data downloads)'
     },
     modalInfo: {
         copysuccess: 'Copied',
@@ -236,6 +278,7 @@ export default {
     },
     nodeInfo: {
         validator: 'validator',
+        validatorDetail: 'VALIDATOR DETAILS',
         createdat: 'Created at',
         electedRoundValidator: 'Elected Round Validator',
         blocks: 'Blocks',
@@ -248,8 +291,8 @@ export default {
         nodeInfo: 'Node Info',
         producedBlocks: 'Produced Blocks',
         validatorActions: 'Validator Actions',
-        lowBlockRate: 'Punishment Number of Low Output Rate',
-        twoSignNum: 'Number of penalties for double signatures',
+        lowBlockRate: 'Low block rate slashing',
+        twoSignNum: 'Double signing slashing',
 
         nodeID: 'Node ID',
         actions: 'Actions',
@@ -272,20 +315,25 @@ export default {
         delegationsDelegators: 'Delegations\\Delegators',
         producedBlock: 'Blocks',
         exitTime: 'Exit time',
-        pendingDelegations: 'Pending Delegations'
+        pendingDelegations: 'Pending Delegations',
+        nodeMsg: 'PlatON blockchain initial built-in validator, does not accept Delegation',
+        systemBuilt: 'System built-in reward pool account',
+        systemOperation: 'System operation, no txn',
+        node: 'Node',
 
     },
     nodeStatus: {
-        1: 'Active',
-        2: 'Producing…',
-        3: 'Candidate',
-        4: 'Exited',
-        5: 'Exiting',
+        1: 'Candidate',
+        2: 'Active',
+        3: 'Producing…',
+        4: 'Exiting',
+        5: 'Exited',
     },
+    // 交易类型
     TxType: {
         0: 'Transfer',  //'转账',
         1: 'Create Proposal',   //'创建提案',
-        2: 'Contract Execution', //'合约调用',
+        2: 'Contract Execution', //'合约执行',
         5: 'MPCTx', //'MPC交易',
         1000: 'Create Validator',   //'发起质押',
         1001: 'Edit Validator',   //'修改质押信息',
@@ -298,8 +346,22 @@ export default {
         2002: 'Create Proposal',   //'提交参数提案',
         2003: 'Voting Proposal',    //'提案投票',
         2004: 'Declare Version',    //'版本声明',
+        2005: 'Cancel Proposal',    //取消提案
         3000: 'Report Validator',   //'举报多签',
         4000: 'Create Restricting', //'创建锁仓计划'
+    },
+    // 创建提案的提案类型
+    createType: {
+        2000: 'Text Proposal',   //文本提案
+        2001: 'Upgrade Proposal',   //升级提案
+        2002: 'Parameter Proposal',   //参数提案
+        2005: 'Cancel Proposal'    //取消提案
+    },
+    // 提案投票的提案类型
+    proposalOption: {
+        1: 'Text Proposal',  //文本提案
+        2: 'Upgrade Proposal',  //升级提案
+        3: 'Parameter Proposal',  //参数提案
     },
     ...enLocale
 }

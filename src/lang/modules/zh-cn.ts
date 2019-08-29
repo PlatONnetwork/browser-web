@@ -63,6 +63,7 @@ export default {
         PIPSN: 'PIP编号',
         proposalTitle: '标题',
         proposalEndBlock: '投票结束区块',
+        activeBlock:'预设升级区块',
         proposalTime: '提案时间',
         proposalDetail: '提案详情',
         vote: '投票',
@@ -70,7 +71,13 @@ export default {
         voter: '投票人',
         voteOption: '投票选项',
         trasactionHash: '交易Hash',
-        trasactionTime:'投票时间',
+        trasactionTime: '投票时间',
+
+        upgradeProposal: '升级提案',
+        textProposal: '文本提案',
+        quitProposal: '取消提案',
+        upgradeVersion: '升级版本',
+        propasalDescription: '提案描述',
 
         identity: '身份认证ID',
         rewardAddress: '奖励账户',
