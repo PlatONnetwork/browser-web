@@ -140,37 +140,63 @@
       </el-col>
     </el-row>
 
-    <!-- 升级提案进度 -->
-    <div class="big-progress" >
-        <div class="big-percentage" :style="{'width': yesPercentage}"></div>
-        <div class="big-progress-text">
+    <!-- 升级提案进度 type==2 -->
+    <div class="big-progress" v-if="detailData.type=='2'">
+        <div class="big-percentage" :style="{'width': yesPercentage}" @mouseenter="mouseoverQuit(detailData.yeas/detailData.accuVerifiers,'yes')" @mouseleave="mouseleaveQuit()">
+             <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
+                 <div class='vote-text'>YES</div>
+                 <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
+        </div>
+        <div class="big-progress-text" :style="{'display':detailData.yeas/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
             <div class='vote-text'>Support</div>
             <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
         </div>
-        <div class="big-progress-pass">Pass Condition>={{detailData.supportRateThreshold}}</div>
+        <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
+            <span>
+                Pass Condition>={{detailData.supportRateThreshold}}
+            </span>
+
+        </div>
     </div>
     <!-- 其他提案进度 -->
-    <div class="other-progress" >
-        <div class='voteYes'  :style="{'width': yesPercentage}">
-            <div class="voteYesText">
+    <div class="other-progress" v-else>
+        <div class='voteYes'  :style="{'width': yesPercentage}" @mouseenter="mouseoverQuit(detailData.yeas/detailData.accuVerifiers,'yes')" @mouseleave="mouseleaveQuit()">
+            <div class="voteYesText" :style="{'display':detailData.yeas/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
                 <div class='vote-text'>YES</div>
                 <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
             </div>
+             <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
+                 <div class='vote-text'>YES</div>
+                 <div class='vote-number'>{{detailData.yeas}} <span>{{yesPercentage}}</span></div>
+            </div>
         </div>
-        <div class='voteNo' v-if=quitPercentage*100 :style="{'width': noPercentage}">
-            <div class="voteNoText">
+        <div class='voteNo' :style="{'width': noPercentage}" @mouseenter="mouseoverQuit(detailData.nays/detailData.accuVerifiers,'no')" @mouseleave="mouseleaveQuit()">
+            <div class="voteNoText" :style="{'display':detailData.nays/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
                 <div class='vote-text'>NO</div>
                 <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
             </div>
+            <div class="otherVoteNoText" :style="{'display': voteDisplayStyle.not ? 'block' : 'none'}">
+                 <div class='vote-text'>NO</div>
+                 <div class='vote-number'>{{detailData.nays}} <span>{{noPercentage}}</span></div>
+            </div>
         </div>
-        <div class='voteQuit' v-if=quitPercentage*100 :style="{'width': quitPercentage}">
-            <div class="voteQuitText">
+        <div class='voteQuit' :style="{'width': quitPercentage}" @mouseenter="mouseoverQuit(detailData.abstentions/detailData.accuVerifiers,'quit')" @mouseleave="mouseleaveQuit()">
+            <div class="voteQuitText" :class="{'voteQuitDisplay':  'true' }" :style="{'display':detailData.abstentions/detailData.accuVerifiers < 0.06 ? 'none':'block'}">
                  <div class='vote-text'>ABSTAIN</div>
                  <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
             </div>
-
+            <div class="otherVoteQuitText" :style="{'display': voteDisplayStyle.quit ? 'block' : 'none'}">
+                 <div class='vote-text'>ABSTAIN</div>
+                 <div class='vote-number'>{{detailData.abstentions}} <span>{{quitPercentage}}</span></div>
+            </div>
         </div>
-        <div class='passRatio'>Pass Condition>={{detailData.supportRateThreshold}}</div>
+        <div class='passRatio' :style="{'left': detailData.supportRateThreshold}">
+            <span>
+                Pass Condition>={{detailData.supportRateThreshold}}
+            </span>
+        </div>
+
     </div>
     <div style="color:#33;font-family: Gilroy-Regular;font-size:14px;">Vote upgrade number: {{detailData.accuVerifiers}}</div>
     <div class="voteOption">
@@ -232,7 +258,7 @@ export default {
       paginationFlag: true,
       tableData: [],
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 20,
       pageTotal: 1,
       endVotingPercentage: '',
       expectUpgradePercentage: '',
@@ -240,6 +266,11 @@ export default {
       noPercentage: '40%',
       quitPercentage: '20%',
       voteOptionTag: true,
+      voteDisplayStyle:{
+          quit: false,
+          not: false,
+          yes: false,
+      },
       voteOptionStyle:{
           all:'#0798DE',
           yes: '#999999',
@@ -249,7 +280,7 @@ export default {
       detailData:{
           url: '#PIP1034',
           topoc: 'proposal title',
-          type: '2',
+          type: '1',
           status:"",  //状态  1：投票中  2：通过  3：失败   4：预升级  5：升级完成   6：已取消  已通过=2 或4 或 5
           newVersion: 'v.0.7.1',
           nodeName: '节点名称',
@@ -309,6 +340,7 @@ export default {
                 tmpQuitPercentage = (data.abstentions/data.accuVerifiers)*100 + '%',
                 tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock > 1 ? 1 : data.curBlock/data.endVotingBlock)*100 + '%',
                 tmpExpectUpgradePercentage = (data.activeBlock/data.endVotingBlock > 1 ? 1 : data.activeBlock/data.endVotingBlock)*100 + '%'
+                // debugger
             this.expectUpgradePercentage = tmpExpectUpgradePercentage;
             this.endVotingPercentage = tmpEndVotingPercentage;
             this.yesPercentage = tmpYesPercentage;
@@ -376,6 +408,20 @@ export default {
             };
         }
     },
+    mouseoverQuit(param1, param2){
+        if(param1 < 0.06 && param2 == 'quit'){
+            this.voteDisplayStyle.quit = true;
+        } else if(param1 < 0.06 && param2 == 'no'){
+            this.voteDisplayStyle.not = true;
+        }else if(param1 < 0.06 && param2 == 'yes'){
+            this.voteDisplayStyle.yes = true;
+        }
+    },
+    mouseleaveQuit(){
+        this.voteDisplayStyle.quit = false;
+        this.voteDisplayStyle.not = false;
+        this.voteDisplayStyle.yes = false;
+    }
   },
   //生命周期函数
   created() {
@@ -510,6 +556,30 @@ export default {
 //   width: 30%;
   height: 100%;
   background: #e2f3dc;
+  .otherVoteYesText{
+            position: absolute;
+            left:5px;
+            z-index:999;
+              .vote-text{
+            color:#3BB012;
+            font-size: 12px;
+            line-height: 24px;
+        }
+        .vote-number{
+            font-size: 16px;
+            color: #3BB012;
+            line-height: 24px;
+            position: relative;
+            span{
+                font-size: 14px;
+                color: #7DCB63;
+                line-height: 24px;
+                position: absolute;
+                left:30px;
+                top:1px;
+            }
+        }
+        }
 }
 .big-progress-text {
   position: absolute;
@@ -538,29 +608,60 @@ export default {
 }
 .big-progress-pass {
   position: absolute;
-  margin: 0px 20px 16px 0px;
-  bottom: 0;
-  right: 0;
+  height: 100%;
+  width:1px;
+  border:1px solid #999;
   font-family: Gilroy-Regular;
   font-size: 12px;
   color: #999999;
   letter-spacing: 0;
   line-height: 24px;
+   span{
+        position: absolute;
+        bottom: 0;
+        width: 130px;
+        margin-left: 6px;
+        }
 }
 .other-progress{
   margin: 10px 0px 30px 0px;
   width: 100%;
-  height: 54px;
+  height: 70px;
   background: #EEEEEE;
   border-radius: 1px;
+  position:relative;
     .voteYes{
         height: 100%;
         background: #e2f3dc;
         float:left;
         padding:3px 0 0 5px;
+        position: relative;
         .voteYesText{
-            display: none;
             .vote-text{
+            color:#3BB012;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #3BB012;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #7DCB63;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
+        .otherVoteYesText{
+            position: absolute;
+            left:2px;
+            z-index:999;
+              .vote-text{
             color:#3BB012;
             font-size: 12px;
             line-height: 24px;
@@ -575,47 +676,66 @@ export default {
                 color: #7DCB63;
                 line-height: 24px;
                 position: absolute;
-                left:30px;
+                left:22px;
                 top:1px;
             }
         }
         }
 
     }
-    .voteYes:hover .voteYesText{
-        display:block;
-    }
+
     .voteNo{
         height: 100%;
         background: #F8E0E9;
         float:left;
         padding:3px 0 0 5px;
+        position: relative;
         .voteNoText{
-             display: none;
+            //  display: none;
+            margin-left: 28px;
               .vote-text{
             color:#CF326E;
             font-size: 12px;
             line-height: 24px;
         }
-        .vote-number{
-            font-size: 16px;
-            color: #CF326E;
-            line-height: 24px;
-            position: relative;
-            span{
-                font-size: 14px;
-                color: #E798B6;
+            .vote-number{
+                font-size: 16px;
+                color: #CF326E;
                 line-height: 24px;
-                position: absolute;
-                left:30px;
-                top:1px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #E798B6;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
             }
         }
+        .otherVoteNoText{
+            position:absolute;
+            left:6px;
+               .vote-text{
+            color:#CF326E;
+            font-size: 12px;
+            line-height: 24px;
         }
-
-    }
-    .voteNo:hover .voteNoText{
-         display:block;
+            .vote-number{
+                font-size: 16px;
+                color: #CF326E;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #E798B6;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
+        }
     }
     .voteQuit{
         height: 100%;
@@ -623,38 +743,65 @@ export default {
         float:left;
         padding:3px 0 0 5px;
         .voteQuitText{
-            display:block;
+            // display:none;
             .vote-text{
             color:#000000;
             font-size: 12px;
             line-height: 24px;
         }
-        .vote-number{
-            font-size: 16px;
-            color: #000000;
-            line-height: 24px;
-            position: relative;
-            span{
-                font-size: 14px;
-                color: #888888;
+            .vote-number{
+                font-size: 16px;
+                color: #000000;
                 line-height: 24px;
-                position: absolute;
-                left:16px;
-                 top:1px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #888888;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
             }
         }
+        .otherVoteQuitText{
+              .vote-text{
+            color:#000000;
+            font-size: 12px;
+            line-height: 24px;
+        }
+            .vote-number{
+                font-size: 16px;
+                color: #000000;
+                line-height: 24px;
+                position: relative;
+                span{
+                    font-size: 14px;
+                    color: #888888;
+                    line-height: 24px;
+                    position: absolute;
+                    left:30px;
+                    top:1px;
+                }
+            }
         }
 
     }
-    .voteQuit:hover .voteQuitText{
-        display: block;
-    }
+
     .passRatio{
-        float:right;
+        float:left;
         height: 100%;
-        line-height: 54px;
+        width:1px;
+        position: absolute;
         color: #999999;
-        margin-right:60px;
+        font-size: 12px;
+        border:1px solid #999;
+        span{
+            position: absolute;
+            bottom: 0;
+            width: 130px;
+            margin-left: 6px;
+        }
     }
 }
 

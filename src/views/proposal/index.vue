@@ -80,7 +80,7 @@ export default {
       paginationFlag: true,
       tableData: [],
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 20,
       pageTotal: 1,
 
     };
