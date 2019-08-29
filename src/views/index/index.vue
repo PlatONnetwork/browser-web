@@ -1,13 +1,33 @@
 <template>
     <div class="index-wrap">
+        <vue-particles
+            color="#2E2E2E"
+            :particleOpacity="0.7"
+            :particlesNumber="80"
+            shapeType="circle"
+            :particleSize="4"
+            linesColor="#2E2E2E"
+            :linesWidth="1"
+            :lineLinked="true"
+            :lineOpacity="0.7"
+            :linesDistance="150"
+            :moveSpeed="2"
+            :hoverEffect="true"
+            hoverMode="grab"
+            :clickEffect="false"
+            clickMode="repulse"
+            class="lizi"
+        >
+        </vue-particles>
         <div class="welcome-wrap">
             <h3>{{$t('indexInfo.WelcomeToPlatON')}}</h3>
             <div class="search search-index" :class="{'search-active':isFocus,'search-hide':!hideSearch}">
-                <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+                <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
                 <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
             </div>
             <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron.png">
-            <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron.png">
+            <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron2.png">
+            <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.png">
         </div>
         <el-row>
             <el-col :span="12" class="bar-left bar">
@@ -35,7 +55,7 @@
                         <el-progress :percentage="blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
                 </ul>
-                <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron.png">
+                <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron2.png">
             </el-col>
             <el-col :span="12" class="bar-right bar">
                 <h3>{{$t('indexInfo.LIVEBLOCKTRANSACTIONS')}}</h3>
@@ -47,7 +67,7 @@
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
-                        <a class="cursor">{{blockStatisticData.currentTps | formatNumber}}<span class="blue">/{{blockStatisticData.maxTps | formatNumber}}</span> </a>
+                        <a class="cursor">{{blockStatisticData.currentTps | formatNumber}}<span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span> </a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
@@ -55,7 +75,7 @@
                     </li>
                     <li class="cursor" @click="goProposal">
                         <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
-                        <a>{{blockStatisticData.doingProposalQty | formatNumber}}<span class="blue">/{{blockStatisticData.proposalQty | formatNumber}}</span></a>
+                        <a>{{blockStatisticData.doingProposalQty | formatNumber}}<span class="lightblue">/{{blockStatisticData.proposalQty | formatNumber}}</span></a>
                     </li>
                 </ul>
             </el-col>
@@ -65,7 +85,7 @@
                 <h3>{{$t('nodeInfo.blocks')}}</h3>
                 <div class="block-list-wrap">
                     <div class="zhezhao" id="zhezhao" :class="{active:isMove2}"></div>
-                    <ul class="blocks-ul blocks-ul-new" v-show="isMove2">                  
+                    <ul class="blocks-ul blocks-ul-new" :class="{'blocks-active':isMove2}">                  
                         <li class="cursor" v-if="blockData.length">
                             <div class="list-item">
                                 <span class="item-number cursor" @click="goBlockDetail(blockData[0].number)">{{blockData[0].number}}</span>
@@ -195,7 +215,7 @@
             searchFn(){
                 this.disabledBtn=true;
                 let param = {
-                    parameter:this.searchKey,
+                    parameter:this.searchKey.trim(),
                 }
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{
@@ -422,6 +442,12 @@
     .index-wrap{
         // background: #000;
         position: relative;
+        .lizi{
+            position: absolute;
+            height: 700px;
+            width: 100%;
+            top: -180px;
+        }
         .block-statistics{
             display: flex;
             flex-wrap: wrap;
@@ -457,6 +483,7 @@
         }
         .search-index{
             height: 69px;
+            position: relative;
         }
         .chart{
             min-height: 180px;
@@ -489,11 +516,13 @@
                 line-height: 47px;
                 text-align: center;
                 color: #fff;
+                position: relative;
             }
             .search{
                 margin-top: 70px;
                 &.search-index .el-button.el-searchs{
                     width: 120px;
+                    position: relative;
                 }
                 &.search-hide{
                     transition: transform 3.0s ease, opacity 3.0s ease;       
@@ -522,6 +551,12 @@
                 height: 50px;
                 top: 52px;
                 left: -80px;
+            }
+            &.polyhedron-small{
+                width: 50px;
+                height: 50px;
+                top: -26px;
+                right: 10px;
             }
         }
     }
@@ -564,12 +599,11 @@
                     top: 0px;
                     left: 0;
                     width: 100%; 
+                    opacity:0;
                     // visibility: hidden;        
                     &.blocks-active{
-                        transition: top 1s linear;
-                        // height: 249px;
-                        top: 0;
-                        visibility: visible;
+                        transition: all 0.5s linear;
+                        opacity:1;
                     }
                 } 
                 &.blocks-ul-new2{
@@ -654,6 +688,9 @@
             margin-top: 27px;
             .view-link{
                 color: #fff;
+                height: 100%;
+                width: 100%;
+                display: block;
             }
         }
 
@@ -663,19 +700,6 @@
         &:hover{
             animation-play-state:paused;
         }
-    }
-    .fromBottomIn{
-        transition: transform 1.0s ease, opacity 1.0s ease;
-        
-        transform: translate(0,0);
-        opacity: 1.0;
-    }
-
-    .fromBottomOut{
-        transition: transform 1.0s ease, opacity 1.0s ease;
-        
-        transform: translate(0,100%);
-        opacity: 0.0;
     }
 
     @keyframes nodeMove {
@@ -687,6 +711,7 @@
             transform: translate(0,0);
         }
     }
+
 </style>
 <style lang="less">
     .index-area{
@@ -710,10 +735,14 @@
     .sub-foot .tabs .el-button{
         background: #000;
         margin-right: 8%;
+        border: 1px solid #979797;
+        border-radius: 4px;
+        width: 210px;
+        height: 69px;
         &:hover{
             background: #fff;
-            a{
-                color: #000;
+            a{                
+                color: #000;            
             }
         }
         a{

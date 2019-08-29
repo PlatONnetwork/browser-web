@@ -13,8 +13,13 @@ import VueClipboard from 'vue-clipboard2'
 import { mapActions } from 'vuex'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+// 二维码生成
 import VueQriously from 'vue-qriously'
 Vue.use(VueQriously)
+
+// 首页全屏动画
+import VueParticles from 'vue-particles'  
+Vue.use(VueParticles) 
 
 import './filters'
 import './directives'

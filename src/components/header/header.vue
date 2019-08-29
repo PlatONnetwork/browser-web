@@ -25,9 +25,9 @@
             </el-menu>
         </div>
         <div class="search search-header" :class="{'search-active':isFocus,'search-hide':(!hideSearch || ($route.path!='/'))}">
-            <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+            <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
             <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
-        </div>
+        </div>       
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
                 <!-- <span class="el-dropdown-link">
@@ -167,7 +167,7 @@
             searchFn(){
                 this.disabledBtn=true;
                 let param = {
-                    parameter:this.searchKey,
+                    parameter:this.searchKey.trim(),
                 }
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{

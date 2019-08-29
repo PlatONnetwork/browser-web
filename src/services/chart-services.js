@@ -113,7 +113,7 @@ class ChartService {
                 {  
                     var relVal = params[0].name;  
                     for (var i = 0, l = params.length; i < l; i++) {  
-                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value-100)+"TXs";   //设置默认交易数高度20
+                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value-5)+"TXs";   //设置默认交易数高度20
                         }  
                     return relVal;  
                 }  

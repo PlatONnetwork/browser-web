@@ -117,8 +117,8 @@
             </div>
             <div v-show="tabIndex==2">
                 <div class="address-trade-last node-last">            
-                    {{$t('blockAbout.morethen')}} <b>{{displayTotalCount}}</b>{{$t('contract.transactions')}} 
-                    <span style="color: #3F3F3F;" v-if="newRecordFlag">({{$t('contract.showingLast')}})</span>
+                    {{$t('blockAbout.totalProduced')}} <b>{{displayTotalCount | formatNumber}}</b>
+                    <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
                     <el-button size="medium export-btn" @click="exportFn">{{$t('common.export')}}</el-button>
                 </div>
                 <div class="table">
@@ -145,7 +145,7 @@
                         </el-table-column>
                     </el-table>
                     <div class="pagination-box">
-                        <el-pagination background @size-change="handleBlockSizeChange" @current-change="handleBlockCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
+                        <el-pagination background @size-change="handleBlockSizeChange" @current-change="handleBlockCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal>5000?5000:pageTotal" :pager-count="9">
                         </el-pagination>
                     </div>
                 </div>

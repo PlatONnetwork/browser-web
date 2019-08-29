@@ -41,6 +41,7 @@ export default {
         blockHeight: '区块',
         gasLimit: '燃料限制',
         gasUsed: '燃料消耗',
+        gasUsedList: '燃料用量',
         gasPrice: '燃料价格',
         rawData: '交易数据',
 
@@ -155,7 +156,7 @@ export default {
         contractName: '合约名称',
         transactions: '交易',
         contractCreator: '合约创建信息',
-        showingLast: '仅显示最新5k记录',
+        showingLast: '(仅显示最新5k记录)',
         delegationsTxns: '委托交易',
         transfers: '转账',
         validatorTxns: '验证人交易',
@@ -210,6 +211,7 @@ export default {
         blockInformation: '区块信息',
         lookNext: '查看下一个区块',
         lookLast: '查看上一个区块',
+        totalProduced:'累计出块'
     },
     download: {
         info: '下载数据',
@@ -232,7 +234,7 @@ export default {
     },
     indexInfo: {
         WelcomeToPlatON: '欢迎来到PlatON 区块链浏览器',
-        LIVEBLOCKTIME: '实时出块时长',
+        LIVEBLOCKTIME: '实时出块时长(s)',
         LIVEBLOCKTRANSACTIONS: '实时区块交易数',
         LIVEBLOCKHEIGHT: '当前区块高度',
         CIRCULATINGSUPPLY: '流通量',
