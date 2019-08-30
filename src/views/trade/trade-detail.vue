@@ -6,10 +6,12 @@
         <span>{{$t('tradeAbout.transactions')}}</span>
         <i>#{{detailInfo.txHash}}</i>
         <b
+          class="cursor"
+          :class="{copy:!isCopy}"
           v-clipboard:copy="detailInfo.txHash"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        ></b>
+        >{{copyText}}</b>
       </div>
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
@@ -74,14 +76,21 @@
         >{{detailInfo.value | formatMoney }} LAT</Item>
         <!-- 锁仓 -->
         <template v-if="detailInfo.txType=='4000'">
-          <Item :label="$t('tradeAbout.restrictedAccount')" :prop="detailInfo.RPAccount"></Item>
-          <Item :label="$t('tradeAbout.restrictedAmount')" :prop="detailInfo.RPAccount"></Item>
+          <Item :label="$t('tradeAbout.restrictedAccount')">
+            <span
+              class="cursor normal ellipsis"
+              @click="goAddressDetail(detailInfo.rpaccount)"
+            >{{detailInfo.rpaccount}}</span>
+          </Item>
+          <Item :label="$t('tradeAbout.restrictedAmount')">
+            <span>{{detailInfo.rpnum | formatMoney }} LAT</span>
+          </Item>
           <Item :label="$t('tradeAbout.restrictedPlan')">
             <ul class="restricted-plan">
               <li
-                v-for="(item,index) in detailInfo.RPPlan"
+                v-for="(item,index) in detailInfo.rpplan"
                 :key="index"
-              >N{{index}} Epoch({{item.blockNumber}})：{{item.amount}}</li>
+              >{{item.epoch}} Epoch({{item.blockNumber}})：{{item.amount| formatMoney}} LAT</li>
             </ul>
           </Item>
         </template>
@@ -167,10 +176,10 @@
           <!-- 提案类型 -->
           <Item :label="$t('tradeAbout.proposalType')">
             <!-- :prop="detailInfo.proposalOption" -->
+            <span v-if="detailInfo.txType!='2003'">{{$t("createType."+detailInfo.txType)}}</span>
             <span
-              v-if="detailInfo.txType=='2003'"
+              v-else-if="detailInfo.proposalOption"
             >{{$t("proposalOption."+detailInfo.proposalOption)}}</span>
-            <span v-else>{{$t("createType."+detailInfo.txType)}}</span>
           </Item>
           <!-- 提案ID -->
           <Item :label="$t('tradeAbout.proposalID')" :prop="detailInfo.proposalHash"></Item>
@@ -199,7 +208,10 @@
         <!-- 投票（提案投票特有） -->
         <Item :label="$t('tradeAbout.vote')" v-if="detailInfo.txType=='2003'">
           <span v-if="detailInfo.proposalOption==2" class="green vote-status">SUPPORT</span>
-          <span class="green vote-status" v-else>{{detailInfo.voteStatus==1?'YES':detailInfo.voteStatus==2?'NO':'ABSTAIN'}}</span>
+          <span
+            class="green vote-status"
+            v-else-if="detailInfo.voteStatus"
+          >{{detailInfo.voteStatus==1?'YES':detailInfo.voteStatus==2?'NO':detailInfo.voteStatus==3?'ABSTAIN':''}}</span>
         </Item>
         <!-- 声明版本(版本声明特有) -->
         <Item
@@ -351,11 +363,8 @@
         ></Item>
         <!-- 区块 -->
         <Item :label="$t('tradeAbout.blockHeight')">
-          <div class="cursor">
-            <span
-              class="blue"
-              @click="goBlockDetail(detailInfo.blockNumber)"
-            >{{detailInfo.blockNumber}}</span>
+          <div class="cursor" @click="goBlockDetail(detailInfo.blockNumber)">
+            <span class="blue">{{detailInfo.blockNumber}}</span>
             <span style="margin-left:5px;">({{detailInfo.confirmNum+$t('tradeAbout.confirmNum')}})</span>
           </div>
         </Item>
@@ -394,7 +403,9 @@ export default {
       address: "",
       detailInfo: {},
       descriptionProp: "trade",
-      extraInfo: {}
+      extraInfo: {},
+      isCopy: false,
+      copyText: ""
     };
   },
   props: {},
@@ -543,13 +554,21 @@ export default {
           */
         });
     },
-    // 复制到剪切板成功
     onCopy() {
-      this.$message.success(this.$t("modalInfo.copysuccess"));
+      this.copyText = this.$t("modalInfo.copysuccess");
+      this.isCopy = true;
+      setTimeout(() => {
+        this.isCopy = false;
+        this.copyText = "";
+      }, 2000);
     },
-    // 复制到剪切板失败
     onError() {
-      this.$message.error(this.$t("modalInfo.copyfail"));
+      this.copyText = this.$t("modalInfo.copyfail");
+      this.isCopy = true;
+      setTimeout(() => {
+        this.isCopy = false;
+        this.copyText = "";
+      }, 2000);
     },
     //进入区块详情
     goBlockDetail(height) {
@@ -698,6 +717,9 @@ export default {
   .item-wrap {
     padding-left: 50px;
   }
+}
+.trade-detail-wrap .list-item label{
+  width: 140px !important;
 }
 </style>
 
