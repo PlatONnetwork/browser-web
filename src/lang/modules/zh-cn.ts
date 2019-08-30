@@ -24,7 +24,8 @@ export default {
     },
     common: {
         time: '时间',
-        serialnumber: '序号'
+        serialnumber: '序号',
+        export: '下载csv',
     },
     tradeAbout: {
         confirmTime: '确认时间',
@@ -76,6 +77,7 @@ export default {
         voteOption: '投票选项',
         trasactionHash: '交易Hash',
         trasactionTime: '投票时间',
+        version1: '版本',
 
         upgradeProposal: '升级提案',
         textProposal: '文本提案',
@@ -163,6 +165,7 @@ export default {
         contractDetail: '合约详情',
         contract: '合约',
         overview: '概览',
+        lockOverview: '锁仓概览',
         balance: '余额',
         others: '其他',
         totxn: '于交易',
@@ -199,6 +202,7 @@ export default {
         unlockedDelegate: '未锁定委托',
         releasedDelegate: '已解锁委托',
         undelegating: '赎回中委托',
+        undelegating2: '赎回中',
         unlocked: '未锁定委托',
         released: '已解锁委托',
         delegationAmount: '委托数量',
@@ -228,14 +232,19 @@ export default {
     },
     download: {
         info: '下载数据',
-        title: '下载当前地址的交易\\投票\\声明记录，在下载之前，请验证您是否是机器人！(请确保当前VPN可用)',
+        downloadAddressMsg: '下载当前地址的交易记录，在下载之前，请验证您是否是机器人！',
+        downloadNodeMsg: '下载当前节点出块记录，在下载之前，请验证您是否是机器人！',
         date: '数据日期',
         placeholder: '选择日期',
         download: '下载',
         placeholder1: '请选择日期',
         robot: '请验证您是否是机器人！',
+
         googleAPINotAvailable: 'Google reCAPTCHA无法获取！',
-        downloadTip: '（最多支持下载3万条数据）'
+        downloadTip: '（最多支持下载3万条数据）',
+        dataDate: '数据日期',
+        today: '-至今',
+        mostDownloads: '(最多支持下载3万条数据)',
     },
     modalInfo: {
         copysuccess: '已复制',
@@ -274,6 +283,7 @@ export default {
     },
     nodeInfo: {
         validator: '验证节点',
+        validatorDetail: '验证人详情',
         createdat: '创建时间',
         electedRoundValidator: '当选当前轮验证人',
         blocks: '累计出块',
@@ -310,7 +320,11 @@ export default {
         delegationsDelegators: '委托数\\委托者',
         producedBlock: '已产生区块数',
         exitTime: '退出时间',
-        pendingDelegations: '待提取委托数'
+        pendingDelegations: '待提取委托数',
+        nodeMsg: 'PlatON初始内置验证人，不接受委托',
+        systemBuilt: 'System built-in reward pool account',
+        systemOperation: '系统操作，无交易',
+        node: '节点',
     },
     nodeStatus: {
         1: '活跃中',
@@ -319,6 +333,7 @@ export default {
         4: '已退出',
         5: '退出中',
     },
+    // 交易类型
     TxType: {
         0: '转账',
         1: '合约创建',  //创建提案

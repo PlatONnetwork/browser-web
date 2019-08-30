@@ -250,12 +250,6 @@ export default {
         copysuccess: 'Copied',
         copyfail: 'Copy the failure'
     },
-    breadCrumb: {
-        pending: 'Pending Transactions',
-        trade: 'Transactions',
-        block: 'Blocks',
-        node: 'Node'
-    },
     indexInfo: {
         WelcomeToPlatON: 'Welcome to PlatON Blockchain Explorer',
         LIVEBLOCKTIME: 'LIVE BLOCK TIME(s)',
@@ -331,7 +325,6 @@ export default {
         systemBuilt: 'System built-in reward pool account',
         systemOperation: 'System operation, no txn',
         node: 'Node',
-
     },
     nodeStatus: {
         1: 'Candidate',
