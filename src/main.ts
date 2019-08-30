@@ -115,6 +115,7 @@ Vue.filter("proposalType", (type: string): string => {
   if (type === "1") return "文本提案";
   if (type === "2") return "升级提案";
   if (type === "3") return "参数提案";
+  if (type === "4") return "取消提案";
   return "未知类型"
 });
 

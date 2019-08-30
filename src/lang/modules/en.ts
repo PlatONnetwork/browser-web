@@ -81,6 +81,7 @@ export default {
         quitProposal: 'QuitProposal',
         upgradeVersion: 'UpgradeVersion',
         propasalDescription: 'Propasal Description',
+        proposalToCancel: 'Proposal To Cancel',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',

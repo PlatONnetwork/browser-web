@@ -79,6 +79,7 @@ export default {
         quitProposal: '取消提案',
         upgradeVersion: '升级版本',
         propasalDescription: '提案描述',
+        proposalToCancel: '被取消提案',
 
         identity: '身份认证ID',
         rewardAddress: '奖励账户',
