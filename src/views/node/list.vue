@@ -38,7 +38,7 @@
                 <el-table-column :label="$t('nodeInfo.validatorName')">
                     <template slot-scope="scope">
                         <div class='flex-special validator-name'>
-                            <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" alt="">  
+                            <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt="">  
                             <img src="../../assets/images/node-avtor-small.png" class="node-avtor" v-if="!scope.row.stakingIcon" alt="">                       
                             <p class='cursor normal ellipsis percent60' @click='goDetail(scope.row.nodeId)'>{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.isInit'>
