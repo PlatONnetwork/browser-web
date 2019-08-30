@@ -27,6 +27,7 @@ export default {
     data: {
       proposalHash: "0x1da4b53ae05c28e8ee1679f2681fab24ccdf327f94cb98e29760296a799dc024", //提案内部标识
     //   url: "PIP1", //github地址  https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md PIP编号   eip-100
+      pipNum:"PIP-1",
       topoc: "版本升级-V x.x.x", //提案标题
       description: 'proposal description',
       url: "https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md",

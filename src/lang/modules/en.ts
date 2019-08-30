@@ -63,12 +63,14 @@ export default {
         proposalType: 'Proposal Type',
         proposalID: 'Proposal ID',
         proposalStatus: 'ProposalStatus',
+
+        PIPSN: 'PIP SN',
+        proposalTitle: 'Proposal Title',
         proposalEndBlock: 'ProposalEndBlock',
         activeBlock:'Expected Upgrade Block',
         proposalTime: 'ProposalTime',
         proposalDetail: 'ProposalDetail',
-        PIPSN: 'PIP SN',
-        proposalTitle: 'Proposal Title',
+              
         vote: 'Vote',
         version: 'Version',
         voter: 'Voter',
@@ -82,12 +84,14 @@ export default {
         quitProposal: 'QuitProposal',
         upgradeVersion: 'UpgradeVersion',
         propasalDescription: 'Propasal Description',
+        proposalToCancel: 'Proposal To Cancel',
 
         identity: 'Identity',
         rewardAddress: 'Reward Address',
         website: 'Website',
         introduction: 'Introduction',
         stakeAmount: 'Stake Amount',
+
         returnAmount: 'Return Amount',
         reporter: 'Reporter',
         reportType: 'Report Type',
@@ -109,6 +113,7 @@ export default {
         value: 'Value',
         fee: 'TxFee(LAT)',
         before: 'ago',
+
         txInfo: 'Tx Info',
         viewLeft: 'View the previous transaction',
         viewRight: 'View the latter transaction',
@@ -116,12 +121,14 @@ export default {
         information: 'Information', //Transaction
         other: 'ContractCreation\\ContractExecution\\MPCTx\\Others',
         restricting: 'CreateRestricting',
+
         delegate: 'Delegate',
         undelegate: 'Undelegate',
         proposal: 'CreateProposal',
         voting: 'VotingProposal',
         declare: 'DeclareVersion',
         createValidator: 'CreateValidator',
+        
         increase: 'IncreaseStaking',
         editValidator: 'EditValidator',
         exitValidator: 'ExitValidator',
@@ -133,6 +140,7 @@ export default {
         successed: 'Successed',
         successed1: 'Successed',
         timestamp: 'Time Stamp',
+
         txReceiptStatus: 'TxReceipt Status',
         actualTxCost: 'Tx Cost/Fee',
         energonLimit: 'Energon Limit',
@@ -140,6 +148,7 @@ export default {
         energonPrice: 'Energon Price',
         inputData: 'Input Date',
         confirmNum: 'Block Confirmations',
+
         success: 'Success',
         fail: 'Fail',
         type: 'Type',

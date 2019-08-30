@@ -4,21 +4,21 @@
     <el-row>
       <el-col :span="12">
         <div>
-          <span class="proposal-id">{{detailData.url.split('/')[detailData.url.split('/').length-1].split('.')[0]}}</span>
+          <span class="proposal-id">{{detailData.pipNum}}</span>
           <a class="github" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md" target="_blank">See on github</a>
         </div>
       </el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple-light" style="float:right;margin-top:-50px;">
           <el-button type="primary" size="small">
-            <span v-if="detailData.status == '1'">
-               &nbsp;{{detailData.status | proposalStatus}}
+            <span v-if="detailData.status.toString() == '1'">
+               &nbsp;{{detailData.status.toString() | proposalStatus}}
             </span>
-            <span v-else-if="detailData.status == '3'">
-               &nbsp;{{detailData.status | proposalStatus}}
+            <span v-else-if="detailData.status.toString() == '3'">
+               &nbsp;{{detailData.status.toString() | proposalStatus}}
             </span>
             <span v-else>
-               &nbsp;{{detailData.status | proposalStatus}}
+               &nbsp;{{detailData.status.toString() | proposalStatus}}
             </span>
           </el-button>
         </div>
@@ -49,7 +49,27 @@
             </el-col>
           </el-row>
         </div>
-        <div class="item">
+        <div class="item" v-if="detailData.type == '4'">
+          <el-row>
+            <el-col :span="5">
+              <div class="desc">{{$t('tradeAbout.proposalToCancel')}}：</div>
+            </el-col>
+            <el-col :span="15">
+              <div class="content">{{detailData.topic}}</div>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="item" v-if="detailData.type == '4'">
+            <el-row>
+                <el-col :span="5">
+                    <div class="desc">Cancell ID：</div>
+                </el-col>
+                <el-col :span="15">
+                    <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
+                </el-col>
+          </el-row>
+        </div>
+        <div class="item" v-if="detailData.type == '2'">
           <el-row>
             <el-col :span="5">
               <div class="desc">{{$t('tradeAbout.upgradeVersion')}}：</div>
@@ -75,7 +95,7 @@
               <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">{{detailData.nodeId}}</div>
+              <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.nodeId}}</div>
             </el-col>
           </el-row>
         </div>
@@ -278,6 +298,7 @@ export default {
           abs:'#999999',
       },
       detailData:{
+          pipNum:"PIP-2",
           url: '#PIP1034',
           topoc: 'proposal title',
           type: '1',
@@ -295,7 +316,9 @@ export default {
           nays: 11, //反对的人
           abstentions: 11, //弃权的人
           accuVerifiers: "1000", //总人数
-          supportRateThreshold: "60%" //通过率
+          supportRateThreshold: "60%", //通过率
+          proposalHash: '',
+          topic:"",
       }
     };
   },
@@ -333,8 +356,10 @@ export default {
         };
         try {
             let { data, code, errMsg } = await apiService.proposal.proposalDetails(param);
-            // debugger
             this.detailData = data;
+            console.log(typeof(this.detailData.status))
+            let a = typeof(this.detailData.status);
+
             let tmpYesPercentage = (data.yeas/data.accuVerifiers)*100 + '%',
                 tmpNoPercentage = (data.nays/data.accuVerifiers)*100 + '%',
                 tmpQuitPercentage = (data.abstentions/data.accuVerifiers)*100 + '%',
@@ -799,7 +824,7 @@ export default {
         span{
             position: absolute;
             bottom: 0;
-            width: 130px;
+            width: 150px;
             margin-left: 6px;
         }
     }
