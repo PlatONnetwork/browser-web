@@ -185,6 +185,7 @@ export default {
         morethen: '总共',
         blockH: '区块',
         block: '区块',
+        blocks: '区块',
         interval: '间隔',
         blockReward: '出块奖励',
         size: '区块大小',

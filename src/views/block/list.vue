@@ -57,7 +57,7 @@
                     <span>{{scope.row.gasUsed | formatNumber}}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('blockAbout.blockReward')+'(LAT)'">
+            <el-table-column :label="$t('blockAbout.blockReward')+'(LAT)'" width="200">
                 <template slot-scope="scope">
                     <span>{{scope.row.blockReward | formatMoney}}</span>
                 </template>

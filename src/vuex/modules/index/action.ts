@@ -7,7 +7,7 @@ export const indexAction = {
     },
     updateChartData({ commit, state }, list) {
         list.yb.forEach((value,index)=>{
-            list.yb[index] = value + 5;
+            list.yb[index] = value + 1;
         })
         commit('UPDATE_CHART_DADA', list)
     },

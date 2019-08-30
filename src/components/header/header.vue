@@ -30,14 +30,14 @@
         </div>       
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
-                <!-- <span class="el-dropdown-link">
+                <span class="el-dropdown-link">
                     {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
                         {{item[lang]}}
                     </el-dropdown-item>
-                </el-dropdown-menu> -->
+                </el-dropdown-menu>
             </el-dropdown>
             <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
                 <span class="el-dropdown-link">
