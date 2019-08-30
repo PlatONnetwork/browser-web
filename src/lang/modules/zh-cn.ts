@@ -76,6 +76,7 @@ export default {
         voteOption: '投票选项',
         trasactionHash: '交易Hash',
         trasactionTime: '投票时间',
+        version1: '版本',
 
         upgradeProposal: '升级提案',
         textProposal: '文本提案',
@@ -339,6 +340,19 @@ export default {
         2005: '取消提案',    //取消提案
         3000: '举报多签',
         4000: '创建锁仓计划'
+    },
+    // 创建提案的提案类型
+    createType: {
+        2000: '文本提案',   //文本提案
+        2001: '升级提案',   //升级提案
+        2002: '参数提案',   //参数提案
+        2005: '取消提案'    //取消提案
+    },
+    // 提案投票的提案类型
+    proposalOption: {
+        1: '文本提案',  //文本提案
+        2: '升级提案',  //升级提案
+        3: '参数提案',  //参数提案
     },
     ...zhLocale
 }

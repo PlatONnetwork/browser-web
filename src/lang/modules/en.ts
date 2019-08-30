@@ -364,16 +364,16 @@ export default {
     },
     // 创建提案的提案类型
     createType: {
-        2000: '文本提案',   //文本提案
-        2001: '升级提案',   //升级提案
-        2002: '参数提案',   //参数提案
-        2005: '取消提案'    //取消提案
+        2000: 'Text Proposal',   //文本提案
+        2001: 'Upgrade Proposal',   //升级提案
+        2002: 'Parameter Proposal',   //参数提案
+        2005: 'Cancel Proposal'    //取消提案
     },
     // 提案投票的提案类型
     proposalOption: {
-        1: '文本提案',  //文本提案
-        2: '升级提案',  //升级提案
-        3: '参数提案',  //参数提案
+        1: 'Text Proposal',  //文本提案
+        2: 'Upgrade Proposal',  //升级提案
+        3: 'Parameter Proposal',  //参数提案
     },
     ...enLocale
 }
