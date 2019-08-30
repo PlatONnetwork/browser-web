@@ -40,6 +40,7 @@ export default {
         blockHeight: 'Block Height',
         gasLimit: 'Gas Limit',
         gasUsed: 'Gas Used',
+        gasUsedList: 'Gas Used',
         gasPrice: 'Gas Price',
         rawData: 'Raw Data',
 
@@ -227,6 +228,7 @@ export default {
         operatorAddress:'Operator_Address',
         lookNext:'Look at the next block',
         lookLast:'Look at the last block',
+        totalProduced:'Total Produced'
     },
     download: {
         info: 'Download Data',
@@ -256,7 +258,7 @@ export default {
     },
     indexInfo: {
         WelcomeToPlatON: 'Welcome to PlatON Blockchain Explorer',
-        LIVEBLOCKTIME: 'LIVE BLOCK TIME',
+        LIVEBLOCKTIME: 'LIVE BLOCK TIME(s)',
         LIVEBLOCKTRANSACTIONS: 'LIVE BLOCK TRANSACTIONS',
         LIVEBLOCKHEIGHT: 'LIVE BLOCK HEIGHT',
         CIRCULATINGSUPPLY: 'CIRCULATING SUPPLY',

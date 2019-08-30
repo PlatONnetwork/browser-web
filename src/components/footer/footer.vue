@@ -140,7 +140,7 @@
             width: 50%;
             margin: 0 auto;
             padding-top: 20px;
-            border-top: 1px dashed #929292;
+            border-top: 1px dashed #555;
             a{
                 margin-right: 20px;
                 width: 30px;
@@ -231,19 +231,89 @@
             }
         }
     }
+
+    // .bounceIn {
+    //     -webkit-animation-duration: 0.75s;
+    //     animation-duration: 0.75s;
+    //     -webkit-animation-name: bounceIn;
+    //     animation-name: bounceIn;
+    // }
 </style>
 <style lang="less">  
+@keyframes bounceIn {
+        from,
+        20%,
+        40%,
+        60%,
+        80%,
+        to {
+            -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        0% {
+            opacity: 0;
+            -webkit-transform: scale3d(0.3, 0.3, 0.3);
+            transform: scale3d(0.3, 0.3, 0.3);
+        }
+
+        20% {
+            -webkit-transform: scale3d(1.1, 1.1, 1.1);
+            transform: scale3d(1.1, 1.1, 1.1);
+        }
+
+        40% {
+            -webkit-transform: scale3d(0.9, 0.9, 0.9);
+            transform: scale3d(0.9, 0.9, 0.9);
+        }
+
+        60% {
+            opacity: 1;
+            -webkit-transform: scale3d(1.03, 1.03, 1.03);
+            transform: scale3d(1.03, 1.03, 1.03);
+        }
+
+        80% {
+            -webkit-transform: scale3d(0.97, 0.97, 0.97);
+            transform: scale3d(0.97, 0.97, 0.97);
+        }
+
+        to {
+            opacity: 1;
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
     .sub-foot .tabs .el-button{
         background: #000;
         margin-right: 8%;
+        padding: 0;
         &:hover{
+            // .bounceIn{
+            //     -webkit-animation-duration: 0.75s;
+            //     animation-duration: 0.75s;
+            //     -webkit-animation-name: bounceIn;
+            //     animation-name: bounceIn;
+            // }                             
             background: #fff;
             a{
-                color: #000;
+                color: #000;                               
+                //  -webkit-animation-fill-mode: both;
+                // animation-fill-mode: both;
+                -webkit-animation-duration: 0.75s;
+                animation-duration: 0.75s;
+                -webkit-animation-name: bounceIn;
+                animation-name: bounceIn; 
             }
         }
+        span{
+            display:block;
+            width: 100%;
+            height: 100%;
+            line-height: 67px;
+        }
         a{
-            // font-size: 20px;
+            display:block;
             color: #fff;
         }
     }

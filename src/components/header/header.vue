@@ -25,19 +25,19 @@
             </el-menu>
         </div>
         <div class="search search-header" :class="{'search-active':isFocus,'search-hide':(!hideSearch || ($route.path!='/'))}">
-            <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model.trim="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
+            <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
             <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
-        </div>
+        </div>       
         <div class="right-most">
             <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
-                <!-- <span class="el-dropdown-link">
+                <span class="el-dropdown-link">
                     {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
                 </span>
                 <el-dropdown-menu  slot="dropdown" >
                     <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
                         {{item[lang]}}
                     </el-dropdown-item>
-                </el-dropdown-menu> -->
+                </el-dropdown-menu>
             </el-dropdown>
             <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
                 <span class="el-dropdown-link">
@@ -167,7 +167,7 @@
             searchFn(){
                 this.disabledBtn=true;
                 let param = {
-                    parameter:this.searchKey,
+                    parameter:this.searchKey.trim(),
                 }
                 console.warn('搜索内容》》》',param)
                 apiService.search.query(param).then((res)=>{

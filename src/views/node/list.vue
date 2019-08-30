@@ -8,7 +8,7 @@
                     <el-button size="medium" :class="{active:tabIndex==3}" @click="tabChange(3,'candidate')">{{$t('nodeStatus.1')}}</el-button>
                 </div>         
                 <div class="validators-search">
-                    <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model.trim="keyword"  @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
+                    <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model="keyword"  @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
                     <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
                 </div>   
             </el-col>
@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="12" class="historical-validators">
                 <div class="validators-search history-validators-search">
-                    <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model.trim="keyword"  @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
+                    <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model="keyword"  @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
                     <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
                 </div> 
             </el-col>
@@ -155,12 +155,11 @@
                 this.queryStatus = 'all';
                 this.getList();
             },
-             //获取交易列表 下分页
             getList() {
                 let param = {
                     pageNo: this.currentPage,
                     pageSize: this.pageSize,
-                    key:this.keyword,
+                    key:this.keyword.trim(),
                 };
                 let methodName = '';
                 if(this.type=='history'){
