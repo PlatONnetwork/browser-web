@@ -43,7 +43,7 @@
                             <p class='cursor normal ellipsis percent60' @click='goDetail(scope.row.nodeId)'>{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.isInit'>
                                 <div slot="content"><span class='title-warning'>{{ $t("nodeInfo.nodeMsg") }}</span></div>
-                                <i class="iconfont iconxinxi cursor lightgray" style="margin-left:8px;">&#xe63f;</i>
+                                <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;">&#xe63f;</i>
                             </el-tooltip>
                         </div>
                     </template>
@@ -359,6 +359,7 @@
     width: 23px;
     height: 23px;
     margin-right: 8px;
+    border-radius: 50%;
 }
 </style>
 <style lang="less">

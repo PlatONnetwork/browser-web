@@ -4,57 +4,53 @@
     <div class="sub-title">
       <div class="fontSize14 trade-count">&nbsp;</div>
       <div class="pagination-box1" v-if="paginationFlag">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="sizes, total, prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" layout="prev, pager, next" :page-size="pageSize" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
     <div class="table">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column :label="$t('tradeAbout.PIPSN')" min-width="10%">
+        <el-table-column :label="$t('tradeAbout.PIPSN')">
           <template slot-scope="scope">
             <span style="font-weight:bold;">
               <!-- <i class="el-icon-time"></i> -->
               <img class='iconlink' src="@/assets/images/icon-link.png" />
               <!-- {{scope.row.url}} -->
-              <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md" target="_blank">{{scope.row.pipNum}}</a>
+              <a :href="'https://github.com/ethereum/EIPs/blob/master/EIPS/'+scope.row.pipNum+'.md'" class="blue" target="_blank">{{scope.row.pipNum}}</a>
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalTitle')" min-width="50%">
+        <el-table-column :label="$t('tradeAbout.proposalTitle')">
           <template slot-scope="scope">
             <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
-              <span class="cursor normal ellipsis" style="font-weight:bold">{{scope.row.topic}}</span>
+              <p class="cursor blue ellipsis percent60" v-if="scope.row.topic">{{scope.row.topic}}</p>
+              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==1">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==2">{{$t('tradeAbout.versionUp')}}-V {{scope.row.newVersion}}</p>
+              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==4">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==3">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalType')" min-width="10%">
+        <el-table-column :label="$t('tradeAbout.proposalType')">
           <template slot-scope="scope">
-            <span>{{scope.row.type | proposalType}}</span>
+            <span>{{$t('proposalOption.'+[scope.row.type])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalStatus')" show-overflow-tooltip min-width="10%">
+        <el-table-column :label="$t('tradeAbout.status')" width="120">
           <template slot-scope="scope">
-            <span v-if="scope.row.status == '1'">
-              &nbsp;{{scope.row.status | proposalStatus}}
-            </span>
-            <span v-else-if="scope.row.status == '3'">
-              &nbsp;{{scope.row.status | proposalStatus}}
-            </span>
-            <span v-else>
-              &nbsp;{{scope.row.status | proposalStatus}}
-            </span>
+            <span :class="{yellow:scope.row.status==1,red:scope.row.status==3||scope.row.status==6,green:scope.row.status==2||scope.row.status==4||scope.row.status==5}">{{$t('proposalStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalEndBlock')" min-width="10%">
+        <el-table-column :label="$t('tradeAbout.votingEndBlock')" width="260">
           <template slot-scope="scope">
-            <div class="flex-special content progress">
+            <div class="flex-special content progress percent60">
               <!-- <span class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.$index,scope.row)">{{scope.row.endVotingBlock}}</span> -->
                 <div class="percentage" :style="{'width': (scope.row.curBlock/scope.row.endVotingBlock)*100+'%'}"></div>
                 <div class="progress-text">Block {{scope.row.endVotingBlock}}</div>
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalTime')" show-overflow-tooltip min-width="10%">
+        <el-table-column :label="$t('tradeAbout.proposalTime')">
           <template slot-scope="scope">
             <span>{{scope.row.timestamp | formatTime}}</span>
           </template>
@@ -100,15 +96,9 @@ export default {
       try {
         let { data, totalPages, totalCount, code, errMsg } = await apiService.proposal.proposalList(param);
         console.log(data)
-        // let tmpEndVotingPercentage = (data.curBlock/data.endVotingBlock)*100 + '%';
-
-
-        // debugger
         let tmpdata = data.sort(this.proposalTimeCompare('timestamp'));
         this.tableData = tmpdata;
         this.pageTotal = totalCount;
-        this.newRecordFlag = (totalCount > 500000);
-        this.paginationFlag = (totalPages !== 1)
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }
@@ -147,15 +137,6 @@ export default {
   created() {
     this.getProposalList();
   },
-  filters: {
-    dateFormat: function (v, isUTC = true, dateFormat = "YYYY-MM-DD HH:mm:ss") {
-      // 返回秒的转为返回ms
-      if (typeof v === "number" && v <= 9999999999) {
-        v = v * 1000;
-      }
-      return v ? isUTC ? moment.utc(v).local().format(dateFormat) : moment.utc(v).format(dateFormat) : "";
-    }
-  },
   mounted() { }
 };
 </script>
@@ -177,6 +158,7 @@ export default {
   height: 20px;
   background: #d5d5d5;
   border-radius: 1px;
+  overflow: hidden;
 }
 .percentage {
   position: absolute;

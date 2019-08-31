@@ -45,13 +45,21 @@
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}</div>
                         <p>
-                            {{blockStatisticData.turnValue | unit}}&nbsp;/ <b>{{blockStatisticData.issueValue | unit}}</b> 
+                            {{blockStatisticData.turnValue | unit}}&nbsp;/
+                            <b class="tip">
+                                {{blockStatisticData.issueValue | unit}}
+                                <i>{{$t('indexInfo.totalSUPPLY')}}</i>
+                            </b> 
                         </p>
                         <el-progress :percentage="blockStatisticData.turnValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('nodeInfo.stakeRate').toUpperCase()}}</div>
-                        <p>{{blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)}}%&nbsp;<b>{{blockStatisticData.stakingDelegationValue | formatNumber}}</b> </p>
+                        <p>{{blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)}}%&nbsp;
+                            <b class="tip">{{blockStatisticData.stakingDelegationValue | formatNumber}}
+                                <i>{{$t('indexInfo.totalSTAKE')}}</i>
+                            </b> 
+                        </p>
                         <el-progress :percentage="blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
                 </ul>
@@ -63,15 +71,15 @@
                 <ul class="block-statistics">
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
-                        <a class="cursor">{{blockStatisticData.txQty | unit}}</a>
+                        <a class="cursor" @click="$router.push('/trade')">{{blockStatisticData.txQty | unit}}</a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
-                        <a class="cursor">{{blockStatisticData.currentTps | formatNumber}}<span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span> </a>
+                        <a>{{blockStatisticData.currentTps | formatNumber}}<span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span> </a>
                     </li>
                     <li>
                         <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
-                        <a class="cursor">{{blockStatisticData.addressQty | formatNumber}}</a>
+                        <a>{{blockStatisticData.addressQty | formatNumber}}</a>
                     </li>
                     <li class="cursor" @click="goProposal">
                         <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
@@ -129,7 +137,8 @@
                                 <span class="item-txns">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield')}}</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
-                            <img src="../../assets/images/avtor-black.png">
+                            <img :src="item.stakingIcon" v-if="item.stakingIcon">
+                            <img src="../../assets/images/avtor-black.png" v-else="item.stakingIcon">
                         </li>
                         <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
@@ -140,7 +149,8 @@
                                 <span class="item-txns">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield')}}</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
-                            <img src="../../assets/images/avtor-black.png">
+                            <img :src="item.stakingIcon" v-if="item.stakingIcon">
+                            <img src="../../assets/images/avtor-black.png" v-else="item.stakingIcon">
                         </li>
                     </ul>                
                 </div>
@@ -337,34 +347,6 @@
             //     }
             //     return 0;    
             // },
-            //查询
-            searchFn(){
-                this.disabledBtn=true;
-                let param = {
-                    parameter:this.searchKey,
-                }
-                console.warn('搜索内容》》》',param)
-                apiService.search.query(param).then((res)=>{
-                    let {errMsg,code,data}=res
-                    if(code==0){
-                        //根据type不同进入不同的详情页
-                        if(data.type==null){
-                            this.$message.warning(this.$t('indexInfo.searchno'))
-                        }else{
-                            this.switchFn(data.type,data.struct)
-                            this.$emit('searchFn',data);
-                        }
-                    }else{
-                        this.$message.warning(this.$t('indexInfo.searchno'))
-                            // this.$message.error(errMsg) 替换为search无结果
-                    }
-                }).catch((error)=>{
-                    this.$message.error(error)
-                });
-                setTimeout(()=>{
-                    this.disabledBtn=false;
-                },2000);
-            },
             scrollHandle(){
                 const top = document.documentElement.scrollTop || document.body.scrollTop
                 if(top>240){
@@ -442,6 +424,24 @@
     .index-wrap{
         // background: #000;
         position: relative;
+        .tip{
+            position: relative;           
+            i{
+                position: absolute;
+                left: 0;
+                top: 26px;
+                z-index: 9999;
+                display: none;
+                background: rgba(0,0,0,0.8);
+                color: #fff;
+                padding: 4px 10px;
+                font-size: 14px;
+                border-radius: 4px;
+            }
+            &:hover i{
+                display: inline-block;
+            }
+        }
         .lizi{
             position: absolute;
             height: 700px;

@@ -21,7 +21,7 @@
             <!-- 基础交易 -->
             <List :title="$t('blockAbout.blockInformation')" :border="true">
                 <Item :label="$t('tradeAbout.blockHeight')" :prop="detailInfo.number"></Item>
-                <Item :label="$t('tradeAbout.timeStamp')" :prop="detailInfo.timestamp?new Date(detailInfo.timestamp).Format('yyyy-MM-dd HH:mm:ss'):0"></Item>
+                <Item :label="$t('tradeAbout.timeStamp')" :prop="detailInfo.timestamp | formatTime"></Item>
                 <Item :label="$t('tradeAbout.transactions')" :prop="detailInfo.txQty+' XT'"></Item>
                 <Item :label="$t('blockAbout.blockHash')" :prop="detailInfo.hash"></Item>
                 <Item :label="$t('blockAbout.parentHash')">

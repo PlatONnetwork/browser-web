@@ -3,7 +3,7 @@
         <label>
             {{label}}：
         </label>
-        <p v-if="prop" :class="{red:type=='fail',blue:type=='link',green:type=='success',}">{{prop}}</p>
+        <p v-if="prop || prop==0" :class="{red:type=='fail',blue:type=='link',green:type=='success',}">{{prop}}</p>
         <slot></slot>
     </div>
 </template>

@@ -5,10 +5,10 @@
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.liveStakingInfo')}}</h3>        
                 <Item :label="$t('nodeInfo.totalStakePower')">
-                    <p>{{ValidatorStatisticData.stakingDelegationValue | unit}}LAT</p>
+                    <p>{{ValidatorStatisticData.stakingValue | unit}}LAT</p>
                 </Item>
                 <Item :label="$t('nodeInfo.totalDelegations')">
-                    <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}LAT</p>
+                    <p>{{ValidatorStatisticData.stakingDelegationValue | formatMoney}}LAT</p>
                 </Item>
                 <Item :label="$t('nodeInfo.stakeRate')">
                     <p>{{ValidatorStatisticData.stakingValue | percentage(ValidatorStatisticData.issueValue)}}%</p>

@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
                 <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"
@@ -86,6 +86,26 @@
             Item  
         },
         methods: {
+            //获取详情
+            getDetail() {
+                let param = {
+                    address: this.address,
+                };
+                apiService.account
+                    .rpplanDetail(param)
+                    .then(res => {
+                        let {errMsg, code, data} = res;
+                        // console.log(res)
+                        if (code == 0) {
+                            this.detailInfo = data;
+                        } else {
+                            this.$message.error(errMsg);
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error(error);
+                    });
+            },
             onCopy() {
                 this.copyText = this.$t('modalInfo.copysuccess');
                 this.isCopy = true;
@@ -105,11 +125,8 @@
         },
         //生命周期函数
         created() {
-            console.log(JSON.parse(this.$route.query.info))
-            this.detailInfo = JSON.parse(this.$route.query.info);
             this.address = this.$route.query.address;
-            // this.getDetail();
-            // this.getList();
+            this.getDetail();
         },
         mounted() {
 

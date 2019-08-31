@@ -66,10 +66,23 @@ export default {
 
         PIPSN: 'PIP编号',
         proposalTitle: '标题',
+        title:'标题',
         proposalEndBlock: '投票结束区块',
+        votingEndBlock: '投票结束区块',
         activeBlock: '预设升级区块',
         proposalTime: '提案时间',
         proposalDetail: '提案详情',
+        versionUp:'版本升级',
+        noDescription:'No description',
+        cancellID:'被取消提案ID',
+        yes:'YES',
+        support:'SUPPORT',
+        no:'NO',
+        abstain:'ABSTAIN',
+        currentParticipationrate:'当前参与率',
+        NumberOfVotes:'投票数',
+        passCondition:'通过条件',
+        voteUpgradeNumber:'投票升级数',
 
         vote: '投票',
         version: '声明版本',
@@ -181,7 +194,7 @@ export default {
 
         addressDetail: '地址详情',
         restricted: '锁仓',
-        Address: '地址',
+        address: '地址',
         delegations: '委托',
         staking: '质押',
         inRedemption: '赎回中',
@@ -262,6 +275,8 @@ export default {
         PENDINGTOTAL: '进行中提案/总提案',
         currentValidators: '当前轮验证人',
         viewAll: '查看所有',
+        totalSUPPLY: '总发行量',
+        totalSTAKE: '总质押',
 
         txn: '交易数',
         txns: '交易',
@@ -273,7 +288,7 @@ export default {
         atonDownload: 'ATON钱包下载',
         developer: '开发者帮助',
         platScan: 'PlatScan是PlatON区块链资源管理与分析平台',
-        international: 'COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
+        international: 'COPYRIGHT © 2019 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
     },
     elseInfo: {
         hour: '时',
@@ -327,11 +342,11 @@ export default {
         node: '节点',
     },
     nodeStatus: {
-        1: '活跃中',
-        2: '出块中...',
-        3: '候选中',
-        4: '已退出',
-        5: '退出中',
+        1: '候选中',
+        2: '活跃中',
+        3: '出块中...',
+        4: '退出中',
+        5: '已退出',
     },
     // 交易类型
     TxType: {
@@ -367,6 +382,19 @@ export default {
         1: '文本提案',  //文本提案
         2: '升级提案',  //升级提案
         3: '参数提案',  //参数提案
+        4: '取消提案',  //取消提案
+    },
+    proposalStatus: {
+        1: '投票中', 
+        2: '已通过', 
+        3: '失败', 
+        4: '已拒绝', 
+    },
+    voteStatus: {
+        1: 'YES', 
+        2: 'NO', 
+        3: 'ABSTAIN', 
+        4:'SUPPORT'
     },
     ...zhLocale
 }

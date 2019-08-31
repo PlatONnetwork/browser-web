@@ -81,6 +81,7 @@ class ApiService {
     };
     this.account = {
       details: this.post.bind(this, API.ACCOUNT.details),
+      rpplanDetail: this.post.bind(this, API.ACCOUNT.rpplanDetail),
     };
     this.node = {
       aliveStakingList: this.post.bind(this, API.NODE.aliveStakingList),

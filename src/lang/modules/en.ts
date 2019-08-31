@@ -66,17 +66,30 @@ export default {
 
         PIPSN: 'PIP SN',
         proposalTitle: 'Proposal Title',
+        title:'Title',
         proposalEndBlock: 'ProposalEndBlock',
+        votingEndBlock: 'Voting End Block',
         activeBlock:'Expected Upgrade Block',
-        proposalTime: 'ProposalTime',
-        proposalDetail: 'ProposalDetail',
+        proposalTime: 'Submit Time',
+        proposalDetail: 'Proposal Detail',
+        versionUp:'Version Upgrade',
+        noDescription:'No description',
+        cancellID:'Cancelled ID',
+        yes:'YES',
+        support:'SUPPORT',
+        no:'NO',
+        abstain:'ABSTAIN',
+        currentParticipationrate:'Current participation rate',
+        NumberOfVotes:'Number of votes',
+        passCondition:'Pass Condition',
+        voteUpgradeNumber:'Vote upgrade number',
               
         vote: 'Vote',
         version: 'Version',
         voter: 'Voter',
         voteOption: 'voteOption',
-        trasactionHash:'txHash',
-        trasactionTime:'time',
+        trasactionHash:'TxHash',
+        trasactionTime:'Time',
         version1: 'Version',
 
         upgradeProposal: 'UpgradeProposal',
@@ -262,6 +275,8 @@ export default {
         PENDINGTOTAL: 'PENDING/TOTAL PROPOSALS',
         currentValidators: 'Current Round of Validators',
         viewAll: 'View all ',
+        totalSUPPLY: 'TOTAL SUPPLY',
+        totalSTAKE: 'TOTAL STAKE',
 
         txn: 'Txn',
         txns: 'Txns',
@@ -273,7 +288,7 @@ export default {
         atonDownload: 'ATON Download',
         developer: 'Developer',
         platScan: 'PlatScan is a Block Explorer and Analytics Platform for PlatON',
-        international: 'COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
+        international: 'COPYRIGHT © 2019 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.',
     },
     elseInfo: {
         hour: 'h ',
@@ -367,6 +382,19 @@ export default {
         1: 'Text Proposal',  //文本提案
         2: 'Upgrade Proposal',  //升级提案
         3: 'Parameter Proposal',  //参数提案
+        4: 'Cancel Proposal',  //取消提案
+    },
+    proposalStatus: {
+        1: 'Voting', 
+        2: 'Passed', 
+        3: 'Fail', 
+        6: 'Rejected', 
+    },
+    voteStatus: {
+        1: 'YES', 
+        2: 'NO', 
+        3: 'ABSTAIN', 
+        4:'SUPPORT'
     },
     ...enLocale
 }

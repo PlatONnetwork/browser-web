@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
                 <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"
@@ -250,7 +250,6 @@
                     path:'/restricting-info',
                     query:{
                         address:this.address,
-                        info:JSON.stringify(this.detailInfo)
                     }
                 })
             }

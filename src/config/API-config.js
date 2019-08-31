@@ -54,6 +54,7 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
     // TRADE
     ACCOUNT = {
         details: `${ACCOUNT_URL}details`,
+        rpplanDetail: `${ACCOUNT_URL}rpplanDetail`,
     },
     WS_CONFIG = {
         root: `${TOTAL}browser-server/platon-websocket`,

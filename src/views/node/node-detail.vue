@@ -110,7 +110,7 @@
                         <a class="blue cursor" :href="detailInfo.website" target="_blank">{{detailInfo.website}}</a>
                     </Item>
                     <Item :label="$t('tradeAbout.identity')">
-                        <a class="blue cursor" href="https://keybase.io/eeyun" target="_blank">{{detailInfo.externalId}}</a>
+                        <a class="blue cursor" :href="detailInfo.externalUrl" target="_blank">{{detailInfo.externalId}}</a>
                     </Item>
                     <Item :label="$t('tradeAbout.introduction')" :prop="detailInfo.details"></Item>
                 </List>
@@ -281,7 +281,7 @@
                         let {errMsg, code, data} = res;
                         if (code == 0) {
                             this.detailInfo = data;
-                            const dag = this.detailInfo.stakingValue/this.detailInfo.delegateValue;
+                            const dag = this.detailInfo.delegateValue/this.detailInfo.totalValue;
 
                             this.getDelegetList();
                             this.draw(dag);
@@ -605,7 +605,7 @@
     }
     .node-statistic-right{
         display: flex;
-        width: 40%;
+        min-width: 40%;
         .list-item{
             width: 100%;
             // justify-content: space-between;
@@ -614,6 +614,7 @@
             display: flex;
             justify-content: space-between;
             li{
+                margin-right:10px;
                 label{
                     margin-bottom: 11px;
                     display: block;
