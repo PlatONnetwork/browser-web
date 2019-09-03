@@ -90,14 +90,31 @@ class ChartService {
                     //     color: '#30EAF6',
                     //     opacity: 0.3
                     // },
-                    barWidth: 6
+                    barWidth: 6,
+                    itemStyle: {
+                        normal: {
+                            //通过数组下标选择颜色
+                            color: function(params) {
+                                var colorList = [
+                                 '#fff','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 ];
+                                return colorList[params.dataIndex]
+                            },
+                        }
+                    }
                 }
-            ]
+            ],
         },
         this.blockTradeOption = {
             color: ['rgba(255,255,255,0.5)'],
             grid: {
                 show: false,
+                // right: '0%',
                 left:'3%',
             },
             //提示框组件
@@ -113,7 +130,7 @@ class ChartService {
                 {  
                     var relVal = params[0].name;  
                     for (var i = 0, l = params.length; i < l; i++) {  
-                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value-1)+"TXs";   //设置默认交易数高度20
+                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value)+"TXs";   //设置默认交易数高度20
                         }  
                     return relVal;  
                 }  
@@ -170,9 +187,26 @@ class ChartService {
                     //     color: '#30EAF6',
                     //     opacity: 0.3
                     // },
-                    barWidth: 6
+                    barWidth: 6,
+                    barMinHeight: 4, 
+                    itemStyle: {
+                        normal: {
+                            //通过数组下标选择颜色
+                            color: function(params) {
+                                var colorList = [
+                                 '#fff','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+                                 ];
+                                return colorList[params.dataIndex]
+                            },
+                        }
+                    }
                 }
-            ]
+            ],   
         }
     }
     init(ele, option) {

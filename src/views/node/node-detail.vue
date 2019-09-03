@@ -14,7 +14,7 @@
                     <p v-if='!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5'>{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime?new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss'):''}}</p>
                     <p v-if='detailInfo.status==4 || detailInfo.status==5'>{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime?new Date(detailInfo.leaveTime).Format('yyyy-MM-dd HH:mm:ss'):''}}</p>
                     <p v-if='detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5'>
-                        <i class="iconfont iconxinxi lightgray">&#xe63f;</i>
+                        <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
                         <span>{{$t('nodeInfo.nodeMsg')}}</span>
                     </p>
                 </div>
@@ -34,7 +34,7 @@
                 <Item :label="$t('nodeInfo.blocks')" :prop="detailInfo.blockQty | formatNumber"></Item>
                 <Item :label="$t('nodeInfo.yield')" :prop="detailInfo.expectedIncome+'%'"></Item>
                 <Item :label="$t('nodeInfo.blockRate')">
-                    {{detailInfo.expectBlockQty | percentage(detailInfo.blockQty)}}%
+                    {{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%
                 </Item>
                 <Item :label="$t('nodeInfo.stability')">
                      <el-tooltip class="item" effect="dark"  placement="bottom" :content="$t('nodeInfo.lowBlockRate')">
@@ -160,7 +160,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.actions')">
                             <template slot-scope="scope">
-                                <p class="percent60">{{scope.row.desc}}</p>
+                                <p class="percent60">{{$t('actionType.'+[scope.row.desc])}}</p>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.inTxHash')">
@@ -618,6 +618,7 @@
                 label{
                     margin-bottom: 11px;
                     display: block;
+                    color: #666666;
                 }
                 p{
                     font-weight: 700;

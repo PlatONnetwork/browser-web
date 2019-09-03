@@ -235,27 +235,29 @@
         <Item v-if="detailInfo.txType=='3000'" :label="$t('tradeAbout.reporter')">
           <span
             class="cursor normal ellipsis"
-            @click="goNodeDetail(detailInfo.nodeId)"
-          >{{detailInfo.nodeName}}</span>
+            @click="goAddressDetail(detailInfo.from)"
+          >{{detailInfo.from}}</span>
         </Item>
         <!-- 验证人(都有) -->
         <Item :label="$t('tradeAbout.validator')">
-          <span
-            class="cursor normal ellipsis"
-            @click="goNodeDetail(detailInfo.nodeId)"
-          >{{detailInfo.nodeName}}</span>
+          <p 
+            v-if="detailInfo.evidences.length"
+            class="cursor blue"
+            @click="goNodeDetail(detailInfo.evidences[0].verify)"
+          >{{detailInfo.evidences[0].nodeName+' ('+detailInfo.evidences[0].verify+')'}}</p>
         </Item>
         <!-- 举报类型，举报证据（举报验证人特有） -->
         <template v-if="detailInfo.txType=='3000'">
           <!-- 举报类型 -->
           <Item :label="$t('tradeAbout.reportType')" :prop="$t('tradeAbout.doubleSiging')"></Item>
           <!-- 举报证据 -->
-          <Item :label="$t('tradeAbout.ReportEvidence')" :prop="detailInfo.evidence"></Item>
+          <Item :label="$t('tradeAbout.reportEvidence')" :prop="detailInfo.evidence"></Item>
           <!-- 举报结果 -->
           <Item :label="$t('tradeAbout.reportResult')">
             <span
               class="green vote-status"
-            >{{detailInfo.reportStatus==2?'Success':'YES NO ABSTAIN'}}</span>
+              :class="{'red-status':detailInfo.reportStatus==1}"
+            >{{detailInfo.reportStatus==2?$t('tradeAbout.success'):$t('tradeAbout.fail')}}</span>
           </Item>
           <!-- 举报奖励 -->
           <Item :label="$t('tradeAbout.reportReward')">
@@ -273,10 +275,11 @@
         <template v-if="detailInfo.txType=='1000'||detailInfo.txType=='1001'">
           <!-- 身份认证ID(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.identity')">
-            <span
+            <a
               class="cursor normal ellipsis"
-              @click="goDetail(detailInfo.externalId)"
-            >{{detailInfo.externalId || "Null"}}</span>
+              :href="detailInfo.externalUrl"
+              target="_blank"
+            >{{detailInfo.externalId || "Null"}}</a>
           </Item>
           <!-- 奖励账户(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.rewardAddress')">
@@ -327,10 +330,10 @@
             <!-- 2：退回成功 -->
             <span v-else-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed')}})</span>
             <!-- 剩余退回 -->
-            <span v-else>({{$t('tradeAbout.remain')}}:{{detailInfo.redeemLocked}} LAT)</span>
+            <span v-else>({{$t('tradeAbout.remain')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
           </Item>
           <!-- 预计到账区块（退出验证人特有） -->
-          <Item :label="$t('tradeAbout.returnBlock')" :prop="detailInfo.redeemUnLockedBlock"></Item>
+          <Item class="return-amount" :label="$t('tradeAbout.returnBlock')" :prop="detailInfo.redeemUnLockedBlock"></Item>
         </template>
         <template></template>
         <!-- 交易手续费 -->
@@ -344,7 +347,7 @@
         <!-- 失败信息 -->
         <div v-if="detailInfo.txReceiptStatus==0" class="warn-info">
           <span class="yellow">{{$t('tradeAbout.warn')}}:</span>
-          <span>{{detailInfo.failReason}}</span>
+          <span>{{detailInfo.failReason?detailInfo.failReason:$t("tradeAbout.transactionFailure")}}</span>
         </div>
         <!-- 状态 -->
         <Item :label="$t('tradeAbout.status')">
@@ -471,87 +474,6 @@ export default {
         })
         .catch(error => {
           this.$message.error(error);
-          /*  注释
-          let { errMsg, code, data } = {
-            errMsg: "", //描述信息
-            code: 0, //成功（0），失败则由相关失败码
-            data: {
-              txHash: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fbsasaassa", //交易hash
-              from: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fb", //发送方地址
-              to: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fb", //接收方地址（操作地址）
-              timestamp: 123123879, //交易时间
-              serverTime: 1123123, //服务器时间
-              confirmNum: 444, //区块确认数
-              blockNumber: "15566", //交易所在区块高度
-              gasLimit: 232, //能量限制
-              gasUsed: 122, //能量消耗
-              gasPrice: 122, //能量价格
-              value: "222", //金额(单位:von)
-              actualTxCost: "22", //交易费用(单位:von)
-              txType: "1000", //交易类型
-              input: "多少是多少多所多所多所多所多多", //附加输入数据
-              txInfo: "", //附加输入数据解析后的结构
-              failReason: "洒水多所所多多所", //失败原因
-              first: false, //是否第一条记录
-              last: true, //是否最后一条记录
-              receiveType: "account", //此字段表示的是to字段存储的账户类型：account-钱包地址，contract-合约地址，
-              //前端页面在点击接收方的地址时，根据此字段来决定是跳转到账户详情还是合约详情
-              RPAccount: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fb", //锁仓计划的地址
-              RPPlan: [
-                {
-                  epoch: 11, //锁仓周期
-                  amount: 111, //锁定金额
-                  blockNumber: 11 //锁仓周期对应快高  结束周期 * epoch
-                },
-                {
-                  epoch: 22, //锁仓周期
-                  amount: 222, //锁定金额
-                  blockNumber: 222 //锁仓周期对应快高  结束周期 * epoch
-                }
-              ],
-              nodeId: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fbsasaassa", //节点id
-              nodeName: "aaa", //节点名称
-              benefitAddr: "0x9905d49f27e2e14333b52a2ae35c7686eb9cb05fb", //用于接受出块奖励和质押奖励的收益账户
-              externalId: "sasasa", //外部Id(有长度限制，给第三方拉取节点描述的Id)
-              website: "www.baidu.com", //节点的第三方主页(有长度限制，表示该节点的主页)
-              details: "节点的描述", //节点的描述(有长度限制，表示该节点的描述)
-              programVersion: "1122", //程序的真实版本，治理rpc获取
-              applyAmount: "1111", //申请赎回的金额
-              redeemLocked: "1111", //赎回中被锁定的金额
-              redeemStatus: "1", //赎回状态， 1： 退回中   2：退回成功
-              redeemUnLockedBlock: "1111", //预计赎回到账的区块
-              githubID: "111", //提案的github地址  https://github.com/ethereum/EIPs/blob/master/EIPS/eip-100.md  eip-100为提案id
-              proposalTopic: "提案的主题", //提案的主题
-              proposalHash: "2222", //提案id
-              proposalOption: "1", //投票  1：文本提案    2：升级提案   3：参数提案
-              declareVersion: "2344" //声明的版本
-            }
-          };
-          if (code == 0) {
-            this.loading = false;
-            this.detailInfo = data;
-            // this.extraInfo = JSON.parse(data.txInfo)
-            //是否第一条记录
-            if (data.first) {
-              this.btnLeftFlag = false;
-              this.disabledLeft = true;
-            } else {
-              this.btnLeftFlag = true;
-              this.disabledLeft = false;
-            }
-            //是否最后一条数据
-            if (data.last) {
-              this.btnRightFlag = false;
-              this.disabledRight = true;
-            } else {
-              this.btnRightFlag = true;
-              this.disabledRight = false;
-            }
-          } else {
-            this.detailInfo = {};
-            this.$message.error(errMsg);
-          }
-          */
         });
     },
     onCopy() {
@@ -693,6 +615,10 @@ export default {
   line-height: 26px;
   padding: 0 6px;
 }
+.red-status{
+    background: rgba(207,50,110,0.15);
+    color: #CF326E;
+}
 .box-relative {
   position: relative;
 }
@@ -710,6 +636,9 @@ export default {
 }
 .pink {
   color: #cf326e;
+}
+.return-amount{
+  height: 19px;
 }
 </style>
 <style lang="less">

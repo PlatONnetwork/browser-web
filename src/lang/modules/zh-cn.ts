@@ -83,6 +83,8 @@ export default {
         NumberOfVotes:'投票数',
         passCondition:'通过条件',
         voteUpgradeNumber:'投票升级数',
+        totalRestricted:'总计锁仓',
+        transactionFailure:'交易失败',
 
         vote: '投票',
         version: '声明版本',
@@ -105,7 +107,7 @@ export default {
         introduction: '描述',
         stakeAmount: '质押数量',
 
-        returnAmount: '预计到账区块',
+        returnAmount: '退回数量',
         reporter: '举报人',
         reportType: '举报类型',
         doubleSiging: "区块双签",
@@ -395,6 +397,15 @@ export default {
         2: 'NO', 
         3: 'ABSTAIN', 
         4:'SUPPORT'
+    },
+    actionType:{
+        1: '创建验证人',
+        2: '编辑验证人',
+        3: '退出验证人',
+        4: '创建提案',
+        5: '提案投票',
+        6: '双签处罚',
+        7: '低出块率处罚',
     },
     ...zhLocale
 }

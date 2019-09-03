@@ -5,13 +5,13 @@
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.liveStakingInfo')}}</h3>        
                 <Item :label="$t('nodeInfo.totalStakePower')">
-                    <p>{{ValidatorStatisticData.stakingValue | unit}}LAT</p>
+                    <p>{{((ValidatorStatisticData.stakingValue-0)+(ValidatorStatisticData.stakingDelegationValue-0)) | unit}}LAT</p>
                 </Item>
                 <Item :label="$t('nodeInfo.totalDelegations')">
                     <p>{{ValidatorStatisticData.stakingDelegationValue | formatMoney}}LAT</p>
                 </Item>
                 <Item :label="$t('nodeInfo.stakeRate')">
-                    <p>{{ValidatorStatisticData.stakingValue | percentage(ValidatorStatisticData.issueValue)}}%</p>
+                    <p>{{((ValidatorStatisticData.stakingValue-0)+(ValidatorStatisticData.stakingDelegationValue-0)) | percentage(ValidatorStatisticData.issueValue)}}%</p>
                 </Item>              
             </List>
             <List class="statistic-info">   

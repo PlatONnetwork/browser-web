@@ -16,7 +16,7 @@
               <!-- <i class="el-icon-time"></i> -->
               <img class='iconlink' src="@/assets/images/icon-link.png" />
               <!-- {{scope.row.url}} -->
-              <a :href="'https://github.com/ethereum/EIPs/blob/master/EIPS/'+scope.row.pipNum+'.md'" class="blue" target="_blank">{{scope.row.pipNum}}</a>
+              <a :href="scope.row.url" class="blue" target="_blank">{{scope.row.pipNum}}</a>
             </span>
           </template>
         </el-table-column>

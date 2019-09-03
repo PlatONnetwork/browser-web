@@ -83,6 +83,8 @@ export default {
         NumberOfVotes:'Number of votes',
         passCondition:'Pass Condition',
         voteUpgradeNumber:'Vote upgrade number',
+        totalRestricted:'Total Restricted',
+        transactionFailure:'Transaction failure',
               
         vote: 'Vote',
         version: 'Version',
@@ -395,6 +397,15 @@ export default {
         2: 'NO', 
         3: 'ABSTAIN', 
         4:'SUPPORT'
+    },
+    actionType:{
+        1: 'Create the Validator',
+        2: 'Edit the Validator',
+        3: 'Exit the Validator',
+        4: 'Create Proposal',
+        5: 'Proposal Voting',
+        6: 'Double Signing',
+        7: 'Low Block Rate',
     },
     ...enLocale
 }

@@ -9,7 +9,7 @@ export const index: object = {
     state: {     
         blockData: [
         ],
-        chartData: [],
+        chartData: {},
         blockStatisticData:{
             "currentNumber":0,      //当前区块高度
             "nodeId":"",            //出块节点id

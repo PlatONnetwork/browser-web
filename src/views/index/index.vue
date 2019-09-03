@@ -29,20 +29,20 @@
             <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron2.png">
             <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.png">
         </div>
-        <el-row>
+        <el-row type="flex" class="bar-wrap">
             <el-col :span="12" class="bar-left bar">
                 <h3>{{$t('indexInfo.LIVEBLOCKTIME')}}</h3>
                 <div class="chart" ref="blockTimeChart"></div>
                 <ul class="block-statistics">
-                    <li class="statistics-link">
+                    <li class="statistics-link statistics-odd">
                         <div class="statistics-label">{{$t('indexInfo.LIVEBLOCKHEIGHT')}}</div>
                         <a class="cursor" @click="goBlockDetail(blockStatisticData.currentNumber)">{{blockStatisticData.currentNumber}}</a>
                     </li>
-                    <li class="statistics-link">
+                    <li class="statistics-link statistics-even">
                         <div class="statistics-label">{{$t('blockAbout.producer').toUpperCase()}}</div>
                         <a class="cursor" @click="goNodeDetail(blockStatisticData.nodeId)">{{blockStatisticData.nodeName}}</a>
                     </li>
-                    <li>
+                    <li class="statistics-odd">
                         <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}</div>
                         <p>
                             {{blockStatisticData.turnValue | unit}}&nbsp;/
@@ -51,9 +51,9 @@
                                 <i>{{$t('indexInfo.totalSUPPLY')}}</i>
                             </b> 
                         </p>
-                        <el-progress :percentage="blockStatisticData.turnValue | percentage(blockStatisticData.issueValue)"></el-progress>
+                        <el-progress class="progress-supply" :percentage="blockStatisticData.turnValue | percentage(blockStatisticData.issueValue)"></el-progress>
                     </li>
-                    <li>
+                    <li class="statistics-even">
                         <div class="statistics-label">{{$t('nodeInfo.stakeRate').toUpperCase()}}</div>
                         <p>{{blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)}}%&nbsp;
                             <b class="tip">{{blockStatisticData.stakingDelegationValue | formatNumber}}
@@ -138,7 +138,7 @@
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
-                            <img src="../../assets/images/avtor-black.png" v-else="item.stakingIcon">
+                            <img src="../../assets/images/avtor-black.png" v-else>
                         </li>
                         <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
@@ -150,7 +150,7 @@
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
-                            <img src="../../assets/images/avtor-black.png" v-else="item.stakingIcon">
+                            <img src="../../assets/images/avtor-black.png" v-else>
                         </li>
                     </ul>                
                 </div>
@@ -311,6 +311,13 @@
                     xList = data.x
                     yListTime = data.ya
                     yListNum = data.yb
+                    // if(data.yb){
+                    //     data.ya.shift();
+                    //     data.x.shift();
+                    //     data.ya.push(data.ya[6]);
+                    //     data.x.push(data.x[6]);
+                    //     // return;
+                    // }  
                 }
                 blockTimeChart.update({
                     xAxis: [
@@ -437,6 +444,8 @@
                 padding: 4px 10px;
                 font-size: 14px;
                 border-radius: 4px;
+                min-width: 120px;
+                text-align: center;
             }
             &:hover i{
                 display: inline-block;
@@ -478,12 +487,21 @@
                         color: #7D7D7D;
                         font-weight: normal;
                     }
-                }           
+                } 
+                &.statistics-odd{
+                    width: 55%;
+                }      
+                &.statistics-even{
+                    width: 45%;
+                }    
             }
         }
         .search-index{
             height: 69px;
             position: relative;
+            &.search .el-input input{
+                color: #fff;
+            }
         }
         .chart{
             min-height: 180px;
@@ -531,6 +549,13 @@
                 }
             }
         }
+        .bar-wrap{
+            position: relative;
+            .bar-right{
+                position: absolute;
+                right: -90px;
+            }
+        }
         .polyhedron{
             position: absolute;
             top: -70px;                
@@ -551,6 +576,11 @@
                 height: 50px;
                 top: 52px;
                 left: -80px;
+            }
+            @media only screen and (max-width: 1680px) {
+                &.polyhedron-mini{
+                    left: -68px;
+                }
             }
             &.polyhedron-small{
                 width: 50px;
@@ -627,6 +657,7 @@
                         top: 0;
                         width: 46px;
                         height: 46px;
+                        border-radius: 50%;
                     }
                 }               
             }
@@ -719,12 +750,20 @@
         // padding: 86px 0 0 0;
         // height: 100%;
     }
+    .search-index{
+        &.search .el-input input{
+            color: #fff;
+        }
+    }
     .chart canvas{
         left: -23px !important;
     }    
     .bar .el-progress{
         width: 80%;
         margin-top: 5px;
+        &.progress-supply{
+            width: 68%;
+        }
         .el-progress-bar__outer{
             background: #3E3E3E;
         }

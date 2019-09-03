@@ -36,11 +36,11 @@
                 class="item"
                 effect="dark"
                 placement="bottom-start"
-                v-if="scope.row.failReason"
+                v-if="scope.row.txReceiptStatus==0"
               >
                 <div slot="content">
                   <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
-                  {{scope.row.failReason}}
+                  {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
                 </div>
                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
               </el-tooltip>

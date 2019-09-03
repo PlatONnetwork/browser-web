@@ -19,42 +19,55 @@
         <div class="restricting-detail">
             <h3>{{$t('contract.lockOverview')}}</h3>
             <List class="common-info">           
-                <Item :label="$t('contract.restrictedBalance')" :prop="detailInfo.delegateHes"></Item>
-                <Item :label="$t('contract.released')" :prop="detailInfo.delegateHes"></Item>
-                <Item :label="$t('contract.forDelegations')" :prop="detailInfo.delegateHes"></Item>
-                <Item :label="$t('contract.slash')" :prop="detailInfo.delegateHes"></Item>
-                <Item :label="$t('contract.debt')" :prop="detailInfo.delegateHes"></Item>
-                <Item :label="$t('contract.totalRestricted')" :prop="detailInfo.delegateHes"></Item>
+                <Item :label="$t('contract.restrictedBalance')">
+                    <p>{{detailInfo.restrictingBalance | formatMoney}}&nbsp;LAT</p>
+                </Item>
+                <Item :label="$t('contract.forDelegations')">
+                    <p>{{detailInfo.stakingValue | formatMoney}}&nbsp;LAT</p>
+                </Item>
+                <Item :label="$t('contract.debt')">
+                    <p>{{detailInfo.underreleaseValue | formatMoney}}&nbsp;LAT</p>
+                </Item>
             </List>
         </div>
                
-        <div class="table" style="width:50%;">
+        <div class="table restricted-table">
             <h3>{{$t('tradeAbout.restrictedPlan')}}</h3>
-            <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
-                <el-table-column :label="$t('contract.epoch')">
+            <div class="restricted-total">
+                {{$t('tradeAbout.totalRestricted')}}
+                <span>{{detailInfo.totalValue | formatMoney}}&nbsp;LAT</span>
+            </div>
+            <el-table :data="detailInfo.rpplan" style="width: 100%" key='firstTable' size="mini">
+                <!-- <el-table-column :label="$t('contract.epoch')">
                     <template slot-scope="scope">
-                        <span>Received</span>
+                        <span>{{scope.row.blockNumber}}</span>
+                    </template>
+                </el-table-column> -->
+                <el-table-column :label="$t('blockAbout.blockH')">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.blockNumber}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('blockAbout.blockH')" show-overflow-tooltip>
+                <el-table-column :label="$t('contract.estimatedTime')">
                     <template slot-scope="scope">
-                        <span>{{scope.row.value}} LAT</span>
+                        <span>{{scope.row.estimateTime | formatTime}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('contract.estimatedTime')" show-overflow-tooltip>
+                <el-table-column :label="$t('contract.unlocksNumber')" width="240">
                     <template slot-scope="scope">
-                        <span>{{scope.row.value}} LAT</span>
+                        <span>{{scope.row.amount | formatMoney}}LAT</span>
                     </template>
-                </el-table-column>
-                <el-table-column prop="actualTxCost" :label="$t('contract.unlocksNumber')" show-overflow-tooltip>
                 </el-table-column>
             </el-table>
+            <div class="pagination-box">
+                <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
+                </el-pagination>
+            </div>
         </div>             
     </div>
 </template>
 <script>
     import apiService from '@/services/API-services'
-    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
 
     import List from '@/components/list/list'
     import Item from '@/components/list/item'
@@ -63,8 +76,10 @@
         name: 'contract-detail',
         data() {
             return {
-                tableData: [],
                 address:'',
+                currentPage: 1,
+                pageSize: 20,
+                pageTotal: 1,
                 detailInfo:{
 
                 },
@@ -90,6 +105,8 @@
             getDetail() {
                 let param = {
                     address: this.address,
+                    pageNo: this.currentPage,
+                    pageSize: this.pageSize,
                 };
                 apiService.account
                     .rpplanDetail(param)
@@ -98,6 +115,7 @@
                         // console.log(res)
                         if (code == 0) {
                             this.detailInfo = data;
+                            this.pageTotal = data.total;
                         } else {
                             this.$message.error(errMsg);
                         }
@@ -105,6 +123,15 @@
                     .catch(error => {
                         this.$message.error(error);
                     });
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                this.getDetail();
+            },
+            handleSizeChange(val) {
+                this.currentPage = 1;
+                this.pageSize = val;
+                this.getDetail();
             },
             onCopy() {
                 this.copyText = this.$t('modalInfo.copysuccess');
@@ -152,6 +179,19 @@
     }
     &:hover .qr-code{
         display: block;
+    }
+}
+.restricted-table{
+    .el-table{
+        margin-left: 10px;
+    }
+    .restricted-total{
+        margin-bottom: 10px;
+        span{
+            margin-left: 6px;
+            color: #000000;
+            font-size: 15px;
+        }
     }
 }
 .address-delegation{

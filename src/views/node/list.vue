@@ -100,9 +100,9 @@
                         <span v-else>--</span>
                     </template>
                 </el-table-column>
-                <el-table-column  :label="$t('nodeInfo.exitTime')" v-if="type=='history'">
+                <el-table-column  :label="$t('nodeInfo.exitTime')" v-if="type=='history'" width="220">
                     <template slot-scope="scope">
-                        <span>{{scope.row.leaveTime?new Date(scope.row.leaveTime).Format('yyyy-MM-dd HH:mm:ss'):0}}</span>
+                        <span>{{scope.row.leaveTime | formatTime}}</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -336,12 +336,16 @@
         background: #fff;
         font-size: 14px;
         border: none;
+        border-radius: 0px 4px 4px 0px;
         border-left: 1px solid #E6E6E6;
         color: #0798DE;
         &:hover{
             background: #fff;
             color: #5CB2DB;
             border-left: 1px solid #E6E6E6;
+        }
+        &:active{
+            color: #0E52AC;
         }
     }
     

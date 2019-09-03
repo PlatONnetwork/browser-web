@@ -8,7 +8,7 @@ export const indexMutation = {
     ['UPDATE_BLACK_DADA'](state, data) {
         state.blockData = data
     },
-    ['UPDATE_CHART_DADA'](state, data) {
+    ['UPDATE_CHART_DADA'](state, data) {    
         state.chartData = data
     },
     ['UPDATE_VALIDATOR_DADA'](state, data) {

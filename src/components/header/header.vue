@@ -29,7 +29,7 @@
             <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
         </div>       
         <div class="right-most">
-            <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
+            <!-- <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
                 <span class="el-dropdown-link">
                     {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
                 </span>
@@ -38,7 +38,7 @@
                         {{item[lang]}}
                     </el-dropdown-item>
                 </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
             <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
                 <span class="el-dropdown-link">
                     {{languageObj[language]}}<i class="el-icon--right" :class='iconClass2'></i>
@@ -273,6 +273,7 @@
         justify-content: space-between;   //两端对齐
         .menu{
             margin: 0 20% 0 0;
+            flex: 1;
         }
         .search{
             opacity: 0;
@@ -288,7 +289,7 @@
     .logo{
         display: inline-block;
         // height: 100%;
-        width: 200px;
+        width: 212px;
         overflow: hidden;
         .logo-right{
             margin-top: 5px;
@@ -320,8 +321,9 @@
     }
     .right-most{
         flex-shrink: 0;   // 网络切换+中英文不缩小
-        width: 200px;
+        width: 122px;
         display: flex;
+        justify-content: flex-end;
         div{
             font-family: ArialMT;
             font-size: 14px;
@@ -333,9 +335,9 @@
             }
         }
     }
-    .right-most > .el-dropdown:first-child{
-            margin:0 25px;
-    }
+    // .right-most > .el-dropdown:first-child{
+    //     margin:0 25px;
+    // }
     .el-dropdown-menu{
         background:#fff;
         padding: 0 0 0 0;
@@ -356,7 +358,8 @@
         }
     }
     .search-header{
-        width: 500px;
+        // width: 500px;
+        flex: 1
     }
     
     @media only screen and (max-width: 1680px) {
