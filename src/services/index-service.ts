@@ -92,9 +92,7 @@ class Ws {
 class IndexService extends Ws {
     // chainId: string = store.state.common.chainId
     blackSubHandle: any = null
-    updateBlackSubHandle: any = null
-    transactionSubHandle: any = null
-    updateTransactionSubHandle: any = null
+    chartSubHandle: any = null
 
     getChainId(): string {
         return store.state.common.chainId
@@ -146,20 +144,31 @@ class IndexService extends Ws {
         return list
     }
     getChartData(): any {
-        sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
+        // sub.addSub(() => {
+        //     this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
+        //         const res: ResConfig = JSON.parse(msg.body)
+        //         const { data, code } = res
+        //         console.log(`getChartData`, res)
+        //         if (code === 0) {
+        //             store.dispatch('updateChartData', data)
+        //         } else {
+        //             throw new Error(`todo`)
+        //         }
+        //     })
+        // })
+        const fn = () => {
+            this.chartSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
                 console.log(`getChartData`, res)
                 if (code === 0) {
                     store.dispatch('updateChartData', data)
-                    // store.dispatch('setChartData', IndexService.dealChartList(data))
-                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
                 } else {
                     throw new Error(`todo`)
                 }
             })
-        })
+        }
+        this.connectFlag ? fn() : sub.addSub(fn)
     }
     
     getStatisticData(): any {
@@ -244,15 +253,8 @@ class IndexService extends Ws {
     }
 
     unsubBlock() {
-        this.blackSubHandle.unsubscribe()
-        this.updateBlackSubHandle.unsubscribe()
+        this.chartSubHandle.unsubscribe()
     }
-    unsubTransaction() {
-        this.transactionSubHandle.unsubscribe()
-        this.updateTransactionSubHandle.unsubscribe()
-    }
-
-
 }
 
 export default IndexService

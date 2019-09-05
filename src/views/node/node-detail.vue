@@ -11,8 +11,8 @@
                         <!-- <span>(aaa)</span> -->
                         <i></i>
                     </div>
-                    <p v-if='!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5'>{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime?new Date(detailInfo.joinTime).Format('yyyy-MM-dd HH:mm:ss'):''}}</p>
-                    <p v-if='detailInfo.status==4 || detailInfo.status==5'>{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime?new Date(detailInfo.leaveTime).Format('yyyy-MM-dd HH:mm:ss'):''}}</p>
+                    <p v-if='!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5'>{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime | formatTime}}</p>
+                    <p v-if='detailInfo.status==4 || detailInfo.status==5'>{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime | formatTime}}</p>
                     <p v-if='detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5'>
                         <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
                         <span>{{$t('nodeInfo.nodeMsg')}}</span>
@@ -37,19 +37,16 @@
                     {{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%
                 </Item>
                 <Item :label="$t('nodeInfo.stability')">
-                     <el-tooltip class="item" effect="dark"  placement="bottom" :content="$t('nodeInfo.lowBlockRate')">
-                         <div style="margin-right:10px;">
-                             <i class="icon-low-block cursor"></i>
-                            <span>{{detailInfo.slashLowQty}}</span>
-                         </div>                       
-                    </el-tooltip>   
-                    <el-tooltip class="item" effect="dark"  placement="bottom" :content="$t('nodeInfo.twoSignNum')">
-                        <div>
-                            <i class="icon-two-sign cursor"></i>
-                            <span>{{detailInfo.slashMultiQty}}</span>
-                        </div>
-                        
-                    </el-tooltip> 
+                    <div style="margin-right:10px;" class="self-tooltip">
+                        <i class="icon-low-block cursor"></i>
+                        <span>{{detailInfo.slashLowQty}}</span>
+                        <p>{{$t('nodeInfo.lowBlockRate')}}</p>
+                    </div>                       
+                    <div class="self-tooltip self-tooltip-sign">
+                        <i class="icon-two-sign cursor"></i>
+                        <span>{{detailInfo.slashMultiQty}}</span>
+                        <p>{{$t('nodeInfo.twoSignNum')}}</p>
+                    </div>
                 </Item>
             </List>
             <div class="node-statistic-right">
@@ -68,11 +65,17 @@
                                 <span class="yellow" v-if="detailInfo.status==4">({{$t('nodeStatus.'+[detailInfo.status])}})</span>
                             </p>
                         </li>
-                        <li>
-                            <label>{{$t('deleget.delegations')}}：</label>
+                        <li v-if="detailInfo.status!=4 || detailInfo.status!=5">
+                            <label>{{$t('deleget.acceptDelegations')}}：</label>
                             <p>
                                 {{detailInfo.delegateValue | formatMoney}}&nbsp;LAT
-                                <span class="yellow" v-if="detailInfo.delegateValue>0">({{$t('deleget.undelegating2')}})</span>
+                            </p>
+                        </li>
+                        <li v-else>
+                            <label>{{$t('deleget.Delegating')}}：</label>
+                            <p>
+                                {{detailInfo.statDelegateReduction | formatMoney}}&nbsp;LAT
+                                <span class="yellow" v-if="detailInfo.statDelegateReduction>0">({{$t('deleget.undelegating2')}})</span>
                             </p>
                         </li>
                         <li>
@@ -542,6 +545,7 @@
             width: 58px;
             height: 58px;
             margin-right: 15px;
+            border-radius: 50%;
         }
         .node-name{
             line-height: 24px;

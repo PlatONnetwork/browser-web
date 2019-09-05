@@ -127,7 +127,7 @@
             <el-col :span="11">
                 <h3>{{$t('indexInfo.currentValidators')}}</h3>
                 <div class="block-list-wrap">
-                    <ul class="node-ul node-animation">
+                    <ul class="node-ul" :class="{'node-animation':ValidatorData.dataList.length>=25}">
                         <li class="cursor" v-for="(item,index) in ValidatorData.dataList" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
                                 <span class="item-number cursor">{{item.nodeName}}</span>
@@ -140,7 +140,7 @@
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
                             <img src="../../assets/images/avtor-black.png" v-else>
                         </li>
-                        <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
+                        <!-- <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
                                 <span class="item-number cursor">{{item.nodeName}}</span>
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.totalValue | formatMoney}}LAT</a></p>
@@ -151,7 +151,7 @@
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
                             <img src="../../assets/images/avtor-black.png" v-else>
-                        </li>
+                        </li> -->
                     </ul>                
                 </div>
                 <div class="view-blocks">
@@ -296,10 +296,22 @@
             initBlockTimeChart(){
                 let r = this.$refs;
                 blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
+                blockTimeChart.chart.on('mouseover',(e)=>{
+                    indexService.unsubBlock();
+                });
+                blockTimeChart.chart.on('mouseout',()=>{
+                    indexService.getChartData();
+                })
             },
             initBlockTradeChart(){
                 let r = this.$refs;
                 blockTradeChart.init(r.blockTradeChart, blockTradeChart.blockTradeOption);
+                blockTradeChart.chart.on('mouseover',(e)=>{
+                    indexService.unsubBlock();
+                });
+                blockTradeChart.chart.on('mouseout',()=>{
+                    indexService.getChartData();
+                })
             },
             updateChart(data) {
                 // console.warn('data>>>>>>',typeof data,data.length)
@@ -383,7 +395,15 @@
             //进入提案列表
             goProposal(){
                 this.$router.push('/proposal');
-            }
+            },
+            // 动态追加css
+            // addCSSRule(sheet, selector, rules, index) {
+            //     if("insertRule" in sheet) {
+            //         sheet.insertRule(selector + "{" + rules + "}", index);
+            //     }else if("addRule" in sheet) {
+            //         sheet.addRule(selector, rules, index);
+            //     }
+            // }
 
         },
         //生命周期函数
@@ -392,6 +412,7 @@
             indexService = new IndexService();          
         },
         mounted() {
+            console.log('aaaa',document.styleSheets[0])
             indexService.getChartData();
             indexService.getStatisticData();
             indexService.getValidatorData();
@@ -502,6 +523,9 @@
             &.search .el-input input{
                 color: #fff;
             }
+            &.search-active{
+                border: 1px solid #fff;
+            }
         }
         .chart{
             min-height: 180px;
@@ -528,7 +552,7 @@
                 }
             }       
             width: 50%;
-            margin: 180px auto;         
+            margin: 140px auto;         
             h3{
                 font-size: 40px;
                 line-height: 47px;
@@ -537,7 +561,7 @@
                 position: relative;
             }
             .search{
-                margin-top: 70px;
+                margin-top: 50px;
                 &.search-index .el-button.el-searchs{
                     width: 120px;
                     position: relative;
@@ -722,6 +746,9 @@
                 height: 100%;
                 width: 100%;
                 display: block;
+                &:hover{
+                    color: #66B7DE;
+                }
             }
         }
 
@@ -751,8 +778,22 @@
         // height: 100%;
     }
     .search-index{
-        &.search .el-input input{
-            color: #fff;
+        &.search{
+            border: 1px solid #6E6E6E;
+            .el-input input{
+                color: #fff;
+            }
+            .el-searchs.el-button--primary{
+                background: #6E6E6E;
+                color: #000;
+                &:hover{
+                    color: #666;
+                }
+                &:active{
+                    color: #333;
+                }
+            }
+            
         }
     }
     .chart canvas{

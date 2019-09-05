@@ -225,6 +225,8 @@ export default {
         percentage: '占比',
         delegations: '委托',
         delegators: '委托者',
+        acceptDelegations: '接受委托',
+        Delegating: '待提取委托',
     },
     blockAbout: {
         morethen: '总共',
@@ -342,6 +344,7 @@ export default {
         systemBuilt: 'System built-in reward pool account',
         systemOperation: '系统操作，无交易',
         node: '节点',
+        officialRecommendation: '官方推荐',
     },
     nodeStatus: {
         1: '候选中',

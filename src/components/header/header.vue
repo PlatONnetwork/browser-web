@@ -26,7 +26,7 @@
         </div>
         <div class="search search-header" :class="{'search-active':isFocus,'search-hide':(!hideSearch || ($route.path!='/'))}">
             <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey"  @keyup.enter.native="searchFn" size="mini"></el-input>
-            <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
+            <el-button type="primary" class="btn-header el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
         </div>       
         <div class="right-most">
             <!-- <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
@@ -466,13 +466,25 @@
             color: #D7DDE9;
         }
     }
-    .el-button.el-searchs.el-btn.search-btn-active{
-        background: #FFFFFF;
-        color: #000;
-        border-left: 1px solid #fff;
+    .search .el-button.el-searchs.btn-header{
+        &.search-btn-active{
+            color: #fff;
+            border-left: 1px solid #666;
+        }
+        &:hover{
+            color: #0798DE;
+            background: #000 !important;
+            border-left: 1px solid #333;
+        }
+        &:active{
+            color: #2D8EBC;
+        }
     }
-    .search.search-active{
-        border: 1px solid #fff;
+    .search-header.search-active{
+        border: 1px solid #666;
+        .search-btn-active:hover{
+            border-left: 1px solid #666 !important;
+        }
     }
     // @media screen and (max-width: 1680px) {
     //     .search {

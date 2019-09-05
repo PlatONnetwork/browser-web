@@ -1,6 +1,39 @@
 
 .el-tooltip__popper.is-dark{
-    background: rgba(0,0,0,0.95);
+    // background: rgba(0,0,0,0.95);
+    background: rgba(255,255,255,0.90);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+    border-radius: 4px;
     font-size: 12px;
-    color: #fff;
+    color: #000;
+    .popper__arrow{
+        display: none;
+    }
+}
+
+.self-tooltip{
+    position: relative;
+    p{
+        position: absolute;
+        top: 23px;
+        left: -65px;
+        z-index: 9999;
+        background: rgba(255,255,255,0.90);
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+        border-radius: 4px;
+        // padding: 13px 12px;
+        font-size: 12px;
+        color: #FFC017;
+        display: none;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        width: 160px !important;
+    }
+    &.self-tooltip-sign p{
+        color: #CF326E;
+    }
+    &:hover p{
+        display: block
+    }
 }

@@ -170,12 +170,13 @@
     position: relative;
     .qr-code{
         position: absolute;
-        background: #fff;
         top: 32px;
         left: -55px;
         z-index: 999;
         display: none;
-        box-shadow: 0px 0px 8px 0px;
+        background: rgba(255,255,255,0.90);
+        box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+        border-radius: 4px;
     }
     &:hover .qr-code{
         display: block;

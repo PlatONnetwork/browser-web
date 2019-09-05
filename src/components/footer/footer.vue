@@ -16,6 +16,8 @@
                     <a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a>
                 </el-button>
             </div>
+            <div class="foot-line">
+            </div>
         </div>
         <div class="foot-index" v-if="path=='/'">
             <img class="foot-logo" src="../../assets/images/logo-PlatON.png" alt="">
@@ -106,9 +108,8 @@
 }
  .sub-foot{      
         text-align: center;  
-        padding-bottom: 83px;
-        padding-top: 120px;
-        border-bottom: 1px dashed #929292;
+        // padding-bottom: 83px;
+        padding-top: 120px;        
         h3{           
             margin: 0px 0 78px;
             font-size: 40px;
@@ -116,6 +117,11 @@
             font-weight: 100;
             line-height: 47px;
             text-align: center;
+        }
+        .foot-line{
+            height: 0;
+            border-bottom: 1px dashed #929292;
+            margin: 83px 5.2% 0;
         }
     }
     .foot-index{
@@ -139,20 +145,20 @@
             justify-content: center;
             width: 50%;
             margin: 0 auto;
-            padding-top: 20px;
+            padding-top: 10px;
             border-top: 1px dashed #555;
             a{
                 margin-right: 20px;
-                width: 30px;
-                height: 30px;
+                width: 36px;
+                height: 50px;
                 background: url(../../assets/images/footer-link-init.png);
-                background-position-y: -10px;
+                background-position-y: 0;
                 &.link-1{
-                    background-position-x: -10px;
+                    background-position-x: -7px;
                 }
                 &.link-2{
                     position: relative;                
-                    background-position-x: -60px;
+                    background-position-x: -57px;
                     &:hover .wx-img{
                         display: block;
                     }
@@ -166,28 +172,28 @@
                     }
                 }
                 &.link-3{
-                    background-position-x: -110px;
+                    background-position-x: -107px;
                 }
                 &.link-4{
-                    background-position-x: -160px;
+                    background-position-x: -157px;
                 }
                 &.link-5{
-                    background-position-x: -210px;
+                    background-position-x: -207px;
                 }
                 &.link-6{
-                    background-position-x: -260px;
+                    background-position-x: -257px;
                 }
                 &.link-7{
-                    background-position-x: -310px;
+                    background-position-x: -307px;
                 }
                 &.link-8{
-                    background-position-x: -360px;
+                    background-position-x: -357px;
                 }
                 &.link-9{
-                    background-position-x: -410px;
+                    background-position-x: -407px;
                 }
                 &.link-10{
-                    background-position-x: -459px;
+                    background-position-x: -456px;
                 }
                 &:hover{
                     background-image: url(../../assets/images/footer-link-active.png);
@@ -197,7 +203,7 @@
         &.foot-no-index{
             display: flex;
             justify-content: space-between;
-            padding: 27px 5.2% 11px;
+            padding: 17px 5.2% 11px;
             @media screen and (max-width: 1280px) {
                 &{
                     padding: 27px 0 11px;
@@ -214,7 +220,7 @@
                 }    
             }
             .foot-right{
-                width: 40%;
+                width: 50%;
                 p{
                     font-size: 12px;
                     text-align: right; 

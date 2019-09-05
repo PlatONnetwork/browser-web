@@ -182,7 +182,7 @@
 <style lang="less" scoped>
  .block-trade{
     border: 1px solid #F5F5F5;
-    margin-top: 31px;
+    margin: 31px 0 50px;
     .block-trade-title{
         font-size: 20px;
         color: #000;

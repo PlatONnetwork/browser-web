@@ -1,5 +1,5 @@
 <template>
-    <div class="common-trade">
+    <div class="common-trade" :class="{'block-trade-wrap':type=='block'}">
         <div class="address-trade-last" v-if="type!='block'">            
             {{$t('blockAbout.morethen')}} {{tradeTotal}} {{$t('contract.transactions')}} 
             <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
@@ -197,6 +197,30 @@
     }
 </script>
 <style lang="less" scoped>
-
+.block-trade .common-trade.block-trade-wrap{
+    padding-left: 0px;
+    .pagination-box{
+        padding-bottom: 60px;
+        margin-right: 30px;
+    }
+    .table .el-table th{
+        padding-left: 30px;
+    }
+    .trade-tab-wrap{
+        padding-left: 30px;
+    }
+}
+</style>
+<style lang="less">
+.block-trade-wrap{
+    .table .el-table{
+        th{
+            padding-left: 20px;
+        }
+        td{
+            padding-left: 20px;
+        }
+    }
+}
 </style>
 

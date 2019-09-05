@@ -90,7 +90,7 @@
               <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.nodeId}}</div>
+              <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
             </el-col>
           </el-row>
         </div>

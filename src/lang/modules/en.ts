@@ -225,6 +225,8 @@ export default {
         percentage: 'Percentage',
         delegations: 'Delegations',
         delegators: 'Delegators',
+        acceptDelegations: 'Delegations',
+        Delegating: 'Delegations',
     },
     blockAbout: {
         morethen: 'Total ',
@@ -342,6 +344,7 @@ export default {
         systemBuilt: 'System built-in reward pool account',
         systemOperation: 'System operation, no txn',
         node: 'Node',
+        officialRecommendation: 'Official Recommendation',
     },
     nodeStatus: {
         1: 'Candidate',

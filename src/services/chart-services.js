@@ -1,4 +1,5 @@
 import echarts from 'echarts'
+
 /*
  * fun init(ele, option) 初始化
  *  @param ele 必传
@@ -8,7 +9,7 @@ import echarts from 'echarts'
  * fun changeTitle(title) 改变标题
  * fun resize() 重置图表尺寸
  */
-let data1=[],data2=[],data3=[]
+let data1=[],data2=[],data3=[];
 
 class ChartService {
     constructor() {
@@ -24,10 +25,15 @@ class ChartService {
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
-                    type: 'shadow',
+                    type: 'line', // 默认为直线，可选为：'line' | 'shadow'
+                    lineStyle : {          // 直线指示器样式设置
+                        width: 6,
+                        color: 'rgba(102,183,222,0.4)',
+                        type: 'solid'
+                    },
                     crossStyle: {
                         color: '#999'
-                    }
+                    },
                 },
                 formatter:function(params)  
                 {  
@@ -91,6 +97,7 @@ class ChartService {
                     //     opacity: 0.3
                     // },
                     barWidth: 6,
+                    barMinHeight: 10, 
                     itemStyle: {
                         normal: {
                             //通过数组下标选择颜色
@@ -121,7 +128,12 @@ class ChartService {
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
-                    type: 'shadow',
+                    type: 'line',
+                    lineStyle : {          // 直线指示器样式设置
+                        width: 6,
+                        color: 'rgba(102,183,222,0.4)',
+                        type: 'solid'
+                    },
                     crossStyle: {
                         color: '#999'
                     }
@@ -188,7 +200,7 @@ class ChartService {
                     //     opacity: 0.3
                     // },
                     barWidth: 6,
-                    barMinHeight: 4, 
+                    barMinHeight: 10, 
                     itemStyle: {
                         normal: {
                             //通过数组下标选择颜色

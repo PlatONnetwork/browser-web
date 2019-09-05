@@ -190,9 +190,15 @@
               @click="goDetail(detailInfo.pipNum)"
             >{{detailInfo.pipNum}}</span>-->
             <a
+              v-if="detailInfo.proposalUrl"
               class="cursor normal ellipsis"
               :href="detailInfo.proposalUrl"
               target="_blank"
+              rel="noopener noreferrer"
+            >{{detailInfo.pipNum}}</a>
+            <a
+              v-else
+              class="ellipsis"
               rel="noopener noreferrer"
             >{{detailInfo.pipNum}}</a>
           </Item>
@@ -240,11 +246,16 @@
         </Item>
         <!-- 验证人(都有) -->
         <Item :label="$t('tradeAbout.validator')">
+          <p
+            v-if="detailInfo.txType!='3000'"
+            class="cursor blue"
+            @click="goNodeDetail(detailInfo.nodeId)"
+          >{{detailInfo.nodeName}}</p>
           <p 
-            v-if="detailInfo.evidences.length"
+            v-else-if="detailInfo.txType=='3000'&&detailInfo.evidences.length"
             class="cursor blue"
             @click="goNodeDetail(detailInfo.evidences[0].verify)"
-          >{{detailInfo.evidences[0].nodeName+' ('+detailInfo.evidences[0].verify+')'}}</p>
+          >{{detailInfo.evidences[0].nodeName}}</p>
         </Item>
         <!-- 举报类型，举报证据（举报验证人特有） -->
         <template v-if="detailInfo.txType=='3000'">
@@ -592,7 +603,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .common-info {
-  margin-top: 31px;
+  margin: 31px 0 50px;
 }
 .warn-info {
   background: #fff7e3;

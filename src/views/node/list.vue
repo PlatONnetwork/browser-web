@@ -31,19 +31,23 @@
                 </div> 
             </el-col>
         </el-row>
-        <div class="table">
+        <div class="table node-table">
             <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
                 <el-table-column type="index" :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')">
                 </el-table-column>
                 <el-table-column :label="$t('nodeInfo.validatorName')">
                     <template slot-scope="scope">
                         <div class='flex-special validator-name'>
+                            <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.isRecommend'>
+                                <div slot="content"><span class='title-warning'>{{ $t("nodeInfo.officialRecommendation") }}</span></div>
+                                <img src="../../assets/images/icon-remark.png" class="icon-remark cursor">
+                            </el-tooltip>                            
                             <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt="">  
                             <img src="../../assets/images/node-avtor-small.png" class="node-avtor" v-if="!scope.row.stakingIcon" alt="">                       
                             <p class='cursor normal ellipsis percent60' @click='goDetail(scope.row.nodeId)'>{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.isInit'>
                                 <div slot="content"><span class='title-warning'>{{ $t("nodeInfo.nodeMsg") }}</span></div>
-                                <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;">&#xe63f;</i>
+                                <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i>
                             </el-tooltip>
                         </div>
                     </template>
@@ -68,23 +72,19 @@
                         <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
                     </template>
                 </el-table-column>
-                <el-table-column  :label="$t('nodeInfo.stability')">
+                <el-table-column  :label="$t('nodeInfo.stability')" class="stability-cell">
                     <template slot-scope="scope">
                         <div class="node-stability">
-                            <el-tooltip class="item" effect="dark"  placement="bottom" :content="$t('nodeInfo.lowBlockRate')">
-                                <div style="margin-right:10px;">
-                                    <i class="icon-low-block cursor"></i>
-                                    <span>{{scope.row.slashLowQty}}</span>
-                                </div>
-                                
-                            </el-tooltip>   
-                            <el-tooltip class="item" effect="dark"  placement="bottom" :content="$t('nodeInfo.twoSignNum')">
-                                <div>
-                                    <i class="icon-two-sign cursor"></i>
-                                    <span>{{scope.row.slashMultiQty}}</span>
-                                </div>
-                                
-                            </el-tooltip> 
+                            <div style="margin-right:10px;" class="self-tooltip">
+                                <i class="icon-low-block cursor"></i>
+                                <span>{{scope.row.slashLowQty}}</span>
+                                <p>{{$t('nodeInfo.lowBlockRate')}}</p>
+                            </div>                                  
+                            <div class="self-tooltip self-tooltip-sign">
+                                <i class="icon-two-sign cursor"></i>
+                                <span>{{scope.row.slashMultiQty}}</span>
+                                <p>{{$t('nodeInfo.twoSignNum')}}</p>
+                            </div>
                         </div>
                         
                     </template>
@@ -181,88 +181,6 @@
                         
                     })
                     .catch(error => {
-                        let obj = {
-                            errMsg:'',
-                            code:0,
-                            "totalCount":113817,
-                            "displayTotalCount":113817,
-                            "totalPages":11382,
-                            data:[
-                                {
-                                    "ranking":11,           //排行
-                                    "nodeAddr":"dassadsdsdffd",          //出块节点地址
-                                    "nodeName":"验证人名称",          //验证人名称
-                                    "stakingIcon":"aaa",       //验证人图标
-                                    "status":"1",            //状态   1:候选中  2:活跃中  3:出块中
-                                    "totalValue":"112",        //质押总数=有效的质押+委托
-                                    "delegateValue":"1212",     //委托总数
-                                    "delegateQty":"121",       //委托人数
-                                    "slashLowQty":11,       //低出块率举报次数
-                                    "slashMultiQty":11,     //多签举报次数
-                                    "blockQty":11,          //产生的区块数
-                                    "expectedIncome":"12",     //预计年收化率（从验证人加入时刻开始计算）
-                                    "isRecommend":true,      //是否官方推荐 
-                                    "leaveTime":'1221212121212213',
-                                    "statDelegateReduction":'223323' //待提取的委托
-                                },
-                                {
-                                    "ranking":11,           //排行
-                                    "nodeAddr":"dassadsdsdffd",          //出块节点地址
-                                    "nodeName":"验证人名称2",          //验证人名称
-                                    "stakingIcon":"aaa",       //验证人图标
-                                    "status":"2",            //状态   1:候选中  2:活跃中  3:出块中
-                                    "totalValue":"112",        //质押总数=有效的质押+委托
-                                    "delegateValue":"1212",     //委托总数
-                                    "delegateQty":"121",       //委托人数
-                                    "slashLowQty":11,       //低出块率举报次数
-                                    "slashMultiQty":11,     //多签举报次数
-                                    "blockQty":11,          //产生的区块数
-                                    "expectedIncome":"12",     //预计年收化率（从验证人加入时刻开始计算）
-                                    "isRecommend":true,      //是否官方推荐 
-                                    "leaveTime":'1221212121212213',
-                                    "statDelegateReduction":'223323' //待提取的委托
-                                },
-                                {
-                                    "ranking":11,           //排行
-                                    "nodeAddr":"dassadsdsdffd",          //出块节点地址
-                                    "nodeName":"验证人名称3",          //验证人名称
-                                    "stakingIcon":"aaa",       //验证人图标
-                                    "status":"3",            //状态   1:候选中  2:活跃中  3:出块中
-                                    "totalValue":"112",        //质押总数=有效的质押+委托
-                                    "delegateValue":"1212",     //委托总数
-                                    "delegateQty":"121",       //委托人数
-                                    "slashLowQty":11,       //低出块率举报次数
-                                    "slashMultiQty":11,     //多签举报次数
-                                    "blockQty":11,          //产生的区块数
-                                    "expectedIncome":"12",     //预计年收化率（从验证人加入时刻开始计算）
-                                    "isRecommend":true,      //是否官方推荐 
-                                    "leaveTime":'1221212121212213',
-                                    "statDelegateReduction":'223323' //待提取的委托
-                                },
-                                {
-                                    "ranking":11,           //排行
-                                    "nodeAddr":"dassadsdsdffd",          //出块节点地址
-                                    "nodeName":"验证人名称4",          //验证人名称
-                                    "stakingIcon":"aaa",       //验证人图标
-                                    "status":"1",            //状态   1:候选中  2:活跃中  3:出块中
-                                    "totalValue":"112",        //质押总数=有效的质押+委托
-                                    "delegateValue":"1212",     //委托总数
-                                    "delegateQty":"121",       //委托人数
-                                    "slashLowQty":11,       //低出块率举报次数
-                                    "slashMultiQty":11,     //多签举报次数
-                                    "blockQty":11,          //产生的区块数
-                                    "expectedIncome":"12",     //预计年收化率（从验证人加入时刻开始计算）
-                                    "isRecommend":true,      //是否官方推荐 
-                                    "leaveTime":'1221212121212213',
-                                    "statDelegateReduction":'223323' //待提取的委托
-                                },
-                            ]
-                        }
-                        let {data, totalPages, totalCount, code, errMsg,displayTotalCount} = obj;
-                        this.tableData = data;
-                        console.log(this.tableData);
-                        this.pageTotal = totalCount;
-
                         this.$message.error(error);
                     });
             },
@@ -302,7 +220,7 @@
             this.getList();
             if(this.type!='history'){
                 this.timer = setInterval(()=>{
-                    console.log(222)
+                    // console.log(222)
                     this.getList();
                 },5000)
             }
@@ -350,6 +268,7 @@
     }
     
 }
+
 .node-stability{
     display: flex;
     i{
@@ -358,6 +277,16 @@
 }
 .history-validators-search{
     float: right;
+}
+.validator-name{
+    position: relative;
+    .icon-remark{
+        position: absolute;
+        top: 5px;
+        left: -14px;
+        width: 14px;
+        height: 14px;
+    }
 }
 .node-avtor{
     width: 23px;
@@ -372,5 +301,8 @@
         height: 40px;
         line-height: 40px;
     }
+}
+.node-table .el-table .cell{
+    overflow: visible;
 }
 </style>
