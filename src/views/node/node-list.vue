@@ -5,10 +5,10 @@
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.liveStakingInfo')}}</h3>        
                 <Item :label="$t('nodeInfo.totalStakePower')">
-                    <p>{{((ValidatorStatisticData.stakingValue-0)+(ValidatorStatisticData.stakingDelegationValue-0)) | unit}}LAT</p>
+                    <p>{{((ValidatorStatisticData.stakingValue-0)+(ValidatorStatisticData.stakingDelegationValue-0)) | unit}}<span class="fontSize13">LAT</span></p>
                 </Item>
                 <Item :label="$t('nodeInfo.totalDelegations')">
-                    <p>{{ValidatorStatisticData.stakingDelegationValue | formatMoney}}LAT</p>
+                    <p>{{ValidatorStatisticData.stakingDelegationValue | formatMoney}}<span class="fontSize13">LAT</span></p>
                 </Item>
                 <Item :label="$t('nodeInfo.stakeRate')">
                     <p>{{((ValidatorStatisticData.stakingValue-0)+(ValidatorStatisticData.stakingDelegationValue-0)) | percentage(ValidatorStatisticData.issueValue)}}%</p>
@@ -17,10 +17,10 @@
             <List class="statistic-info">   
                 <h3>{{$t('nodeInfo.currentPeriodReward')}}</h3>        
                 <Item :label="$t('blockAbout.blockReward')">
-                    <p>{{ValidatorStatisticData.blockReward | formatMoney}}LAT</p>
+                    <p>{{ValidatorStatisticData.blockReward | formatMoney}}<span class="fontSize13">LAT</span></p>
                 </Item>
                 <Item :label="$t('nodeInfo.stakingReward')">
-                    <p>{{ValidatorStatisticData.stakingReward | formatMoney}}LAT</p>
+                    <p>{{ValidatorStatisticData.stakingReward | formatMoney}}<span class="fontSize13">LAT</span></p>
                 </Item>
                 <Item :label="$t('nodeInfo.nextRewardAdjustment')">
                     <div class="next-reward-adjustment">

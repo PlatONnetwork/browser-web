@@ -302,7 +302,13 @@
         line-height: 40px;
     }
 }
-.node-table .el-table .cell{
+.node-table .el-table{
     overflow: visible;
+    .cell{
+        overflow: visible;
+    }
+    .el-table__body-wrapper{
+        overflow: visible;
+    }
 }
 </style>

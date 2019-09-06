@@ -29,24 +29,26 @@
             <List class="node-statistic-left" :inline="true">           
                 <Item :label="$t('nodeInfo.electedRoundValidator')" :prop="detailInfo.verifierTime"></Item>
                 <Item :label="$t('nodeInfo.totalReward')">
-                    <p>{{detailInfo.rewardValue | formatMoney}}&nbsp;LAT</p>
+                    <p>{{detailInfo.rewardValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span></p>
                 </Item>
                 <Item :label="$t('nodeInfo.blocks')" :prop="detailInfo.blockQty | formatNumber"></Item>
                 <Item :label="$t('nodeInfo.yield')" :prop="detailInfo.expectedIncome+'%'"></Item>
                 <Item :label="$t('nodeInfo.blockRate')">
-                    {{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%
+                    <p>{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>  
                 </Item>
                 <Item :label="$t('nodeInfo.stability')">
-                    <div style="margin-right:10px;" class="self-tooltip">
-                        <i class="icon-low-block cursor"></i>
-                        <span>{{detailInfo.slashLowQty}}</span>
-                        <p>{{$t('nodeInfo.lowBlockRate')}}</p>
-                    </div>                       
-                    <div class="self-tooltip self-tooltip-sign">
-                        <i class="icon-two-sign cursor"></i>
-                        <span>{{detailInfo.slashMultiQty}}</span>
-                        <p>{{$t('nodeInfo.twoSignNum')}}</p>
-                    </div>
+                    <div class="stability-wrap">
+                        <div style="margin-right:10px;" class="self-tooltip">
+                            <i class="icon-low-block cursor"></i>
+                            <span>{{detailInfo.slashLowQty}}</span>
+                            <p>{{$t('nodeInfo.lowBlockRate')}}</p>
+                        </div>                       
+                        <div class="self-tooltip self-tooltip-sign">
+                            <i class="icon-two-sign cursor"></i>
+                            <span>{{detailInfo.slashMultiQty}}</span>
+                            <p>{{$t('nodeInfo.twoSignNum')}}</p>
+                        </div>
+                    </div>                   
                 </Item>
             </List>
             <div class="node-statistic-right">
@@ -55,26 +57,26 @@
                 </div>                
                 <div class="statistic-right-data">
                     <Item :label="$t('nodeInfo.totalStakePower')">
-                        <p>{{detailInfo.totalValue | formatMoney}}&nbsp;LAT</p>
+                        <p>{{detailInfo.totalValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span></p>
                     </Item>
                     <ul>
                         <li>
                             <label>{{$t('nodeInfo.selfstake')}}：</label>
                             <p>
-                                {{detailInfo.stakingValue | formatMoney}}&nbsp;LAT
+                                {{detailInfo.stakingValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span>
                                 <span class="yellow" v-if="detailInfo.status==4">({{$t('nodeStatus.'+[detailInfo.status])}})</span>
                             </p>
                         </li>
                         <li v-if="detailInfo.status!=4 || detailInfo.status!=5">
                             <label>{{$t('deleget.acceptDelegations')}}：</label>
                             <p>
-                                {{detailInfo.delegateValue | formatMoney}}&nbsp;LAT
+                                {{detailInfo.delegateValue | formatMoney}}&nbsp;<span class="fontSize13 lat-mini">LAT</span>
                             </p>
                         </li>
                         <li v-else>
                             <label>{{$t('deleget.Delegating')}}：</label>
                             <p>
-                                {{detailInfo.statDelegateReduction | formatMoney}}&nbsp;LAT
+                                {{detailInfo.statDelegateReduction | formatMoney}}&nbsp;<span class="fontSize13 lat-mini">LAT</span>
                                 <span class="yellow" v-if="detailInfo.statDelegateReduction>0">({{$t('deleget.undelegating2')}})</span>
                             </p>
                         </li>
@@ -578,6 +580,14 @@
         width: 46%;
         margin-right: 4%;
     }
+    .stability-wrap{
+        display: flex;
+        width: 85%;
+        margin-top: 4px;
+        .self-tooltip p{
+            font-size: 12px;
+        }
+    }
 }
 .node-detail-content{
     margin-top: 30px;
@@ -603,7 +613,11 @@
         .list-item{
             width: 50%;
             p{
-                font-weight: 700;
+                // font-weight: 700;
+                font-size: 18px;
+            }
+            label{
+                line-height: 23px;
             }
         }
     }
@@ -625,10 +639,11 @@
                     color: #666666;
                 }
                 p{
-                    font-weight: 700;
+                    // font-weight: 700;
+                    font-size: 18px;
                     span{
-                        display: block;
-                        font-size: 12px;
+                        // display: block;
+                        font-size: 13px;
                         font-weight: normal;
                     }
                 }

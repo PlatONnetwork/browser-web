@@ -127,31 +127,31 @@
             <el-col :span="11">
                 <h3>{{$t('indexInfo.currentValidators')}}</h3>
                 <div class="block-list-wrap">
-                    <ul class="node-ul" :class="{'node-animation':ValidatorData.dataList.length>=25}">
+                    <ul class="node-ul" :class="{'node-animation':ValidatorData.dataList.length>8}">
                         <li class="cursor" v-for="(item,index) in ValidatorData.dataList" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
                                 <span class="item-number cursor">{{item.nodeName}}</span>
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.totalValue | formatMoney}}LAT</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-txns">{{item.expectedIncome || '--'}}&nbsp;{{$t('nodeInfo.yield')}}</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
                             <img src="../../assets/images/avtor-black.png" v-else>
                         </li>
-                        <!-- <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
+                        <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
                             <div class="list-item">
                                 <span class="item-number cursor">{{item.nodeName}}</span>
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.totalValue | formatMoney}}LAT</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-txns">{{item.expectedIncome || '--'}}&nbsp;{{$t('nodeInfo.yield')}}</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
                             <img src="../../assets/images/avtor-black.png" v-else>
-                        </li> -->
+                        </li>
                     </ul>                
                 </div>
                 <div class="view-blocks">
@@ -188,6 +188,8 @@
                 i18nLocale:'zh-cn',
                 // isMove:false,
                 isMove2:false,
+                styleEle:null,
+                ele:null
             }
         },
         props: {
@@ -196,7 +198,26 @@
         computed: {
             ...mapGetters(['chartData','blockStatisticData','blockData','ValidatorData','hideSearch','isMove']),
             showedValidatorData(){
-                return this.ValidatorData.dataList.slice(0,8);
+                if(this.ValidatorData.dataList.length>8){
+                    if(this.styleEle){
+                        // const index = document.styleSheets[0].cssRules.length
+                        // debugger
+                        // console.log('bbbb',this.styleEle)
+                        if(this.styleEle.cssRules[0]){
+                            this.styleEle.deleteRule(0);
+                        }                   
+                        this.addCSSRule(this.styleEle,'@keyframes nodeMove',`from {
+                            transform: translate(0,${this.ValidatorData.dataList.length*-83}px);
+                        }               
+                        to {
+                            transform: translate(0,0);
+                        }`,0)
+                    }
+                    return this.ValidatorData.dataList.slice(0,8);
+                }else{
+                    return [];
+                }
+                
             }
         },
 		watch: {
@@ -397,13 +418,24 @@
                 this.$router.push('/proposal');
             },
             // 动态追加css
-            // addCSSRule(sheet, selector, rules, index) {
-            //     if("insertRule" in sheet) {
-            //         sheet.insertRule(selector + "{" + rules + "}", index);
-            //     }else if("addRule" in sheet) {
-            //         sheet.addRule(selector, rules, index);
-            //     }
-            // }
+            addCSSRule(sheet, selector, rules, index) {               
+                if("insertRule" in sheet) {
+                    sheet.insertRule(selector + "{" + rules + "}", index);
+                }else if("addRule" in sheet) {
+                    sheet.addRule(selector, rules, index);
+                }
+            },
+            //处理验证人轮播
+            createStyle(){
+                this.ele = document.createElement('style');
+                // 设置style属性
+                this.ele.type = 'text/css';
+                // 将 keyframes样式写入style内
+                // 将style样式存放到head标签
+                document.getElementsByTagName('head')[0].appendChild(this.ele);
+                this.styleEle = document.styleSheets[document.styleSheets.length-1];
+                console.log('aaaa',this.styleEle);
+            }
 
         },
         //生命周期函数
@@ -412,7 +444,10 @@
             indexService = new IndexService();          
         },
         mounted() {
-            console.log('aaaa',document.styleSheets[0])
+            // console.log('aaaa',document.styleSheets);
+            // this.styleEle = document.styleSheets[0];
+            this.createStyle();
+
             indexService.getChartData();
             indexService.getStatisticData();
             indexService.getValidatorData();
@@ -434,17 +469,22 @@
                 this.isMove2 = true;
             },false)
             block1.addEventListener('transitionend',()=>{
+                console.log('cccc',this.isMove)
                 this.updateIsMove(false);
                 // this.isMove = false;
                 this.isMove2 = false;
             },false)            
         },
         beforeDestroy() {
-            indexService.disconnect();
+            indexService.disconnect();           
         },
         destroyed() {
             window.removeEventListener('scroll',this.scrollHandle);
             indexService.disconnect();
+            //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
+            this.updateIsMove(false);
+            // 移除动态追加的style
+            document.getElementsByTagName('head')[0].removeChild(this.ele);
         },   
     }
 </script>
@@ -754,26 +794,27 @@
 
     }
     .node-animation{
-        animation: nodeMove 50s linear infinite;
+        animation: nodeMove 25s linear infinite;
         &:hover{
             animation-play-state:paused;
         }
     }
 
-    @keyframes nodeMove {
-        from {
-            transform: translate(0,-2075px);
-        }
+    // @keyframes nodeMove {
+    //     from {
+    //         transform: translate(0,-2075px);
+    //     }
     
-        to {
-            transform: translate(0,0);
-        }
-    }
+    //     to {
+    //         transform: translate(0,0);
+    //     }
+    // }
 
 </style>
 <style lang="less">
     .index-area{
         background: #000;
+        overflow: hidden;
         // padding: 86px 0 0 0;
         // height: 100%;
     }
