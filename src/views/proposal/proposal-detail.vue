@@ -50,7 +50,8 @@
               <div class="desc">{{$t('tradeAbout.proposalToCancel')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">{{detailData.topic}}</div>
+              <div class="content" v-if="detailData.canceledTopic">{{detailData.canceledTopic}}</div>
+              <div class="content" v-else>{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</div>
             </el-col>
           </el-row>
         </div>

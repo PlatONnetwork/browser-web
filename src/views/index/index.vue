@@ -43,7 +43,7 @@
                         <a class="cursor" @click="goNodeDetail(blockStatisticData.nodeId)">{{blockStatisticData.nodeName}}</a>
                     </li>
                     <li class="statistics-odd">
-                        <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}</div>
+                        <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(LAT)</div>
                         <p>
                             {{blockStatisticData.turnValue | unit}}&nbsp;/
                             <b class="tip">
@@ -90,11 +90,11 @@
         </el-row>
         <el-row class="block-and-node" type="flex" justify="space-between">
             <el-col :span="11">
-                <h3>{{$t('nodeInfo.blocks')}}</h3>
+                <h3>{{$t('blockAbout.Block')}}</h3>
                 <div class="block-list-wrap">
                     <div class="zhezhao" id="zhezhao" :class="{active:isMove2}"></div>
                     <ul class="blocks-ul blocks-ul-new" :class="{'blocks-active':isMove2}">                  
-                        <li class="cursor" v-if="blockData.length">
+                        <li v-if="blockData.length">
                             <div class="list-item">
                                 <span class="item-number cursor" @click="goBlockDetail(blockData[0].number)">{{blockData[0].number}}</span>
                                 <p>{{$t('blockAbout.producer')}}<a class="cursor" @click="goNodeDetail(blockData[0].nodeId)">{{blockData[0].nodeName}}</a></p>
@@ -107,7 +107,7 @@
                         </li>
                     </ul>
                     <ul class="blocks-ul blocks-ul-new2" id="blocks-ul-new2" :class="{'blocks-active2':isMove}">                  
-                        <li class="cursor" v-for="(item,index) in blockData" :key="index">
+                        <li v-for="(item,index) in blockData" :key="index">
                             <div class="list-item">
                                 <span class="item-number cursor" @click="goBlockDetail(item.number)">{{item.number}}</span>
                                 <p>{{$t('blockAbout.producer')}}<a class="cursor" @click="goNodeDetail(item.nodeId)">{{item.nodeName}}</a></p>
@@ -134,7 +134,8 @@
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.totalValue | formatMoney}}LAT</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.expectedIncome || '--'}}&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-txns" v-if="item.expectedIncome">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield2')}}</span>
+                                <span class="item-txns" v-else>--</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
@@ -146,7 +147,8 @@
                                 <p>{{$t('nodeInfo.totalStakePower')}}<a>{{item.totalValue | formatMoney}}LAT</a></p>
                             </div>
                             <div class="list-item item-right">
-                                <span class="item-txns">{{item.expectedIncome || '--'}}&nbsp;{{$t('nodeInfo.yield')}}</span>
+                                <span class="item-txns" v-if="item.expectedIncome">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield2')}}</span>
+                                <span class="item-txns" v-else>--</span>
                                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
                             </div>
                             <img :src="item.stakingIcon" v-if="item.stakingIcon">
@@ -199,7 +201,7 @@
             ...mapGetters(['chartData','blockStatisticData','blockData','ValidatorData','hideSearch','isMove']),
             showedValidatorData(){
                 if(this.ValidatorData.dataList.length>8){
-                    if(this.styleEle){
+                    if(this.styleEle&&this.ValidatorData.isRefresh){
                         // const index = document.styleSheets[0].cssRules.length
                         // debugger
                         // console.log('bbbb',this.styleEle)
@@ -389,7 +391,7 @@
             // },
             scrollHandle(){
                 const top = document.documentElement.scrollTop || document.body.scrollTop
-                if(top>240){
+                if(top>160){
                     this.hide(false);                 
                 }else{
                     this.hide(true); 
@@ -710,6 +712,11 @@
                         top: 83px;
                     }
                 }
+                li .list-item{
+                    p a:hover{
+                        color: #66B7DE;
+                    }
+                }
             }
             &.node-ul{
                 li{
@@ -755,10 +762,7 @@
                         a{
                             margin-left: 18px;
                             font-size: 14px;
-                            color: #DDDDDD;
-                            &:hover{
-                                color: #66B7DE;
-                            }
+                            color: #DDDDDD;                            
                         }
                         margin: 15px 0;
                     }

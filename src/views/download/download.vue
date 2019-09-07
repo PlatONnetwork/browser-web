@@ -71,6 +71,9 @@
         //计算
         computed: {
             ...mapGetters(['chainId','googleApi']),
+            lang() {
+                return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en'
+            },
         },
         //方法
         methods: {
@@ -101,7 +104,7 @@
                     this.param.address = this.address;
                     // console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param)
-                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.date+'&address='+this.param.address;
+                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.date+'&address='+this.param.address+'&local='+ this.lang;
                 }else if(this.exportname=='contract'){
                     this.param.address = this.address;
                     // console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
@@ -110,7 +113,7 @@
                     this.param.nodeId = this.address;
                     // console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param)
-                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.date+'&nodeId='+this.param.nodeId;
+                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.date+'&nodeId='+this.param.nodeId+'&local='+ this.lang;
                 }
                 console.log(this.src)
                 window.open(this.src);

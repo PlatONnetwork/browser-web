@@ -27,13 +27,13 @@
         </div>
         <div class="node-statistic">
             <List class="node-statistic-left" :inline="true">           
-                <Item :label="$t('nodeInfo.electedRoundValidator')" :prop="detailInfo.verifierTime"></Item>
+                <Item class="item-odd" :label="$t('nodeInfo.electedRoundValidator')" :prop="detailInfo.verifierTime"></Item>
                 <Item :label="$t('nodeInfo.totalReward')">
                     <p>{{detailInfo.rewardValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span></p>
                 </Item>
-                <Item :label="$t('nodeInfo.blocks')" :prop="detailInfo.blockQty | formatNumber"></Item>
-                <Item :label="$t('nodeInfo.yield')" :prop="detailInfo.expectedIncome+'%'"></Item>
-                <Item :label="$t('nodeInfo.blockRate')">
+                <Item class="item-odd" :label="$t('nodeInfo.blocks')" :prop="detailInfo.blockQty | formatNumber"></Item>
+                <Item :label="$t('nodeInfo.yield')" :prop="detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'"></Item>
+                <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
                     <p>{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>  
                 </Item>
                 <Item :label="$t('nodeInfo.stability')">
@@ -57,7 +57,7 @@
                 </div>                
                 <div class="statistic-right-data">
                     <Item :label="$t('nodeInfo.totalStakePower')">
-                        <p>{{detailInfo.totalValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span></p>
+                        <p class="statistic-total-stake">{{detailInfo.totalValue | formatMoney}}&nbsp;<span class="fontSize13">LAT</span></p>
                     </Item>
                     <ul>
                         <li>
@@ -114,8 +114,9 @@
                     <Item :label="$t('tradeAbout.website')">
                         <a class="blue cursor" :href="detailInfo.website" target="_blank">{{detailInfo.website}}</a>
                     </Item>
-                    <Item :label="$t('tradeAbout.identity')">
-                        <a class="blue cursor" :href="detailInfo.externalUrl" target="_blank">{{detailInfo.externalId}}</a>
+                    <Item :label="$t('tradeAbout.identity')">                        
+                        <a class="blue cursor" v-if="detailInfo.externalUrl" :href="detailInfo.externalUrl" target="_blank">{{detailInfo.externalId}}</a>
+                        <span v-else>{{detailInfo.externalId}}</span>
                     </Item>
                     <Item :label="$t('tradeAbout.introduction')" :prop="detailInfo.details"></Item>
                 </List>
@@ -158,14 +159,17 @@
             <div v-show="tabIndex==3">
                 <div class="table">
                     <el-table :data="tableOperateData" style="width: 100%" key='firstTable' size="mini">                       
-                        <el-table-column  :label="$t('common.time')">
+                        <el-table-column  :label="$t('common.time')" width="300">
                             <template slot-scope="scope">
                                 <span>{{scope.row.timestamp | formatTime}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.actions')">
                             <template slot-scope="scope">
-                                <p class="percent60">{{$t('actionType.'+[scope.row.desc])}}</p>
+                                <p class="percent80" v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3">{{$t('actionType.'+[scope.row.type])}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==4">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.id}-${scope.row.title}`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==5">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.id}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==6 || scope.row.type==7">{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押${scope.row.percent*100}%(${scope.row.amount} LAT)，移出验证人列表`:`${$t('actionType.'+[scope.row.type])}-${scope.row.percent*100}% of self-stake slashed (${scope.row.amount} LAT), Remove the Validator List`}}</p>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.inTxHash')">
@@ -174,7 +178,7 @@
                                 <span class="gray" v-if="!scope.row.txHash">{{$t('nodeInfo.systemOperation')}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('nodeInfo.inBlock')">
+                        <el-table-column :label="$t('nodeInfo.inBlock')" width="150">
                             <template slot-scope="scope">
                                 <span class="blue cursor" @click="goBlockDetail(scope.row.blockNumber)">{{scope.row.blockNumber}}</span>
                             </template>
@@ -262,7 +266,9 @@
 
         },
         computed: {
-
+            lang() {
+                return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
+            },
         },
 		watch: {
 		
@@ -618,6 +624,15 @@
             }
             label{
                 line-height: 23px;
+                width: 142px;
+            }
+            &.item-odd{
+                label{
+                    width: 170px;
+                }
+                p{
+                    flex: 1;
+                }
             }
         }
     }
@@ -627,6 +642,9 @@
         .list-item{
             width: 100%;
             // justify-content: space-between;
+            p.statistic-total-stake{
+                width: auto;
+            }
         }
         ul{
             display: flex;
@@ -645,7 +663,7 @@
                         // display: block;
                         font-size: 13px;
                         font-weight: normal;
-                    }
+                    }                   
                 }
             }
         }

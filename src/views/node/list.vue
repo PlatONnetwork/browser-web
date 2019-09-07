@@ -35,7 +35,7 @@
             <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
                 <el-table-column type="index" :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')">
                 </el-table-column>
-                <el-table-column :label="$t('nodeInfo.validatorName')">
+                <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')">
                     <template slot-scope="scope">
                         <div class='flex-special validator-name'>
                             <el-tooltip class="item" effect="dark"  placement="bottom"  v-if='scope.row.isRecommend'>

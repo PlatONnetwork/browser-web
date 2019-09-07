@@ -292,6 +292,7 @@
     }
     .sub-foot .tabs .el-button{
         background: #000;
+        position: relative;
         margin-right: 8%;
         padding: 0;
         &:hover{
@@ -317,8 +318,11 @@
             width: 100%;
             height: 100%;
             line-height: 67px;
+            // position: absolute;
+            // width: 100%;
+            // z-index: 9999;
         }
-        a{
+        a{            
             display:block;
             color: #fff;
         }

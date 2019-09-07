@@ -65,8 +65,8 @@
             >{{scope.row.blockNumber}}</span>
           </template>
         </el-table-column>
-        <!-- 间隔（Age） -->
-        <el-table-column :label="$t('blockAbout.interval')">
+        <!-- 块龄（Age） -->
+        <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span>{{timeDiffFn(scope.row.serverTime,scope.row.timestamp)}}{{$t('tradeAbout.before')}}</span>
           </template>

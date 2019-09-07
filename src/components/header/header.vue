@@ -29,16 +29,16 @@
             <el-button type="primary" class="btn-header el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled='disabledBtn'>{{ $t("search.searchBtn") }}</el-button>
         </div>       
         <div class="right-most">
-            <!-- <el-dropdown @command="handleCommand" placement="bottom-start" @visible-change='visibleChange1'>
+            <el-dropdown placement="bottom-start">
                 <span class="el-dropdown-link">
-                    {{getNetObj(chainId)}}<i class="el-icon--right" :class='iconClass1'></i>
+                    {{chainList[0][lang].split('(')[0]}}<i class="el-icon--right" :class='iconClass1'></i>
                 </span>
-                <el-dropdown-menu  slot="dropdown" >
-                    <el-dropdown-item v-for='(item,index) in chainList' :key='index' :command='item.cid'>
+                <el-dropdown-menu  slot="dropdown">
+                    <el-dropdown-item v-for='(item,index) in chainList' :key='index'>
                         {{item[lang]}}
                     </el-dropdown-item>
                 </el-dropdown-menu>
-            </el-dropdown> -->
+            </el-dropdown>
             <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change='visibleChange2'>
                 <span class="el-dropdown-link">
                     {{languageObj[language]}}<i class="el-icon--right" :class='iconClass2'></i>
@@ -67,10 +67,10 @@
                 dropDisabled:false,
                 searchKey:'',//搜索
                 language: localStorage.getItem('i18nLocale')?localStorage.getItem('i18nLocale'):'zh-cn',
-                netObj:{
-                    "100":"MainNet",
-                    "1":"TestNet"
-                },
+                chainList:[{
+                    en:'Amigo(TestNet)',
+                    zh:'Amigo(测试网络)',
+                }],
                 options:[
                     {
                         value: 'zh-cn',
@@ -89,7 +89,7 @@
             }
         },
         computed: {
-            ...mapGetters(['chainList','chainId','chainHttp','hideSearch']),
+            ...mapGetters(['chainId','chainHttp','hideSearch']),
             lang() {
                 return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en'
             },
@@ -321,7 +321,7 @@
     }
     .right-most{
         flex-shrink: 0;   // 网络切换+中英文不缩小
-        width: 122px;
+        width: 200px;
         display: flex;
         justify-content: flex-end;
         div{
@@ -335,9 +335,9 @@
             }
         }
     }
-    // .right-most > .el-dropdown:first-child{
-    //     margin:0 25px;
-    // }
+    .right-most > .el-dropdown:first-child{
+        margin:0 25px;
+    }
     .el-dropdown-menu{
         background:#fff;
         padding: 0 0 0 0;
@@ -366,6 +366,12 @@
         .header-wrap .menu {
             margin: 0 0 0 0;
         }
+        .el-menu-demo{
+            width:485px;
+            .el-menu-item{
+                padding: 0 10px;
+            }
+        }
     }
     @media only screen and (max-width: 1440px) {
         .header-wrap .menu {
@@ -379,12 +385,12 @@
         .search-header{
             width: 400px;
         }
-        .el-menu-demo{
-            width:485px;
-            .el-menu-item{
-                padding: 0 10px;
-            }
-        }
+        // .el-menu-demo{
+        //     width:485px;
+        //     .el-menu-item{
+        //         padding: 0 10px;
+        //     }
+        // }
         width: 350px;
     }
     @media screen and (max-width: 1280px) {

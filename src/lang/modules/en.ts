@@ -233,6 +233,7 @@ export default {
         blockH: 'Block',
         block: 'block',
         blocks: 'blocks',
+        Block: 'Blocks',
         interval:'Age',
         blockReward:'Block Reward',
         size:'Size',
@@ -302,6 +303,7 @@ export default {
     },
     nodeInfo: {
         validator: 'validator',
+        name: 'Name',
         validatorDetail: 'VALIDATOR DETAILS',
         createdat: 'Created at',
         electedRoundValidator: 'Elected Round Validator',
@@ -310,6 +312,7 @@ export default {
         totalStakePower: 'Total Stake\\Power',
         totalReward: 'Total Reward',
         yield: 'Yield',
+        yield2: 'Yield',
         stability: 'Stability',
         selfstake: 'Self-stake',
         nodeInfo: 'Node Info',

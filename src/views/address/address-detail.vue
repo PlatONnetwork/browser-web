@@ -25,7 +25,7 @@
                             <label>{{$t('contract.balance')}}</label> 
                             <div>
                                 <span class="money">{{detailInfo.balance | formatMoney}}&nbsp;LAT</span>
-                                <div>
+                                <div v-if="detailInfo.isRestricting">
                                     <span class="restricted">{{detailInfo.restrictingBalance | formatMoney}}&nbsp;LAT (<a class="blue cursor" @click="goRestricte">{{$t('contract.restricted')}}</a>)</span>
                                 </div>                               
                             </div>   
