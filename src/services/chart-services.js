@@ -146,7 +146,7 @@ class ChartService {
                         }  
                     return relVal;  
                 }  
-            },
+            },            
             xAxis: [
                 {   
                     show:false,

@@ -174,8 +174,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.inTxHash')">
                             <template slot-scope="scope">
-                                <p class="blue cursor percent60 ellipsis" v-if="scope.row.txHash" @click="goTradeDetail(scope.row.txHash)">{{scope.row.txHash}}</p>
-                                <span class="gray" v-if="!scope.row.txHash">{{$t('nodeInfo.systemOperation')}}</span>
+                                <p class="blue cursor percent60 ellipsis" v-if="scope.row.type!=6 && scope.row.type!=7" @click="goTradeDetail(scope.row.txHash)">{{scope.row.txHash}}</p>
+                                <span class="gray" v-else>{{$t('nodeInfo.systemOperation')}}</span>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.inBlock')" width="150">

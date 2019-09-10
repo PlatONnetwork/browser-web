@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class="table">
+    <div class="table" :class="{'no-data':!tableData.length}">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
         <el-table-column :label="$t('tradeAbout.PIPSN')">
           <template slot-scope="scope">
@@ -177,5 +177,10 @@ export default {
   height: 100%;
   line-height: 20px;
 }
+</style>
+<style lang="less">
+    .table.no-data .el-table::before{
+      height: 0;
+    }
 </style>
 

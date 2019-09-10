@@ -345,6 +345,7 @@
             color: #222;
             background-color: #fff;
             letter-spacing: 0;
+            border-radius: 4px;
         }
         .el-dropdown-menu__item:hover{
             background: #EAEAEA;

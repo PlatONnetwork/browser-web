@@ -17,6 +17,7 @@
             :clickEffect="false"
             clickMode="repulse"
             class="lizi"
+            :style="{height:clientHeight+'px'}"
         >
         </vue-particles>
         <div class="welcome-wrap">
@@ -191,7 +192,9 @@
                 // isMove:false,
                 isMove2:false,
                 styleEle:null,
-                ele:null
+                ele:null,
+                chartMove:false,
+                clientHeight:700,
             }
         },
         props: {
@@ -205,15 +208,15 @@
                         // const index = document.styleSheets[0].cssRules.length
                         // debugger
                         // console.log('bbbb',this.styleEle)
-                        if(this.styleEle.cssRules[0]){
-                            this.styleEle.deleteRule(0);
+                        if(this.styleEle.cssRules[2]){
+                            this.styleEle.deleteRule(2);
                         }                   
                         this.addCSSRule(this.styleEle,'@keyframes nodeMove',`from {
                             transform: translate(0,${this.ValidatorData.dataList.length*-83}px);
                         }               
                         to {
                             transform: translate(0,0);
-                        }`,0)
+                        }`,2)
                     }
                     return this.ValidatorData.dataList.slice(0,8);
                 }else{
@@ -342,17 +345,14 @@
                 let xList = [],
                     yListTime = [],
                     yListNum = [];
+                // this.chartMove = true;
+                // setTimeout(()=>{
+                //     this.chartMove = false;
+                // },500)    
                 if(data){
                     xList = data.x
                     yListTime = data.ya
                     yListNum = data.yb
-                    // if(data.yb){
-                    //     data.ya.shift();
-                    //     data.x.shift();
-                    //     data.ya.push(data.ya[6]);
-                    //     data.x.push(data.x[6]);
-                    //     // return;
-                    // }  
                 }
                 blockTimeChart.update({
                     xAxis: [
@@ -436,6 +436,9 @@
                 // 将style样式存放到head标签
                 document.getElementsByTagName('head')[0].appendChild(this.ele);
                 this.styleEle = document.styleSheets[document.styleSheets.length-1];
+                // 设置滚动条颜色
+                this.addCSSRule(this.styleEle,'::-webkit-scrollbar-track-piece',`background-color:#111111;`,0);
+                this.addCSSRule(this.styleEle,'::-webkit-scrollbar-thumb',`background-color:#202020;`,1);
                 console.log('aaaa',this.styleEle);
             }
 
@@ -449,6 +452,8 @@
             // console.log('aaaa',document.styleSheets);
             // this.styleEle = document.styleSheets[0];
             this.createStyle();
+
+            this.clientHeight = (document.documentElement.clientHeight || document.body.clientHeight)-100;
 
             indexService.getChartData();
             indexService.getStatisticData();
@@ -478,15 +483,25 @@
             },false)            
         },
         beforeDestroy() {
-            indexService.disconnect();           
+            indexService.disconnect();       
+            //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
+            this.updateIsMove(false);    
+            if(this.ele){
+                // 移除动态追加的style                
+                document.getElementsByTagName('head')[0].removeChild(this.ele);
+                this.ele = null;
+            }
         },
-        destroyed() {
+        destroyed() {   //此事件并不一定百分百触发
             window.removeEventListener('scroll',this.scrollHandle);
             indexService.disconnect();
             //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
             this.updateIsMove(false);
-            // 移除动态追加的style
-            document.getElementsByTagName('head')[0].removeChild(this.ele);
+            if(this.ele){
+                // 移除动态追加的style
+                document.getElementsByTagName('head')[0].removeChild(this.ele);
+                this.ele = null;
+            }           
         },   
     }
 </script>
@@ -570,7 +585,7 @@
             }
         }
         .chart{
-            min-height: 180px;
+            min-height: 180px;            
         }
         .bar{
             h3{
@@ -844,6 +859,10 @@
     .chart canvas{
         left: -23px !important;
     }    
+    .trade-chart canvas{
+        transition: all 0.5s;
+        transform: translate(10px,0);
+    }
     .bar .el-progress{
         width: 80%;
         margin-top: 5px;

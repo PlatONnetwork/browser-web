@@ -57,6 +57,7 @@ export default {
         validator: '验证人',
         delegationAmount: '委托数量',
         withdrawal: "赎回数量",
+        withFail: "赎回失败",
 
         proposer: '提案人',
         operatorAddress: '操作地址',

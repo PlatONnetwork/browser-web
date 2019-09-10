@@ -2,7 +2,7 @@
     <div class="footer-wrap">
         <div class="sub-foot" v-if="path=='/'">
             <h3>{{$t('indexInfo.resource')}}</h3>
-            <div class="tabs">
+            <!-- <div class="tabs">
                 <el-button size="medium">
                     <a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a>
                 </el-button>
@@ -15,6 +15,12 @@
                 <el-button size="medium" style="margin-right:0;">
                     <a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a>
                 </el-button>
+            </div> -->
+            <div class="foot-tabs">
+                <span><a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
+                <span><a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a></span>
+                <span><a :href="'https://developer.platon.network/#/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
+                <span class="tab-last"><a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>  
             </div>
             <div class="foot-line">
             </div>
@@ -123,6 +129,39 @@
             border-bottom: 1px dashed #929292;
             margin: 83px 5.2% 0;
         }
+        .foot-tabs{
+            display: flex;
+            justify-content: center;
+            span{
+                background: #000;
+                margin-right: 8%;                                
+                width: 218px;
+                height: 69px;
+                line-height: 69px;   
+                border: 1px solid #979797;
+                border-radius: 4px;            
+                display: block;
+                font-size: 20px;
+                &.tab-last{
+                    margin-right: 0;
+                }
+                a{
+                    display: block;
+                    color: #fff;                    
+                }
+                &:hover{
+                    background: #fff;
+                    border: 1px solid #fff;
+                    a{
+                        color: #000;                                                 
+                        -webkit-animation-duration: 0.75s;
+                        animation-duration: 0.75s;
+                        -webkit-animation-name: bounceIn;
+                        animation-name: bounceIn; 
+                    }
+                }
+            }
+        }
     }
     .foot-index{
         text-align: center;
@@ -166,7 +205,7 @@
                         position: absolute;
                         width: 100px;
                         height: 100px;
-                        bottom: 40px;
+                        bottom: 48px;
                         left: -31px;
                         display: none;                        
                     }

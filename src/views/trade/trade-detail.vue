@@ -129,12 +129,16 @@
           <!-- :prop="detailInfo.value + 'LAT'" -->
           <span>{{detailInfo.applyAmount | formatMoney }} LAT</span>
           <!-- <span>({{$t('tradeAbout.undelegat')}}:{{detailInfo.actualTxCost}} LAT/{{$t('tradeAbout.successed')}})</span> -->
-          <!-- 1： 赎回中 -->
-          <span v-if="detailInfo.redeemStatus==1">({{$t('tradeAbout.undelegat')}})</span>
-          <!-- 2：赎回成功 -->
-          <span v-else-if="detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
-          <!-- 剩余赎回 -->
-          <span v-else>({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
+          <!-- 赎回失敗 -->
+          <span v-if="detailInfo.txReceiptStatus==0">({{$t('tradeAbout.withFail')}})</span>
+          <template v-else>
+              <!-- 剩余赎回 -->
+              <span v-if="detailInfo.redeemLocked>0">({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
+              <!-- 1： 赎回中 -->
+              <span v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1">({{$t('tradeAbout.undelegat')}})</span>
+              <!-- 2：赎回成功 -->
+              <span v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
+          </template>
         </Item>
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">

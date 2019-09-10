@@ -57,6 +57,7 @@ export default {
         validator: 'Validator',
         delegationAmount: 'Delegation Amount',
         withdrawal: 'Withdrawal Amount',
+        withFail: "Withdrawal Fail",
 
         proposer: 'Proposer',
         operatorAddress: 'Operator Address',
