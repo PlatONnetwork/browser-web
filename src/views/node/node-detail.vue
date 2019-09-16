@@ -167,9 +167,10 @@
                         <el-table-column :label="$t('nodeInfo.actions')">
                             <template slot-scope="scope">
                                 <p class="percent80" v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3">{{$t('actionType.'+[scope.row.type])}}</p>
-                                <p class="percent80" v-else-if="scope.row.type==4">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.id}-${scope.row.title}`}}</p>
-                                <p class="percent80" v-else-if="scope.row.type==5">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.id}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>
-                                <p class="percent80" v-else-if="scope.row.type==6 || scope.row.type==7">{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押${scope.row.percent*100}%(${scope.row.amount} LAT)，移出验证人列表`:`${$t('actionType.'+[scope.row.type])}-${scope.row.percent*100}% of self-stake slashed (${scope.row.amount} LAT), Remove the Validator List`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==4">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==5">{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==6">{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押${scope.row.percent*100}%(${scope.row.amount} LAT)，移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-${scope.row.percent*100}% of self-stake slashed (${scope.row.amount} LAT), Remove the Validator List`}}</p>
+                                <p class="percent80" v-else-if="scope.row.type==7">{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押(${scope.row.amount} LAT)，移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-slashed ${scope.row.amount} LAT from self-stake, Remove the Validator List`}}</p>
                             </template>
                         </el-table-column>
                         <el-table-column :label="$t('nodeInfo.inTxHash')">

@@ -4,7 +4,7 @@ export default {
         home: '首页',
         block: '区块',
         transaction: '交易',
-        validator: '验证人',
+        validator: '验证节点',
         proposal: '提案',
         comesoon: '敬请期待',
         goole: 'Google reCAPTCHA无法获取！'
@@ -54,7 +54,7 @@ export default {
         restrictedPlan: '锁仓计划',
 
         delegator: '委托人',
-        validator: '验证人',
+        validator: '验证节点',
         delegationAmount: '委托数量',
         withdrawal: "赎回数量",
         withFail: "赎回失败",
@@ -143,12 +143,12 @@ export default {
         proposal: "创建提案",
         voting: "提案投票",
         declare: '版本声明',
-        createValidator: '创建验证人',
+        createValidator: '创建验证节点',
 
         increase: '增加自有质押',
-        editValidator: '编辑验证人',
-        exitValidator: '退出验证人',
-        reportValidator: '举报验证人',
+        editValidator: '编辑验证节点',
+        exitValidator: '退出验证节点',
+        reportValidator: '举报验证节点',
         pend: '退回中',
         remain: '剩余退回',
         undelegat: '赎回中',
@@ -192,7 +192,7 @@ export default {
         showingLast: '(仅显示最新5k记录)',
         delegationsTxns: '委托交易',
         transfers: '转账',
-        validatorTxns: '验证人交易',
+        validatorTxns: '验证节点交易',
         governanceTxns: '治理交易',
 
         addressDetail: '地址详情',
@@ -213,7 +213,7 @@ export default {
         unlocksNumber: '解锁数量'
     },
     deleget: {
-        validators: '已委托验证人',
+        validators: '已委托验证节点',
         lockedDelegate: '已锁定委托',
         unlockedDelegate: '未锁定委托',
         releasedDelegate: '已解锁委托',
@@ -279,7 +279,7 @@ export default {
         CURRNTMAXTPS: '当前/最大交易 TPS',
         LIVEADDRESS: '地址数',
         PENDINGTOTAL: '进行中提案/总提案',
-        currentValidators: '当前轮验证人',
+        currentValidators: '当选验证节点',
         viewAll: '查看所有',
         totalSUPPLY: '总发行量',
         totalSTAKE: '总质押',
@@ -305,9 +305,9 @@ export default {
     nodeInfo: {
         validator: '验证节点',
         name: '名称',
-        validatorDetail: '验证人详情',
+        validatorDetail: '验证节点详情',
         createdat: '创建时间',
-        electedRoundValidator: '当选当前轮验证人',
+        electedRoundValidator: '当选验证节点',
         blocks: '累计出块',
         blockRate: '出块率',
         totalStakePower: '总质押\\权重',
@@ -318,12 +318,12 @@ export default {
         selfstake: '自有质押',
         nodeInfo: '节点信息',
         producedBlocks: '已出区块',
-        validatorActions: '验证人操作',
+        validatorActions: '节点行为',
         lowBlockRate: '低出块率处罚次数',
         twoSignNum: '双签处罚次数',
 
         nodeID: '节点ID',
-        actions: '操作',
+        actions: '行为',
         inBlock: '所属区块',
         inTxHash: '所属交易',
 
@@ -334,17 +334,17 @@ export default {
         stakeRate: '质押率',
         stakingReward: '质押奖励',
         nextRewardAdjustment: '下个奖励调整期',
-        updateEpoch: '每个结算周期更新一次验证人状态',
+        updateEpoch: '每个结算周期更新一次验证节点状态',
 
-        searchValidator: '输入验证人名称查询',
-        historicalValidators: '历史验证人',
+        searchValidator: '输入验证节点名称查询',
+        historicalValidators: '历史验证节点',
         rank: '排名',
-        validatorName: '验证人',
+        validatorName: '验证节点',
         delegationsDelegators: '委托数\\委托者',
         producedBlock: '已产生区块数',
         exitTime: '退出时间',
         pendingDelegations: '待提取委托数',
-        nodeMsg: 'PlatON初始内置验证人，不接受委托',
+        nodeMsg: 'PlatON基金会资助的验证节点，不接受委托',
         systemBuilt: 'System built-in reward pool account',
         systemOperation: '系统操作，无交易',
         node: '节点',
@@ -364,10 +364,10 @@ export default {
         2: '合约执行',  //合约执行
         4: '其他',      //其他
         5: 'MPC交易',
-        1000: '创建验证人',   //发起质押
-        1001: '编辑验证人',   //修改质押信息
+        1000: '创建验证节点',   //发起质押
+        1001: '编辑验证节点',   //修改质押信息
         1002: '增加自有质押',   //增持质押
-        1003: '退出验证人',   //撤销质押
+        1003: '退出验证节点',   //撤销质押
         1004: '委托',   //发起委托
         1005: '赎回委托',  //减持/撤销委托
         2000: '创建提案',   //提交文本提案
@@ -406,9 +406,9 @@ export default {
         4:'SUPPORT'
     },
     actionType:{
-        1: '创建验证人',
-        2: '编辑验证人',
-        3: '退出验证人',
+        1: '创建验证节点',
+        2: '编辑验证节点',
+        3: '退出验证节点',
         4: '创建提案',
         5: '提案投票',
         6: '双签处罚',
