@@ -2,7 +2,7 @@ import enLocale from 'element-ui/lib/locale/lang/en'
 export default {
     menu: { // 菜单
         home: 'HOME',
-        block: 'BLOCK',
+        block: 'BLOCKS',
         transaction: 'TRANSACTIONS',
         validator: 'VALIDATORS',
         proposal: 'PROPOSALS',
@@ -90,7 +90,7 @@ export default {
         vote: 'Vote',
         version: 'Version',
         voter: 'Voter',
-        voteOption: 'voteOption',
+        voteOption: 'Voting Option',
         trasactionHash:'TxHash',
         trasactionTime:'Time',
         version1: 'Version',
@@ -272,11 +272,11 @@ export default {
     indexInfo: {
         WelcomeToPlatON: 'Welcome to PlatON Blockchain Explorer',
         LIVEBLOCKTIME: 'LIVE BLOCK TIME(s)',
-        LIVEBLOCKTRANSACTIONS: 'LIVE BLOCK TRANSACTIONS',
+        LIVEBLOCKTRANSACTIONS: 'LIVE BLOCKS TRANSACTIONS',
         LIVEBLOCKHEIGHT: 'LIVE BLOCK HEIGHT',
         CIRCULATINGSUPPLY: 'CIRCULATING SUPPLY',
         LIVETRANSACTIONS: 'LIVE TRANSACTIONS',
-        CURRNTMAXTPS: 'CURRNT/MAX TPS',
+        CURRNTMAXTPS: 'CURRENT/MAX TPS',
         LIVEADDRESS: 'LIVE ADDRESS',
         PENDINGTOTAL: 'PENDING/TOTAL PROPOSALS',
         currentValidators: 'Elected Validators',

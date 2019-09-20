@@ -5,7 +5,7 @@ export default {
         block: '区块',
         transaction: '交易',
         validator: '验证节点',
-        proposal: '提案',
+        proposal: '治理提案',
         comesoon: '敬请期待',
         goole: 'Google reCAPTCHA无法获取！'
     },
