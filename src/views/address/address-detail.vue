@@ -37,6 +37,7 @@
                     </ul>
                 </div>
             </el-col>
+            <div style="width:100px;flex-shrink:0"></div>
             <el-col :span="11">
                 <div class="others overview">
                     <h3>{{$t('contract.others')}}</h3>

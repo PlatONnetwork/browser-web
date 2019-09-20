@@ -665,5 +665,8 @@ export default {
 .trade-detail-wrap .list-item label{
   width: 140px !important;
 }
+.blue:hover,.normal:hover{
+  color: #0E52AC;
+}
 </style>
 

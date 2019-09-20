@@ -76,6 +76,9 @@
             word-break: break-all;
             width: 85%;
         }
+        .blue:hover{
+            color: #0E52AC;
+        }
     }
 </style>
 

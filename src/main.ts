@@ -28,6 +28,7 @@ import '../static/css/reset.css'
 import '../static/css/element-ui.css'
 import '../static/css/iconfont.css'
 import 'swiper/dist/css/swiper.css'
+import '../static/css/gilroy.css'
 // less
 import '@/less/index.less'
 
