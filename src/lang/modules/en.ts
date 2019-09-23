@@ -317,6 +317,7 @@ export default {
         stability: 'Stability',
         selfstake: 'Self-stake',
         nodeInfo: 'Node Info',
+        basicInfo:'Basic Information',
         producedBlocks: 'Produced Blocks',
         validatorActions: 'Validator Actions',
         lowBlockRate: 'Low block rate slashing',

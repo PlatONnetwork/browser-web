@@ -317,6 +317,7 @@ export default {
         stability: '稳定性',
         selfstake: '自有质押',
         nodeInfo: '节点信息',
+        basicInfo:'基本信息',
         producedBlocks: '已出区块',
         validatorActions: '节点行为',
         lowBlockRate: '低出块率处罚次数',

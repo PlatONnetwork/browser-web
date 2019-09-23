@@ -3,12 +3,14 @@
     .el-table td{
         padding: 10px 0;
         border-bottom:1px solid #F5F5F5;
+        font-size: 13px;
     }
     .el-table th{
         color:@gray;
         font-size:14px;
         font-weight: normal;
         border-bottom:1px solid #F5F5F5;
+        font-family: Gilroy-Medium;
     }
     .el-table tbody tr:hover>td {
         background: #FBFBFC
@@ -18,5 +20,8 @@
     }
     .normal:hover{
         color: #0E52AC;
+    }
+    .el-table::before{
+        height: 0;
     }
 }

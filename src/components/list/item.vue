@@ -71,6 +71,7 @@
             color: #666;
             line-height: 15px;
             width: 135px;
+            font-family: Gilroy-Medium;
         }
         p{
             word-break: break-all;

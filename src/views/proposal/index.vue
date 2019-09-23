@@ -178,9 +178,3 @@ export default {
   line-height: 20px;
 }
 </style>
-<style lang="less">
-    .table.no-data .el-table::before{
-      height: 0;
-    }
-</style>
-
