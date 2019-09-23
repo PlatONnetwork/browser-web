@@ -96,7 +96,16 @@
             <span>{{scope.row.value | formatMoney}} LAT</span>
           </template>
         </el-table-column>
-        <el-table-column prop="actualTxCost" :label="$t('tradeAbout.fee')"></el-table-column>
+        <el-table-column>
+          <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
+          <template slot="header">
+            {{$t('tradeAbout.fee')}}
+            <span style="color:#999999;">(LAT)</span>
+          </template>
+          <template slot-scope="scope">
+            {{scope.row.actualTxCost}}
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pagination-box">
         <el-pagination
@@ -261,6 +270,9 @@ export default {
   color: #0798de;
   letter-spacing: 0;
   cursor: pointer;
+}
+.active {
+  font-family: Gilroy-Medium;
 }
 </style>
 <style lang="less">

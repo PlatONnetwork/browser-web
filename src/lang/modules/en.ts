@@ -127,7 +127,7 @@ export default {
         to: 'To',
         toA: 'Recipient',
         value: 'Value',
-        fee: 'TxFee(LAT)',
+        fee: 'TxFee', //(LAT)
         before: 'ago',
 
         txInfo: 'Tx Info',

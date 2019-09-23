@@ -60,6 +60,7 @@
             border-top:2px solid #000;
             border-bottom: 1px solid #F5F5F5;
             margin-bottom: 31px;
+            font-family: Gilroy-Medium;
         }
     }
     .item-wrap{
