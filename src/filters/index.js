@@ -71,14 +71,14 @@ const sliceFloat = Vue.filter("sliceFloat", (str, num) => {
     const idx = str.indexOf(".");
     if (num == 0) {
         if (idx != -1) {
-            return str.slice(0, idx);
+            return str.slice(0, idx+1);
         } else {
             return str;
         }
 
     } else if (num == 1) {
         if (idx != -1) {
-            return str.slice(idx);
+            return str.slice(idx+1);
         } else {
             return "";
         }

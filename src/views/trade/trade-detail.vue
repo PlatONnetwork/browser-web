@@ -217,9 +217,9 @@
 
         <!-- 投票（提案投票特有） -->
         <Item :label="$t('tradeAbout.vote')" v-if="detailInfo.txType=='2003'">
-          <span v-if="detailInfo.proposalOption==2" class="green vote-status">SUPPORT</span>
+          <span v-if="detailInfo.proposalOption==2" class="green vote-status Gilroy-Bold">SUPPORT</span>
           <span
-            class="green vote-status"
+            class="green vote-status Gilroy-Bold"
             v-else-if="detailInfo.voteStatus"
           >{{detailInfo.voteStatus==1?'YES':detailInfo.voteStatus==2?'NO':detailInfo.voteStatus==3?'ABSTAIN':''}}</span>
         </Item>
@@ -383,7 +383,7 @@
         <Item :label="$t('tradeAbout.blockHeight')">
           <div class="cursor" @click="goBlockDetail(detailInfo.blockNumber)">
             <span class="blue">{{detailInfo.blockNumber}}</span>
-            <span style="margin-left:5px;">({{detailInfo.confirmNum+$t('tradeAbout.confirmNum')}})</span>
+            <span style="margin-left:5px;">({{detailInfo.confirmNum+"&nbsp;"+$t('tradeAbout.confirmNum')}})</span>
           </div>
         </Item>
         <!-- 燃料限制 -->
@@ -393,7 +393,11 @@
         <!-- 燃料价格 -->
         <Item :label="$t('tradeAbout.gasPrice')">{{detailInfo.gasPrice| formatMoney}} LAT</Item>
         <!-- 交易数据 -->
-        <Item :label="$t('tradeAbout.rawData')" :prop="detailInfo.txInfo"></Item>
+        <Item :label="$t('tradeAbout.rawData')">
+          <div class="rawData">
+            {{detailInfo.txInfo}}
+          </div>
+        </Item>
       </List>
     </div>
   </div>
@@ -655,9 +659,17 @@ export default {
 .return-amount{
   height: 19px;
 }
+.rawData{
+  width: 474px;
+  background-color: #F5F5F5;
+  min-height: 86px;
+  padding: 3px;
+  word-break:break-all;
+}
 </style>
 <style lang="less">
 .trade-detail-wrap {
+  padding-bottom: 35px;
   .item-wrap {
     padding-left: 50px;
   }

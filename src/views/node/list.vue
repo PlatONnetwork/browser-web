@@ -122,9 +122,9 @@
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'">
+        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="130">
           <template slot-scope="scope">
-            <span>{{scope.row.totalValue | formatMoney}}LAT</span>
+            <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'">

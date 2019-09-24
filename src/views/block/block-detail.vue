@@ -205,8 +205,10 @@ export default {
 </style>
 <style lang="less">
 .block-detail-wrap {
+  padding-bottom: 1px;
   .item-wrap {
-    padding-left: 50px;
+    // padding-left: 50px;
+    margin: 0 30px 5px 30px;
   }
 }
 .blockHeight p {

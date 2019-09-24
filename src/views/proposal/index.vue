@@ -23,11 +23,11 @@
         <el-table-column :label="$t('tradeAbout.proposalTitle')">
           <template slot-scope="scope">
             <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
-              <p class="cursor blue ellipsis percent60" v-if="scope.row.topic">{{scope.row.topic}}</p>
-              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==1">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
-              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==2">{{$t('tradeAbout.versionUp')}}-V {{scope.row.newVersion}}</p>
-              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==4">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
-              <p class="cursor blue ellipsis percent60" v-else-if="!scope.row.topic&&scope.row.type==3">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis percent60 fontSize15" v-if="scope.row.topic">{{scope.row.topic}}</p>
+              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==1">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==2">{{$t('tradeAbout.versionUp')}}-V {{scope.row.newVersion}}</p>
+              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==4">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==3">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
             </div>
           </template>
         </el-table-column>
@@ -38,7 +38,7 @@
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.status')" width="120">
           <template slot-scope="scope">
-            <span :class="{yellow:scope.row.status==1,red:scope.row.status==3||scope.row.status==6,green:scope.row.status==2||scope.row.status==4||scope.row.status==5}">{{$t('proposalStatus.'+[scope.row.status])}}</span>
+            <span class="Gilroy-Bold" :class="{yellow:scope.row.status==1,red:scope.row.status==3||scope.row.status==6,green:scope.row.status==2||scope.row.status==4||scope.row.status==5}">{{$t('proposalStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.votingEndBlock')" width="260">

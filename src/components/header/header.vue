@@ -277,7 +277,7 @@
         }
         .search{
             opacity: 0;
-            transition: opacity 3.0s ease;  
+            transition: opacity 0.3s ease;  
             &.search-hide{                     
                 opacity: 1;
             }

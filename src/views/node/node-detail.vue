@@ -46,8 +46,10 @@
         <Item :label="$t('nodeInfo.totalReward')">
           <p>
             <!-- {{detailInfo.rewardValue | formatMoney}} -->
-            <span class="Gilroy-Medium">{{detailInfo.rewardValue | formatMoney |sliceFloat(0)}}</span>
-            <span style="font-size: 13px;">{{detailInfo.rewardValue | formatMoney |sliceFloat(1)}}</span>
+            <span
+              class="Gilroy-Medium black fontSize18"
+            >{{detailInfo.rewardValue | formatMoney |sliceFloat(0)}}</span>
+            <span class="black fontSize13">{{detailInfo.rewardValue | formatMoney |sliceFloat(1)}}</span>
             <span class="fontSize13">&nbsp;LAT</span>
           </p>
         </Item>
@@ -86,8 +88,10 @@
           <Item :label="$t('nodeInfo.totalStakePower')">
             <p class="statistic-total-stake">
               <!-- {{detailInfo.totalValue | formatMoney}} -->
-              <span class="Gilroy-Medium">{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
-              <span>{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
+              <span
+                class="Gilroy-Medium black fontSize18"
+              >{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
+              <span class="black fontSize13">{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
               <span class="fontSize13">&nbsp;LAT</span>
             </p>
           </Item>
@@ -97,10 +101,12 @@
               <p>
                 <!-- {{detailInfo.stakingValue | formatMoney}} -->
                 <span
-                  class="Gilroy-Medium"
+                  class="Gilroy-Medium black fontSize18"
                   style="font-size: 18px;"
                 >{{detailInfo.stakingValue | formatMoney |sliceFloat(0)}}</span>
-                <span>{{detailInfo.stakingValue | formatMoney |sliceFloat(1)}}</span>
+                <span
+                  class="black fontSize13"
+                >{{detailInfo.stakingValue | formatMoney |sliceFloat(1)}}</span>
                 <span class="fontSize13">&nbsp;LAT</span>
                 <span
                   class="yellow"
@@ -113,10 +119,12 @@
               <p>
                 <!-- {{detailInfo.delegateValue | formatMoney}} -->
                 <span
-                  class="Gilroy-Medium"
+                  class="Gilroy-Medium black fontSize18"
                   style="font-size: 18px;"
                 >{{detailInfo.delegateValue | formatMoney |sliceFloat(0)}}</span>
-                <span>{{detailInfo.delegateValue | formatMoney |sliceFloat(1)}}</span>
+                <span
+                  class="black fontSize13"
+                >{{detailInfo.delegateValue | formatMoney |sliceFloat(1)}}</span>
                 <span class="fontSize13 lat-mini">&nbsp;LAT</span>
               </p>
             </li>
@@ -128,7 +136,9 @@
                   class="Gilroy-Medium"
                   style="font-size: 18px;"
                 >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(0)}}</span>
-                <span>{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(1)}}</span>
+                <span
+                  class="black fontSize13"
+                >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(1)}}</span>
                 <span class="fontSize13 lat-mini">&nbsp;LAT</span>
                 <span
                   class="yellow"
@@ -681,6 +691,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.contract-detail-wrap{
+  padding-bottom: 1px;
+}
 .contractCreator {
   a {
     width: 150px;
@@ -760,7 +773,7 @@ export default {
   margin: 36px 0 40px;
   .node-statistic-left {
     width: 46%;
-    margin-right: 4%;
+    margin-right: 8%;
   }
   .stability-wrap {
     display: flex;
@@ -808,7 +821,7 @@ export default {
   border-radius: 4px;
   text-align: center;
   padding: 0 10px;
-//   width: 100px;
+  //   width: 100px;
   height: 40px;
   line-height: 40px;
   position: absolute;
