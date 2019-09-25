@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
                 <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"

@@ -190,7 +190,7 @@
                 v-clipboard:copy="detailInfo.nodeId"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              >{{copyText}}</b>
+              ><p v-show="isCopy" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
             </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
               <span
@@ -203,7 +203,7 @@
                 v-clipboard:copy="detailInfo.stakingAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              >{{copyText2}}</b>
+              ><p v-show="isCopy2" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText2}}</span></p></b>
             </Item>
             <Item :label="$t('tradeAbout.rewardAddress')">
               <span
@@ -217,7 +217,7 @@
                 v-clipboard:copy="detailInfo.denefitAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              >{{copyText3}}</b>
+              ><p v-show="isCopy3" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText3}}</span></p></b>
             </Item>
             <Item :label="$t('tradeAbout.website')">
               <a

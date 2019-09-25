@@ -200,7 +200,7 @@ export default {
         address: 'Address',
         delegations: 'Delegations',
         staking: 'Stakes',
-        inRedemption: 'In redemption',
+        inRedemption: 'Undelegating',   //In redemption
 
         restrictedBalance: 'Restricted Balance',
         forDelegations: 'For Delegations\\Staking',
@@ -303,7 +303,7 @@ export default {
         day: 'd ',
     },
     nodeInfo: {
-        validator: 'validator',
+        validator: 'Validator',
         name: 'Name',
         validatorDetail: 'VALIDATOR DETAILS',
         createdat: 'Created at',

@@ -11,7 +11,7 @@
           v-clipboard:copy="detailInfo.txHash"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        >{{copyText}}</b>
+        ><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
       </div>
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
@@ -132,12 +132,18 @@
           <!-- 赎回失敗 -->
           <span v-if="detailInfo.txReceiptStatus==0">({{$t('tradeAbout.withFail')}})</span>
           <template v-else>
-              <!-- 剩余赎回 -->
-              <span v-if="detailInfo.redeemLocked>0">({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
-              <!-- 1： 赎回中 -->
-              <span v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1">({{$t('tradeAbout.undelegat')}})</span>
-              <!-- 2：赎回成功 -->
-              <span v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==2">({{$t('tradeAbout.successed1')}})</span>
+            <!-- 剩余赎回 -->
+            <span
+              v-if="detailInfo.redeemLocked>0"
+            >({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
+            <!-- 1： 赎回中 -->
+            <span
+              v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1"
+            >({{$t('tradeAbout.undelegat')}})</span>
+            <!-- 2：赎回成功 -->
+            <span
+              v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==2"
+            >({{$t('tradeAbout.successed1')}})</span>
           </template>
         </Item>
         <!-- 交易手续费 -->
@@ -200,11 +206,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >{{detailInfo.pipNum}}</a>
-            <a
-              v-else
-              class="ellipsis"
-              rel="noopener noreferrer"
-            >{{detailInfo.pipNum}}</a>
+            <a v-else class="ellipsis" rel="noopener noreferrer">{{detailInfo.pipNum}}</a>
           </Item>
           <!-- 提案标题 -->
           <Item :label="$t('tradeAbout.proposalTitle')">
@@ -254,12 +256,12 @@
             v-if="detailInfo.txType!='3000'"
             class="cursor blue"
             @click="goNodeDetail(detailInfo.nodeId)"
-          >{{detailInfo.nodeName}}</p>
-          <p 
+          >{{detailInfo.nodeName || "Null"}}</p>
+          <p
             v-else-if="detailInfo.txType=='3000'&&detailInfo.evidences.length"
             class="cursor blue"
             @click="goNodeDetail(detailInfo.evidences[0].verify)"
-          >{{detailInfo.evidences[0].nodeName}}</p>
+          >{{detailInfo.evidences[0].nodeName || "Null"}}</p>
         </Item>
         <!-- 举报类型，举报证据（举报验证人特有） -->
         <template v-if="detailInfo.txType=='3000'">
@@ -348,7 +350,11 @@
             <span v-else>({{$t('tradeAbout.remain')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
           </Item>
           <!-- 预计到账区块（退出验证人特有） -->
-          <Item class="return-amount" :label="$t('tradeAbout.returnBlock')" :prop="detailInfo.redeemUnLockedBlock"></Item>
+          <Item
+            class="return-amount"
+            :label="$t('tradeAbout.returnBlock')"
+            :prop="detailInfo.redeemUnLockedBlock"
+          ></Item>
         </template>
         <template></template>
         <!-- 交易手续费 -->
@@ -383,7 +389,9 @@
         <Item :label="$t('tradeAbout.blockHeight')">
           <div class="cursor" @click="goBlockDetail(detailInfo.blockNumber)">
             <span class="blue">{{detailInfo.blockNumber}}</span>
-            <span style="margin-left:5px;">({{detailInfo.confirmNum+"&nbsp;"+$t('tradeAbout.confirmNum')}})</span>
+            <span
+              style="margin-left:5px;"
+            >({{detailInfo.confirmNum+"&nbsp;"+$t('tradeAbout.confirmNum')}})</span>
           </div>
         </Item>
         <!-- 燃料限制 -->
@@ -394,9 +402,7 @@
         <Item :label="$t('tradeAbout.gasPrice')">{{detailInfo.gasPrice| formatMoney}} LAT</Item>
         <!-- 交易数据 -->
         <Item :label="$t('tradeAbout.rawData')">
-          <div class="rawData">
-            {{detailInfo.txInfo}}
-          </div>
+          <div class="rawData">{{detailInfo.txInfo}}</div>
         </Item>
       </List>
     </div>
@@ -634,9 +640,9 @@ export default {
   line-height: 26px;
   padding: 0 6px;
 }
-.red-status{
-    background: rgba(207,50,110,0.15);
-    color: #CF326E;
+.red-status {
+  background: rgba(207, 50, 110, 0.15);
+  color: #cf326e;
 }
 .box-relative {
   position: relative;
@@ -656,15 +662,15 @@ export default {
 .pink {
   color: #cf326e;
 }
-.return-amount{
+.return-amount {
   height: 19px;
 }
-.rawData{
+.rawData {
   width: 474px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   min-height: 86px;
   padding: 3px;
-  word-break:break-all;
+  word-break: break-all;
 }
 </style>
 <style lang="less">
@@ -674,9 +680,8 @@ export default {
     padding-left: 50px;
   }
 }
-.trade-detail-wrap .list-item label{
+.trade-detail-wrap .list-item label {
   width: 140px !important;
 }
-
 </style>
 

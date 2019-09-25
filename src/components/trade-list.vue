@@ -87,7 +87,7 @@
           <template slot-scope="scope">
             <span
               :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}"
-              class="red"
+              class="red Gilroy-Bold"
             >{{$t('TxType.'+[scope.row.txType])}}</span>
           </template>
         </el-table-column>
@@ -270,6 +270,7 @@ export default {
   color: #0798de;
   letter-spacing: 0;
   cursor: pointer;
+  font-family: Gilroy-Medium;
 }
 .active {
   font-family: Gilroy-Medium;

@@ -13,7 +13,7 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <div class="grid-content bg-purple-light" style="float:right;margin-top:-50px;">
+        <div class="grid-content bg-purple-light Gilroy-Bold" style="float:right;margin-top:-50px;">
           <span
             class="yellow vote-status yellow-status"
             v-if="detailData.status==1"
@@ -51,7 +51,7 @@
             </el-col>
             <el-col :span="15">
               <div class="content">
-                <span>{{$t('proposalOption.'+[detailData.type])}}</span>
+                <span class="fontSize13">{{$t('proposalOption.'+[detailData.type])}}</span>
               </div>
             </el-col>
           </el-row>
@@ -62,9 +62,9 @@
               <div class="desc">{{$t('tradeAbout.proposalToCancel')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content" v-if="detailData.canceledTopic">{{detailData.canceledTopic}}</div>
+              <div class="content fontSize13" v-if="detailData.canceledTopic">{{detailData.canceledTopic}}</div>
               <div
-                class="content"
+                class="content fontSize13"
                 v-else
               >{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</div>
             </el-col>
@@ -76,7 +76,7 @@
               <div class="desc">{{$t('tradeAbout.cancellID')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.canceledPipId}}</div>
+              <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.canceledPipId}}</div>
             </el-col>
           </el-row>
         </div>
@@ -109,7 +109,7 @@
               <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
+              <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
             </el-col>
           </el-row>
         </div>
@@ -119,7 +119,8 @@
               <div class="desc">{{$t('tradeAbout.proposalTime')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content">{{detailData.timestamp | formatTime}}[{{detailData.inBlock}}]</div>
+              <!-- {{detailData.timestamp | formatTime}}[{{detailData.inBlock}}] -->
+              <div class="content fontSize13"><span>{{detailData.timestamp | formatTime}}</span><span class="Gilroy-Medium">[{{detailData.inBlock}}]</span></div>
             </el-col>
           </el-row>
         </div>
@@ -176,7 +177,9 @@
             class="desc"
             style="margin:53px 0px 10px 0px;"
           >{{$t('tradeAbout.propasalDescription')}}:</div>
-          <div>{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
+          <div
+            class="Gilroy-Medium fontSize18"
+          >{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
         </div>
       </el-col>
     </el-row>
@@ -190,9 +193,8 @@
         </div>-->
       </div>
       <div class="big-progress-text">
-        <div class="vote-text">{{$t('tradeAbout.support')}}</div>
+        <div class="vote-text">{{$t('tradeAbout.support')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
         <div class="vote-number">
-          {{detailData.yeas | formatNumber}}
           <span>{{yesPercentage}}%</span>
         </div>
       </div>
@@ -213,16 +215,14 @@
         @mouseleave="mouseleaveQuit()"
       >
         <div class="voteYesText" :style="{'display':yesPercentage < 4 ? 'none':'block'}">
-          <div class="vote-text">{{$t('tradeAbout.yes')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
           <div class="vote-number">
-            {{detailData.yeas | formatNumber}}
             <span>{{yesPercentage}}%</span>
           </div>
         </div>
         <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.yes')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
           <div class="vote-number">
-            {{detailData.yeas | formatNumber}}
             <span>&nbsp;{{yesPercentage}}%</span>
           </div>
         </div>
@@ -241,9 +241,8 @@
           </div>
         </div>
         <div class="otherVoteNoText" :style="{'display': voteDisplayStyle.not ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.no')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;({{detailData.nays | formatNumber}})</div>
           <div class="vote-number">
-            {{detailData.nays | formatNumber}}
             <span>{{noPercentage}}%</span>
           </div>
         </div>
@@ -259,9 +258,8 @@
           :class="{'voteQuitDisplay':  'true' }"
           :style="{'display':quitPercentage < 4 ? 'none':'block'}"
         >
-          <div class="vote-text">{{$t('tradeAbout.abstain')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;({{detailData.abstentions | formatNumber}})</div>
           <div class="vote-number">
-            {{detailData.abstentions | formatNumber}}
             <span>{{quitPercentage}}%</span>
           </div>
         </div>
@@ -269,9 +267,8 @@
           class="otherVoteQuitText"
           :style="{'display': voteDisplayStyle.quit ? 'block' : 'none'}"
         >
-          <div class="vote-text">{{$t('tradeAbout.abstain')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;({{detailData.abstentions | formatNumber}})</div>
           <div class="vote-number">
-            {{detailData.abstentions | formatNumber}}
             <span>{{quitPercentage}}%</span>
           </div>
         </div>
@@ -283,7 +280,7 @@
     <div
       style="color:#33;font-family: Gilroy-Regular;font-size:14px;"
     >{{detailData.type==2?$t('tradeAbout.voteUpgradeNumber'):$t('tradeAbout.NumberOfVotes')}}: {{pageTotal}}</div>
-    <div class="voteOption" v-if="detailData.type==1||detailData.type==3">
+    <div class="voteOption Gilroy-Medium" v-if="detailData.type==1||detailData.type==3">
       <a
         class="cursor"
         :class="{active:selectIndex==0}"
@@ -553,6 +550,7 @@ export default {
   color: #000000;
   font-size: 18px;
   line-height: 21px;
+  font-family: Gilroy-Medium;
 }
 .yellow-status {
   background: rgba(255, 192, 23, 0.15);
@@ -606,6 +604,9 @@ export default {
   font-size: 13px;
   color: #0798de;
   letter-spacing: 0;
+  &:hover {
+    color: #0e52ac;
+  }
 }
 .progress {
   position: relative;

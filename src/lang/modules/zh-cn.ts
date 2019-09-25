@@ -66,7 +66,7 @@ export default {
         proposalStatus: '状态',
 
         PIPSN: 'PIP编号',
-        proposalTitle: '标题',
+        proposalTitle: '提案标题',
         title:'标题',
         proposalEndBlock: '投票结束区块',
         votingEndBlock: '投票结束区块',

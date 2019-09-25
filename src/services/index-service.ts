@@ -44,7 +44,7 @@ const sub = new Sub()
 
 class Ws {
     stompClient: StompClientConfigConfig = null
-    allUrl:string = API.TOTAL
+    allUrl: string = API.TOTAL
     // websocketUrl: string = API.WS_CONFIG.root
     websocketUrl: string = API.WS_CONFIG.root
     timeSettimeout: number = null
@@ -170,10 +170,10 @@ class IndexService extends Ws {
         }
         this.connectFlag ? fn() : sub.addSub(fn)
     }
-    
+
     getStatisticData(): any {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg: MsgConfig) => {                
+            this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
                 const { data, code } = res
                 console.log(`getStatisticData`, data)
@@ -192,25 +192,25 @@ class IndexService extends Ws {
         sub.addSub(() => {
             this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
                 const res: ResConfig = JSON.parse(msg.body)
-                const { data, code } = res  
+                const { data, code } = res
                 // debugger                              
                 console.log(`updateValidatorData`, res)
                 if (code === 0) {
-                    if(!data.isRefresh){
+                    if (!data.isRefresh) {
                         const initData = store.state.index.ValidatorData;
-                        initData.dataList.forEach((value,index)=>{
-                            const obj = data.dataList.filter((val)=>{
+                        initData.dataList.forEach((value, index) => {
+                            const obj = data.dataList.filter((val) => {
                                 return val.nodeId == value.nodeId;
                             })
-                            if(obj.length){
+                            if (obj.length) {
                                 initData.dataList[index] = obj[0];
                             }
-                            
+
                         })
-                    }else{
+                    } else {
                         store.dispatch('updateValidatorData', data)
                     }
-                    
+
                 } else {
                     throw new Error(`todo`)
                 }
@@ -224,10 +224,12 @@ class IndexService extends Ws {
                 const res: ResConfig = JSON.parse(msg.body)
                 console.log(`updateBlockData`, res)
                 if (res.code === 0) {
-                    store.dispatch('updateIsMove', true);
-                    setTimeout(()=>{
-                        store.dispatch('updateBlockData', res.data)  //动画完成后再更新数据
-                    },1000)                   
+                    if (res.data[0].isRefresh) {
+                        store.dispatch('updateIsMove', true);
+                        setTimeout(() => {
+                            store.dispatch('updateBlockData', res.data)  //动画完成后再更新数据
+                        }, 1000)
+                    }
                 } else {
                     throw new Error(`todo`)
                 }

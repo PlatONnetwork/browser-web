@@ -9,15 +9,6 @@
             {{ValidatorStatisticData.stakingDelegationValue | unit}}
             <span class="fontSize13">LAT</span>
           </p>
-          <!-- <p>
-            <span
-              class="Gilroy-Medium"
-            >{{ValidatorStatisticData.stakingDelegationValue | formatMoney |sliceFloat(0)}}</span>
-            <span
-              style="font-size: 13px;"
-            >{{ValidatorStatisticData.stakingDelegationValue | formatMoney |sliceFloat(1)}}</span>
-            <span class="fontSize13">&nbsp;LAT</span>
-          </p>-->
         </Item>
         <Item :label="$t('nodeInfo.totalDelegations')">
           <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">LAT</span></p> -->
@@ -227,8 +218,9 @@ export default {
   .item-wrap {
     line-height: 24px;
     label {
-      width: 166px;
+      width: 170px;
       line-height: 21px;
+      font-size: 14px;
     }
     p {
       font-size: 18px;

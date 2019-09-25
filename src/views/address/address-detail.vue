@@ -5,7 +5,7 @@
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
                 <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError">{{copyText}}</b>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"
@@ -19,10 +19,10 @@
         <el-row class="overview-wrap" type="flex" justify="space-between">
             <el-col :span="11">
                 <div class="overview">
-                    <h3>{{$t('contract.overview')}}</h3>
+                    <h3 class="Gilroy-Medium">{{$t('contract.overview')}}</h3>
                     <ul>
                         <li>
-                            <label>{{$t('contract.balance')}}</label> 
+                            <label class="Gilroy-Medium">{{$t('contract.balance')}}</label> 
                             <div>
                                 <span class="money">{{detailInfo.balance | formatMoney}}&nbsp;LAT</span>
                                 <div v-if="detailInfo.isRestricting">
@@ -31,7 +31,7 @@
                             </div>   
                         </li>
                         <li>
-                            <label>{{$t('contract.transactions')}}</label> 
+                            <label class="Gilroy-Medium">{{$t('contract.transactions')}}</label> 
                             <div class="money">{{detailInfo.txQty | formatNumber}}</div>
                         </li>
                     </ul>
@@ -40,14 +40,14 @@
             <div style="width:100px;flex-shrink:0"></div>
             <el-col :span="11">
                 <div class="others overview">
-                    <h3>{{$t('contract.others')}}</h3>
+                    <h3 class="Gilroy-Medium">{{$t('contract.others')}}</h3>
                     <ul>
                         <li>
-                            <label>{{$t('contract.delegations')}}/{{$t('contract.staking')}}</label> 
+                            <label class="Gilroy-Medium">{{$t('contract.delegations')}}/{{$t('contract.staking')}}</label> 
                             <div class="money">{{((detailInfo.stakingValue-0) + (detailInfo.delegateValue-0)) | formatMoney}}&nbsp;LAT</div>   
                         </li>
                         <li>
-                            <label>{{$t('contract.inRedemption')}}</label> 
+                            <label class="Gilroy-Medium">{{$t('contract.inRedemption')}}</label> 
                             <div class="money">{{detailInfo.redeemedValue | formatMoney}}&nbsp;LAT</div> 
                         </li>
                     </ul>
@@ -303,6 +303,7 @@
             padding: 5px 10px;            
             span{
                 font-size: 18px;
+                font-family: Gilroy-Medium;
             }           
             p{
                 font-size: 12px;

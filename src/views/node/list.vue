@@ -101,7 +101,7 @@
                 alt
               />
               <p
-                class="cursor normal ellipsis percent60"
+                class="cursor normal ellipsis percent60 fontSize15"
                 @click="goDetail(scope.row.nodeId)"
               >{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
               <el-tooltip class="item" effect="dark" placement="bottom" v-if='scope.row.isInit'>
@@ -117,7 +117,7 @@
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.status')">
           <template slot-scope="scope">
-            <span
+            <span class="Gilroy-Bold"
               :class="{green:scope.row.status==2,yellow:(scope.row.status==3 || scope.row.status==4),red:scope.row.status==1,}"
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
@@ -129,7 +129,7 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'">
           <template slot-scope="scope">
-            <span>{{scope.row.delegateValue | formatMoney}}LAT\{{scope.row.delegateQty | formatNumber}}</span>
+            <span>{{scope.row.delegateValue | formatMoney}} LAT\<span class="Gilroy-Medium">{{scope.row.delegateQty | formatNumber}}</span></span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
@@ -160,8 +160,8 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'">
           <template slot-scope="scope">
-            <span v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
-            <span v-else>--</span>
+            <span class="Gilroy-Medium" v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
+            <span class="Gilroy-Medium" v-else>--</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" width="220">
@@ -353,10 +353,11 @@ export default {
   }
 }
 .node-avtor {
-  width: 23px;
-  height: 23px;
+  width: 30px;
+  height: 30px;
   margin-right: 8px;
   border-radius: 50%;
+  margin-top: -3px;
 }
 </style>
 <style lang="less">

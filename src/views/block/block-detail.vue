@@ -11,7 +11,7 @@
           v-clipboard:copy="detailInfo.number"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        >{{copyText}}</b>
+        ><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
       </div>
       <div class="detail-arrow">
         <el-tooltip class="item" effect="dark" placement="top" :content="$t('blockAbout.lookLast')">
