@@ -36,7 +36,9 @@ class ApiService {
       blockListByNodeIdDownload: this.post.bind(this, API.BLOCK.blockListByNodeIdDownload)
     };
     this.search = {
-      query: this.post.bind(this, API.SEARCH.query)
+      query: this.post.bind(this, API.SEARCH.query),
+      stakingOnIndex: this.post.bind(this, API.SEARCH.stakingOnIndex),
+      blockOnIndex: this.post.bind(this, API.SEARCH.blockOnIndex),
     };
     this.trade = {
       transactionList: this.post.bind(this, API.TRADE.transactionList),

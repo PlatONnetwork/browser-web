@@ -35,7 +35,9 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 	},
     // SOUSUO
 	SEARCH = {
-		query: `${HOME_URL}queryNavigation`,
+        query: `${HOME_URL}queryNavigation`,
+        stakingOnIndex: `${HOME_URL}stakingList`,
+        blockOnIndex: `${HOME_URL}blockList`,
     },
     // TRADE
 	TRADE = {

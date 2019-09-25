@@ -105,7 +105,9 @@
             <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
             <a>
               {{blockStatisticData.currentTps | formatNumber}}
-              <span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span>
+              <span
+                class="lightblue"
+              >/{{blockStatisticData.maxTps | formatNumber}}</span>
             </a>
           </li>
           <li>
@@ -116,7 +118,9 @@
             <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
             <a>
               {{blockStatisticData.doingProposalQty | formatNumber}}
-              <span class="lightblue">/{{blockStatisticData.proposalQty | formatNumber}}</span>
+              <span
+                class="lightblue"
+              >/{{blockStatisticData.proposalQty | formatNumber}}</span>
             </a>
           </li>
         </ul>
@@ -161,7 +165,10 @@
                 <span class="item-number cursor" @click="goBlockDetail(item.number)">{{item.number}}</span>
                 <p>
                   {{$t('blockAbout.producer')}}
-                  <a class="cursor" @click="goNodeDetail(item.nodeId)">{{item.nodeName}}</a>
+                  <a
+                    class="cursor"
+                    @click="goNodeDetail(item.nodeId)"
+                  >{{item.nodeName}}</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -334,7 +341,9 @@ export default {
   methods: {
     ...mapMutations({
       hide: "HIDE_SEARCH",
-      updateIsMove: "UPDATE_IS_MOVE"
+      updateIsMove: "UPDATE_IS_MOVE",
+      updateBlack: "UPDATE_BLACK_DADA",
+      updateValidators: "UPDATE_VALIDATOR_DADA"
     }),
     //查询
     searchFn() {
@@ -368,6 +377,32 @@ export default {
       setTimeout(() => {
         this.disabledBtn = false;
       }, 2000);
+    },
+    //
+    getStaking() {
+      let param = {};
+      apiService.search
+        .stakingOnIndex(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          this.updateValidators(data);
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+    },
+    //
+    getBlock() {
+      let param = {};
+      apiService.search
+        .blockOnIndex(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          this.updateBlack(data);
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
     },
     switchFn(type, struct) {
       switch (type) {
@@ -548,6 +583,10 @@ export default {
   created() {
     console.log("aaa", IndexService);
     indexService = new IndexService();
+    //当选验证节点
+    this.getStaking();
+    //区块
+    this.getBlock();
   },
   mounted() {
     // console.log('aaaa',document.styleSheets);
