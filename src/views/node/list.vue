@@ -77,6 +77,7 @@
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
         <el-table-column
           type="index"
+          width="80"
           :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
         ></el-table-column>
         <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')">
@@ -115,14 +116,14 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')">
+        <el-table-column :label="$t('tradeAbout.status')"  width="120">
           <template slot-scope="scope">
             <span class="Gilroy-Bold"
               :class="{green:scope.row.status==2,yellow:(scope.row.status==3 || scope.row.status==4),red:scope.row.status==1,}"
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="130">
+        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'">
           <template slot-scope="scope">
             <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
@@ -137,7 +138,7 @@
             <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
+        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell"  width="120">
           <template slot-scope="scope">
             <div class="node-stability">
               <div style="margin-right:10px;" class="self-tooltip">
@@ -153,12 +154,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.producedBlock')">
+        <el-table-column :label="$t('nodeInfo.producedBlock')"  width="120">
           <template slot-scope="scope">
             <span>{{scope.row.blockQty | formatNumber}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'">
+        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'" width="120">
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
             <span class="Gilroy-Medium" v-else>--</span>

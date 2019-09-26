@@ -280,7 +280,7 @@
     <div
       style="color:#33;font-family: Gilroy-Regular;font-size:14px;"
     >{{detailData.type==2?$t('tradeAbout.voteUpgradeNumber'):$t('tradeAbout.NumberOfVotes')}}: {{pageTotal}}</div>
-    <div class="voteOption Gilroy-Medium" v-if="detailData.type==1||detailData.type==3">
+    <div class="voteOption Gilroy-Medium" v-if="detailData.type==1||detailData.type==3||detailData.type==4">
       <a
         class="cursor"
         :class="{active:selectIndex==0}"

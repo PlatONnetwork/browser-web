@@ -43,7 +43,7 @@
         <Item class="item-odd" :label="$t('nodeInfo.electedRoundValidator')">
           <p class="Gilroy-Medium">{{detailInfo.verifierTime}}</p>
         </Item>
-        <Item :label="$t('nodeInfo.totalReward')">
+        <Item class="item-even" :label="$t('nodeInfo.totalReward')">
           <p>
             <!-- {{detailInfo.rewardValue | formatMoney}} -->
             <span
@@ -56,7 +56,7 @@
         <Item class="item-odd" :label="$t('nodeInfo.blocks')">
           <p class="Gilroy-Medium">{{detailInfo.blockQty | formatNumber}}</p>
         </Item>
-        <Item :label="$t('nodeInfo.yield')">
+        <Item class="item-even" :label="$t('nodeInfo.yield')">
           <p
             class="Gilroy-Medium"
           >{{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}}</p>
@@ -64,7 +64,7 @@
         <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
           <p class="Gilroy-Medium">{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>
         </Item>
-        <Item :label="$t('nodeInfo.stability')">
+        <Item class="item-even" :label="$t('nodeInfo.stability')">
           <div class="stability-wrap">
             <div style="margin-right:10px;" class="self-tooltip">
               <i class="icon-low-block cursor"></i>
@@ -468,7 +468,7 @@ export default {
             this.detailInfo = data;
             const dag =
               this.detailInfo.delegateValue / this.detailInfo.totalValue;
-            this.imgRatio = dag * 100;
+            this.imgRatio = (dag * 100).toFixed(2);
             this.getDelegetList();
             this.draw(dag);
           } else {
@@ -708,6 +708,11 @@ export default {
   line-height: 26px;
   padding: 7px 10px;
 }
+.page-zh{
+  .vote-status{
+    font-weight: bold;
+  }
+} 
 .yellow-status {
   background: rgba(255, 192, 23, 0.15);
 }
@@ -772,8 +777,14 @@ export default {
   display: flex;
   margin: 36px 0 40px;
   .node-statistic-left {
-    width: 46%;
-    margin-right: 8%;
+    width: 48%;
+    margin-right: 6%;
+    .item-odd{
+      width: 42%;
+    }
+    .item-even{
+      width: 58%;
+    }
   }
   .stability-wrap {
     display: flex;
@@ -826,7 +837,7 @@ export default {
   line-height: 40px;
   position: absolute;
   bottom: -50px;
-  left: -6px;
+  left: 16px;
   z-index: 9999;
   display: none;
 }
@@ -845,7 +856,7 @@ export default {
     }
     &.item-odd {
       label {
-        width: 170px;
+        width: 140px;
       }
       p {
         flex: 1;

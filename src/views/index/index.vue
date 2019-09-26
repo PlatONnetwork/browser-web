@@ -557,6 +557,8 @@ export default {
     //处理验证人轮播
     createStyle() {
       this.ele = document.createElement("style");
+      const agent = navigator.userAgent.toLowerCase(), 
+      isWebkit= (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/')==-1);
       // 设置style属性
       this.ele.type = "text/css";
       // 将 keyframes样式写入style内
@@ -564,18 +566,21 @@ export default {
       document.getElementsByTagName("head")[0].appendChild(this.ele);
       this.styleEle = document.styleSheets[document.styleSheets.length - 1];
       // 设置滚动条颜色
-      this.addCSSRule(
-        this.styleEle,
-        "::-webkit-scrollbar-track-piece",
-        `background-color:#111111;`,
-        0
-      );
-      this.addCSSRule(
-        this.styleEle,
-        "::-webkit-scrollbar-thumb",
-        `background-color:#202020;`,
-        1
-      );
+      if(isWebkit){
+        this.addCSSRule(
+          this.styleEle,
+          "::-webkit-scrollbar-track-piece",
+          `background-color:#111111;`,
+          0
+        );
+        this.addCSSRule(
+          this.styleEle,
+          "::-webkit-scrollbar-thumb",
+          `background-color:#202020;`,
+          1
+        );
+      }
+      
       console.log("aaaa", this.styleEle);
     }
   },
