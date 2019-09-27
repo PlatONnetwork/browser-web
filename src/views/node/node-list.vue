@@ -23,9 +23,12 @@
           </p>
         </Item>
         <Item :label="$t('nodeInfo.stakeRate')">
-          <p
-            class="Gilroy-Medium"
-          >{{ValidatorStatisticData.stakingDelegationValue | percentage(ValidatorStatisticData.issueValue)}}%</p>
+          <p>
+            <span
+              class="Gilroy-Medium"
+            >{{ValidatorStatisticData.stakingDelegationValue | percentage(ValidatorStatisticData.issueValue)}}</span>
+            <span class="fontSize13">%</span>
+          </p>
         </Item>
       </List>
       <List class="statistic-info">

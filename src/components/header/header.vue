@@ -7,7 +7,7 @@
         </div>
         <div class="menu">
             <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color ="#999" active-text-color="#FFF">
-                <el-menu-item index="/">
+                <el-menu-item index="/" :class="{active:$route.path=='/'}">
                     <router-link to="/">{{ $t("menu.home") }}</router-link>
                 </el-menu-item>
                 <el-menu-item index="/block" :class="{active:$route.path.indexOf('block')>-1}">
@@ -284,6 +284,7 @@
         }
         .active{
             color: #fff !important;
+            font-family: Gilroy-Bold;
         }
     }
     .logo{
