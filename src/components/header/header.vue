@@ -1,8 +1,8 @@
 <template>
     <div class="header-wrap">
         <div class="logo cursor" @click="goIndex">
-            <img class="icon1" src='@/assets/images/herder-logo-a.png'/>
-            <img class="icon2" src='@/assets/images/herder-logo-b.png'/>
+            <img class="icon1" src='@/assets/images/herder-logo-a.svg'/>
+            <img class="icon2" src='@/assets/images/herder-logo-b.svg'/>
             <p>The PlatON Block Explorer</p>
         </div>
         <div class="menu">

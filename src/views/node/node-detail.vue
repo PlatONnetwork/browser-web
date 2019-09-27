@@ -4,7 +4,7 @@
     <div class="node-header">
       <div class="node-header-left">
         <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-        <img src="../../assets/images/node-avtor.png" v-if="!detailInfo.stakingIcon" />
+        <img src="../../assets/images/node-avtor.svg" v-if="!detailInfo.stakingIcon" />
         <div class="node-name-wrap">
           <div class="node-name">
             <b>{{detailInfo.nodeName}}</b>

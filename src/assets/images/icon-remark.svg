@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-推荐</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05-验证节点列表" transform="translate(-228.000000, -537.000000)">
+            <g id="icon-推荐" transform="translate(228.000000, 537.000000)">
+                <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="12" height="12"></rect>
+                <path d="M0.76,5.995564 C0.76,4.539364 1.245376,3.334144 2.292256,2.287036 C3.339376,1.239916 4.544872,0.76 6.000784,0.76 C7.456936,0.76 8.662204,1.239916 9.709336,2.287036 C10.756432,3.334144 11.24182,4.539352 11.24182,5.995564 C11.24182,7.457116 10.756432,8.662384 9.709336,9.709492 C8.662204,10.756612 7.456936,11.236552 6.000784,11.236552 C4.544872,11.236552 3.339388,10.756612 2.292256,9.709492 C1.245376,8.662384 0.76,7.457104 0.76,5.995564 Z M6,3.5 L4.54285715,5.28846154 L3,4.57692308 L3.23571429,7.53846153 L3.3,8.5 L8.67857143,8.5 L8.74285714,7.53846153 L9,4.57692308 L7.45714285,5.28846154 L6,3.5 Z" id="形状" fill="#3BB012" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

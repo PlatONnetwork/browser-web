@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="foot-index" v-if="path=='/'">
-            <img class="foot-logo" src="../../assets/images/logo-PlatON.png" alt="">
+            <img class="foot-logo" src="../../assets/images/logo-PlatON.svg" alt="">
             <p>{{$t('indexInfo.platScan')}}</p>
             <p>{{$t('indexInfo.international')}}</p>
             <div class="link-wrap">
@@ -46,7 +46,7 @@
         </div>
         <div class="foot-no-index foot-index" v-if="path!='/'">
             <div class="foot-left">
-                <img class="foot-logo" src="../../assets/images/logo-PlatON.png" alt="">
+                <img class="foot-logo" src="../../assets/images/logo-PlatON.svg" alt="">
                 <p>{{$t('indexInfo.platScan')}}</p>
             </div>
             <div class="foot-right">
@@ -190,7 +190,7 @@
                 margin-right: 6px;
                 width: 50px;
                 height: 50px;
-                background: url(../../assets/images/footer-link-init.png);
+                background: url(../../assets/images/footer-link-init.svg);
                 background-position-y: 0;
                 &.link-1{
                     background-position-x: 0;
@@ -235,7 +235,7 @@
                     background-position-x: -449px;
                 }
                 &:hover{
-                    background-image: url(../../assets/images/footer-link-active.png);
+                    background-image: url(../../assets/images/footer-link-active.svg);
                 }
             }
         }

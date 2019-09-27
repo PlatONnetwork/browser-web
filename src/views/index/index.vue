@@ -38,9 +38,9 @@
           :disabled="disabledBtn"
         >{{ $t("search.searchBtn") }}</el-button>
       </div>
-      <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron.png" />
-      <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron2.png" />
-      <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.png" />
+      <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron3.svg" />
+      <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron3.svg" />
+      <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron.svg" />
     </div>
     <el-row type="flex" class="bar-wrap">
       <el-col :span="12" class="bar-left bar">
@@ -91,7 +91,7 @@
             ></el-progress>
           </li>
         </ul>
-        <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron2.png" />
+        <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron3.svg" />
       </el-col>
       <el-col :span="12" class="bar-right bar">
         <h3>{{$t('indexInfo.LIVEBLOCKTRANSACTIONS')}}</h3>
@@ -214,7 +214,7 @@
                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
-              <img src="../../assets/images/avtor-black.png" v-else />
+              <img src="../../assets/images/avtor-black.svg" v-else />
             </li>
             <li
               class="cursor"
@@ -238,7 +238,7 @@
                 <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
-              <img src="../../assets/images/avtor-black.png" v-else />
+              <img src="../../assets/images/avtor-black.svg" v-else />
             </li>
           </ul>
         </div>
@@ -859,7 +859,7 @@ export default {
     padding-left: 71px;
     &.blocks-ul {
       // margin-right: 106px;
-      background: url(../../assets/images/block.png) repeat-y;
+      background: url(../../assets/images/block.svg) repeat-y;
       background-position-y: -15px;
       &.blocks-ul-new {
         position: absolute;

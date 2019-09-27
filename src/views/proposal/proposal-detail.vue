@@ -533,7 +533,7 @@ export default {
   color: #999999;
   letter-spacing: 0;
   i {
-    background: url(../../assets/images/icon-link.png) no-repeat;
+    background: url(../../assets/images/icon-link.svg) no-repeat;
     display: inline-block;
     width: 14px;
     height: 14px;

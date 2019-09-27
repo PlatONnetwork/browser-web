@@ -92,11 +92,11 @@
                 <div slot="content">
                   <span class="title-warning">{{ $t("nodeInfo.officialRecommendation") }}</span>
                 </div>
-                <img src="../../assets/images/icon-remark.png" class="icon-remark cursor" />
+                <img src="../../assets/images/icon-remark.svg" class="icon-remark cursor" />
               </el-tooltip>
               <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
               <img
-                src="../../assets/images/node-avtor-small.png"
+                src="../../assets/images/node-avtor.svg"
                 class="node-avtor"
                 v-if="!scope.row.stakingIcon"
                 alt
