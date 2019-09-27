@@ -104,32 +104,45 @@
                 class="cursor normal ellipsis percent60 fontSize15"
                 @click="goDetail(scope.row.nodeId)"
               >{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
-              <el-tooltip class="item" effect="dark" placement="bottom" v-if='scope.row.isInit'>
+              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isInit">
                 <!-- v-if='scope.row.isInit' -->
                 <div slot="content">
                   <span class="title-warning">{{ $t("nodeInfo.nodeMsg") }}</span>
                 </div>
                 <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
-                <i class="el-icon-info cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"></i>
+                <i
+                  class="el-icon-info cursor"
+                  style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"
+                ></i>
               </el-tooltip>
             </div>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.status')">
           <template slot-scope="scope">
-            <span class="Gilroy-Bold"
+            <span
+              class="Gilroy-Bold"
               :class="{green:scope.row.status==2,yellow:(scope.row.status==3 || scope.row.status==4),red:scope.row.status==1,}"
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="130">
+        <el-table-column
+          :label="$t('nodeInfo.totalStakePower')"
+          v-if="type!='history'"
+          min-width="130"
+        >
           <template slot-scope="scope">
             <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'">
           <template slot-scope="scope">
-            <span>{{scope.row.delegateValue | formatMoney}} LAT\<span class="Gilroy-Medium">{{scope.row.delegateQty | formatNumber}}</span></span>
+            <span>
+              {{scope.row.delegateValue | formatMoney}} LAT\
+              <span
+                class="Gilroy-Medium"
+              >{{scope.row.delegateQty | formatNumber}}</span>
+            </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
@@ -189,6 +202,7 @@
 <script>
 import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import API from "@/config/API-config";
 
 export default {
   name: "Validator",
@@ -201,7 +215,8 @@ export default {
       pageTotal: 1,
       keyword: "",
       queryStatus: "all",
-      timer: null
+      timer: null,
+      websocket: null
     };
   },
   props: {
@@ -251,6 +266,30 @@ export default {
           this.$message.error(error);
         });
     },
+    //从websocket获取数据
+    getListBywebsocket(d) {
+      let url = API.WS_CONFIG.serverWebsocket.toLowerCase();
+      if (url.indexOf("https") != -1) {
+        url = url.replace("https", "wss");
+      } else if (url.indexOf("http") != -1) {
+        url = url.replace("http", "ws");
+      }
+      if ("WebSocket" in window) {
+        this.websocket = new WebSocket(url + d);
+        this.websocket.onerror = function(e) {
+          console.log("websocket.onerror", e);
+        };
+        this.websocket.onopen = function(e) {};
+        this.websocket.onmessage = e => {
+          let data = JSON.parse(e.data);
+          if (data.code == 0) {
+            this.tableData = data.data;
+          }
+        };
+      } else {
+        alert("当前浏览器 Not support websocket");
+      }
+    },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getList();
@@ -280,21 +319,41 @@ export default {
       this.$router.push({
         path: "/history-node"
       });
+    },
+    //
+    guid() {
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+        c
+      ) {
+        var r = (Math.random() * 16) | 0,
+          v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
     }
   },
   //生命周期函数
   created() {
     this.getList();
+    // if (this.type != "history") {
+    //   this.timer = setInterval(() => {
+    //     // console.log(222)
+    //     this.getList();
+    //   }, 5000);
+    // }
+  },
+  mounted() {
     if (this.type != "history") {
-      this.timer = setInterval(() => {
-        // console.log(222)
-        this.getList();
-      }, 5000);
+      let param = this.guid();
+      param += "," + this.currentPage;
+      param += "," + this.pageSize;
+      param += "," + this.queryStatus;
+      param += "," + this.keyword;
+      this.getListBywebsocket(param);
     }
   },
-  mounted() {},
   destroyed() {
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
+    this.websocket.close();
   }
 };
 </script>
