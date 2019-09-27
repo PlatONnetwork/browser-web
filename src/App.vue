@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :class="lang=='en'?'page-en':'page-zh'">
         <com-header></com-header>
         <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/'}">
             <router-view></router-view>
@@ -20,6 +20,11 @@ export default {
     data () {
         return {
             isRouterAlive: true
+        }
+    },
+    computed:{
+        lang(){
+            return this.$i18n.locale=='en'?'en':'zh';
         }
     },
     provide () {

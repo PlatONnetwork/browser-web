@@ -187,17 +187,17 @@
             padding-top: 10px;
             border-top: 1px dashed #555;
             a{
-                margin-right: 20px;
-                width: 36px;
+                margin-right: 6px;
+                width: 50px;
                 height: 50px;
                 background: url(../../assets/images/footer-link-init.png);
                 background-position-y: 0;
                 &.link-1{
-                    background-position-x: -7px;
+                    background-position-x: 0;
                 }
                 &.link-2{
                     position: relative;                
-                    background-position-x: -57px;
+                    background-position-x: -50px;
                     &:hover .wx-img{
                         display: block;
                     }
@@ -206,33 +206,33 @@
                         width: 100px;
                         height: 100px;
                         bottom: 48px;
-                        left: -31px;
+                        left: -26px;
                         display: none;                        
                     }
                 }
                 &.link-3{
-                    background-position-x: -107px;
+                    background-position-x: -100px;
                 }
                 &.link-4{
-                    background-position-x: -157px;
+                    background-position-x: -150px;
                 }
                 &.link-5{
-                    background-position-x: -207px;
+                    background-position-x: -200px;
                 }
                 &.link-6{
-                    background-position-x: -257px;
+                    background-position-x: -250px;
                 }
                 &.link-7{
-                    background-position-x: -307px;
+                    background-position-x: -300px;
                 }
                 &.link-8{
-                    background-position-x: -357px;
+                    background-position-x: -350px;
                 }
                 &.link-9{
-                    background-position-x: -407px;
+                    background-position-x: -400px;
                 }
                 &.link-10{
-                    background-position-x: -456px;
+                    background-position-x: -449px;
                 }
                 &:hover{
                     background-image: url(../../assets/images/footer-link-active.png);
