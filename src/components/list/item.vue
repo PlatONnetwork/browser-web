@@ -82,4 +82,16 @@
         }
     }
 </style>
-
+<style lang="less">
+    .extra-data.list-item{
+        margin-bottom: 10px;
+        p{
+            width: 474px;
+            min-height: 86px;
+            border: 1px solid #F5F5F5;
+            word-break: break-all;
+            border-radius: 1px;
+            padding: 6px;
+        }
+    }
+</style>

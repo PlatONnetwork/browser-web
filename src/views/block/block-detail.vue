@@ -47,7 +47,7 @@
           <p>{{detailInfo.gasUsed | formatNumber}}&nbsp;({{detailInfo.gasUsed | percentage(detailInfo.gasLimit)}}%)</p>
         </Item>
         <Item :label="$t('blockAbout.blockReward')" :prop="detailInfo.blockReward + 'LAT'"></Item>
-        <Item :label="$t('blockAbout.extraData')" :prop="detailInfo.extraData"></Item>
+        <Item class="extra-data" :label="$t('blockAbout.extraData')" :prop="detailInfo.extraData"></Item>
       </List>
     </div>
     <div class="block-trade">

@@ -1001,6 +1001,8 @@ export default {
     }
     .el-searchs.el-button--primary {
       background: #6e6e6e;
+      margin-right: -1px;
+      border-left: none;
       color: #000;
       &:hover {
         color: #666;

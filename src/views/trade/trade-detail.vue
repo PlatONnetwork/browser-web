@@ -317,10 +317,14 @@
           <!-- 身份认证ID(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.identity')">
             <a
+              v-if="detailInfo.externalId"
               class="cursor normal ellipsis"
               :href="detailInfo.externalUrl"
               target="_blank"
-            >{{detailInfo.externalId || ""}}</a>
+            >{{detailInfo.externalId}}</a>
+            <a
+              v-else
+            >Null</a>
           </Item>
           <!-- 奖励账户(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.rewardAddress')">
@@ -425,8 +429,8 @@
         <!-- 燃料价格 -->
         <Item :label="$t('tradeAbout.gasPrice')">{{detailInfo.gasPrice| formatMoney}} LAT</Item>
         <!-- 交易数据 -->
-        <Item :label="$t('tradeAbout.rawData')">
-          <div class="rawData">{{detailInfo.txInfo}}</div>
+        <Item class="extra-data" :label="$t('tradeAbout.rawData')" :prop="detailInfo.txInfo">
+          <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
         </Item>
       </List>
     </div>
@@ -690,16 +694,19 @@ export default {
   height: 19px;
 }
 .rawData {
-  width: 474px;
-  background-color: #f5f5f5;
-  min-height: 86px;
-  padding: 3px;
-  word-break: break-all;
+  // width: 474px;
+  // background-color: #f5f5f5;
+  // min-height: 86px;
+  // padding: 3px;
+  // word-break: break-all;
 }
 </style>
 <style lang="less">
 .trade-detail-wrap {
   padding-bottom: 35px;
+  .extra-data{
+    margin-bottom: 15px;
+  }
   .item-wrap {
     padding-left: 50px;
   }
