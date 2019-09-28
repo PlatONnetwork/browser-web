@@ -4,7 +4,7 @@
     <div class="sub-title">
       <div class="fontSize14 trade-count">
         {{$t('blockAbout.morethen')}}
-        <b class="Gilroy-Medium">{{displayTotalCount}}</b>
+        <b class="Gilroy-Medium black">{{displayTotalCount}}</b>
         {{$t('blockAbout.blocks')}}
       </div>
       <div class="pagination-box1">

@@ -123,7 +123,7 @@
                   >({{$t('nodeStatus.'+[detailInfo.status])}})</span>
                 </p>
               </li>
-              <li v-if="detailInfo.status!=4 || detailInfo.status!=5">
+              <li v-if="detailInfo.status!=4 && detailInfo.status!=5">
                 <label class="Gilroy-Medium">{{$t('deleget.acceptDelegations')}}：</label>
                 <p>
                   <!-- {{detailInfo.delegateValue | formatMoney}} -->
@@ -138,7 +138,7 @@
                 </p>
               </li>
               <li v-else>
-                <label class="Gilroy-Medium">{{$t('deleget.Delegating')}}：</label>
+                <label class="Gilroy-Medium">{{detailInfo.delegateValue>0?$t('deleget.Delegating'):$t('deleget.acceptDelegations')}}：</label>
                 <p>
                   <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
                   <span

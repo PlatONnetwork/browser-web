@@ -212,8 +212,32 @@
           <Item :label="$t('tradeAbout.proposalTitle')">
             <span
               class="cursor normal ellipsis"
+              v-if="detailInfo.proposalTitle"
               @click="goProposalDetail(detailInfo.proposalHash)"
             >{{detailInfo.proposalTitle}}</span>
+            <span
+              class="cursor normal ellipsis"
+              @click="goProposalDetail(detailInfo.proposalHash)"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==1"
+            >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
+            <span 
+              class="cursor normal ellipsis"
+              @click="goProposalDetail(detailInfo.proposalHash)"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==2"
+            >
+              {{$t('tradeAbout.versionUp')}}-V
+              <span style="font-size:16px;">{{detailInfo.proposalNewVersion}}</span>
+            </span>
+            <span
+              class="cursor normal ellipsis"
+              @click="goProposalDetail(detailInfo.proposalHash)"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==4"
+            >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
+            <span
+              class="cursor normal ellipsis"
+              @click="goProposalDetail(detailInfo.proposalHash)"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==3"
+            >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
           </Item>
         </template>
 
@@ -296,7 +320,7 @@
               class="cursor normal ellipsis"
               :href="detailInfo.externalUrl"
               target="_blank"
-            >{{detailInfo.externalId || "Null"}}</a>
+            >{{detailInfo.externalId || ""}}</a>
           </Item>
           <!-- 奖励账户(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.rewardAddress')">

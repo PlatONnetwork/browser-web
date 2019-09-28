@@ -227,7 +227,7 @@ export default {
         delegations: 'Delegations',
         delegators: 'Delegators',
         acceptDelegations: 'Delegations',
-        Delegating: 'Delegations',
+        Delegating: 'Pending Delegations',
     },
     blockAbout: {
         morethen: 'Total ',

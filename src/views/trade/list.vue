@@ -4,7 +4,7 @@
     <div class="sub-title">
       <div class="fontSize14 trade-count">
         {{$t('tradeAbout.morethen')}}>
-        <b>{{pageTotal}}</b>
+        <b class="black">{{pageTotal}}</b>
         {{$t('tradeAbout.foundTransactions')}}
         <span
           v-if="pageTotal>500000"

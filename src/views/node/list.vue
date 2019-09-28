@@ -80,7 +80,7 @@
           width="80"
           :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
         ></el-table-column>
-        <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')">
+        <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')" min-width="180">
           <template slot-scope="scope">
             <div class="flex-special validator-name">
               <el-tooltip
@@ -119,7 +119,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')"  width="120">
+        <el-table-column :label="$t('tradeAbout.status')" min-width="100">
           <template slot-scope="scope">
             <span
               class="Gilroy-Bold"
@@ -127,12 +127,12 @@
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'">
+        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="240">
           <template slot-scope="scope">
             <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'">
+        <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'" min-width="240">
           <template slot-scope="scope">
             <span>
               {{scope.row.delegateValue | formatMoney}} LAT\
@@ -142,12 +142,12 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
+        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'" min-width="220">
           <template slot-scope="scope">
             <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell"  width="120">
+        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell" min-width="100"> 
           <template slot-scope="scope">
             <div class="node-stability">
               <div style="margin-right:10px;" class="self-tooltip">
@@ -163,18 +163,18 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.producedBlock')"  width="120">
+        <el-table-column :label="$t('nodeInfo.producedBlock')" min-width="100">
           <template slot-scope="scope">
             <span>{{scope.row.blockQty | formatNumber}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'" width="120">
+        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'">
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" width="220">
+        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" min-width="220">
           <template slot-scope="scope">
             <span>{{scope.row.leaveTime | formatTime}}</span>
           </template>
@@ -266,11 +266,19 @@ export default {
     //从websocket获取数据
     getListBywebsocket(d) {
       let url = API.WS_CONFIG.serverWebsocket.toLowerCase();
-      if (url.indexOf("https") != -1) {
-        url = url.replace("https", "wss");
-      } else if (url.indexOf("http") != -1) {
-        url = url.replace("http", "ws");
+      const origin =  window.location.origin;
+      if(origin.indexOf('localhost')!=-1){
+        url = (API.BASE + url).replace("http", "ws");
+      }else{
+        if (origin.indexOf("https") != -1) {
+          // url = url.replace("https", "wss");
+          url = origin.replace("https", "wss")+url;
+        } else if (origin.indexOf("http") != -1) {
+          // url = url.replace("http", "ws");
+          url = origin.replace("http", "ws")+url;
+        }
       }
+      
       if ("WebSocket" in window) {
         this.websocket = new WebSocket(url + d);
         this.websocket.onerror = function(e) {
@@ -280,6 +288,7 @@ export default {
         this.websocket.onmessage = e => {
           let data = JSON.parse(e.data);
           if (data.code == 0) {
+            console.log('nodeList',data.data)
             this.tableData = data.data;
           }
         };
