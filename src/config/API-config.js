@@ -67,6 +67,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
 
         stakingStatistic: `/topic/staking/statistic/new`,
         stakingChange: `/topic/staking/change/new`,
+
+        serverWebsocket:`${TOTAL}browser-server/websocket/`,
     };
 export default {
   TOTAL,

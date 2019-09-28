@@ -14,7 +14,7 @@
           <template slot-scope="scope">
             <span style="font-weight:bold;">
               <!-- <i class="el-icon-time"></i> -->
-              <img class='iconlink' src="@/assets/images/icon-link.png" />
+              <img class='iconlink' src="@/assets/images/icon-link.svg" />
               <!-- {{scope.row.url}} -->
               <a :href="scope.row.url" class="blue" target="_blank">{{scope.row.pipNum}}</a>
             </span>

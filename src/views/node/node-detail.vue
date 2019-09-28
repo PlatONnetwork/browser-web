@@ -5,7 +5,7 @@
       <div class="node-header">
         <div class="node-header-left">
           <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-          <img src="../../assets/images/node-avtor.png" v-if="!detailInfo.stakingIcon" />
+          <img src="../../assets/images/node-avtor.svg" v-if="!detailInfo.stakingIcon" />
           <div class="node-name-wrap">
             <div class="node-name">
               <b>{{detailInfo.nodeName}}</b>
@@ -58,12 +58,20 @@
             <p class="Gilroy-Medium">{{detailInfo.blockQty | formatNumber}}</p>
           </Item>
           <Item class="item-even" :label="$t('nodeInfo.yield')">
-            <p
-              class="Gilroy-Medium"
-            >{{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}}</p>
+            <p v-if="detailInfo.expectedIncome">
+              <!-- {{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}} -->
+              <span class="Gilroy-Medium">{{detailInfo.expectedIncome}}</span>
+              <span class="fontSize13">%</span>
+            </p>
+            <p v-else>--</p>
           </Item>
           <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
-            <p class="Gilroy-Medium">{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>
+            <p>
+              <span
+                class="Gilroy-Medium"
+              >{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}</span>
+              <span class="fontSize13">%</span>
+            </p>
           </Item>
           <Item class="item-even" :label="$t('nodeInfo.stability')">
             <div class="stability-wrap">
@@ -192,7 +200,12 @@
                 v-clipboard:copy="detailInfo.nodeId"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              ><p v-show="isCopy" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
+              >
+                <p v-show="isCopy" style="width:100%;">
+                  <i class="el-icon-circle-check-outline"></i>
+                  <span>{{copyText}}</span>
+                </p>
+              </b>
             </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
               <span
@@ -205,7 +218,12 @@
                 v-clipboard:copy="detailInfo.stakingAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              ><p v-show="isCopy2" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText2}}</span></p></b>
+              >
+                <p v-show="isCopy2" style="width:100%;">
+                  <i class="el-icon-circle-check-outline"></i>
+                  <span>{{copyText2}}</span>
+                </p>
+              </b>
             </Item>
             <Item :label="$t('tradeAbout.rewardAddress')">
               <span
@@ -219,7 +237,12 @@
                 v-clipboard:copy="detailInfo.denefitAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
-              ><p v-show="isCopy3" style="width:100%;"><i class="el-icon-circle-check-outline"></i><span>{{copyText3}}</span></p></b>
+              >
+                <p v-show="isCopy3" style="width:100%;">
+                  <i class="el-icon-circle-check-outline"></i>
+                  <span>{{copyText3}}</span>
+                </p>
+              </b>
             </Item>
             <Item :label="$t('tradeAbout.website')">
               <a
@@ -693,7 +716,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.contract-detail-wrap{
+.contract-detail-wrap {
   padding-bottom: 1px;
 }
 .contractCreator {
@@ -710,11 +733,11 @@ export default {
   line-height: 26px;
   padding: 7px 10px;
 }
-.page-zh{
-  .vote-status{
+.page-zh {
+  .vote-status {
     font-weight: bold;
   }
-} 
+}
 .yellow-status {
   background: rgba(255, 192, 23, 0.15);
 }
@@ -781,10 +804,10 @@ export default {
   .node-statistic-left {
     width: 48%;
     margin-right: 6%;
-    .item-odd{
+    .item-odd {
       width: 42%;
     }
-    .item-even{
+    .item-even {
       width: 58%;
     }
   }
@@ -810,7 +833,6 @@ export default {
     position: absolute;
     right: 0;
     top: -8px;
-    background: #FBFBFC;
     font-family: Gilroy-Medium;
   }
   b {

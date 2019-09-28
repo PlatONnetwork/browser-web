@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>头像 白底 大</title>
+    <desc>Created with Sketch.</desc>
+    <g id="头像-白底-大" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(1.000000, 1.000000)">
+            <circle id="椭圆形" stroke="#D5D5D5" stroke-width="0.7" cx="29" cy="29" r="29"></circle>
+            <g id="分组-8" transform="translate(9.280000, 5.800000)" stroke-linejoin="round">
+                <polygon id="路径-7" stroke="#B2B2B2" points="1.42108547e-14 11.7313208 39.7771934 11.7535476 19.8885967 46.3314513"></polygon>
+                <polygon id="路径-6" stroke="#000000" points="19.8795342 -2.84217094e-14 0 11.6521839 0 34.7237264 19.8795342 46.3078356 39.7771934 34.7237264 39.7771934 11.6521839 19.8795342 -2.84217094e-14 0 34.7237264 39.7771934 34.7237264"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

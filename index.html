@@ -17,61 +17,73 @@
     <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
     <!-- <script src="./static/js/element-ui.js"></script> -->
     <style type="text/css">
-       #ie-popup{
-           background: #000;
-           width: 100%;
-           height: 100%;
-           position: absolute;
-           top: 0;
-           left: 0;
-           z-index: 99999;
-           display: none;
-           padding: 0 5.2%;
-       }
-       html, body {
+        #ie-popup {
+            background: #000;
+            width: 100%;
             height: 100%;
-            width: 100%;           
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99999;
+            display: none;
+            padding: 0 5.2%;
         }
-        .ie-logo{
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .ie-logo {
             margin-top: 21px;
             position: relative;
         }
-        .ie-icon1{
+
+        .ie-icon1 {
             padding-right: 4px;
             float: left;
         }
-        .ie-icon2{
+
+        .ie-icon2 {
             padding-top: 6px;
             padding-bottom: 2px;
         }
-        .ie-logo p{
+
+        .ie-logo p {
             font-family: ArialMT;
             font-size: 12px;
             color: #b3b3b3;
         }
-        .browser-version{
-            margin-top: 150px;   
-            text-align: center;         
+
+        .browser-version {
+            margin-top: 150px;
+            text-align: center;
         }
-        .browser-version h3{
+
+        .browser-version h3 {
             font-size: 30px;
             color: #FFFFFF;
         }
-        .browser-version p{
-            margin:100px 0 66px;
+
+        .browser-version p {
+            margin: 100px 0 66px;
             font-size: 20px;
             color: #FFFFFF;
         }
-        .browser-version img{
+
+        .browser-version img {
             width: 110px;
             height: 110px;
             display: inline-block;
             border: none;
         }
-        .browser-version .browser-chrome{
+
+        .browser-version .browser-chrome {
             margin-right: 115px;
         }
-        .ie-foot{
+
+        .ie-foot {
             text-align: center;
             padding: 40px 0 21px;
             width: 90%;
@@ -80,44 +92,53 @@
             bottom: 0;
             left: 5%;
         }
-        .ie-foot .ie-foot-logo{
+
+        .ie-foot .ie-foot-logo {
             margin: 0 auto;
         }
-        .ie-foot .ie-intro{
+
+        .ie-foot .ie-intro {
             font-size: 14px;
             color: #999999;
             margin: 20px 0;
         }
-        .ie-foot .ie-copy-right{
+
+        .ie-foot .ie-copy-right {
             font-size: 12px;
             color: #777777;
             margin-bottom: 25px;
         }
-        .ie-foot .ie-link-wrap{
+
+        .ie-foot .ie-link-wrap {
             width: 50%;
             margin: 0 auto;
             padding-top: 10px;
             border-top: 1px dashed #555;
         }
-        .ie-foot .ie-link-wrap a{
+
+        .ie-foot .ie-link-wrap a {
             display: inline-block;
             margin-right: 17px;
             width: 36px;
             height: 50px;
-            background: url(./static/images/footer-link-init.png) no-repeat;
+            background: url(./static/images/footer-link-init.svg) no-repeat;
             background-position-y: 0;
         }
-        .ie-foot .ie-link-wrap a.link-1{
+
+        .ie-foot .ie-link-wrap a.link-1 {
             background-position-x: -7px;
         }
-        .ie-foot .ie-link-wrap a.link-2{
-            position: relative;                
+
+        .ie-foot .ie-link-wrap a.link-2 {
+            position: relative;
             background-position-x: -57px;
         }
-        .ie-foot .ie-link-wrap a.link-2:hover .wx-img{
+
+        .ie-foot .ie-link-wrap a.link-2:hover .wx-img {
             display: block;
         }
-        .ie-foot .ie-link-wrap a.link-2 .wx-img{
+
+        .ie-foot .ie-link-wrap a.link-2 .wx-img {
             position: absolute;
             width: 100px;
             height: 100px;
@@ -126,37 +147,49 @@
             display: none;
             border: none;
         }
-        .ie-foot .ie-link-wrap a.link-3{
+
+        .ie-foot .ie-link-wrap a.link-3 {
             background-position-x: -107px;
         }
-        .ie-foot .ie-link-wrap a.link-4{
+
+        .ie-foot .ie-link-wrap a.link-4 {
             background-position-x: -157px;
         }
-        .ie-foot .ie-link-wrap a.link-5{
+
+        .ie-foot .ie-link-wrap a.link-5 {
             background-position-x: -207px;
         }
-        .ie-foot .ie-link-wrap a.link-6{
+
+        .ie-foot .ie-link-wrap a.link-6 {
             background-position-x: -257px;
         }
-        .ie-foot .ie-link-wrap a.link-7{
+
+        .ie-foot .ie-link-wrap a.link-7 {
             background-position-x: -307px;
         }
-        .ie-foot .ie-link-wrap a.link-8{
+
+        .ie-foot .ie-link-wrap a.link-8 {
             background-position-x: -357px;
         }
-        .ie-foot .ie-link-wrap a.link-9{
+
+        .ie-foot .ie-link-wrap a.link-9 {
             background-position-x: -407px;
         }
-        .ie-foot .ie-link-wrap a.link-10{
+
+        .ie-foot .ie-link-wrap a.link-10 {
             background-position-x: -456px;
         }
-        .ie-foot .ie-link-wrap a:hover{
-            background-image: url(./static/images/footer-link-active.png);
+
+        .ie-foot .ie-link-wrap a:hover {
+            background-image: url(./static/images/footer-link-active.svg);
         }
-        .ie-en,.ie-zh{
+
+        .ie-en,
+        .ie-zh {
             display: none;
         }
-        .ie-menu{
+
+        .ie-menu {
             position: absolute;
             right: 0;
             bottom: -20px;
@@ -165,18 +198,21 @@
             color: #fff;
             padding-bottom: 20px;
         }
-        .ie-menu span{
+
+        .ie-menu span {
             padding-right: 18px;
-            background: url(./static/images/icon-down.png) right center no-repeat;
+            background: url(./static/images/icon-down.svg) right center no-repeat;
         }
-        .ie-menu:hover span{
-            background: url(./static/images/icon-up.png) right center no-repeat;
+
+        .ie-menu:hover span {
+            background: url(./static/images/icon-up.svg) right center no-repeat;
         }
-        .ie-menu:hover ul{
+
+        .ie-menu:hover ul {
             display: block;
         }
 
-        .ie-menu ul{
+        .ie-menu ul {
             position: absolute;
             top: 26px;
             left: 6px;
@@ -188,10 +224,12 @@
             text-align: center;
             display: none;
         }
-        .ie-menu ul:hover{
+
+        .ie-menu ul:hover {
             display: block;
         }
-        .ie-menu ul li{
+
+        .ie-menu ul li {
             list-style: none;
             line-height: 36px;
             padding: 0 20px;
@@ -202,7 +240,8 @@
             outline: none;
             background-color: #fff;
         }
-        .ie-menu ul li:hover{
+
+        .ie-menu ul li:hover {
             color: #0798DE;
             background: #EAEAEA;
         }
@@ -217,8 +256,8 @@
     <div id="ie-popup">
         <div class="ie-header">
             <div class="ie-logo">
-                <img class="ie-icon1" src='./static/images/herder-logo-a.png'/>
-                <img class="ie-icon2" src='./static/images/herder-logo-b.png'/>
+                <img class="ie-icon1" src='./static/images/herder-logo-a.svg' />
+                <img class="ie-icon2" src='./static/images/herder-logo-b.svg' />
                 <p>The PlatON Block Explorer</p>
                 <div class="ie-menu">
                     <span id="menu-text">简体中文</span>
@@ -229,22 +268,24 @@
                 </div>
             </div>
             <div class="browser-version">
-                <h3 class="ie-en" id="ie-en-1">The version of the browser you are using is too low to view and use this website.</h3>
+                <h3 class="ie-en" id="ie-en-1">The version of the browser you are using is too low to view and use this
+                    website.</h3>
                 <p class="ie-en" id="ie-en-2">It is recommended to use the following browsers to access:</p>
                 <h3 class="ie-zh" id="ie-zh-1">您使用的浏览器版本太低，无法查看和使用此网站。</h3>
                 <p class="ie-zh" id="ie-zh-2">建议使用以下浏览器访问：</p>
                 <div class="browser-img">
                     <a href="https://www.google.cn/chrome/" target="_blank">
-                        <img class="browser-chrome" src='./static/images/Chrome.png'/>
+                        <img class="browser-chrome" src='./static/images/Chrome.svg' />
                     </a>
                     <a href="https://www.firefox.com.cn/" target="_blank">
-                        <img src='./static/images/firefox.png'/>
-                    </a> 
+                        <img src='./static/images/firefox.svg' />
+                    </a>
                 </div>
             </div>
             <div class="ie-foot">
-                <img class="ie-foot-logo" src="./static/images/logo-PlatON.png" alt="">
-                <p class="ie-intro ie-en" id="ie-en-3">PlatScan is a Block Explorer and Analytics Platform for PlatON</p>
+                <img class="ie-foot-logo" src="./static/images/logo-PlatON.svg" alt="">
+                <p class="ie-intro ie-en" id="ie-en-3">PlatScan is a Block Explorer and Analytics Platform for PlatON
+                </p>
                 <p class="ie-intro ie-zh" id="ie-zh-3">PlatScan是PlatON区块链资源管理与分析平台</p>
                 <p class="ie-copy-right">COPYRIGHT © 2018 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED.</p>
                 <div class="ie-link-wrap">
@@ -269,19 +310,19 @@
     var userAgent = navigator.userAgent;
     var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
     // var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
-    if(isIE){
-        var ieBody =  document.getElementsByTagName('body'),
-        language = (navigator.language || window.navigator['browserLanguage']).toLowerCase(),
-        ieEn1 = document.getElementById('ie-en-1'),
-        ieEn2 = document.getElementById('ie-en-2'),
-        ieEn3 = document.getElementById('ie-en-3'),
-        ieZh1 = document.getElementById('ie-zh-1'),
-        ieZh2 = document.getElementById('ie-zh-2'),
-        ieZh3 = document.getElementById('ie-zh-3'),
-        menuUl = document.getElementById('menu-ul'),
-        metu = document.getElementById('menu-text');
-        function platonChangeLang(lang){
-            if(lang=='en'){
+    if (isIE) {
+        var ieBody = document.getElementsByTagName('body'),
+            language = (navigator.language || window.navigator['browserLanguage']).toLowerCase(),
+            ieEn1 = document.getElementById('ie-en-1'),
+            ieEn2 = document.getElementById('ie-en-2'),
+            ieEn3 = document.getElementById('ie-en-3'),
+            ieZh1 = document.getElementById('ie-zh-1'),
+            ieZh2 = document.getElementById('ie-zh-2'),
+            ieZh3 = document.getElementById('ie-zh-3'),
+            menuUl = document.getElementById('menu-ul'),
+            metu = document.getElementById('menu-text');
+        function platonChangeLang(lang) {
+            if (lang == 'en') {
                 ieEn1.style.display = 'block';
                 ieEn2.style.display = 'block';
                 ieEn3.style.display = 'block';
@@ -289,7 +330,7 @@
                 ieZh1.style.display = 'none';
                 ieZh2.style.display = 'none';
                 ieZh3.style.display = 'none';
-            }else{
+            } else {
                 ieZh1.style.display = 'block';
                 ieZh2.style.display = 'block';
                 ieZh3.style.display = 'block';
@@ -300,12 +341,12 @@
             }
             // menuUl.style.display = 'none';
         }
-        if(language=='en'){
+        if (language == 'en') {
             ieEn1.style.display = 'block';
             ieEn2.style.display = 'block';
             ieEn3.style.display = 'block';
             metu.innerHTML = 'English';
-        }else{
+        } else {
             ieZh1.style.display = 'block';
             ieZh2.style.display = 'block';
             ieZh3.style.display = 'block';
