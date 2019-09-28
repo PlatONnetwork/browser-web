@@ -1,7 +1,7 @@
 <template>
     <div id="app" :class="lang=='en'?'page-en':'page-zh'">
         <com-header></com-header>
-        <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/'}">
+        <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/','gray-area':$route.path=='/address-detail' || $route.path=='/node' || $route.path=='/node-detail'}">
             <router-view></router-view>
         </div>
         <com-footer></com-footer>

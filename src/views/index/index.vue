@@ -1049,5 +1049,10 @@ export default {
     color: #fff;
   }
 }
+@media only screen and (max-height:768px){
+  .index-wrap .welcome-wrap{
+    margin: 100px auto !important;
+  }
+}
 </style>
 

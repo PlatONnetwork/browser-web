@@ -6,7 +6,7 @@
         <div id='message'></div>
          <remote-js1></remote-js1>
         <remote-js src="https://www.google.com/recaptcha/api.js" ></remote-js>
-        <!-- <remote-js src="//recaptcha.net/recaptcha/api.js" ></remote-js> -->
+        <!-- <remote-js src="https://www.recaptcha.net/recaptcha/api.js" ></remote-js> -->
     </div>
 </template>
 <script lang='ts'>

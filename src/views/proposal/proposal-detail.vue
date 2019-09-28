@@ -177,9 +177,7 @@
             class="desc"
             style="margin:53px 0px 10px 0px;"
           >{{$t('tradeAbout.propasalDescription')}}:</div>
-          <div
-            class="Gilroy-Medium fontSize18"
-          >{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
+          <div class="fontSize15">{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
         </div>
       </el-col>
     </el-row>

@@ -21,8 +21,8 @@
                     </el-date-picker>          
                     <span class="tip">{{$t('download.today')}}</span>               
             </el-form>
-            <!-- <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>{{$t('download.download')}}</el-button> -->
-            <el-button type="primary" class="el-btn el-download" @click='downloadFn'>{{$t('download.download')}}</el-button>
+            <el-button type="primary" class="el-btn el-download" @click='downloadFn' :disabled='disabledBtn'>{{$t('download.download')}}</el-button>
+            <!-- <el-button type="primary" class="el-btn el-download" @click='downloadFn'>{{$t('download.download')}}</el-button> -->
             <p class="most-downloads">{{$t('download.mostDownloads')}}</p>
         </div>
     </div>
@@ -81,7 +81,7 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                if(true){
+                if(this.response){
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{

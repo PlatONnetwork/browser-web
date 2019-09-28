@@ -1,60 +1,62 @@
 <template>
     <div class="contract-detail-wrap">
-        <div class="page-title fontSize34">{{$t('contract.addressDetail')}}</div> 
-        <div class="detail-change">
-            <div class="detail-copy">
-                <span>{{$t('contract.address')}}</span>
-                <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
-                <a class="code cursor">
-                    <qriously
-                        class="qr-code"
-                        v-if="address"
-                        :value="address"
-                        :size="140"
-                    />
-                </a>
+        <div class="content-top-white contract-detail-top content-padding">
+           <div class="page-title fontSize34">{{$t('contract.addressDetail')}}</div> 
+            <div class="detail-change">
+                <div class="detail-copy">
+                    <span>{{$t('contract.address')}}</span>
+                    <i>#{{address}}</i>
+                    <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
+                    <a class="code cursor">
+                        <qriously
+                            class="qr-code"
+                            v-if="address"
+                            :value="address"
+                            :size="140"
+                        />
+                    </a>
+                </div>
             </div>
+            <el-row class="overview-wrap" type="flex" justify="space-between">
+                <el-col :span="11">
+                    <div class="overview">
+                        <h3 class="Gilroy-Medium">{{$t('contract.overview')}}</h3>
+                        <ul>
+                            <li>
+                                <label class="Gilroy-Medium">{{$t('contract.balance')}}</label> 
+                                <div>
+                                    <span class="money">{{detailInfo.balance | formatMoney}}&nbsp;LAT</span>
+                                    <div v-if="detailInfo.isRestricting">
+                                        <span class="restricted">{{detailInfo.restrictingBalance | formatMoney}}&nbsp;LAT (<a class="blue cursor" @click="goRestricte">{{$t('contract.restricted')}}</a>)</span>
+                                    </div>                               
+                                </div>   
+                            </li>
+                            <li>
+                                <label class="Gilroy-Medium">{{$t('contract.transactions')}}</label> 
+                                <div class="money">{{detailInfo.txQty | formatNumber}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </el-col>
+                <div style="width:100px;flex-shrink:0"></div>
+                <el-col :span="11">
+                    <div class="others overview">
+                        <h3 class="Gilroy-Medium">{{$t('contract.others')}}</h3>
+                        <ul>
+                            <li>
+                                <label class="Gilroy-Medium">{{$t('contract.delegations')}}/{{$t('contract.staking')}}</label> 
+                                <div class="money">{{((detailInfo.stakingValue-0) + (detailInfo.delegateValue-0)) | formatMoney}}&nbsp;LAT</div>   
+                            </li>
+                            <li>
+                                <label class="Gilroy-Medium">{{$t('contract.inRedemption')}}</label> 
+                                <div class="money">{{detailInfo.redeemedValue | formatMoney}}&nbsp;LAT</div> 
+                            </li>
+                        </ul>
+                    </div>
+                </el-col>
+            </el-row>     
         </div>
-        <el-row class="overview-wrap" type="flex" justify="space-between">
-            <el-col :span="11">
-                <div class="overview">
-                    <h3 class="Gilroy-Medium">{{$t('contract.overview')}}</h3>
-                    <ul>
-                        <li>
-                            <label class="Gilroy-Medium">{{$t('contract.balance')}}</label> 
-                            <div>
-                                <span class="money">{{detailInfo.balance | formatMoney}}&nbsp;LAT</span>
-                                <div v-if="detailInfo.isRestricting">
-                                    <span class="restricted">{{detailInfo.restrictingBalance | formatMoney}}&nbsp;LAT (<a class="blue cursor" @click="goRestricte">{{$t('contract.restricted')}}</a>)</span>
-                                </div>                               
-                            </div>   
-                        </li>
-                        <li>
-                            <label class="Gilroy-Medium">{{$t('contract.transactions')}}</label> 
-                            <div class="money">{{detailInfo.txQty | formatNumber}}</div>
-                        </li>
-                    </ul>
-                </div>
-            </el-col>
-            <div style="width:100px;flex-shrink:0"></div>
-            <el-col :span="11">
-                <div class="others overview">
-                    <h3 class="Gilroy-Medium">{{$t('contract.others')}}</h3>
-                    <ul>
-                        <li>
-                            <label class="Gilroy-Medium">{{$t('contract.delegations')}}/{{$t('contract.staking')}}</label> 
-                            <div class="money">{{((detailInfo.stakingValue-0) + (detailInfo.delegateValue-0)) | formatMoney}}&nbsp;LAT</div>   
-                        </li>
-                        <li>
-                            <label class="Gilroy-Medium">{{$t('contract.inRedemption')}}</label> 
-                            <div class="money">{{detailInfo.redeemedValue | formatMoney}}&nbsp;LAT</div> 
-                        </li>
-                    </ul>
-                </div>
-            </el-col>
-        </el-row>
-        <div class="address-trade">
+        <div class="address-trade gray-content content-padding">
             <div class="tabs">
                 <el-button size="medium" :class="{active:tabIndex==1}" @click="tabChange(1)">{{$t('contract.transactions')}}</el-button>
                 <el-button size="medium" :class="{active:tabIndex==2}" @click="tabChange(2)">{{$t('contract.delegations')}}</el-button>
@@ -84,7 +86,7 @@
                     </li>
                 </ul>
             </div> 
-            <div class="table" v-show="tabIndex==2">
+            <div class="table gray-table" v-show="tabIndex==2">
                 <el-table :data="tableData" style="width: 100%" key='firstTable' size="mini">
                     <el-table-column :label="$t('nodeInfo.validator')">
                         <template slot-scope="scope">
@@ -312,5 +314,9 @@
         }
     }
 }
+.contract-detail-top{
+    padding-bottom: 30px;
+}
 </style>
+
 

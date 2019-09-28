@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="gray-content content-padding">
     <el-row v-if="type!='history'">
       <el-col :span="18" class="validators-tab">
         <div class="tabs">
@@ -366,6 +366,7 @@ export default {
   .el-input--mini .el-input__inner {
     height: 40px;
     line-height: 40px;
+    background: #fff;
   }
 }
 .node-table .el-table {

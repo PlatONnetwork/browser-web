@@ -1,160 +1,162 @@
 <template>
   <div class="contract-detail-wrap">
-    <div class="page-title fontSize34">{{$t('nodeInfo.validatorDetail')}}</div>
-    <div class="node-header">
-      <div class="node-header-left">
-        <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-        <img src="../../assets/images/node-avtor.png" v-if="!detailInfo.stakingIcon" />
-        <div class="node-name-wrap">
-          <div class="node-name">
-            <b>{{detailInfo.nodeName}}</b>
-            <!-- <span>(aaa)</span> -->
-            <i></i>
+    <div class="content-top-white content-padding">
+      <div class="page-title fontSize34">{{$t('nodeInfo.validatorDetail')}}</div>
+      <div class="node-header">
+        <div class="node-header-left">
+          <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
+          <img src="../../assets/images/node-avtor.png" v-if="!detailInfo.stakingIcon" />
+          <div class="node-name-wrap">
+            <div class="node-name">
+              <b>{{detailInfo.nodeName}}</b>
+              <!-- <span>(aaa)</span> -->
+              <i></i>
+            </div>
+            <p
+              v-if="!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5"
+            >{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime | formatTime}}</p>
+            <p
+              v-if="detailInfo.status==4 || detailInfo.status==5"
+            >{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime | formatTime}}</p>
+            <p v-if="detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5">
+              <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
+              <span>{{$t('nodeInfo.nodeMsg')}}</span>
+            </p>
           </div>
-          <p
-            v-if="!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5"
-          >{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime | formatTime}}</p>
-          <p
-            v-if="detailInfo.status==4 || detailInfo.status==5"
-          >{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime | formatTime}}</p>
-          <p v-if="detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5">
-            <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
-            <span>{{$t('nodeInfo.nodeMsg')}}</span>
-          </p>
+        </div>
+        <div class="node-header-right">
+          <span
+            class="green vote-status"
+            v-if="detailInfo.status==2"
+          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
+          <span
+            class="yellow vote-status yellow-status"
+            v-else-if="detailInfo.status==3 || detailInfo.status==4"
+          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
+          <span
+            class="red vote-status red-status"
+            v-else-if="detailInfo.status==1"
+          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
         </div>
       </div>
-      <div class="node-header-right">
-        <span
-          class="green vote-status"
-          v-if="detailInfo.status==2"
-        >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
-        <span
-          class="yellow vote-status yellow-status"
-          v-else-if="detailInfo.status==3 || detailInfo.status==4"
-        >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
-        <span
-          class="red vote-status red-status"
-          v-else-if="detailInfo.status==1"
-        >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
-      </div>
-    </div>
-    <div class="node-statistic">
-      <List class="node-statistic-left" :inline="true">
-        <Item class="item-odd" :label="$t('nodeInfo.electedRoundValidator')">
-          <p class="Gilroy-Medium">{{detailInfo.verifierTime}}</p>
-        </Item>
-        <Item class="item-even" :label="$t('nodeInfo.totalReward')">
-          <p>
-            <!-- {{detailInfo.rewardValue | formatMoney}} -->
-            <span
-              class="Gilroy-Medium black fontSize18"
-            >{{detailInfo.rewardValue | formatMoney |sliceFloat(0)}}</span>
-            <span class="black fontSize13">{{detailInfo.rewardValue | formatMoney |sliceFloat(1)}}</span>
-            <span class="fontSize13">&nbsp;LAT</span>
-          </p>
-        </Item>
-        <Item class="item-odd" :label="$t('nodeInfo.blocks')">
-          <p class="Gilroy-Medium">{{detailInfo.blockQty | formatNumber}}</p>
-        </Item>
-        <Item class="item-even" :label="$t('nodeInfo.yield')">
-          <p
-            class="Gilroy-Medium"
-          >{{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}}</p>
-        </Item>
-        <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
-          <p class="Gilroy-Medium">{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>
-        </Item>
-        <Item class="item-even" :label="$t('nodeInfo.stability')">
-          <div class="stability-wrap">
-            <div style="margin-right:10px;" class="self-tooltip">
-              <i class="icon-low-block cursor"></i>
-              <span>{{detailInfo.slashLowQty}}</span>
-              <p class="Gilroy-Medium">{{$t('nodeInfo.lowBlockRate')}}</p>
-            </div>
-            <div class="self-tooltip self-tooltip-sign">
-              <i class="icon-two-sign cursor"></i>
-              <span>{{detailInfo.slashMultiQty}}</span>
-              <p class="Gilroy-Medium">{{$t('nodeInfo.twoSignNum')}}</p>
-            </div>
-          </div>
-        </Item>
-      </List>
-      <div class="node-statistic-right">
-        <div class="canvas">
-          <canvas id="canvas" width="88" height="88"></canvas>
-          <div class="imgRatio">{{imgRatio}}%</div>
-        </div>
-        <div class="statistic-right-data">
-          <Item :label="$t('nodeInfo.totalStakePower')">
-            <p class="statistic-total-stake">
-              <!-- {{detailInfo.totalValue | formatMoney}} -->
+      <div class="node-statistic">
+        <List class="node-statistic-left" :inline="true">
+          <Item class="item-odd" :label="$t('nodeInfo.electedRoundValidator')">
+            <p class="Gilroy-Medium">{{detailInfo.verifierTime}}</p>
+          </Item>
+          <Item class="item-even" :label="$t('nodeInfo.totalReward')">
+            <p>
+              <!-- {{detailInfo.rewardValue | formatMoney}} -->
               <span
                 class="Gilroy-Medium black fontSize18"
-              >{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
-              <span class="black fontSize13">{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
+              >{{detailInfo.rewardValue | formatMoney |sliceFloat(0)}}</span>
+              <span class="black fontSize13">{{detailInfo.rewardValue | formatMoney |sliceFloat(1)}}</span>
               <span class="fontSize13">&nbsp;LAT</span>
             </p>
           </Item>
-          <ul>
-            <li>
-              <label class="Gilroy-Medium">{{$t('nodeInfo.selfstake')}}：</label>
-              <p>
-                <!-- {{detailInfo.stakingValue | formatMoney}} -->
+          <Item class="item-odd" :label="$t('nodeInfo.blocks')">
+            <p class="Gilroy-Medium">{{detailInfo.blockQty | formatNumber}}</p>
+          </Item>
+          <Item class="item-even" :label="$t('nodeInfo.yield')">
+            <p
+              class="Gilroy-Medium"
+            >{{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}}</p>
+          </Item>
+          <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
+            <p class="Gilroy-Medium">{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}%</p>
+          </Item>
+          <Item class="item-even" :label="$t('nodeInfo.stability')">
+            <div class="stability-wrap">
+              <div style="margin-right:10px;" class="self-tooltip">
+                <i class="icon-low-block cursor"></i>
+                <span>{{detailInfo.slashLowQty}}</span>
+                <p class="Gilroy-Medium">{{$t('nodeInfo.lowBlockRate')}}</p>
+              </div>
+              <div class="self-tooltip self-tooltip-sign">
+                <i class="icon-two-sign cursor"></i>
+                <span>{{detailInfo.slashMultiQty}}</span>
+                <p class="Gilroy-Medium">{{$t('nodeInfo.twoSignNum')}}</p>
+              </div>
+            </div>
+          </Item>
+        </List>
+        <div class="node-statistic-right">
+          <div class="canvas">
+            <canvas id="canvas" width="88" height="88"></canvas>
+            <div class="imgRatio">{{imgRatio}}%</div>
+          </div>
+          <div class="statistic-right-data">
+            <Item :label="$t('nodeInfo.totalStakePower')">
+              <p class="statistic-total-stake">
+                <!-- {{detailInfo.totalValue | formatMoney}} -->
                 <span
                   class="Gilroy-Medium black fontSize18"
-                  style="font-size: 18px;"
-                >{{detailInfo.stakingValue | formatMoney |sliceFloat(0)}}</span>
-                <span
-                  class="black fontSize13"
-                >{{detailInfo.stakingValue | formatMoney |sliceFloat(1)}}</span>
+                >{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
+                <span class="black fontSize13">{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
                 <span class="fontSize13">&nbsp;LAT</span>
-                <span
-                  class="yellow"
-                  v-if="detailInfo.status==4"
-                >({{$t('nodeStatus.'+[detailInfo.status])}})</span>
               </p>
-            </li>
-            <li v-if="detailInfo.status!=4 || detailInfo.status!=5">
-              <label class="Gilroy-Medium">{{$t('deleget.acceptDelegations')}}：</label>
-              <p>
-                <!-- {{detailInfo.delegateValue | formatMoney}} -->
-                <span
-                  class="Gilroy-Medium black fontSize18"
-                  style="font-size: 18px;"
-                >{{detailInfo.delegateValue | formatMoney |sliceFloat(0)}}</span>
-                <span
-                  class="black fontSize13"
-                >{{detailInfo.delegateValue | formatMoney |sliceFloat(1)}}</span>
-                <span class="fontSize13 lat-mini">&nbsp;LAT</span>
-              </p>
-            </li>
-            <li v-else>
-              <label class="Gilroy-Medium">{{$t('deleget.Delegating')}}：</label>
-              <p>
-                <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
-                <span
-                  class="Gilroy-Medium"
-                  style="font-size: 18px;"
-                >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(0)}}</span>
-                <span
-                  class="black fontSize13"
-                >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(1)}}</span>
-                <span class="fontSize13 lat-mini">&nbsp;LAT</span>
-                <span
-                  class="yellow"
-                  v-if="detailInfo.statDelegateReduction>0"
-                >({{$t('deleget.undelegating2')}})</span>
-              </p>
-            </li>
-            <li>
-              <label class="Gilroy-Medium">{{$t('deleget.delegators')}}：</label>
-              <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
-            </li>
-          </ul>
+            </Item>
+            <ul>
+              <li>
+                <label class="Gilroy-Medium">{{$t('nodeInfo.selfstake')}}：</label>
+                <p>
+                  <!-- {{detailInfo.stakingValue | formatMoney}} -->
+                  <span
+                    class="Gilroy-Medium black fontSize18"
+                    style="font-size: 18px;"
+                  >{{detailInfo.stakingValue | formatMoney |sliceFloat(0)}}</span>
+                  <span
+                    class="black fontSize13"
+                  >{{detailInfo.stakingValue | formatMoney |sliceFloat(1)}}</span>
+                  <span class="fontSize13">&nbsp;LAT</span>
+                  <span
+                    class="yellow"
+                    v-if="detailInfo.status==4"
+                  >({{$t('nodeStatus.'+[detailInfo.status])}})</span>
+                </p>
+              </li>
+              <li v-if="detailInfo.status!=4 || detailInfo.status!=5">
+                <label class="Gilroy-Medium">{{$t('deleget.acceptDelegations')}}：</label>
+                <p>
+                  <!-- {{detailInfo.delegateValue | formatMoney}} -->
+                  <span
+                    class="Gilroy-Medium black fontSize18"
+                    style="font-size: 18px;"
+                  >{{detailInfo.delegateValue | formatMoney |sliceFloat(0)}}</span>
+                  <span
+                    class="black fontSize13"
+                  >{{detailInfo.delegateValue | formatMoney |sliceFloat(1)}}</span>
+                  <span class="fontSize13 lat-mini">&nbsp;LAT</span>
+                </p>
+              </li>
+              <li v-else>
+                <label class="Gilroy-Medium">{{$t('deleget.Delegating')}}：</label>
+                <p>
+                  <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
+                  <span
+                    class="Gilroy-Medium"
+                    style="font-size: 18px;"
+                  >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(0)}}</span>
+                  <span
+                    class="black fontSize13"
+                  >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(1)}}</span>
+                  <span class="fontSize13 lat-mini">&nbsp;LAT</span>
+                  <span
+                    class="yellow"
+                    v-if="detailInfo.statDelegateReduction>0"
+                  >({{$t('deleget.undelegating2')}})</span>
+                </p>
+              </li>
+              <li>
+                <label class="Gilroy-Medium">{{$t('deleget.delegators')}}：</label>
+                <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class>
+    <div class="content-padding">
       <div class="tabs">
         <el-button
           size="medium"
@@ -775,7 +777,7 @@ export default {
 }
 .node-statistic {
   display: flex;
-  margin: 36px 0 40px;
+  margin: 36px 0 20px;
   .node-statistic-left {
     width: 48%;
     margin-right: 6%;
@@ -808,6 +810,7 @@ export default {
     position: absolute;
     right: 0;
     top: -8px;
+    background: #FBFBFC;
     font-family: Gilroy-Medium;
   }
   b {

@@ -1,80 +1,82 @@
 <template>
   <div class="node-list-wrap">
-    <div class="page-title fontSize34">{{$t('menu.validator')}}</div>
-    <div class="node-list-header">
-      <List class="statistic-info">
-        <h3 class="Gilroy-Medium">{{$t('nodeInfo.liveStakingInfo')}}</h3>
-        <Item :label="$t('nodeInfo.totalStakePower')">
-          <p class="Gilroy-Medium">
-            {{ValidatorStatisticData.stakingDelegationValue | unit}}
-            <span class="fontSize13">LAT</span>
-          </p>
-        </Item>
-        <Item :label="$t('nodeInfo.totalDelegations')">
-          <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">LAT</span></p> -->
-          <p>
-            <span
+    <div class="content-top-white content-padding">
+      <div class="page-title fontSize34">{{$t('menu.validator')}}</div>
+      <div class="node-list-header">
+        <List class="statistic-info">
+          <h3 class="Gilroy-Medium">{{$t('nodeInfo.liveStakingInfo')}}</h3>
+          <Item :label="$t('nodeInfo.totalStakePower')">
+            <p class="Gilroy-Medium">
+              {{ValidatorStatisticData.stakingDelegationValue | unit}}
+              <span class="fontSize13">LAT</span>
+            </p>
+          </Item>
+          <Item :label="$t('nodeInfo.totalDelegations')">
+            <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">LAT</span></p> -->
+            <p>
+              <span
+                class="Gilroy-Medium"
+              >{{ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue | formatMoney |sliceFloat(0)}}</span>
+              <span
+                style="font-size: 13px;"
+              >{{ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue | formatMoney |sliceFloat(1)}}</span>
+              <span class="fontSize13">&nbsp;LAT</span>
+            </p>
+          </Item>
+          <Item :label="$t('nodeInfo.stakeRate')">
+            <p
               class="Gilroy-Medium"
-            >{{ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue | formatMoney |sliceFloat(0)}}</span>
-            <span
-              style="font-size: 13px;"
-            >{{ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue | formatMoney |sliceFloat(1)}}</span>
-            <span class="fontSize13">&nbsp;LAT</span>
-          </p>
-        </Item>
-        <Item :label="$t('nodeInfo.stakeRate')">
-          <p
-            class="Gilroy-Medium"
-          >{{ValidatorStatisticData.stakingDelegationValue | percentage(ValidatorStatisticData.issueValue)}}%</p>
-        </Item>
-      </List>
-      <List class="statistic-info">
-        <h3 class="Gilroy-Medium">{{$t('nodeInfo.currentPeriodReward')}}</h3>
-        <Item :label="$t('blockAbout.blockReward')">
-          <!-- <p>
-            {{ValidatorStatisticData.blockReward | formatMoney}}
-            <span class="fontSize13">LAT</span>
-          </p>-->
-          <p>
-            <span
-              class="Gilroy-Medium"
-            >{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(0)}}</span>
-            <span
-              style="font-size: 13px;"
-            >{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(1)}}</span>
-            <span class="fontSize13">&nbsp;LAT</span>
-          </p>
-        </Item>
-        <Item :label="$t('nodeInfo.stakingReward')">
-          <!-- <p>
-            {{ValidatorStatisticData.stakingReward | formatMoney}}
-            <span class="fontSize13">LAT</span>
-          </p>-->
-          <p>
-            <span
-              class="Gilroy-Medium"
-            >{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(0)}}</span>
-            <span
-              style="font-size: 13px;"
-            >{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(1)}}</span>
-            <span class="fontSize13">&nbsp;LAT</span>
-          </p>
-        </Item>
-        <Item :label="$t('nodeInfo.nextRewardAdjustment')">
-          <div class="next-reward-adjustment">
-            <span :style="{width:getPercentage+'%'}"></span>
-            <span></span>
-            <p>{{$t('tradeAbout.block')}}&nbsp;{{getPercentage}}% of {{ValidatorStatisticData.addIssueEnd-ValidatorStatisticData.addIssueBegin}}</p>
-          </div>
-        </Item>
-      </List>
-      <div class="next-epoch">
-        <h3 class="Gilroy-Medium">{{$t('nodeInfo.nextEpoch')}}</h3>
-        <p>{{$t('nodeInfo.updateEpoch')}}</p>
-        <ul>
-          <li v-for="(item,index) in nextSetting" :key="index">{{item}}</li>
-        </ul>
-      </div>
+            >{{ValidatorStatisticData.stakingDelegationValue | percentage(ValidatorStatisticData.issueValue)}}%</p>
+          </Item>
+        </List>
+        <List class="statistic-info">
+          <h3 class="Gilroy-Medium">{{$t('nodeInfo.currentPeriodReward')}}</h3>
+          <Item :label="$t('blockAbout.blockReward')">
+            <!-- <p>
+              {{ValidatorStatisticData.blockReward | formatMoney}}
+              <span class="fontSize13">LAT</span>
+            </p>-->
+            <p>
+              <span
+                class="Gilroy-Medium"
+              >{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(0)}}</span>
+              <span
+                style="font-size: 13px;"
+              >{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(1)}}</span>
+              <span class="fontSize13">&nbsp;LAT</span>
+            </p>
+          </Item>
+          <Item :label="$t('nodeInfo.stakingReward')">
+            <!-- <p>
+              {{ValidatorStatisticData.stakingReward | formatMoney}}
+              <span class="fontSize13">LAT</span>
+            </p>-->
+            <p>
+              <span
+                class="Gilroy-Medium"
+              >{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(0)}}</span>
+              <span
+                style="font-size: 13px;"
+              >{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(1)}}</span>
+              <span class="fontSize13">&nbsp;LAT</span>
+            </p>
+          </Item>
+          <Item :label="$t('nodeInfo.nextRewardAdjustment')">
+            <div class="next-reward-adjustment">
+              <span :style="{width:getPercentage+'%'}"></span>
+              <span></span>
+              <p>{{$t('tradeAbout.block')}}&nbsp;{{getPercentage}}% of {{ValidatorStatisticData.addIssueEnd-ValidatorStatisticData.addIssueBegin}}</p>
+            </div>
+          </Item>
+        </List>
+        <div class="next-epoch">
+          <h3 class="Gilroy-Medium">{{$t('nodeInfo.nextEpoch')}}</h3>
+          <p>{{$t('nodeInfo.updateEpoch')}}</p>
+          <ul>
+            <li v-for="(item,index) in nextSetting" :key="index">{{item}}</li>
+          </ul>
+        </div>
+      </div> 
     </div>
     <Validator></Validator>
   </div>
@@ -154,7 +156,7 @@ export default {
 <style lang="less" scoped>
 .node-list-header {
   margin-top: 23px;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   .item-wrap {

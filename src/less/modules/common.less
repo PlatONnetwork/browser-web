@@ -29,6 +29,28 @@ body{
     // padding-top:100px;
     padding-top:86px;
 }
+.content-area.gray-area{
+    padding-left: 0;
+    padding-right: 0;
+    background: #FBFBFC;
+    .content-top-white{
+        background: #fff;
+    }
+    .gray-content{       
+        padding-top: 20px;
+        background: #FBFBFC;
+    }
+    .content-padding{
+        padding-left: 5.2%;
+        padding-right: 5.2%;
+        @media screen and (max-width: 1200px) {
+            & {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+}
 @media screen and (min-height: 950px) {
     .content-area {
         min-height:900px;
@@ -331,7 +353,7 @@ body{
     border-left: 1px solid #fff;
 }
 .page-title{
-    margin-top: 25px;
+    padding-top: 25px;
     font-family: Gilroy-Medium;
 }
 
@@ -456,9 +478,9 @@ body{
         min-width: 60px;
         padding: 10px 10px;
         color: #666666;
-        background: #fff;
+        background: #FBFBFC;
         &:hover{
-            background: #fff !important;
+            background: #FBFBFC !important;
             color: #666;
             border: 1px solid #E6E6E6 !important;
         }
@@ -470,8 +492,8 @@ body{
     }
 }
 .address-trade{
-    // background: #FBFBFC;
-    margin-top: 50px;
+    background: #FBFBFC;
+    // margin-top: 50px;
     padding: 20px 0 0px;
 }
 .address-trade-last{
