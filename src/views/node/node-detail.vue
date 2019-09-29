@@ -100,7 +100,9 @@
                 <span
                   class="Gilroy-Medium black fontSize18"
                 >{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
-                <span class="black fontSize13">{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
+                <span
+                  class="black fontSize13"
+                >{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
                 <span class="fontSize13">&nbsp;LAT</span>
               </p>
             </Item>
@@ -138,7 +140,9 @@
                 </p>
               </li>
               <li v-else>
-                <label class="Gilroy-Medium">{{detailInfo.delegateValue>0?$t('deleget.Delegating'):$t('deleget.acceptDelegations')}}：</label>
+                <label
+                  class="Gilroy-Medium"
+                >{{detailInfo.delegateValue>0?$t('deleget.Delegating'):$t('deleget.acceptDelegations')}}：</label>
                 <p>
                   <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
                   <span
@@ -493,7 +497,9 @@ export default {
             this.detailInfo = data;
             const dag =
               this.detailInfo.delegateValue / this.detailInfo.totalValue;
-            this.imgRatio = (dag * 100).toFixed(2);
+            if (!isNaN(dag)) {
+              this.imgRatio=(dag*100).toFixed(2);
+            }
             this.getDelegetList();
             this.draw(dag);
           } else {
