@@ -218,12 +218,12 @@
             <span
               class="cursor normal ellipsis"
               @click="goProposalDetail(detailInfo.proposalHash)"
-              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==1"
-            >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2000'"
+            >{{$t('createType.'+[detailInfo.txType])}}-{{detailInfo.pipNum}}</span>
             <span 
               class="cursor normal ellipsis"
               @click="goProposalDetail(detailInfo.proposalHash)"
-              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==2"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2001'"
             >
               {{$t('tradeAbout.versionUp')}}-V
               <span style="font-size:16px;">{{detailInfo.proposalNewVersion}}</span>
@@ -231,12 +231,17 @@
             <span
               class="cursor normal ellipsis"
               @click="goProposalDetail(detailInfo.proposalHash)"
-              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==4"
-            >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2005'"
+            >{{$t('createType.'+[detailInfo.txType])}}-{{detailInfo.pipNum}}</span>
             <span
               class="cursor normal ellipsis"
               @click="goProposalDetail(detailInfo.proposalHash)"
-              v-else-if="!detailInfo.proposalTitle&&detailInfo.proposalOption==3"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2002'"
+            >{{$t('createType.'+[detailInfo.txType])}}-{{detailInfo.pipNum}}</span>
+            <span
+              class="cursor normal ellipsis"
+              @click="goProposalDetail(detailInfo.proposalHash)"
+              v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2003'"
             >{{$t('proposalOption.'+[detailInfo.proposalOption])}}-{{detailInfo.pipNum}}</span>
           </Item>
         </template>
