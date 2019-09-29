@@ -50,6 +50,8 @@ class Ws {
     timeSettimeout: number = null
     connectFlag: boolean = false
 
+    timer:any = null
+
     constructor() {
         this.connect()
     }
@@ -84,7 +86,15 @@ class Ws {
     }
     //主动断开连接
     disconnect(): void {
-        this.stompClient != null && this.stompClient.disconnect()
+        // 设置延时器避免页面切换太快，在视图摧毁的生命周期里，连接还没建立，执行disconnect方法无效
+        this.timer = setTimeout(() => {
+            console.log('connectFlag',this.connectFlag)
+            if(this.connectFlag){
+                this.stompClient != null && this.stompClient.disconnect();             
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+        }, 1500)    
     }
 
 }

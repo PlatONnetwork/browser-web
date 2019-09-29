@@ -653,11 +653,17 @@ export default {
   //生命周期函数
   created() {
     console.log("aaa", IndexService);
-    indexService = new IndexService();
+    // indexService = new IndexService();
     //当选验证节点
     this.getStaking();
     //区块
     this.getBlock();
+
+    indexService = new IndexService();
+    indexService.getChartData();
+    indexService.getStatisticData();
+    indexService.getValidatorData();
+    indexService.getBlockData();
   },
   mounted() {
     // console.log('aaaa',document.styleSheets);
@@ -667,11 +673,6 @@ export default {
     this.clientHeight =
       (document.documentElement.clientHeight || document.body.clientHeight) -
       100;
-
-    indexService.getChartData();
-    indexService.getStatisticData();
-    indexService.getValidatorData();
-    indexService.getBlockData();
 
     this.initBlockTimeChart();
     this.initBlockTradeChart();
@@ -704,7 +705,7 @@ export default {
     );
   },
   beforeDestroy() {
-    indexService.disconnect();
+    // indexService.disconnect();
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
     this.updateIsMove(false);
     if (this.ele) {
@@ -717,6 +718,7 @@ export default {
     //此事件并不一定百分百触发
     window.removeEventListener("scroll", this.scrollHandle);
     indexService.disconnect();
+    
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
     this.updateIsMove(false);
     if (this.ele) {

@@ -147,9 +147,10 @@ export default {
   //生命周期函数
   created() {
     indexService = new IndexService();
+    indexService.getValidatorStatisticData();
   },
   mounted() {
-    indexService.getValidatorStatisticData();
+    
   },
   destroyed() {
     indexService.disconnect();
