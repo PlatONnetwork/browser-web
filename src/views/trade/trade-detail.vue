@@ -11,7 +11,12 @@
           v-clipboard:copy="detailInfo.txHash"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        ><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
+        >
+          <p v-show="isCopy">
+            <i class="el-icon-circle-check-outline"></i>
+            <span>{{copyText}}</span>
+          </p>
+        </b>
       </div>
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
@@ -115,9 +120,11 @@
         <!-- 验证人 -->
         <Item :label="$t('tradeAbout.validator')">
           <span
+            v-if="detailInfo.nodeName"
             class="cursor normal ellipsis"
             @click="goNodeDetail(detailInfo.nodeId)"
           >{{detailInfo.nodeName}}</span>
+          <span v-else>Null</span>
         </Item>
         <!-- 委托数量 -->
         <Item v-if="detailInfo.txType=='1004'" :label="$t('tradeAbout.delegationAmount')">
@@ -164,9 +171,11 @@
           :label="$t('tradeAbout.'+(detailInfo.txType=='2000'||detailInfo.txType=='2001'||detailInfo.txType=='2002'?'proposer':'validator'))"
         >
           <span
+            v-if="detailInfo.nodeName"
             class="cursor normal ellipsis"
             @click="goNodeDetail(detailInfo.nodeId)"
           >{{detailInfo.nodeName}}</span>
+          <span v-else>Null</span>
         </Item>
         <!-- 验证人 -->
         <!-- <Item v-else :label="$t('tradeAbout.validator')">
@@ -220,13 +229,15 @@
               @click="goProposalDetail(detailInfo.proposalHash)"
               v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2000'"
             >{{$t('createType.'+[detailInfo.txType])}}-{{detailInfo.pipNum}}</span>
-            <span 
+            <span
               class="cursor normal ellipsis"
               @click="goProposalDetail(detailInfo.proposalHash)"
               v-else-if="!detailInfo.proposalTitle&&detailInfo.txType=='2001'"
             >
               {{$t('tradeAbout.versionUp')}}-V
-              <span style="font-size:16px;">{{detailInfo.proposalNewVersion}}</span>
+              <span
+                style="font-size:16px;"
+              >{{detailInfo.proposalNewVersion}}</span>
             </span>
             <span
               class="cursor normal ellipsis"
@@ -285,12 +296,18 @@
             v-if="detailInfo.txType!='3000'"
             class="cursor blue"
             @click="goNodeDetail(detailInfo.nodeId)"
-          >{{detailInfo.nodeName || "Null"}}</p>
+          >
+            <span v-if="detailInfo.nodeName">{{detailInfo.nodeName}}</span>
+            <span v-else>Null</span>
+          </p>
           <p
             v-else-if="detailInfo.txType=='3000'&&detailInfo.evidences.length"
             class="cursor blue"
             @click="goNodeDetail(detailInfo.evidences[0].verify)"
-          >{{detailInfo.evidences[0].nodeName || "Null"}}</p>
+          >
+            <span v-if="detailInfo.evidences[0].nodeName">{{detailInfo.evidences[0].nodeName}}</span>
+            <span v-else>Null</span>
+          </p>
         </Item>
         <!-- 举报类型，举报证据（举报验证人特有） -->
         <template v-if="detailInfo.txType=='3000'">
@@ -327,9 +344,7 @@
               :href="detailInfo.externalUrl"
               target="_blank"
             >{{detailInfo.externalId}}</a>
-            <a
-              v-else
-            >Null</a>
+            <a v-else>Null</a>
           </Item>
           <!-- 奖励账户(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.rewardAddress')">
@@ -409,7 +424,10 @@
             v-if="detailInfo.txReceiptStatus==1"
             class="status-icon-success Gilroy-Bold"
           >{{$t('tradeAbout.success')}}</span>
-          <span v-else-if="detailInfo.txReceiptStatus==0" class="pink Gilroy-Bold">{{$t('tradeAbout.fail')}}</span>
+          <span
+            v-else-if="detailInfo.txReceiptStatus==0"
+            class="pink Gilroy-Bold"
+          >{{$t('tradeAbout.fail')}}</span>
         </Item>
         <!-- 交易哈希 -->
         <Item :label="$t('tradeAbout.txhash')" :prop="detailInfo.txHash"></Item>
@@ -698,18 +716,12 @@ export default {
 .return-amount {
   height: 19px;
 }
-.rawData {
-  // width: 474px;
-  // background-color: #f5f5f5;
-  // min-height: 86px;
-  // padding: 3px;
-  // word-break: break-all;
-}
+
 </style>
 <style lang="less">
 .trade-detail-wrap {
   padding-bottom: 35px;
-  .extra-data{
+  .extra-data {
     margin-bottom: 15px;
   }
   .item-wrap {
