@@ -37,7 +37,7 @@
                 {{$t('tradeAbout.totalRestricted')}}
                 <span>{{detailInfo.totalValue | formatMoney}}&nbsp;LAT</span>
             </div>
-            <el-table :data="detailInfo.rpplan" style="width: 100%" key='firstTable' size="mini">
+            <el-table :data="detailInfo.rpPlans" style="width: 100%" key='firstTable' size="mini">
                 <!-- <el-table-column :label="$t('contract.epoch')">
                     <template slot-scope="scope">
                         <span>{{scope.row.blockNumber}}</span>

@@ -327,12 +327,25 @@
                   >{{$t('actionType.'+[scope.row.type])}}</p>
                   <p
                     class="percent80"
-                    v-else-if="scope.row.type==4"
-                  >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}</p>
-                  <p
+                    v-else-if="scope.row.type==4 || scope.row.type==5"
+                  >
+                    <template v-if="scope.row.title">
+                      <span >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}<span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span></span>           
+                    </template>  
+                    <template v-else>
+                      <template v-if="scope.row.option==2">
+                          {{$t('actionType.'+[scope.row.type])}}-{{$t('tradeAbout.versionUp')}}-V {{scope.row.version}}-{{scope.row.id}}    
+                      </template> 
+                       <template v-else>
+                          {{$t('actionType.'+[scope.row.type])}}-{{$t('proposalOption.'+[scope.row.option])}}-{{scope.row.id}}    
+                      </template>    
+                      <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>    
+                    </template> 
+                  </p>
+                  <!-- <p
                     class="percent80"
                     v-else-if="scope.row.type==5"
-                  >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>
+                  >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p> -->
                   <p
                     class="percent80"
                     v-else-if="scope.row.type==6"
