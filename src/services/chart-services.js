@@ -27,7 +27,7 @@ class ChartService {
                 axisPointer: {
                     type: 'line', // 默认为直线，可选为：'line' | 'shadow'
                     lineStyle : {          // 直线指示器样式设置
-                        width: 6,
+                        width: 0,
                         color: 'rgba(102,183,222,0.4)',
                         type: 'solid'
                     },
@@ -130,7 +130,7 @@ class ChartService {
                 axisPointer: {
                     type: 'line',
                     lineStyle : {          // 直线指示器样式设置
-                        width: 6,
+                        width: 0,
                         color: 'rgba(102,183,222,0.4)',
                         type: 'solid'
                     },

@@ -402,9 +402,9 @@
         <Item :label="$t('tradeAbout.status')">
           <span
             v-if="detailInfo.txReceiptStatus==1"
-            class="status-icon-success"
+            class="status-icon-success Gilroy-Medium"
           >{{$t('tradeAbout.success')}}</span>
-          <span v-else-if="detailInfo.txReceiptStatus==0" class="pink">{{$t('tradeAbout.fail')}}</span>
+          <span v-else-if="detailInfo.txReceiptStatus==0" class="pink Gilroy-Medium">{{$t('tradeAbout.fail')}}</span>
         </Item>
         <!-- 交易哈希 -->
         <Item :label="$t('tradeAbout.txhash')" :prop="detailInfo.txHash"></Item>

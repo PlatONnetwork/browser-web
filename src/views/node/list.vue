@@ -19,7 +19,7 @@
             @click="tabChange(3,'candidate')"
           >{{$t('nodeStatus.1')}}</el-button>
         </div>
-        <div class="validators-search">
+        <div class="validators-search node-validators-search">
           <el-input
             :placeholder="$t('nodeInfo.searchValidator')"
             clearable
@@ -357,9 +357,17 @@ export default {
       this.getListBywebsocket(param);
     }
   },
+  beforeDestroy(){
+    if(this.websocket){
+      this.websocket.close();
+      this.websocket = null;
+    }
+  },
   destroyed() {
     // clearInterval(this.timer);
-    this.websocket.close();
+    if(this.websocket){
+      this.websocket.close();
+    }
   }
 };
 </script>
@@ -396,7 +404,16 @@ export default {
       color: #0e52ac;
     }
   }
+  &.node-validators-search{
+    .el-searchs{
+      background: #FBFBFC;
+      &:hover {
+        background: #FBFBFC;
+      }
+    }   
+  }
 }
+
 
 .node-stability {
   display: flex;
@@ -431,6 +448,11 @@ export default {
     height: 40px;
     line-height: 40px;
     background: #fff;
+  }
+  &.node-validators-search{
+    .el-input--mini .el-input__inner {
+      background: #FBFBFC;
+    }   
   }
 }
 .node-table .el-table {

@@ -281,7 +281,15 @@ export default {
       styleEle: null,
       ele: null,
       chartMove: false,
-      clientHeight: 700
+      clientHeight: 700,
+      barColorList:[
+        '#fff','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
+      ],
     };
   },
   props: {},
@@ -446,24 +454,52 @@ export default {
           break;
       }
     },
+    handleBarHover(e){
+      this.barColorList.forEach((value,index)=>{
+        if(e.dataIndex==index){
+          this.barColorList[index] = '#66B7DE';
+        }else{
+          this.barColorList[index] = 'rgba(255,255,255,0.5)';
+        }
+      })
+      if(e.dataIndex!=0){
+        this.barColorList[0] = '#fff';
+      }
+      console.log('barColorList',this.barColorList)
+      this.updateBarColor();
+      indexService.unsubBlock();
+    },
+    handleBarMouseout(){
+      this.barColorList.forEach((value,index)=>{
+        if(index==0){
+          this.barColorList[index] = '#FFF';
+        }else{
+          this.barColorList[index] = 'rgba(255,255,255,0.5)';
+        }
+      })
+      this.updateBarColor();
+    },
     initBlockTimeChart() {
       let r = this.$refs;
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
       blockTimeChart.chart.on("mouseover", e => {
-        indexService.unsubBlock();
+        console.log('aaa',e)
+        this.handleBarHover(e);
       });
       blockTimeChart.chart.on("mouseout", () => {
         indexService.getChartData();
+        this.handleBarMouseout();
       });
     },
     initBlockTradeChart() {
       let r = this.$refs;
       blockTradeChart.init(r.blockTradeChart, blockTradeChart.blockTradeOption);
       blockTradeChart.chart.on("mouseover", e => {
-        indexService.unsubBlock();
+        this.handleBarHover(e);
       });
       blockTradeChart.chart.on("mouseout", () => {
         indexService.getChartData();
+        this.handleBarMouseout();
       });
     },
     updateChart(data) {
@@ -502,6 +538,36 @@ export default {
         series: [
           {
             data: yListNum
+          }
+        ]
+      });
+    },
+    updateBarColor(){
+      blockTimeChart.update({
+        series: [
+          {
+            itemStyle: {
+              normal: {
+                  //通过数组下标选择颜色
+                  color: (params)=> {
+                    return this.barColorList[params.dataIndex];
+                  },
+              }
+            }  
+          }
+        ]
+      });
+      blockTradeChart.update({
+        series: [
+          {
+            itemStyle: {
+              normal: {
+                  //通过数组下标选择颜色
+                  color: (params)=> {
+                    return this.barColorList[params.dataIndex];
+                  },
+              }
+            }  
           }
         ]
       });
@@ -796,6 +862,7 @@ export default {
   .polyhedron {
     position: absolute;
     top: -70px;
+    opacity: 0.5;
     animation: rotating 8s infinite linear;
     &.polyhedron-big {
       width: 180px;
@@ -824,6 +891,7 @@ export default {
       height: 50px;
       top: -26px;
       right: 10px;
+      opacity: 0.3;
     }
   }
 }

@@ -8,7 +8,7 @@
           <Item :label="$t('nodeInfo.totalStakePower')">
             <p class="Gilroy-Medium">
               {{ValidatorStatisticData.stakingDelegationValue | unit}}
-              <span class="fontSize13">LAT</span>
+              <span class="fontSize13 Gilroy-Regular">LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.totalDelegations')">
