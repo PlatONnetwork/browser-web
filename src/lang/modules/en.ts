@@ -34,6 +34,7 @@ export default {
         transactionUp: 'TRANSACTIONS',
         tradeDetail: 'TRANSACTION DETAILS',
         morethen: 'More Than',
+        morethen2: '',
         status: 'Status',
         txhash: 'Txhash',
         timeStamp: 'TimeStamp',

@@ -34,6 +34,7 @@ export default {
         transactionUp: '交易',
         tradeDetail: '交易详情',
         morethen: '总共寻获超过',
+        morethen2: '总共寻获',
         status: '状态',
         txhash: '交易哈希',
         timeStamp: '时间戳',
