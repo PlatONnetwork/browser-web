@@ -357,7 +357,7 @@
                   <p
                     class="percent80"
                     v-else-if="scope.row.type==7"
-                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押(${scope.row.amount} LAT)，移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-slashed ${scope.row.amount} LAT from self-stake, Remove the Validator List`}}</p>
+                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押(${scope.row.amount} LAT)，${scope.row.isFire==1?'移出验证节点列表':''}`:`${$t('actionType.'+[scope.row.type])}-slashed ${scope.row.amount} LAT from self-stake, ${scope.row.isFire==1?'Remove the Validator List':''}`}}</p>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')">
