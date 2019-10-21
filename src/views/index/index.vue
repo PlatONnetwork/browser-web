@@ -652,6 +652,7 @@ export default {
   },
   //生命周期函数
   created() {
+    this.updateIsMove(false);  //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
     console.log("aaa", IndexService);
     // indexService = new IndexService();
     //当选验证节点

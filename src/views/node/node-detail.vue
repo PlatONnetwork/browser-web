@@ -853,6 +853,7 @@ export default {
     right: 0;
     top: -8px;
     font-family: Gilroy-Medium;
+    background: #FBFBFC;
   }
   b {
     font-family: Gilroy-Medium;

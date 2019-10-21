@@ -228,12 +228,14 @@ export default {
       this.queryStatus = type;
       this.currentPage = 1;
       this.getList();
+      this.getListBywebsocket();
     },
     clearInput(value) {
       this.currentPage = 1;
       this.tabIndex = 1;
       this.queryStatus = "all";
       this.getList();
+      this.getListBywebsocket();
     },
     getList() {
       let param = {
@@ -264,9 +266,19 @@ export default {
         });
     },
     //从websocket获取数据
-    getListBywebsocket(d) {
+    getListBywebsocket() {
+      if(this.websocket){
+        this.websocket.close();
+      }
       let url = API.WS_CONFIG.serverWebsocket.toLowerCase();
       const origin =  window.location.origin;
+
+      let param = this.guid();
+      param += "," + this.currentPage;
+      param += "," + this.pageSize;
+      param += "," + this.queryStatus;
+      param += "," + this.keyword;
+
       if(origin.indexOf('localhost')!=-1){
         url = (API.BASE + url).replace("http", "ws");
       }else{
@@ -280,7 +292,7 @@ export default {
       }
       
       if ("WebSocket" in window) {
-        this.websocket = new WebSocket(url + d);
+        this.websocket = new WebSocket(url + param);
         this.websocket.onerror = function(e) {
           console.log("websocket.onerror", e);
         };
@@ -299,11 +311,13 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getList();
+      this.getListBywebsocket();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
       this.getList();
+      this.getListBywebsocket();
     },
     //查询
     searchFn() {
@@ -311,6 +325,7 @@ export default {
       this.tabIndex = 1;
       this.queryStatus = "all";
       this.getList();
+      this.getListBywebsocket();
     },
     //进入节点详情
     goDetail(nodeId) {
@@ -349,12 +364,7 @@ export default {
   },
   mounted() {
     if (this.type != "history") {
-      let param = this.guid();
-      param += "," + this.currentPage;
-      param += "," + this.pageSize;
-      param += "," + this.queryStatus;
-      param += "," + this.keyword;
-      this.getListBywebsocket(param);
+      this.getListBywebsocket();
     }
   },
   beforeDestroy(){
