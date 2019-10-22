@@ -42,80 +42,6 @@
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
         <el-table-column :label="$t('tradeAbout.hash')">
           <template slot-scope="scope">
-            <div class="flex-special">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.txReceiptStatus==0"
-              >
-                <div slot="content">
-                  <span class="title-warning"></span>
-                  {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
-                </div>
-                <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
-              </el-tooltip>
-              <p
-                class="cursor blue ellipsis percent60"
-                @click="goTradeDetail(scope.row.txHash)"
-              >&nbsp;{{scope.row.txHash}}</p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
-          <template slot-scope="scope">
-            <!-- <span
-              class="cursor blue ellipsis"
-              @click="goAddressDetail(scope.row.from)"
-            >{{scope.row.from}}</span> -->
-            <div class="flex-special">
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.from)"
-              >{{scope.row.from|sliceStr(14)}}</span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" v-if="type!='block'">
-          <template slot-scope="scope">
-            <span
-              class="cursor blue"
-              @click="goBlockDetail(scope.row.blockNumber)"
-            >{{scope.row.blockNumber}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.confirmTime')" v-if="type!='block'" width="300">
-          <template slot-scope="scope">
-            <span>{{scope.row.timestamp | formatTime}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.type')">
-          <template slot-scope="scope">
-            <span
-              :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}"
-              class="red Gilroy-Bold"
-            >{{$t('TxType.'+[scope.row.txType])}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.value')">
-          <template slot-scope="scope">
-            <span>{{scope.row.value | formatMoney}} LAT</span>
-          </template>
-        </el-table-column>
-        <el-table-column>
-          <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
-          <template slot="header">
-            {{$t('tradeAbout.fee')}}
-            <span style="color:#999999;">(LAT)</span>
-          </template>
-          <template slot-scope="scope">
-            {{scope.row.actualTxCost}}
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column :label="$t('tradeAbout.hash')">
-          <template slot-scope="scope">
             <!-- <div class="flex-special">
               <el-tooltip
                 class="item"
@@ -142,15 +68,11 @@
                 v-if="scope.row.txReceiptStatus==0"
               >
                 <div slot="content">
-                  <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
+                  <span class="title-warning"></span>
                   {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
                 </div>
-                <i class="iconfont iconxinxi cursor">&#xe63f;</i>
+                <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
-              <!-- <el-tooltip class="item" effect="dark" placement="top">
-                            <div slot="content">{{scope.row.txHash}}</div>
-                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-              </el-tooltip>-->
               <span
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
@@ -169,7 +91,7 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <span
-                class="cursor normal ellipsis"
+                class="cursor blue ellipsis"
                 @click="goAddressDetail(scope.row.from)"
               >{{scope.row.from|sliceStr(14)}}</span>
             </div>
@@ -276,7 +198,7 @@ export default {
         .then(res => {
           let { data, totalPages, totalCount, code, errMsg } = res;
           if (code == 0) {
-            this.tableData = {"errMsg":"","code":0,"totalCount":500000,"displayTotalCount":0,"totalPages":50000,"data":[{"txHash":"0x0055c192307447c9b2422e1c78c359d4f3a1ceb98023e84cb2bf113c57590579","from":"0x23d00a087cc428a57124f7a9a7339245f74ffd5c","to":"0xae84511a85a24ab46e3596b4299807f718955659","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0x113c5642222096232db285b9f6b98c9aea8442b2859877088da52af451f13c4b","from":"0x23d00a087cc428a57124f7a9a7339245f74ffd5c","to":"0xae84511a85a24ab46e3596b4299807f718955659","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0x3019a1f8b6ee36e3171ece8c4b2ace451d8cd1939be62d7d30077fbcfd7270e5","from":"0x23d00a087cc428a57124f7a9a7339245f74ffd5c","to":"0xae84511a85a24ab46e3596b4299807f718955659","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0xfc2141ab4003d3055e4261f907f9519f683bb370309993c187bfe0279737e38e","from":"0x40b4234fbf577213360641564dcd12e103bef787","to":"0x368d42cdcbb77721854fac465367a953b720b81d","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0xa09bc80b6414c8ef10e8b97874de4537deaf60f5243befdc6a6d88e250d33491","from":"0x40b4234fbf577213360641564dcd12e103bef787","to":"0x368d42cdcbb77721854fac465367a953b720b81d","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0x5879e8305b00ed24595b47d1f287d612d509711d9acfe3231b59a5610fc997f1","from":"0x40b4234fbf577213360641564dcd12e103bef787","to":"0x368d42cdcbb77721854fac465367a953b720b81d","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0xb684975bd0abf6644ef0dc984a7a283bc1252076e35f64f6de47a254be7fbe3a","from":"0x4de7df72920357eb3b200ffdb8c14c99a50cd35c","to":"0x2750950457b9ac0e91d027b6c7883372838c32a6","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0xae4d223358dd52739da5ad87778db6014675132dc8cfd7a26b9bbb723d0cf7fd","from":"0x4de7df72920357eb3b200ffdb8c14c99a50cd35c","to":"0x2750950457b9ac0e91d027b6c7883372838c32a6","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0x4bfadad11f89349440c5340dda82a69674a8c1766d74f7e45e7cbf4f64a1d7a6","from":"0x4de7df72920357eb3b200ffdb8c14c99a50cd35c","to":"0x2750950457b9ac0e91d027b6c7883372838c32a6","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1},{"txHash":"0x693e7282da0ce53d958ee0a8d80fcc9720ac437988085574b7d32bb215336165","from":"0x2750950457b9ac0e91d027b6c7883372838c32a6","to":"0x6f8572e378ec2f5ca43b62aff42e89356b8b3b2e","value":"0","actualTxCost":"0.010534","txType":"0","serverTime":1571735725162,"timestamp":1571679535267,"blockNumber":182050,"failReason":"","receiveType":"account","txReceiptStatus":1}]}.data;
+            this.tableData = data;
             this.pageTotal = totalCount;
             if (!this.tradeType) {
               this.tradeTotal = totalCount;
