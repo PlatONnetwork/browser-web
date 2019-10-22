@@ -55,10 +55,10 @@
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
-              <p
-                class="cursor blue ellipsis percent60"
+              <span
+                class="cursor blue ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
-              >&nbsp;{{scope.row.txHash}}</p>
+              >&nbsp;{{scope.row.txHash}}</span>
             </div>
           </template>
         </el-table-column>
