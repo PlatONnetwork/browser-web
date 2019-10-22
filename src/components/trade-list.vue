@@ -40,7 +40,7 @@
     </div>
     <div class="table">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column :label="$t('tradeAbout.hash')">
+        <el-table-column :label="$t('tradeAbout.hash')" width="300">
           <template slot-scope="scope">
             <div class="flex-special">
               <el-tooltip
@@ -55,14 +55,14 @@
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
-              <span
-                class="cursor blue ellipsis"
+              <p
+                class="cursor blue ellipsis percent60"
                 @click="goTradeDetail(scope.row.txHash)"
-              >&nbsp;{{scope.row.txHash}}</span>
+              >&nbsp;{{scope.row.txHash}}</p>
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
+        <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'" width="300">
           <template slot-scope="scope">
             <span
               class="cursor blue ellipsis"
@@ -97,7 +97,6 @@
           </template>
         </el-table-column>
         <el-table-column>
-          <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
           <template slot="header">
             {{$t('tradeAbout.fee')}}
             <span style="color:#999999;">(LAT)</span>

@@ -51,63 +51,6 @@
       </List>
     </div>
     <div class="block-trade">
-      <div class="table">
-      <el-table :data="aaa.data" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column :label="$t('tradeAbout.hash')">
-          <template slot-scope="scope">
-            <div class="flex-special">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.txReceiptStatus==0"
-              >
-                <div slot="content">
-                  <span class="title-warning"></span>
-                  {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
-                </div>
-                <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
-              </el-tooltip>
-              <p
-                class="cursor blue ellipsis percent60"
-                @click="goTradeDetail(scope.row.txHash)"
-              >&nbsp;{{scope.row.txHash}}</p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('blockAbout.operatorAddress')">
-          <template slot-scope="scope">
-            <span
-              class="cursor blue ellipsis"
-              @click="goAddressDetail(scope.row.from)"
-            >{{scope.row.from}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.type')">
-          <template slot-scope="scope">
-            <span
-              :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}"
-              class="red Gilroy-Bold"
-            >{{$t('TxType.'+[scope.row.txType])}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.value')">
-          <template slot-scope="scope">
-            <span>{{scope.row.value | formatMoney}} LAT</span>
-          </template>
-        </el-table-column>
-        <el-table-column>
-          <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
-          <template slot="header">
-            {{$t('tradeAbout.fee')}}
-            <span style="color:#999999;">(LAT)</span>
-          </template>
-          <template slot-scope="scope">
-            {{scope.row.actualTxCost}}
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
       <div class="block-trade-title">{{$t('tradeAbout.transactions')}}({{detailInfo.txQty}})</div>
       <trade-list
         ref="blockTrade"
@@ -137,8 +80,7 @@ export default {
       disabledLeft: false,
       disabledRight: false,
       isCopy: false,
-      copyText: "",
-      aaa:{"errMsg":"","code":0,"totalCount":1,"displayTotalCount":0,"totalPages":0,"data":[{"txHash":"0x6705c7339b802dedb7d9539d29edf525b9a36706fcb283d0620522bb6758bc97","from":"0x60ceca9c1290ee56b98d4e160ef0453f7c40d219","to":"0x1000000000000000000000000000000000000002","value":"0","actualTxCost":"0.02446","txType":"1004","serverTime":1571724920139,"timestamp":1571715969000,"blockNumber":2152,"failReason":"","receiveType":"contract","txReceiptStatus":1}]}
+      copyText: ""
     };
   },
   props: {},

@@ -128,7 +128,7 @@ export default {
         to: '接收方',
         toA: '接收地址',
         value: '价值',
-        fee: '交易费用(LAT)',
+        fee: '交易费用',
         before: '前',
 
         txInfo: '交易信息',

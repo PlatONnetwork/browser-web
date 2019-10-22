@@ -103,11 +103,13 @@
         </el-table-column>
         <!-- 交易费用（TxFee） -->
         <el-table-column
-          :label="$t('tradeAbout.fee')"
           show-overflow-tooltip
           :width="currentScreenWidth<1440? 120:150"
         >
-          <!-- prop="formatNumber(actualTxCost)" -->
+          <template slot="header">
+            {{$t('tradeAbout.fee')}}
+            <span style="color:#999999;">(LAT)</span>
+          </template>
           <template slot-scope="scope">
             <span>{{scope.row.actualTxCost | formatMoney}}</span>
           </template>
