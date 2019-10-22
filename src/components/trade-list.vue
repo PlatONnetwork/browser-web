@@ -160,11 +160,19 @@
           
         </el-table-column>
         <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
-          <template slot-scope="scope">
+          <!-- <template slot-scope="scope">
             <p
               class="cursor blue ellipsis percent60"
               @click="goAddressDetail(scope.row.from)"
             >{{scope.row.from}}</p>
+          </template> -->
+          <template slot-scope="scope">
+            <div class="flex-special">
+              <span
+                class="cursor normal ellipsis"
+                @click="goAddressDetail(scope.row.from)"
+              >{{scope.row.from|sliceStr(14)}}</span>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" v-if="type!='block'">
