@@ -409,14 +409,14 @@
                   >{{scope.row.delegateAddr}}</p>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('contract.delegations')+'\\'+$t('deleget.percentage')">
+              <el-table-column :label="$t('contract.delegations')+'\/'+$t('deleget.percentage')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateValue | formatMoney}}\{{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%</span>
+                  <span>{{scope.row.delegateValue | formatMoney}}/{{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('deleget.locked')+'\\'+$t('deleget.percentage')">
+              <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateLocked | formatMoney}}\{{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%</span>
+                  <span>{{scope.row.delegateLocked | formatMoney}}/{{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%</span>
                 </template>
               </el-table-column>
             </el-table>

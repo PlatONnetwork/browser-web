@@ -61,7 +61,13 @@ const sliceStr = Vue.filter("sliceStr", (str, num) => {
 // 世界标准时间
 const formatTime = Vue.filter("formatTime", (data) => {
     if (data) {
-        return new Date(data).toUTCString();
+        const d = new Date();
+        //本地时间与GMT时间的时间偏移差
+        const offset = d.getTimezoneOffset() * 60000;
+        //得到现在的格林尼治时间
+        const utcTime = data + offset;
+        return new Date(utcTime + 3600000 * (-d.getTimezoneOffset()/60)).toString().split('GMT')[0];
+        // return new Date(data).toUTCString();
     }
     return '';
 });

@@ -132,13 +132,17 @@
             <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.delegationsDelegators')" v-if="type!='history'" min-width="240">
+        <el-table-column :label="$t('deleget.delegationsN')" v-if="type!='history'" min-width="210">
           <template slot-scope="scope">
             <span>
-              {{scope.row.delegateValue | formatMoney}} LAT\
-              <span
-                class="Gilroy-Medium"
-              >{{scope.row.delegateQty | formatNumber}}</span>
+              {{scope.row.delegateValue | formatMoney}} LAT
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('deleget.delegators')" v-if="type!='history'">
+          <template slot-scope="scope">
+            <span>
+              {{scope.row.delegateQty | formatNumber}}
             </span>
           </template>
         </el-table-column>
@@ -168,7 +172,7 @@
             <span>{{scope.row.blockQty | formatNumber}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'">
+        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'" min-width="110">
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
             <span class="Gilroy-Medium" v-else>--</span>

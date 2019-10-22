@@ -434,7 +434,7 @@
         <!-- 时间戳 -->
         <Item
           :label="$t('tradeAbout.timeStamp')"
-          :prop="detailInfo.timestamp?new Date(detailInfo.timestamp).toUTCString():0"
+          :prop="detailInfo.timestamp | formatTime"
         ></Item>
         <!-- 区块 -->
         <Item :label="$t('tradeAbout.blockHeight')">
