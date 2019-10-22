@@ -76,7 +76,9 @@
               <span
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
-              >{{scope.row.txHash | sliceStr(18)}}</span>
+              >
+              {{scope.row.txHash | sliceStr(18)}}
+              </span>
             </div>
           </template>
           
