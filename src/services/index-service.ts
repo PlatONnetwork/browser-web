@@ -188,9 +188,15 @@ class IndexService extends Ws {
                 const { data, code } = res
                 console.log(`getStatisticData`, data)
                 if (code === 0) {
+                    //统计数据
                     store.dispatch('updateBlockStatisticData', data)
-                    // store.dispatch('setChartData', IndexService.dealChartList(data))
-                    // store.dispatch('setEarthData', IndexService.dealEarthCHartList(data))
+                    //区块列表数据
+                    if (data.blockList[0].isRefresh) {
+                        store.dispatch('updateIsMove', true);
+                        setTimeout(() => {
+                            store.dispatch('updateBlockData', data.blockList)  //动画完成后再更新数据
+                        }, 1000)
+                    }
                 } else {
                     throw new Error(`todo`)
                 }
@@ -228,26 +234,26 @@ class IndexService extends Ws {
         })
     }
 
-    getBlockData() {
-        const fn = () => {
-            this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
-                console.log(`updateBlockData`, res)
-                if (res.code === 0) {
-                    if (res.data[0].isRefresh) {
-                        store.dispatch('updateIsMove', true);
-                        setTimeout(() => {
-                            store.dispatch('updateBlockData', res.data)  //动画完成后再更新数据
-                        }, 1000)
-                    }
-                } else {
-                    throw new Error(`todo`)
-                }
+    // getBlockData() {
+    //     const fn = () => {
+    //         this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg: MsgConfig) => {
+    //             const res: ResConfig = JSON.parse(msg.body)
+    //             console.log(`updateBlockData`, res)
+    //             if (res.code === 0) {
+    //                 if (res.data[0].isRefresh) {
+    //                     store.dispatch('updateIsMove', true);
+    //                     setTimeout(() => {
+    //                         store.dispatch('updateBlockData', res.data)  //动画完成后再更新数据
+    //                     }, 1000)
+    //                 }
+    //             } else {
+    //                 throw new Error(`todo`)
+    //             }
 
-            })
-        }
-        this.connectFlag ? fn() : sub.addSub(fn)
-    }
+    //         })
+    //     }
+    //     this.connectFlag ? fn() : sub.addSub(fn)
+    // }
 
     getValidatorStatisticData() {
         sub.addSub(() => {

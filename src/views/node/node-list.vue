@@ -143,9 +143,30 @@ export default {
     Item,
     Validator
   },
-  methods: {},
+  methods: {
+    ...mapMutations({
+      updateValidatorStatisticData: "UPDATE_VALIDATOR_STATIC_DADA",
+    }),
+    getNodeStatistic() {
+      let param = {};
+      apiService.node
+        .statistic(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          if(code==0){
+            this.updateValidatorStatisticData(data);
+          }else{
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+    },
+  },
   //生命周期函数
   created() {
+    this.getNodeStatistic();
     indexService = new IndexService();
     indexService.getValidatorStatisticData();
   },

@@ -351,7 +351,9 @@ export default {
       hide: "HIDE_SEARCH",
       updateIsMove: "UPDATE_IS_MOVE",
       updateBlack: "UPDATE_BLACK_DADA",
-      updateValidators: "UPDATE_VALIDATOR_DADA"
+      updateValidators: "UPDATE_VALIDATOR_DADA",
+      updateChartData: "UPDATE_CHART_DADA",
+      updateBlockStatisticData: "UPDATE_STATISTIC_DADA",
     }),
     //查询
     searchFn() {
@@ -407,6 +409,38 @@ export default {
         .then(res => {
           let { errMsg, code, data } = res;
           this.updateBlack(data);
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+    },
+    getStatistic() {
+      let param = {};
+      apiService.search
+        .chainStatistic(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          if(code==0){
+            this.updateBlockStatisticData(data);
+          }else{
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+    },
+    getChartData() {
+      let param = {};
+      apiService.search
+        .blockStatistic(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          if(code==0){
+            this.updateChartData(data);
+          }else{
+            this.$message.error(errMsg);
+          }
         })
         .catch(error => {
           this.$message.error(error);
@@ -659,12 +693,16 @@ export default {
     this.getStaking();
     //区块
     this.getBlock();
+    //统计数据
+    this.getStatistic();
+    //图标数据
+    this.getChartData();
 
     indexService = new IndexService();
     indexService.getChartData();
     indexService.getStatisticData();
     indexService.getValidatorData();
-    indexService.getBlockData();
+    // indexService.getBlockData();
   },
   mounted() {
     // console.log('aaaa',document.styleSheets);

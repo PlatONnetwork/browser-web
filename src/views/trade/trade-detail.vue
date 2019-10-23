@@ -140,17 +140,15 @@
           <span v-if="detailInfo.txReceiptStatus==0">({{$t('tradeAbout.withFail')}})</span>
           <template v-else>
             <!-- 剩余赎回 -->
-            <span
+            <!-- <span
               v-if="detailInfo.redeemLocked>0"
-            >({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span>
+            >({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span> -->
             <!-- 1： 赎回中 -->
-            <span
+            <!-- <span
               v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1"
-            >({{$t('tradeAbout.undelegat')}})</span>
+            >({{$t('tradeAbout.undelegat')}})</span> -->
             <!-- 2：赎回成功 -->
-            <span
-              v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==2"
-            >({{$t('tradeAbout.successed1')}})</span>
+            <span>({{$t('tradeAbout.successed1')}})</span>
           </template>
         </Item>
         <!-- 交易手续费 -->

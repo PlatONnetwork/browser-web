@@ -39,6 +39,8 @@ class ApiService {
       query: this.post.bind(this, API.SEARCH.query),
       stakingOnIndex: this.post.bind(this, API.SEARCH.stakingOnIndex),
       blockOnIndex: this.post.bind(this, API.SEARCH.blockOnIndex),
+      blockStatistic: this.post.bind(this, API.SEARCH.blockStatistic),
+      chainStatistic: this.post.bind(this, API.SEARCH.chainStatistic),
     };
     this.trade = {
       transactionList: this.post.bind(this, API.TRADE.transactionList),
@@ -91,7 +93,8 @@ class ApiService {
       detail: this.post.bind(this, API.NODE.detail),
       stakingOptRecordList: this.post.bind(this, API.NODE.stakingOptRecordList),
       delegationListByStaking: this.post.bind(this, API.NODE.delegationListByStaking),
-      delegationListByAddress: this.post.bind(this, API.NODE.delegationListByAddress)
+      delegationListByAddress: this.post.bind(this, API.NODE.delegationListByAddress),
+      statistic: this.post.bind(this, API.NODE.statistic),
     };
     this.interceptorsOfReq();
     this.interceptorsOfRes();

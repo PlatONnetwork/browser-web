@@ -23,7 +23,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         detail: `${NODE_URL}stakingDetails`,
         stakingOptRecordList: `${NODE_URL}stakingOptRecordList`,
         delegationListByStaking: `${NODE_URL}delegationListByStaking`,
-        delegationListByAddress: `${NODE_URL}delegationListByAddress`
+        delegationListByAddress: `${NODE_URL}delegationListByAddress`,
+        statistic: `${NODE_URL}statistic`,
     },
 	// BLOCK
 	BLOCK = {
@@ -38,6 +39,8 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         query: `${HOME_URL}queryNavigation`,
         stakingOnIndex: `${HOME_URL}stakingList`,
         blockOnIndex: `${HOME_URL}blockList`,
+        blockStatistic: `${HOME_URL}blockStatistic`,
+        chainStatistic: `${HOME_URL}chainStatistic`,
     },
     // TRADE
 	TRADE = {

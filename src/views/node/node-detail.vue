@@ -91,7 +91,7 @@
         <div class="node-statistic-right">
           <div class="canvas">
             <canvas id="canvas" width="88" height="88"></canvas>
-            <div class="imgRatio">{{imgRatio}}%</div>
+            <div class="imgRatio">{{$t('nodeInfo.selfstake')}}：{{100-imgRatio}}%; {{$t('deleget.acceptDelegations')}}：{{imgRatio}}%</div>
           </div>
           <div class="statistic-right-data">
             <Item :label="$t('nodeInfo.totalStakePower')">
@@ -357,7 +357,7 @@
                   <p
                     class="percent80"
                     v-else-if="scope.row.type==7"
-                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押(${scope.row.amount} LAT)，${scope.row.isFire==1?'移出验证节点列表':''}`:`${$t('actionType.'+[scope.row.type])}-slashed ${scope.row.amount} LAT from self-stake, ${scope.row.isFire==1?'Remove the Validator List':''}`}}</p>
+                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-Remove the Validator List`}}</p>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')">
@@ -411,12 +411,12 @@
               </el-table-column>
               <el-table-column :label="$t('contract.delegations')+'\/'+$t('deleget.percentage')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateValue | formatMoney}}/{{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%</span>
+                  <span>{{scope.row.delegateValue | formatMoney}}({{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%)</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateLocked | formatMoney}}/{{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%</span>
+                  <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -877,12 +877,13 @@ export default {
   border-radius: 4px;
   text-align: center;
   padding: 0 10px;
-  //   width: 100px;
+  width: 320px;
   height: 40px;
   line-height: 40px;
   position: absolute;
   bottom: -50px;
-  left: 16px;
+  left: 50%;
+  margin-left: -160px;
   z-index: 9999;
   display: none;
 }

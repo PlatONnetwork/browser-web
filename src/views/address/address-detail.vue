@@ -44,12 +44,12 @@
                         <h3 class="Gilroy-Medium">{{$t('contract.others')}}</h3>
                         <ul>
                             <li>
-                                <label class="Gilroy-Medium">{{$t('contract.delegations')}}/{{$t('contract.staking')}}</label> 
-                                <div class="money">{{((detailInfo.stakingValue-0) + (detailInfo.delegateValue-0)) | formatMoney}}&nbsp;LAT</div>   
+                                <label class="Gilroy-Medium">{{$t('contract.delegations')}}</label> 
+                                <div class="money">{{detailInfo.delegateValue | formatMoney}}&nbsp;LAT</div>   
                             </li>
                             <li>
-                                <label class="Gilroy-Medium">{{$t('contract.inRedemption')}}</label> 
-                                <div class="money">{{detailInfo.redeemedValue | formatMoney}}&nbsp;LAT</div> 
+                                <label class="Gilroy-Medium">{{$t('contract.staking')}}</label> 
+                                <div class="money">{{detailInfo.stakingValue | formatMoney}}&nbsp;LAT</div> 
                             </li>
                         </ul>
                     </div>
@@ -80,10 +80,10 @@
                         <span>{{detailInfo.delegateUnlock}}</span>
                         <p>{{$t('deleget.releasedDelegate')}}(LAT)</p>
                     </li>
-                    <li>
+                    <!-- <li>
                         <span>{{detailInfo.delegateReduction}}</span>
                         <p>{{$t('deleget.undelegating')}}(LAT)</p>
-                    </li>
+                    </li> -->
                 </ul>
             </div> 
             <div class="table gray-table" v-show="tabIndex==2">
@@ -115,11 +115,11 @@
                             <span>{{scope.row.delegateUnlock | formatMoney}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column :label="$t('deleget.undelegating')">
+                    <!-- <el-table-column :label="$t('deleget.undelegating')">
                         <template slot-scope="scope">
                             <span>{{scope.row.delegateReduction | formatMoney}}</span>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                 </el-table>
                 <div class="pagination-box">
                     <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
