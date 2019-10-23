@@ -64,6 +64,7 @@
                 response:'',
                 exportname:'',
                 response1:'',
+                timeZone:'+8'
             }
         },
         //数组或对象，用于接收来自父组件的数据
@@ -81,7 +82,7 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                if(this.response){
+                if(true){
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{
@@ -98,13 +99,13 @@
                 this.param = {
                     // cid:this.chainId,
                     // address:this.address,
-                    date:this.form.value,
+                    date:new Date(this.form.value).getTime(),
                 }
                 if(this.exportname=='account'){
                     this.param.address = this.address;
                     // console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param)
-                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.date+'&address='+this.param.address+'&local='+ this.lang;
+                    this.src= apiConfig.TRADE.addressTransactionDownload+'?date='+this.param.date+'&address='+this.param.address+'&local='+ this.lang+'&timeZone='+ this.timeZone;
                 }else if(this.exportname=='contract'){
                     this.param.address = this.address;
                     // console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
@@ -113,7 +114,7 @@
                     this.param.nodeId = this.address;
                     // console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param))
                     // this.src=apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param)
-                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.date+'&nodeId='+this.param.nodeId+'&local='+ this.lang;
+                    this.src = apiConfig.BLOCK.blockListByNodeIdDownload+'?date='+this.param.date+'&nodeId='+this.param.nodeId+'&local='+ this.lang+'&timeZone='+ this.timeZone;
                 }
                 console.log(this.src)
                 window.open(this.src);
@@ -121,9 +122,17 @@
         },
         //生命周期函数
         created(){
-            this.address = this.$route.query.address
-            this.exportname = this.$route.query.exportname
-            // this.tab = this.$route.query.tab-0
+            this.address = this.$route.query.address;
+            this.exportname = this.$route.query.exportname;
+            const num = -(new Date().getTimezoneOffset());
+            this.timeZone = num/60;
+            if(num>0){
+                this.timeZone = encodeURIComponent('+')+this.timeZone;
+            }else if(num<0){
+                this.timeZone = encodeURIComponent('-')+this.timeZone;
+            }else{
+                this.timeZone = 0;
+            }
         },
         mounted(){
             // setTimeout(() => {

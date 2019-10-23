@@ -401,19 +401,6 @@ export default {
           this.$message.error(error);
         });
     },
-    //
-    getBlock() {
-      let param = {};
-      apiService.search
-        .blockOnIndex(param)
-        .then(res => {
-          let { errMsg, code, data } = res;
-          this.updateBlack(data);
-        })
-        .catch(error => {
-          this.$message.error(error);
-        });
-    },
     getStatistic() {
       let param = {};
       apiService.search
@@ -422,6 +409,7 @@ export default {
           let { errMsg, code, data } = res;
           if(code==0){
             this.updateBlockStatisticData(data);
+            this.updateBlack(data.blockList);
           }else{
             this.$message.error(errMsg);
           }
@@ -691,8 +679,7 @@ export default {
     // indexService = new IndexService();
     //当选验证节点
     this.getStaking();
-    //区块
-    this.getBlock();
+
     //统计数据
     this.getStatistic();
     //图标数据
