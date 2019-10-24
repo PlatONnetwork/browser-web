@@ -230,6 +230,8 @@ export default {
         delegators: 'Delegators',
         acceptDelegations: 'Delegations',
         Delegating: 'Invalid Delegations',
+        DelegateRecord: 'Delegate record',
+        DelegateRecordWaiting : 'Delegate record waiting for withdrawal',
     },
     blockAbout: {
         morethen: 'Total ',

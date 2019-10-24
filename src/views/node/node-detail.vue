@@ -160,7 +160,7 @@
                 </p>
               </li>
               <li>
-                <label class="Gilroy-Medium">{{$t('deleget.delegators')}}：</label>
+                <label class="Gilroy-Medium">{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecord'):$t('deleget.delegators')}}：</label>
                 <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
               </li>
             </ul>
@@ -396,7 +396,7 @@
         </div>
         <div v-show="tabIndex==4">
           <h3 class="node-deleget-title">
-            {{$t('deleget.delegators')}}
+            {{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecordWaiting'):$t('deleget.delegators')}}
             <b>{{pageTotal3 | formatNumber}}</b>
           </h3>
           <div class="table">

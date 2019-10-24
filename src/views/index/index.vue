@@ -290,6 +290,7 @@ export default {
         'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
         'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
       ],
+      isWebkit:false,
     };
   },
   props: {},
@@ -308,8 +309,10 @@ export default {
           // const index = document.styleSheets[0].cssRules.length
           // debugger
           // console.log('bbbb',this.styleEle)
-          if (this.styleEle.cssRules[2]) {
-            this.styleEle.deleteRule(2);
+          
+          const index = this.isWebkit?2:0;
+          if (this.styleEle.cssRules[index]) {
+            this.styleEle.deleteRule(index);
           }
           this.addCSSRule(
             this.styleEle,
@@ -321,7 +324,7 @@ export default {
                         to {
                             transform: translate(0,0);
                         }`,
-            2
+            index
           );
         }
         return this.ValidatorData.dataList.slice(0, 8);
@@ -645,8 +648,6 @@ export default {
     //处理验证人轮播
     createStyle() {
       this.ele = document.createElement("style");
-      const agent = navigator.userAgent.toLowerCase(), 
-      isWebkit= (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/')==-1);
       // 设置style属性
       this.ele.type = "text/css";
       // 将 keyframes样式写入style内
@@ -654,7 +655,7 @@ export default {
       document.getElementsByTagName("head")[0].appendChild(this.ele);
       this.styleEle = document.styleSheets[document.styleSheets.length - 1];
       // 设置滚动条颜色
-      if(isWebkit){
+      if(this.isWebkit){
         this.addCSSRule(
           this.styleEle,
           "::-webkit-scrollbar-track-piece",
@@ -674,6 +675,8 @@ export default {
   },
   //生命周期函数
   created() {
+    const agent = navigator.userAgent.toLowerCase();
+    this.isWebkit= (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/')==-1);
     this.updateIsMove(false);  //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
     console.log("aaa", IndexService);
     // indexService = new IndexService();

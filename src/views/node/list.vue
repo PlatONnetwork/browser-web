@@ -80,7 +80,7 @@
           width="80"
           :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
         ></el-table-column>
-        <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')" min-width="180">
+        <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')" min-width="160">
           <template slot-scope="scope">
             <div class="flex-special validator-name">
               <el-tooltip
@@ -94,17 +94,6 @@
                 </div>
                 <img src="../../assets/images/icon-remark.svg" class="icon-remark cursor" />
               </el-tooltip>
-              <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
-              <img
-                src="../../assets/images/node-avtor.svg"
-                class="node-avtor"
-                v-if="!scope.row.stakingIcon"
-                alt
-              />
-              <p
-                class="cursor normal ellipsis percent60 fontSize15"
-                @click="goDetail(scope.row.nodeId)"
-              >{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>
               <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isInit">
                 <!-- v-if='scope.row.isInit' -->
                 <div slot="content">
@@ -116,6 +105,17 @@
                   style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"
                 ></i>
               </el-tooltip>
+              <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
+              <img
+                src="../../assets/images/node-avtor.svg"
+                class="node-avtor"
+                v-if="!scope.row.stakingIcon"
+                alt
+              />
+              <p
+                class="cursor normal ellipsis percent60 fontSize15"
+                @click="goDetail(scope.row.nodeId)"
+              >{{scope.row.nodeName?scope.row.nodeName:'------'}}</p>              
             </div>
           </template>
         </el-table-column>
@@ -127,31 +127,31 @@
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="240">
+        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type!='history'" min-width="160">
           <template slot-scope="scope">
             <span>{{scope.row.totalValue | formatMoney}} LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('deleget.delegationsN')" v-if="type!='history'" min-width="210">
+        <el-table-column :label="$t('deleget.delegationsN')" v-if="type!='history'" min-width="160">
           <template slot-scope="scope">
             <span>
               {{scope.row.delegateValue | formatMoney}} LAT
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('deleget.delegators')" v-if="type!='history'">
+        <el-table-column :label="$t('deleget.delegators')" v-if="type!='history'" min-width="120">
           <template slot-scope="scope">
             <span>
               {{scope.row.delegateQty | formatNumber}}
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'" min-width="220">
+        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'" min-width="160">
           <template slot-scope="scope">
             <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell" min-width="100"> 
+        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell" min-width="120"> 
           <template slot-scope="scope">
             <div class="node-stability">
               <div style="margin-right:10px;" class="self-tooltip">
@@ -167,18 +167,18 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.producedBlock')" min-width="100">
+        <el-table-column :label="$t('nodeInfo.producedBlock')" min-width="120">
           <template slot-scope="scope">
             <span>{{scope.row.blockQty | formatNumber}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'" min-width="110">
+        <el-table-column :label="$t('nodeInfo.yield')" v-if="type!='history'" min-width="120">
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit">{{scope.row.expectedIncome}}%</span>
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" min-width="220">
+        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" min-width="160">
           <template slot-scope="scope">
             <span>{{scope.row.leaveTime | formatTime}}</span>
           </template>

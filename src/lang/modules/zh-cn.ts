@@ -230,6 +230,8 @@ export default {
         delegators: '委托者',
         acceptDelegations: '接受委托',
         Delegating: '待赎回委托',
+        DelegateRecord: '委托记录',
+        DelegateRecordWaiting : '待赎回的委托记录',
     },
     blockAbout: {
         morethen: '总共',
