@@ -100,9 +100,14 @@
                             <span>{{scope.row.delegateValue | formatMoney}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column :label="$t('deleget.locked')+'\/'+ $t('deleget.percentage')">
+                    <!-- <el-table-column :label="$t('deleget.locked')+'\/'+ $t('deleget.percentage')">
                         <template slot-scope="scope">
                             <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
+                        </template>
+                    </el-table-column> -->
+                    <el-table-column :label="$t('deleget.locked')">
+                        <template slot-scope="scope">
+                            <span>{{scope.row.delegateLocked | formatMoney}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column :label="$t('deleget.unlocked')">

@@ -91,7 +91,9 @@
         <div class="node-statistic-right">
           <div class="canvas">
             <canvas id="canvas" width="88" height="88"></canvas>
-            <div class="imgRatio">{{$t('nodeInfo.selfstake')}}：{{100-imgRatio}}%; {{$t('deleget.acceptDelegations')}}：{{imgRatio}}%</div>
+            <div
+              class="imgRatio"
+            >{{$t('nodeInfo.selfstake')}}：{{100-imgRatio}}%; {{$t('deleget.acceptDelegations')}}：{{imgRatio}}%</div>
           </div>
           <div class="statistic-right-data">
             <Item :label="$t('nodeInfo.totalStakePower')">
@@ -160,7 +162,9 @@
                 </p>
               </li>
               <li>
-                <label class="Gilroy-Medium">{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecord'):$t('deleget.delegators')}}：</label>
+                <label
+                  class="Gilroy-Medium"
+                >{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecord'):$t('deleget.delegators')}}：</label>
                 <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
               </li>
             </ul>
@@ -329,27 +333,27 @@
                     class="percent80"
                     v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3"
                   >{{$t('actionType.'+[scope.row.type])}}</p>
-                  <p
-                    class="percent80"
-                    v-else-if="scope.row.type==4 || scope.row.type==5"
-                  >
+                  <p class="percent80" v-else-if="scope.row.type==4 || scope.row.type==5">
                     <template v-if="scope.row.title">
-                      <span >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}<span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span></span>           
-                    </template>  
+                      <span>
+                        {{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}
+                        <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>
+                      </span>
+                    </template>
                     <template v-else>
-                      <template v-if="scope.row.proposalType==2">
-                          {{$t('actionType.'+[scope.row.type])}}-{{$t('tradeAbout.versionUp')}}-V {{scope.row.version}}-{{scope.row.id}}    
-                      </template> 
-                       <template v-else>
-                          {{$t('actionType.'+[scope.row.type])}}-{{$t('proposalOption.'+[scope.row.proposalType])}}-{{scope.row.id}}    
-                      </template>    
-                      <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>    
-                    </template> 
+                      <template
+                        v-if="scope.row.proposalType==2"
+                      >{{$t('actionType.'+[scope.row.type])}}-{{$t('tradeAbout.versionUp')}}-V {{scope.row.version}}-{{scope.row.id}}</template>
+                      <template
+                        v-else
+                      >{{$t('actionType.'+[scope.row.type])}}-{{$t('proposalOption.'+[scope.row.proposalType])}}-{{scope.row.id}}</template>
+                      <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>
+                    </template>
                   </p>
                   <!-- <p
                     class="percent80"
                     v-else-if="scope.row.type==5"
-                  >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p> -->
+                  >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>-->
                   <p
                     class="percent80"
                     v-else-if="scope.row.type==6"
@@ -414,9 +418,14 @@
                   <span>{{scope.row.delegateValue | formatMoney}}({{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%)</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
+              <!-- <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
                 <template slot-scope="scope">
                   <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
+                </template>
+              </el-table-column>-->
+              <el-table-column :label="$t('deleget.locked')">
+                <template slot-scope="scope">
+                  <span>{{scope.row.delegateLocked | formatMoney}}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -511,7 +520,7 @@ export default {
             const dag =
               this.detailInfo.delegateValue / this.detailInfo.totalValue;
             if (!isNaN(dag)) {
-              this.imgRatio=(dag*100).toFixed(2);
+              this.imgRatio = (dag * 100).toFixed(2);
             }
             this.getDelegetList();
             this.draw(dag);
@@ -853,7 +862,7 @@ export default {
     right: 0;
     top: -8px;
     font-family: Gilroy-Medium;
-    background: #FBFBFC;
+    background: #fbfbfc;
   }
   b {
     font-family: Gilroy-Medium;
