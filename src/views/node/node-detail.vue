@@ -863,6 +863,9 @@ export default {
     top: -8px;
     font-family: Gilroy-Medium;
     background: #fbfbfc;
+    &:hover{
+      background: #fbfbfc !important;
+    }
   }
   b {
     font-family: Gilroy-Medium;

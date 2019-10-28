@@ -300,6 +300,10 @@ export default {
   letter-spacing: 0;
   cursor: pointer;
   font-family: Gilroy-Medium;
+  &:hover{
+    color: #5CB2DB;
+    border: 1px solid #5CB2DB;
+  }
 }
 .active {
   font-family: Gilroy-Medium;
