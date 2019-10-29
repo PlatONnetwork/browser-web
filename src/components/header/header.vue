@@ -272,7 +272,7 @@
         align-items: center;   //居中对齐
         justify-content: space-between;   //两端对齐
         .menu{
-            margin: 0 20% 0 0;
+            margin: 0 10% 0 0;
             flex: 1;
         }
         .search{
@@ -360,7 +360,8 @@
         }
     }
     .search-header{
-        // width: 500px;
+        min-width: 320px;
+        max-width: 600px;
         flex: 1
     }
     
@@ -375,36 +376,29 @@
             }
         }
     }
-    @media only screen and (max-width: 1440px) {
-        .header-wrap .menu {
-            margin: 0 0 0 0;
-        }
-    }
-    @media only screen and (max-width: 1366px) {
-        .header-wrap .menu {
-            margin: 0 0 0 0;
-        }
-        .search-header{
-            width: 400px;
-        }
-        // .el-menu-demo{
-        //     width:485px;
-        //     .el-menu-item{
-        //         padding: 0 10px;
-        //     }
-        // }
-        width: 350px;
-    }
+    // @media only screen and (max-width: 1440px) {
+    //     .header-wrap .menu {
+    //         margin: 0 0 0 0;
+    //     }
+    // }
+    // @media only screen and (max-width: 1366px) {
+    //     .header-wrap .menu {
+    //         margin: 0 0 0 0;
+    //     }
+    // }
     @media screen and (max-width: 1280px) {
         // .el-menu-demo{
         //     width:350px;
         // }
         .header-wrap{
             padding:0 0;
+            // .menu{
+            //     margin-right: 10%;
+            // }
         }
-        .logo{
-            display: none;
-        }
+        // .logo{
+        //     display: none;
+        // }
     }
     .to-help{
         width: 100%;
@@ -416,6 +410,10 @@
 <style lang="less">
     .search-header .el-input .el-input__inner{
         color: #fff !important;
+    }
+    .search-header .el-button.el-button--primary.is-disabled{
+        color: #8E8E8E;
+        background: #000;
     }
     .menu{
         .el-menu-demo  > .el-menu-item{

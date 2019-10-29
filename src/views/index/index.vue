@@ -45,7 +45,11 @@
     <el-row type="flex" class="bar-wrap">
       <el-col :span="12" class="bar-left bar">
         <h3>{{$t('indexInfo.LIVEBLOCKTIME')}}</h3>
-        <div class="chart" ref="blockTimeChart"></div>
+        <div class="chart" ref="blockTimeChart">
+        </div>
+        <div class="bar-tooltip" v-if="isShowTooltip">
+          <span>#{{tooltipData.number}}/</span><span>{{tooltipData.time}}s</span>
+        </div>
         <ul class="block-statistics">
           <li class="statistics-link statistics-odd">
             <div class="statistics-label">{{$t('indexInfo.LIVEBLOCKHEIGHT')}}</div>
@@ -96,6 +100,9 @@
       <el-col :span="12" class="bar-right bar">
         <h3>{{$t('indexInfo.LIVEBLOCKTRANSACTIONS')}}</h3>
         <div class="chart" ref="blockTradeChart"></div>
+        <div class="bar-tooltip" v-if="isShowTooltip">
+          <span>#{{tooltipData.number}}/</span><span>{{tooltipData.txs}}Txs</span>
+        </div>
         <ul class="block-statistics">
           <li class="statistics-link">
             <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
@@ -290,6 +297,13 @@ export default {
         'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
         'rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)','rgba(255,255,255,0.5)',
       ],
+      tooltipData:{
+        number:0,
+        txs:0,
+        time:0
+      },
+      tooltipEl:null,
+      isShowTooltip:false,
       isWebkit:false,
     };
   },
@@ -480,6 +494,18 @@ export default {
       }
     },
     handleBarHover(e){
+      console.log('aaa',e)
+      this.isShowTooltip = true;
+      this.$nextTick(()=>{
+        this.tooltipData.time = this.chartData.ya[e.dataIndex];
+        this.tooltipData.count = this.chartData.yb[e.dataIndex];
+        this.tooltipEl[0].style.top = 66+'px';
+        this.tooltipEl[0].style.left = e.event.offsetX-80+'px';
+        this.tooltipEl[1].style.top = 66+'px';
+        this.tooltipEl[1].style.left = e.event.offsetX-80+'px';
+        this.tooltipData.number = e.name;
+      })
+      
       this.barColorList.forEach((value,index)=>{
         if(e.dataIndex==index){
           this.barColorList[index] = '#66B7DE';
@@ -495,6 +521,7 @@ export default {
       indexService.unsubBlock();
     },
     handleBarMouseout(){
+      this.isShowTooltip = false;
       this.barColorList.forEach((value,index)=>{
         if(index==0){
           this.barColorList[index] = '#FFF';
@@ -508,7 +535,6 @@ export default {
       let r = this.$refs;
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
       blockTimeChart.chart.on("mouseover", e => {
-        console.log('aaa',e)
         this.handleBarHover(e);
       });
       blockTimeChart.chart.on("mouseout", () => {
@@ -715,6 +741,7 @@ export default {
 
     const block1 = document.getElementById("zhezhao");
     const block2 = document.getElementById("blocks-ul-new2");
+    this.tooltipEl = document.getElementsByClassName('bar-tooltip');
     block2.addEventListener(
       "transitionend",
       () => {
@@ -885,6 +912,18 @@ export default {
   }
   .bar-wrap {
     position: relative;
+    .bar-tooltip{
+      position: absolute;
+      font-size: 12px;
+      width: 120px;
+      text-align: center;
+      span:nth-of-type(1){
+        color: #3BB9E2;
+      }
+      span:nth-of-type(2){
+        color: #3D6E85;
+      }
+    }
     .bar-right {
       position: absolute;
       right: -90px;

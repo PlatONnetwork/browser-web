@@ -1,5 +1,5 @@
 <template>
-  <div class="trade-list-wrap">
+  <div class="trade-list-wrap proposal-list">
     <div class="page-title fontSize34">{{$t('menu.proposal').toUpperCase()}}</div>
     <div class="sub-title">
       <div class="fontSize14 trade-count">&nbsp;</div>

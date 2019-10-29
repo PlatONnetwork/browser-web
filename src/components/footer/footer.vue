@@ -263,6 +263,7 @@
                 p{
                     font-size: 12px;
                     text-align: right; 
+                    line-height: 14px;
                 }
             }
             .link-wrap{

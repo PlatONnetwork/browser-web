@@ -526,10 +526,55 @@ body{
     width: 14px;
     height: 14px;
     display: inline-block;   
+    vertical-align: text-top;
 }
 .icon-low-block{
     background: url(../../assets/images/icon-low-block.svg) no-repeat;
 }
 .icon-two-sign{
     background: url(../../assets/images/icon-two-sign.svg) no-repeat;
+}
+
+// safari兼容
+.is-safari{
+    .search .el-input{
+        padding: 13px 0 !important;
+        .el-input__inner{
+            line-height: 14px !important;
+        }
+    }
+    .validators-search .el-input{
+        padding: 11px 0 !important;
+        .el-input__inner{
+            line-height: 12px !important;
+            height: auto !important;
+        }
+    }
+    .search-index{
+        .el-input{
+            padding: 25px 0;
+            .el-input__inner{
+                line-height: 16px;
+                font-size: 16px;
+            }
+        }
+    }
+    .next-reward-adjustment p{
+        line-height: 24px !important;
+    }
+    .progress-text{
+        margin-top: 4px !important;
+    }
+    .proposal-list .progress-text{
+        margin-top: 1px !important;
+    }
+}
+.is-mac{
+    .node-list-header .next-epoch ul li{
+        line-height: 42px !important;
+    }
+    .icon-low-block, .icon-two-sign {
+        height: 15px !important;
+        vertical-align: text-bottom !important;
+    }
 }

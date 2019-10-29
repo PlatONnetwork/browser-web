@@ -216,12 +216,12 @@
           <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
           <div class="vote-number">
             <span>{{yesPercentage}}%</span>
-          </div>
+          </div> 
         </div>
         <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
+          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;<span>({{detailData.yeas | formatNumber}})</span></div>
           <div class="vote-number">
-            <span>&nbsp;{{yesPercentage}}%</span>
+            <span>{{yesPercentage}}%</span>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@
           </div>
         </div>
         <div class="otherVoteNoText" :style="{'display': voteDisplayStyle.not ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;({{detailData.nays | formatNumber}})</div>
+          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;<span>({{detailData.nays | formatNumber}})</span></div>
           <div class="vote-number">
             <span>{{noPercentage}}%</span>
           </div>
@@ -265,7 +265,7 @@
           class="otherVoteQuitText"
           :style="{'display': voteDisplayStyle.quit ? 'block' : 'none'}"
         >
-          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;({{detailData.abstentions | formatNumber}})</div>
+          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;<span>({{detailData.abstentions | formatNumber}})</span></div>
           <div class="vote-number">
             <span>{{quitPercentage}}%</span>
           </div>
@@ -693,6 +693,7 @@ export default {
       font-size: 14px;
       color: #7dcb63;
       line-height: 24px;
+      font-family: Gilroy-Bold;
     }
   }
 }
@@ -742,6 +743,7 @@ export default {
           font-size: 14px;
           color: #7dcb63;
           line-height: 24px;
+          font-family: Gilroy-Bold;
         }
       }
     }
@@ -749,12 +751,20 @@ export default {
       position: absolute;
       left: 2px;
       // margin-top: 4px;
-      top: -34px;
+      top: 54px;
       z-index: 999;
+      padding: 5px 15px;
+      background: rgba(255,255,255,0.90);
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      border-radius: 4px;
+      line-height: 18px;
       .vote-text {
         color: #3bb012;
         font-size: 12px;
         // line-height: 24px;
+        span{
+          color: #7dcb63;
+        }
       }
       .vote-number {
         font-size: 16px;
@@ -763,11 +773,8 @@ export default {
         position: relative;
         span {
           font-size: 14px;
-          color: #7dcb63;
-          // line-height: 24px;
-          // position: absolute;
-          // left:22px;
-          // top:1px;
+          color: #3bb012;
+          font-family: Gilroy-Bold;
         }
       }
     }
@@ -797,20 +804,27 @@ export default {
           font-size: 14px;
           color: #e798b6;
           line-height: 24px;
+          font-family: Gilroy-Bold;
         }
       }
     }
     .otherVoteNoText {
       position: absolute;
-      // margin-top: 4px;
-      width: 200px;
       left: 6px;
-      top: -34px;
+      top: 54px;
       z-index: 999;
+      padding: 5px 15px;
+      background: rgba(255,255,255,0.90);
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      border-radius: 4px;
+      line-height: 18px;
       .vote-text {
         color: #cf326e;
         font-size: 12px;
         // line-height: 24px;
+        span{
+          color: #E798B6;
+        }
       }
       .vote-number {
         font-size: 16px;
@@ -819,8 +833,7 @@ export default {
         position: relative;
         span {
           font-size: 14px;
-          color: #e798b6;
-          // line-height: 24px;
+          font-family: Gilroy-Bold;
         }
       }
     }
@@ -849,6 +862,7 @@ export default {
           color: #888888;
           line-height: 24px;
           width: 200px;
+          font-family: Gilroy-Bold;
         }
       }
     }
@@ -856,24 +870,26 @@ export default {
       // margin-top: 4px;
       position: absolute;
       left: 6px;
-      top: -34px;
-      width: 200px;
+      top: 54px;
       z-index: 999;
+      padding: 5px 15px;
+      background: rgba(255,255,255,0.90);
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      border-radius: 4px;
+      line-height: 18px;
       .vote-text {
         color: #000000;
         font-size: 12px;
-        // line-height: 24px;
+        span{
+          color: #888888;
+        }
       }
       .vote-number {
         font-size: 16px;
         color: #000000;
         // line-height: 24px;
         position: relative;
-        span {
-          font-size: 14px;
-          color: #888888;
-          // line-height: 24px;
-        }
+        font-family: Gilroy-Bold;
       }
     }
   }

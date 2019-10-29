@@ -256,19 +256,24 @@
               <a
                 class="blue cursor"
                 :href="detailInfo.website"
+                v-if="detailInfo.website"
                 target="_blank"
               >{{detailInfo.website}}</a>
+              <span class="lightgray" v-else>null</span>
             </Item>
             <Item :label="$t('tradeAbout.identity')">
               <a
                 class="blue cursor"
-                v-if="detailInfo.externalUrl"
+                v-if="!detailInfo.externalUrl&&detailInfo.externalId"
                 :href="detailInfo.externalUrl"
                 target="_blank"
               >{{detailInfo.externalId}}</a>
-              <span v-else>{{detailInfo.externalId}}</span>
+              <span class="lightgray" v-else>null</span>
             </Item>
-            <Item :label="$t('tradeAbout.introduction')" :prop="detailInfo.details"></Item>
+            <Item :label="$t('tradeAbout.introduction')">
+              <span v-if="detailInfo.details">{{detailInfo.details}}</span>
+              <span class="lightgray" v-else>null</span>
+            </Item>
           </List>
         </div>
         <div v-show="tabIndex==2">
@@ -863,8 +868,16 @@ export default {
     top: -8px;
     font-family: Gilroy-Medium;
     background: #fbfbfc;
+    color: #0798DE;
     &:hover{
       background: #fbfbfc !important;
+      color: #5CB2DB;
+      border: 1px solid #5CB2DB !important;
+    }
+    &:active{
+      background: #fbfbfc !important;
+      border: 1px solid #0E52AC !important;
+      color: #0E52AC !important;
     }
   }
   b {

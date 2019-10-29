@@ -22,28 +22,28 @@ class ChartService {
                 left:'3%',
             },
             //提示框组件
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'line', // 默认为直线，可选为：'line' | 'shadow'
-                    lineStyle : {          // 直线指示器样式设置
-                        width: 0,
-                        color: 'rgba(102,183,222,0.4)',
-                        type: 'solid'
-                    },
-                    crossStyle: {
-                        color: '#999'
-                    },
-                },
-                formatter:function(params)  
-                {  
-                    var relVal = params[0].name;  
-                    for (var i = 0, l = params.length; i < l; i++) {  
-                            relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"s";  
-                        }  
-                    return relVal;  
-                }  
-            },
+            // tooltip: {
+            //     trigger: 'axis',
+            //     axisPointer: {
+            //         type: 'line', // 默认为直线，可选为：'line' | 'shadow'
+            //         lineStyle : {          // 直线指示器样式设置
+            //             width: 0,
+            //             color: 'rgba(102,183,222,0.4)',
+            //             type: 'solid'
+            //         },
+            //         crossStyle: {
+            //             color: '#999'
+            //         },
+            //     },
+            //     formatter:function(params)  
+            //     {  
+            //         var relVal = params[0].name;  
+            //         for (var i = 0, l = params.length; i < l; i++) {  
+            //                 relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+"s";  
+            //             }  
+            //         return relVal;  
+            //     }  
+            // },
             xAxis: [
                 {   
                     show:false,
@@ -125,28 +125,28 @@ class ChartService {
                 left:'3%',
             },
             //提示框组件
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'line',
-                    lineStyle : {          // 直线指示器样式设置
-                        width: 0,
-                        color: 'rgba(102,183,222,0.4)',
-                        type: 'solid'
-                    },
-                    crossStyle: {
-                        color: '#999'
-                    }
-                },
-                formatter:function(params)  
-                {  
-                    var relVal = params[0].name;  
-                    for (var i = 0, l = params.length; i < l; i++) {  
-                            relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value)+"TXs";   //设置默认交易数高度20
-                        }  
-                    return relVal;  
-                }  
-            },            
+            // tooltip: {
+            //     trigger: 'axis',
+            //     axisPointer: {
+            //         type: 'line',
+            //         lineStyle : {          // 直线指示器样式设置
+            //             width: 0,
+            //             color: 'rgba(102,183,222,0.4)',
+            //             type: 'solid'
+            //         },
+            //         crossStyle: {
+            //             color: '#999'
+            //         }
+            //     },
+            //     formatter:function(params)  
+            //     {  
+            //         var relVal = params[0].name;  
+            //         for (var i = 0, l = params.length; i < l; i++) {  
+            //                 relVal += '<br/>' + params[i].seriesName + ' : ' + (params[i].value)+"TXs";   //设置默认交易数高度20
+            //             }  
+            //         return relVal;  
+            //     }  
+            // },            
             xAxis: [
                 {   
                     show:false,

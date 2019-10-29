@@ -47,6 +47,8 @@ export default {
 
         sender: 'Sender',
         recipient: 'Recipient',
+        sender2: 'Sent',
+        recipient2: 'Received',
         amount: 'Amount',
         transactionFee: 'Transaction Fee',
 

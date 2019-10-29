@@ -292,7 +292,7 @@ export default {
 .iconxinxi {
   color: #ffc017;
   margin-right: 5px;
-  font-size: 11px;
+  font-size: 14px;
 }
 </style>
 

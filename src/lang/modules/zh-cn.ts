@@ -47,6 +47,8 @@ export default {
 
         sender: '发送方',
         recipient: '接收方',
+        sender2: '发送',
+        recipient2: '接收',
         amount: '数额',
         transactionFee: '交易手续费',
 

@@ -1,5 +1,5 @@
 <template>
-    <div id="app" :class="lang=='en'?'page-en':'page-zh'">
+    <div id="app" :class="{'page-en':lang=='en','page-zh':lang!='en','is-safari':issafariBrowser,'is-mac':isMac}">
         <com-header></com-header>
         <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/','gray-area':$route.path=='/address-detail' || $route.path=='/node' || $route.path=='/node-detail'}">
             <router-view></router-view>
@@ -19,7 +19,9 @@ export default {
     name: 'app',
     data () {
         return {
-            isRouterAlive: true
+            isRouterAlive: true,
+            issafariBrowser:/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
+            isMac:/macintosh|mac os x/i.test(navigator.userAgent)
         }
     },
     computed:{

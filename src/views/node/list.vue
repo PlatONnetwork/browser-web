@@ -75,10 +75,19 @@
     </el-row>
     <div class="table node-table">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
-        <el-table-column
+        <!-- <el-table-column
           type="index"
           :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
-        ></el-table-column>
+        ></el-table-column> -->
+        <el-table-column
+          :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
+          :width="issafariBrowser?110:80"
+        >
+          <template slot-scope="scope">
+            <span
+            >{{scope.row.ranking}}</span>
+          </template>
+        </el-table-column>
         <el-table-column :label="type!='history'?$t('nodeInfo.validatorName'):$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div class="flex-special validator-name">
@@ -145,14 +154,14 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'" min-width="160">
+        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
           <template slot-scope="scope">
             <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell"> 
           <template slot-scope="scope">
-            <div class="node-stability">
+            <div class="node-stability flex-special">
               <div style="margin-right:10px;" class="self-tooltip">
                 <i class="icon-low-block cursor"></i>
                 <span>{{scope.row.slashLowQty}}</span>
@@ -177,7 +186,7 @@
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'" min-width="160">
+        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type=='history'">
           <template slot-scope="scope">
             <span>{{scope.row.leaveTime | formatTime}}</span>
           </template>
@@ -216,7 +225,8 @@ export default {
       keyword: "",
       queryStatus: "all",
       timer: null,
-      websocket: null
+      websocket: null,
+      issafariBrowser:/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
     };
   },
   props: {
@@ -258,6 +268,11 @@ export default {
           let { data, totalPages, totalCount, code, errMsg } = res;
           if (code == 0) {
             this.tableData = data;
+            if (this.type == "history") {
+              this.tableData.forEach((value,index)=>{
+                 value.ranking = index + 1
+              })
+            }
             console.log(this.tableData);
             this.pageTotal = totalCount;
           } else {
@@ -430,15 +445,17 @@ export default {
 
 .node-stability {
   display: flex;
-  i {
-    vertical-align: sub;
-  }
+  width: 100%;
+  // i {
+  //   vertical-align: sub;
+  // }
 }
 .history-validators-search {
   float: right;
 }
 .validator-name {
   position: relative;
+  width: 100%;
   .el-icon-info{
     position: absolute;
     left: -23px;

@@ -117,7 +117,12 @@
             <span
               :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}"
               class="red Gilroy-Bold"
-            >{{$t('TxType.'+[scope.row.txType])}}</span>
+            >
+              <template v-if="type!='block'&&scope.row.txType=='0'">{{scope.row.from==address?$t('tradeAbout.sender2'):$t('tradeAbout.recipient2')}}</template>
+              <template v-else>
+                {{$t('TxType.'+[scope.row.txType])}}
+              </template>
+            </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.value')">
@@ -304,9 +309,17 @@ export default {
     color: #5CB2DB;
     border: 1px solid #5CB2DB;
   }
+  &:active{
+    color: #0E52AC;
+    border: 1px solid #0E52AC;
+  }
 }
 .active {
   font-family: Gilroy-Medium;
+}
+.iconxinxi{
+  font-size: 14px;
+  margin-right: 5px;
 }
 </style>
 <style lang="less">
