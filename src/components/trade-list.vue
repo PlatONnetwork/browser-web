@@ -1,7 +1,7 @@
 <template>
   <div class="common-trade" :class="{'block-trade-wrap':type=='block'}">
     <div class="address-trade-last" v-if="type!='block'">
-      {{$t('blockAbout.morethen')}} {{tradeTotal}} {{$t('contract.transactions')}}
+      {{$t('blockAbout.morethen')}} {{tradeCount.txQty}} {{$t('contract.transactions')}}
       <span
         style="color: #3F3F3F;"
         v-if="newRecordFlag"
@@ -68,7 +68,7 @@
                 v-if="scope.row.txReceiptStatus==0"
               >
                 <div slot="content">
-                  <span class="title-warning"></span>
+                  <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
                   {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
@@ -208,10 +208,10 @@ export default {
             this.tableData = data;
             this.pageTotal = totalCount;
             if (!this.tradeType) {
-              this.tradeTotal = totalCount;
+              this.tradeTotal = totalCount;  //此总数并非数据库交易记录总数
             }
             //判断最新记录是否显示  总数
-            this.tradeTotal > 5000
+            this.tradeCount.txQty > 5000
               ? (this.newRecordFlag = true)
               : (this.newRecordFlag = false);
           } else {
@@ -320,6 +320,9 @@ export default {
 .iconxinxi{
   font-size: 14px;
   margin-right: 5px;
+}
+.title-warning{
+  color: #ffc017;
 }
 </style>
 <style lang="less">

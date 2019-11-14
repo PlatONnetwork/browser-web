@@ -51,8 +51,8 @@
     >
       <el-col :span="12">
         <div style="margin-top: 14px;">
-          {{$t('nodeInfo.historicalValidators')}}(
-          <b>{{pageTotal}}</b>)
+          {{$t('nodeInfo.historicalValidators')}}
+          (<b>{{pageTotal}}</b>)
         </div>
       </el-col>
       <el-col :span="12" class="historical-validators">

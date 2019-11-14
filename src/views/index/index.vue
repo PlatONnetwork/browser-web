@@ -498,10 +498,10 @@ export default {
       this.isShowTooltip = true;
       this.$nextTick(()=>{
         this.tooltipData.time = this.chartData.ya[e.dataIndex];
-        this.tooltipData.count = this.chartData.yb[e.dataIndex];
-        this.tooltipEl[0].style.top = 66+'px';
+        this.tooltipData.txs = this.chartData.yb[e.dataIndex];
+        this.tooltipEl[0].style.top = 36+'px';
         this.tooltipEl[0].style.left = e.event.offsetX-80+'px';
-        this.tooltipEl[1].style.top = 66+'px';
+        this.tooltipEl[1].style.top = 36+'px';
         this.tooltipEl[1].style.left = e.event.offsetX-80+'px';
         this.tooltipData.number = e.name;
       })
@@ -866,6 +866,7 @@ export default {
   }
   .chart {
     min-height: 180px;
+    margin-top: -30px;
   }
   .bar {
     h3 {

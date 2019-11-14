@@ -144,7 +144,7 @@
               <li v-else>
                 <label
                   class="Gilroy-Medium"
-                >{{detailInfo.delegateValue>0?$t('deleget.Delegating'):$t('deleget.acceptDelegations')}}：</label>
+                >{{$t('deleget.Delegating')}}：</label>
                 <p>
                   <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
                   <span
@@ -164,7 +164,7 @@
               <li>
                 <label
                   class="Gilroy-Medium"
-                >{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecord'):$t('deleget.delegators')}}：</label>
+                >{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.historicalDelegator'):$t('deleget.delegators')}}：</label>
                 <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
               </li>
             </ul>
@@ -279,7 +279,7 @@
         <div v-show="tabIndex==2">
           <div class="address-trade-last node-last">
             {{$t('blockAbout.totalProduced')}}
-            <b>{{displayTotalCount | formatNumber}}</b>
+            <b>{{detailInfo.blockQty | formatNumber}}</b>
             <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
             <el-button size="medium export-btn" @click="exportFn">{{$t('common.export')}}</el-button>
           </div>
@@ -405,7 +405,7 @@
         </div>
         <div v-show="tabIndex==4">
           <h3 class="node-deleget-title">
-            {{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecordWaiting'):$t('deleget.delegators')}}
+            {{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecordWaiting'):$t('deleget.DelegateRecord')}}
             <b>{{pageTotal3 | formatNumber}}</b>
           </h3>
           <div class="table">
@@ -418,7 +418,20 @@
                   >{{scope.row.delegateAddr}}</p>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('contract.delegations')+'\/'+$t('deleget.percentage')">
+              <el-table-column>
+                <template slot="header">
+                  {{$t('contract.delegations')+'\/'+$t('deleget.percentage')}}
+                  <el-tooltip
+                      class="item"
+                      effect="dark"
+                      placement="bottom"
+                  >
+                      <div slot="content" class="delegate-msg">
+                          {{$t("deleget.percentageMsg")}}
+                      </div>
+                      <i class="iconfont cursor address-icon">&#xe63f;</i>
+                  </el-tooltip>
+                </template>
                 <template slot-scope="scope">
                   <span>{{scope.row.delegateValue | formatMoney}}({{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%)</span>
                 </template>
@@ -428,9 +441,40 @@
                   <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                 </template>
               </el-table-column>-->
-              <el-table-column :label="$t('deleget.locked')">
+              <el-table-column>
+                <template slot="header">
+                    {{$t('deleget.locked')}}
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        placement="bottom"
+                    >
+                        <div slot="content" class="delegate-msg">
+                            {{$t("deleget.lockedMsg")}}
+                        </div>
+                        <i class="iconfont cursor address-icon">&#xe63f;</i>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
                   <span>{{scope.row.delegateLocked | formatMoney}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column>
+                <template slot="header">
+                    {{$t('deleget.released')}}
+                    <el-tooltip
+                        class="item"
+                        effect="dark"
+                        placement="bottom"
+                    >
+                        <div slot="content" class="delegate-msg">
+                            {{$t("deleget.releasedMsg")}}
+                        </div>
+                        <i class="iconfont cursor address-icon">&#xe63f;</i>
+                    </el-tooltip>
+                </template>
+                <template slot-scope="scope">
+                  <span>{{scope.row.delegateReleased | formatMoney}}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -533,6 +577,10 @@ export default {
             this.detailInfo = {};
             this.$message.error(errMsg);
           }
+          //判断最新记录是否显示  总数
+            this.detailInfo.blockQty > 5000
+              ? (this.newRecordFlag = true)
+              : (this.newRecordFlag = false);
         })
         .catch(error => {
           this.$message.error(error);
@@ -559,10 +607,6 @@ export default {
             this.tableData = data;
             this.pageTotal = totalCount;
             this.displayTotalCount = displayTotalCount;
-            //判断最新记录是否显示  总数
-            totalCount > 5000
-              ? (this.newRecordFlag = true)
-              : (this.newRecordFlag = false);
           } else {
             this.$message.error(errMsg);
           }

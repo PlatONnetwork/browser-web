@@ -11,7 +11,7 @@ export default {
     },
     search: {
         searchBtn: '查询',
-        placeHolder: ' 请输入区块高度/地址/块哈希/交易哈希'
+        placeHolder: ' 请输入区块高度/地址/块哈希/交易哈希查询'
     },
     footer: {
         desc: 'PlatScan是PlatON区块链资源管理与分析平台',
@@ -224,8 +224,14 @@ export default {
         undelegating2: '赎回中',
         unlocked: '未锁定委托',
         released: '待赎回委托',
-        delegationAmount: '委托数量',
+        delegationAmount: '已委托数量',
         locked: '已锁定委托',
+        unlockedMsg: '处于未锁定状态的委托数量，等待锁定',
+        releasedMsg: '与节点解除委托关系，处于无效状态的委托数量，等待赎回',
+        delegationAmountMsg: '当前地址委托给该节点的数量，为已锁定委托数与未锁定委托数之和',
+        lockedMsg: '处于锁定状态的委托数量，对节点产生有效贡献的委托数量',
+        percentageMsg:'当前委托者委托给该节点的数量。占比为委托数量占节点总接受委托的比例',
+        historicalDelegator:'历史委托者',
         percentage: '占比',
         delegations: '委托',
         delegationsN: '委托数',
@@ -382,7 +388,7 @@ export default {
         2002: '创建提案',   //提交参数提案
         2003: '提案投票',   //提案投票
         2004: '版本声明',
-        2005: '取消提案',    //取消提案
+        2005: '创建提案',    //取消提案
         3000: '举报多签',
         4000: '创建锁仓计划'
     },

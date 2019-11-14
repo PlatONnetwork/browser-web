@@ -77,7 +77,7 @@
                         <p>{{$t('deleget.unlockedDelegate')}}(LAT)</p>
                     </li>
                     <li>
-                        <span>{{detailInfo.delegateUnlock}}</span>
+                        <span>{{detailInfo.delegateReleased}}</span>
                         <p>{{$t('deleget.releasedDelegate')}}(LAT)</p>
                     </li>
                     <!-- <li>
@@ -95,7 +95,20 @@
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column  :label="$t('deleget.delegationAmount')">
+                    <el-table-column>
+                        <template slot="header">
+                            {{$t('deleget.delegationAmount')}}
+                            <el-tooltip
+                                class="item"
+                                effect="dark"
+                                placement="bottom"
+                            >
+                                <div slot="content" class="delegate-msg">
+                                    {{$t("deleget.delegationAmountMsg")}}
+                                </div>
+                                <i class="iconfont cursor address-icon">&#xe63f;</i>
+                            </el-tooltip>
+                        </template>
                         <template slot-scope="scope">
                             <span>{{scope.row.delegateValue | formatMoney}}</span>
                         </template>
@@ -105,19 +118,58 @@
                             <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                         </template>
                     </el-table-column> -->
-                    <el-table-column :label="$t('deleget.locked')">
+                    <el-table-column>
+                        <template slot="header">
+                            {{$t('deleget.locked')}}
+                            <el-tooltip
+                                class="item"
+                                effect="dark"
+                                placement="bottom"
+                            >
+                                <div slot="content" class="delegate-msg">
+                                    {{$t("deleget.lockedMsg")}}
+                                </div>
+                                <i class="iconfont cursor address-icon">&#xe63f;</i>
+                            </el-tooltip>
+                        </template>
                         <template slot-scope="scope">
                             <span>{{scope.row.delegateLocked | formatMoney}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column :label="$t('deleget.unlocked')">
+                    <el-table-column>
+                        <template slot="header">
+                            {{$t('deleget.unlocked')}}
+                            <el-tooltip
+                                class="item"
+                                effect="dark"
+                                placement="bottom"
+                            >
+                                <div slot="content" class="delegate-msg">
+                                    {{$t("deleget.unlockedMsg")}}
+                                </div>
+                                <i class="iconfont cursor address-icon">&#xe63f;</i>
+                            </el-tooltip>
+                        </template>
                         <template slot-scope="scope">
                             <span>{{scope.row.delegateHas | formatMoney}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column :label="$t('deleget.released')">
+                    <el-table-column>
+                        <template slot="header">
+                            {{$t('deleget.released')}}
+                            <el-tooltip
+                                class="item"
+                                effect="dark"
+                                placement="bottom"
+                            >
+                                <div slot="content" class="delegate-msg">
+                                    {{$t("deleget.releasedMsg")}}
+                                </div>
+                                <i class="iconfont cursor address-icon">&#xe63f;</i>
+                            </el-tooltip>
+                        </template>
                         <template slot-scope="scope">
-                            <span>{{scope.row.delegateUnlock | formatMoney}}</span>
+                            <span>{{scope.row.delegateReleased | formatMoney}}</span>
                         </template>
                     </el-table-column>
                     <!-- <el-table-column :label="$t('deleget.undelegating')">

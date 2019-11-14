@@ -75,7 +75,7 @@
             <el-col :span="6">
               <div class="desc">{{$t('tradeAbout.cancellID')}}：</div>
             </el-col>
-            <el-col :span="15">
+            <el-col :span="16">
               <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.canceledPipId}}</div>
             </el-col>
           </el-row>
@@ -108,7 +108,7 @@
             <el-col :span="6">
               <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
             </el-col>
-            <el-col :span="15">
+            <el-col :span="16">
               <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
             </el-col>
           </el-row>

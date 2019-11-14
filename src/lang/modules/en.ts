@@ -226,13 +226,19 @@ export default {
         released: 'Invalid delegations',
         delegationAmount: 'Delegation Amount',
         locked: 'Locked',
+        unlockedMsg: 'Delegated LATs to be locked',
+        releasedMsg: 'Undelegated LATs, ready to withdraw',
+        delegationAmountMsg: 'Total amount delegated to the node, which is the sum of the amount of locked and unlocked delegates',
+        lockedMsg: 'Delegated and locked LATs, the amount of delegates that effectively contribute to the node',
+        percentageMsg:'Total amount delegated to the node and the share of the total delegations',
+        historicalDelegator:'Historical Delegator',
         percentage: 'Percentage',
         delegations: 'Delegations',
         delegationsN: 'Delegations',
         delegators: 'Delegators',
         acceptDelegations: 'Delegations',
         Delegating: 'Invalid Delegations',
-        DelegateRecord: 'Delegate record',
+        DelegateRecord: 'Delegation record',
         DelegateRecordWaiting : 'Delegate record waiting for withdrawal',
     },
     blockAbout: {
@@ -382,7 +388,7 @@ export default {
         2002: 'Create Proposal',   //'提交参数提案',
         2003: 'Voting Proposal',    //'提案投票',
         2004: 'Declare Version',    //'版本声明',
-        2005: 'Cancel Proposal',    //取消提案
+        2005: 'Create Proposal',    //取消提案
         3000: 'Report Validator',   //'举报多签',
         4000: 'Create Restricting', //'创建锁仓计划'
     },
