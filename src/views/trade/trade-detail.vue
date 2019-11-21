@@ -39,10 +39,11 @@
 
     <div class="infomation box-relative">
       <!-- 交易状态小图标 -->
-      <i
+      <!-- <i
         v-if="detailInfo.txReceiptStatus==1"
         class="el-icon-success status-icon status-icon-success"
-      ></i>
+      ></i> -->
+      <img v-if="detailInfo.txReceiptStatus==1" src="../../assets/images/icon-success.svg" class="status-icon">
       <i
         v-else-if="detailInfo.txReceiptStatus==0"
         class="el-icon-warning status-icon status-icon-warning"

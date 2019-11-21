@@ -328,7 +328,7 @@
         div{
             font-family: ArialMT;
             font-size: 14px;
-            color: #D7DDE9;
+            color: #ffffff;
             letter-spacing: 0;
             text-align: right;
             .el-dropdown-link {
