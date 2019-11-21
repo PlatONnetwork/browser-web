@@ -586,3 +586,24 @@ body{
         vertical-align: text-bottom !important;
     }
 }
+
+// ie样式
+.is-ie11{
+    .search .el-button.el-searchs.btn-header{
+        min-width: 80px;
+    }
+    @media (max-width:1600px) {
+        .search-header{
+            min-width: auto;
+        }
+    }
+    @media (max-width:1440px) {
+        .header-wrap .menu{
+            flex: 1 1 auto;
+        }
+        .search-header{
+            flex: 1 1 auto;
+        }
+    }
+}
+

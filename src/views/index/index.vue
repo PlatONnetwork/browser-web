@@ -737,6 +737,8 @@ export default {
       blockTimeChart.chart.resize();
       blockTradeChart.chart.resize();
     };
+
+    this.scrollHandle(); //处理从其他页面返回首页搜索框隐藏的问题
     window.addEventListener("scroll", this.scrollHandle, false);
 
     const block1 = document.getElementById("zhezhao");

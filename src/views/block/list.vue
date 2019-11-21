@@ -98,7 +98,6 @@ export default {
   name: "trade-list",
   data() {
     return {
-      newRecordFlag: false,
       tableData: [],
       currentPage: 1,
       pageSize: 20,
@@ -145,14 +144,24 @@ export default {
     timeDiffFn(beginTime, endTime) {
       return timeDiff(beginTime, endTime);
     },
+    replace(){
+      this.$router.replace({
+        query: {
+          currentPage: this.currentPage,
+          pageSize: this.pageSize,
+        }
+      });
+    },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getTradeList();
+      this.replace();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
       this.getTradeList();
+      this.replace();
     },
     //进入区块详情
     goBlockDetail(blockHeight) {
@@ -173,8 +182,31 @@ export default {
       });
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // 通过 `vm` 访问组件实例
+      if(from.path.indexOf('-detail')==-1){
+        // 不取缓存
+        vm.currentPage = 1;
+        vm.pageSize = 20;
+        if(vm.$route.query.currentPage){
+          vm.currentPage = vm.$route.query.currentPage - 0;
+          vm.pageSize = vm.$route.query.pageSize - 0;
+        }
+        vm.getTradeList();
+      }
+      console.log(to,from)
+    })
+  },
   //生命周期函数
   created() {
+    // window.addEventListener('popstate', (event) => {
+    //   console.log('aaa',this.currentPage);
+    // });
+    if(this.$route.query.currentPage){
+      this.currentPage = this.$route.query.currentPage - 0;
+      this.pageSize = this.$route.query.pageSize - 0;
+    }
     this.getTradeList();
   },
   mounted() {}

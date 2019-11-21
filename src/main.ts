@@ -36,10 +36,44 @@ Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
 Vue.use(VueAwesomeSwiper)
-// router.beforeEach((to,from,next)=>{
-//     console.log('开始啦啦啦')
-// })
+router.beforeEach((to,from,next)=>{
+    // console.log(router,to)
+    // if(to.path==from.path){
+    //     next();
+    //     return;
+    // }
+    // if(
+    //     (to.path.indexOf('-detail')>-1 && from.path=='/block') ||
+    //     (to.path.indexOf('-detail')>-1 && from.path=='/trade')
+    // ){
+    //     from.meta.keepAlive = true;
+    // }else{
+    //     from.meta.keepAlive = false;
+    // }
+    // //如果点击了一级页面
+    // if(to.path=='/' || to.path=='/node' || to.path=='/proposal' || to.path=='/block'){
+    //     router.options.routes.forEach((value)=>{
+    //         if(value.path=='/trade'){
+    //             value.meta.keepAlive = false;
+    //         }
+    //     })
+    // }
+    // if(to.path=='/' || to.path=='/node' || to.path=='/proposal' || to.path=='/trade'){
+    //     router.options.routes.forEach((value)=>{
+    //         if(value.path=='/block'){
+    //             value.meta.keepAlive = false;
+    //         }
+    //     })
+    // }
+    next();
+})
 router.afterEach(function (to) {
+    // 需要延时，否则一进来就取缓存了
+    // setTimeout(()=>{
+    //     if(to.path=='/block' || to.path=='/trade'){
+    //         to.meta.keepAlive = true;
+    //     }
+    // },100)
     window.scrollTo(0, 0)
 })
 

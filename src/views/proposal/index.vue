@@ -115,14 +115,24 @@ export default {
     timeDiffFn(beginTime, endTime) {
       return timeDiff(beginTime, endTime)
     },
+    replace(){
+      this.$router.replace({
+        query: {
+          currentPage: this.currentPage,
+          pageSize: this.pageSize,
+        }
+      });
+    },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getProposalList();
+      this.replace();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
       this.getProposalList();
+      this.replace();
     },
     //提案时间排序
     proposalTimeCompare(prop){
@@ -135,6 +145,10 @@ export default {
   },
   //生命周期函数
   created() {
+    if(this.$route.query.currentPage){
+      this.currentPage = this.$route.query.currentPage - 0;
+      this.pageSize = this.$route.query.pageSize - 0;
+    }
     this.getProposalList();
   },
   mounted() { }

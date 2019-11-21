@@ -104,7 +104,7 @@
         <!-- 交易费用（TxFee） -->
         <el-table-column
           show-overflow-tooltip
-          :width="currentScreenWidth<1440? 120:150"
+          width="120"
         >
           <template slot="header">
             {{$t('tradeAbout.fee')}}
@@ -116,7 +116,7 @@
         </el-table-column>
       </el-table>
       <!-- 表格下方分页标签 -->
-      <div class="pagination-box" v-if="paginationFlag">
+      <div class="pagination-box">
         <el-pagination
           background
           @size-change="handleSizeChange"
@@ -132,7 +132,7 @@
     </div>
   </div>
 </template>
-<script lang='ts'>
+<script>
 import apiService from "@/services/API-services";
 import { timeDiff } from "@/services/time-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
@@ -141,15 +141,11 @@ export default {
   name: "trade-list",
   data() {
     return {
-      newRecordFlag: false,
-      paginationFlag: true,
       tableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 1,
-      descriptionProp: "trade",
       displayTotalCount: 0,
-      currentScreenWidth: 0
     };
   },
   props: {},
@@ -179,14 +175,6 @@ export default {
             this.tableData = data;
             this.pageTotal = totalCount;
             this.displayTotalCount = displayTotalCount;
-            //判断最新记录是否显示  总数
-            totalCount > 500000
-              ? (this.newRecordFlag = true)
-              : (this.newRecordFlag = false);
-            //判断是否就是一页  一页的话只显示上面的分页  多页的话上下两个分页都显示  页数
-            // totalPages == 1
-            //   ? (this.paginationFlag = false)
-            //   : (this.paginationFlag = true);
           } else {
             this.$message.error(errMsg);
           }
@@ -228,14 +216,24 @@ export default {
     timeDiffFn(beginTime, endTime) {
       return timeDiff(beginTime, endTime);
     },
+    replace(){
+      this.$router.replace({
+        query: {
+          currentPage: this.currentPage,
+          pageSize: this.pageSize,
+        }
+      });
+    },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getTradeList();
+      this.replace();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
       this.getTradeList();
+      this.replace();
     },
     //进入区块详情
     goBlockDetail(height) {
@@ -271,8 +269,27 @@ export default {
       });
     }
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // 通过 `vm` 访问组件实例
+      if(from.path.indexOf('-detail')==-1){
+        // 不取缓存
+        vm.currentPage = 1;
+        vm.pageSize = 20;
+        if(vm.$route.query.currentPage){
+          vm.currentPage = vm.$route.query.currentPage - 0;
+          vm.pageSize = vm.$route.query.pageSize - 0;
+        }
+        vm.getTradeList();
+      }
+    })
+  },
   //生命周期函数
   created() {
+    if(this.$route.query.currentPage){
+      this.currentPage = this.$route.query.currentPage - 0;
+      this.pageSize = this.$route.query.pageSize - 0;
+    }
     this.getTradeList();
   },
   mounted() {}

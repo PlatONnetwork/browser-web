@@ -68,8 +68,8 @@
                 searchKey:'',//搜索
                 language: localStorage.getItem('i18nLocale')?localStorage.getItem('i18nLocale'):'zh-cn',
                 chainList:[{
-                    en:'Amigo(TestNet)',
-                    zh:'Amigo(测试网络)',
+                    en:'NewBaleyworld',
+                    zh:'NewBaleyworld',
                 }],
                 options:[
                     {
@@ -322,7 +322,7 @@
     }
     .right-most{
         flex-shrink: 0;   // 网络切换+中英文不缩小
-        width: 200px;
+        // width: 200px;
         display: flex;
         justify-content: flex-end;
         div{
@@ -362,10 +362,13 @@
     .search-header{
         min-width: 320px;
         max-width: 600px;
-        flex: 1
+        flex: 1;
     }
     
     @media only screen and (max-width: 1680px) {
+        .header-wrap{
+            padding:0 3.2%;
+        }
         .header-wrap .menu {
             margin: 0 0 0 0;
         }

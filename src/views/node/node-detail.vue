@@ -96,7 +96,7 @@
             >{{$t('nodeInfo.selfstake')}}：{{100-imgRatio}}%; {{$t('deleget.acceptDelegations')}}：{{imgRatio}}%</div>
           </div>
           <div class="statistic-right-data">
-            <Item :label="$t('nodeInfo.totalStakePower')">
+            <Item :label="$t('nodeInfo.totalStakePower')" class="total-stake">
               <p class="statistic-total-stake">
                 <!-- {{detailInfo.totalValue | formatMoney}} -->
                 <span
@@ -264,7 +264,7 @@
             <Item :label="$t('tradeAbout.identity')">
               <a
                 class="blue cursor"
-                v-if="!detailInfo.externalUrl&&detailInfo.externalId"
+                v-if="detailInfo.externalId"
                 :href="detailInfo.externalUrl"
                 target="_blank"
               >{{detailInfo.externalId}}</a>
@@ -1008,6 +1008,13 @@ export default {
           font-weight: normal;
         }
       }
+    }
+  }
+}
+.statistic-right-data {
+  .total-stake{
+    label{
+      width: auto;
     }
   }
 }

@@ -290,22 +290,30 @@
         </Item>
         <!-- 验证人(都有) -->
         <Item :label="$t('tradeAbout.validator')">
-          <p
-            v-if="detailInfo.txType!='3000'"
-            class="cursor blue"
-            @click="goNodeDetail(detailInfo.nodeId)"
-          >
-            <span v-if="detailInfo.nodeName">{{detailInfo.nodeName}}</span>
-            <span v-else>Null</span>
-          </p>
-          <p
-            v-else-if="detailInfo.txType=='3000'&&detailInfo.evidences.length"
-            class="cursor blue"
-            @click="goNodeDetail(detailInfo.evidences[0].verify)"
-          >
-            <span v-if="detailInfo.evidences[0].nodeName">{{detailInfo.evidences[0].nodeName}}</span>
-            <span v-else>Null</span>
-          </p>
+          <template v-if="detailInfo.txType=='1000'&& detailInfo.txReceiptStatus=='0'">
+              <p>
+                <span v-if="detailInfo.nodeName">{{detailInfo.nodeName}}</span>
+                <span v-else>Null</span>
+              </p>
+          </template>
+          <template v-else>
+              <p
+                v-if="detailInfo.txType!='3000'"
+                class="cursor blue"
+                @click="goNodeDetail(detailInfo.nodeId)"
+              >
+                <span v-if="detailInfo.nodeName">{{detailInfo.nodeName}}</span>
+                <span v-else>Null</span>
+              </p>
+              <p
+                v-else-if="detailInfo.txType=='3000'&&detailInfo.evidences.length"
+                class="cursor blue"
+                @click="goNodeDetail(detailInfo.evidences[0].verify)"
+              >
+                <span v-if="detailInfo.evidences[0].nodeName">{{detailInfo.evidences[0].nodeName}}</span>
+                <span v-else>Null</span>
+              </p>
+          </template>
         </Item>
         <!-- 举报类型，举报证据（举报验证人特有） -->
         <template v-if="detailInfo.txType=='3000'">

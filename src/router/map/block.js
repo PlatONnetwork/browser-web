@@ -11,5 +11,8 @@ export const blockDetail = {
 export const blockList = {
     path: '/block',
     component: blockListComponent,
+    meta: {
+        keepAlive: true, // 此组件需要被缓存
+    },
     name: 'blockListComponent'
 }

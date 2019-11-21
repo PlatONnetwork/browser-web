@@ -232,9 +232,8 @@
         @mouseleave="mouseleaveQuit()"
       >
         <div class="voteNoText" :style="{'display':noPercentage < 4 ? 'none':'block'}">
-          <div class="vote-text">{{$t('tradeAbout.no')}}</div>
+          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;<span>({{detailData.nays | formatNumber}})</span></div>
           <div class="vote-number">
-            {{detailData.nays | formatNumber}}
             <span>{{noPercentage}}%</span>
           </div>
         </div>

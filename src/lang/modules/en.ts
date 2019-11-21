@@ -374,23 +374,23 @@ export default {
     TxType: {
         0: 'Transfer',  //'转账',
         1: 'Create Proposal',   //'创建提案',
-        2: 'Contract Execution', //'合约执行',
+        2: 'ContractExecution', //'合约执行',
         4: 'Others',      //其他
         5: 'MPCTx', //'MPC交易',
-        1000: 'Create Validator',   //'发起质押',
-        1001: 'Edit Validator',   //'修改质押信息',
-        1002: 'Increase Staking',   //'增持质押',
-        1003: 'Exit Validator',   //'撤销质押',
+        1000: 'CreateValidator',   //'发起质押',
+        1001: 'EditValidator',   //'修改质押信息',
+        1002: 'IncreaseStaking',   //'增持质押',
+        1003: 'ExitValidator',   //'撤销质押',
         1004: 'Delegate',   //'发起委托',
         1005: 'Undelegate',   //'减持/撤销委托',
-        2000: 'Create Proposal',   //'提交文本提案',
-        2001: 'Create Proposal',    //'提交升级提案',
-        2002: 'Create Proposal',   //'提交参数提案',
-        2003: 'Voting Proposal',    //'提案投票',
-        2004: 'Declare Version',    //'版本声明',
-        2005: 'Create Proposal',    //取消提案
-        3000: 'Report Validator',   //'举报多签',
-        4000: 'Create Restricting', //'创建锁仓计划'
+        2000: 'TextProposal',   //'提交文本提案',
+        2001: 'UpgradeProposal',    //'提交升级提案',
+        2002: 'ParameterProposal',   //'提交参数提案',
+        2003: 'VotingProposal',    //'提案投票',
+        2004: 'DeclareVersion',    //'版本声明',
+        2005: 'CancelProposal',    //取消提案
+        3000: 'ReportValidator',   //'举报验证节点',
+        4000: 'CreateRestricting', //'创建锁仓计划'
     },
     // 创建提案的提案类型
     createType: {
@@ -409,8 +409,10 @@ export default {
     proposalStatus: {
         1: 'Voting', 
         2: 'Passed', 
-        3: 'Fail', 
-        6: 'Rejected', 
+        3: 'Rejected', 
+        4: 'Passed', 
+        5: 'Passed', 
+        6: 'Cancelled', 
     },
     voteStatus: {
         1: 'YES', 

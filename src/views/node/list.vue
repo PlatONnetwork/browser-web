@@ -241,14 +241,18 @@ export default {
       this.queryStatus = type;
       this.currentPage = 1;
       this.getList();
-      this.getListBywebsocket();
+      if (this.type != "history") {
+        this.getListBywebsocket();
+      }
     },
     clearInput(value) {
       this.currentPage = 1;
       this.tabIndex = 1;
       this.queryStatus = "all";
       this.getList();
-      this.getListBywebsocket();
+      if (this.type != "history") {
+        this.getListBywebsocket();
+      }
     },
     getList() {
       let param = {
@@ -295,7 +299,7 @@ export default {
       param += "," + this.currentPage;
       param += "," + this.pageSize;
       param += "," + this.queryStatus;
-      param += "," + this.keyword;
+      param += "," + this.keyword.trim();
 
       if(origin.indexOf('localhost')!=-1){
         url = (API.BASE + url).replace("http", "ws");
@@ -318,24 +322,41 @@ export default {
         this.websocket.onmessage = e => {
           let data = JSON.parse(e.data);
           if (data.code == 0) {
-            console.log('nodeList',data.data)
+            console.log('nodeList',data)
             this.tableData = data.data;
+            this.pageTotal = data.totalCount;
+          }else {
+            this.$message.error(data.errMsg);
           }
         };
       } else {
         alert("当前浏览器 Not support websocket");
       }
     },
+    replace(){
+      this.$router.replace({
+        query: {
+          currentPage: this.currentPage,
+          pageSize: this.pageSize,
+        }
+      });
+    },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getList();
-      this.getListBywebsocket();
+      if (this.type != "history") {
+        this.getListBywebsocket();
+        this.replace();
+      }
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
       this.getList();
-      this.getListBywebsocket();
+      if (this.type != "history") {
+        this.getListBywebsocket();
+        this.replace();
+      }
     },
     //查询
     searchFn() {
@@ -343,7 +364,9 @@ export default {
       this.tabIndex = 1;
       this.queryStatus = "all";
       this.getList();
-      this.getListBywebsocket();
+      if (this.type != "history") {
+        this.getListBywebsocket();
+      }
     },
     //进入节点详情
     goDetail(nodeId) {
@@ -372,6 +395,10 @@ export default {
   },
   //生命周期函数
   created() {
+    if(this.$route.query.currentPage){
+      this.currentPage = this.$route.query.currentPage - 0;
+      this.pageSize = this.$route.query.pageSize - 0;
+    }
     this.getList();
     // if (this.type != "history") {
     //   this.timer = setInterval(() => {

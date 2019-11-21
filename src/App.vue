@@ -1,8 +1,13 @@
 <template>
-    <div id="app" :class="{'page-en':lang=='en','page-zh':lang!='en','is-safari':issafariBrowser,'is-mac':isMac}">
+    <div id="app" :class="{'page-en':lang=='en','page-zh':lang!='en','is-safari':issafariBrowser,'is-mac':isMac,'is-ie11':isIE11}">
         <com-header></com-header>
         <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/','gray-area':$route.path=='/address-detail' || $route.path=='/node' || $route.path=='/node-detail'}">
-            <router-view></router-view>
+            <!-- <router-view></router-view> -->
+            <keep-alive>
+                <router-view v-if="$route.meta.keepAlive">
+                </router-view>
+            </keep-alive>
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
         </div>
         <com-footer></com-footer>
     </div>
@@ -21,7 +26,8 @@ export default {
         return {
             isRouterAlive: true,
             issafariBrowser:/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
-            isMac:/macintosh|mac os x/i.test(navigator.userAgent)
+            isMac:/macintosh|mac os x/i.test(navigator.userAgent),
+            isIE11:navigator.userAgent.indexOf('Trident') > -1 && navigator.userAgent.indexOf("rv:11.0") > -1
         }
     },
     computed:{
