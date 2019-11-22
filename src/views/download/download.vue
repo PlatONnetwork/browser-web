@@ -217,6 +217,9 @@
                 border: none;
             }
         }
+        .el-button.el-button--primary:focus{
+            background-color: #0798DE;
+        }
     }
     #script-area{
         margin-top: 20px;

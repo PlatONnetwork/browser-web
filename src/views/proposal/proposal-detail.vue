@@ -717,6 +717,7 @@ export default {
   margin: 15px 0px 30px 0px;
   width: 100%;
   height: 70px;
+  display: flex;
   background: #eeeeee;
   border-radius: 1px;
   position: relative;

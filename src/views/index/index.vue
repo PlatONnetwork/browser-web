@@ -634,8 +634,13 @@ export default {
     //     return 0;
     // },
     scrollHandle() {
+      const windowH = document.documentElement.clientHeight || document.body.clientHeight;
       const top = document.documentElement.scrollTop || document.body.scrollTop;
-      if (top > 160) {
+      let count = 320;
+      if(windowH<768){
+        count = 280;
+      }
+      if (top > count) {
         this.hide(false);
       } else {
         this.hide(true);
@@ -906,11 +911,11 @@ export default {
         width: 120px;
         position: relative;
       }
-      &.search-hide {
-        transition: transform 3s ease, opacity 3s ease;
-        transform: translate(500px, -500px);
-        opacity: 0;
-      }
+      // &.search-hide {
+      //   transition: transform 3s ease, opacity 3s ease;
+      //   transform: translate(500px, -500px);
+      //   opacity: 0;
+      // }
     }
   }
   .bar-wrap {

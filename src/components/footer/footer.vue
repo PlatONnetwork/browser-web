@@ -171,7 +171,7 @@
         }
         p:nth-of-type(1){
             font-size: 14px;
-            color: #929292;
+            color: #999999;
             margin: 20px 0;
         }
         p:nth-of-type(2){
@@ -242,10 +242,10 @@
         &.foot-no-index{
             display: flex;
             justify-content: space-between;
-            padding: 17px 5.2% 11px;
+            padding: 17px 5.2% 10px;
             @media screen and (max-width: 1280px) {
                 &{
-                    padding: 27px 0 11px;
+                    padding: 27px 0 10px;
                 }
             }
             a.link-10{
@@ -254,9 +254,13 @@
             .foot-left{
                 width: 40%;     
                 text-align: left;  
+                margin-top: 10px;
                 .foot-logo{
                     margin-left: 0;
                 }    
+                p{
+                    color: #929292;
+                }
             }
             .foot-right{
                 width: 50%;
@@ -264,7 +268,9 @@
                     font-size: 12px;
                     text-align: right; 
                     line-height: 14px;
+                    margin-top: 6px;
                     padding-right: 10px;
+                    color: #777777;
                 }
             }
             .link-wrap{
