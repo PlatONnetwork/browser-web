@@ -44,10 +44,11 @@
         class="el-icon-success status-icon status-icon-success"
       ></i> -->
       <img v-if="detailInfo.txReceiptStatus==1" src="../../assets/images/icon-success.svg" class="status-icon">
-      <i
+      <img v-else-if="detailInfo.txReceiptStatus==0" src="../../assets/images/icon-warning.svg" class="status-icon">
+      <!-- <i
         v-else-if="detailInfo.txReceiptStatus==0"
         class="el-icon-warning status-icon status-icon-warning"
-      ></i>
+      ></i> -->
       <!-- 基础交易 -->
       <List
         :title="detailTitle(detailInfo.txType)"
