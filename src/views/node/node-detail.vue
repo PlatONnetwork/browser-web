@@ -905,6 +905,7 @@ export default {
   .nodeInfo {
     margin-bottom: 21px;
     font-family: Gilroy-Medium;
+    font-size: 14px;
   }
 }
 .node-last {

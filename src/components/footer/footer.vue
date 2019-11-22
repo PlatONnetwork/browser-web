@@ -171,7 +171,7 @@
         }
         p:nth-of-type(1){
             font-size: 14px;
-            color: #999999;
+            color: #929292;
             margin: 20px 0;
         }
         p:nth-of-type(2){
