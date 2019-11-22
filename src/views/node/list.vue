@@ -156,7 +156,7 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type=='history'">
           <template slot-scope="scope">
-            <span>{{scope.row.statDelegateReduction | formatMoney}}LAT</span>
+            <span>{{scope.row.statDelegateReduction | formatMoney}} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell"> 

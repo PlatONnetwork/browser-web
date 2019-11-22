@@ -57,6 +57,7 @@ export default {
         restrictedPlan: 'Restricted Plan',
 
         delegator: 'Delegator',
+        delegater: 'Delegator',
         validator: 'Validator',
         delegationAmount: 'Delegation Amount',
         withdrawal: 'Withdrawal Amount',

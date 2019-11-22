@@ -306,7 +306,7 @@
             padding-bottom: 2px;
         }
         p{
-            font-family: ArialMT;
+            font-family: Gilroy-Regular;
             font-size: 12px;
             color: #B3B3B3;
             letter-spacing: 0;
@@ -326,9 +326,9 @@
         display: flex;
         justify-content: flex-end;
         div{
-            font-family: ArialMT;
+            font-family: Gilroy-Medium;
             font-size: 14px;
-            color: #D7DDE9;
+            color: #fff;
             letter-spacing: 0;
             text-align: right;
             .el-dropdown-link {

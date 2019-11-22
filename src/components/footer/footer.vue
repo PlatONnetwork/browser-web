@@ -187,7 +187,7 @@
             padding-top: 10px;
             border-top: 1px dashed #555;
             a{
-                margin-right: 6px;
+                // margin-right: 6px;
                 width: 50px;
                 height: 50px;
                 background: url(../../assets/images/footer-link-init.svg);
@@ -264,6 +264,7 @@
                     font-size: 12px;
                     text-align: right; 
                     line-height: 14px;
+                    padding-right: 10px;
                 }
             }
             .link-wrap{

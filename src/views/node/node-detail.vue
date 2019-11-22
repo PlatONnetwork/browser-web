@@ -204,6 +204,7 @@
               <span>{{detailInfo.nodeId}}</span>
               <b
                 class="cursor copyicon"
+                id="copy1"
                 :class="{copy:!isCopy}"
                 v-clipboard:copy="detailInfo.nodeId"
                 v-clipboard:success="onCopy"
@@ -222,6 +223,7 @@
               >{{detailInfo.stakingAddr}}</span>
               <b
                 class="cursor copyicon"
+                id="copy2"
                 :class="{copy:!isCopy2}"
                 v-clipboard:copy="detailInfo.stakingAddr"
                 v-clipboard:success="onCopy"
@@ -241,6 +243,7 @@
               <span class="lightgray" v-if="detailInfo.isInit">({{$t('nodeInfo.systemBuilt')}})</span>
               <b
                 class="cursor copyicon"
+                id="copy3"
                 :class="{copy:!isCopy3}"
                 v-clipboard:copy="detailInfo.denefitAddr"
                 v-clipboard:success="onCopy"
@@ -410,7 +413,7 @@
           </h3>
           <div class="table">
             <el-table :data="tableDelegetData" style="width: 100%" key="firstTable" size="mini">
-              <el-table-column :label="$t('tradeAbout.delegator')">
+              <el-table-column :label="$t('tradeAbout.delegater')">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
@@ -699,10 +702,10 @@ export default {
       });
     },
     onCopy(copy) {
-      if (copy.text == this.detailInfo.nodeId) {
+      if (copy.trigger.id == 'copy1') {
         this.copyText = this.$t("modalInfo.copysuccess");
         this.isCopy = true;
-      } else if (copy.text == this.detailInfo.stakingAddr) {
+      } else if (copy.trigger.id == 'copy2') {
         this.copyText2 = this.$t("modalInfo.copysuccess");
         this.isCopy2 = true;
       } else {
@@ -719,10 +722,10 @@ export default {
       }, 2000);
     },
     onError(index) {
-      if (copy.text == this.detailInfo.nodeId) {
+      if (copy.trigger.id == 'copy1') {
         this.copyText = this.$t("modalInfo.copyfail");
         this.isCopy = true;
-      } else if (copy.text == this.detailInfo.stakingAddr) {
+      } else if (copy.trigger.id == 'copy2') {
         this.copyText2 = this.$t("modalInfo.copyfail");
         this.isCopy2 = true;
       } else {

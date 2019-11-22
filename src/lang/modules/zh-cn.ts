@@ -57,6 +57,7 @@ export default {
         restrictedPlan: '锁仓计划',
 
         delegator: '委托人',
+        delegater: '委托者',
         validator: '验证节点',
         delegationAmount: '委托数量',
         withdrawal: "赎回数量",
