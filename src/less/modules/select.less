@@ -30,6 +30,13 @@
 .el-popper[x-placement^="bottom"] .popper__arrow::after{
     top:0;
     border-bottom-color:transparent;
+    border-bottom-color: #000 ;
+}
+.el-popper[x-placement^="top"] .popper__arrow::after{
+    border-top-color: #000;
+}
+.el-popper[x-placement='bottom-start'],.el-popper[x-placement='top-start']{
+    border-color: black;
 }
 .el-select-dropdown__item{
     color: #fff;
