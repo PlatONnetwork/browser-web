@@ -2,20 +2,21 @@
 const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT"http://10.10.8.232:8888" 'https://scan.platon.network'
     // FILE_BASE = process.env.FILE_ROOT,//process.env.FILE_ROOT,//http://192.168.9.85:8888
     JSON_BASE = process.env.JSON_ROOT,
-	TOTAL = `${BASE}/`,
-	// FILES_PUBLIC_STORE = process.env.FILESTORE_PUBLIC_ROOT,//'http://192.168.9.86:8081',公有
+    TOTAL = `${BASE}/`,
+    // FILES_PUBLIC_STORE = process.env.FILESTORE_PUBLIC_ROOT,//'http://192.168.9.86:8081',公有
     // FILES_PRIVITE_STORE = process.env.FILESTORE_PRIVITE_ROOT,//'http://192.168.9.85:8081',私有
-	// FILES = `${FILES_STORE}/`,
-	// FILES = `${FILES_PUBLIC_STORE}/`,//公有
+    // FILES = `${FILES_STORE}/`,
+    // FILES = `${FILES_PUBLIC_STORE}/`,//公有
     // FILES = `${FILES_PRIVITE_STORE}/`,//私有
     BLOCK_URL = `${TOTAL}browser-server/block/`,
     HOME_URL = `${TOTAL}browser-server/home/`,
     // HOME_URL = `http://10.10.8.8:8080/browser-server/home/`,
-   	TRADE_URL = `${TOTAL}browser-server/transaction/`,
+    TRADE_URL = `${TOTAL}browser-server/transaction/`,
     ACCOUNT_URL = `${TOTAL}browser-server/address/`,
     NODE_URL = `${TOTAL}browser-server/staking/`,
     TICKET_URL = `${TOTAL}browser-server/ticket/`,
     PROPOSAL_URL = `${TOTAL}browser-server/proposal/`,
+    MORE_URL = `${TOTAL}browser-server/extra/`,
     //NODE
     NODE = {
         aliveStakingList: `${NODE_URL}aliveStakingList`,
@@ -26,16 +27,16 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         delegationListByAddress: `${NODE_URL}delegationListByAddress`,
         statistic: `${NODE_URL}statistic`,
     },
-	// BLOCK
-	BLOCK = {
+    // BLOCK
+    BLOCK = {
         blockList: `${BLOCK_URL}blockList`,
         blockListByNodeId: `${BLOCK_URL}blockListByNodeId`,
-		blockDetails: `${BLOCK_URL}blockDetails`,
+        blockDetails: `${BLOCK_URL}blockDetails`,
         blockListByNodeIdDownload: `${BLOCK_URL}blockListByNodeIdDownload`,
         blockDetailNavigate: `${BLOCK_URL}blockDetailNavigate`,
-	},
+    },
     // SOUSUO
-	SEARCH = {
+    SEARCH = {
         query: `${HOME_URL}queryNavigation`,
         stakingOnIndex: `${HOME_URL}stakingList`,
         blockOnIndex: `${HOME_URL}blockList`,
@@ -43,9 +44,9 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         chainStatistic: `${HOME_URL}chainStatistic`,
     },
     // TRADE
-	TRADE = {
-		transactionList: `${TRADE_URL}transactionList`,
-		transactionListByBlock: `${TRADE_URL}transactionListByBlock`,
+    TRADE = {
+        transactionList: `${TRADE_URL}transactionList`,
+        transactionListByBlock: `${TRADE_URL}transactionListByBlock`,
         transactionListByAddress: `${TRADE_URL}transactionListByAddress`,
         addressTransactionDownload: `${TRADE_URL}addressTransactionDownload`,
         transactionDetails: `${TRADE_URL}transactionDetails`,
@@ -71,17 +72,22 @@ const BASE = process.env.API_ROOT,//process.env.API_ROOT, //process.env.API_ROOT
         stakingStatistic: `/topic/staking/statistic/new`,
         stakingChange: `/topic/staking/change/new`,
 
-        serverWebsocket:`/browser-server/websocket/`,
-    };
+        serverWebsocket: `/browser-server/websocket/`,
+    },
+    MORE = {
+        queryConfig: `${MORE_URL}queryConfig`
+    }
+    ;
 export default {
-  TOTAL,
-  BLOCK,
-  SEARCH,
-  TRADE,
-  PROPOSAL,
-  ACCOUNT,
-  WS_CONFIG,
-  JSON_BASE,
-  NODE,
-  BASE,
+    TOTAL,
+    BLOCK,
+    SEARCH,
+    TRADE,
+    PROPOSAL,
+    ACCOUNT,
+    WS_CONFIG,
+    JSON_BASE,
+    NODE,
+    BASE,
+    MORE
 };

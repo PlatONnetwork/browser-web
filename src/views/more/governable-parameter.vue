@@ -2,7 +2,7 @@
   <div>
     <h2 class="title">{{ $t("more.governableParameter") }}</h2>
     <!-- Staking -->
-    <div class="section">
+    <div class="section" v-if="lis.Staking">
       <h3 class="h3">Staking</h3>
       <div class="cont-row">
         <!-- 内容分割1 -->
@@ -15,31 +15,31 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{'1,000,000LAT'}}</span>
+                <span class="green">{{lis.Staking.StakeThreshold.value| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="20" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress :percentage="getPercentage(lis.Staking.StakeThreshold,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{'1,000,000LAT'}}</span>
+                <span class="black">{{lis.Staking.StakeThreshold.initValue| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="20" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress :percentage="getPercentage(lis.Staking.StakeThreshold,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{1000000}}LAT</span>
+                <span class="medium">{{lis.Staking.StakeThreshold.start}}</span>
+                <span class="regular">{{lis.Staking.StakeThreshold.startValue| formatMoney}}LAT</span>
               </div>
               <div>
-                <span class="regular">{{1000000}}LAT</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Staking.StakeThreshold.endValue| formatMoney}}LAT</span>
+                <span class="medium">{{lis.Staking.StakeThreshold.end}}</span>
               </div>
             </div>
           </div>
@@ -54,31 +54,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{'10LAT'}}</span>
+                <span class="green">{{lis.Staking.OperatingThreshold.value| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="1" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.OperatingThreshold,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{'10LAT'}}</span>
+                <span class="black">{{lis.Staking.OperatingThreshold.initValue| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="1" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.OperatingThreshold,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{10}}LAT</span>
+                <span class="medium">{{lis.Staking.OperatingThreshold.start}}</span>
+                <span class="regular">{{lis.Staking.OperatingThreshold.startValue| formatMoney}}LAT</span>
               </div>
               <div>
-                <span class="regular">{{10000}}LAT</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Staking.OperatingThreshold.endValue| formatMoney}}LAT</span>
+                <span class="medium">{{lis.Staking.OperatingThreshold.end}}</span>
               </div>
             </div>
           </div>
@@ -93,31 +103,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{'101'}}</span>
+                <span class="green">{{lis.Staking.MaxValidators.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="50" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.MaxValidators,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{'101'}}</span>
+                <span class="black">{{lis.Staking.MaxValidators.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="50" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.MaxValidators,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{25}}</span>
+                <span class="medium">{{lis.Staking.MaxValidators.start}}</span>
+                <span class="regular">{{lis.Staking.MaxValidators.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{201}}</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Staking.MaxValidators.endValue}}</span>
+                <span class="medium">{{lis.Staking.MaxValidators.end}}</span>
               </div>
             </div>
           </div>
@@ -132,31 +152,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{'28'}}</span>
+                <span class="green">{{lis.Staking.UnStakeFreezeDuration.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="10" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.UnStakeFreezeDuration,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{'28'}}</span>
+                <span class="black">{{lis.Staking.UnStakeFreezeDuration.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="10" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.UnStakeFreezeDuration,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
+                <span class="medium">{{lis.Staking.UnStakeFreezeDuration.start}}</span>
                 <span class="regular">MaxEvidenceAge</span>
               </div>
               <div>
-                <span class="regular">{{112}}</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Staking.UnStakeFreezeDuration.endValue}}</span>
+                <span class="medium">{{lis.Staking.UnStakeFreezeDuration.end}}</span>
               </div>
             </div>
           </div>
@@ -164,7 +194,7 @@
       </div>
     </div>
     <!-- Slashing -->
-    <div class="section">
+    <div class="section" v-if="lis.Slashing">
       <h3 class="h3">Slashing</h3>
       <div class="cont-row">
         <!-- 内容分割1 -->
@@ -177,31 +207,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{0}}</span>
+                <span class="green">{{lis.Slashing.SlashBlocksReward.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="0" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.SlashBlocksReward,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{0}}</span>
+                <span class="black">{{lis.Slashing.SlashBlocksReward.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="0" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.SlashBlocksReward,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{0}}</span>
+                <span class="medium">{{lis.Slashing.SlashBlocksReward.start}}</span>
+                <span class="regular">{{lis.Slashing.SlashBlocksReward.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{60101}}</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Slashing.SlashBlocksReward.endValue}}</span>
+                <span class="medium">{{lis.Slashing.SlashBlocksReward.end}}</span>
               </div>
             </div>
           </div>
@@ -216,31 +256,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{10}}</span>
+                <span class="green">{{lis.Slashing.SlashFractionDuplicateSign.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="10" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.SlashFractionDuplicateSign,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{10}}</span>
+                <span class="black">{{lis.Slashing.SlashFractionDuplicateSign.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="10" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.SlashFractionDuplicateSign,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{0}}</span>
+                <span class="medium">{{lis.Slashing.SlashFractionDuplicateSign.start}}</span>
+                <span class="regular">{{lis.Slashing.SlashFractionDuplicateSign.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{10000}}</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Slashing.SlashFractionDuplicateSign.endValue}}</span>
+                <span class="medium">{{lis.Slashing.SlashFractionDuplicateSign.end}}</span>
               </div>
             </div>
           </div>
@@ -255,31 +305,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{50}}</span>
+                <span class="green">{{lis.Slashing.DuplicateSignReportReward.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="50" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.DuplicateSignReportReward,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{50}}</span>
+                <span class="black">{{lis.Slashing.DuplicateSignReportReward.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="50" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.DuplicateSignReportReward,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{0}}</span>
+                <span class="medium">{{lis.Slashing.DuplicateSignReportReward.start}}</span>
+                <span class="regular">{{lis.Slashing.DuplicateSignReportReward.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{80}}</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Slashing.DuplicateSignReportReward.endValue}}</span>
+                <span class="medium">{{lis.Slashing.DuplicateSignReportReward.end}}</span>
               </div>
             </div>
           </div>
@@ -294,31 +354,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{0}}</span>
+                <span class="green">{{lis.Slashing.MaxEvidenceAge.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="0" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.MaxEvidenceAge,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{0}}</span>
+                <span class="black">{{lis.Slashing.MaxEvidenceAge.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="0" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Slashing.MaxEvidenceAge,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{0}}</span>
+                <span class="medium">{{lis.Slashing.MaxEvidenceAge.start}}</span>
+                <span class="regular">{{lis.Slashing.MaxEvidenceAge.startValue}}</span>
               </div>
               <div>
                 <span class="regular">UnStakeFreezeDuration</span>
-                <span class="medium">]</span>
+                <span class="medium">{{lis.Slashing.MaxEvidenceAge.end}}</span>
               </div>
             </div>
           </div>
@@ -326,7 +396,7 @@
       </div>
     </div>
     <!-- Block -->
-    <div class="section">
+    <div class="section" v-if="lis.Block">
       <h3 class="h3">Block</h3>
       <div class="cont-row">
         <div class="cont-box">
@@ -338,31 +408,41 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{210000000}}</span>
+                <span class="green">{{lis.Block.MaxBlockGasLimit.value}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="20" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Block.MaxBlockGasLimit,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{100800000}}</span>
+                <span class="black">{{lis.Block.MaxBlockGasLimit.initValue}}</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="20" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Block.MaxBlockGasLimit,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
             <div class="bottom">
               <div>
-                <span class="medium">[</span>
-                <span class="regular">{{4712388}}&nbsp;gas</span>
+                <span class="medium">{{lis.Block.MaxBlockGasLimit.start}}</span>
+                <span class="regular">{{lis.Block.MaxBlockGasLimit.startValue}}&nbsp;gas</span>
               </div>
               <div>
-                <span class="regular">{{210000000}}&nbsp;gas</span>
-                <span class="medium">]</span>
+                <span class="regular">{{lis.Block.MaxBlockGasLimit.endValue}}&nbsp;gas</span>
+                <span class="medium">{{lis.Block.MaxBlockGasLimit.end}}</span>
               </div>
             </div>
           </div>
@@ -373,7 +453,54 @@
 </template>
 
 <script>
-export default {};
+import apiService from "@/services/API-services";
+export default {
+  name: "governable-parameter",
+  data() {
+    return {
+      lis: {
+        Block: null,
+        Slashing: null,
+        Staking: null
+      }
+    };
+  },
+  methods: {
+    getPercentage(d, s) {
+      let i = 0,
+        j = d.endValue - d.startValue;
+      if (s == 1) i = d.value - d.startValue;
+      else if (s == 2) i = d.initValue - d.startValue;
+      console.log("除数", i);
+      console.log("被除数", j);
+      console.log("商", parseInt((i / j) * 100));
+      return parseInt((i / j) * 100);
+    }
+  },
+  created() {
+    apiService.more
+      .queryConfig()
+      .then(res => {
+        console.log("hehe ", res);
+        let { errMsg, code, data } = res;
+        if (code == 0 && data.config) {
+          for (let i = 0, d = data.config; i < d.length; i++) {
+            let obj = {};
+            for (let j = 0, k = d[i].detail; j < k.length; j++) {
+              obj[k[j].name] = k[j];
+            }
+            this.lis[d[i].module] = obj;
+          }
+          console.log("转换后的对象", this.lis);
+        } else {
+          this.$message.error(errMsg);
+        }
+      })
+      .catch(error => {
+        this.$message.error(error);
+      });
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -387,7 +514,7 @@ export default {};
 }
 .section {
   margin-bottom: 20px;
-//   border: 1px solid black;
+  //   border: 1px solid black;
 }
 .h3 {
   font-family: Gilroy-Medium;
@@ -403,8 +530,7 @@ export default {};
 }
 .cont-box {
   margin: 0 74px 30px 0;
-//   border:1px solid red;
-
+  //   border:1px solid red;
 }
 .h4 {
   font-family: Gilroy-Medium;
