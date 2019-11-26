@@ -153,30 +153,38 @@
               <div class="desc">{{$t('tradeAbout.activeBlock')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content progress">
-                <div class="percentage" :style="{'width': expectUpgradePercentage}"></div>
-                <div class="progress-text">Block {{detailData.activeBlock | formatNumber}}</div>
-              </div>
+              <p class="active-block">
+                #{{detailData.activeBlock | formatNumber}}
+              </p>
             </el-col>
           </el-row>
+        </div>
+        <div class="item" v-if="detailData.type==3">
           <el-row>
             <el-col :span="6">
-              <div class="desc">&nbsp;</div>
+              <div class="desc">{{$t('tradeAbout.effectiveBlock')}}：</div>
             </el-col>
             <el-col :span="15">
-              <div
-                class="content estimatedTime"
-              >{{$t('contract.estimatedTime')}}: {{detailData.activeBlockTime | formatTime}}</div>
+              <p class="active-block">
+                #{{detailData.activeBlock | formatNumber}}
+              </p>
             </el-col>
           </el-row>
         </div>
       </el-col>
       <el-col :span="10">
+        <div class="item" v-if="detailData.type==3">
+          <div
+            class="desc"
+            style="margin:14px 0px 21px 0px;"
+          >{{$t('tradeAbout.parameterDetails')}}：</div>
+          <div class="fontSize15 Gilroy-Medium"><span class="parame-name">{{detailData.paramName}}:</span>{{detailData.newValue}}&nbsp;<span class="parame-value">({{$t('tradeAbout.originalValue')}}：{{detailData.currentValue}})</span></div>
+        </div>
         <div class="item">
           <div
             class="desc"
-            style="margin:53px 0px 10px 0px;"
-          >{{$t('tradeAbout.propasalDescription')}}:</div>
+            :style="{margin:detailData.type==3?'35px 0px 10px 0px':'14px 0px 10px 0px'}"
+          >{{$t('tradeAbout.propasalDescription')}}：</div>
           <div class="fontSize15">{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
         </div>
       </el-col>
@@ -203,8 +211,8 @@
     <!-- 其他提案进度 -->
     <div class="other-progress" v-else>
       <div class="join-progress">
-        {{$t('tradeAbout.currentParticipationrate')}}：
-        <span>{{joinProgress}}%</span>
+        {{$t('tradeAbout.passCondition')}}：
+        <span class="Gilroy-Medium fontSize13">Yes>= {{detailData.supportRateThreshold}}</span>
       </div>
       <div
         class="voteYes"
@@ -270,8 +278,8 @@
           </div>
         </div>
       </div>
-      <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
-        <span>{{$t('tradeAbout.passCondition')}}>={{detailData.supportRateThreshold}}</span>
+      <div class="big-progress-pass" :style="{'left': detailData.participationRate}">
+        <span>{{$t('tradeAbout.participationRate')}}>={{detailData.participationRate}}</span>
       </div>
     </div>
     <div
@@ -507,6 +515,23 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.active-block{
+  font-family: Gilroy-Medium;
+  font-size: 13px;
+  line-height: 20px;
+}
+.parame-name{
+  background: #EEEEEE;
+  border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px 8px;
+  margin-right: 12px;
+}
+.parame-value{
+  font-family: Gilroy-Regular;
+  font-size: 13px;
+  color: #999999;
+}
 .sub-title {
   display: flex;
   justify-content: space-between;

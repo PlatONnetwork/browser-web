@@ -361,7 +361,7 @@ export default {
   }
 }
 .el-menu-demo {
-  width: 580px;
+  width: 632px;
   // border: 0px;
   // border-bottom-color: #040B27;
   li.el-menu-item {
@@ -408,9 +408,14 @@ export default {
   }
 }
 .search-header {
-  min-width: 320px;
+  min-width: 300px;
   max-width: 600px;
   flex: 1;
+  @media only screen and (max-width: 1366px){
+    .el-button{
+      padding: 12px 14px;
+    }
+  }
 }
 
 @media only screen and (max-width: 1680px) {
@@ -421,7 +426,7 @@ export default {
     margin: 0 0 0 0;
   }
   .el-menu-demo {
-    width: 485px;
+    width: 520px;
     .el-menu-item {
       padding: 0 10px;
     }
