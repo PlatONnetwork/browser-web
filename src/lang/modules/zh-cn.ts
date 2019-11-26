@@ -442,7 +442,7 @@ export default {
         maxValidators: '活跃验证节点数量',
         unStakeFreezeDuration: '验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）',
         slashBlocksReward: '出块率为0，削减的区块奖励块数。',
-        slashingMaxValidators: '双签举报处罚节点自有质押金比例(‱)',
+        slashFractionDuplicateSign: '双签举报处罚节点自有质押金比例(‱)',
         duplicateSignReportReward: '举报人可获得处罚金的奖励比例（%）',
         maxEvidenceAge: '双签举报证据有效的结算周期数（一个结算周期10750blocks）',
         maxBlockGasLimit: '区块最大Gas',

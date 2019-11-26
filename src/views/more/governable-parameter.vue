@@ -248,8 +248,8 @@
         </div>
         <!-- 内容分割2 -->
         <div class="cont-box">
-          <h4 class="h4">MaxValidators</h4>
-          <p class="exp">{{$t("more.slashingMaxValidators")}}</p>
+          <h4 class="h4">SlashFractionDuplicateSign</h4>
+          <p class="exp">{{$t("more.slashFractionDuplicateSign")}}</p>
           <!-- 有背景内容块 -->
           <div class="cont-block">
             <!-- Current Value: -->
