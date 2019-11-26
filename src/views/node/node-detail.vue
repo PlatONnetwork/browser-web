@@ -432,7 +432,7 @@
                       <div slot="content" class="delegate-msg">
                           {{$t("deleget.percentageMsg")}}
                       </div>
-                      <i class="iconfont cursor address-icon">&#xe63f;</i>
+                      <i class="address-icon"></i>
                   </el-tooltip>
                 </template>
                 <template slot-scope="scope">
@@ -455,7 +455,7 @@
                         <div slot="content" class="delegate-msg">
                             {{$t("deleget.lockedMsg")}}
                         </div>
-                        <i class="iconfont cursor address-icon">&#xe63f;</i>
+                        <i class="address-icon"></i>
                     </el-tooltip>
                 </template>
                 <template slot-scope="scope">
@@ -473,7 +473,7 @@
                         <div slot="content" class="delegate-msg">
                             {{$t("deleget.releasedMsg")}}
                         </div>
-                        <i class="iconfont cursor address-icon">&#xe63f;</i>
+                        <i class="address-icon"></i>
                     </el-tooltip>
                 </template>
                 <template slot-scope="scope">
