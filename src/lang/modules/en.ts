@@ -442,7 +442,7 @@ export default {
         maxValidators: 'Number of alternative validators (ie active)',
         unStakeFreezeDuration: 'Number of Epochs of stake freeze(1 epoch=10750blocks)',
         slashBlocksReward: 'Slash the number of block rewards(block rate=0%).',
-        slashingMaxValidators: 'Slash ratio of DoubleSign(‱)',
+        slashFractionDuplicateSign: 'Slash ratio of DoubleSign(‱)',
         duplicateSignReportReward: 'Reporter\'s reward percentage (%)',
         maxEvidenceAge: 'Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks)',
         maxBlockGasLimit: 'Block Gas Limit',
