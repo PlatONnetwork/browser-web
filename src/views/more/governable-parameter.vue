@@ -18,7 +18,12 @@
                 <span class="green">{{lis.Staking.StakeThreshold.value| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="getPercentage(lis.Staking.StakeThreshold,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.StakeThreshold,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
               </div>
             </div>
             <!-- Genesis Value: -->
@@ -28,7 +33,12 @@
                 <span class="black">{{lis.Staking.StakeThreshold.initValue| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
-                <el-progress :percentage="getPercentage(lis.Staking.StakeThreshold,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+                <el-progress
+                  :percentage="getPercentage(lis.Staking.StakeThreshold,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
               </div>
             </div>
             <!-- 底部数字 -->
@@ -468,10 +478,13 @@ export default {
   methods: {
     getPercentage(d, s) {
       let i = 0,
-        j = d.endValue - d.startValue;
+        j = d.endValue - d.startValue,
+        k = 0;
       if (s == 1) i = d.value - d.startValue;
       else if (s == 2) i = d.initValue - d.startValue;
-      return parseInt((i / j) * 100);
+      k = (i / j) * 100;
+      if (k < 0.3) k = 0.3;
+      return k;
     }
   },
   created() {
