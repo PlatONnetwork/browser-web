@@ -30,10 +30,10 @@
         <el-menu-item index="/proposal" :class="{active:$route.path.indexOf('proposal')>-1}">
           <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
         </el-menu-item>
-        <el-menu-item :class="{active:$route.path.indexOf('governable-parameter')>-1}">
+        <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
           <el-dropdown placement="bottom-start" class="more-dropdown" @command="dropdownCommand">
-            <span class="el-dropdown-link more-title">{{ $t("menu.more") }}</span>
+            <span class="el-dropdown-link more-title" :class="{active:$route.path.indexOf('governable-parameter')>-1}">{{ $t("menu.more") }}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/governable-parameter">{{$t("more.governableParameter")}}</el-dropdown-item>
             </el-dropdown-menu>
@@ -467,11 +467,14 @@ export default {
   color: inherit;
   letter-spacing: 0;
   text-align: right;
-  //   border: 1px solid red;
+  outline: none;
 }
 .more-dropdown {
   display: inline;
   color: inherit;
+}
+.more-item{
+  color: #999999 !important;
 }
 </style>
 <style lang="less">

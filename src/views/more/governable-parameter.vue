@@ -471,9 +471,6 @@ export default {
         j = d.endValue - d.startValue;
       if (s == 1) i = d.value - d.startValue;
       else if (s == 2) i = d.initValue - d.startValue;
-      console.log("除数", i);
-      console.log("被除数", j);
-      console.log("商", parseInt((i / j) * 100));
       return parseInt((i / j) * 100);
     }
   },
@@ -481,7 +478,6 @@ export default {
     apiService.more
       .queryConfig()
       .then(res => {
-        console.log("hehe ", res);
         let { errMsg, code, data } = res;
         if (code == 0 && data.config) {
           for (let i = 0, d = data.config; i < d.length; i++) {
@@ -491,7 +487,6 @@ export default {
             }
             this.lis[d[i].module] = obj;
           }
-          console.log("转换后的对象", this.lis);
         } else {
           this.$message.error(errMsg);
         }
