@@ -176,14 +176,14 @@
         <div class="item" v-if="detailData.type==3">
           <div
             class="desc"
-            style="margin:14px 0px 21px 0px;"
+            style="margin:41px 0px 21px 0px;"
           >{{$t('tradeAbout.parameterDetails')}}：</div>
           <div class="fontSize15 Gilroy-Medium"><span class="parame-name">{{detailData.paramName}}:</span>{{detailData.newValue}}&nbsp;<span class="parame-value">({{$t('tradeAbout.originalValue')}}：{{detailData.currentValue}})</span></div>
         </div>
         <div class="item">
           <div
             class="desc"
-            :style="{margin:detailData.type==3?'35px 0px 10px 0px':'14px 0px 10px 0px'}"
+            :style="{margin:detailData.type==3?'35px 0px 10px 0px':'41px 0px 10px 0px'}"
           >{{$t('tradeAbout.propasalDescription')}}：</div>
           <div class="fontSize15">{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
         </div>
@@ -359,7 +359,7 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 20,
-      pageTotal: 1,
+      pageTotal: 0,
       endVotingPercentage: "",
       expectUpgradePercentage: "",
       yesPercentage: 0,

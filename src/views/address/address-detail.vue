@@ -202,7 +202,7 @@
                 tableData: [],
                 currentPage: 1,
                 pageSize: 20,
-                pageTotal: 1,
+                pageTotal: 0,
 
                 activeTab:1,
                 address:'',
