@@ -221,7 +221,7 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 150,
-      pageTotal: 1,
+      pageTotal: 0,
       keyword: "",
       queryStatus: "all",
       timer: null,

@@ -520,17 +520,17 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 20,
-      pageTotal: 1,
+      pageTotal: 0,
 
       tableOperateData: [],
       currentPage2: 1,
       pageSize2: 20,
-      pageTotal2: 1,
+      pageTotal2: 0,
 
       tableDelegetData: [],
       currentPage3: 1,
       pageSize3: 20,
-      pageTotal3: 1,
+      pageTotal3: 0,
 
       displayTotalCount: 0,
       isCopy: false,
