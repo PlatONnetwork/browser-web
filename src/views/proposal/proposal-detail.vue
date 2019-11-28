@@ -337,7 +337,7 @@
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal"
+          :total="searchTotal"
           :pager-count="9"
         ></el-pagination>
       </div>
@@ -360,6 +360,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
+      searchTotal: 0,
       endVotingPercentage: "",
       expectUpgradePercentage: "",
       yesPercentage: 0,
@@ -401,6 +402,7 @@ export default {
         if (!option) {
           this.pageTotal = totalCount;
         }
+        this.searchTotal = totalCount;
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }

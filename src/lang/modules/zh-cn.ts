@@ -75,7 +75,7 @@ export default {
         title: '标题',
         proposalEndBlock: '投票结束区块',
         votingEndBlock: '投票结束区块',
-        activeBlock: '预设升级区块',
+        activeBlock: '版本升级区块',
         effectiveBlock: '参数生效区块',
         parameterDetails: '参数详情',
         originalValue: '原参数值',

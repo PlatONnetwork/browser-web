@@ -75,7 +75,7 @@ export default {
         title: 'Title',
         proposalEndBlock: 'ProposalEndBlock',
         votingEndBlock: 'Voting End Block',
-        activeBlock: 'Expected Upgrade Block',
+        activeBlock: 'Upgrade Block',
         effectiveBlock: 'Effective block',
         parameterDetails: 'Parameter Details',
         originalValue: 'Original Value',
