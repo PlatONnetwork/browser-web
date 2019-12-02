@@ -200,6 +200,12 @@ export default {
       this.language = command;
       window.i18nLocale = command;
       localStorage.setItem("i18nLocale", command);
+
+      // 处理交易失败提示语的语言切换，需要重新请求接口
+      const path = this.$route.path;
+      if (path == "/trade" || path == "/address-detail" || path == "/block-detail" || path == "/trade-detail") {
+        this.reload();
+      }
       // this.$i18n.locale = localStorage.getItem('i18nLocale')
     },
     //查询

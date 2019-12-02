@@ -108,7 +108,7 @@ export default {
         textProposal: 'TextProposal',
         quitProposal: 'QuitProposal',
         upgradeVersion: 'UpgradeVersion',
-        propasalDescription: 'Propasal Description',
+        propasalDescription: 'Description',
         proposalToCancel: 'Proposal To Cancel',
 
         identity: 'Identity',
@@ -434,6 +434,7 @@ export default {
         5: 'Proposal Voting',
         6: 'Double Signing',
         7: 'Low Block Rate',
+        10: 'Increase Self-Stakes',
     },
     more: {
         governableParameter: 'GOVERNABLE PARAMETER',

@@ -172,7 +172,9 @@ class IndexService extends Ws {
                 const { data, code } = res
                 console.log(`getChartData`, res)
                 if (code === 0) {
-                    store.dispatch('updateChartData', data)
+                    if(store.state.index.barIsMove){
+                        store.dispatch('updateChartData', data);    
+                    }
                 } else {
                     throw new Error(`todo`)
                 }

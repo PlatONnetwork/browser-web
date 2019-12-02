@@ -367,6 +367,7 @@ export default {
     ...mapMutations({
       hide: "HIDE_SEARCH",
       updateIsMove: "UPDATE_IS_MOVE",
+      updateBarIsMove: "UPDATE_BAR_IS_MOVE",
       updateBlack: "UPDATE_BLACK_DADA",
       updateValidators: "UPDATE_VALIDATOR_DADA",
       updateChartData: "UPDATE_CHART_DADA",
@@ -494,7 +495,7 @@ export default {
       }
     },
     handleBarHover(e){
-      console.log('aaa',e)
+      console.log('aaa','Hover')
       this.isShowTooltip = true;
       this.$nextTick(()=>{
         this.tooltipData.time = this.chartData.ya[e.dataIndex];
@@ -518,9 +519,12 @@ export default {
       }
       console.log('barColorList',this.barColorList)
       this.updateBarColor();
-      indexService.unsubBlock();
+
+      this.updateBarIsMove(false);
+      // indexService.unsubBlock();
     },
     handleBarMouseout(){
+      console.log('aaa','Mouseout')
       this.isShowTooltip = false;
       this.barColorList.forEach((value,index)=>{
         if(index==0){
@@ -538,7 +542,8 @@ export default {
         this.handleBarHover(e);
       });
       blockTimeChart.chart.on("mouseout", () => {
-        indexService.getChartData();
+        // indexService.getChartData();
+        this.updateBarIsMove(true);
         this.handleBarMouseout();
       });
     },
@@ -549,7 +554,8 @@ export default {
         this.handleBarHover(e);
       });
       blockTradeChart.chart.on("mouseout", () => {
-        indexService.getChartData();
+        // indexService.getChartData();
+        this.updateBarIsMove(true);
         this.handleBarMouseout();
       });
     },

@@ -26,6 +26,7 @@ export const index: object = {
             
         },
         isMove:false,  //控制首页区块动画
+        barIsMove:true,  //控制图表动画
         ValidatorData: {
             "isRefresh":true,    //false不用全量刷新、true全量刷新
             "dataList":[               

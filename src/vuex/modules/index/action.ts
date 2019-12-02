@@ -20,4 +20,7 @@ export const indexAction = {
     updateIsMove({ commit, state }, data) {
         commit('UPDATE_IS_MOVE', data)
     },
+    updateBarIsMove({ commit, state }, data) {
+        commit('UPDATE_BAR_IS_MOVE', data)
+    },
 }

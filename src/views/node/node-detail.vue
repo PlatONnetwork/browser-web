@@ -339,7 +339,7 @@
                 <template slot-scope="scope">
                   <p
                     class="percent80"
-                    v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3"
+                    v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3 || scope.row.type==10"
                   >{{$t('actionType.'+[scope.row.type])}}</p>
                   <p class="percent80" v-else-if="scope.row.type==4 || scope.row.type==5">
                     <template v-if="scope.row.title">

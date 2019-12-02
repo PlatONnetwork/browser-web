@@ -434,6 +434,7 @@ export default {
         5: '提案投票',
         6: '双签处罚',
         7: '低出块率处罚',
+        10: '增加自有质押',
     },
     more: {
         governableParameter: '可治理参数',
