@@ -77,7 +77,7 @@
         @visible-change="visibleChange2"
       >
         <span class="el-dropdown-link">
-          {{languageObj[language]}}
+          {{languageObj[language]=='简体中文'?'简体中文':'English'}}
           <i class="el-icon--right" :class="iconClass2"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -105,9 +105,7 @@ export default {
       disabledBtn: false,
       dropDisabled: false,
       searchKey: "", //搜索
-      language: localStorage.getItem("i18nLocale")
-        ? localStorage.getItem("i18nLocale")
-        : "zh-cn",
+      language: "zh-cn",
       chainList: [
         {
           en: "NewBaleyworld",
@@ -307,7 +305,9 @@ export default {
     }
   },
   //生命周期函数
-  created() {},
+  created() {
+    this.language = (this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en");
+  },
   mounted() {}
 };
 </script>
@@ -423,7 +423,11 @@ export default {
     }
   }
 }
-
+.el-menu-demo {
+  .el-menu-item {
+    padding: 0 19px;
+  }
+}
 @media only screen and (max-width: 1680px) {
   .header-wrap {
     padding: 0 3.2%;

@@ -245,7 +245,7 @@ export default {
   .item-wrap {
     line-height: 24px;
     label {
-      width: 170px;
+      width: 171px;
       line-height: 21px;
       font-size: 14px;
     }

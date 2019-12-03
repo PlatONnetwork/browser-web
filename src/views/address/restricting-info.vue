@@ -26,7 +26,7 @@
                     <p>{{detailInfo.stakingValue | formatMoney}}&nbsp;LAT</p>
                 </Item>
                 <Item :label="$t('contract.debt')">
-                    <p>{{detailInfo.underreleaseValue | formatMoney}}&nbsp;LAT</p>
+                    <p>{{detailInfo.underReleaseValue | formatMoney}}&nbsp;LAT</p>
                 </Item>
             </List>
         </div>

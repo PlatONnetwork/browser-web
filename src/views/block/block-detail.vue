@@ -35,7 +35,8 @@
         <Item :label="$t('tradeAbout.transactions')" :prop="detailInfo.txQty+' TX'"></Item>
         <Item :label="$t('blockAbout.blockHash')" :prop="detailInfo.hash"></Item>
         <Item :label="$t('blockAbout.parentHash')">
-          <span class="blue cursor" @click="goDetail(height-1)">{{detailInfo.parentHash}}</span>
+          <span v-if="height-1<0">{{detailInfo.parentHash}}</span>
+          <span class="blue cursor" v-else @click="goDetail(height-1)">{{detailInfo.parentHash}}</span>
         </Item>
         <Item :label="$t('blockAbout.producer')" v-if="detailInfo.txType!='4000'">
           <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>

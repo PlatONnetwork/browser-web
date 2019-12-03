@@ -178,7 +178,7 @@
             class="desc"
             style="margin:41px 0px 21px 0px;"
           >{{$t('tradeAbout.parameterDetails')}}：</div>
-          <div class="fontSize15 Gilroy-Medium"><span class="parame-name">{{detailData.paramName}}:</span>{{detailData.newValue}}&nbsp;<span class="parame-value">({{$t('tradeAbout.originalValue')}}：{{detailData.currentValue}})</span></div>
+          <div class="fontSize15 Gilroy-Medium"><span class="parame-name">{{detailData.paramName}}:</span><span class="parame-new-value">{{detailData.newValue}}&nbsp;</span><span class="parame-value">({{$t('tradeAbout.originalValue')}}：{{detailData.currentValue}})</span></div>
         </div>
         <div class="item">
           <div
@@ -279,7 +279,7 @@
         </div>
       </div>
       <div class="big-progress-pass" :style="{'left': detailData.participationRate}">
-        <span>{{$t('tradeAbout.participationRate')}}>={{detailData.participationRate}}</span>
+        <span>{{$t('tradeAbout.participationRate')}}>{{detailData.participationRate}}</span>
       </div>
     </div>
     <div
@@ -529,10 +529,17 @@ export default {
   padding: 5px 8px;
   margin-right: 12px;
 }
+.parame-new-value{
+  display: inline-block;
+}
 .parame-value{
   font-family: Gilroy-Regular;
   font-size: 13px;
   color: #999999;
+  display: inline-block;
+  margin-top: 8px;
+  word-break: break-all;
+  // line-height: 28px;
 }
 .sub-title {
   display: flex;
