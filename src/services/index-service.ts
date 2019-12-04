@@ -195,9 +195,18 @@ class IndexService extends Ws {
                     //区块列表数据
                     if (data.blockList[0].isRefresh) {
                         store.dispatch('updateIsMove', true);
-                        setTimeout(() => {
-                            store.dispatch('updateBlockData', data.blockList)  //动画完成后再更新数据
-                        }, 1000)
+                        // 处理ie有时动画消失的问题
+                        if(!!window['ActiveXObject'] || 'ActiveXObject' in window || navigator.userAgent.indexOf("Edge") > -1){
+                            store.dispatch('updateIsMove2', false);
+                            setTimeout(() => {
+                                store.dispatch('updateBlockData', data.blockList)  //动画完成后再更新数据
+                                store.dispatch('updateIsMove', false);
+                            }, 1000)
+                        }else{
+                            setTimeout(() => {
+                                store.dispatch('updateBlockData', data.blockList)  //动画完成后再更新数据
+                            }, 1000)
+                        }
                     }
                 } else {
                     throw new Error(`todo`)

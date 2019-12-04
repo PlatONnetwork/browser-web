@@ -284,7 +284,7 @@ export default {
       tabIndex: 1,
       i18nLocale: "zh-cn",
       // isMove:false,
-      isMove2: false,
+      // isMove2: false,
       styleEle: null,
       ele: null,
       chartMove: false,
@@ -315,7 +315,8 @@ export default {
       "blockData",
       "ValidatorData",
       "hideSearch",
-      "isMove"
+      "isMove",
+      "isMove2"
     ]),
     showedValidatorData() {
       if (this.ValidatorData.dataList.length > 8) {
@@ -367,6 +368,7 @@ export default {
     ...mapMutations({
       hide: "HIDE_SEARCH",
       updateIsMove: "UPDATE_IS_MOVE",
+      updateIsMove2: "UPDATE_IS_MOVE2",
       updateBarIsMove: "UPDATE_BAR_IS_MOVE",
       updateBlack: "UPDATE_BLACK_DADA",
       updateValidators: "UPDATE_VALIDATOR_DADA",
@@ -715,6 +717,7 @@ export default {
     const agent = navigator.userAgent.toLowerCase();
     this.isWebkit= (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/')==-1);
     this.updateIsMove(false);  //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
+    this.updateIsMove2(false);
     console.log("aaa", IndexService);
     // indexService = new IndexService();
     //当选验证节点
@@ -758,7 +761,8 @@ export default {
     block2.addEventListener(
       "transitionend",
       () => {
-        this.isMove2 = true;
+        // this.isMove2 = true;
+        this.updateIsMove2(true);
       },
       false
     );
@@ -767,8 +771,9 @@ export default {
       () => {
         console.log("cccc", this.isMove);
         this.updateIsMove(false);
-        // this.isMove = false;
-        this.isMove2 = false;
+
+        // this.isMove2 = false;
+        this.updateIsMove2(false);
       },
       false
     );
@@ -777,6 +782,7 @@ export default {
     // indexService.disconnect();
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
     this.updateIsMove(false);
+    this.updateIsMove2(false);
     if (this.ele) {
       // 移除动态追加的style
       document.getElementsByTagName("head")[0].removeChild(this.ele);
@@ -790,6 +796,7 @@ export default {
     
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
     this.updateIsMove(false);
+    this.updateIsMove2(false);
     if (this.ele) {
       // 移除动态追加的style
       document.getElementsByTagName("head")[0].removeChild(this.ele);

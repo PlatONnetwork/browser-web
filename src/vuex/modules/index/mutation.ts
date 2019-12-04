@@ -20,6 +20,9 @@ export const indexMutation = {
     ['UPDATE_IS_MOVE'](state, data) {
         state.isMove = data
     },
+    ['UPDATE_IS_MOVE2'](state, data) {
+        state.isMove2 = data
+    },
     ['UPDATE_BAR_IS_MOVE'](state, data) {
         state.barIsMove = data
     },

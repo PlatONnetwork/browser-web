@@ -8,5 +8,6 @@ export const indexGetter = {
     ValidatorData: state => state.ValidatorData,
     ValidatorStatisticData: state => state.ValidatorStatisticData,
     isMove: state => state.isMove,
+    isMove2: state => state.isMove2,
     barIsMove: state => state.barIsMove,
 }
