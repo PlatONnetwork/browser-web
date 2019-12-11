@@ -82,7 +82,11 @@
             verify(data){
                 console.warn('传给父组件的token',data)
                 this.response = data
-                if(true){
+                // 测试环境特殊处理
+                if(location.origin.indexOf('https')==-1){
+                    this.response = '1';
+                }
+                if(this.response){
                     // this.disabledBtn=false;
                     this.sameFn();
                 }else{

@@ -27,7 +27,7 @@
         <div class="node-header-right">
           <span
             class="green vote-status"
-            v-if="detailInfo.status==2"
+            v-if="detailInfo.status==2 || detailInfo.status==6"
           >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
           <span
             class="yellow vote-status yellow-status"

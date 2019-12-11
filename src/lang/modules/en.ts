@@ -375,6 +375,7 @@ export default {
         3: 'Producing…',
         4: 'Exiting',
         5: 'Exited',
+        6: 'Verifying...'
     },
     // 交易类型
     TxType: {

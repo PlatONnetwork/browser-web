@@ -131,7 +131,7 @@
           <template slot-scope="scope">
             <span
               class="Gilroy-Bold"
-              :class="{green:scope.row.status==2,yellow:(scope.row.status==3 || scope.row.status==4),red:scope.row.status==1,}"
+              :class="{green:(scope.row.status==2 || scope.row.status==6),yellow:(scope.row.status==3 || scope.row.status==4),red:scope.row.status==1,}"
             >{{$t('nodeStatus.'+[scope.row.status])}}</span>
           </template>
         </el-table-column>
