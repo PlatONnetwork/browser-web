@@ -63,7 +63,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'),resolve('/node_modules/_vue-particles@1.0.9@vue-particles')]
+        include: [resolve('src'), resolve('test'),resolve('/node_modules/_vue-particles@1.0.9@vue-particles'),resolve('/node_modules/vue-particles')]  //保证npm,cnpm都有效
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
