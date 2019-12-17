@@ -362,7 +362,6 @@ export default {
       pageTotal: 0,
       searchTotal: 0,
       endVotingPercentage: "",
-      expectUpgradePercentage: "",
       yesPercentage: 0,
       noPercentage: 0,
       quitPercentage: 0,
@@ -430,20 +429,8 @@ export default {
         let tmpYesPercentage = (data.yeas / data.accuVerifiers) * 100,
           tmpNoPercentage = (data.nays / data.accuVerifiers) * 100,
           tmpQuitPercentage = (data.abstentions / data.accuVerifiers) * 100,
-          tmpEndVotingPercentage =
-            (data.curBlock / data.endVotingBlock > 1
-              ? 1
-              : data.curBlock / data.endVotingBlock) *
-              100 +
-            "%",
-          tmpExpectUpgradePercentage =
-            (data.curBlock / data.activeBlock > 1
-              ? 1
-              : data.curBlock / data.activeBlock) *
-              100 +
-            "%";
+          tmpEndVotingPercentage = ((data.curBlock-0) > (data.endVotingBlock-0)?'100%':((data.curBlock-data.inBlock) / (data.endVotingBlock-data.inBlock) * 100 + "%"));       
         // debugger
-        this.expectUpgradePercentage = tmpExpectUpgradePercentage;
         this.endVotingPercentage = tmpEndVotingPercentage;
         this.yesPercentage = tmpYesPercentage.toFixed(2);
         this.noPercentage = tmpNoPercentage.toFixed(2);

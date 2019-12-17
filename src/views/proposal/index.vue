@@ -45,7 +45,7 @@
           <template slot-scope="scope">
             <div class="flex-special content progress percent60">
               <!-- <span class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.$index,scope.row)">{{scope.row.endVotingBlock}}</span> -->
-                <div class="percentage" :style="{'width': (scope.row.curBlock/scope.row.endVotingBlock)*100+'%'}"></div>
+                <div class="percentage" :style="{'width': ((scope.row.curBlock-scope.row.inBlock)/(scope.row.endVotingBlock-scope.row.inBlock))*100+'%'}"></div>
                 <div class="progress-text">Block {{scope.row.endVotingBlock}}</div>
             </div>
           </template>
