@@ -316,7 +316,7 @@
         },
         //生命周期函数
         created() {
-            this.address = this.$route.query.address;
+            this.address = this.$route.query.address.toLowerCase(); 
             this.getDetail();
             this.getList();
         },
