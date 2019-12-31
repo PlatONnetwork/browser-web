@@ -211,8 +211,8 @@
     <!-- 其他提案进度 -->
     <div class="other-progress" v-else>
       <div class="join-progress">
-        {{$t('tradeAbout.passCondition')}}：
-        <span class="Gilroy-Medium fontSize13">Yes>= {{detailData.supportRateThreshold}}</span>
+        {{$t('tradeAbout.currentParticipationrate')}}：
+        <span class="Gilroy-Medium fontSize13">{{detailData.participationRate}} {{$t('tradeAbout.participationRate')}}</span>
       </div>
       <div
         class="voteYes"
@@ -278,8 +278,8 @@
           </div>
         </div>
       </div>
-      <div class="big-progress-pass" :style="{'left': detailData.participationRate}">
-        <span>{{$t('tradeAbout.participationRate')}}>{{detailData.participationRate}}</span>
+      <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
+        <span>{{$t('tradeAbout.passCondition')}}>{{detailData.supportRateThreshold}}</span>
       </div>
     </div>
     <div
@@ -373,7 +373,6 @@ export default {
       },
       selectIndex: 0,
       detailData: {},
-      joinProgress: "00%"
     };
   },
   props: {},
@@ -425,21 +424,23 @@ export default {
           param
         );
         this.detailData = data;
-
-        let tmpYesPercentage = (data.yeas / data.accuVerifiers) * 100,
-          tmpNoPercentage = (data.nays / data.accuVerifiers) * 100,
-          tmpQuitPercentage = (data.abstentions / data.accuVerifiers) * 100,
-          tmpEndVotingPercentage = ((data.curBlock-0) > (data.endVotingBlock-0)?'100%':((data.curBlock-data.inBlock) / (data.endVotingBlock-data.inBlock) * 100 + "%"));       
+        const voteCount = data.yeas + data.nays + data.abstentions;
+        let tmpYesPercentage,tmpNoPercentage,tmpQuitPercentage;
+        if(voteCount==0){
+          tmpYesPercentage = 0,
+          tmpNoPercentage = 0,
+          tmpQuitPercentage = 0;
+        }else{
+          tmpYesPercentage = data.type=='2'?((data.yeas / data.accuVerifiers) * 100):((data.yeas / voteCount) * 100),
+          tmpNoPercentage = (data.nays / voteCount) * 100,
+          tmpQuitPercentage = (data.abstentions / voteCount) * 100;
+        }
+        let tmpEndVotingPercentage = ((data.curBlock-0) > (data.endVotingBlock-0)?'100%':((data.curBlock-data.inBlock) / (data.endVotingBlock-data.inBlock) * 100 + "%"));       
         // debugger
         this.endVotingPercentage = tmpEndVotingPercentage;
         this.yesPercentage = tmpYesPercentage.toFixed(2);
         this.noPercentage = tmpNoPercentage.toFixed(2);
         this.quitPercentage = tmpQuitPercentage.toFixed(2);
-
-        this.joinProgress = (
-          ((data.yeas + data.nays + data.abstentions) / data.accuVerifiers) *
-          100
-        ).toFixed(2);
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }

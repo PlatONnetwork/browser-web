@@ -89,7 +89,7 @@ export default {
         no: 'NO',
         abstain: 'ABSTAIN',
         currentParticipationrate: '当前参与率',
-        participationRate: '参与率要求',
+        participationRate: '(要求>50%)',
         NumberOfVotes: '投票数',
         passCondition: '通过条件',
         voteUpgradeNumber: '投票升级数',

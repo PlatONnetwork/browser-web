@@ -89,7 +89,7 @@ export default {
         no: 'NO',
         abstain: 'ABSTAIN',
         currentParticipationrate: 'Current participation rate',
-        participationRate: 'Participation rate',
+        participationRate: '(Requirements>50%)',
         NumberOfVotes: 'Number of votes',
         passCondition: 'Pass Condition',
         voteUpgradeNumber: 'Vote upgrade number',
