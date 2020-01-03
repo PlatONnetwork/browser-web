@@ -1,12 +1,6 @@
 <template>
-  <div
-    :class="{
-      'list-item': vertical === false,
-      'list-col-item': vertical === true
-    }"
-  >
-    <label v-if="vertical === false"> {{ label }}： </label>
-    <label v-else> {{ label }}</label>
+  <div class="list-item">
+    <p>{{ label }}：</p>
     <p
       v-if="prop || prop == 0"
       :class="{
@@ -30,10 +24,6 @@ export default {
   },
   props: {
     prop: [String, Number],
-    vertical: {
-      type: Boolean,
-      default: false
-    },
     type: {
       type: String,
       default: "normal"
@@ -70,25 +60,6 @@ export default {
 .list-item {
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 15px;
-  label {
-    font-size: 13px;
-    color: #666;
-    line-height: 15px;
-    width: 135px;
-    font-family: Gilroy-Medium;
-  }
-  p {
-    word-break: break-all;
-    width: 85%;
-  }
-  .blue:hover {
-    color: #0e52ac;
-  }
-}
-.list-col-item {
-  display: flex;
-  flex-flow: column nowrap;
   margin-bottom: 15px;
   label {
     font-size: 13px;

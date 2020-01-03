@@ -189,7 +189,12 @@ export default {
 
     claimRewards: "领取奖励",
     rewardAmount: "领取奖励数",
-    rewardDetails: "奖励明细"
+    rewardDetails: "奖励明细",
+
+    rewardRatio: "委托奖励比例",
+    claimTime: "领取时间",
+    delegateReward: "委托奖励数量",
+    totalClaimedReward: "累计领取委托奖励"
   },
   contract: {
     contractDetail: "合约详情",
@@ -225,7 +230,6 @@ export default {
     epoch: "锁仓周期",
     estimatedTime: "预计时间",
     unlocksNumber: "解锁数量",
-
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托"
   },
@@ -255,7 +259,10 @@ export default {
     acceptDelegations: "接受委托",
     Delegating: "待赎回委托",
     DelegateRecord: "委托记录",
-    DelegateRecordWaiting: "待赎回的委托记录"
+    DelegateRecordWaiting: "待赎回的委托记录",
+
+    rewardReceiveDetails: "奖励领取明细",
+    totalReceiveReward: "累计已领取委托奖励"
   },
   blockAbout: {
     morethen: "总共",
@@ -342,6 +349,7 @@ export default {
     blockRate: "出块率",
     totalStakePower: "总质押",
     totalReward: "累计奖励",
+    totalNodeReward: "累计节点奖励",
     yield: "预计年化收益率",
     yield2: "年化率",
     stability: "稳定性",
@@ -379,7 +387,17 @@ export default {
     systemBuilt: "System built-in reward pool account",
     systemOperation: "系统操作，无交易",
     node: "节点",
-    officialRecommendation: "官方推荐"
+    officialRecommendation: "官方推荐",
+
+    delegatedYield: "预计委托年化率",
+    node1Tips:
+      "节点在最近4个结算周期每份额质押净收益折合成的年化收益率，仅做参考。",
+    node2Tips:
+      "委托者最近4个结算周期每份额委托净收益折合成的年化收益率，仅做参考。",
+    totalDelegatedReward: "累计委托奖励",
+    delegatorNum: "当前委托者数",
+    delegatedAnnualizedYield: "预计委托年化收益率",
+    validatorAnnualizedYield: "预计节点年化收益率"
   },
   nodeStatus: {
     1: "候选中",

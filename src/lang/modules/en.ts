@@ -189,7 +189,12 @@ export default {
 
     claimRewards: "ClaimRewards",
     rewardAmount: "Reward Amount",
-    rewardDetails: "Reward details"
+    rewardDetails: "Reward details",
+
+    rewardRatio: "rewardRatio",
+    claimTime: "claimTime",
+    delegateReward: "delegateReward",
+    totalClaimedReward: "Total claimed reward"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",
@@ -256,7 +261,10 @@ export default {
     acceptDelegations: "Delegations",
     Delegating: "Invalid Delegations",
     DelegateRecord: "Delegation record",
-    DelegateRecordWaiting: "Delegate record waiting for withdrawal"
+    DelegateRecordWaiting: "Delegate record waiting for withdrawal",
+
+    rewardReceiveDetails: "rewardDetails",
+    totalReceiveReward: "Total claimed reward"
   },
   blockAbout: {
     morethen: "Total ",
@@ -344,6 +352,7 @@ export default {
     blockRate: "Block Rate",
     totalStakePower: "Total Stake",
     totalReward: "Total Reward",
+    totalNodeReward: "Total Node Reward",
     yield: "Yield",
     yield2: "Yield",
     stability: "Stability",
@@ -381,7 +390,17 @@ export default {
     systemBuilt: "System built-in reward pool account",
     systemOperation: "System operation, no txn",
     node: "Node",
-    officialRecommendation: "Official Recommendation"
+    officialRecommendation: "Official Recommendation",
+
+    delegatedYield: "delegated Yield",
+    node2Tips:
+      "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
+    node1Tips:
+      "Delegator annualized rate of return for each delegated net income in the last 4 epochs，For reference only！",
+    totalDelegatedReward: "Total Delegated Reward",
+    delegatorNum: "Delegators",
+    delegatedAnnualizedYield: "Delegated annualized yield",
+    validatorAnnualizedYield: "Validator annualized yield"
   },
   nodeStatus: {
     1: "Candidate",

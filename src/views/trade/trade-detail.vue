@@ -528,6 +528,10 @@
               >{{ detailInfo.benefitAddr }}</span
             >
           </Item>
+          <!-- 委托奖励比例(创建，编辑验证人) -->
+          <Item :label="$t('tradeAbout.rewardRatio')"
+            >{{ detailInfo.delegationRatio }}%</Item
+          >
         </template>
 
         <!-- 版本（创建验证人特有） -->

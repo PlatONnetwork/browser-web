@@ -1,173 +1,372 @@
 <template>
   <div class="contract-detail-wrap">
     <div class="content-top-white content-padding">
-      <div class="page-title fontSize34">{{$t('nodeInfo.validatorDetail')}}</div>
+      <div class="page-title fontSize34">
+        {{ $t("nodeInfo.validatorDetail") }}
+      </div>
       <div class="node-header">
         <div class="node-header-left">
           <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-          <img src="../../assets/images/node-avtor.svg" v-if="!detailInfo.stakingIcon" />
+          <img
+            src="../../assets/images/node-avtor.svg"
+            v-if="!detailInfo.stakingIcon"
+          />
           <div class="node-name-wrap">
             <div class="node-name">
-              <b>{{detailInfo.nodeName}}</b>
+              <b>{{ detailInfo.nodeName }}</b>
               <!-- <span>(aaa)</span> -->
               <i></i>
             </div>
             <p
-              v-if="!detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5"
-            >{{$t('nodeInfo.createdat')}}: {{detailInfo.joinTime | formatTime}}</p>
+              v-if="
+                !detailInfo.isInit &&
+                  detailInfo.status != 4 &&
+                  detailInfo.status != 5
+              "
+            >
+              {{ $t("nodeInfo.createdat") }}:
+              {{ detailInfo.joinTime | formatTime }}
+            </p>
+            <p v-if="detailInfo.status == 4 || detailInfo.status == 5">
+              {{ $t("nodeInfo.exitTime") }}:
+              {{ detailInfo.leaveTime | formatTime }}
+            </p>
             <p
-              v-if="detailInfo.status==4 || detailInfo.status==5"
-            >{{$t('nodeInfo.exitTime')}}: {{detailInfo.leaveTime | formatTime}}</p>
-            <p v-if="detailInfo.isInit && detailInfo.status!=4 && detailInfo.status!=5">
-              <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
-              <span>{{$t('nodeInfo.nodeMsg')}}</span>
+              v-if="
+                detailInfo.isInit &&
+                  detailInfo.status != 4 &&
+                  detailInfo.status != 5
+              "
+            >
+              <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;"
+                >&#xe63f;</i
+              >
+              <span>{{ $t("nodeInfo.nodeMsg") }}</span>
             </p>
           </div>
         </div>
         <div class="node-header-right">
           <span
             class="green vote-status"
-            v-if="detailInfo.status==2 || detailInfo.status==6"
-          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
+            v-if="detailInfo.status == 2 || detailInfo.status == 6"
+            >{{ $t("nodeStatus." + [detailInfo.status]) }}</span
+          >
           <span
             class="yellow vote-status yellow-status"
-            v-else-if="detailInfo.status==3 || detailInfo.status==4"
-          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
+            v-else-if="detailInfo.status == 3 || detailInfo.status == 4"
+            >{{ $t("nodeStatus." + [detailInfo.status]) }}</span
+          >
           <span
             class="red vote-status red-status"
-            v-else-if="detailInfo.status==1"
-          >{{$t('nodeStatus.'+[detailInfo.status])}}</span>
+            v-else-if="detailInfo.status == 1"
+            >{{ $t("nodeStatus." + [detailInfo.status]) }}</span
+          >
         </div>
       </div>
-      <div class="node-statistic">
-        <List class="node-statistic-left" :inline="true">
-          <Item class="item-odd" :label="$t('nodeInfo.electedRoundValidator')">
-            <p class="Gilroy-Medium">{{detailInfo.verifierTime}}</p>
+      <!-- TODO 验证节点 详情 从新设计 -->
+      <div class="node-static-box">
+        <div class="node-static-left-box">
+          <div class="node-statistic">
+            <List class="node-left" :inline="true">
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.electedRoundValidator')"
+              >
+                <p class="Gilroy-Medium">{{ detailInfo.verifierTime }}</p>
+              </Item>
+              <Item :vertical="true" :label="$t('nodeInfo.blocks')">
+                <p class="Gilroy-Medium">
+                  {{ detailInfo.blockQty | formatNumber }}
+                </p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.totalNodeReward') + ' (LAT)'"
+              >
+                <p>
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.totalStakePower') + ' (LAT)'"
+                class="total-stake"
+              >
+                <p class="Gilroy-Medium">
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+              </Item>
+            </List>
+            <!-- <List class="node-left" :inline="true">
+          <Item :vertical="true" :label="$t('nodeInfo.stability')">
+            <div class="stability-wrap">
+              <div style="margin-right:10px;" class="self-tooltip">
+                <i class="icon-low-block cursor"></i>
+                <span>{{ detailInfo.slashLowQty }}</span>
+                <p class="Gilroy-Medium">{{ $t("nodeInfo.lowBlockRate") }}</p>
+              </div>
+              <div class="self-tooltip self-tooltip-sign">
+                <i class="icon-two-sign cursor"></i>
+                <span>{{ detailInfo.slashMultiQty }}</span>
+                <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
+              </div>
+            </div>
           </Item>
-          <Item class="item-even" :label="$t('nodeInfo.totalReward')">
-            <p>
-              <!-- {{detailInfo.rewardValue | formatMoney}} -->
-              <span
-                class="Gilroy-Medium black fontSize18"
-              >{{detailInfo.rewardValue | formatMoney |sliceFloat(0)}}</span>
-              <span class="black fontSize13">{{detailInfo.rewardValue | formatMoney |sliceFloat(1)}}</span>
-              <span class="fontSize13">&nbsp;LAT</span>
-            </p>
-          </Item>
-          <Item class="item-odd" :label="$t('nodeInfo.blocks')">
-            <p class="Gilroy-Medium">{{detailInfo.blockQty | formatNumber}}</p>
-          </Item>
-          <Item class="item-even" :label="$t('nodeInfo.yield')">
+          <Item :vertical="true" :label="$t('nodeInfo.yield')">
             <p v-if="detailInfo.expectedIncome">
-              <!-- {{detailInfo.expectedIncome?(detailInfo.expectedIncome+'%'):'--'}} -->
-              <span class="Gilroy-Medium">{{detailInfo.expectedIncome}}</span>
+              <span class="Gilroy-Medium">{{ detailInfo.expectedIncome }}</span>
               <span class="fontSize13">%</span>
             </p>
             <p v-else>--</p>
           </Item>
-          <Item class="item-odd" :label="$t('nodeInfo.blockRate')">
+          <Item :vertical="true" :label="$t('nodeInfo.blockRate')">
             <p>
-              <span
-                class="Gilroy-Medium"
-              >{{detailInfo.blockQty | percentage(detailInfo.expectBlockQty)}}</span>
+              <span class="Gilroy-Medium">{{
+                detailInfo.blockQty | percentage(detailInfo.expectBlockQty)
+              }}</span>
               <span class="fontSize13">%</span>
             </p>
           </Item>
-          <Item class="item-even" :label="$t('nodeInfo.stability')">
-            <div class="stability-wrap">
-              <div style="margin-right:10px;" class="self-tooltip">
-                <i class="icon-low-block cursor"></i>
-                <span>{{detailInfo.slashLowQty}}</span>
-                <p class="Gilroy-Medium">{{$t('nodeInfo.lowBlockRate')}}</p>
-              </div>
-              <div class="self-tooltip self-tooltip-sign">
-                <i class="icon-two-sign cursor"></i>
-                <span>{{detailInfo.slashMultiQty}}</span>
-                <p class="Gilroy-Medium">{{$t('nodeInfo.twoSignNum')}}</p>
-              </div>
-            </div>
-          </Item>
-        </List>
-        <div class="node-statistic-right">
+        </List> -->
+            <!-- 右边的canvas -->
+            <!-- <div class="node-statistic-right" v-show="false">
           <div class="canvas">
             <canvas id="canvas" width="88" height="88"></canvas>
-            <div
-              class="imgRatio"
-            >{{$t('nodeInfo.selfstake')}}：{{100-imgRatio}}%; {{$t('deleget.acceptDelegations')}}：{{imgRatio}}%</div>
+            <div class="imgRatio">
+              {{ $t("nodeInfo.selfstake") }}：{{ 100 - imgRatio }}%;
+              {{ $t("deleget.acceptDelegations") }}：{{ imgRatio }}%
+            </div>
           </div>
           <div class="statistic-right-data">
             <Item :label="$t('nodeInfo.totalStakePower')" class="total-stake">
               <p class="statistic-total-stake">
-                <!-- {{detailInfo.totalValue | formatMoney}} -->
-                <span
-                  class="Gilroy-Medium black fontSize18"
-                >{{detailInfo.totalValue | formatMoney |sliceFloat(0)}}</span>
-                <span
-                  class="black fontSize13"
-                >{{detailInfo.totalValue | formatMoney |sliceFloat(1)}}</span>
+                <span class="Gilroy-Medium black fontSize18">{{
+                  detailInfo.totalValue | formatMoney | sliceFloat(0)
+                }}</span>
+                <span class="black fontSize13">{{
+                  detailInfo.totalValue | formatMoney | sliceFloat(1)
+                }}</span>
                 <span class="fontSize13">&nbsp;LAT</span>
               </p>
             </Item>
             <ul>
               <li>
-                <label class="Gilroy-Medium">{{$t('nodeInfo.selfstake')}}：</label>
+                <label class="Gilroy-Medium"
+                  >{{ $t("nodeInfo.selfstake") }}：</label
+                >
                 <p>
-                  <!-- {{detailInfo.stakingValue | formatMoney}} -->
                   <span
                     class="Gilroy-Medium black fontSize18"
                     style="font-size: 18px;"
-                  >{{detailInfo.stakingValue | formatMoney |sliceFloat(0)}}</span>
-                  <span
-                    class="black fontSize13"
-                  >{{detailInfo.stakingValue | formatMoney |sliceFloat(1)}}</span>
+                    >{{
+                      detailInfo.stakingValue | formatMoney | sliceFloat(0)
+                    }}</span
+                  >
+                  <span class="black fontSize13">{{
+                    detailInfo.stakingValue | formatMoney | sliceFloat(1)
+                  }}</span>
                   <span class="fontSize13">&nbsp;LAT</span>
-                  <span
-                    class="yellow"
-                    v-if="detailInfo.status==4"
-                  >({{$t('nodeStatus.'+[detailInfo.status])}})</span>
+                  <span class="yellow" v-if="detailInfo.status == 4"
+                    >({{ $t("nodeStatus." + [detailInfo.status]) }})</span
+                  >
                 </p>
               </li>
-              <li v-if="detailInfo.status!=4 && detailInfo.status!=5">
-                <label class="Gilroy-Medium">{{$t('deleget.acceptDelegations')}}：</label>
+              <li v-if="detailInfo.status != 4 && detailInfo.status != 5">
+                <label class="Gilroy-Medium"
+                  >{{ $t("deleget.acceptDelegations") }}：</label
+                >
                 <p>
-                  <!-- {{detailInfo.delegateValue | formatMoney}} -->
                   <span
                     class="Gilroy-Medium black fontSize18"
                     style="font-size: 18px;"
-                  >{{detailInfo.delegateValue | formatMoney |sliceFloat(0)}}</span>
-                  <span
-                    class="black fontSize13"
-                  >{{detailInfo.delegateValue | formatMoney |sliceFloat(1)}}</span>
+                    >{{
+                      detailInfo.delegateValue | formatMoney | sliceFloat(0)
+                    }}</span
+                  >
+                  <span class="black fontSize13">{{
+                    detailInfo.delegateValue | formatMoney | sliceFloat(1)
+                  }}</span>
                   <span class="fontSize13 lat-mini">&nbsp;LAT</span>
                 </p>
               </li>
               <li v-else>
-                <label
-                  class="Gilroy-Medium"
-                >{{$t('deleget.Delegating')}}：</label>
+                <label class="Gilroy-Medium"
+                  >{{ $t("deleget.Delegating") }}：</label
+                >
                 <p>
-                  <!-- {{detailInfo.statDelegateReduction | formatMoney}} -->
-                  <span
-                    class="Gilroy-Medium"
-                    style="font-size: 18px;"
-                  >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(0)}}</span>
-                  <span
-                    class="black fontSize13"
-                  >{{detailInfo.statDelegateReduction | formatMoney |sliceFloat(1)}}</span>
+                  <span class="Gilroy-Medium" style="font-size: 18px;">{{
+                    detailInfo.statDelegateReduction
+                      | formatMoney
+                      | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.statDelegateReduction
+                      | formatMoney
+                      | sliceFloat(1)
+                  }}</span>
                   <span class="fontSize13 lat-mini">&nbsp;LAT</span>
                   <span
                     class="yellow"
-                    v-if="detailInfo.statDelegateReduction>0"
-                  >({{$t('deleget.undelegating2')}})</span>
+                    v-if="detailInfo.statDelegateReduction > 0"
+                    >({{ $t("deleget.undelegating2") }})</span
+                  >
                 </p>
               </li>
               <li>
-                <label
-                  class="Gilroy-Medium"
-                >{{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.historicalDelegator'):$t('deleget.delegators')}}：</label>
-                <p class="Gilroy-Medium">{{detailInfo.delegateQty | formatNumber}}</p>
+                <label class="Gilroy-Medium"
+                  >{{
+                    detailInfo.status == 4 || detailInfo.status == 5
+                      ? $t("deleget.historicalDelegator")
+                      : $t("deleget.delegators")
+                  }}：</label
+                >
+                <p class="Gilroy-Medium">
+                  {{ detailInfo.delegateQty | formatNumber }}
+                </p>
               </li>
             </ul>
+          </div>
+        </div> -->
+          </div>
+          <div class="node-statistic">
+            <List class="node-left" :inline="true">
+              <Item :vertical="true" :label="$t('nodeInfo.stability')">
+                <div class="stability-wrap">
+                  <div style="margin-right:10px;" class="self-tooltip">
+                    <i class="icon-low-block cursor"></i>
+                    <span>{{ detailInfo.slashLowQty }}</span>
+                    <p class="Gilroy-Medium">
+                      {{ $t("nodeInfo.lowBlockRate") }}
+                    </p>
+                  </div>
+                  <div class="self-tooltip self-tooltip-sign">
+                    <i class="icon-two-sign cursor"></i>
+                    <span>{{ detailInfo.slashMultiQty }}</span>
+                    <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
+                  </div>
+                </div>
+              </Item>
+              <!-- <Item :vertical="true" :label="$t('nodeInfo.yield')">
+              <p v-if="detailInfo.expectedIncome">
+                <span class="Gilroy-Medium">{{
+                  detailInfo.expectedIncome
+                }}</span>
+                <span class="fontSize13">%</span>
+              </p>
+              <p v-else>--</p>
+            </Item> -->
+              <Item :vertical="true" :label="$t('nodeInfo.blockRate')">
+                <p>
+                  <span class="Gilroy-Medium">{{
+                    detailInfo.blockQty | percentage(detailInfo.expectBlockQty)
+                  }}</span>
+                  <span class="fontSize13">%</span>
+                </p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.totalDelegatedReward')"
+              >
+                <p>
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.selfstake') + ' (LAT)'"
+                class="total-stake"
+              >
+                <p class="Gilroy-Medium">
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+              </Item>
+            </List>
+          </div>
+          <div class="node-statistic">
+            <List class="node-left" :inline="true">
+              <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
+                %
+              </Item>
+              <Item :vertical="true" :label="$t('nodeInfo.delegatorNum')">
+                <p>111</p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('contract.unclaimedReward') + ' (LAT)'"
+              >
+                <p>
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('deleget.acceptDelegations') + ' (LAT)'"
+              >
+                <p>111</p>
+              </Item>
+            </List>
+          </div>
+        </div>
+        <div class="node-static-right-box">
+          <div class="yield-box">
+            <p class="value">12.32%</p>
+            <p class="text">
+              <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
+              <el-tooltip
+                :content="$t('nodeInfo.node1Tips')"
+                placement="bottom"
+                class="item"
+                effect="dark"
+              >
+                <b class="quest"></b>
+              </el-tooltip>
+              <!-- <img src="@/assets/images/icon-quest.svg" /> -->
+            </p>
+          </div>
+          <div class="yield-box">
+            <p class="value">6.21%</p>
+            <p class="text">
+              <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
+              <!-- <img src="@/assets/images/icon-quest.svg" /> -->
+              <el-tooltip
+                :content="$t('nodeInfo.node2Tips')"
+                placement="bottom"
+                class="item"
+                effect="dark"
+              >
+                <b class="quest"></b>
+              </el-tooltip>
+            </p>
           </div>
         </div>
       </div>
@@ -176,43 +375,53 @@
       <div class="tabs">
         <el-button
           size="medium"
-          :class="{active:tabIndex==1}"
+          :class="{ active: tabIndex == 1 }"
           @click="tabChange(1)"
-        >{{$t('nodeInfo.nodeInfo')}}</el-button>
+          >{{ $t("nodeInfo.nodeInfo") }}</el-button
+        >
         <el-button
           size="medium"
-          :class="{active:tabIndex==2}"
+          :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-        >{{$t('nodeInfo.producedBlocks')}}</el-button>
+          >{{ $t("nodeInfo.producedBlocks") }}</el-button
+        >
         <el-button
           size="medium"
-          :class="{active:tabIndex==3}"
+          :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-        >{{$t('nodeInfo.validatorActions')}}</el-button>
+          >{{ $t("nodeInfo.validatorActions") }}</el-button
+        >
         <el-button
           size="medium"
           v-if="!detailInfo.isInit"
-          :class="{active:tabIndex==4}"
+          :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-        >{{$t('deleget.delegations')}}</el-button>
+          >{{ $t("deleget.delegations") }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 5 }"
+          @click="tabChange(5)"
+          >{{ $t("deleget.rewardReceiveDetails") }}</el-button
+        >
       </div>
       <div class="node-detail-content">
-        <div v-show="tabIndex==1">
-          <h3 class="nodeInfo">{{$t('nodeInfo.basicInfo')}}</h3>
+        <div v-show="tabIndex == 1">
+          <h3 class="nodeInfo">{{ $t("nodeInfo.basicInfo") }}</h3>
           <List>
             <Item :label="$t('nodeInfo.nodeID')">
-              <span>{{detailInfo.nodeId}}</span>
+              <span>{{ detailInfo.nodeId }}</span>
               <b
                 class="cursor copyicon"
                 id="copy1"
-                :class="{copy:!isCopy}"
+                :class="{ copy: !isCopy }"
                 v-clipboard:copy="detailInfo.nodeId"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
               >
                 <p v-show="isCopy" style="width:100%;">
                   <i class="el-icon-circle-check-outline"></i>
-                  <span>{{copyText}}</span>
+                  <span>{{ copyText }}</span>
                 </p>
               </b>
             </Item>
@@ -220,18 +429,19 @@
               <span
                 class="blue cursor"
                 @click="goAddressDetail(detailInfo.stakingAddr)"
-              >{{detailInfo.stakingAddr}}</span>
+                >{{ detailInfo.stakingAddr }}</span
+              >
               <b
                 class="cursor copyicon"
                 id="copy2"
-                :class="{copy:!isCopy2}"
+                :class="{ copy: !isCopy2 }"
                 v-clipboard:copy="detailInfo.stakingAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
               >
                 <p v-show="isCopy2" style="width:100%;">
                   <i class="el-icon-circle-check-outline"></i>
-                  <span>{{copyText2}}</span>
+                  <span>{{ copyText2 }}</span>
                 </p>
               </b>
             </Item>
@@ -239,19 +449,22 @@
               <span
                 class="blue cursor"
                 @click="goAddressDetail(detailInfo.denefitAddr)"
-              >{{detailInfo.denefitAddr}}</span>
-              <span class="lightgray" v-if="detailInfo.isInit">({{$t('nodeInfo.systemBuilt')}})</span>
+                >{{ detailInfo.denefitAddr }}</span
+              >
+              <span class="lightgray" v-if="detailInfo.isInit"
+                >({{ $t("nodeInfo.systemBuilt") }})</span
+              >
               <b
                 class="cursor copyicon"
                 id="copy3"
-                :class="{copy:!isCopy3}"
+                :class="{ copy: !isCopy3 }"
                 v-clipboard:copy="detailInfo.denefitAddr"
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
               >
                 <p v-show="isCopy3" style="width:100%;">
                   <i class="el-icon-circle-check-outline"></i>
-                  <span>{{copyText3}}</span>
+                  <span>{{ copyText3 }}</span>
                 </p>
               </b>
             </Item>
@@ -261,8 +474,12 @@
                 :href="detailInfo.website"
                 v-if="detailInfo.website"
                 target="_blank"
-              >{{detailInfo.website}}</a>
+                >{{ detailInfo.website }}</a
+              >
               <span class="lightgray" v-else>null</span>
+            </Item>
+            <Item :label="$t('tradeAbout.rewardRatio')">
+              <span>{{ detailInfo.rewardPer }}</span>
             </Item>
             <Item :label="$t('tradeAbout.identity')">
               <a
@@ -270,45 +487,59 @@
                 v-if="detailInfo.externalId"
                 :href="detailInfo.externalUrl"
                 target="_blank"
-              >{{detailInfo.externalId}}</a>
+                >{{ detailInfo.externalId }}</a
+              >
               <span class="lightgray" v-else>null</span>
             </Item>
             <Item :label="$t('tradeAbout.introduction')">
-              <span v-if="detailInfo.details">{{detailInfo.details}}</span>
+              <span v-if="detailInfo.details">{{ detailInfo.details }}</span>
               <span class="lightgray" v-else>null</span>
             </Item>
           </List>
         </div>
-        <div v-show="tabIndex==2">
+        <div v-show="tabIndex == 2">
           <div class="address-trade-last node-last">
-            {{$t('blockAbout.totalProduced')}}
-            <b>{{detailInfo.blockQty | formatNumber}}</b>
-            <span style="color: #3F3F3F;" v-if="newRecordFlag">{{$t('contract.showingLast')}}</span>
-            <el-button size="medium export-btn" @click="exportFn">{{$t('common.export')}}</el-button>
+            {{ $t("blockAbout.totalProduced") }}
+            <b>{{ detailInfo.blockQty | formatNumber }}</b>
+            <span style="color: #3F3F3F;" v-if="newRecordFlag">{{
+              $t("contract.showingLast")
+            }}</span>
+            <el-button size="medium export-btn" @click="exportFn">{{
+              $t("common.export")
+            }}</el-button>
           </div>
           <div class="table">
-            <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('menu.block')">
                 <template slot-scope="scope">
                   <span
                     class="blue cursor"
                     @click="goBlockDetail(scope.row.number)"
-                  >{{scope.row.number}}</span>
+                    >{{ scope.row.number }}</span
+                  >
                 </template>
               </el-table-column>
               <el-table-column :label="$t('common.time')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestamp | formatTime}}</span>
+                  <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('indexInfo.txn')" show-overflow-tooltip>
+              <el-table-column
+                :label="$t('indexInfo.txn')"
+                show-overflow-tooltip
+              >
                 <template slot-scope="scope">
-                  <span>{{scope.row.statTxQty | formatNumber}}</span>
+                  <span>{{ scope.row.statTxQty | formatNumber }}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('blockAbout.blockReward')">
                 <template slot-scope="scope">
-                  <span>{{scope.row.blockReward | formatMoney}} LAT</span>
+                  <span>{{ scope.row.blockReward | formatMoney }} LAT</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -321,65 +552,115 @@
                 :page-sizes="[10, 20, 50, 100]"
                 :page-size="pageSize"
                 layout="sizes,total,  prev, pager, next"
-                :total="pageTotal>5000?5000:pageTotal"
+                :total="pageTotal > 5000 ? 5000 : pageTotal"
                 :pager-count="9"
               ></el-pagination>
             </div>
           </div>
         </div>
-        <div v-show="tabIndex==3">
+        <div v-show="tabIndex == 3">
           <div class="table">
-            <el-table :data="tableOperateData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableOperateData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('common.time')" width="300">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestamp | formatTime}}</span>
+                  <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.actions')">
                 <template slot-scope="scope">
                   <p
                     class="percent80"
-                    v-if="scope.row.type==1 || scope.row.type==2 || scope.row.type==3 || scope.row.type==10"
-                  >{{$t('actionType.'+[scope.row.type])}}</p>
-                  <p class="percent80" v-else-if="scope.row.type==4 || scope.row.type==5">
+                    v-if="
+                      scope.row.type == 1 ||
+                        scope.row.type == 2 ||
+                        scope.row.type == 3 ||
+                        scope.row.type == 10
+                    "
+                  >
+                    {{ $t("actionType." + [scope.row.type]) }}
+                  </p>
+                  <p
+                    class="percent80"
+                    v-else-if="scope.row.type == 4 || scope.row.type == 5"
+                  >
                     <template v-if="scope.row.title">
                       <span>
-                        {{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}`}}
-                        <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>
+                        {{
+                          `${$t("actionType." + [scope.row.type])}-${
+                            scope.row.title
+                          }`
+                        }}
+                        <span v-if="scope.row.type == 5"
+                          >-{{ $t("voteStatus." + [scope.row.option]) }}</span
+                        >
                       </span>
                     </template>
                     <template v-else>
-                      <template
-                        v-if="scope.row.proposalType==2"
-                      >{{$t('actionType.'+[scope.row.type])}}-{{$t('tradeAbout.versionUp')}}-V {{scope.row.version}}-{{scope.row.id}}</template>
-                      <template
-                        v-else
-                      >{{$t('actionType.'+[scope.row.type])}}-{{$t('proposalOption.'+[scope.row.proposalType])}}-{{scope.row.id}}</template>
-                      <span v-if="scope.row.type==5">-{{$t('voteStatus.'+[scope.row.option])}}</span>
+                      <template v-if="scope.row.proposalType == 2"
+                        >{{ $t("actionType." + [scope.row.type]) }}-{{
+                          $t("tradeAbout.versionUp")
+                        }}-V {{ scope.row.version }}-{{
+                          scope.row.id
+                        }}</template
+                      >
+                      <template v-else
+                        >{{ $t("actionType." + [scope.row.type]) }}-{{
+                          $t("proposalOption." + [scope.row.proposalType])
+                        }}-{{ scope.row.id }}</template
+                      >
+                      <span v-if="scope.row.type == 5"
+                        >-{{ $t("voteStatus." + [scope.row.option]) }}</span
+                      >
                     </template>
                   </p>
                   <!-- <p
                     class="percent80"
                     v-else-if="scope.row.type==5"
                   >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>-->
-                  <p
-                    class="percent80"
-                    v-else-if="scope.row.type==6"
-                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-扣除自有质押${scope.row.percent*100}%(${scope.row.amount} LAT)，移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-${scope.row.percent*100}% of self-stake slashed (${scope.row.amount} LAT), Remove the Validator List`}}</p>
-                  <p
-                    class="percent80"
-                    v-else-if="scope.row.type==7"
-                  >{{lang=='zh'?`${$t('actionType.'+[scope.row.type])}-移出验证节点列表`:`${$t('actionType.'+[scope.row.type])}-Remove the Validator List`}}</p>
+                  <p class="percent80" v-else-if="scope.row.type == 6">
+                    {{
+                      lang == "zh"
+                        ? `${$t(
+                            "actionType." + [scope.row.type]
+                          )}-扣除自有质押${scope.row.percent * 100}%(${
+                            scope.row.amount
+                          } LAT)，移出验证节点列表`
+                        : `${$t("actionType." + [scope.row.type])}-${scope.row
+                            .percent * 100}% of self-stake slashed (${
+                            scope.row.amount
+                          } LAT), Remove the Validator List`
+                    }}
+                  </p>
+                  <p class="percent80" v-else-if="scope.row.type == 7">
+                    {{
+                      lang == "zh"
+                        ? `${$t(
+                            "actionType." + [scope.row.type]
+                          )}-移出验证节点列表`
+                        : `${$t(
+                            "actionType." + [scope.row.type]
+                          )}-Remove the Validator List`
+                    }}
+                  </p>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
-                    v-if="scope.row.type!=6 && scope.row.type!=7"
+                    v-if="scope.row.type != 6 && scope.row.type != 7"
                     @click="goTradeDetail(scope.row.txHash)"
-                  >{{scope.row.txHash}}</p>
-                  <span class="gray" v-else>{{$t('nodeInfo.systemOperation')}}</span>
+                  >
+                    {{ scope.row.txHash }}
+                  </p>
+                  <span class="gray" v-else>{{
+                    $t("nodeInfo.systemOperation")
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inBlock')" width="150">
@@ -387,7 +668,8 @@
                   <span
                     class="blue cursor"
                     @click="goBlockDetail(scope.row.blockNumber)"
-                  >{{scope.row.blockNumber}}</span>
+                    >{{ scope.row.blockNumber }}</span
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -406,37 +688,51 @@
             </div>
           </div>
         </div>
-        <div v-show="tabIndex==4">
+        <div v-show="tabIndex == 4">
           <h3 class="node-deleget-title">
-            {{(detailInfo.status==4 || detailInfo.status==5)?$t('deleget.DelegateRecordWaiting'):$t('deleget.DelegateRecord')}}
-            <b>{{pageTotal3 | formatNumber}}</b>
+            {{
+              detailInfo.status == 4 || detailInfo.status == 5
+                ? $t("deleget.DelegateRecordWaiting")
+                : $t("deleget.DelegateRecord")
+            }}
+            <b>{{ pageTotal3 | formatNumber }}</b>
           </h3>
           <div class="table">
-            <el-table :data="tableDelegetData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableDelegetData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('tradeAbout.delegater')">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
                     @click="goAddressDetail(scope.row.delegateAddr)"
-                  >{{scope.row.delegateAddr}}</p>
+                  >
+                    {{ scope.row.delegateAddr }}
+                  </p>
                 </template>
               </el-table-column>
               <el-table-column>
                 <template slot="header">
-                  {{$t('contract.delegations')+'\/'+$t('deleget.percentage')}}
-                  <el-tooltip
-                      class="item"
-                      effect="dark"
-                      placement="bottom"
-                  >
-                      <div slot="content" class="delegate-msg">
-                          {{$t("deleget.percentageMsg")}}
-                      </div>
-                      <i class="address-icon"></i>
+                  {{
+                    $t("contract.delegations") + "\/" + $t("deleget.percentage")
+                  }}
+                  <el-tooltip class="item" effect="dark" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t("deleget.percentageMsg") }}
+                    </div>
+                    <i class="address-icon"></i>
                   </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateValue | formatMoney}}({{scope.row.delegateValue | percentage(scope.row.delegateTotalValue)}}%)</span>
+                  <span
+                    >{{ scope.row.delegateValue | formatMoney }}({{
+                      scope.row.delegateValue
+                        | percentage(scope.row.delegateTotalValue)
+                    }}%)</span
+                  >
                 </template>
               </el-table-column>
               <!-- <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
@@ -446,38 +742,30 @@
               </el-table-column>-->
               <el-table-column>
                 <template slot="header">
-                    {{$t('deleget.locked')}}
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        placement="bottom"
-                    >
-                        <div slot="content" class="delegate-msg">
-                            {{$t("deleget.lockedMsg")}}
-                        </div>
-                        <i class="address-icon"></i>
-                    </el-tooltip>
+                  {{ $t("deleget.locked") }}
+                  <el-tooltip class="item" effect="dark" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t("deleget.lockedMsg") }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateLocked | formatMoney}}</span>
+                  <span>{{ scope.row.delegateLocked | formatMoney }}</span>
                 </template>
               </el-table-column>
               <el-table-column>
                 <template slot="header">
-                    {{$t('deleget.released')}}
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        placement="bottom"
-                    >
-                        <div slot="content" class="delegate-msg">
-                            {{$t("deleget.releasedMsg")}}
-                        </div>
-                        <i class="address-icon"></i>
-                    </el-tooltip>
+                  {{ $t("deleget.released") }}
+                  <el-tooltip class="item" effect="dark" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t("deleget.releasedMsg") }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                  <span>{{scope.row.delegateReleased | formatMoney}}</span>
+                  <span>{{ scope.row.delegateReleased | formatMoney }}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -496,6 +784,63 @@
             </div>
           </div>
         </div>
+        <div v-show="tabIndex == 5">
+          <div class="address-trade-last node-last">
+            {{ $t("deleget.totalReceiveReward") }}
+            <b style="margin-left:20px;"
+              >{{ detailInfo.blockQty | formatMoney }} LAT</b
+            >
+          </div>
+          <div class="table">
+            <el-table
+              :data="tableData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
+              <el-table-column :label="$t('tradeAbout.hash')">
+                <template slot-scope="scope">
+                  <span
+                    class="blue cursor"
+                    @click="goBlockDetail(scope.row.number)"
+                    >{{ scope.row.number }}</span
+                  >
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('tradeAbout.delegater')">
+                <template slot-scope="scope">
+                  <span>{{ scope.row.timestamp | formatTime }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                :label="$t('tradeAbout.claimTime')"
+                show-overflow-tooltip
+              >
+                <template slot-scope="scope">
+                  <span>{{ scope.row.statTxQty | formatNumber }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('tradeAbout.delegateReward')">
+                <template slot-scope="scope">
+                  <span>{{ scope.row.blockReward | formatMoney }} LAT</span>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="pagination-box">
+              <el-pagination
+                background
+                @size-change="handleBlockSizeChange"
+                @current-change="handleBlockCurrentChange"
+                :current-page.sync="currentPage"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize"
+                layout="sizes,total,  prev, pager, next"
+                :total="pageTotal > 5000 ? 5000 : pageTotal"
+                :pager-count="9"
+              ></el-pagination>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -506,6 +851,8 @@ import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import List from "@/components/list/list";
 import Item from "@/components/list/item";
+
+import itemList from "@/components/list/newlist";
 
 export default {
   name: "node-detail",
@@ -581,9 +928,9 @@ export default {
             this.$message.error(errMsg);
           }
           //判断最新记录是否显示  总数
-            this.detailInfo.blockQty > 5000
-              ? (this.newRecordFlag = true)
-              : (this.newRecordFlag = false);
+          this.detailInfo.blockQty > 5000
+            ? (this.newRecordFlag = true)
+            : (this.newRecordFlag = false);
         })
         .catch(error => {
           this.$message.error(error);
@@ -702,10 +1049,10 @@ export default {
       });
     },
     onCopy(copy) {
-      if (copy.trigger.id == 'copy1') {
+      if (copy.trigger.id == "copy1") {
         this.copyText = this.$t("modalInfo.copysuccess");
         this.isCopy = true;
-      } else if (copy.trigger.id == 'copy2') {
+      } else if (copy.trigger.id == "copy2") {
         this.copyText2 = this.$t("modalInfo.copysuccess");
         this.isCopy2 = true;
       } else {
@@ -722,10 +1069,10 @@ export default {
       }, 2000);
     },
     onError(index) {
-      if (copy.trigger.id == 'copy1') {
+      if (copy.trigger.id == "copy1") {
         this.copyText = this.$t("modalInfo.copyfail");
         this.isCopy = true;
-      } else if (copy.trigger.id == 'copy2') {
+      } else if (copy.trigger.id == "copy2") {
         this.copyText2 = this.$t("modalInfo.copyfail");
         this.isCopy2 = true;
       } else {
@@ -878,11 +1225,31 @@ export default {
     }
   }
 }
-.node-statistic {
+.node-static-box {
   display: flex;
-  margin: 36px 0 20px;
+  margin: 36px 0 20px 0;
+  .node-static-left-box {
+    width: 80%;
+  }
+  .node-static-right-box {
+    flex: 1;
+    .yield-box {
+      padding: 10px;
+      .value {
+        font-size: 38px;
+        font-weight: 600;
+      }
+      .text {
+        font-size: 14px;
+        display: flex;
+      }
+    }
+  }
+}
+.node-statistic {
+  margin: 0;
+  flex: auto;
   .node-statistic-left {
-    width: 48%;
     margin-right: 6%;
     .item-odd {
       width: 42%;
@@ -897,6 +1264,12 @@ export default {
     margin-top: 4px;
     .self-tooltip p {
       font-size: 12px;
+    }
+  }
+  .node-left {
+    .list-col-item {
+      flex: auto;
+      justify-content: center;
     }
   }
 }
@@ -916,16 +1289,16 @@ export default {
     top: -8px;
     font-family: Gilroy-Medium;
     background: #fbfbfc;
-    color: #0798DE;
-    &:hover{
+    color: #0798de;
+    &:hover {
       background: #fbfbfc !important;
-      color: #5CB2DB;
-      border: 1px solid #5CB2DB !important;
+      color: #5cb2db;
+      border: 1px solid #5cb2db !important;
     }
-    &:active{
+    &:active {
       background: #fbfbfc !important;
-      border: 1px solid #0E52AC !important;
-      color: #0E52AC !important;
+      border: 1px solid #0e52ac !important;
+      color: #0e52ac !important;
     }
   }
   b {
@@ -1016,8 +1389,8 @@ export default {
   }
 }
 .statistic-right-data {
-  .total-stake{
-    label{
+  .total-stake {
+    label {
       width: auto;
     }
   }

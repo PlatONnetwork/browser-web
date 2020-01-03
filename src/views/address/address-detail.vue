@@ -115,6 +115,12 @@
           @click="tabChange(2)"
           >{{ $t("contract.delegations") }}</el-button
         >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 3 }"
+          @click="tabChange(3)"
+          >{{ $t("tradeAbout.rewardDetails") }}</el-button
+        >
       </div>
       <trade-list
         ref="addressTrade"
@@ -122,6 +128,12 @@
         v-show="tabIndex == 1"
         :tradeCount="detailInfo"
       ></trade-list>
+      <!-- 奖励领取明细 -->
+      <reward-detail
+        v-show="tabIndex == 3"
+        ref="rewardDetail"
+        :tradeCount="detailInfo"
+      ></reward-detail>
       <div class="address-delegation" v-show="tabIndex == 2">
         <ul>
           <li>
@@ -255,7 +267,7 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
-
+import rewardDetail from "@/components/address/rewardDetailTable";
 export default {
   name: "contract-detail",
   data() {
@@ -271,14 +283,16 @@ export default {
       address: "",
       detailInfo: {},
       isCopy: false,
-      copyText: ""
+      copyText: "",
+      haveReward: 0
     };
   },
   props: {},
   computed: {},
   watch: {},
   components: {
-    tradeList
+    tradeList,
+    rewardDetail
   },
   methods: {
     //获取地址信息详情
@@ -350,6 +364,7 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
+ 
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getList();
