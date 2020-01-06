@@ -105,6 +105,7 @@
               : $t('nodeInfo.name')
           "
         >
+          <!-- TODO历史节点 table -->
           <template slot-scope="scope">
             <div class="flex-special validator-name">
               <el-tooltip
@@ -233,6 +234,22 @@
             <span>{{ scope.row.blockQty | formatNumber }}</span>
           </template>
         </el-table-column>
+        <!-- TODO委托奖励比例 最新文档显示无此列-->
+        <!-- <el-table-column :label="$t('tradeAbout.rewardRatio')">
+          <template slot="header">
+            <span>{{ $t("tradeAbout.rewardRatio") }}</span>
+            <el-tooltip
+              :content="$t('nodeInfo.node1Tips')"
+              placement="right-end"
+            >
+              <img
+                class="tipsImg"
+                src="@/assets/images/icon-quest.svg"
+                alt="tips"
+              />
+            </el-tooltip>
+          </template>
+        </el-table-column> -->
         <!-- TODO预计年化收益率 -->
         <el-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
           <template slot="header">
@@ -473,6 +490,9 @@ export default {
         path: "/node-detail",
         query: {
           address: nodeId
+        },
+        params: {
+          type: this.type
         }
       });
     },

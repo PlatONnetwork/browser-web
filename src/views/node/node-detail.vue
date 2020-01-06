@@ -80,6 +80,7 @@
                 </p>
               </Item>
               <Item
+                v-if="!detailInfo.isInit"
                 :vertical="true"
                 :label="$t('nodeInfo.totalNodeReward') + ' (LAT)'"
               >
@@ -93,9 +94,55 @@
                   <span class="fontSize13"></span>
                 </p>
               </Item>
+              <!-- TODO -总质押：显示“--”
+
+-自有质押：如果自有质押位退回到验证节点账户，没有返还到节点质押账户前，显示提示语”待解锁“（Freezing）
+
+-赎回委托数：显示待提取的委托数量,没有全部赎回时，显示提示语“待赎回”（Undelegating）
+
+-当前委托者数：显示“--”
+
+预计节点年化收益率：显示如图
+
+-预计委托年化收益率：显示如图 -->
               <Item
+                v-if="!detailInfo.isInit"
                 :vertical="true"
                 :label="$t('nodeInfo.totalStakePower') + ' (LAT)'"
+                class="total-stake"
+              >
+                <p class="Gilroy-Medium" v-if="type !== 'history'">
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.totalValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
+                <p class="Gilroy-Medium">
+                  --
+                </p>
+              </Item>
+              <Item :vertical="true" :label="$t('nodeInfo.stability')">
+                <div class="stability-wrap">
+                  <div style="margin-right:10px;" class="self-tooltip">
+                    <i class="icon-low-block cursor"></i>
+                    <span>{{ detailInfo.slashLowQty }}</span>
+                    <p class="Gilroy-Medium">
+                      {{ $t("nodeInfo.lowBlockRate") }}
+                    </p>
+                  </div>
+                  <div class="self-tooltip self-tooltip-sign">
+                    <i class="icon-two-sign cursor"></i>
+                    <span>{{ detailInfo.slashMultiQty }}</span>
+                    <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
+                  </div>
+                </div>
+              </Item>
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.selfstake') + ' (LAT)'"
                 class="total-stake"
               >
                 <p class="Gilroy-Medium">
@@ -240,7 +287,7 @@
           </div>
         </div> -->
           </div>
-          <div class="node-statistic">
+          <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('nodeInfo.stability')">
                 <div class="stability-wrap">
@@ -289,6 +336,7 @@
                   <span class="fontSize13"></span>
                 </p>
               </Item>
+              <!-- TODO 需要在未退回到验证节点账户时，显示没有返还到节点钱 显示带解锁 此处需要一个状态 -->
               <Item
                 :vertical="true"
                 :label="$t('nodeInfo.selfstake') + ' (LAT)'"
@@ -306,7 +354,7 @@
               </Item>
             </List>
           </div>
-          <div class="node-statistic">
+          <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
                 %
@@ -328,16 +376,33 @@
                   <span class="fontSize13"></span>
                 </p>
               </Item>
+              <!-- TODO 此处历史节点显示另外一个数据 -->
               <Item
                 :vertical="true"
                 :label="$t('deleget.acceptDelegations') + ' (LAT)'"
+                v-if="type !== 'history'"
               >
                 <p>111</p>
+              </Item>
+              <Item
+                v-else
+                :vertical="true"
+                :label="$t('nodeInfo.pendingDelegations') + ' (LAT)'"
+              >
+                <p>
+                  <span class="Gilroy-Medium black fontSize18">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                  }}</span>
+                  <span class="black fontSize13">{{
+                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13"></span>
+                </p>
               </Item>
             </List>
           </div>
         </div>
-        <div class="node-static-right-box">
+        <div class="node-static-right-box"  v-if="!detailInfo.isInit">
           <div class="yield-box">
             <p class="value">12.32%</p>
             <p class="text">
@@ -402,6 +467,7 @@
           size="medium"
           :class="{ active: tabIndex == 5 }"
           @click="tabChange(5)"
+          v-if="!detailInfo.isInit"
           >{{ $t("deleget.rewardReceiveDetails") }}</el-button
         >
       </div>
@@ -894,6 +960,9 @@ export default {
   computed: {
     lang() {
       return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
+    },
+    type: function() {
+      return this.$route.params.type;
     }
   },
   watch: {},
@@ -1268,8 +1337,14 @@ export default {
   }
   .node-left {
     .list-col-item {
-      flex: auto;
+      flex: 1;
       justify-content: center;
+      &:nth-child(2) {
+        margin-left: -100px;
+      }
+      &:nth-child(3) {
+        margin-left: -100px;
+      }
     }
   }
 }
