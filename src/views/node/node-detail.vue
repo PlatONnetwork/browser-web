@@ -68,12 +68,14 @@
         <div class="node-static-left-box">
           <div class="node-statistic">
             <List class="node-left" :inline="true">
+              <!-- 当选验证节点 -->
               <Item
                 :vertical="true"
                 :label="$t('nodeInfo.electedRoundValidator')"
               >
                 <p class="Gilroy-Medium">{{ detailInfo.verifierTime }}</p>
               </Item>
+              <!-- 累计出块 -->
               <Item :vertical="true" :label="$t('nodeInfo.blocks')">
                 <p class="Gilroy-Medium">
                   {{ detailInfo.blockQty | formatNumber }}
@@ -96,15 +98,15 @@
               </Item>
               <!-- TODO -总质押：显示“--”
 
--自有质押：如果自有质押位退回到验证节点账户，没有返还到节点质押账户前，显示提示语”待解锁“（Freezing）
+                -自有质押：如果自有质押位退回到验证节点账户，没有返还到节点质押账户前，显示提示语”待解锁“（Freezing）
 
--赎回委托数：显示待提取的委托数量,没有全部赎回时，显示提示语“待赎回”（Undelegating）
+                -赎回委托数：显示待提取的委托数量,没有全部赎回时，显示提示语“待赎回”（Undelegating）
 
--当前委托者数：显示“--”
+                -当前委托者数：显示“--”
 
-预计节点年化收益率：显示如图
+                预计节点年化收益率：显示如图
 
--预计委托年化收益率：显示如图 -->
+                -预计委托年化收益率：显示如图 -->
               <Item
                 v-if="!detailInfo.isInit"
                 :vertical="true"
@@ -124,7 +126,11 @@
                   --
                 </p>
               </Item>
-              <Item :vertical="true" :label="$t('nodeInfo.stability')">
+              <Item
+                v-if="detailInfo.isInit"
+                :vertical="true"
+                :label="$t('nodeInfo.stability')"
+              >
                 <div class="stability-wrap">
                   <div style="margin-right:10px;" class="self-tooltip">
                     <i class="icon-low-block cursor"></i>
@@ -141,6 +147,7 @@
                 </div>
               </Item>
               <Item
+                v-if="detailInfo.isInit"
                 :vertical="true"
                 :label="$t('nodeInfo.selfstake') + ' (LAT)'"
                 class="total-stake"
@@ -402,7 +409,7 @@
             </List>
           </div>
         </div>
-        <div class="node-static-right-box"  v-if="!detailInfo.isInit">
+        <div class="node-static-right-box" v-if="!detailInfo.isInit">
           <div class="yield-box">
             <p class="value">12.32%</p>
             <p class="text">
@@ -859,7 +866,7 @@
           </div>
           <div class="table">
             <el-table
-              :data="tableData"
+              :data="rewardTableData"
               style="width: 100%"
               key="firstTable"
               size="mini"
@@ -931,6 +938,7 @@ export default {
       cxt: null,
 
       tableData: [],
+      rewardTableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
@@ -973,6 +981,12 @@ export default {
   methods: {
     tabChange(index) {
       this.tabIndex = index;
+    },
+    getRewardData() {
+      let param = {
+        nodeId: this.address
+      };
+      apiService.node.queryClaimByStaking(param).then(res => {});
     },
     //获取详情
     getDetail() {
@@ -1205,9 +1219,10 @@ export default {
     this.getDetail();
     this.getBlockList();
     this.getOperateList();
+    this.getRewardData();
   },
   mounted() {
-    this.cxt = document.getElementById("canvas").getContext("2d");
+    //this.cxt = document.getElementById("canvas").getContext("2d");
   }
 };
 </script>

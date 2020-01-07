@@ -6,7 +6,8 @@
         >{{ tradeCount.allRewards | formatMoney }} LAT</span
       >
     </div>
-    <div>
+    <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
+    <div v-for="item in rewardTableData" :key="item.id">
       <div class="title">
         <span class="hash" @click="goToDetailFn()"></span>
         <span class="Date"></span>
@@ -31,6 +32,7 @@
         layout="sizes,total,prev,pager,next"
       ></el-pagination>
     </div>
+    {{ tradeCount }}
   </div>
 </template>
 <script>
@@ -43,11 +45,12 @@ export default {
       totalNum: 0,
       curPage: 1,
       pageSize: 10,
-      txhash: txhash
+      txhash: this.address //tradeCount.txhash
     };
   },
   props: {
-    tradeCount: Object
+    tradeCount: Object,
+    address: String
   },
   methods: {
     handleChange(page) {},
@@ -55,7 +58,7 @@ export default {
       this.$router.push({
         name: "tradeDetailComponent",
         query: {
-          txhash: txhash
+          txhash: tradeCount.txhash
         }
       });
     },
@@ -68,12 +71,15 @@ export default {
       });
     },
     queryDetailByAdd() {
-      apiService.trade.queryClaimByAddress().then(res => {
+      let data = { address: this.address };
+      apiService.trade.queryClaimByAddress(data).then(res => {
         this.rewardTableData = [...res.data.data];
       });
     }
   },
-  mounted() {}
+  mounted() {
+    this.queryDetailByAdd();
+  }
 };
 </script>
 <style lang="scss" scoped></style>

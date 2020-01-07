@@ -137,21 +137,26 @@
       <div class="address-delegation" v-show="tabIndex == 2">
         <ul>
           <li>
-            <span>{{ detailInfo.candidateCount }}</span>
+            <span>{{ detailInfo.delegateQty | formatMoney }}</span>
+            <p>{{ $t("contract.totalDelegated") }}(LAT)</p>
+          </li>
+          <li>
+            <!-- 总计委托 -->
+            <span>{{ detailInfo.candidateCount | formatMoney }}</span>
             <p>{{ $t("deleget.validators") }}</p>
           </li>
           <li>
-            <span>{{ detailInfo.delegateLocked }}</span>
+            <span>{{ detailInfo.delegateLocked | formatMoney }}</span>
             <p>{{ $t("deleget.lockedDelegate") }}(LAT)</p>
           </li>
           <li>
-            <span>{{ detailInfo.delegateHes }}</span>
+            <span>{{ detailInfo.delegateHes | formatMoney }}</span>
             <p>{{ $t("deleget.unlockedDelegate") }}(LAT)</p>
           </li>
-          <li>
+          <!-- <li>
             <span>{{ detailInfo.delegateReleased }}</span>
             <p>{{ $t("deleget.releasedDelegate") }}(LAT)</p>
-          </li>
+          </li> -->
           <!-- <li>
                         <span>{{detailInfo.delegateReduction}}</span>
                         <p>{{$t('deleget.undelegating')}}(LAT)</p>
@@ -236,6 +241,20 @@
             </template>
             <template slot-scope="scope">
               <span>{{ scope.row.delegateReleased | formatMoney }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column>
+            <template slot="header">
+              {{ $t("deleget.unclaimedReward") }}
+              <el-tooltip class="item" effect="dark" placement="bottom">
+                <div slot="content" class="delegate-msg">
+                  {{ $t("deleget.unclaimedRewardMsg") }}
+                </div>
+                <i class="address-icon"></i>
+              </el-tooltip>
+            </template>
+            <template slot-scope="scope">
+              <span>{{ scope.row.delegateClaim | formatMoney }}</span>
             </template>
           </el-table-column>
           <!-- <el-table-column :label="$t('deleget.undelegating')">
@@ -364,7 +383,7 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
- 
+
     handleCurrentChange(val) {
       this.currentPage = val;
       this.getList();

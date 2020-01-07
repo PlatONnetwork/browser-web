@@ -188,7 +188,7 @@
           </template>
         </Item>
         <!-- 领取奖励数 -->
-        <Item :label="$t('tradeAbout.rewardAmount')">
+        <Item v-if="detailInfo.txAmount" :label="$t('tradeAbout.rewardAmount')">
           <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <!-- 交易手续费 -->
@@ -215,14 +215,18 @@
           <span> {{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <Item :label="$t('tradeAbout.rewardDetails')">
-          <span
+          <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
+          <p
             class="cursor normal ellipsis"
             v-for="item in detailInfo.rewards.reward"
             :key="item.verify"
           >
-            {{ detailInfo.rewards.nodeName }}
-            <span> {{ detailInfo.rewards.reward }} LAT</span></span
-          >
+            <span>{{ $tx("tradeAbout.fromNode") }}</span>
+            <!-- 从xxx节点 此处需要做样式-->
+            <span>{{ detailInfo.rewards.nodeName }}</span>
+            <span>{{ $tx("tradeAbout.领取奖励") }}</span>
+            <span> {{ detailInfo.rewards.reward | formatMoney }} LAT</span>
+          </p>
         </Item>
         <Item :label="$t('tradeAbout.transactionFee')">
           <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>

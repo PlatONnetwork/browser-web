@@ -25,7 +25,8 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
     stakingOptRecordList: `${NODE_URL}stakingOptRecordList`,
     delegationListByStaking: `${NODE_URL}delegationListByStaking`,
     delegationListByAddress: `${NODE_URL}delegationListByAddress`,
-    statistic: `${NODE_URL}statistic`
+    statistic: `${NODE_URL}statistic`,
+    queryClaimByStaking: `${TRADE_URL}queryClaimByStaking`
   },
   // BLOCK
   BLOCK = {

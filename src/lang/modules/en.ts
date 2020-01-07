@@ -194,7 +194,9 @@ export default {
     rewardRatio: "rewardRatio",
     claimTime: "claimTime",
     delegateReward: "delegateReward",
-    totalClaimedReward: "Total claimed reward"
+    totalClaimedReward: "Total claimed reward",
+
+    fromNode: "From"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",
@@ -232,7 +234,8 @@ export default {
     unlocksNumber: "Unrestricted",
 
     unclaimedReward: "Unclaimed Reward",
-    invalidDelegations: "Invalid delegations"
+    invalidDelegations: "Invalid delegations",
+    totalDelegated: "Total Delegated"
   },
   deleget: {
     validators: "Validators",
@@ -264,7 +267,9 @@ export default {
     DelegateRecordWaiting: "Delegate record waiting for withdrawal",
 
     rewardReceiveDetails: "rewardDetails",
-    totalReceiveReward: "Total claimed reward"
+    totalReceiveReward: "Total claimed reward",
+    unclaimedReward: "Unclaimed Reward",
+    unclaimedRewardMsg: "Delegated LATs，Receivable rewards."
   },
   blockAbout: {
     morethen: "Total ",

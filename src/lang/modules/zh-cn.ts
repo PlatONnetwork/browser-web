@@ -194,7 +194,9 @@ export default {
     rewardRatio: "委托奖励比例",
     claimTime: "领取时间",
     delegateReward: "委托奖励数量",
-    totalClaimedReward: "累计领取委托奖励"
+    totalClaimedReward: "累计领取委托奖励",
+
+    fromNode: "从验证节点"
   },
   contract: {
     contractDetail: "合约详情",
@@ -231,7 +233,8 @@ export default {
     estimatedTime: "预计时间",
     unlocksNumber: "解锁数量",
     unclaimedReward: "待领取委托奖励",
-    invalidDelegations: "待赎回委托"
+    invalidDelegations: "待赎回委托",
+    totalDelegated: "总计委托"
   },
   deleget: {
     validators: "已委托验证节点",
@@ -262,7 +265,9 @@ export default {
     DelegateRecordWaiting: "待赎回的委托记录",
 
     rewardReceiveDetails: "奖励领取明细",
-    totalReceiveReward: "累计已领取委托奖励"
+    totalReceiveReward: "累计已领取委托奖励",
+    unclaimedReward: "待领取奖励",
+    unclaimedRewardMsg:"参与委托，当前可领取的委托奖励数。"
   },
   blockAbout: {
     morethen: "总共",

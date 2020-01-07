@@ -539,6 +539,8 @@ export default {
     },
     initBlockTimeChart() {
       let r = this.$refs;
+      console.log(r);
+      
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
       blockTimeChart.chart.on("mouseover", e => {
         this.handleBarHover(e);

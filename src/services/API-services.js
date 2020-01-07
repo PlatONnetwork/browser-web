@@ -57,6 +57,8 @@ class ApiService {
         this,
         API.TRADE.transactionListByAddress
       ),
+      queryClaimByAddress: this.post.bind(this, API.TRADE.queryClaimByAddress),
+
       addressTransactionDownload: this.post.bind(
         this,
         API.TRADE.addressTransactionDownload
@@ -116,7 +118,8 @@ class ApiService {
         this,
         API.NODE.delegationListByAddress
       ),
-      statistic: this.post.bind(this, API.NODE.statistic)
+      statistic: this.post.bind(this, API.NODE.statistic),
+      queryClaimByStaking: this.post.bind(this, API.NODE.queryClaimByStaking)
     };
     this.more = {
       queryConfig: this.post.bind(this, API.MORE.queryConfig)
