@@ -15,27 +15,55 @@
         text-color="#999"
         active-text-color="#FFF"
       >
-        <el-menu-item index="/" :class="{active:$route.path=='/'}">
+        <el-menu-item index="/" :class="{ active: $route.path == '/' }">
           <router-link to="/">{{ $t("menu.home") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/block" :class="{active:$route.path.indexOf('block')>-1}">
+        <el-menu-item
+          index="/block"
+          :class="{ active: $route.path.indexOf('block') > -1 }"
+        >
           <router-link to="/block">{{ $t("menu.block") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/trade" :class="{active:$route.path.indexOf('trade')>-1}">
+        <el-menu-item
+          index="/trade"
+          :class="{ active: $route.path.indexOf('trade') > -1 }"
+        >
           <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/node" :class="{active:$route.path.indexOf('node')>-1}">
+        <el-menu-item
+          index="/node"
+          :class="{
+            active:
+              $route.path.indexOf('node') > -1 ||
+              $route.path.indexOf('address') > -1
+          }"
+        >
           <router-link to="/node">{{ $t("menu.validator") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/proposal" :class="{active:$route.path.indexOf('proposal')>-1}">
+        <el-menu-item
+          index="/proposal"
+          :class="{ active: $route.path.indexOf('proposal') > -1 }"
+        >
           <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
         </el-menu-item>
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
-          <el-dropdown placement="bottom-start" class="more-dropdown" @command="dropdownCommand">
-            <span class="el-dropdown-link more-title" :class="{active:$route.path.indexOf('governable-parameter')>-1}">{{ $t("menu.more") }}</span>
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active: $route.path.indexOf('governable-parameter') > -1
+              }"
+              >{{ $t("menu.more") }}</span
+            >
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/governable-parameter">{{$t("more.governableParameter")}}</el-dropdown-item>
+              <el-dropdown-item command="/governable-parameter">{{
+                $t("more.governableParameter")
+              }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -43,12 +71,15 @@
     </div>
     <div
       class="search search-header"
-      :class="{'search-active':isFocus,'search-hide':(!hideSearch || ($route.path!='/'))}"
+      :class="{
+        'search-active': isFocus,
+        'search-hide': !hideSearch || $route.path != '/'
+      }"
     >
       <el-input
         :placeholder="$t('search.placeHolder')"
-        @focus="isFocus=true;"
-        @blur="isFocus=false;"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
         v-model="searchKey"
         @keyup.enter.native="searchFn"
         size="mini"
@@ -56,19 +87,22 @@
       <el-button
         type="primary"
         class="btn-header el-searchs"
-        :class="{'search-btn-active':isFocus}"
+        :class="{ 'search-btn-active': isFocus }"
         @click="searchFn"
         :disabled="disabledBtn"
-      >{{ $t("search.searchBtn") }}</el-button>
+        >{{ $t("search.searchBtn") }}</el-button
+      >
     </div>
     <div class="right-most">
       <el-dropdown placement="bottom-start">
         <span class="el-dropdown-link">
-          {{chainList[0][lang].split('(')[0]}}
+          {{ chainList[0][lang].split("(")[0] }}
           <i class="el-icon--right" :class="iconClass1"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="(item,index) in chainList" :key="index">{{item[lang]}}</el-dropdown-item>
+          <el-dropdown-item v-for="(item, index) in chainList" :key="index">{{
+            item[lang]
+          }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-dropdown
@@ -77,15 +111,16 @@
         @visible-change="visibleChange2"
       >
         <span class="el-dropdown-link">
-          {{languageObj[language]=='简体中文'?'简体中文':'English'}}
+          {{ languageObj[language] == "简体中文" ? "简体中文" : "English" }}
           <i class="el-icon--right" :class="iconClass2"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
-            v-for="(item,index) in options"
+            v-for="(item, index) in options"
             :key="index"
             :command="item.value"
-          >{{item.label}}</el-dropdown-item>
+            >{{ item.label }}</el-dropdown-item
+          >
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -201,7 +236,12 @@ export default {
 
       // 处理交易失败提示语的语言切换，需要重新请求接口
       const path = this.$route.path;
-      if (path == "/trade" || path == "/address-detail" || path == "/block-detail" || path == "/trade-detail") {
+      if (
+        path == "/trade" ||
+        path == "/address-detail" ||
+        path == "/block-detail" ||
+        path == "/trade-detail"
+      ) {
         this.reload();
       }
       // this.$i18n.locale = localStorage.getItem('i18nLocale')
@@ -296,17 +336,17 @@ export default {
     },
     // 更多 选项选中事件
     dropdownCommand(command) {
-        this.$router.push({
+      this.$router.push({
         path: command,
         query: {
-        //   address: address
+          //   address: address
         }
       });
     }
   },
   //生命周期函数
   created() {
-    this.language = (this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en");
+    this.language = this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en";
   },
   mounted() {}
 };
@@ -417,8 +457,8 @@ export default {
   min-width: 300px;
   max-width: 600px;
   flex: 1;
-  @media only screen and (max-width: 1366px){
-    .el-button{
+  @media only screen and (max-width: 1366px) {
+    .el-button {
       padding: 12px 14px;
     }
   }
@@ -483,7 +523,7 @@ export default {
   display: inline;
   color: inherit;
 }
-.more-item{
+.more-item {
   color: #999999 !important;
 }
 </style>
@@ -600,4 +640,3 @@ export default {
 
 // }
 </style>
-

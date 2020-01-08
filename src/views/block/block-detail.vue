@@ -1,26 +1,44 @@
 <template>
   <div class="block-detail-wrap">
-    <div class="page-title fontSize34">{{$t('blockAbout.blockDetail')}}</div>
+    <div class="page-title fontSize34">{{ $t("blockAbout.blockDetail") }}</div>
     <div class="detail-change">
       <div class="detail-copy">
-        <span>{{$t('tradeAbout.block')}}</span>
-        <i>#{{detailInfo.number}}</i>
+        <span>{{ $t("tradeAbout.block") }}</span>
+        <i>#{{ detailInfo.number }}</i>
         <b
           class="cursor"
-          :class="{copy:!isCopy}"
+          :class="{ copy: !isCopy }"
           v-clipboard:copy="detailInfo.number"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
-        ><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
+          ><p v-show="isCopy">
+            <i class="el-icon-circle-check-outline"></i
+            ><span>{{ copyText }}</span>
+          </p></b
+        >
       </div>
       <div class="detail-arrow">
-        <el-tooltip class="item" effect="dark" placement="top" :content="$t('blockAbout.lookLast')">
-          <el-button icon="el-icon-arrow-left" @click="goDetail(height-1)" :disabled="disabledLeft"></el-button>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          placement="top"
+          :content="$t('blockAbout.lookLast')"
+        >
+          <el-button
+            icon="el-icon-arrow-left"
+            @click="goDetail(height - 1)"
+            :disabled="disabledLeft"
+          ></el-button>
         </el-tooltip>
-        <el-tooltip class="item" effect="dark" placement="top" :content="$t('blockAbout.lookNext')">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          placement="top"
+          :content="$t('blockAbout.lookNext')"
+        >
           <el-button
             icon="el-icon-arrow-right"
-            @click="goDetail(height-0+1)"
+            @click="goDetail(height - 0 + 1)"
             :disabled="disabledRight"
           ></el-button>
         </el-tooltip>
@@ -30,33 +48,75 @@
     <div class="infomation">
       <!-- 基础交易 -->
       <List :title="$t('blockAbout.blockInformation')" :border="true">
-        <Item :label="$t('tradeAbout.blockHeight')" :prop="detailInfo.number" class="blockHeight"></Item>
-        <Item :label="$t('tradeAbout.timeStamp')" :prop="detailInfo.timestamp | formatTime"></Item>
-        <Item :label="$t('tradeAbout.transactions')" :prop="detailInfo.txQty+' TX'"></Item>
-        <Item :label="$t('blockAbout.blockHash')" :prop="detailInfo.hash"></Item>
+        <Item
+          :label="$t('tradeAbout.blockHeight')"
+          :prop="detailInfo.number"
+          class="blockHeight"
+        ></Item>
+        <Item
+          :label="$t('tradeAbout.timeStamp')"
+          :prop="detailInfo.timestamp | formatTime"
+        ></Item>
+        <Item
+          :label="$t('tradeAbout.transactions')"
+          :prop="detailInfo.txQty + ' TX'"
+        ></Item>
+        <Item
+          :label="$t('blockAbout.blockHash')"
+          :prop="detailInfo.hash"
+        ></Item>
         <Item :label="$t('blockAbout.parentHash')">
-          <span v-if="height-1<0">{{detailInfo.parentHash}}</span>
-          <span class="blue cursor" v-else @click="goDetail(height-1)">{{detailInfo.parentHash}}</span>
+          <span v-if="height - 1 < 0">{{ detailInfo.parentHash }}</span>
+          <span class="blue cursor" v-else @click="goDetail(height - 1)">{{
+            detailInfo.parentHash
+          }}</span>
         </Item>
-        <Item :label="$t('blockAbout.producer')" v-if="detailInfo.txType!='4000'">
-          <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{detailInfo.nodeName}}</span>
-          【{{timeDiffFn(detailInfo.serverTime,detailInfo.timestamp)}}{{$t('tradeAbout.before')}}】
+        <Item
+          :label="$t('blockAbout.producer')"
+          v-if="detailInfo.txType != '4000'"
+        >
+          <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{
+            detailInfo.nodeName
+          }}</span>
+          <span style="line-height:16px;"
+            >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)
+            }}{{ $t("tradeAbout.before") }}】</span
+          >
         </Item>
-        <Item :label="$t('blockAbout.size')" :prop="detailInfo.size + ' bytes'"></Item>
-        <Item :label="$t('tradeAbout.gasLimit')" :prop="detailInfo.gasLimit"></Item>
+        <Item
+          :label="$t('blockAbout.size')"
+          :prop="detailInfo.size + ' bytes'"
+        ></Item>
+        <Item
+          :label="$t('tradeAbout.gasLimit')"
+          :prop="detailInfo.gasLimit"
+        ></Item>
         <Item :label="$t('tradeAbout.gasUsed')">
-          <p>{{detailInfo.gasUsed | formatNumber}}&nbsp;({{detailInfo.gasUsed | percentage(detailInfo.gasLimit)}}%)</p>
+          <p>
+            {{ detailInfo.gasUsed | formatNumber }}&nbsp;({{
+              detailInfo.gasUsed | percentage(detailInfo.gasLimit)
+            }}%)
+          </p>
         </Item>
-        <Item :label="$t('blockAbout.blockReward')" :prop="detailInfo.blockReward + 'LAT'"></Item>
-        <Item class="extra-data" :label="$t('blockAbout.extraData')" :prop="detailInfo.extraData"></Item>
+        <Item
+          :label="$t('blockAbout.blockReward')"
+          :prop="detailInfo.blockReward + 'LAT'"
+        ></Item>
+        <Item
+          class="extra-data"
+          :label="$t('blockAbout.extraData')"
+          :prop="detailInfo.extraData"
+        ></Item>
       </List>
     </div>
     <div class="block-trade">
-      <div class="block-trade-title">{{$t('tradeAbout.transactions')}}({{detailInfo.txQty}})</div>
+      <div class="block-trade-title">
+        {{ $t("tradeAbout.transactions") }}({{ detailInfo.txQty }})
+      </div>
       <trade-list
         ref="blockTrade"
         class="common-trade"
-        :address="height+''"
+        :address="height + ''"
         :tradeCount="detailInfo"
         type="block"
       ></trade-list>
@@ -216,4 +276,3 @@ export default {
   width: auto !important;
 }
 </style>
-
