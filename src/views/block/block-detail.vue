@@ -100,7 +100,7 @@
         </Item>
         <Item
           :label="$t('blockAbout.blockReward')"
-          :prop="detailInfo.blockReward + 'LAT'"
+          :prop="detailInfo.blockReward + ' LAT'"
         ></Item>
         <Item
           class="extra-data"
