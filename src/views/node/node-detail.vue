@@ -113,7 +113,7 @@
                 :label="$t('nodeInfo.totalStakePower') + ' (LAT)'"
                 class="total-stake"
               >
-                <p class="Gilroy-Medium" v-if="type !== 'history'">
+                <p class="Gilroy-Medium" v-if="type != 'history'">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalValue | formatMoney | sliceFloat(0)
                   }}</span>
@@ -122,7 +122,7 @@
                   }}</span>
                   <span class="fontSize13"></span>
                 </p>
-                <p class="Gilroy-Medium">
+                <p v-else class="Gilroy-Medium">
                   --
                 </p>
               </Item>
@@ -364,10 +364,21 @@
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
-                %
+                {{ detailInfo.rewardPer }} %
               </Item>
-              <Item :vertical="true" :label="$t('nodeInfo.delegatorNum')">
-                <p>111</p>
+              <Item
+                v-if="type == 'history'"
+                :vertical="true"
+                :label="$t('nodeInfo.delegatorNum')"
+              >
+                <p>--</p>
+              </Item>
+              <Item
+                v-else
+                :vertical="true"
+                :label="$t('nodeInfo.delegatorNum')"
+              >
+                <p>{{ detailInfo.delegateQty }}</p>
               </Item>
               <Item
                 :vertical="true"
@@ -411,8 +422,10 @@
         </div>
         <div class="node-static-right-box" v-if="!detailInfo.isInit">
           <div class="yield-box">
-            <p class="value">12.32%</p>
+            <p v-if="type == 'history'" class="value">--%</p>
+            <p v-else class="value">{{ detailInfo.expectedIncome }}</p>
             <p class="text">
+              <!-- TODO 需要做悬停 -->
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
               <el-tooltip
                 :content="$t('nodeInfo.node1Tips')"
@@ -426,7 +439,8 @@
             </p>
           </div>
           <div class="yield-box">
-            <p class="value">6.21%</p>
+            <p v-if="type == 'history'" class="value">--%</p>
+            <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}</p>
             <p class="text">
               <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
@@ -552,7 +566,8 @@
               <span class="lightgray" v-else>null</span>
             </Item>
             <Item :label="$t('tradeAbout.rewardRatio')">
-              <span>{{ detailInfo.rewardPer }}</span>
+              <span v-if="detailInfo.isInit">--</span>
+              <span v-else>{{ detailInfo.rewardPer }} %</span>
             </Item>
             <Item :label="$t('tradeAbout.identity')">
               <a
@@ -968,9 +983,6 @@ export default {
   computed: {
     lang() {
       return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
-    },
-    type: function() {
-      return this.$route.params.type;
     }
   },
   watch: {},
@@ -1216,6 +1228,7 @@ export default {
   //生命周期函数
   created() {
     this.address = this.$route.query.address;
+    this.type = this.$route.query.type;
     this.getDetail();
     this.getBlockList();
     this.getOperateList();

@@ -77,7 +77,8 @@
                   }}</label
                 >
                 <div class="money">
-                  {{ detailInfo.delegateValue | formatMoney }}&nbsp;LAT
+                  <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
+                  {{ detailInfo.staking | formatMoney }}&nbsp;LAT
                 </div>
               </li>
               <li>
@@ -133,6 +134,7 @@
         v-show="tabIndex == 3"
         ref="rewardDetail"
         :tradeCount="detailInfo"
+        :address="address"
       ></reward-detail>
       <div class="address-delegation" v-show="tabIndex == 2">
         <ul>

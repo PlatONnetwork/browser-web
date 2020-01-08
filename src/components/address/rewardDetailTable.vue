@@ -7,17 +7,31 @@
       >
     </div>
     <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
-    <div v-for="item in rewardTableData" :key="item.id">
-      <div class="title">
-        <span class="hash" @click="goToDetailFn()"></span>
-        <span class="Date"></span>
+    <div class="detail-box" v-for="item in rewardTableData" :key="item.id">
+      <div class="title-box">
+        <span class="hash" @click="goToDetailFn()">
+          {{ item.txHash }}
+        </span>
+        <span class="date">{{ item.timestamp | formatTime }}</span>
       </div>
-      <div>
-        <div class="total"></div>
-        <div class="table">
-          <tr>
-            <td class="td-title" @click="goToNodeFn()"></td>
-            <td class="td-content"></td>
+      <div class="table-box">
+        <div class="total">
+          <span class="label">{{ $t("tradeAbout.rewardAmount") }} : </span>
+          <span class="value">{{ item.allRewards | formatMoney }} LAT</span>
+        </div>
+        <div class="reward-box">
+          <tr
+            class="reward-mini-box"
+            v-for="(ele, $index) in item.rewardsDetails"
+            :key="$index"
+          >
+            <td
+              class="td-title cursor normal ellipsis"
+              @click="goToNodeFn(ele.verify)"
+            >
+              {{ ele.nodeName | formatMoney }} :
+            </td>
+            <td class="td-content">{{ ele.reward }} &nbsp;LAT</td>
           </tr>
         </div>
       </div>
@@ -28,11 +42,13 @@
         :current-page="curPage"
         :page-size="pageSize"
         :page-sizes="[10, 20, 50, 100]"
+        @size-change="handleSizeFn"
         @current-change="handleChange"
         layout="sizes,total,prev,pager,next"
       ></el-pagination>
     </div>
-    {{ tradeCount }}
+    <!-- {{ tradeCount }} -->
+    <!-- {{ address }} -->
   </div>
 </template>
 <script>
@@ -53,7 +69,14 @@ export default {
     address: String
   },
   methods: {
-    handleChange(page) {},
+    handleSizeFn(pageSize) {
+      this.pageSize = pageSize;
+      this.queryDetailByAdd();
+    },
+    handleChange(page) {
+      this.curPage = page;
+      this.queryDetailByAdd();
+    },
     goToDetailFn(hash) {
       this.$router.push({
         name: "tradeDetailComponent",
@@ -71,9 +94,16 @@ export default {
       });
     },
     queryDetailByAdd() {
-      let data = { address: this.address };
+      let data = {
+        pageNo: this.curPage,
+        address: this.address,
+        pageSize: this.pageSize
+      };
       apiService.trade.queryClaimByAddress(data).then(res => {
-        this.rewardTableData = [...res.data.data];
+        if (res.data) {
+          this.rewardTableData = [...res.data];
+          this.totalNum = res.totalCount;
+        }
       });
     }
   },
@@ -82,4 +112,80 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.detail-box {
+  width: 100%;
+  padding: 10px;
+  &:hover {
+    // border-top: 1px solid #0798de;
+    border: 1px solid #0798de;
+  }
+  .title-box {
+    background: #f5f5f5;
+    // box-shadow: 0 -1px 0 0 #0798de;
+    border-radius: 1px;
+    border-radius: 1px;
+    height: 40px;
+    line-height: 40px;
+    .hash {
+      font-family: Gilroy-Regular;
+      font-size: 12px;
+      color: #0798de;
+      letter-spacing: 0;
+    }
+    .date {
+      font-family: Gilroy-Regular;
+      font-size: 12px;
+      color: #000000;
+      letter-spacing: 0;
+      float: right;
+    }
+  }
+  .table-box {
+    min-height: 100px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .total > .label {
+      font-family: Gilroy-Medium;
+      font-size: 14px;
+      color: #666666;
+      letter-spacing: 0;
+    }
+    .total > .value {
+      display: inline-block;
+      margin-left: 8px;
+      height: 40px;
+      line-height: 40px;
+      background: rgba(7, 152, 222, 0.1);
+      border-radius: 2px;
+      border-radius: 2px;
+      padding: 0 80px 0 20px;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        border-left: 20px solid rgba(7, 152, 222, 0.1);
+        border-right: 20px solid transparent;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        right: -40px;
+      }
+    }
+    .reward-box {
+      .reward-mini-box {
+        margin-bottom: 10px;
+        tr {
+          margin-bottom: 10px;
+        }
+        .td-title,
+        .td-content {
+          min-width: 200px;
+          width: auto;
+        }
+      }
+    }
+  }
+}
+</style>

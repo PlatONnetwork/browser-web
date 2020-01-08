@@ -154,6 +154,7 @@
                 v-if="!scope.row.stakingIcon"
                 alt
               />
+
               <p
                 class="cursor normal ellipsis percent60 fontSize15"
                 @click="goDetail(scope.row.nodeId)"
@@ -292,7 +293,7 @@
           </template>
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit"
-              >{{ scope.row.expectedIncome }}%</span
+              >{{ scope.row.deleAnnualizedRate }}%</span
             >
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
@@ -489,9 +490,7 @@ export default {
       this.$router.push({
         path: "/node-detail",
         query: {
-          address: nodeId
-        },
-        params: {
+          address: nodeId,
           type: this.type
         }
       });

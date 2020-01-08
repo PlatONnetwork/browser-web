@@ -188,7 +188,10 @@
           </template>
         </Item>
         <!-- 领取奖励数 -->
-        <Item v-if="detailInfo.txAmount" :label="$t('tradeAbout.rewardAmount')">
+        <Item
+          v-if="detailInfo.txAmount > 0"
+          :label="$t('tradeAbout.rewardAmount')"
+        >
           <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <!-- 交易手续费 -->
@@ -216,16 +219,16 @@
         </Item>
         <Item :label="$t('tradeAbout.rewardDetails')">
           <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
-          <p
-            class="cursor normal ellipsis"
-            v-for="item in detailInfo.rewards.reward"
-            :key="item.verify"
-          >
-            <span>{{ $tx("tradeAbout.fromNode") }}</span>
+          <p v-for="item in detailInfo.rewards" :key="item.verify">
+            <span>{{ $t("tradeAbout.fromNode") }}</span>
             <!-- 从xxx节点 此处需要做样式-->
-            <span>{{ detailInfo.rewards.nodeName }}</span>
-            <span>{{ $tx("tradeAbout.领取奖励") }}</span>
-            <span> {{ detailInfo.rewards.reward | formatMoney }} LAT</span>
+            <span
+              @click="goNodeDetail(item.verify)"
+              class="cursor normal ellipsis"
+              >{{ item.nodeName }}</span
+            >
+            <span>{{ $t("tradeAbout.领取奖励") }}</span>
+            <span> {{ detailInfo.reward | formatMoney }} LAT</span>
           </p>
         </Item>
         <Item :label="$t('tradeAbout.transactionFee')">
@@ -875,7 +878,7 @@ export default {
         s += "exitValidator";
       } else if (t == 3000) {
         s += "reportValidator";
-      } else if (t === 5000) {
+      } else if (t == 5000) {
         s += "claimRewards";
       }
       return this.$t(s);
