@@ -166,8 +166,9 @@
                   }}</span>
                   <span
                     v-if="type == 'history' && detailInfo.totalValue > 0"
-                    class="fontSize13"
-                  ></span>
+                    class="fontSize13 onPending"
+                    >({{ $t("nodeInfo.freezing") }})</span
+                  >
                 </p>
               </Item>
             </List>
@@ -343,7 +344,7 @@
               >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.totalDeleReward  | formatMoney | sliceFloat(0)
+                    detailInfo.totalDeleReward | formatMoney | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
                     detailInfo.totalDeleReward | formatMoney | sliceFloat(1)
@@ -683,12 +684,21 @@
                     class="percent80"
                     v-if="
                       scope.row.type == 1 ||
-                        scope.row.type == 2 ||
                         scope.row.type == 3 ||
                         scope.row.type == 10
                     "
                   >
                     {{ $t("actionType." + [scope.row.type]) }}
+                  </p>
+                  <p class="percent80" v-if="scope.row.type == 2">
+                    {{ $t("actionType." + [scope.row.type]) }}
+                    {{ $t("nodeInfo.information") }}
+                    <span v-if="!!scope.row.beforeRate"
+                      >- {{ $t("nodeInfo.rewardRatio") }}
+                      {{ scope.row.beforeRate }}%
+                      {{ $t("tradeAbout.changedTo") }}
+                      {{ scope.row.afterRate }}%</span
+                    >
                   </p>
                   <p
                     class="percent80"
@@ -1423,6 +1433,7 @@ export default {
         color: #ffc017;
         letter-spacing: 0;
         padding-left: 4px;
+        vertical-align: text-top;
       }
     }
   }

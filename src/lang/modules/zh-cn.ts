@@ -196,7 +196,8 @@ export default {
     delegateReward: "委托奖励数量",
     totalClaimedReward: "累计领取委托奖励",
 
-    fromNode: "从验证节点"
+    fromNode: "从验证节点",
+    changedTo: "变更为"
   },
   contract: {
     contractDetail: "合约详情",
@@ -405,7 +406,9 @@ export default {
     validatorAnnualizedYield: "预计节点年化收益率",
 
     freezing: "待解锁",
-    undelegating: "待赎回"
+    undelegating: "待赎回",
+    information: "信息",
+    rewardRatio: "委托奖励比例"
   },
   nodeStatus: {
     1: "候选中",

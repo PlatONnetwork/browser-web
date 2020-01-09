@@ -138,12 +138,12 @@
       ></reward-detail>
       <div class="address-delegation" v-show="tabIndex == 2">
         <ul>
+          <!-- 总计委托 -->
           <li>
-            <span>{{ detailInfo.delegateQty | formatMoney }}</span>
+            <span>{{ detailInfo.delegateValue | formatMoney }}</span>
             <p>{{ $t("contract.totalDelegated") }}(LAT)</p>
           </li>
           <li>
-            <!-- 总计委托 -->
             <span>{{ detailInfo.candidateCount | formatMoney }}</span>
             <p>{{ $t("deleget.validators") }}</p>
           </li>

@@ -196,7 +196,8 @@ export default {
     delegateReward: "delegateReward",
     totalClaimedReward: "Total claimed reward",
 
-    fromNode: "From"
+    fromNode: "From",
+    changedTo: "changed to"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",
@@ -407,7 +408,9 @@ export default {
     delegatedAnnualizedYield: "Delegated annualized yield",
     validatorAnnualizedYield: "Validator annualized yield",
     freezing: "freezing",
-    undelegating: "undelegating"
+    undelegating: "undelegating",
+    information: "information",
+    rewardRatio: "Delegated reward ratio"
   },
   nodeStatus: {
     1: "Candidate",
