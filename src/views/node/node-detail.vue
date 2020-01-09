@@ -61,6 +61,11 @@
             v-else-if="detailInfo.status == 1"
             >{{ $t("nodeStatus." + [detailInfo.status]) }}</span
           >
+          <span
+            class="lightgray vote-status gray-status"
+            v-else-if="detailInfo.status == 5"
+            >{{ $t("nodeStatus." + [detailInfo.status]) }}</span
+          >
         </div>
       </div>
       <!-- TODO 验证节点 详情 从新设计 -->
@@ -154,12 +159,15 @@
               >
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.totalValue | formatMoney | sliceFloat(0)
+                    detailInfo.stakingValue | formatMoney | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
-                    detailInfo.totalValue | formatMoney | sliceFloat(1)
+                    detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13"></span>
+                  <span
+                    v-if="type == 'history' && detailInfo.totalValue > 0"
+                    class="fontSize13"
+                  ></span>
                 </p>
               </Item>
             </List>
@@ -331,14 +339,14 @@
               </Item>
               <Item
                 :vertical="true"
-                :label="$t('nodeInfo.totalDelegatedReward')"
+                :label="$t('nodeInfo.totalDelegatedReward') + ' (LAT)'"
               >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                    detailInfo.totalDeleReward  | formatMoney | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                    detailInfo.totalDeleReward | formatMoney | sliceFloat(1)
                   }}</span>
                   <span class="fontSize13"></span>
                 </p>
@@ -351,12 +359,16 @@
               >
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.totalValue | formatMoney | sliceFloat(0)
+                    detailInfo.stakingValue | formatMoney | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
-                    detailInfo.totalValue | formatMoney | sliceFloat(1)
+                    detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13"></span>
+                  <span
+                    v-if="type == 'history' && detailInfo.totalValue > 0"
+                    class="fontSize13 onPending"
+                    >({{ $t("nodeInfo.freezing") }})</span
+                  >
                 </p>
               </Item>
             </List>
@@ -386,10 +398,10 @@
               >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                    detailInfo.deleRewardRed | formatMoney | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                    detailInfo.deleRewardRed | formatMoney | sliceFloat(1)
                   }}</span>
                   <span class="fontSize13"></span>
                 </p>
@@ -409,12 +421,18 @@
               >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(0)
+                    detailInfo.statDelegateReduction
+                      | formatMoney
+                      | sliceFloat(0)
                   }}</span>
                   <span class="black fontSize13">{{
-                    detailInfo.rewardValue | formatMoney | sliceFloat(1)
+                    detailInfo.statDelegateReduction
+                      | formatMoney
+                      | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13"></span>
+                  <span class="fontSize13 onPending"
+                    >({{ $t("nodeInfo.undelegating") }})</span
+                  >
                 </p>
               </Item>
             </List>
@@ -423,7 +441,7 @@
         <div class="node-static-right-box" v-if="!detailInfo.isInit">
           <div class="yield-box">
             <p v-if="type == 'history'" class="value">--%</p>
-            <p v-else class="value">{{ detailInfo.expectedIncome }}</p>
+            <p v-else class="value">{{ detailInfo.expectedIncome }}%</p>
             <p class="text">
               <!-- TODO 需要做悬停 -->
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
@@ -440,7 +458,7 @@
           </div>
           <div class="yield-box">
             <p v-if="type == 'history'" class="value">--%</p>
-            <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}</p>
+            <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}%</p>
             <p class="text">
               <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
@@ -889,15 +907,19 @@
               <el-table-column :label="$t('tradeAbout.hash')">
                 <template slot-scope="scope">
                   <span
-                    class="blue cursor"
-                    @click="goBlockDetail(scope.row.number)"
-                    >{{ scope.row.number }}</span
+                    class="blue cursor percent60 ellipsis"
+                    @click="goTradeDetail(scope.row.hash)"
+                    >{{ scope.row.hash }}</span
                   >
                 </template>
               </el-table-column>
               <el-table-column :label="$t('tradeAbout.delegater')">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.timestamp | formatTime }}</span>
+                  <span
+                    class="blue cursor percent60 ellipsis"
+                    @click="goAddressDetail(scope.row.addr)"
+                    >{{ scope.row.addr }}</span
+                  >
                 </template>
               </el-table-column>
               <el-table-column
@@ -905,25 +927,25 @@
                 show-overflow-tooltip
               >
                 <template slot-scope="scope">
-                  <span>{{ scope.row.statTxQty | formatNumber }}</span>
+                  <span>{{ scope.row.time | formatTime }}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('tradeAbout.delegateReward')">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.blockReward | formatMoney }} LAT</span>
+                  <span>{{ scope.row.reward | formatMoney }}</span>
                 </template>
               </el-table-column>
             </el-table>
             <div class="pagination-box">
               <el-pagination
                 background
-                @size-change="handleBlockSizeChange"
-                @current-change="handleBlockCurrentChange"
-                :current-page.sync="currentPage"
+                @size-change="handleRewardSizeChange"
+                @current-change="handleRewardCurrentChange"
+                :current-page.sync="currentPage5"
                 :page-sizes="[10, 20, 50, 100]"
-                :page-size="pageSize"
+                :page-size="pageSize5"
                 layout="sizes,total,  prev, pager, next"
-                :total="pageTotal > 5000 ? 5000 : pageTotal"
+                :total="pageTotal5 > 5000 ? 5000 : pageTotal5"
                 :pager-count="9"
               ></el-pagination>
             </div>
@@ -953,7 +975,6 @@ export default {
       cxt: null,
 
       tableData: [],
-      rewardTableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
@@ -967,6 +988,11 @@ export default {
       currentPage3: 1,
       pageSize3: 20,
       pageTotal3: 0,
+
+      tableDelegetData: [],
+      currentPage5: 1,
+      pageSize5: 20,
+      pageTotal5: 0,
 
       displayTotalCount: 0,
       isCopy: false,
@@ -994,11 +1020,25 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
+    //奖励领取明细
     getRewardData() {
       let param = {
         nodeId: this.address
       };
-      apiService.node.queryClaimByStaking(param).then(res => {});
+      apiService.node
+        .queryClaimByStaking(param)
+        .then(res => {
+          let { errMsg, code, data, totalCount } = res;
+          if (code == 0) {
+            this.rewardTableData = data;
+            this.pageTotal5 = totalCount;
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
     },
     //获取详情
     getDetail() {
@@ -1268,6 +1308,10 @@ export default {
 .red-status {
   background: rgba(207, 50, 110, 0.15);
 }
+.gray-status {
+  background: #999999;
+  color: #fff;
+}
 .canvas {
   width: 88px;
   height: 88px;
@@ -1372,6 +1416,13 @@ export default {
       }
       &:nth-child(3) {
         margin-left: -100px;
+      }
+      .onPending {
+        font-family: PingFangSC-Medium;
+        font-size: 12px;
+        color: #ffc017;
+        letter-spacing: 0;
+        padding-left: 4px;
       }
     }
   }

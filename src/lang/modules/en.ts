@@ -405,7 +405,9 @@ export default {
     totalDelegatedReward: "Total Delegated Reward",
     delegatorNum: "Delegators",
     delegatedAnnualizedYield: "Delegated annualized yield",
-    validatorAnnualizedYield: "Validator annualized yield"
+    validatorAnnualizedYield: "Validator annualized yield",
+    freezing: "freezing",
+    undelegating: "undelegating"
   },
   nodeStatus: {
     1: "Candidate",

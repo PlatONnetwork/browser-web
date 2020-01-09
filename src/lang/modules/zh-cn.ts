@@ -267,7 +267,7 @@ export default {
     rewardReceiveDetails: "奖励领取明细",
     totalReceiveReward: "累计已领取委托奖励",
     unclaimedReward: "待领取奖励",
-    unclaimedRewardMsg:"参与委托，当前可领取的委托奖励数。"
+    unclaimedRewardMsg: "参与委托，当前可领取的委托奖励数。"
   },
   blockAbout: {
     morethen: "总共",
@@ -402,7 +402,10 @@ export default {
     totalDelegatedReward: "累计委托奖励",
     delegatorNum: "当前委托者数",
     delegatedAnnualizedYield: "预计委托年化收益率",
-    validatorAnnualizedYield: "预计节点年化收益率"
+    validatorAnnualizedYield: "预计节点年化收益率",
+
+    freezing: "待解锁",
+    undelegating: "待赎回"
   },
   nodeStatus: {
     1: "候选中",

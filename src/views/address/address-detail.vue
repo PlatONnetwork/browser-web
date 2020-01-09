@@ -78,7 +78,7 @@
                 >
                 <div class="money">
                   <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
-                  {{ detailInfo.staking | formatMoney }}&nbsp;LAT
+                  {{ detailInfo.stakingValue | formatMoney }}&nbsp;LAT
                 </div>
               </li>
               <li>
