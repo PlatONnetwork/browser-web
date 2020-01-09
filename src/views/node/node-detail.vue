@@ -78,11 +78,13 @@
                 :vertical="true"
                 :label="$t('nodeInfo.electedRoundValidator')"
               >
-                <p class="Gilroy-Medium">{{ detailInfo.verifierTime }}</p>
+                <p class="Gilroy-Medium fontSize18">
+                  {{ detailInfo.verifierTime }}
+                </p>
               </Item>
               <!-- 累计出块 -->
               <Item :vertical="true" :label="$t('nodeInfo.blocks')">
-                <p class="Gilroy-Medium">
+                <p class="Gilroy-Medium fontSize18">
                   {{ detailInfo.blockQty | formatNumber }}
                 </p>
               </Item>
@@ -332,7 +334,7 @@
             </Item> -->
               <Item :vertical="true" :label="$t('nodeInfo.blockRate')">
                 <p>
-                  <span class="Gilroy-Medium">{{
+                  <span class="Gilroy-Medium fontSize18">{{
                     detailInfo.blockQty | percentage(detailInfo.expectBlockQty)
                   }}</span>
                   <span class="fontSize13">%</span>
@@ -377,7 +379,9 @@
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
-                {{ detailInfo.rewardPer }} %
+                <p class="Gilroy-Medium fontSize18">
+                  {{ detailInfo.rewardPer }} %
+                </p>
               </Item>
               <Item
                 v-if="type == 'history'"
@@ -391,7 +395,9 @@
                 :vertical="true"
                 :label="$t('nodeInfo.delegatorNum')"
               >
-                <p>{{ detailInfo.delegateQty }}</p>
+                <p class="Gilroy-Medium fontSize18">
+                  {{ detailInfo.delegateQty }}
+                </p>
               </Item>
               <Item
                 :vertical="true"
@@ -413,7 +419,19 @@
                 :label="$t('deleget.acceptDelegations') + ' (LAT)'"
                 v-if="type !== 'history'"
               >
-                <p>111</p>
+                <p>
+                  <span
+                    class="Gilroy-Medium black fontSize18"
+                    style="font-size: 18px;"
+                    >{{
+                      detailInfo.delegateValue | formatMoney | sliceFloat(0)
+                    }}</span
+                  >
+                  <span class="black fontSize13">{{
+                    detailInfo.delegateValue | formatMoney | sliceFloat(1)
+                  }}</span>
+                  <span class="fontSize13 lat-mini">&nbsp;LAT</span>
+                </p>
               </Item>
               <Item
                 v-else
@@ -586,7 +604,9 @@
             </Item>
             <Item :label="$t('tradeAbout.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
-              <span v-else>{{ detailInfo.rewardPer }} %</span>
+              <span v-else class="fontSize18"
+                >{{ detailInfo.rewardPer }} %</span
+              >
             </Item>
             <Item :label="$t('tradeAbout.identity')">
               <a
@@ -717,17 +737,15 @@
                       </span>
                     </template>
                     <template v-else>
-                      <template v-if="scope.row.proposalType == 2"
+                      <span v-if="scope.row.proposalType == 2"
                         >{{ $t("actionType." + [scope.row.type]) }}-{{
                           $t("tradeAbout.versionUp")
-                        }}-V {{ scope.row.version }}-{{
-                          scope.row.id
-                        }}</template
+                        }}-V {{ scope.row.version }}-{{ scope.row.id }}</span
                       >
-                      <template v-else
+                      <span v-else
                         >{{ $t("actionType." + [scope.row.type]) }}-{{
                           $t("proposalOption." + [scope.row.proposalType])
-                        }}-{{ scope.row.id }}</template
+                        }}-{{ scope.row.id }}</span
                       >
                       <span v-if="scope.row.type == 5"
                         >-{{ $t("voteStatus." + [scope.row.option]) }}</span
@@ -1387,12 +1405,17 @@ export default {
     .yield-box {
       padding: 10px;
       .value {
-        font-size: 38px;
-        font-weight: 600;
+        font-family: Gilroy-Medium;
+        font-size: 40px;
+        color: #000000;
+        letter-spacing: 0;
       }
       .text {
+        margin-top: 6px;
+        font-family: Gilroy-Medium;
         font-size: 14px;
-        display: flex;
+        color: #666666;
+        letter-spacing: 0;
       }
     }
   }
