@@ -116,6 +116,7 @@ export default {
 .detail-box {
   width: 100%;
   padding: 10px;
+  border: 1px solid transparent;
   &:hover {
     // border-top: 1px solid #0798de;
     border: 1px solid #0798de;

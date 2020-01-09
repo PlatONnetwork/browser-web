@@ -141,14 +141,18 @@
                 <div class="stability-wrap">
                   <div style="margin-right:10px;" class="self-tooltip">
                     <i class="icon-low-block cursor"></i>
-                    <span>{{ detailInfo.slashLowQty }}</span>
+                    <span class="Gilroy-Regular fontSize13">{{
+                      detailInfo.slashLowQty
+                    }}</span>
                     <p class="Gilroy-Medium">
                       {{ $t("nodeInfo.lowBlockRate") }}
                     </p>
                   </div>
                   <div class="self-tooltip self-tooltip-sign">
                     <i class="icon-two-sign cursor"></i>
-                    <span>{{ detailInfo.slashMultiQty }}</span>
+                    <span class="Gilroy-Regular fontSize13">{{
+                      detailInfo.slashMultiQty
+                    }}</span>
                     <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
                   </div>
                 </div>
@@ -604,7 +608,7 @@
             </Item>
             <Item :label="$t('tradeAbout.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
-              <span v-else class="fontSize18"
+              <span v-else class="fontSize14"
                 >{{ detailInfo.rewardPer }} %</span
               >
             </Item>
@@ -922,7 +926,7 @@
           <div class="address-trade-last node-last">
             {{ $t("deleget.totalReceiveReward") }}
             <b style="margin-left:20px;"
-              >{{ detailInfo.blockQty | formatMoney }} LAT</b
+              >{{ detailInfo.haveDeleReward | formatMoney }} LAT</b
             >
           </div>
           <div class="table">

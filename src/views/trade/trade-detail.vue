@@ -227,8 +227,8 @@
               class="cursor normal ellipsis"
               >{{ item.nodeName }}</span
             >
-            <span>{{ $t("tradeAbout.领取奖励") }}</span>
-            <span> {{ detailInfo.reward | formatMoney }} LAT</span>
+            <span>{{ $t("tradeAbout.claimRewards") }}</span>
+            <span> {{ item.reward | formatMoney }} LAT</span>
           </p>
         </Item>
         <Item :label="$t('tradeAbout.transactionFee')">
