@@ -1,10 +1,14 @@
 <template>
   <div class="trade-list-wrap">
-    <div class="page-title fontSize34">{{$t('tradeAbout.proposalDetail').toUpperCase()}}</div>
+    <div class="page-title fontSize34">
+      {{ $t("tradeAbout.proposalDetail").toUpperCase() }}
+    </div>
     <el-row>
       <el-col :span="12">
         <div class="proposal-box">
-          <a class="proposal-id" :href="detailData.url" target="_blank"># {{detailData.pipNum}}</a>
+          <a class="proposal-id" :href="detailData.url" target="_blank"
+            ># {{ detailData.pipNum }}</a
+          >
           <a class="github" :href="detailData.url" target="_blank">
             &nbsp;
             <i></i>
@@ -13,45 +17,60 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <div class="grid-content bg-purple-light Gilroy-Bold" style="float:right;margin-top:-50px;">
+        <div
+          class="grid-content bg-purple-light Gilroy-Bold"
+          style="float:right;margin-top:-50px;"
+        >
           <span
             class="yellow vote-status yellow-status"
-            v-if="detailData.status==1"
-          >{{$t('proposalStatus.'+[detailData.status])}}</span>
+            v-if="detailData.status == 1"
+            >{{ $t("proposalStatus." + [detailData.status]) }}</span
+          >
           <span
             class="red vote-status red-status"
-            v-else-if="detailData.status==3||detailData.status==6"
-          >{{$t('proposalStatus.'+[detailData.status])}}</span>
-          <span class="green vote-status" v-else>{{$t('proposalStatus.'+[detailData.status])}}</span>
+            v-else-if="detailData.status == 3 || detailData.status == 6"
+            >{{ $t("proposalStatus." + [detailData.status]) }}</span
+          >
+          <span class="green vote-status" v-else>{{
+            $t("proposalStatus." + [detailData.status])
+          }}</span>
         </div>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="14">
         <div class="update">
-          <p v-if="detailData.topic">{{detailData.topic}}</p>
-          <p
-            v-else-if="!detailData.topic&&detailData.type==1"
-          >{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</p>
-          <p v-else-if="!detailData.topic&&detailData.type==2">
-            {{$t('tradeAbout.versionUp')}}-V
-            <span style="font-size:16px;">{{detailData.newVersion}}</span>
+          <p v-if="detailData.topic">{{ detailData.topic }}</p>
+          <p v-else-if="!detailData.topic && detailData.type == 1">
+            {{ $t("proposalOption." + [detailData.type]) }}-{{
+              detailData.pipNum
+            }}
           </p>
-          <p
-            v-else-if="!detailData.topic&&detailData.type==4"
-          >{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</p>
-          <p
-            v-else-if="!detailData.topic&&detailData.type==3"
-          >{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</p>
+          <p v-else-if="!detailData.topic && detailData.type == 2">
+            {{ $t("tradeAbout.versionUp") }}-V
+            <span style="font-size:16px;">{{ detailData.newVersion }}</span>
+          </p>
+          <p v-else-if="!detailData.topic && detailData.type == 4">
+            {{ $t("proposalOption." + [detailData.type]) }}-{{
+              detailData.pipNum
+            }}
+          </p>
+          <p v-else-if="!detailData.topic && detailData.type == 3">
+            {{ $t("proposalOption." + [detailData.type]) }}-{{
+              detailData.pipNum
+            }}
+          </p>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.proposalType')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.proposalType") }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content">
-                <span class="fontSize13">{{$t('proposalOption.'+[detailData.type])}}</span>
+                <span class="fontSize13">{{
+                  $t("proposalOption." + [detailData.type])
+                }}</span>
               </div>
             </el-col>
           </el-row>
@@ -59,80 +78,103 @@
         <div class="item" v-if="detailData.type == '4'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.proposalToCancel')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.proposalToCancel") }}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content fontSize13" v-if="detailData.canceledTopic">{{detailData.canceledTopic}}</div>
-              <div
-                class="content fontSize13"
-                v-else
-              >{{$t('proposalOption.'+[detailData.type])}}-{{detailData.pipNum}}</div>
+              <div class="content fontSize13" v-if="detailData.canceledTopic">
+                {{ detailData.canceledTopic }}
+              </div>
+              <div class="content fontSize13" v-else>
+                {{ $t("proposalOption." + [detailData.type]) }}-{{
+                  detailData.pipNum
+                }}
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item" v-if="detailData.type == '4'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.cancellID')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.cancellID") }}：</div>
             </el-col>
             <el-col :span="16">
-              <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.canceledPipId}}</div>
+              <div
+                class="content fontSize13"
+                :style="{ wordBreak: 'break-all' }"
+              >
+                {{ detailData.canceledPipId }}
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item" v-if="detailData.type == '2'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.upgradeVersion')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.upgradeVersion") }}：</div>
             </el-col>
             <el-col :span="15">
-              <div class="content new-version">{{detailData.newVersion}}</div>
+              <div class="content new-version">{{ detailData.newVersion }}</div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.proposer')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.proposer") }}：</div>
             </el-col>
             <el-col :span="15">
               <div
                 class="content proposer cursor"
                 @click="goNodeDetail(detailData.nodeId)"
-              >{{detailData.nodeName}}</div>
+              >
+                {{ detailData.nodeName }}
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.proposalID')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.proposalID") }}：</div>
             </el-col>
             <el-col :span="16">
-              <div class="content fontSize13" :style="{wordBreak: 'break-all'}">{{detailData.proposalHash}}</div>
+              <div
+                class="content fontSize13"
+                :style="{ wordBreak: 'break-all' }"
+              >
+                {{ detailData.proposalHash }}
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.proposalTime')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.proposalTime") }}：</div>
             </el-col>
             <el-col :span="15">
               <!-- {{detailData.timestamp | formatTime}}[{{detailData.inBlock}}] -->
-              <div class="content fontSize13"><span>{{detailData.timestamp | formatTime}}</span><span class="Gilroy-Medium">[{{detailData.inBlock}}]</span></div>
+              <div class="content fontSize13">
+                <span>{{ detailData.timestamp | formatTime }}</span
+                ><span class="Gilroy-Medium">[{{ detailData.inBlock }}]</span>
+              </div>
             </el-col>
           </el-row>
         </div>
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.votingEndBlock')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.votingEndBlock") }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
-                <div class="percentage" :style="{'width': endVotingPercentage}"></div>
-                <div class="progress-text">Block {{detailData.endVotingBlock | formatNumber}}</div>
+                <div
+                  class="percentage"
+                  :style="{ width: endVotingPercentage }"
+                ></div>
+                <div class="progress-text">
+                  Block {{ detailData.endVotingBlock | formatNumber }}
+                </div>
               </div>
             </el-col>
           </el-row>
@@ -141,181 +183,301 @@
               <div class="desc">&nbsp;</div>
             </el-col>
             <el-col :span="15">
-              <div
-                class="content estimatedTime"
-              >{{$t('contract.estimatedTime')}}: {{detailData.endVotingBlockTime | formatTime}}</div>
+              <div class="content estimatedTime">
+                {{ $t("contract.estimatedTime") }}:
+                {{ detailData.endVotingBlockTime | formatTime }}
+              </div>
             </el-col>
           </el-row>
         </div>
-        <div class="item" v-if="detailData.type==2">
+        <div class="item" v-if="detailData.type == 2">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.activeBlock')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.activeBlock") }}：</div>
             </el-col>
             <el-col :span="15">
               <p class="active-block">
-                #{{detailData.activeBlock | formatNumber}}
+                #{{ detailData.activeBlock | formatNumber }}
               </p>
             </el-col>
           </el-row>
         </div>
-        <div class="item" v-if="detailData.type==3">
+        <div class="item" v-if="detailData.type == 3">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{$t('tradeAbout.effectiveBlock')}}：</div>
+              <div class="desc">{{ $t("tradeAbout.effectiveBlock") }}：</div>
             </el-col>
             <el-col :span="15">
               <p class="active-block">
-                #{{detailData.activeBlock | formatNumber}}
+                #{{ detailData.activeBlock | formatNumber }}
               </p>
             </el-col>
           </el-row>
         </div>
       </el-col>
       <el-col :span="10">
-        <div class="item" v-if="detailData.type==3">
-          <div
-            class="desc"
-            style="margin:41px 0px 21px 0px;"
-          >{{$t('tradeAbout.parameterDetails')}}：</div>
-          <div class="fontSize15 Gilroy-Medium"><span class="parame-name">{{detailData.paramName}}:</span><span class="parame-new-value">{{detailData.newValue}}&nbsp;</span><span class="parame-value">({{$t('tradeAbout.originalValue')}}：{{detailData.currentValue}})</span></div>
+        <div class="item" v-if="detailData.type == 3">
+          <div class="desc" style="margin:41px 0px 21px 0px;">
+            {{ $t("tradeAbout.parameterDetails") }}：
+          </div>
+          <div class="fontSize15 Gilroy-Medium">
+            <span class="parame-name">{{ detailData.paramName }}:</span
+            ><span class="parame-new-value"
+              >{{ detailData.newValue }}&nbsp;</span
+            ><span class="parame-value"
+              >({{ $t("tradeAbout.originalValue") }}：{{
+                detailData.currentValue
+              }})</span
+            >
+          </div>
         </div>
         <div class="item">
           <div
             class="desc"
-            :style="{margin:detailData.type==3?'35px 0px 10px 0px':'41px 0px 10px 0px'}"
-          >{{$t('tradeAbout.propasalDescription')}}：</div>
-          <div class="fontSize15">{{detailData.description?detailData.description:$t('tradeAbout.noDescription')}}</div>
+            :style="{
+              margin:
+                detailData.type == 3 ? '35px 0px 10px 0px' : '41px 0px 10px 0px'
+            }"
+          >
+            {{ $t("tradeAbout.propasalDescription") }}：
+          </div>
+          <div class="fontSize15">
+            {{
+              detailData.description
+                ? detailData.description
+                : $t("tradeAbout.noDescription")
+            }}
+          </div>
         </div>
       </el-col>
     </el-row>
 
     <!-- 升级提案进度 type==2 -->
-    <div class="big-progress" v-if="detailData.type=='2'">
-      <div class="big-percentage" :style="{'width':yesPercentage+'%'}">
+    <div class="big-progress" v-if="detailData.type == '2'">
+      <div class="big-percentage" :style="{ width: yesPercentage + '%' }">
         <!-- <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
                  <div class='vote-text'>{{$t('tradeAbout.support')}}</div>
                  <div class='vote-number'>{{detailData.yeas | formatNumber}} <span>{{yesPercentage}}</span></div>
         </div>-->
       </div>
       <div class="big-progress-text">
-        <div class="vote-text">{{$t('tradeAbout.support')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
+        <div class="vote-text">
+          {{ $t("tradeAbout.support") }}&nbsp;({{
+            detailData.yeas | formatNumber
+          }})
+        </div>
         <div class="vote-number">
-          <span>{{yesPercentage}}%</span>
+          <span>{{ yesPercentage }}%</span>
         </div>
       </div>
-      <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
-        <span>{{$t('tradeAbout.passCondition')}}>={{detailData.supportRateThreshold}}</span>
+      <div
+        class="big-progress-pass"
+        :style="{ left: detailData.supportRateThreshold }"
+      >
+        <span
+          >{{ $t("tradeAbout.passCondition") }}>={{
+            detailData.supportRateThreshold
+          }}</span
+        >
       </div>
     </div>
     <!-- 其他提案进度 -->
     <div class="other-progress" v-else>
       <div class="join-progress">
-        {{$t('tradeAbout.currentParticipationrate')}}：
-        <span class="Gilroy-Medium fontSize13">{{detailData.participationRate}} {{$t('tradeAbout.participationRate')}}</span>
+        {{ $t("tradeAbout.currentParticipationrate") }}：
+        <span class="Gilroy-Medium fontSize13"
+          >{{ detailData.participationRate }}
+          {{ $t("tradeAbout.participationRate") }}</span
+        >
       </div>
       <div
         class="voteYes"
-        :style="{'width': yesPercentage==0?'0%':yesPercentage+1+'%'}"
-        @mouseover="mouseoverQuit(yesPercentage,'yes')"
+        :style="{ width: yesPercentage == 0 ? '0%' : yesPercentage + 1 + '%' }"
+        @mouseover="mouseoverQuit(yesPercentage, 'yes')"
         @mouseleave="mouseleaveQuit()"
       >
-        <div class="voteYesText" :style="{'display':yesPercentage < 4 ? 'none':'block'}">
-          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;({{detailData.yeas | formatNumber}})</div>
+        <div
+          class="voteYesText"
+          :style="{ display: yesPercentage < 4 ? 'none' : 'block' }"
+        >
+          <div class="vote-text">
+            {{ $t("tradeAbout.yes") }}&nbsp;({{
+              detailData.yeas | formatNumber
+            }})
+          </div>
           <div class="vote-number">
-            <span>{{yesPercentage}}%</span>
-          </div> 
+            <span>{{ yesPercentage }}%</span>
+          </div>
         </div>
-        <div class="otherVoteYesText" :style="{'display': voteDisplayStyle.yes ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.yes')}}&nbsp;<span>({{detailData.yeas | formatNumber}})</span></div>
+        <div
+          class="otherVoteYesText"
+          :style="{ display: voteDisplayStyle.yes ? 'block' : 'none' }"
+        >
+          <div class="vote-text">
+            {{ $t("tradeAbout.yes") }}&nbsp;<span
+              >({{ detailData.yeas | formatNumber }})</span
+            >
+          </div>
           <div class="vote-number">
-            <span>{{yesPercentage}}%</span>
+            <span>{{ yesPercentage }}%</span>
           </div>
         </div>
       </div>
       <div
         class="voteNo"
-        :style="{'width': noPercentage==0?'0%':noPercentage+1+'%'}"
-        @mouseover="mouseoverQuit(noPercentage,'no')"
+        :style="{ width: noPercentage == 0 ? '0%' : noPercentage + 1 + '%' }"
+        @mouseover="mouseoverQuit(noPercentage, 'no')"
         @mouseleave="mouseleaveQuit()"
       >
-        <div class="voteNoText" :style="{'display':noPercentage < 4 ? 'none':'block'}">
-          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;<span>({{detailData.nays | formatNumber}})</span></div>
+        <div
+          class="voteNoText"
+          :style="{ display: noPercentage < 4 ? 'none' : 'block' }"
+        >
+          <div class="vote-text">
+            {{ $t("tradeAbout.no") }}&nbsp;<span
+              >({{ detailData.nays | formatNumber }})</span
+            >
+          </div>
           <div class="vote-number">
-            <span>{{noPercentage}}%</span>
+            <span>{{ noPercentage }}%</span>
           </div>
         </div>
-        <div class="otherVoteNoText" :style="{'display': voteDisplayStyle.not ? 'block' : 'none'}">
-          <div class="vote-text">{{$t('tradeAbout.no')}}&nbsp;<span>({{detailData.nays | formatNumber}})</span></div>
+        <div
+          class="otherVoteNoText"
+          :style="{ display: voteDisplayStyle.not ? 'block' : 'none' }"
+        >
+          <div class="vote-text">
+            {{ $t("tradeAbout.no") }}&nbsp;<span
+              >({{ detailData.nays | formatNumber }})</span
+            >
+          </div>
           <div class="vote-number">
-            <span>{{noPercentage}}%</span>
+            <span>{{ noPercentage }}%</span>
           </div>
         </div>
       </div>
       <div
         class="voteQuit"
-        :style="{'width': quitPercentage==0?'0%':quitPercentage+1+'%'}"
-        @mouseover="mouseoverQuit(quitPercentage,'quit')"
+        :style="{
+          width: quitPercentage == 0 ? '0%' : quitPercentage + 1 + '%'
+        }"
+        @mouseover="mouseoverQuit(quitPercentage, 'quit')"
         @mouseleave="mouseleaveQuit()"
       >
         <div
           class="voteQuitText"
-          :class="{'voteQuitDisplay':  'true' }"
-          :style="{'display':quitPercentage < 4 ? 'none':'block'}"
+          :class="{ voteQuitDisplay: 'true' }"
+          :style="{ display: quitPercentage < 4 ? 'none' : 'block' }"
         >
-          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;({{detailData.abstentions | formatNumber}})</div>
+          <div class="vote-text">
+            {{ $t("tradeAbout.abstain") }}&nbsp;({{
+              detailData.abstentions | formatNumber
+            }})
+          </div>
           <div class="vote-number">
-            <span>{{quitPercentage}}%</span>
+            <span>{{ quitPercentage }}%</span>
           </div>
         </div>
         <div
           class="otherVoteQuitText"
-          :style="{'display': voteDisplayStyle.quit ? 'block' : 'none'}"
+          :style="{ display: voteDisplayStyle.quit ? 'block' : 'none' }"
         >
-          <div class="vote-text">{{$t('tradeAbout.abstain')}}&nbsp;<span>({{detailData.abstentions | formatNumber}})</span></div>
+          <div class="vote-text">
+            {{ $t("tradeAbout.abstain") }}&nbsp;<span
+              >({{ detailData.abstentions | formatNumber }})</span
+            >
+          </div>
           <div class="vote-number">
-            <span>{{quitPercentage}}%</span>
+            <span>{{ quitPercentage }}%</span>
           </div>
         </div>
       </div>
-      <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
-        <span>{{$t('tradeAbout.passCondition')}}>={{detailData.supportRateThreshold}}</span>
+      <div
+        class="big-progress-pass"
+        :style="{ left: detailData.supportRateThreshold }"
+      >
+        <span
+          >{{ $t("tradeAbout.passCondition") }}>={{
+            detailData.supportRateThreshold
+          }}</span
+        >
       </div>
     </div>
+    <div style="color:#333;font-family: Gilroy-Regular;font-size:14px;">
+      {{
+        detailData.type == 2
+          ? $t("tradeAbout.voteUpgradeNumber")
+          : $t("tradeAbout.NumberOfVotes")
+      }}: {{ pageTotal }}
+    </div>
     <div
-      style="color:#333;font-family: Gilroy-Regular;font-size:14px;"
-    >{{detailData.type==2?$t('tradeAbout.voteUpgradeNumber'):$t('tradeAbout.NumberOfVotes')}}: {{pageTotal}}</div>
-    <div class="voteOption Gilroy-Medium" v-if="detailData.type==1||detailData.type==3||detailData.type==4">
+      class="voteOption Gilroy-Medium"
+      v-if="
+        detailData.type == 1 || detailData.type == 3 || detailData.type == 4
+      "
+    >
       <a
         class="cursor"
-        :class="{active:selectIndex==0}"
-        @click="selectVoteOption(0,'')"
-      >{{$t('contract.all')}}</a>
-      <a class="cursor" :class="{active:selectIndex==1}" @click="selectVoteOption(1,'1')">YES</a>
-      <a class="cursor" :class="{active:selectIndex==2}" @click="selectVoteOption(2,'2')">NO</a>
-      <a class="cursor" :class="{active:selectIndex==3}" @click="selectVoteOption(3,'3')">ABSTAIN</a>
+        :class="{ active: selectIndex == 0 }"
+        @click="selectVoteOption(0, '')"
+        >{{ $t("contract.all") }}</a
+      >
+      <a
+        class="cursor"
+        :class="{ active: selectIndex == 1 }"
+        @click="selectVoteOption(1, '1')"
+        >YES</a
+      >
+      <a
+        class="cursor"
+        :class="{ active: selectIndex == 2 }"
+        @click="selectVoteOption(2, '2')"
+        >NO</a
+      >
+      <a
+        class="cursor"
+        :class="{ active: selectIndex == 3 }"
+        @click="selectVoteOption(3, '3')"
+        >ABSTAIN</a
+      >
     </div>
     <div class="table">
-      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        key="firstTable"
+        size="mini"
+      >
         <el-table-column :label="$t('tradeAbout.voter')" min-width="20%">
           <template slot-scope="scope">
             <p
               class="cursor blue percent60 ellipsis"
               @click="goNodeDetail(scope.row.voter)"
-            >{{scope.row.voterName}}</p>
+            >
+              {{ scope.row.voterName }}
+            </p>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
           <template slot-scope="scope">
-            <span>{{detailData.type==2?$t('voteStatus.'+[4]):$t('voteStatus.'+[scope.row.option])}}</span>
+            <span>{{
+              detailData.type == 2
+                ? $t("voteStatus." + [4])
+                : $t("voteStatus." + [scope.row.option])
+            }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.trasactionHash')" min-width="40%">
+        <el-table-column
+          :label="$t('tradeAbout.trasactionHash')"
+          min-width="40%"
+        >
           <template slot-scope="scope">
             <p
               class="cursor blue percent60 ellipsis"
               @click="goTradeDetail(scope.row.txHash)"
-            >{{scope.row.txHash}}</p>
+            >
+              {{ scope.row.txHash }}
+            </p>
           </template>
         </el-table-column>
         <el-table-column
@@ -324,7 +486,7 @@
           min-width="20%"
         >
           <template slot-scope="scope">
-            <span>{{scope.row.timestamp | formatTime}}</span>
+            <span>{{ scope.row.timestamp | formatTime }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -372,7 +534,7 @@ export default {
         yes: false
       },
       selectIndex: 0,
-      detailData: {},
+      detailData: {}
     };
   },
   props: {},
@@ -425,17 +587,26 @@ export default {
         );
         this.detailData = data;
         const voteCount = data.yeas + data.nays + data.abstentions;
-        let tmpYesPercentage,tmpNoPercentage,tmpQuitPercentage;
-        if(voteCount==0){
-          tmpYesPercentage = 0,
-          tmpNoPercentage = 0,
-          tmpQuitPercentage = 0;
-        }else{
-          tmpYesPercentage = data.type=='2'?((data.yeas / data.accuVerifiers) * 100):((data.yeas / voteCount) * 100),
-          tmpNoPercentage = (data.nays / voteCount) * 100,
-          tmpQuitPercentage = (data.abstentions / voteCount) * 100;
+        let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
+        if (voteCount == 0) {
+          (tmpYesPercentage = 0),
+            (tmpNoPercentage = 0),
+            (tmpQuitPercentage = 0);
+        } else {
+          (tmpYesPercentage =
+            data.type == "2"
+              ? (data.yeas / data.accuVerifiers) * 100
+              : (data.yeas / voteCount) * 100),
+            (tmpNoPercentage = (data.nays / voteCount) * 100),
+            (tmpQuitPercentage = (data.abstentions / voteCount) * 100);
         }
-        let tmpEndVotingPercentage = ((data.curBlock-0) > (data.endVotingBlock-0)?'100%':((data.curBlock-data.inBlock) / (data.endVotingBlock-data.inBlock) * 100 + "%"));       
+        let tmpEndVotingPercentage =
+          data.curBlock - 0 > data.endVotingBlock - 0
+            ? "100%"
+            : ((data.curBlock - data.inBlock) /
+                (data.endVotingBlock - data.inBlock)) *
+                100 +
+              "%";
         // debugger
         this.endVotingPercentage = tmpEndVotingPercentage;
         this.yesPercentage = tmpYesPercentage.toFixed(2);
@@ -505,22 +676,22 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.active-block{
+.active-block {
   font-family: Gilroy-Medium;
   font-size: 13px;
   line-height: 20px;
 }
-.parame-name{
-  background: #EEEEEE;
+.parame-name {
+  background: #eeeeee;
   border-radius: 4px;
   border-radius: 4px;
   padding: 5px 8px;
   margin-right: 12px;
 }
-.parame-new-value{
+.parame-new-value {
   display: inline-block;
 }
-.parame-value{
+.parame-value {
   font-family: Gilroy-Regular;
   font-size: 13px;
   color: #999999;
@@ -776,15 +947,15 @@ export default {
       top: 54px;
       z-index: 999;
       padding: 5px 15px;
-      background: rgba(255,255,255,0.90);
-      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
       border-radius: 4px;
       line-height: 18px;
       .vote-text {
         color: #3bb012;
         font-size: 12px;
         // line-height: 24px;
-        span{
+        span {
           color: #7dcb63;
         }
       }
@@ -836,16 +1007,16 @@ export default {
       top: 54px;
       z-index: 999;
       padding: 5px 15px;
-      background: rgba(255,255,255,0.90);
-      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
       border-radius: 4px;
       line-height: 18px;
       .vote-text {
         color: #cf326e;
         font-size: 12px;
         // line-height: 24px;
-        span{
-          color: #E798B6;
+        span {
+          color: #e798b6;
         }
       }
       .vote-number {
@@ -895,14 +1066,14 @@ export default {
       top: 54px;
       z-index: 999;
       padding: 5px 15px;
-      background: rgba(255,255,255,0.90);
-      box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
       border-radius: 4px;
       line-height: 18px;
       .vote-text {
         color: #000000;
         font-size: 12px;
-        span{
+        span {
           color: #888888;
         }
       }
@@ -933,4 +1104,3 @@ export default {
   }
 }
 </style>
-
