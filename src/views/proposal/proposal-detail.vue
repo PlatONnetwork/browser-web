@@ -279,7 +279,7 @@
         </div>
       </div>
       <div class="big-progress-pass" :style="{'left': detailData.supportRateThreshold}">
-        <span>{{$t('tradeAbout.passCondition')}}>{{detailData.supportRateThreshold}}</span>
+        <span>{{$t('tradeAbout.passCondition')}}>={{detailData.supportRateThreshold}}</span>
       </div>
     </div>
     <div

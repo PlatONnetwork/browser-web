@@ -197,7 +197,8 @@ export default {
     totalClaimedReward: "累计领取委托奖励",
 
     fromNode: "从验证节点",
-    changedTo: "变更为"
+    changedTo: "变更为",
+    noData: "暂无数据"
   },
   contract: {
     contractDetail: "合约详情",

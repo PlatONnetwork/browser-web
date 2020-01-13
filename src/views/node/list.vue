@@ -164,7 +164,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')">
+        <el-table-column :label="$t('tradeAbout.status')" width="120">
           <template slot-scope="scope">
             <span
               class="Gilroy-Bold"
@@ -196,6 +196,7 @@
         <el-table-column
           :label="$t('deleget.delegators')"
           v-if="type != 'history'"
+          width="80"
         >
           <template slot-scope="scope">
             <span>
@@ -255,10 +256,10 @@
         <el-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield") }}</span>
-            <el-tooltip
-              :content="$t('nodeInfo.node1Tips')"
-              placement="right-end"
-            >
+            <el-tooltip placement="right-start" :hide-after="0">
+              <div slot="content" style="width:240px;">
+                {{ $t("nodeInfo.node1Tips") }}
+              </div>
               <img
                 class="tipsImg"
                 src="@/assets/images/icon-quest.svg"

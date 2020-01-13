@@ -6,6 +6,9 @@
         >{{ tradeCount.allRewards | formatMoney }} LAT</span
       >
     </div>
+    <div v-show="rewardTableData.length == 0" class="title-line">
+      {{ $t("tradeAbout.noData") }}
+    </div>
     <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
     <div class="detail-box" v-for="item in rewardTableData" :key="item.id">
       <div class="title-box">
@@ -188,5 +191,13 @@ export default {
       }
     }
   }
+}
+.title-line {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  color: #e1e2e3;
+  align-items: center;
+  margin: 60px auto;
 }
 </style>

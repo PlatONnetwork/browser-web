@@ -197,7 +197,8 @@ export default {
     totalClaimedReward: "Total claimed reward",
 
     fromNode: "From",
-    changedTo: "changed to"
+    changedTo: "changed to",
+    noData: "No data"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",
