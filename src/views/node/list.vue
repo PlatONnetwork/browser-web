@@ -257,7 +257,7 @@
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield") }}</span>
             <el-tooltip placement="right-start" :hide-after="0">
-              <div slot="content" style="width:240px;">
+              <div slot="content" class="long-tips">
                 {{ $t("nodeInfo.node1Tips") }}
               </div>
               <img
@@ -281,10 +281,10 @@
         >
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.delegatedYield") }}</span>
-            <el-tooltip
-              :content="$t('nodeInfo.node2Tips')"
-              placement="right-start"
-            >
+            <el-tooltip placement="right-start">
+              <div slot="content" class="long-tips">
+                {{ $t("nodeInfo.node2Tips") }}
+              </div>
               <img
                 class="tipsImg"
                 src="@/assets/images/icon-quest.svg"

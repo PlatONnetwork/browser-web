@@ -3,7 +3,7 @@
     <div class="address-trade-last">
       {{ $t("tradeAbout.totalClaimedReward") }}
       <span style="color: #3F3F3F;"
-        >{{ tradeCount.allRewards | formatMoney }} LAT</span
+        >{{ tradeCount.haveReward | formatMoney }} LAT</span
       >
     </div>
     <div v-show="rewardTableData.length == 0" class="title-line">
@@ -32,7 +32,7 @@
               class="td-title cursor normal ellipsis"
               @click="goToNodeFn(ele.verify)"
             >
-              {{ ele.nodeName | formatMoney }} :
+              {{ ele.nodeName | formatMoney }}
             </td>
             <td class="td-content">{{ ele.reward }} &nbsp;LAT</td>
           </tr>
