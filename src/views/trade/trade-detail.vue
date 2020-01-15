@@ -189,7 +189,7 @@
         </Item>
         <!-- 领取奖励数 -->
         <Item
-          v-if="detailInfo.txAmount > 0"
+          v-if="detailInfo.txAmount > 0 && detailInfo.txType == '1005'"
           :label="$t('tradeAbout.rewardAmount')"
         >
           <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>

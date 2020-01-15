@@ -468,13 +468,11 @@
             <p class="text">
               <!-- TODO 需要做悬停 -->
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
-              <el-tooltip
-                :content="$t('nodeInfo.node1Tips')"
-                placement="bottom"
-                class="item"
-                effect="dark"
-              >
-                <b class="quest"></b>
+              <el-tooltip placement="bottom" class="item" effect="dark">
+                <div slot="content" class="delegate-msg">
+                  {{ $t("nodeInfo.node1Tips") }}
+                </div>
+                <i class="address-icon"></i>
               </el-tooltip>
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
             </p>
@@ -485,13 +483,11 @@
             <p class="text">
               <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
-              <el-tooltip
-                :content="$t('nodeInfo.node2Tips')"
-                placement="bottom"
-                class="item"
-                effect="dark"
-              >
-                <b class="quest"></b>
+              <el-tooltip placement="bottom" class="item" effect="dark">
+                <div slot="content" class="delegate-msg">
+                  {{ $t("nodeInfo.node2Tips") }}
+                </div>
+                <i class="address-icon"></i>
               </el-tooltip>
             </p>
           </div>

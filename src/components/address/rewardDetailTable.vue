@@ -12,7 +12,7 @@
     <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
     <div class="detail-box" v-for="item in rewardTableData" :key="item.id">
       <div class="title-box">
-        <span class="hash" @click="goToDetailFn()">
+        <span class="hash normal cursor" @click="goToDetailFn(item.txHash)">
           {{ item.txHash }}
         </span>
         <span class="date">{{ item.timestamp | formatTime }}</span>
@@ -84,7 +84,7 @@ export default {
       this.$router.push({
         name: "tradeDetailComponent",
         query: {
-          txhash: tradeCount.txhash
+          txHash: hash
         }
       });
     },
@@ -133,15 +133,16 @@ export default {
     line-height: 40px;
     .hash {
       font-family: Gilroy-Regular;
-      font-size: 12px;
-      color: #0798de;
+      font-size: 14px;
       letter-spacing: 0;
+      padding-left: 10px;
     }
     .date {
       font-family: Gilroy-Regular;
       font-size: 12px;
       color: #000000;
       letter-spacing: 0;
+      padding-right: 10px;
       float: right;
     }
   }
