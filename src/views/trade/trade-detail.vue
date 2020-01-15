@@ -219,17 +219,25 @@
         </Item>
         <Item :label="$t('tradeAbout.rewardDetails')">
           <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
-          <p v-for="item in detailInfo.rewards" :key="item.verify">
-            <span>{{ $t("tradeAbout.fromNode") }}</span>
-            <!-- 从xxx节点 此处需要做样式-->
-            <span
-              @click="goNodeDetail(item.verify)"
-              class="cursor normal ellipsis"
-              >{{ item.nodeName }}</span
+          <div>
+            <p
+              style="width:100%;margin-bottom:12px;"
+              v-for="item in detailInfo.rewards"
+              :key="item.verify"
             >
-            <span>{{ $t("tradeAbout.claimRewards") }}</span>
-            <span> {{ item.reward | formatMoney }} LAT</span>
-          </p>
+              <span>{{ $t("tradeAbout.fromNode") }}</span>
+              <!-- 从xxx节点 此处需要做样式-->
+              <span
+                @click="goNodeDetail(item.verify)"
+                class="cursor normal ellipsis rewardGap"
+                >{{ item.nodeName }}</span
+              >
+              <span class="rewardGap">{{ $t("tradeAbout.claimRewards") }}</span>
+              <span class="rewardGap">
+                {{ item.reward | formatMoney }} LAT</span
+              >
+            </p>
+          </div>
         </Item>
         <Item :label="$t('tradeAbout.transactionFee')">
           <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
@@ -956,5 +964,8 @@ export default {
 }
 .trade-detail-wrap .list-item label {
   width: 140px !important;
+}
+.rewardGap {
+  padding-left: 15px;
 }
 </style>

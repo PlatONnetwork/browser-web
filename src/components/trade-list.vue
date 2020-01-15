@@ -1,45 +1,62 @@
 <template>
-  <div class="common-trade" :class="{'block-trade-wrap':type=='block'}">
-    <div class="address-trade-last" v-if="type!='block'">
-      {{$t('blockAbout.morethen')}} {{tradeCount.txQty}} {{$t('contract.transactions')}}
-      <span
-        style="color: #3F3F3F;"
-        v-if="newRecordFlag"
-      >{{$t('contract.showingLast')}}</span>
+  <div class="common-trade" :class="{ 'block-trade-wrap': type == 'block' }">
+    <div class="address-trade-last" v-if="type != 'block'">
+      {{ $t("blockAbout.morethen") }} {{ tradeCount.txQty }}
+      {{ $t("contract.transactions") }}
+      <span style="color: #3F3F3F;" v-if="newRecordFlag">{{
+        $t("contract.showingLast")
+      }}</span>
     </div>
     <div class="trade-tab-wrap">
       <ul class="trade-tab">
         <li
-          :class="{active:selectIndex==1}"
+          :class="{ active: selectIndex == 1 }"
           index="1"
-          @click="typeChange(1,'')"
-        >{{$t('contract.all')}}</li>
+          @click="typeChange(1, '')"
+        >
+          {{ $t("contract.all") }}
+        </li>
         <li
-          :class="{active:selectIndex==2}"
+          :class="{ active: selectIndex == 2 }"
           index="2"
-          @click="typeChange(2,'transfer')"
-        >{{$t('contract.transfers')}}({{tradeCount.transferQty}})</li>
+          @click="typeChange(2, 'transfer')"
+        >
+          {{ $t("contract.transfers") }}({{ tradeCount.transferQty }})
+        </li>
         <li
-          :class="{active:selectIndex==3}"
+          :class="{ active: selectIndex == 3 }"
           index="3"
-          @click="typeChange(3,'delegate')"
-        >{{$t('contract.delegationsTxns')}}({{tradeCount.delegateQty}})</li>
+          @click="typeChange(3, 'delegate')"
+        >
+          {{ $t("contract.delegationsTxns") }}({{ tradeCount.delegateQty }})
+        </li>
         <li
-          :class="{active:selectIndex==4}"
+          :class="{ active: selectIndex == 4 }"
           index="4"
-          @click="typeChange(4,'staking')"
-        >{{$t('contract.validatorTxns')}}({{tradeCount.stakingQty}})</li>
+          @click="typeChange(4, 'staking')"
+        >
+          {{ $t("contract.validatorTxns") }}({{ tradeCount.stakingQty }})
+        </li>
         <li
-          :class="{active:selectIndex==5}"
+          :class="{ active: selectIndex == 5 }"
           index="5"
-          @click="typeChange(5,'proposal')"
-        >{{$t('contract.governanceTxns')}}({{tradeCount.proposalQty}})</li>
+          @click="typeChange(5, 'proposal')"
+        >
+          {{ $t("contract.governanceTxns") }}({{ tradeCount.proposalQty }})
+        </li>
       </ul>
       <!-- <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button> -->
-      <span class="download-btn" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</span>
+      <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
+        $t("common.export")
+      }}</span>
     </div>
     <div class="table">
-      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        key="firstTable"
+        size="mini"
+      >
         <el-table-column :label="$t('tradeAbout.hash')">
           <template slot-scope="scope">
             <!-- <div class="flex-special">
@@ -65,11 +82,17 @@
                 class="item"
                 effect="dark"
                 placement="bottom-start"
-                v-if="scope.row.txReceiptStatus==0"
+                v-if="scope.row.txReceiptStatus == 0"
               >
                 <div slot="content">
-                  <span class="title-warning">{{$t("tradeAbout.warn")}}：</span>
-                  {{scope.row.failReason?scope.row.failReason:$t("tradeAbout.transactionFailure")}}
+                  <span class="title-warning"
+                    >{{ $t("tradeAbout.warn") }}：</span
+                  >
+                  {{
+                    scope.row.failReason
+                      ? scope.row.failReason
+                      : $t("tradeAbout.transactionFailure")
+                  }}
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
@@ -77,13 +100,15 @@
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
               >
-              {{scope.row.txHash | sliceStr(18)}}
+                {{ scope.row.txHash | sliceStr(18) }}
               </span>
             </div>
           </template>
-          
         </el-table-column>
-        <el-table-column :label="$t('blockAbout.operatorAddress')" v-if="type=='block'">
+        <el-table-column
+          :label="$t('blockAbout.operatorAddress')"
+          v-if="type == 'block'"
+        >
           <!-- <template slot-scope="scope">
             <p
               class="cursor blue ellipsis percent60"
@@ -95,49 +120,70 @@
               <span
                 class="cursor blue ellipsis"
                 @click="goAddressDetail(scope.row.from)"
-              >{{scope.row.from|sliceStr(14)}}</span>
+                >{{ scope.row.from | sliceStr(14) }}</span
+              >
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" v-if="type!='block'">
+        <el-table-column
+          prop="blockHeight"
+          :label="$t('tradeAbout.block')"
+          v-if="type != 'block'"
+        >
           <template slot-scope="scope">
             <span
               class="cursor blue"
               @click="goBlockDetail(scope.row.blockNumber)"
-            >{{scope.row.blockNumber}}</span>
+              >{{ scope.row.blockNumber }}</span
+            >
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.confirmTime')" v-if="type!='block'" width="300">
+        <el-table-column
+          :label="$t('tradeAbout.confirmTime')"
+          v-if="type != 'block'"
+          width="300"
+        >
           <template slot-scope="scope">
-            <span>{{scope.row.timestamp | formatTime}}</span>
+            <span>{{ scope.row.timestamp | formatTime }}</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.type')">
           <template slot-scope="scope">
             <span
-              :class="{green:(scope.row.txType=='0'|| scope.row.txType=='1005')}"
+              :class="{
+                green:
+                  scope.row.txType == '1005' ||
+                  scope.row.txType == '1003' ||
+                  scope.row.txType == '5000' ||
+                  (scope.row.txType == '0' && scope.row.from != address)
+              }"
               class="red Gilroy-Bold"
             >
-              <template v-if="type!='block'&&scope.row.txType=='0'">{{scope.row.from==address?$t('tradeAbout.sender2'):$t('tradeAbout.recipient2')}}</template>
+              <!-- 接受还是发送 -->
+              <template v-if="type != 'block' && scope.row.txType == '0'">{{
+                scope.row.from == address
+                  ? $t("tradeAbout.sender2")
+                  : $t("tradeAbout.recipient2")
+              }}</template>
               <template v-else>
-                {{$t('TxType.'+[scope.row.txType])}}
+                {{ $t("TxType." + [scope.row.txType]) }}
               </template>
             </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.value')">
           <template slot-scope="scope">
-            <span>{{scope.row.value | formatMoney}} LAT</span>
+            <span>{{ scope.row.value | formatMoney }} LAT</span>
           </template>
         </el-table-column>
         <el-table-column>
           <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
           <template slot="header">
-            {{$t('tradeAbout.fee')}}
+            {{ $t("tradeAbout.fee") }}
             <span style="color:#999999;">(LAT)</span>
           </template>
           <template slot-scope="scope">
-            {{scope.row.actualTxCost}}
+            {{ scope.row.actualTxCost }}
           </template>
         </el-table-column>
       </el-table>
@@ -150,7 +196,7 @@
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal>5000?5000:pageTotal"
+          :total="pageTotal > 5000 ? 5000 : pageTotal"
           :pager-count="9"
         ></el-pagination>
       </div>
@@ -208,7 +254,7 @@ export default {
             this.tableData = data;
             this.pageTotal = totalCount;
             if (!this.tradeType) {
-              this.tradeTotal = totalCount;  //此总数并非数据库交易记录总数
+              this.tradeTotal = totalCount; //此总数并非数据库交易记录总数
             }
             //判断最新记录是否显示  总数
             this.tradeCount.txQty > 5000
@@ -305,23 +351,23 @@ export default {
   letter-spacing: 0;
   cursor: pointer;
   font-family: Gilroy-Medium;
-  &:hover{
-    color: #5CB2DB;
-    border: 1px solid #5CB2DB;
+  &:hover {
+    color: #5cb2db;
+    border: 1px solid #5cb2db;
   }
-  &:active{
-    color: #0E52AC;
-    border: 1px solid #0E52AC;
+  &:active {
+    color: #0e52ac;
+    border: 1px solid #0e52ac;
   }
 }
 .active {
   font-family: Gilroy-Medium;
 }
-.iconxinxi{
+.iconxinxi {
   font-size: 14px;
   margin-right: 5px;
 }
-.title-warning{
+.title-warning {
   color: #ffc017;
 }
 </style>
@@ -337,4 +383,3 @@ export default {
   }
 }
 </style>
-

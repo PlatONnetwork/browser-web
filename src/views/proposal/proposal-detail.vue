@@ -610,9 +610,24 @@ export default {
               "%";
         // debugger
         this.endVotingPercentage = tmpEndVotingPercentage;
-        this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2);
-        this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2);
-        this.quitPercentage = formatDecimal(tmpQuitPercentage, 2); //.toFixed(2);
+        if (tmpQuitPercentage > 0) {
+          //存在弃权情况
+          this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
+          this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2); 反对
+          this.quitPercentage =
+            100 - (Number(this.yesPercentage) + Number(this.noPercentage));
+        } else {
+          //非
+          this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
+          if (voteCount == 0) {
+            this.noPercentage = this.yesPercentage;
+          } else {
+            this.noPercentage = 100 - Number(this.yesPercentage);
+          }
+        }
+        // this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
+        // this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2); 反对
+        // this.quitPercentage = formatDecimal(tmpQuitPercentage, 2); //.toFixed(2); 齐全
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }

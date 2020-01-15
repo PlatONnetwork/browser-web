@@ -196,7 +196,6 @@
         <el-table-column
           :label="$t('deleget.delegators')"
           v-if="type != 'history'"
-          width="80"
         >
           <template slot-scope="scope">
             <span>

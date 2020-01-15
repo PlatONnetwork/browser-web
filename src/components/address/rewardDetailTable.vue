@@ -41,6 +41,7 @@
     </div>
     <div class="pagination-box">
       <el-pagination
+        background
         :total="totalNum"
         :current-page="curPage"
         :page-size="pageSize"
@@ -118,7 +119,6 @@ export default {
 <style lang="less" scoped>
 .detail-box {
   width: 100%;
-  padding: 10px;
   border: 1px solid transparent;
   &:hover {
     // border-top: 1px solid #0798de;
@@ -152,6 +152,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px;
     .total > .label {
       font-family: Gilroy-Medium;
       font-size: 14px;
@@ -160,14 +161,15 @@ export default {
     }
     .total > .value {
       display: inline-block;
-      margin-left: 8px;
+      width: 271px;
       height: 40px;
       line-height: 40px;
       background: rgba(7, 152, 222, 0.1);
       border-radius: 2px;
       border-radius: 2px;
-      padding: 0 80px 0 20px;
+      padding: 0 20px 0 20px;
       position: relative;
+      margin-left: 10px;
       &::after {
         content: "";
         position: absolute;
@@ -179,8 +181,10 @@ export default {
       }
     }
     .reward-box {
+      border-collapse: separate;
+      border-spacing: 14px;
       .reward-mini-box {
-        margin-bottom: 10px;
+        margin-bottom: 14px;
         tr {
           margin-bottom: 10px;
         }
