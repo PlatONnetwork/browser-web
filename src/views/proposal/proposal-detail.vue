@@ -507,6 +507,7 @@
   </div>
 </template>
 <script>
+import { formatDecimal } from "@/services/utils";
 import apiService from "@/services/API-services";
 import { timeDiff } from "@/services/time-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
@@ -589,16 +590,16 @@ export default {
         const voteCount = data.yeas + data.nays + data.abstentions;
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
         if (voteCount == 0) {
-          (tmpYesPercentage = 0),
-            (tmpNoPercentage = 0),
-            (tmpQuitPercentage = 0);
+          tmpYesPercentage = 0;
+          tmpNoPercentage = 0;
+          tmpQuitPercentage = 0;
         } else {
-          (tmpYesPercentage =
+          tmpYesPercentage =
             data.type == "2"
               ? (data.yeas / data.accuVerifiers) * 100
-              : (data.yeas / voteCount) * 100),
-            (tmpNoPercentage = (data.nays / voteCount) * 100),
-            (tmpQuitPercentage = (data.abstentions / voteCount) * 100);
+              : (data.yeas / voteCount) * 100;
+          tmpNoPercentage = (data.nays / voteCount) * 100;
+          tmpQuitPercentage = (data.abstentions / voteCount) * 100;
         }
         let tmpEndVotingPercentage =
           data.curBlock - 0 > data.endVotingBlock - 0
@@ -609,9 +610,9 @@ export default {
               "%";
         // debugger
         this.endVotingPercentage = tmpEndVotingPercentage;
-        this.yesPercentage = tmpYesPercentage.toFixed(2);
-        this.noPercentage = tmpNoPercentage.toFixed(2);
-        this.quitPercentage = tmpQuitPercentage.toFixed(2);
+        this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2);
+        this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2);
+        this.quitPercentage = formatDecimal(tmpQuitPercentage, 2); //.toFixed(2);
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
       }
