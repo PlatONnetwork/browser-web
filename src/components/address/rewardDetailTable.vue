@@ -6,9 +6,9 @@
         >{{ tradeCount.haveReward | formatMoney }} LAT</span
       >
     </div>
-    <div v-show="rewardTableData.length == 0" class="title-line">
+    <!-- <div v-show="rewardTableData.length == 0" class="title-line">
       {{ $t("tradeAbout.noData") }}
-    </div>
+    </div> -->
     <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
     <div class="detail-box" v-for="item in rewardTableData" :key="item.id">
       <div class="title-box">
@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="pagination-box">
+    <div v-if="rewardTableData.length == 0" class="pagination-box">
       <el-pagination
         background
         :total="totalNum"
