@@ -383,8 +383,11 @@
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
-                <p class="Gilroy-Medium fontSize18">
-                  {{ detailInfo.rewardPer }} %
+                <p>
+                  <span class="Gilroy-Medium fontSize18">{{
+                    detailInfo.rewardPer
+                  }}</span>
+                  <span class="fontSize13"> %</span>
                 </p>
               </Item>
               <Item
@@ -604,7 +607,7 @@
             </Item>
             <Item :label="$t('tradeAbout.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
-              <span v-else class="fontSize14"
+              <span v-else class="fontSize14 Gilroy-Medium"
                 >{{ detailInfo.rewardPer }} %</span
               >
             </Item>
@@ -1449,6 +1452,9 @@ export default {
       }
       &:nth-child(3) {
         margin-left: -100px;
+      }
+      & > p {
+        margin-top: 14px;
       }
       .onPending {
         font-family: PingFangSC-Medium;

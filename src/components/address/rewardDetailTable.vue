@@ -23,19 +23,34 @@
           <span class="value">{{ item.allRewards | formatMoney }} LAT</span>
         </div>
         <div class="reward-box">
-          <tr
-            class="reward-mini-box"
+          <!-- <table class="reward-table-box">
+            <tr
+              class="reward-mini-box"
+              v-for="(ele, $index) in item.rewardsDetails"
+              :key="$index"
+            >
+              <td
+                class="td-title cursor normal ellipsis"
+                @click="goToNodeFn(ele.verify)"
+              >
+                {{ ele.nodeName | formatMoney }}
+              </td>
+              <td class="gap-td-box"></td>
+              <td class="td-content">{{ ele.reward }} &nbsp;LAT</td>
+            </tr>
+          </table> -->
+          <div
+            class="reward-box-line"
             v-for="(ele, $index) in item.rewardsDetails"
             :key="$index"
           >
-            <td
-              class="td-title cursor normal ellipsis"
-              @click="goToNodeFn(ele.verify)"
-            >
-              {{ ele.nodeName | formatMoney }}
-            </td>
-            <td class="td-content">{{ ele.reward }} &nbsp;LAT</td>
-          </tr>
+            <div class="td-title cursor normal ellipsis">
+              {{ ele.nodeName }}
+            </div>
+            <div class="td-content">
+              {{ ele.reward | formatMoney }} &nbsp;&nbsp;LAT
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -142,7 +157,7 @@ export default {
       font-size: 12px;
       color: #000000;
       letter-spacing: 0;
-      padding-right: 10px;
+      padding-right: 30px;
       float: right;
     }
   }
@@ -181,17 +196,27 @@ export default {
       }
     }
     .reward-box {
-      border-collapse: separate;
-      border-spacing: 14px;
-      .reward-mini-box {
-        margin-bottom: 14px;
-        tr {
-          margin-bottom: 10px;
+      .reward-box-line {
+        display: flex;
+        flex-direction: row;
+        &:not(:last-child) {
+          padding-bottom: 14px;
         }
-        .td-title,
+        .td-title {
+          width: 215px;
+          margin-right: 100px;
+          font-family: Gilroy-Medium;
+          font-size: 13px;
+          letter-spacing: 0;
+        }
         .td-content {
-          min-width: 200px;
-          width: auto;
+          text-align: right;
+          min-width: 170px;
+          font-family: Gilroy-Medium;
+          font-size: 13px;
+          color: #000000;
+          letter-spacing: 0;
+          margin-right: 30px;
         }
       }
     }
