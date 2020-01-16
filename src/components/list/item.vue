@@ -74,7 +74,7 @@ export default {
   label {
     font-size: 13px;
     color: #666;
-    line-height: 15px;
+    // line-height: 15px;
     width: 135px;
     font-family: Gilroy-Medium;
   }

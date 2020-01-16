@@ -255,7 +255,7 @@
         <el-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield") }}</span>
-            <el-tooltip placement="right-start" :hide-after="0">
+            <el-tooltip placement="bottom" :hide-after="0">
               <div slot="content" class="long-tips">
                 {{ $t("nodeInfo.node1Tips") }}
               </div>
@@ -280,7 +280,7 @@
         >
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.delegatedYield") }}</span>
-            <el-tooltip placement="right-start">
+            <el-tooltip placement="bottom">
               <div slot="content" class="long-tips">
                 {{ $t("nodeInfo.node2Tips") }}
               </div>
