@@ -249,7 +249,8 @@ export default {
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
     totalDelegated: "总计委托",
-    warn:"合约已销毁，执行于交易"
+    warn:"合约已销毁，执行于交易",
+    systemBuilt:"系统合约，无上链字节码"
   },
   deleget: {
     validators: "已委托验证节点",

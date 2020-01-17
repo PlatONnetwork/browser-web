@@ -250,7 +250,8 @@ export default {
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
     totalDelegated: "Total Delegated",
-    warn:"Contract Self Destruct called at Txn Hash"
+    warn:"Contract Self Destruct called at Txn Hash",
+    systemBuilt:"System built-in code contract, no contract bytecode."
   },
   deleget: {
     validators: "Validators",

@@ -5,6 +5,7 @@
       {{ contractTypeTitle(detailInfo.type) }}
     </p>
 
+    <!-- 自毁合约 -->
     <div v-if="detailInfo.isDestroy == 1" class="warn-info">
       <img src="../../assets/images/icon-contract.svg" alt="" />
       <span class="yellow">{{ $t("contract.warn") }}:</span>
@@ -13,11 +14,17 @@
       }}</span>
     </div>
 
+    <!-- 系统合约 -->
+    <div v-if="!detailInfo.isDestroy && detailInfo.type=='2'" class="warn-info">
+      <img src="../../assets/images/icon-contract.svg" alt="" />
+      <span class="yellow">{{ $t("contract.systemBuilt") }}</span>
+    </div>
+
     <b>Contract Bytecode</b>
 
     <div
       class="contract-bin"
-      v-if="detailInfo.isDestroy == 1 || !detailInfo.contractBin"
+      v-if="detailInfo.isDestroy == 1 || detailInfo.type == '2'  || !detailInfo.contractBin"
     >
       0x
     </div>
