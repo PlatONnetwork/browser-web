@@ -36,8 +36,6 @@ body {
   box-sizing: border-box;
   // width:1400px;
   height: auto;
-  min-height: 820px;
-  min-height: calc(100% - 80px);
   padding: 0 5.2%;
   // padding-top:100px;
   padding-top: 86px;
@@ -46,6 +44,7 @@ body {
   padding-left: 0;
   padding-right: 0;
   background: #fbfbfc;
+  min-height: calc(100vh - 110px);
   .content-top-white {
     background: #fff;
   }
@@ -65,9 +64,9 @@ body {
   }
 }
 @media screen and (min-height: 950px) {
-  .content-area {
-    min-height: 900px;
-  }
+  // .content-area {
+  //   min-height: 900px;
+  // }
 }
 @media screen and (max-width: 1200px) {
   .content-area {
@@ -642,6 +641,6 @@ body {
   width: 346px;
 }
 
-.tabs .el-button--default{
+.tabs .el-button--default {
   padding-top: 11px !important;
 }

@@ -1020,7 +1020,7 @@ export default {
       pageSize3: 20,
       pageTotal3: 0,
 
-      tableDelegetData: [],
+      rewardTableData: [],
       currentPage5: 1,
       pageSize5: 20,
       pageTotal5: 0,
@@ -1051,24 +1051,36 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
+    handleRewardSizeChange(size) {
+      this.currentPage5 = 1;
+      this.pageSize5 = size;
+      this.getRewardData();
+    },
+    handleRewardCurrentChange(page) {
+      this.currentPage5 = page;
+      this.getRewardData();
+    },
     //奖励领取明细
     getRewardData() {
       let param = {
+        pageNo: this.currentPage5,
+        pageSize: this.pageSize5,
         nodeId: this.address
       };
+      let self = this;
       apiService.node
         .queryClaimByStaking(param)
         .then(res => {
           let { errMsg, code, data, totalCount } = res;
           if (code == 0) {
-            this.rewardTableData = data;
-            this.pageTotal5 = totalCount;
+            self.rewardTableData = [...data];
+            self.pageTotal5 = totalCount;
           } else {
-            this.$message.error(errMsg);
+            self.$message.error(errMsg);
           }
         })
         .catch(error => {
-          this.$message.error(error);
+          self.$message.error(error);
         });
     },
     //获取详情
@@ -1438,7 +1450,7 @@ export default {
   .stability-wrap {
     display: flex;
     width: 85%;
-    margin-top: 4px;
+    margin-top: 16px;
     .self-tooltip p {
       font-size: 12px;
     }

@@ -44,7 +44,10 @@
             v-for="(ele, $index) in item.rewardsDetails"
             :key="$index"
           >
-            <div class="td-title cursor normal ellipsis">
+            <div
+              @click="goToNodeFn(ele.verify)"
+              class="td-title cursor normal ellipsis"
+            >
               {{ ele.nodeName }}
             </div>
             <div class="td-content">
@@ -54,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div v-if="rewardTableData.length == 0" class="pagination-box">
+    <div v-if="rewardTableData.length !== 0" class="pagination-box">
       <el-pagination
         background
         :total="totalNum"
