@@ -696,7 +696,7 @@
               key="firstTable"
               size="mini"
             >
-              <el-table-column :label="$t('common.time')" width="300">
+              <el-table-column :label="$t('common.time')" width="260">
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
@@ -773,7 +773,10 @@
                           } LAT), Remove the Validator List`
                     }}
                   </p>
-                  <p class="percent80" v-else-if="scope.row.type == 7">
+                  <p
+                    class="percent80"
+                    v-else-if="scope.row.type == 7 && scope.row.percent == 0"
+                  >
                     {{
                       lang == "zh"
                         ? `${$t(
@@ -782,6 +785,22 @@
                         : `${$t(
                             "actionType." + [scope.row.type]
                           )}-Remove the Validator List`
+                    }}
+                  </p>
+                  <p
+                    class="percent80"
+                    v-else-if="scope.row.type == 7 && scope.row.percent > 0"
+                  >
+                    {{
+                      lang == "zh"
+                        ? `${$t(
+                            "actionType." + [scope.row.type]
+                          )}-扣除自有质押(${
+                            scope.row.amount
+                          }LAT)，移出验证节点列表`
+                        : `${$t("actionType." + [scope.row.type])}(${
+                            scope.row.amount
+                          } LAT) from self-stake, Remove the Validator List`
                     }}
                   </p>
                 </template>
