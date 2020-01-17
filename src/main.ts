@@ -8,6 +8,7 @@ import VueI18n from 'vue-i18n'
 import messages from '@/lang/index'
 import ElementUI from 'element-ui'
 import ElementLocale from 'element-ui/lib/locale'
+import AFTableColumn from 'af-table-column'
 
 import VueClipboard from 'vue-clipboard2'
 import { mapActions } from 'vuex'
@@ -18,8 +19,8 @@ import VueQriously from 'vue-qriously'
 Vue.use(VueQriously)
 
 // 首页全屏动画
-import VueParticles from 'vue-particles'  
-Vue.use(VueParticles) 
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 
 import './filters'
 import './directives'
@@ -102,6 +103,9 @@ const i18n = new VueI18n({
     locale: browserLanguage,
     messages
 })
+
+//table列宽自适应
+Vue.use(AFTableColumn)
 
 ElementLocale.i18n((key, value) => i18n.t(key, value))
 

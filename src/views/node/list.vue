@@ -80,15 +80,12 @@
     <div class="table node-table">
       <el-table
         :data="tableData"
-        style="width: 100%"
-        key="firstTable"
-        size="mini"
       >
-        <!-- <el-table-column
+        <!-- <af-table-column
           type="index"
           :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
-        ></el-table-column> -->
-        <el-table-column
+        ></af-table-column> -->
+        <af-table-column
           :label="
             type != 'history' ? $t('nodeInfo.rank') : $t('common.serialnumber')
           "
@@ -97,8 +94,8 @@
           <template slot-scope="scope">
             <span>{{ scope.row.ranking }}</span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="
             type != 'history'
               ? $t('nodeInfo.validatorName')
@@ -163,8 +160,8 @@
               </p>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')" width="120">
+        </af-table-column>
+        <af-table-column :label="$t('tradeAbout.status')">
           <template slot-scope="scope">
             <span
               class="Gilroy-Bold"
@@ -176,24 +173,24 @@
               >{{ $t("nodeStatus." + [scope.row.status]) }}</span
             >
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('nodeInfo.totalStakePower')"
           v-if="type != 'history'"
         >
           <template slot-scope="scope">
             <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('deleget.delegationsN')"
           v-if="type != 'history'"
         >
           <template slot-scope="scope">
             <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('deleget.delegators')"
           v-if="type != 'history'"
         >
@@ -202,16 +199,16 @@
               {{ scope.row.delegateQty | formatNumber }}
             </span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('nodeInfo.pendingDelegations')"
           v-if="type == 'history'"
         >
           <template slot-scope="scope">
             <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('nodeInfo.stability')"
           class="stability-cell"
         >
@@ -229,14 +226,14 @@
               </div>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.producedBlock')">
+        </af-table-column>
+        <af-table-column :label="$t('nodeInfo.producedBlock')">
           <template slot-scope="scope">
             <span>{{ scope.row.blockQty | formatNumber }}</span>
           </template>
-        </el-table-column>
+        </af-table-column>
         <!-- TODO委托奖励比例 最新文档显示无此列-->
-        <!-- <el-table-column :label="$t('tradeAbout.rewardRatio')">
+        <!-- <af-table-column :label="$t('tradeAbout.rewardRatio')">
           <template slot="header">
             <span>{{ $t("tradeAbout.rewardRatio") }}</span>
             <el-tooltip
@@ -250,9 +247,9 @@
               />
             </el-tooltip>
           </template>
-        </el-table-column> -->
+        </af-table-column> -->
         <!-- TODO预计年化收益率 -->
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
+        <af-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield") }}</span>
             <el-tooltip placement="bottom" :hide-after="0">
@@ -272,9 +269,9 @@
             >
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
-        </el-table-column>
+        </af-table-column>
         <!-- TODO预计委托年化率 -->
-        <el-table-column
+        <af-table-column
           :label="$t('nodeInfo.delegatedYield')"
           v-if="type != 'history'"
         >
@@ -297,15 +294,15 @@
             >
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
-        </el-table-column>
-        <el-table-column
+        </af-table-column>
+        <af-table-column
           :label="$t('nodeInfo.exitTime')"
           v-if="type == 'history'"
         >
           <template slot-scope="scope">
             <span>{{ scope.row.leaveTime | formatTime }}</span>
           </template>
-        </el-table-column>
+        </af-table-column>
       </el-table>
       <div class="pagination-box">
         <el-pagination
