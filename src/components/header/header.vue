@@ -466,7 +466,7 @@ export default {
   }
 }
 .search-header {
-  min-width: 300px;
+  min-width: 355px;
   max-width: 600px;
   flex: 1;
   @media only screen and (max-width: 1366px) {

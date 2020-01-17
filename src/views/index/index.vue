@@ -381,7 +381,7 @@ export default {
       let param = {
         parameter: this.searchKey.trim()
       };
-      console.warn("搜索内容》》》", param);
+      // console.warn("搜索内容》》》", param);
       apiService.search
         .query(param)
         .then(res => {
@@ -506,7 +506,7 @@ export default {
       }
     },
     handleBarHover(e){
-      console.log('aaa','Hover')
+      // console.log('aaa','Hover')
       this.isShowTooltip = true;
       this.$nextTick(()=>{
         this.tooltipData.time = this.chartData.ya[e.dataIndex];
@@ -528,14 +528,14 @@ export default {
       if(e.dataIndex!=0){
         this.barColorList[0] = '#fff';
       }
-      console.log('barColorList',this.barColorList)
+      // console.log('barColorList',this.barColorList)
       this.updateBarColor();
 
       this.updateBarIsMove(false);
       // indexService.unsubBlock();
     },
     handleBarMouseout(){
-      console.log('aaa','Mouseout')
+      // console.log('aaa','Mouseout')
       this.isShowTooltip = false;
       this.barColorList.forEach((value,index)=>{
         if(index==0){
@@ -548,7 +548,7 @@ export default {
     },
     initBlockTimeChart() {
       let r = this.$refs;
-      console.log(r);
+      // console.log(r);
 
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
       blockTimeChart.chart.on("mouseover", e => {
@@ -720,7 +720,7 @@ export default {
         );
       }
 
-      console.log("aaaa", this.styleEle);
+      // console.log("aaaa", this.styleEle);
     }
   },
   //生命周期函数
@@ -729,7 +729,7 @@ export default {
     this.isWebkit= (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/')==-1);
     this.updateIsMove(false);  //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
     this.updateIsMove2(false);
-    console.log("aaa", IndexService);
+    // console.log("aaa", IndexService);
     // indexService = new IndexService();
     //当选验证节点
     this.getStaking();
@@ -780,7 +780,7 @@ export default {
     block1.addEventListener(
       "transitionend",
       () => {
-        console.log("cccc", this.isMove);
+        // console.log("cccc", this.isMove);
         this.updateIsMove(false);
 
         // this.isMove2 = false;
