@@ -1003,6 +1003,7 @@ export default {
     },
     contractTypeTitle(type) {
       let s = "tradeAbout.";
+      type = Number(type)
       switch (type) {
         case 1:
           s += "PPOS";
