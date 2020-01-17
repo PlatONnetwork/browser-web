@@ -220,10 +220,17 @@
         <Item :label="$t('tradeAbout.rewardDetails')">
           <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
           <div>
+            <span
+              class="lightgray"
+              v-if="detailInfo.rewards.length == 0"
+            >
+              Null
+            </span>
             <p
               style="width:100%;margin-bottom:12px;"
               v-for="item in detailInfo.rewards"
               :key="item.verify"
+              v-else
             >
               <span>{{ $t("tradeAbout.fromNode") }}</span>
               <!-- 从xxx节点 此处需要做样式-->
