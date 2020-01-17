@@ -8,7 +8,7 @@ export const indexMutation = {
     ['UPDATE_BLACK_DADA'](state, data) {
         state.blockData = data
     },
-    ['UPDATE_CHART_DADA'](state, data) {    
+    ['UPDATE_CHART_DADA'](state, data) {
         state.chartData = data
     },
     ['UPDATE_VALIDATOR_DADA'](state, data) {
@@ -26,4 +26,10 @@ export const indexMutation = {
     ['UPDATE_BAR_IS_MOVE'](state, data) {
         state.barIsMove = data
     },
+    ['UPDATE_IS_ADDRESS_DETAILS_DELEGATION'](state, data) {
+      state.isAddressDetailsDelegation = data
+    },
+    ['UPDATE_IS_ADDRESS_DETAILS_REWARD'](state, data) {
+      state.isAddressDetailsReward = data
+    }
 }

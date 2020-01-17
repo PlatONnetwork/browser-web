@@ -71,6 +71,15 @@ export default {
     proposalID: "提案ID",
     proposalStatus: "状态",
 
+    creator:"创建方",
+    executor:"执行方",
+    PPOS:"系统合约",
+    EVM:"EVM合约",
+    WASM:"WASM合约",
+    callFunction:"调用函数",
+    creation:"合约创建",
+    execution:"合约执行",
+
     PIPSN: "PIP编号",
     proposalTitle: "提案标题",
     title: "标题",
@@ -203,6 +212,8 @@ export default {
   contract: {
     contractDetail: "合约详情",
     contract: "合约",
+    contractType:"合约类型",
+    ContractBytecode:"Contract Bytecode",
     overview: "概览",
     lockOverview: "锁仓概览",
     balance: "余额",
@@ -211,6 +222,7 @@ export default {
     all: "所有",
     contractName: "合约名称",
     transactions: "交易",
+    transactionsIn: "交易于",
     contractCreator: "合约创建信息",
     showingLast: "(仅显示最新5k记录)",
     delegationsTxns: "委托交易",
@@ -236,7 +248,8 @@ export default {
     unlocksNumber: "解锁数量",
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
-    totalDelegated: "总计委托"
+    totalDelegated: "总计委托",
+    warn:"合约已销毁，执行于交易"
   },
   deleget: {
     validators: "已委托验证节点",
@@ -442,6 +455,14 @@ export default {
     4000: "创建锁仓计划",
     5000: "领取奖励"
   },
+
+  //合约类型
+  contractType: {
+    1:"系统合约",
+    2:"EVM合约",
+    3:"WASM合约"
+  },
+
   // 创建提案的提案类型
   createType: {
     2000: "文本提案", //文本提案

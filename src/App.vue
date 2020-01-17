@@ -1,7 +1,7 @@
 <template>
     <div id="app" :class="{'page-en':lang=='en','page-zh':lang!='en','is-safari':issafariBrowser,'is-mac':isMac,'is-ie11':isIE11}">
         <com-header></com-header>
-        <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/','gray-area':$route.path=='/address-detail' || $route.path=='/node' || $route.path=='/node-detail'}">
+        <div class="content-area" v-if="isRouterAlive" :class="{'index-area':$route.path=='/','gray-area':$route.path=='/address-detail' || $route.path=='/contract-detail' || $route.path=='/node' || $route.path=='/node-detail'}">
             <!-- <router-view></router-view> -->
             <keep-alive>
                 <router-view v-if="$route.meta.keepAlive">
@@ -68,9 +68,9 @@ export default {
           let refererUrl = '/';
           window['_czc'].push(["_setAutoPageview", false]);
           window['_czc'].push(["_trackPageview", contentUrl, refererUrl])
- 
+
         }
- 
+
       }
     }
 }

@@ -71,6 +71,15 @@ export default {
     proposalID: "Proposal ID",
     proposalStatus: "ProposalStatus",
 
+    creator:"Creator",
+    executor:"Executor",
+    PPOS:"PPOS Contract",
+    EVM:"EVM Contract",
+    WASM:"WASM Contract",
+    callFunction:"Call Function",
+    creation:"ContractCreation\\ContractExecution\\MPCTx\\Others",
+    execution:"ContractCreation\\ContractExecution\\MPCTx\\Others",
+
     PIPSN: "PIP SN",
     proposalTitle: "Proposal Title",
     title: "Title",
@@ -203,6 +212,8 @@ export default {
   contract: {
     contractDetail: "CONTRACT DETAILS",
     contract: "Contract",
+    contractType:"Contract Type",
+    ContractBytecode:"Contract Bytecode",
     overview: "Overview",
     lockOverview: "Overview",
     balance: "Balance",
@@ -210,6 +221,7 @@ export default {
     totxn: "at txn",
     contractName: "Contract Name",
     transactions: "Transactions",
+    transactionsIn: " at txn ",
     contractCreator: "Contract Creator",
     showingLast: "(Showing The Last 5k Records)",
     all: "All",
@@ -237,7 +249,8 @@ export default {
 
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
-    totalDelegated: "Total Delegated"
+    totalDelegated: "Total Delegated",
+    warn:"Contract Self Destruct called at Txn Hash"
   },
   deleget: {
     validators: "Validators",
@@ -444,6 +457,14 @@ export default {
     4000: "CreateRestricting", //'创建锁仓计划'
     5000: "ClaimRewards"
   },
+
+  //合约类型
+  contractType: {
+    1:"PPOS Contract",
+    2:"EVM Contract",
+    3:"WASM Contract"
+  },
+
   // 创建提案的提案类型
   createType: {
     2000: "Text Proposal", //文本提案

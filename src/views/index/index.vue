@@ -324,7 +324,7 @@ export default {
           // const index = document.styleSheets[0].cssRules.length
           // debugger
           // console.log('bbbb',this.styleEle)
-          
+
           const index = this.isWebkit?2:0;
           if (this.styleEle.cssRules[index]) {
             this.styleEle.deleteRule(index);
@@ -335,7 +335,7 @@ export default {
             `from {
                             transform: translate(0,${this.ValidatorData.dataList
                               .length * -83}px);
-                        }               
+                        }
                         to {
                             transform: translate(0,0);
                         }`,
@@ -485,10 +485,19 @@ export default {
             }
           });
           break;
-        //地址详情
+        //地址详情==(钱包地址详情)
         case "address":
           return this.$router.push({
             path: "/address-detail",
+            query: {
+              address: struct.address
+            }
+          });
+          break;
+        //合约详情
+        case "contract":
+          return this.$router.push({
+            path: "/contract-detail",
             query: {
               address: struct.address
             }
@@ -508,7 +517,7 @@ export default {
         this.tooltipEl[1].style.left = e.event.offsetX-80+'px';
         this.tooltipData.number = e.name;
       })
-      
+
       this.barColorList.forEach((value,index)=>{
         if(e.dataIndex==index){
           this.barColorList[index] = '#66B7DE';
@@ -540,7 +549,7 @@ export default {
     initBlockTimeChart() {
       let r = this.$refs;
       console.log(r);
-      
+
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
       blockTimeChart.chart.on("mouseover", e => {
         this.handleBarHover(e);
@@ -614,7 +623,7 @@ export default {
                     return this.barColorList[params.dataIndex];
                   },
               }
-            }  
+            }
           }
         ]
       });
@@ -628,7 +637,7 @@ export default {
                     return this.barColorList[params.dataIndex];
                   },
               }
-            }  
+            }
           }
         ]
       });
@@ -710,7 +719,7 @@ export default {
           1
         );
       }
-      
+
       console.log("aaaa", this.styleEle);
     }
   },
@@ -795,7 +804,7 @@ export default {
     //此事件并不一定百分百触发
     window.removeEventListener("scroll", this.scrollHandle);
     indexService.disconnect();
-    
+
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
     this.updateIsMove(false);
     this.updateIsMove2(false);

@@ -72,6 +72,7 @@
 </template>
 <script>
 import apiService from "@/services/API-services";
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "",
   data() {
@@ -88,6 +89,9 @@ export default {
     address: String
   },
   methods: {
+    ...mapMutations({
+      updateIsAddressDetailsReward: "UPDATE_IS_ADDRESS_DETAILS_REWARD",
+    }),
     handleSizeFn(pageSize) {
       this.pageSize = pageSize;
       this.queryDetailByAdd();
@@ -122,12 +126,18 @@ export default {
         if (res.data) {
           this.rewardTableData = [...res.data];
           this.totalNum = res.totalCount;
+          if(this.rewardTableData.length > 0){
+            this.updateIsAddressDetailsReward(true);
+          }
         }
       });
     }
   },
   mounted() {
     this.queryDetailByAdd();
+  },
+  destroyed(){
+    this.updateIsAddressDetailsReward(false);
   }
 };
 </script>

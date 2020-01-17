@@ -26,4 +26,10 @@ export const indexAction = {
     updateBarIsMove({ commit, state }, data) {
         commit('UPDATE_BAR_IS_MOVE', data)
     },
+    updateIsAddressDetailsDelegation({ commit, state }, data) {
+      commit('UPDATE_IS_ADDRESS_DETAILS_DELEGATION', data)
+    },
+    updateIsAddressDetailsReward({ commit, state }, data) {
+      commit('UPDATE_IS_ADDRESS_DETAILS_REWARD', data)
+    },
 }

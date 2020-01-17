@@ -6,7 +6,7 @@ import { indexGetter } from './getter'
 import { indexMutation } from './mutation'
 
 export const index: object = {
-    state: {     
+    state: {
         blockData: [
         ],
         chartData: {},
@@ -23,14 +23,14 @@ export const index: object = {
             "addressQty":"",          //地址数
             "proposalQty":"",         //总提案数
             "doingProposalQty":""     //进行中提案数
-            
+
         },
         isMove:false,  //控制首页区块动画
         isMove2:false,  //控制首页区块动画
         barIsMove:true,  //控制图表动画
         ValidatorData: {
             "isRefresh":true,    //false不用全量刷新、true全量刷新
-            "dataList":[               
+            "dataList":[
             ]
         },
         ValidatorStatisticData: {
@@ -42,8 +42,10 @@ export const index: object = {
             "currentNumber":0,      //当前区块高度
             "addIssueBegin":0,      //当前增发周期的开始快高
             "addIssueEnd":0,        //当前增发周期的结束块高
-            "nextSetting":0 
+            "nextSetting":0
         },
+        isAddressDetailsDelegation:false,
+        isAddressDetailsReward:false,
     },
     actions: indexAction,
     getters: indexGetter,

@@ -10,4 +10,6 @@ export const indexGetter = {
     isMove: state => state.isMove,
     isMove2: state => state.isMove2,
     barIsMove: state => state.barIsMove,
+    isAddressDetailsDelegation:state => state.isAddressDetailsDelegation,
+    isAddressDetailsReward:state => state.isAddressDetailsReward,
 }

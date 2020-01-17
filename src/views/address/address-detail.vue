@@ -1,9 +1,11 @@
 <template>
   <div class="contract-detail-wrap">
     <div class="content-top-white contract-detail-top content-padding">
+      <!-- 地址详情 -->
       <div class="page-title fontSize34">
         {{ $t("contract.addressDetail") }}
       </div>
+
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t("contract.address") }}</span>
@@ -31,6 +33,7 @@
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
         <el-col :span="11">
+          <!-- 概览 -->
           <div class="overview">
             <h3 class="Gilroy-Medium">{{ $t("contract.overview") }}</h3>
             <ul>
@@ -65,7 +68,7 @@
           </div>
         </el-col>
         <div style="width:100px;flex-shrink:0"></div>
-        <!-- 其他 -->
+        <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
             <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
@@ -102,7 +105,9 @@
         </el-col>
       </el-row>
     </div>
+
     <div class="address-trade gray-content content-padding">
+      <!-- 地址tab -->
       <div class="tabs">
         <el-button
           size="medium"
@@ -114,21 +119,32 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
+          v-if="isAddressDetailsDelegation"
           >{{ $t("contract.delegations") }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
+          v-if="isAddressDetailsReward"
           >{{ $t("tradeAbout.rewardDetails") }}</el-button
         >
       </div>
+
+      <!-- 交易 -->
       <trade-list
         ref="addressTrade"
         :address="address"
         v-show="tabIndex == 1"
         :tradeCount="detailInfo"
       ></trade-list>
+
+      <!-- 委托 -->
+      <delegation-info
+        v-show="tabIndex == 2"
+        :detailInfo="detailInfo"
+      ></delegation-info>
+
       <!-- 奖励领取明细 -->
       <reward-detail
         v-show="tabIndex == 3"
@@ -136,150 +152,7 @@
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
-      <div class="address-delegation" v-show="tabIndex == 2">
-        <ul>
-          <!-- 总计委托 -->
-          <li>
-            <span>{{ detailInfo.delegateValue | formatMoney }}</span>
-            <p>{{ $t("contract.totalDelegated") }}(LAT)</p>
-          </li>
-          <li>
-            <span>{{ detailInfo.candidateCount | formatMoney }}</span>
-            <p>{{ $t("deleget.validators") }}</p>
-          </li>
-          <li>
-            <span>{{ detailInfo.delegateLocked | formatMoney }}</span>
-            <p>{{ $t("deleget.lockedDelegate") }}(LAT)</p>
-          </li>
-          <li>
-            <span>{{ detailInfo.delegateHes | formatMoney }}</span>
-            <p>{{ $t("deleget.unlockedDelegate") }}(LAT)</p>
-          </li>
-          <!-- <li>
-            <span>{{ detailInfo.delegateReleased }}</span>
-            <p>{{ $t("deleget.releasedDelegate") }}(LAT)</p>
-          </li> -->
-          <!-- <li>
-                        <span>{{detailInfo.delegateReduction}}</span>
-                        <p>{{$t('deleget.undelegating')}}(LAT)</p>
-                    </li> -->
-        </ul>
-      </div>
-      <div class="table gray-table" v-show="tabIndex == 2">
-        <el-table
-          :data="tableData"
-          style="width: 100%"
-          key="firstTable"
-          size="mini"
-        >
-          <el-table-column :label="$t('nodeInfo.validator')">
-            <template slot-scope="scope">
-              <div class="flex-special">
-                <p
-                  class="cursor blue ellipsis percent60"
-                  @click="goNodeDetail(scope.row.nodeId)"
-                >
-                  {{ scope.row.nodeName }}
-                </p>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot="header">
-              {{ $t("deleget.delegationAmount") }}
-              <el-tooltip class="item" effect="dark" placement="bottom">
-                <div slot="content" class="delegate-msg">
-                  {{ $t("deleget.delegationAmountMsg") }}
-                </div>
-                <i class="address-icon"></i>
-              </el-tooltip>
-            </template>
-            <template slot-scope="scope">
-              <span>{{ scope.row.delegateValue | formatMoney }}</span>
-            </template>
-          </el-table-column>
-          <!-- <el-table-column :label="$t('deleget.locked')+'\/'+ $t('deleget.percentage')">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
-                        </template>
-                    </el-table-column> -->
-          <el-table-column>
-            <template slot="header">
-              {{ $t("deleget.locked") }}
-              <el-tooltip class="item" effect="dark" placement="bottom">
-                <div slot="content" class="delegate-msg">
-                  {{ $t("deleget.lockedMsg") }}
-                </div>
-                <i class="address-icon"></i>
-              </el-tooltip>
-            </template>
-            <template slot-scope="scope">
-              <span>{{ scope.row.delegateLocked | formatMoney }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot="header">
-              {{ $t("deleget.unlocked") }}
-              <el-tooltip class="item" effect="dark" placement="bottom">
-                <div slot="content" class="delegate-msg">
-                  {{ $t("deleget.unlockedMsg") }}
-                </div>
-                <i class="address-icon"></i>
-              </el-tooltip>
-            </template>
-            <template slot-scope="scope">
-              <span>{{ scope.row.delegateHas | formatMoney }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot="header">
-              {{ $t("deleget.released") }}
-              <el-tooltip class="item" effect="dark" placement="bottom">
-                <div slot="content" class="delegate-msg">
-                  {{ $t("deleget.releasedMsg") }}
-                </div>
-                <i class="address-icon"></i>
-              </el-tooltip>
-            </template>
-            <template slot-scope="scope">
-              <span>{{ scope.row.delegateReleased | formatMoney }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot="header">
-              {{ $t("deleget.unclaimedReward") }}
-              <el-tooltip class="item" effect="dark" placement="bottom">
-                <div slot="content" class="delegate-msg">
-                  {{ $t("deleget.unclaimedRewardMsg") }}
-                </div>
-                <i class="address-icon"></i>
-              </el-tooltip>
-            </template>
-            <template slot-scope="scope">
-              <span>{{ scope.row.delegateClaim | formatMoney }}</span>
-            </template>
-          </el-table-column>
-          <!-- <el-table-column :label="$t('deleget.undelegating')">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.delegateReduction | formatMoney}}</span>
-                        </template>
-                    </el-table-column> -->
-        </el-table>
-        <div class="pagination-box">
-          <el-pagination
-            background
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-sizes="[10, 20, 50, 100]"
-            :page-size="pageSize"
-            layout="sizes,total,  prev, pager, next"
-            :total="pageTotal"
-            :pager-count="9"
-          >
-          </el-pagination>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -289,6 +162,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
 import rewardDetail from "@/components/address/rewardDetailTable";
+import delegationInfo from "@/components/address/delegations-info";
 export default {
   name: "contract-detail",
   data() {
@@ -296,10 +170,6 @@ export default {
       tabIndex: 1,
       selectIndex: 1,
       tableData: [],
-      currentPage: 1,
-      pageSize: 20,
-      pageTotal: 0,
-
       activeTab: 1,
       address: "",
       detailInfo: {},
@@ -309,11 +179,17 @@ export default {
     };
   },
   props: {},
-  computed: {},
+  computed: {
+    ...mapGetters([
+      "isAddressDetailsDelegation",
+      "isAddressDetailsReward"
+    ]),
+  },
   watch: {},
   components: {
     tradeList,
-    rewardDetail
+    rewardDetail,
+    delegationInfo
   },
   methods: {
     //获取地址信息详情
@@ -336,36 +212,7 @@ export default {
           this.$message.error(error);
         });
     },
-    //获取委托列表
-    getList() {
-      let param = {
-        pageNo: this.currentPage,
-        pageSize: this.pageSize,
-        address: this.address
-      };
-      apiService.node
-        .delegationListByAddress(param)
-        .then(res => {
-          let {
-            data,
-            totalPages,
-            totalCount,
-            code,
-            errMsg,
-            displayTotalCount
-          } = res;
-          if (code == 0) {
-            this.tableData = data;
-            this.pageTotal = totalCount;
-            this.displayTotalCount = displayTotalCount;
-          } else {
-            this.$message.error(errMsg);
-          }
-        })
-        .catch(error => {
-          this.$message.error(error);
-        });
-    },
+
     onCopy() {
       this.copyText = this.$t("modalInfo.copysuccess");
       this.isCopy = true;
@@ -386,23 +233,6 @@ export default {
       this.tabIndex = index;
     },
 
-    handleCurrentChange(val) {
-      this.currentPage = val;
-      this.getList();
-    },
-    handleSizeChange(val) {
-      this.currentPage = 1;
-      this.pageSize = val;
-      this.getList();
-    },
-    goNodeDetail(nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      });
-    },
     goRestricte() {
       this.$router.push({
         path: "/restricting-info",
@@ -416,7 +246,7 @@ export default {
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.getDetail();
-    this.getList();
+
   },
   mounted() {}
 };
@@ -429,6 +259,14 @@ export default {
 }
 .money {
   color: #000;
+  &.contract-create-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .normal {
+      cursor: pointer;
+    }
+  }
 }
 .code {
   position: relative;
@@ -446,27 +284,7 @@ export default {
     display: block;
   }
 }
-.address-delegation {
-  ul {
-    display: flex;
-    margin-top: 20px;
-    text-align: center;
-    li {
-      border: 1px solid #e9e9e9;
-      border-radius: 2px;
-      margin-right: 20px;
-      padding: 5px 10px;
-      span {
-        font-size: 18px;
-        font-family: Gilroy-Medium;
-      }
-      p {
-        font-size: 12px;
-        color: #999999;
-      }
-    }
-  }
-}
+
 .contract-detail-top {
   padding-bottom: 30px;
 }

@@ -1,237 +1,294 @@
 <template>
-    <div class="contract-detail-wrap">
-        <div class="page-title fontSize34">{{$t('contract.contractDetail')}}</div> 
-        <div class="detail-change">
-            <div class="detail-copy">
-                <span>{{$t('contract.contract')}}</span>
-                <i>#{{detailInfo.contractCreate}}</i>
-                <b class="cursor" v-clipboard:copy="detailInfo.contractCreate" v-clipboard:success="onCopy" v-clipboard:error="onError"></b>
-                <a class="code cursor"></a>
-            </div>
+  <div class="contract-detail-wrap">
+    <div class="content-top-white contract-detail-top content-padding">
+      <div class="page-title fontSize34">
+        {{ $t("contract.contractDetail") }}
+      </div>
+
+      <div class="detail-change">
+        <div class="detail-copy">
+          <span>{{ $t("contract.contract") }}</span>
+          <i>#{{ address }}</i>
+          <b
+            class="cursor"
+            :class="{ copy: !isCopy }"
+            v-clipboard:copy="address"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
+            ><p v-show="isCopy">
+              <i class="el-icon-circle-check-outline"></i
+              ><span>{{ copyText }}</span>
+            </p></b
+          >
+          <a class="code cursor">
+            <qriously
+              class="qr-code"
+              v-if="address"
+              :value="address"
+              :size="140"
+            />
+          </a>
         </div>
-        <el-row class="overview-wrap" type="flex" justify="space-between">
-            <el-col :span="11">
-                <div class="overview">
-                    <h3>{{$t('contract.overview')}}</h3>
-                    <ul>
-                        <li>
-                            <label>{{$t('contract.balance')}}</label> 
-                            <div>{{detailInfo.balance}}LAT</div>   
-                        </li>
-                        <li>
-                            <label>{{$t('contract.transactions')}}</label> 
-                            <div>{{detailInfo.txQty}}</div>
-                        </li>
-                    </ul>
+      </div>
+      <el-row class="overview-wrap" type="flex" justify="space-between">
+        <el-col :span="11">
+          <!-- 概览 -->
+          <div class="overview">
+            <h3 class="Gilroy-Medium">{{ $t("contract.overview") }}</h3>
+            <ul>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.balance")
+                }}</label>
+                <div>
+                  <span class="money"
+                    >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
+                  >
+                  <div v-if="detailInfo.isRestricting">
+                    <span class="restricted"
+                      >{{
+                        detailInfo.restrictingBalance | formatMoney
+                      }}&nbsp;LAT (<a
+                        class="blue cursor"
+                        @click="goRestricte"
+                        >{{ $t("contract.restricted") }}</a
+                      >)</span
+                    >
+                  </div>
                 </div>
-            </el-col>
-            <el-col :span="11">
-                <div class="others overview">
-                    <h3>{{$t('contract.others')}}</h3>
-                    <ul>
-                        <li>
-                            <label>{{$t('contract.contractName')}}</label> 
-                            <div>{{detailInfo.contractName}}</div>   
-                        </li>
-                        <li>
-                            <label>{{$t('contract.contractCreator')}}</label> 
-                            <div class="contractCreator">
-                                <a class="ellipsis blue">{{detailInfo.contractCreate}}</a> 
-                                {{$t('contract.totxn')}} 
-                                <a class="ellipsis blue">{{detailInfo.contractCreateHash}}</a>                           
-                            </div>
-                        </li>
-                    </ul>
+              </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.transactions")
+                }}</label>
+                <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
+              </li>
+            </ul>
+          </div>
+        </el-col>
+        <div style="width:100px;flex-shrink:0"></div>
+        <!-- 地址其他 -->
+        <el-col :span="11">
+          <div class="others overview">
+            <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
+            <ul>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.contractName")
+                }}</label>
+                <div class="money">
+                  {{ detailInfo.contractName }}
                 </div>
-            </el-col>
-        </el-row>
-        <div class="address-trade">
-            <div class="tabs">
-                <el-button size="medium" class="active">{{$t('contract.transactions')}}</el-button>
-            </div>
-            <trade-list :address="address"></trade-list>          
-        </div>
-        
+              </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.contractCreator")
+                }}</label>
+                <div class="money contract-create-info">
+                  <span
+                    class="normal"
+                    @click="goAddressDetail(detailInfo.contractCreate)"
+                    v-if="detailInfo.contractCreate"
+                  >
+                    {{ detailInfo.contractCreate | sliceStr(16) }}
+                  </span>
+                  <span v-if="detailInfo.contractCreate && detailInfo.contractCreateHash">
+                    {{ $t("contract.transactionsIn") }}
+                  </span>
+                  <span
+                    class="normal"
+                    @click="goTradeDetail(detailInfo.contractCreateHash)"
+                    v-if="detailInfo.contractCreateHash"
+                  >
+                    {{ detailInfo.contractCreateHash | sliceStr(20) }}
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-col>
+      </el-row>
     </div>
+
+    <div class="address-trade gray-content content-padding">
+      <div class="tabs">
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 1 }"
+          @click="tabChange(1)"
+          >{{ $t("contract.transactions") }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 2 }"
+          @click="tabChange(2)"
+          >{{ $t("contract.contract") }}</el-button
+        >
+      </div>
+
+      <!-- 交易 -->
+      <trade-list
+        ref="addressTrade"
+        :address="address"
+        v-show="tabIndex == 1"
+        :tradeCount="detailInfo"
+      ></trade-list>
+
+      <!-- 合约 -->
+      <!-- Qiana todo -->
+      <contract-info
+        v-show="tabIndex == 2"
+        :detailInfo="detailInfo"
+        >
+      </contract-info>
+    </div>
+  </div>
 </template>
 <script>
-    import apiService from '@/services/API-services'
-    import {mapState, mapActions, mapGetters,mapMutations} from 'vuex'
+import apiService from "@/services/API-services";
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
-    import tradeList from '@/components/trade-list'
+import tradeList from "@/components/trade-list";
+import contractInfo from "@/components/contract/contract-info"
+export default {
+  name: "contract-detail",
+  data() {
+    return {
+      tabIndex: 1,
+      selectIndex: 1,
+      tableData: [],
+      currentPage: 1,
+      pageSize: 20,
+      pageTotal: 0,
 
-    export default {
-        name: 'contract-detail',
-        data() {
-            return {
-                selectIndex:1,
-                currentScreenWidth:0,
-                currentPage:null,
-                pageSize:null,
-                balance:'',
-                count:0,
-                activeTab:1,
-                type:'voteTicket',
-                type1:'transfer',
-                typeList:[
-                    {label:'voteTicket1',value:'voteTicket'},
-                    {label:'authorization1',value:'authorization'},
-                    {label:'candidateDeposit1',value:'candidateDeposit'},
-                    {label:'candidateApplyWithdraw1',value:'candidateApplyWithdraw'},
-                    {label:'candidateWithdraw1',value:'candidateWithdraw'},
-                    {label:'transfer',value:'transfer'},
-                    // {label:'vote',value:'vote'},
-                    {label:'contractCreate',value:'contractCreate'},
-                    {label:'transactionExecute',value:'transactionExecute'},
-                    {label:'MPCtransaction',value:'MPCtransaction'},
-                ],
-                typeList1:[
-                    {label:'transfer',value:'transfer'},
-                    // {label:'vote',value:'vote'},
-                    {label:'contractCreate',value:'contractCreate'},
-                    {label:'transactionExecute',value:'transactionExecute'},
-                    {label:'MPCtransaction',value:'MPCtransaction'},
-                ],
-                txTypeFn: {
-                    transfer : 'transfer',
-                    MPCtransaction : 'MPCtransaction',
-                    contractCreate : 'contractCreate',
-                    voteTicket  : 'voteTicket',
-                    transactionExecute  :'transactionExecute',
-                    authorization  :'authorization',
-                    candidateDeposit :'candidateDeposit1',
-                    candidateApplyWithdraw :'candidateApplyWithdraw1',
-                    candidateWithdraw :'candidateWithdraw1'
-                },
-                address:'',
-                detailInfo:{
+      activeTab: 1,
+      address: "",
+      detailInfo: {},
+      isCopy: false,
+      copyText: "",
+      haveReward: 0,
+    };
+  },
+  props: {},
+  computed: {},
+  watch: {},
+  components: {
+    tradeList,
+    contractInfo
+  },
+  methods: {
+    //获取地址信息详情
+    getDetail() {
+      let param = {
+        address: this.address
+      };
+      apiService.account
+        .details(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          // console.log(res)
+          if (code == 0) {
+            //Qiana todo delete
+            // data.contractCreate =
+            //   "0x75049a6647ffa86ace9297c28952ef60ed5307da";
+            // data.contractCreateHash =
+            //   "0x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d93";
+            // data.contractName = "这是合约名称";
+            // data.contractBin = "0x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d930x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d93"
+            // data.isDestroy = false;
+            // data.destroy_hash = "0x2afeda8a5e607def65bf641b6acc9a163ff820b06388208e50ffed8c876d9d93";
+            // data.type = 2;
+            this.detailInfo = data;
 
-                },
-                descripFn: {
-                    pending : 'pending',
-                    trade : 'trade',
-                    block : 'block',
-                },
-                pathFn: {
-                    pending : '/trade-pending',
-                    trade : '/trade',
-                    block:'/block'
-                },
-                description:'',
-                descriptionProp:'',
-            }
-        },
-        props: {
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+    },
 
-        },
-        computed: {
-
-        },
-		watch: {
-		
-		},
-        components: {
-            tradeList
-        },
-        methods: {
-            //获取地址信息详情
-            getDetail() {
-                let type='';
-                if(this.address == "0x1000000000000000000000000000000000000001" || this.address == "0x1000000000000000000000000000000000000002"){
-                    type=this.type;
-                }else{
-                    type=this.type1;
-                }
-                let _type = [];
-                _type.push(type);
-                let param = {
-                    // cid:'',
-                    address: this.address,
-                    txTypes: _type,
-                };
-                console.warn('合约详情》》》', param);
-                apiService.trade
-                    .contractDetails(param)
-                    .then(res => {
-                        let {errMsg, code, data} = res;
-                        if (code == 0) {
-                            this.detailInfo = data;
-                            data.trades.forEach(item => {
-                                if (item.txReceiptStatus == -1) {
-                                    ++this.count;
-                                }
-                            });
-                        } else {
-                            this.detailInfo = {};
-                            this.$message.error(errMsg);
-                        }
-                    })
-                    .catch(error => {
-                        this.$message.error(error);
-                        let {errMsg, code, data} = {
-                            "errMsg":"",                 //描述信息
-                            "code":0,                    //成功（0），失败则由相关失败码
-                            "data":{
-                                "type":"",                //地址详情  1：账号   2：合约   3：内置合约
-                                "balance":"21223",             //余额(单位:LAT)
-                                "restrictingBalance":"",  //锁仓余额(单位:LAT)
-                                "stakingValue":"",        //质押的金额
-                                "delegateValue":"",       //委托的金额
-                                "redeemedValue":"",       //赎回中的金额
-                                "txQty":1288,             //交易总数
-                                "transferQty":11,         //转账交易总数
-                                "delegateQty":11,         //委托交易总数
-                                "stakingQty":11,          //验证人交易总数
-                                "proposalQty":11,         //治理交易总数
-                                "candidateCount":11,      //已委托验证人
-                                "delegateHes":"",         //未锁定委托（LAT）
-                                "delegateLocked":"",      //已锁定委托（LAT）
-                                "delegateUnlock":"",      //已解除委托（LAT）   
-                                "delegateReduction":"",    //赎回中委托（LAT）   
-                                "contractName":"按订单",        //合约名称
-                                "contractCreate":"0xdE41ad9010ED7ae4a7bBc42b55665151dcc8DEf4",      //合约创建者地址
-                                "contractCreateHash":"0xdE41ad9010ED7ae4a7bBc42b55665151dcc8DEf4",  //合约创建哈希
-                            }
-                        };
-                        if (code == 0) {
-               
-                            this.detailInfo = data;
-                            // data.trades.forEach(item => {
-                            //     if (item.txReceiptStatus == -1) {
-                            //         ++this.count;
-                            //     }
-                            // });
-                        } else {
-                            this.detailInfo = {};
-                            this.$message.error(errMsg);
-                        }
-                    });
-            },
-            onCopy() {
-                this.$message.success(this.$t('modalInfo.copysuccess'));
-            },
-            onError() {
-                this.$message.error(this.$t('modalInfo.copyfail'));
-            },
-        },
-        //生命周期函数
-        created() {
-            this.address = this.$route.query.address;
-            this.getDetail();
-        },
-        mounted() {
-
-        }    
+    onCopy() {
+      this.copyText = this.$t("modalInfo.copysuccess");
+      this.isCopy = true;
+      setTimeout(() => {
+        this.isCopy = false;
+        this.copyText = "";
+      }, 2000);
+    },
+    onError() {
+      this.copyText = this.$t("modalInfo.copyfail");
+      this.isCopy = true;
+      setTimeout(() => {
+        this.isCopy = false;
+        this.copyText = "";
+      }, 2000);
+    },
+    tabChange(index) {
+      this.tabIndex = index;
+    },
+    goRestricte() {
+      this.$router.push({
+        path: "/restricting-info",
+        query: {
+          address: this.address
+        }
+      });
+    },
+    //地址详情
+    goAddressDetail(address) {
+      this.$router.push({
+        path: "/address-detail",
+        query: {
+          address: address
+        }
+      });
     }
+  },
+  //生命周期函数
+  created() {
+    this.address = this.$route.query.address.toLowerCase();
+    this.getDetail();
+  },
+  mounted() {}
+};
 </script>
 <style lang="less" scoped>
-.contractCreator{
-  a{
-      width:150px;
-      display: inline-block;
-      vertical-align: middle;
+.restricted {
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
+}
+.money {
+  color: #000;
+  &.contract-create-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .normal {
+      cursor: pointer;
+    }
+  }
+}
+.code {
+  position: relative;
+  .qr-code {
+    position: absolute;
+    top: 32px;
+    left: -55px;
+    z-index: 999;
+    display: none;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  &:hover .qr-code {
+    display: block;
   }
 }
 
+.contract-detail-top {
+  padding-bottom: 30px;
+}
 </style>
-

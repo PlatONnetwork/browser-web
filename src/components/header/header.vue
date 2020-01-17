@@ -320,7 +320,7 @@ export default {
             this.reload();
           }
           break;
-        //地址详情
+        //地址详情==(钱包地址详情)
         case "address":
           this.$router.push({
             path: "/address-detail",
@@ -329,6 +329,18 @@ export default {
             }
           });
           if (this.$route.path == "/address-detail") {
+            this.reload();
+          }
+          break;
+        //合约详情
+        case "contract":
+          return this.$router.push({
+            path: "/contract-detail",
+            query: {
+              address: struct.address
+            }
+          });
+          if (this.$route.path == "/contract-detail") {
             this.reload();
           }
           break;

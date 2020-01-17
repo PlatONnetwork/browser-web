@@ -7,6 +7,8 @@
         $t("contract.showingLast")
       }}</span>
     </div>
+
+    <!-- 分类删选tab -->
     <div class="trade-tab-wrap">
       <ul class="trade-tab">
         <li
@@ -50,6 +52,7 @@
         $t("common.export")
       }}</span>
     </div>
+
     <div class="table">
       <el-table
         :data="tableData"
@@ -57,6 +60,7 @@
         key="firstTable"
         size="mini"
       >
+        <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')">
           <template slot-scope="scope">
             <!-- <div class="flex-special">
@@ -100,11 +104,14 @@
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
               >
-                {{ scope.row.txHash | sliceStr(18) }}
+                <!-- txHash 显示0x + 18 -->
+                {{ scope.row.txHash | sliceStr(20) }}
               </span>
             </div>
           </template>
         </el-table-column>
+
+        <!-- 操作地址 -->
         <el-table-column
           :label="$t('blockAbout.operatorAddress')"
           v-if="type == 'block'"
@@ -117,14 +124,17 @@
           </template> -->
           <template slot-scope="scope">
             <div class="flex-special">
+              <!-- 操作地址显示 0x + 14 -->
               <span
                 class="cursor blue ellipsis"
                 @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(14) }}</span
+                >{{ scope.row.from | sliceStr(16) }}</span
               >
             </div>
           </template>
         </el-table-column>
+
+        <!-- 块高 -->
         <el-table-column
           prop="blockHeight"
           :label="$t('tradeAbout.block')"
@@ -138,6 +148,8 @@
             >
           </template>
         </el-table-column>
+
+        <!-- 确认时间 -->
         <el-table-column
           :label="$t('tradeAbout.confirmTime')"
           v-if="type != 'block'"
@@ -147,6 +159,8 @@
             <span>{{ scope.row.timestamp | formatTime }}</span>
           </template>
         </el-table-column>
+
+        <!-- 交易类型 -->
         <el-table-column :label="$t('tradeAbout.type')">
           <template slot-scope="scope">
             <span
@@ -171,11 +185,15 @@
             </span>
           </template>
         </el-table-column>
+
+        <!-- 价值 -->
         <el-table-column :label="$t('tradeAbout.value')">
           <template slot-scope="scope">
             <span>{{ scope.row.value | formatMoney }} LAT</span>
           </template>
         </el-table-column>
+
+        <!-- 交易费用 -->
         <el-table-column>
           <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
           <template slot="header">
@@ -187,6 +205,8 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 下分页 -->
       <div class="pagination-box">
         <el-pagination
           background
