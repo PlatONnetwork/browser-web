@@ -220,10 +220,7 @@
         <Item :label="$t('tradeAbout.rewardDetails')">
           <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
           <div>
-            <span
-              class="lightgray"
-              v-if="detailInfo.rewards.length == 0"
-            >
+            <span class="lightgray" v-if="detailInfo.rewards.length == 0">
               Null
             </span>
             <p
