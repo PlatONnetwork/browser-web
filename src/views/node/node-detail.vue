@@ -603,7 +603,7 @@
                 target="_blank"
                 >{{ detailInfo.website }}</a
               >
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
             <Item :label="$t('tradeAbout.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
@@ -619,11 +619,11 @@
                 target="_blank"
                 >{{ detailInfo.externalId }}</a
               >
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
             <Item :label="$t('tradeAbout.introduction')">
               <span v-if="detailInfo.details">{{ detailInfo.details }}</span>
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
           </List>
         </div>
