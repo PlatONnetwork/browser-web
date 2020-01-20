@@ -9,8 +9,8 @@
     <div v-if="detailInfo.isDestroy == 1" class="warn-info">
       <img src="../../assets/images/icon-contract.svg" alt="" />
       <span class="yellow">{{ $t("contract.warn") }}:</span>
-      <span class="trad-hash" @click="goTradeDetail(detailInfo.destroy_hash)">{{
-        detailInfo.destroy_hash
+      <span class="trad-hash" @click="goTradeDetail(detailInfo.destroyHash)">{{
+        detailInfo.destroyHash
       }}</span>
     </div>
 
