@@ -15,7 +15,10 @@
     </div>
 
     <!-- 系统合约 -->
-    <div v-if="!detailInfo.isDestroy && detailInfo.type=='2'" class="warn-info">
+    <div
+      v-if="!detailInfo.isDestroy && detailInfo.type == '2'"
+      class="warn-info"
+    >
       <img src="../../assets/images/icon-contract.svg" alt="" />
       <span class="yellow">{{ $t("contract.systemBuilt") }}</span>
     </div>
@@ -24,10 +27,12 @@
 
     <div
       class="contract-bin"
-      v-if="detailInfo.isDestroy == 1 || detailInfo.type == '2'  || !detailInfo.contractBin"
-    >
-      0x
-    </div>
+      v-if="
+        detailInfo.isDestroy == 1 ||
+          detailInfo.type == '2' ||
+          !detailInfo.contractBin
+      "
+    >0x</div>
     <div class="contract-bin" v-else>{{ detailInfo.contractBin }}</div>
   </div>
 </template>

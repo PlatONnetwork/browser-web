@@ -84,14 +84,15 @@
           :label="$t('tradeAbout.recipient')"
           v-if="detailInfo.txType != '4000'"
         >
+        <!-- 用户钱包地址 -->
           <span
-            v-if="detailInfo.receiveType == 'account'"
+            v-if="detailInfo.receiveType == '2'"
             class="cursor normal ellipsis"
             @click="goAddressDetail(detailInfo.to)"
             >{{ detailInfo.to }}
           </span>
           <!-- 如果是合约显示 -->
-          <div class="isContract" v-if="detailInfo.receiveType == 'contract'">
+          <div class="isContract" v-if="detailInfo.receiveType == '1'">
             <i class="iconfont iconcontract blue">&#xe63e;</i>
             <span>Contract</span>
             <span
@@ -166,6 +167,7 @@
 
         <!-- 合约 -->
         <Item :label="$t('contract.contract')">
+          <!-- 合约创建 -->
           <div class="isContract" v-if="detailInfo.txReceiptStatus == 1">
             <i class="iconfont iconcontract blue">&#xe63e;</i>
             <span>Create Contract</span>
@@ -175,6 +177,7 @@
               >{{ detailInfo.to }}
             </span>
           </div>
+          <!-- 合约执行 -->
           <div
             v-else-if="
               detailInfo.txType == 1 && detailInfo.txReceiptStatus == 0
@@ -197,11 +200,11 @@
         }}</Item>
 
         <!-- 调用函数 -->
-        <Item
+        <!-- <Item
           :label="$t('tradeAbout.callFunction')"
           v-if="detailInfo.txType == 2"
           >{{ detailInfo.method }}</Item
-        >
+        > -->
 
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
