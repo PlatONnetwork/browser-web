@@ -334,7 +334,7 @@ export default {
           break;
         //合约详情
         case "contract":
-          return this.$router.push({
+          this.$router.push({
             path: "/contract-detail",
             query: {
               address: struct.address

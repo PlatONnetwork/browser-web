@@ -1008,13 +1008,13 @@ export default {
       let s = "tradeAbout.";
       type = Number(type)
       switch (type) {
-        case 1:
+        case 0:
           s += "PPOS";
           break;
-        case 2:
+        case 1:
           s += "EVM";
           break;
-        case 3:
+        case 2:
           s += "WASM";
           break;
       }

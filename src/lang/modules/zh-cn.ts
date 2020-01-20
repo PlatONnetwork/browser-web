@@ -459,9 +459,9 @@ export default {
 
   //合约类型
   contractType: {
-    1:"系统合约",
-    2:"EVM合约",
-    3:"WASM合约"
+    0:"系统合约",
+    1:"EVM合约",
+    2:"WASM合约"
   },
 
   // 创建提案的提案类型

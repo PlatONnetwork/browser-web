@@ -76,7 +76,8 @@
                 <label class="Gilroy-Medium">{{
                   $t("contract.contractName")
                 }}</label>
-                <div class="money" v-if="detailInfo.type=='2'">
+                <!-- 系统合约 -->
+                <div class="money" v-if="detailInfo.type=='3'">
                   {{ detailInfo.contractName }}
                 </div>
                 <div class="money" v-else>
@@ -87,7 +88,8 @@
                 <label class="Gilroy-Medium">{{
                   $t("contract.contractCreator")
                 }}</label>
-                <div class="money" v-if="detailInfo.type=='2'">
+                <!-- 系统合约 -->
+                <div class="money" v-if="detailInfo.type=='3'">
                   System Contract
                 </div>
                 <div v-else class="money contract-create-info">
@@ -237,6 +239,15 @@ export default {
         path: "/address-detail",
         query: {
           address: address
+        }
+      });
+    },
+    //进入交易详情
+    goTradeDetail(hash) {
+      this.$router.push({
+        path: "/trade-detail",
+        query: {
+          txHash: hash
         }
       });
     }

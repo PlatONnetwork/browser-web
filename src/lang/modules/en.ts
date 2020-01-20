@@ -77,8 +77,8 @@ export default {
     EVM:"EVM Contract",
     WASM:"WASM Contract",
     callFunction:"Call Function",
-    creation:"ContractCreation\\ContractExecution\\MPCTx\\Others",
-    execution:"ContractCreation\\ContractExecution\\MPCTx\\Others",
+    creation:"ContractCreation",
+    execution:"ContractExecution",
 
     PIPSN: "PIP SN",
     proposalTitle: "Proposal Title",
@@ -461,9 +461,9 @@ export default {
 
   //合约类型
   contractType: {
-    1:"PPOS Contract",
-    2:"EVM Contract",
-    3:"WASM Contract"
+    0:"PPOS Contract",
+    1:"EVM Contract",
+    2:"WASM Contract"
   },
 
   // 创建提案的提案类型
