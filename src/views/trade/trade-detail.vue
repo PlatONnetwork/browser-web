@@ -93,7 +93,7 @@
           </span>
           <!-- 如果是合约显示 -->
           <div class="isContract" v-if="detailInfo.receiveType == '1'">
-            <i class="iconfont iconcontract blue">&#xe63e;</i>
+            <i class="iconfont iconcontract blue" :title="this.$t('contract.contract')">&#xe63e;</i>
             <span>Contract</span>
             <span
               class="cursor normal ellipsis"
@@ -169,7 +169,7 @@
         <Item :label="$t('contract.contract')">
           <!-- 合约创建 -->
           <div class="isContract" v-if="detailInfo.txReceiptStatus == 1">
-            <i class="iconfont iconcontract blue">&#xe63e;</i>
+            <i class="iconfont iconcontract blue" :title="this.$t('contract.contract')">&#xe63e;</i>
             <span>Create Contract</span>
             <span
               class="cursor normal ellipsis"
@@ -1082,6 +1082,7 @@ export default {
 }
 .iconcontract {
   font-size: 10px;
+  cursor: default;
 }
 .Gilroy-Bold {
   font-weight: bold;
