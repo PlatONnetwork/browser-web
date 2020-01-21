@@ -188,6 +188,10 @@ export default {
       padding: 0 20px 0 20px;
       position: relative;
       margin-left: 10px;
+      font-family: Gilroy-Medium;
+      font-size: 16px;
+      color: #000000;
+      letter-spacing: 0;
       &::after {
         content: "";
         position: absolute;

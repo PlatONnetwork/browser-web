@@ -252,12 +252,15 @@
           </template>
         </el-table-column> -->
         <!-- TODO预计年化收益率 -->
-        <el-table-column :label="$t('nodeInfo.yield')" v-if="type != 'history'">
+        <el-table-column
+          :label="$t('nodeInfo.yield3')"
+          v-if="type != 'history'"
+        >
           <template slot="header">
-            <span class="tipsTitle"> {{ $t("nodeInfo.yield") }}</span>
+            <span class="tipsTitle"> {{ $t("nodeInfo.yield3") }}</span>
             <el-tooltip placement="bottom" :hide-after="0">
               <div slot="content" class="long-tips">
-                {{ $t("nodeInfo.node1Tips") }}
+                {{ $t("nodeInfo.node2Tips") }}
               </div>
               <img
                 class="tipsImg"
@@ -282,7 +285,7 @@
             <span class="tipsTitle"> {{ $t("nodeInfo.delegatedYield") }}</span>
             <el-tooltip placement="bottom">
               <div slot="content" class="long-tips">
-                {{ $t("nodeInfo.node2Tips") }}
+                {{ $t("nodeInfo.node1Tips") }}
               </div>
               <img
                 class="tipsImg"

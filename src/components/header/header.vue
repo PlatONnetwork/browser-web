@@ -26,16 +26,18 @@
         </el-menu-item>
         <el-menu-item
           index="/trade"
-          :class="{ active: $route.path.indexOf('trade') > -1 }"
+          :class="{
+            active:
+              $route.path.indexOf('trade') > -1 ||
+              $route.path.indexOf('address') > -1
+          }"
         >
           <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
         </el-menu-item>
         <el-menu-item
           index="/node"
           :class="{
-            active:
-              $route.path.indexOf('node') > -1 ||
-              $route.path.indexOf('address') > -1
+            active: $route.path.indexOf('node') > -1
           }"
         >
           <router-link to="/node">{{ $t("menu.validator") }}</router-link>

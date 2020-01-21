@@ -17,6 +17,8 @@
     >
       {{ prop }}
     </p>
+    <slot name="tipHeader">
+    </slot>
     <slot></slot>
   </div>
 </template>
@@ -75,7 +77,8 @@ export default {
     font-size: 13px;
     color: #666;
     // line-height: 15px;
-    width: 135px;
+    width: auto;
+    min-width: 160px;
     font-family: Gilroy-Medium;
   }
   p {
@@ -94,7 +97,6 @@ export default {
     font-size: 13px;
     color: #666;
     line-height: 15px;
-    width: 135px;
     font-family: Gilroy-Medium;
   }
   p {

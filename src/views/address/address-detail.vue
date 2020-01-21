@@ -71,11 +71,9 @@
             <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium"
-                  >{{ $t("contract.staking") }}/{{
-                    $t("contract.delegations")
-                  }}</label
-                >
+                <label class="Gilroy-Medium">{{
+                  $t("contract.stackingAndDelegations")
+                }}</label>
                 <div class="money">
                   <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
                   {{ detailInfo.stakingValue | formatMoney }}&nbsp;LAT
@@ -139,19 +137,19 @@
       <div class="address-delegation" v-show="tabIndex == 2">
         <ul>
           <!-- 总计委托 -->
-          <li>
+          <li class="buleborder">
             <span>{{ detailInfo.delegateValue | formatMoney }}</span>
             <p>{{ $t("contract.totalDelegated") }}(LAT)</p>
           </li>
-          <li>
+          <li class="buleborder">
             <span>{{ detailInfo.candidateCount | formatMoney }}</span>
             <p>{{ $t("deleget.validators") }}</p>
           </li>
-          <li>
+          <li class="buleborder">
             <span>{{ detailInfo.delegateLocked | formatMoney }}</span>
             <p>{{ $t("deleget.lockedDelegate") }}(LAT)</p>
           </li>
-          <li>
+          <li class="buleborder">
             <span>{{ detailInfo.delegateHes | formatMoney }}</span>
             <p>{{ $t("deleget.unlockedDelegate") }}(LAT)</p>
           </li>
@@ -429,6 +427,9 @@ export default {
 }
 .money {
   color: #000;
+  font-size: 15px;
+  font-family: Gilroy-Regular;
+  letter-spacing: 0;
 }
 .code {
   position: relative;
@@ -452,10 +453,11 @@ export default {
     margin-top: 20px;
     text-align: center;
     li {
-      border: 1px solid #e9e9e9;
+      border: 1px dashed #0798de;
       border-radius: 2px;
       margin-right: 20px;
       padding: 5px 10px;
+      text-align: left;
       span {
         font-size: 18px;
         font-family: Gilroy-Medium;

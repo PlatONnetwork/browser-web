@@ -382,7 +382,18 @@
           </div>
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
-              <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
+              <Item :vertical="true">
+                <div slot="tipHeader">
+                  <label>
+                    {{ $t("nodeInfo.rewardRatio") }}
+                  </label>
+                  <el-tooltip placement="bottom" class="item" effect="dark">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t("nodeInfo.ratioTips") }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </div>
                 <p>
                   <span class="Gilroy-Medium fontSize18">{{
                     detailInfo.rewardPer
@@ -437,7 +448,7 @@
                   <span class="black fontSize13">{{
                     detailInfo.delegateValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13 lat-mini">&nbsp;LAT</span>
+                  <span class="fontSize13 lat-mini"></span>
                 </p>
               </Item>
               <Item
@@ -473,7 +484,7 @@
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node1Tips") }}
+                  {{ $t("nodeInfo.node2Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -488,7 +499,7 @@
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node2Tips") }}
+                  {{ $t("nodeInfo.node1Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -605,7 +616,7 @@
               >
               <span class="lightgray" v-else>Null</span>
             </Item>
-            <Item :label="$t('tradeAbout.rewardRatio')">
+            <Item :label="$t('nodeInfo.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
               <span v-else class="fontSize14 Gilroy-Medium"
                 >{{ detailInfo.rewardPer }} %</span

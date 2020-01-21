@@ -22,7 +22,7 @@
           class="item"
           effect="dark"
           placement="top"
-          :content="$t('blockAbout.lookLast')"
+          :content="$t('blockAbout.viewPrev')"
         >
           <el-button
             icon="el-icon-arrow-left"
@@ -34,7 +34,7 @@
           class="item"
           effect="dark"
           placement="top"
-          :content="$t('blockAbout.lookNext')"
+          :content="$t('blockAbout.viewNext')"
         >
           <el-button
             icon="el-icon-arrow-right"
