@@ -74,11 +74,9 @@
             <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium"
-                  >{{ $t("contract.staking") }}/{{
-                    $t("contract.delegations")
-                  }}</label
-                >
+                <label class="Gilroy-Medium">{{
+                  $t("contract.stackingAndDelegations")
+                }}</label>
                 <div class="money">
                   <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
                   {{ detailInfo.stakingValue | formatMoney }}&nbsp;LAT
@@ -152,7 +150,6 @@
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
-
     </div>
   </div>
 </template>
@@ -267,6 +264,9 @@ export default {
       cursor: pointer;
     }
   }
+  font-size: 15px;
+  font-family: Gilroy-Regular;
+  letter-spacing: 0;
 }
 .code {
   position: relative;
@@ -284,7 +284,6 @@ export default {
     display: block;
   }
 }
-
 .contract-detail-top {
   padding-bottom: 30px;
 }

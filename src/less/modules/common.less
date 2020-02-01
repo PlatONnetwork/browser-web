@@ -36,16 +36,16 @@ body {
   box-sizing: border-box;
   // width:1400px;
   height: auto;
-  min-height: 820px;
-  min-height: calc(100% - 80px);
   padding: 0 5.2%;
   // padding-top:100px;
+  min-height: calc(100vh - 110px);
   padding-top: 86px;
 }
 .content-area.gray-area {
   padding-left: 0;
   padding-right: 0;
   background: #fbfbfc;
+  min-height: calc(100vh - 110px);
   .content-top-white {
     background: #fff;
   }
@@ -65,9 +65,9 @@ body {
   }
 }
 @media screen and (min-height: 950px) {
-  .content-area {
-    min-height: 900px;
-  }
+  // .content-area {
+  //   min-height: 900px;
+  // }
 }
 @media screen and (max-width: 1200px) {
   .content-area {
@@ -472,13 +472,14 @@ body {
       display: flex;
       justify-content: space-between;
       font-size: 14px;
-      color: #666666;
+      color: #000;
       padding: 14px 20px 11px;
       border-bottom: 1px solid #f5f5f5;
       line-height: 16px;
       label{
         flex-shrink: 0;
       }
+      letter-spacing: 0;
     }
   }
 }
@@ -543,7 +544,7 @@ body {
   }
 }
 .delegate-msg {
-  max-width: 350px;
+  max-width: 346px;
   text-align: left;
 }
 .address-icon {
@@ -642,9 +643,9 @@ body {
 }
 
 .long-tips {
-  width: 346px;
+  max-width: 346px;
 }
 
-.tabs .el-button--default{
+.tabs .el-button--default {
   padding-top: 11px !important;
 }

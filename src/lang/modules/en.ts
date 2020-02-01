@@ -99,7 +99,7 @@ export default {
     no: "NO",
     abstain: "ABSTAIN",
     currentParticipationrate: "Current participation rate",
-    participationRate: "(Requirements>50%)",
+    participationRate: "Requirements>",
     NumberOfVotes: "Number of votes",
     passCondition: "Pass Condition",
     voteUpgradeNumber: "Vote upgrade number",
@@ -150,8 +150,8 @@ export default {
     before: "ago",
 
     txInfo: "Tx Info",
-    viewLeft: "View the previous transaction",
-    viewRight: "View the latter transaction",
+    viewLeft: "View Previous Transaction",
+    viewRight: "View Next Transaction",
     transfer: "Transfer",
     information: "Information", //Transaction
     other: "ContractCreation\\ContractExecution\\MPCTx\\Others",
@@ -200,9 +200,9 @@ export default {
     rewardAmount: "Reward Amount",
     rewardDetails: "Reward details",
 
-    rewardRatio: "rewardRatio",
-    claimTime: "claimTime",
-    delegateReward: "delegateReward",
+    rewardRatio: "Delegated Reward Ratio",
+    claimTime: "Claim Time",
+    delegateReward: "Reward Amount",
     totalClaimedReward: "Total claimed reward",
 
     fromNode: "From",
@@ -236,6 +236,7 @@ export default {
     delegations: "Delegations",
     staking: "Stakes",
     inRedemption: "Undelegating", //In redemption
+    stackingAndDelegations: "Delegations/Staking",
 
     restrictedBalance: "Restricted Balance",
     forDelegations: "For Delegations\\Staking",
@@ -282,7 +283,7 @@ export default {
     DelegateRecord: "Delegation record",
     DelegateRecordWaiting: "Delegate record waiting for withdrawal",
 
-    rewardReceiveDetails: "rewardDetails",
+    rewardReceiveDetails: "Reward details",
     totalReceiveReward: "Total claimed reward",
     unclaimedReward: "Unclaimed Reward",
     unclaimedRewardMsg: "Delegated LATs，Receivable rewards."
@@ -304,7 +305,9 @@ export default {
     blockInformation: "Block Information",
     operatorAddress: "Operator_Address",
     lookNext: "Look at the next block",
-    lookLast: "Look at the last block",
+    lookLast: "Look at the previous block",
+    viewPrev: "View Previous Block",
+    viewNext: "View Next Block",
     totalProduced: "Total Produced"
   },
   download: {
@@ -376,6 +379,7 @@ export default {
     totalNodeReward: "Total Node Reward",
     yield: "Yield",
     yield2: "Yield",
+    yield3: "Validator Yield",
     stability: "Stability",
     selfstake: "Self-stake",
     nodeInfo: "Node Info",
@@ -425,7 +429,10 @@ export default {
     freezing: "freezing",
     undelegating: "undelegating",
     information: "information",
-    rewardRatio: "Delegated reward ratio"
+    rewardRatio: "Delegated Reward Ratio",
+
+    ratioTips:
+      "Proportion of rewards distributed by the node to the delegators."
   },
   nodeStatus: {
     1: "Candidate",

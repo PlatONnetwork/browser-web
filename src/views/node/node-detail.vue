@@ -382,7 +382,18 @@
           </div>
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
-              <Item :vertical="true" :label="$t('tradeAbout.rewardRatio')">
+              <Item :vertical="true">
+                <div slot="tipHeader">
+                  <label>
+                    {{ $t("nodeInfo.rewardRatio") }}
+                  </label>
+                  <el-tooltip placement="bottom" class="item" effect="dark">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t("nodeInfo.ratioTips") }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </div>
                 <p>
                   <span class="Gilroy-Medium fontSize18">{{
                     detailInfo.rewardPer
@@ -437,7 +448,7 @@
                   <span class="black fontSize13">{{
                     detailInfo.delegateValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13 lat-mini">&nbsp;LAT</span>
+                  <span class="fontSize13 lat-mini"></span>
                 </p>
               </Item>
               <Item
@@ -473,7 +484,7 @@
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node1Tips") }}
+                  {{ $t("nodeInfo.node2Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -488,7 +499,7 @@
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node2Tips") }}
+                  {{ $t("nodeInfo.node1Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -603,9 +614,9 @@
                 target="_blank"
                 >{{ detailInfo.website }}</a
               >
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
-            <Item :label="$t('tradeAbout.rewardRatio')">
+            <Item :label="$t('nodeInfo.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
               <span v-else class="fontSize14 Gilroy-Medium"
                 >{{ detailInfo.rewardPer }} %</span
@@ -619,11 +630,11 @@
                 target="_blank"
                 >{{ detailInfo.externalId }}</a
               >
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
             <Item :label="$t('tradeAbout.introduction')">
               <span v-if="detailInfo.details">{{ detailInfo.details }}</span>
-              <span class="lightgray" v-else>null</span>
+              <span class="lightgray" v-else>Null</span>
             </Item>
           </List>
         </div>
@@ -696,7 +707,7 @@
               key="firstTable"
               size="mini"
             >
-              <el-table-column :label="$t('common.time')" width="300">
+              <el-table-column :label="$t('common.time')" width="260">
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
@@ -773,7 +784,10 @@
                           } LAT), Remove the Validator List`
                     }}
                   </p>
-                  <p class="percent80" v-else-if="scope.row.type == 7">
+                  <p
+                    class="percent80"
+                    v-else-if="scope.row.type == 7 && scope.row.percent == 0"
+                  >
                     {{
                       lang == "zh"
                         ? `${$t(
@@ -782,6 +796,22 @@
                         : `${$t(
                             "actionType." + [scope.row.type]
                           )}-Remove the Validator List`
+                    }}
+                  </p>
+                  <p
+                    class="percent80"
+                    v-else-if="scope.row.type == 7 && scope.row.percent > 0"
+                  >
+                    {{
+                      lang == "zh"
+                        ? `${$t(
+                            "actionType." + [scope.row.type]
+                          )}-扣除自有质押(${
+                            scope.row.amount
+                          }LAT)，移出验证节点列表`
+                        : `${$t("actionType." + [scope.row.type])}(${
+                            scope.row.amount
+                          } LAT) from self-stake, Remove the Validator List`
                     }}
                   </p>
                 </template>
@@ -1020,7 +1050,7 @@ export default {
       pageSize3: 20,
       pageTotal3: 0,
 
-      tableDelegetData: [],
+      rewardTableData: [],
       currentPage5: 1,
       pageSize5: 20,
       pageTotal5: 0,
@@ -1051,24 +1081,36 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
+    handleRewardSizeChange(size) {
+      this.currentPage5 = 1;
+      this.pageSize5 = size;
+      this.getRewardData();
+    },
+    handleRewardCurrentChange(page) {
+      this.currentPage5 = page;
+      this.getRewardData();
+    },
     //奖励领取明细
     getRewardData() {
       let param = {
+        pageNo: this.currentPage5,
+        pageSize: this.pageSize5,
         nodeId: this.address
       };
+      let self = this;
       apiService.node
         .queryClaimByStaking(param)
         .then(res => {
           let { errMsg, code, data, totalCount } = res;
           if (code == 0) {
-            this.rewardTableData = data;
-            this.pageTotal5 = totalCount;
+            self.rewardTableData = [...data];
+            self.pageTotal5 = totalCount;
           } else {
-            this.$message.error(errMsg);
+            self.$message.error(errMsg);
           }
         })
         .catch(error => {
-          this.$message.error(error);
+          self.$message.error(error);
         });
     },
     //获取详情
@@ -1438,7 +1480,7 @@ export default {
   .stability-wrap {
     display: flex;
     width: 85%;
-    margin-top: 4px;
+    margin-top: 16px;
     .self-tooltip p {
       font-size: 12px;
     }

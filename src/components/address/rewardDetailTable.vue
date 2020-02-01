@@ -44,7 +44,10 @@
             v-for="(ele, $index) in item.rewardsDetails"
             :key="$index"
           >
-            <div class="td-title cursor normal ellipsis">
+            <div
+              @click="goToNodeFn(ele.verify)"
+              class="td-title cursor normal ellipsis"
+            >
               {{ ele.nodeName }}
             </div>
             <div class="td-content">
@@ -54,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div v-if="rewardTableData.length == 0" class="pagination-box">
+    <div v-if="rewardTableData.length !== 0" class="pagination-box">
       <el-pagination
         background
         :total="totalNum"
@@ -195,6 +198,10 @@ export default {
       padding: 0 20px 0 20px;
       position: relative;
       margin-left: 10px;
+      font-family: Gilroy-Medium;
+      font-size: 16px;
+      color: #000000;
+      letter-spacing: 0;
       &::after {
         content: "";
         position: absolute;

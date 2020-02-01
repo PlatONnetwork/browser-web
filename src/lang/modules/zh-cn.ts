@@ -99,7 +99,7 @@ export default {
     no: "NO",
     abstain: "ABSTAIN",
     currentParticipationrate: "当前参与率",
-    participationRate: "(要求>50%)",
+    participationRate: "要求>",
     NumberOfVotes: "投票数",
     passCondition: "通过条件",
     voteUpgradeNumber: "投票升级数",
@@ -236,6 +236,7 @@ export default {
     delegations: "委托",
     staking: "质押",
     inRedemption: "赎回中",
+    stackingAndDelegations: "质押/委托中",
 
     restrictedBalance: "锁仓余额",
     forDelegations: "锁仓质押\\委托",
@@ -373,6 +374,7 @@ export default {
     totalNodeReward: "累计节点奖励",
     yield: "预计年化收益率",
     yield2: "年化率",
+    yield3: "预计节点年化率",
     stability: "稳定性",
     selfstake: "自有质押",
     nodeInfo: "节点信息",
@@ -423,7 +425,9 @@ export default {
     freezing: "待解锁",
     undelegating: "待赎回",
     information: "信息",
-    rewardRatio: "委托奖励比例"
+    rewardRatio: "委托奖励比例",
+
+    ratioTips: " 节点收益(出块奖励，质押奖励)分配给委托者的奖励比例。"
   },
   nodeStatus: {
     1: "候选中",

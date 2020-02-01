@@ -267,7 +267,7 @@
               v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1"
             >({{$t('tradeAbout.undelegat')}})</span> -->
             <!-- 2：赎回成功 -->
-            <span>({{ $t("tradeAbout.successed1") }})</span>
+            <span class="letUp">({{ $t("tradeAbout.successed1") }})</span>
           </template>
         </Item>
         <!-- 领取奖励数 -->
@@ -305,10 +305,14 @@
         <Item :label="$t('tradeAbout.rewardDetails')">
           <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
           <div>
+            <span class="lightgray" v-if="detailInfo.rewards.length == 0">
+              Null
+            </span>
             <p
-              style="width:100%;margin-bottom:12px;"
+              style="width:100%"
               v-for="item in detailInfo.rewards"
               :key="item.verify"
+              v-else
             >
               <span>{{ $t("tradeAbout.fromNode") }}</span>
               <!-- 从xxx节点 此处需要做样式-->
@@ -318,7 +322,7 @@
                 >{{ item.nodeName }}</span
               >
               <span class="rewardGap">{{ $t("tradeAbout.claimRewards") }}</span>
-              <span class="rewardGap">
+              <span class="rewardGap Gilroy-Medium">
                 {{ item.reward | formatMoney }} LAT</span
               >
             </p>
@@ -1109,9 +1113,12 @@ export default {
   }
 }
 .trade-detail-wrap .list-item label {
-  width: 140px !important;
+  width: 173px !important;
 }
 .rewardGap {
-  padding-left: 15px;
+  padding-left: 5px;
+}
+.letUp {
+  line-height: 17px;
 }
 </style>

@@ -285,9 +285,9 @@
     <div class="other-progress" v-else>
       <div class="join-progress">
         {{ $t("tradeAbout.currentParticipationrate") }}：
-        <span class="Gilroy-Medium fontSize13"
-          >{{ detailData.participationRate }}
-          {{ $t("tradeAbout.participationRate") }}</span
+        <span class="Gilroy-Medium fontSize13">
+          {{ curRatio }}% ({{ $t("tradeAbout.participationRate")
+          }}{{ detailData.participationRate }})</span
         >
       </div>
       <div
@@ -519,6 +519,7 @@ export default {
     return {
       newRecordFlag: false,
       paginationFlag: true,
+      curRatio: "",
       tableData: [],
       currentPage: 1,
       pageSize: 20,
@@ -589,6 +590,9 @@ export default {
         this.detailData = data;
         const voteCount = data.yeas + data.nays + data.abstentions;
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
+        this.curRatio = (
+          Number(voteCount) / Number(data.accuVerifiers)
+        ).toFixed(2);
         if (voteCount == 0) {
           tmpYesPercentage = 0;
           tmpNoPercentage = 0;
