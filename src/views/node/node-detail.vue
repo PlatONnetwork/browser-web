@@ -823,7 +823,7 @@
                     v-if="scope.row.type != 6 && scope.row.type != 7"
                     @click="goTradeDetail(scope.row.txHash)"
                   >
-                    {{ scope.row.txHash }}
+                    {{ scope.row.txHash | sliceStr(20)}}
                   </p>
                   <span class="gray" v-else>{{
                     $t("nodeInfo.systemOperation")
@@ -877,7 +877,7 @@
                     class="blue cursor percent60 ellipsis"
                     @click="goAddressDetail(scope.row.delegateAddr)"
                   >
-                    {{ scope.row.delegateAddr }}
+                    {{ scope.row.delegateAddr | sliceStr(16) }}
                   </p>
                 </template>
               </el-table-column>
@@ -970,7 +970,7 @@
                   <span
                     class="blue cursor percent60 ellipsis"
                     @click="goTradeDetail(scope.row.hash)"
-                    >{{ scope.row.hash }}</span
+                    >{{ scope.row.hash | sliceStr(20) }}</span
                   >
                 </template>
               </el-table-column>
@@ -979,7 +979,7 @@
                   <span
                     class="blue cursor percent60 ellipsis"
                     @click="goAddressDetail(scope.row.addr)"
-                    >{{ scope.row.addr }}</span
+                    >{{ scope.row.addr | sliceStr(16) }}</span
                   >
                 </template>
               </el-table-column>
