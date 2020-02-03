@@ -592,7 +592,7 @@ export default {
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
         this.curRatio = (
           Number(voteCount) / Number(data.accuVerifiers)
-        ).toFixed(2);
+        ).toFixed(2)*100;
         if (voteCount == 0) {
           tmpYesPercentage = 0;
           tmpNoPercentage = 0;
