@@ -304,6 +304,8 @@ export default {
     blockInformation: "区块信息",
     lookNext: "查看下一个区块",
     lookLast: "查看上一个区块",
+    viewPrev: "查看上一个区块",
+    viewNext: "查看下一个区块",
     totalProduced: "累计出块"
   },
   download: {
