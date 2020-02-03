@@ -476,7 +476,7 @@
               class="cursor blue percent60 ellipsis"
               @click="goTradeDetail(scope.row.txHash)"
             >
-              {{ scope.row.txHash }}
+              {{ scope.row.txHash | sliceStr(20) }}
             </p>
           </template>
         </el-table-column>
