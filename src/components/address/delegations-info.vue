@@ -152,7 +152,10 @@
 import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 export default {
-  props:['detailInfo'],
+  props: {
+    address: String,
+    detailInfo: Object
+  },
   data(){
     return{
       currentPage: 1,
