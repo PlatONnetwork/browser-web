@@ -8,7 +8,7 @@
       }}</span>
     </div>
 
-    <!-- 分类删选tab -->
+    <!-- 分类筛选tab -->
     <div class="trade-tab-wrap">
       <ul class="trade-tab">
         <li
