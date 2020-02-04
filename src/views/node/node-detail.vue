@@ -484,7 +484,7 @@
               <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node2Tips") }}
+                  {{ $t("nodeInfo.node1Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -499,7 +499,7 @@
               <!-- <img src="@/assets/images/icon-quest.svg" /> -->
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node1Tips") }}
+                  {{ $t("nodeInfo.node2Tips") }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -544,7 +544,7 @@
         >
       </div>
       <div class="node-detail-content">
-        <div v-show="tabIndex == 1">
+        <div v-show="tabIndex == 1" class="basicInfo">
           <h3 class="nodeInfo">{{ $t("nodeInfo.basicInfo") }}</h3>
           <List>
             <Item :label="$t('nodeInfo.nodeID')">
