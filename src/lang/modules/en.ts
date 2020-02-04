@@ -198,7 +198,7 @@ export default {
 
     claimRewards: "ClaimRewards",
     rewardAmount: "Reward Amount",
-    rewardDetails: "Reward details",
+    rewardDetails: "Reward Details",
 
     rewardRatio: "Delegated Reward Ratio",
     claimTime: "Claim Time",
@@ -283,7 +283,7 @@ export default {
     DelegateRecord: "Delegation record",
     DelegateRecordWaiting: "Delegate record waiting for withdrawal",
 
-    rewardReceiveDetails: "Reward details",
+    rewardReceiveDetails: "Reward Details",
     totalReceiveReward: "Total claimed reward",
     unclaimedReward: "Unclaimed Reward",
     unclaimedRewardMsg: "Delegated LATs，Receivable rewards."
