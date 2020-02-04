@@ -418,9 +418,9 @@ export default {
     officialRecommendation: "Official Recommendation",
 
     delegatedYield: "delegated Yield",
-    node2Tips:
-      "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
     node1Tips:
+      "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
+    node2Tips:
       "Delegator annualized rate of return for each delegated net income in the last 4 epochs，For reference only！",
     totalDelegatedReward: "Total Delegated Reward",
     delegatorNum: "Delegators",

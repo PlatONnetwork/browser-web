@@ -101,6 +101,7 @@
               ? $t('nodeInfo.validatorName')
               : $t('nodeInfo.name')
           "
+          :width="150"
         >
           <!-- TODO历史节点 table -->
           <template slot-scope="scope">
@@ -249,12 +250,16 @@
           </template>
         </af-table-column> -->
         <!-- TODO预计年化收益率 -->
-        <af-table-column :label="$t('nodeInfo.yield3')" v-if="type != 'history'">
-          <template slot="header">
+        <af-table-column 
+          :label="$t('nodeInfo.yield3')" 
+          v-if="type != 'history'"
+          label-class-name="yield3"
+          :render-header="renderHeader">
+          <!-- <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield3") }}</span>
             <el-tooltip placement="bottom" :hide-after="0">
               <div slot="content" class="long-tips">
-                {{ $t("nodeInfo.node2Tips") }}
+                {{ $t("nodeInfo.node1Tips") }}
               </div>
               <img
                 class="tipsImg"
@@ -262,7 +267,7 @@
                 alt="tips"
               />
             </el-tooltip>
-          </template>
+          </template> -->
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit"
               >{{ scope.row.expectedIncome }}%</span
@@ -274,12 +279,14 @@
         <af-table-column
           :label="$t('nodeInfo.delegatedYield')"
           v-if="type != 'history'"
+          label-class-name="delegatedYield"
+          :render-header="renderHeader"
         >
-          <template slot="header">
+          <!-- <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.delegatedYield") }}</span>
             <el-tooltip placement="bottom">
               <div slot="content" class="long-tips">
-                {{ $t("nodeInfo.node1Tips") }}
+                {{ $t("nodeInfo.node2Tips") }}
               </div>
               <img
                 class="tipsImg"
@@ -287,7 +294,7 @@
                 alt="tips"
               />
             </el-tooltip>
-          </template>
+          </template> -->
           <template slot-scope="scope">
             <span class="Gilroy-Medium" v-if="!scope.row.isInit"
               >{{ scope.row.deleAnnualizedRate }}%</span
@@ -324,6 +331,7 @@
 import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 import API from "@/config/API-config";
+import IconImg from "@/assets/images/icon-quest.svg";
 
 export default {
   name: "Validator",
@@ -350,6 +358,38 @@ export default {
   watch: {},
   components: {},
   methods: {
+  renderHeader (h,{column,$index}) {
+    let tooltipsInfo = ''
+    if(column.labelClassName =="yield3"){
+      //预计年化收益率
+      tooltipsInfo = this.$t("nodeInfo.node1Tips");
+    }
+    else if(column.labelClassName =="delegatedYield" ){
+      //预计委托年化率
+      tooltipsInfo = this.$t("nodeInfo.node2Tips");
+    }
+    return h(
+        'div',[
+             h('span', column.label),
+             h('el-tooltip',{
+  　　　　      props:{
+  　　　　　　　　content:tooltipsInfo,
+  　　　　　　　　placement:'bottom'
+    　　　　　　},　　　
+      　　　　 },[
+                h('img', {
+                  class:'tipsImg',
+                  attrs:{
+                      src:IconImg,
+                      alt:'tips'
+                  }
+                })
+              ],{
+                  content: tooltipsInfo
+              })
+            ]
+      );
+    },
     tabChange(index, type) {
       this.tabIndex = index;
       this.queryStatus = type;
