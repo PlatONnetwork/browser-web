@@ -302,10 +302,10 @@ export default {
     blockDetail: "区块详情",
     operatorAddress: "操作地址",
     blockInformation: "区块信息",
-    lookNext: "查看下一个区块",
-    lookLast: "查看上一个区块",
-    viewPrev: "查看上一个区块",
-    viewNext: "查看下一个区块",
+    lookNext: "查看后一个区块",
+    lookLast: "查看前一个区块",
+    viewPrev: "查看前一个区块",
+    viewNext: "查看后一个区块",
     totalProduced: "累计出块"
   },
   download: {
