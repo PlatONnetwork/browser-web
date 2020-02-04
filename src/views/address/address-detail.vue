@@ -141,6 +141,7 @@
       <delegation-info
         v-show="tabIndex == 2"
         :detailInfo="detailInfo"
+        :address="address"
       ></delegation-info>
 
       <!-- 奖励领取明细 -->

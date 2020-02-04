@@ -95,11 +95,21 @@
           <div class="isContract" v-if="detailInfo.receiveType == '1'">
             <i class="iconfont iconcontract blue" :title="this.$t('contract.contract')">&#xe63e;</i>
             <span>Contract</span>
+            <!-- 如果是有合约名称的系统合约  显示合约名称 -->
             <span
+              class="cursor normal ellipsis"
+              v-if="detailInfo.contractType == 0 && detailInfo.contractName"
+              @click="goContractDetail(detailInfo.to)"
+              >{{ detailInfo.contractName }}
+            </span>
+            <!-- 否则显示合约地址 -->
+            <span
+              v-else
               class="cursor normal ellipsis"
               @click="goContractDetail(detailInfo.to)"
               >{{ detailInfo.to }}
             </span>
+            
           </div>
         </Item>
 
