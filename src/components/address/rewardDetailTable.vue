@@ -247,4 +247,15 @@ export default {
   align-items: center;
   margin: 60px auto;
 }
+.address-trade-last{
+  color: #333;
+  font-family: Gilroy-Regular;
+  font-size: 14px;
+  line-height: 16px;
+  span{
+    font-family: Gilroy-Medium;
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
 </style>

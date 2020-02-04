@@ -235,6 +235,7 @@ export default {
       border-radius: 2px;
       margin-right: 20px;
       padding: 5px 10px;
+      text-align: left;
       span {
         font-size: 18px;
         font-family: Gilroy-Medium;
