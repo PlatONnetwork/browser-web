@@ -207,7 +207,8 @@ export default {
 
     fromNode: "From",
     changedTo: "changed to",
-    noData: "No data"
+    noData: "No data",
+    noProposalData:"No proposal record"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",

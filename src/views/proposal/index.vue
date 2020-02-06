@@ -9,7 +9,7 @@
     </div>
 
     <div class="table" :class="{'no-data':!tableData.length}">
-      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
+      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini" :empty-text="$t('tradeAbout.noProposalData')">
         <el-table-column :label="$t('tradeAbout.PIPSN')">
           <template slot-scope="scope">
             <span style="font-weight:bold;">
