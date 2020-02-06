@@ -725,8 +725,7 @@
                     {{ $t("actionType." + [scope.row.type]) }}
                   </p>
                   <p class="percent80" v-if="scope.row.type == 2">
-                    {{ $t("actionType." + [scope.row.type]) }}
-                    {{ $t("nodeInfo.information") }}
+                    {{ $t("actionType." + [scope.row.type]) }}{{ $t("nodeInfo.information") }}
                     <span v-if="!!scope.row.beforeRate"
                       >- {{ $t("nodeInfo.rewardRatio") }}
                       {{ scope.row.beforeRate }}%
