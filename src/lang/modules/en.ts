@@ -237,7 +237,7 @@ export default {
     delegations: "Delegations",
     staking: "Stakes",
     inRedemption: "Undelegating", //In redemption
-    stackingAndDelegations: "Delegations/Staking",
+    stackingAndDelegations: "Stakes/Delegations",
 
     restrictedBalance: "Restricted Balance",
     forDelegations: "For Delegations\\Staking",
