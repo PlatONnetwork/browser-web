@@ -446,7 +446,7 @@ export default {
   // 交易类型
   TxType: {
     0: "Transfer", //'转账',
-    1: "Create Proposal", //'创建提案',
+    1: "ContractCreation", //'创建提案','合约创建',
     2: "ContractExecution", //'合约执行',
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
