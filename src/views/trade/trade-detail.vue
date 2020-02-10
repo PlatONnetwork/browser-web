@@ -93,7 +93,14 @@
           </span>
           <!-- 如果是合约显示 -->
           <div class="isContract" v-if="detailInfo.receiveType == '1'">
-            <i class="iconfont iconcontract blue" :title="this.$t('contract.contract')">&#xe63e;</i>
+            <template>
+              <el-tooltip class="item" effect="dark" placement="bottom">
+                <div slot="content" class="delegate-msg">
+                  {{ $t('contract.contract') }}
+                </div>
+               <i class="iconfont iconcontract blue">&#xe63e;</i>
+              </el-tooltip>
+            </template>
             <span>Contract</span>
             <!-- 如果是有合约名称的系统合约  显示合约名称 -->
             <span
@@ -179,8 +186,16 @@
         <Item :label="$t('contract.contract')">
           <!-- 合约创建 -->
           <div class="isContract" v-if="detailInfo.txReceiptStatus == 1">
-            <i class="iconfont iconcontract blue" :title="this.$t('contract.contract')">&#xe63e;</i>
-            <span>Create Contract</span>
+            <template>
+              <el-tooltip class="item" effect="dark" placement="bottom">
+                <div slot="content" class="delegate-msg">
+                  {{ $t('contract.contract') }}
+                </div>
+               <i class="iconfont iconcontract blue">&#xe63e;</i>
+              </el-tooltip>
+            </template>
+            <span v-if="detailInfo.txType == 1">Create Contract</span>
+            <span v-else-if="detailInfo.txType == 2">Invoke Contract</span>
             <span
               class="cursor normal ellipsis"
               @click="goContractDetail(detailInfo.to)"

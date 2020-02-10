@@ -2,16 +2,17 @@
   <div class="address-trade-last contract-tab-wrap">
     <p>
       {{ $t("contract.contractType") }} :
-      {{ contractTypeTitle(detailInfo.type) }}
+      <span class="contract-name">{{ contractTypeTitle(detailInfo.type) }}</span>
     </p>
 
     <!-- 自毁合约 -->
     <div v-if="detailInfo.isDestroy == 1" class="warn-info">
       <img src="../../assets/images/icon-contract.svg" alt="" />
       <span class="yellow">{{ $t("contract.warn") }}:</span>
-      <span class="trad-hash" @click="goTradeDetail(detailInfo.destroyHash)">{{
-        detailInfo.destroyHash
-      }}</span>
+      &nbsp;
+      <span class="trad-hash" @click="goTradeDetail(detailInfo.destroyHash)">
+        {{ detailInfo.destroyHash }}
+      </span>
     </div>
 
     <!-- 系统合约 -->
@@ -73,6 +74,11 @@ export default {
 .contract-tab-wrap {
   p {
     margin-bottom: 20px;
+  }
+  .contract-name{
+    font-family: Gilroy-Medium;
+    font-size: 14px;
+    color: #151515;
   }
   b {
     font-size: 16px;
