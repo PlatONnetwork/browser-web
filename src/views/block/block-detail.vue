@@ -223,6 +223,10 @@ export default {
           height: height
         }
       });
+      
+      this.disabledLeft = true;
+      this.disabledRight = true;
+
       this.getDetail();
       this.$nextTick(() => {
         this.$refs.blockTrade.getTradeList(1);
