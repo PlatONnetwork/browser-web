@@ -106,7 +106,7 @@ export default {
     getPercentage() {
       if (this.ValidatorStatisticData.addIssueEnd) {
         const x =
-          this.accMul(
+          this.accDiv(
             this.accSub(this.ValidatorStatisticData.currentNumber,this.ValidatorStatisticData.addIssueBegin),
             this.accSub(this.ValidatorStatisticData.addIssueEnd,this.ValidatorStatisticData.addIssueBegin)
             ) * 100;
@@ -181,6 +181,17 @@ export default {
       try { times += this.countDecimals(s2); } catch (e) { }
       var result = this.convertToInt(s1) * this.convertToInt(s2) / Math.pow(10, times);
       return this.getCorrectResult("mul", num1, num2, result);
+    },
+    accDiv (num1, num2) {
+      num1 = Number(num1);
+      num2 = Number(num2);
+      var t1 = 0, t2 = 0, dec1, dec2;
+      try { t1 = this.countDecimals(num1); } catch (e) { }
+      try { t2 = this.countDecimals(num2); } catch (e) { }
+      dec1 = this.convertToInt(num1);
+      dec2 = this.convertToInt(num2);
+      var result = this.accMul((dec1 / dec2), Math.pow(10, t2 - t1));
+      return this.getCorrectResult("div", num1, num2, result);
     },
     countDecimals (num) {
         var len = 0;
