@@ -374,7 +374,7 @@ export default {
     blockRate: "出块率",
     totalStakePower: "总质押",
     totalReward: "累计奖励",
-    totalNodeReward: "累计节点奖励",
+    totalNodeReward: "累计系统奖励",
     yield: "预计年化收益率",
     yield2: "年化率",
     yield3: "预计节点年化率",

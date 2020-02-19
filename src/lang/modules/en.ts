@@ -377,7 +377,7 @@ export default {
     blockRate: "Block Rate",
     totalStakePower: "Total Stake",
     totalReward: "Total Reward",
-    totalNodeReward: "Total Node Reward",
+    totalNodeReward: "Total System Reward",
     yield: "Yield",
     yield2: "Yield",
     yield3: "Validator Yield",
