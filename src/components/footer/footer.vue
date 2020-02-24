@@ -19,7 +19,7 @@
             <div class="foot-tabs">
                 <span><a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
                 <span><a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a></span>
-                <span><a :href="'https://www.platon.network/build-on-PlatON?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
+                <span><a :href="'https://developer.platon.network/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
                 <span class="tab-last"><a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>  
             </div>
             <div class="foot-line">
@@ -30,7 +30,10 @@
             <p>{{$t('indexInfo.platScan')}}</p>
             <p>{{$t('indexInfo.international')}}</p>
             <div class="link-wrap">
-                <a href="https://t.me/PlatONHK" target="_blank" class="link-1"></a>
+                <a 
+                    :href="lang=='zh'
+                    ?'https://t.me/PlatONNetworkCN'
+                    :'https://t.me/PlatONNetwork'" target="_blank" class="link-1"></a>
                 <a href="javascript:volid(0);" target="_blank" class="link-2">
                     <img src="../../assets/images/weixin.jpg" alt="" class="wx-img">
                 </a>
