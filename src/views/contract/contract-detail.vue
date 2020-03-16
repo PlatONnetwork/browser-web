@@ -77,7 +77,7 @@
                   $t("contract.contractName")
                 }}</label>
                 <!-- 系统合约 -->
-                <div class="money" v-if="detailInfo.type=='3'">
+                <div class="money" v-if="detailInfo.type=='2'">
                   {{ detailInfo.contractName }}
                 </div>
                 <div class="money" v-else>
@@ -89,7 +89,7 @@
                   $t("contract.contractCreator")
                 }}</label>
                 <!-- 系统合约 -->
-                <div class="money" v-if="detailInfo.type=='3'">
+                <div class="money" v-if="detailInfo.type=='2'">
                   System Contract
                 </div>
                 <div v-else class="money contract-create-info">

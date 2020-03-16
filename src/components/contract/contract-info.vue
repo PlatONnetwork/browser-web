@@ -17,7 +17,7 @@
 
     <!-- 系统合约 -->
     <div
-      v-if="!detailInfo.isDestroy && detailInfo.type == '3'"
+      v-if="!detailInfo.isDestroy && detailInfo.type == '2'"
       class="warn-info"
     >
       <img src="../../assets/images/icon-contract.svg" alt="" />
@@ -30,7 +30,7 @@
       class="contract-bin"
       v-if="
         detailInfo.isDestroy == 1 ||
-          detailInfo.type == '3' ||
+          detailInfo.type == '2' ||
           !detailInfo.contractBin
       "
     >0x</div>
@@ -45,10 +45,10 @@ export default {
     contractTypeTitle(type) {
       let s = "tradeAbout.";
       switch (type) {
-        case 2:
+        case 3:
           s += "EVM";
           break;
-        case 3:
+        case 2:
           s += "PPOS";
           break;
         case 4:
