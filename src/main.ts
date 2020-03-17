@@ -98,7 +98,8 @@ if (GetQueryString('lang')){
 }
 console.warn('GetQueryString>>>>>.', GetQueryString('lang'))
 const language = navigator.language || window.navigator['browserLanguage'];
-const browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):language.toLowerCase()
+let browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):language.toLowerCase()
+browserLanguage = browserLanguage == 'zh-cn' ?  'zh-cn' : 'en'
 const i18n = new VueI18n({
     locale: browserLanguage,
     messages
