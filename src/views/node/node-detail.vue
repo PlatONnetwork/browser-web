@@ -120,7 +120,7 @@
                 :label="$t('nodeInfo.totalStakePower') + ' (LAT)'"
                 class="total-stake"
               >
-                <p class="Gilroy-Medium" v-if="type != 'history'">
+                <p class="Gilroy-Medium" v-if="detailInfo.status != 4 && detailInfo.status != 5">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalValue | formatMoney | sliceFloat(0)
                   }}</span>
@@ -171,7 +171,7 @@
                     detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
                   <span
-                    v-if="type == 'history' && detailInfo.totalValue > 0"
+                    v-if="(detailInfo.status == 4 || detailInfo.status == 5) && detailInfo.totalValue > 0"
                     class="fontSize13 onPending"
                     >({{ $t("nodeInfo.freezing") }})</span
                   >
@@ -372,7 +372,7 @@
                     detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
                   <span
-                    v-if="type == 'history' && detailInfo.totalValue > 0"
+                    v-if="(detailInfo.status == 4 || detailInfo.status == 5) && detailInfo.totalValue > 0"
                     class="fontSize13 onPending"
                     >({{ $t("nodeInfo.freezing") }})</span
                   >
@@ -402,7 +402,7 @@
                 </p>
               </Item>
               <Item
-                v-if="type == 'history'"
+                v-if="detailInfo.status == 4 || detailInfo.status == 5"
                 :vertical="true"
                 :label="$t('nodeInfo.delegatorNum')"
               >
@@ -435,7 +435,7 @@
               <Item
                 :vertical="true"
                 :label="$t('deleget.acceptDelegations') + ' (LAT)'"
-                v-if="type !== 'history'"
+                v-if="detailInfo.status != 4 && detailInfo.status != 5"
               >
                 <p>
                   <span
@@ -477,7 +477,7 @@
         </div>
         <div class="node-static-right-box" v-if="!detailInfo.isInit">
           <div class="yield-box">
-            <p v-if="type == 'history'" class="value">--%</p>
+            <p v-if="detailInfo.status == 4 || detailInfo.status == 5" class="value">--%</p>
             <p v-else class="value">{{ detailInfo.expectedIncome }}%</p>
             <p class="text">
               <!-- TODO 需要做悬停 -->
@@ -492,7 +492,7 @@
             </p>
           </div>
           <div class="yield-box">
-            <p v-if="type == 'history'" class="value">--%</p>
+            <p v-if="detailInfo.status == 4 || detailInfo.status == 5" class="value">--%</p>
             <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}%</p>
             <p class="text">
               <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
