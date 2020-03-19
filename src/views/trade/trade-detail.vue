@@ -116,7 +116,7 @@
               @click="goContractDetail(detailInfo.to)"
               >{{ detailInfo.to }}
             </span>
-            
+
           </div>
         </Item>
 
@@ -184,8 +184,8 @@
 
         <!-- 合约 -->
         <Item :label="$t('contract.contract')">
-          <!-- 合约创建 -->
-          <div class="isContract" v-if="detailInfo.txReceiptStatus == 1">
+          <!-- 合约创建成功， 合约执行成功，合约执行失败 -->
+          <div class="isContract" v-if="detailInfo.txReceiptStatus == 1 || (detailInfo.txReceiptStatus == 0 && detailInfo.txType == 2)">
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
@@ -202,7 +202,7 @@
               >{{ detailInfo.to }}
             </span>
           </div>
-          <!-- 合约执行 -->
+          <!-- 合约创建失败 -->
           <div
             v-else-if="
               detailInfo.txType == 1 && detailInfo.txReceiptStatus == 0
