@@ -429,7 +429,7 @@ export default {
     validatorAnnualizedYield: "Validator annualized yield",
     freezing: "freezing",
     undelegating: "undelegating",
-    information: " information",
+    information: " Information",
     rewardRatio: "Delegated Reward Ratio",
 
     ratioTips:

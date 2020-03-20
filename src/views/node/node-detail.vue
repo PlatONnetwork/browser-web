@@ -715,7 +715,7 @@
               <el-table-column :label="$t('nodeInfo.actions')">
                 <template slot-scope="scope">
                   <p
-                    class="percent80"
+                    class="percent80 no-break"
                     v-if="
                       scope.row.type == 1 ||
                         scope.row.type == 3 ||
@@ -724,7 +724,7 @@
                   >
                     {{ $t("actionType." + [scope.row.type]) }}
                   </p>
-                  <p class="percent80" v-if="scope.row.type == 2">
+                  <p class="percent80 no-break" v-if="scope.row.type == 2">
                     {{ $t("actionType." + [scope.row.type]) }}{{ $t("nodeInfo.information") }}
                     <span v-if="!!scope.row.beforeRate"
                       >- {{ $t("nodeInfo.rewardRatio") }}
@@ -734,7 +734,7 @@
                     >
                   </p>
                   <p
-                    class="percent80"
+                    class="percent80 no-break"
                     v-else-if="scope.row.type == 4 || scope.row.type == 5"
                   >
                     <template v-if="scope.row.title">
@@ -769,7 +769,7 @@
                     class="percent80"
                     v-else-if="scope.row.type==5"
                   >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>-->
-                  <p class="percent80" v-else-if="scope.row.type == 6">
+                  <p class="percent80 no-break" v-else-if="scope.row.type == 6">
                     {{
                       lang == "zh"
                         ? `${$t(
@@ -784,7 +784,7 @@
                     }}
                   </p>
                   <p
-                    class="percent80"
+                    class="percent80 no-break"
                     v-else-if="scope.row.type == 7 && scope.row.percent == 0"
                   >
                     {{
@@ -798,7 +798,7 @@
                     }}
                   </p>
                   <p
-                    class="percent80"
+                    class="percent80 no-break"
                     v-else-if="scope.row.type == 7 && scope.row.percent > 0"
                   >
                     {{
