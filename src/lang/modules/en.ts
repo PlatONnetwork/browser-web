@@ -401,7 +401,7 @@ export default {
     totalDelegations: "Total Delegations",
     stakeRate: "Stake Rate",
     stakingReward: "Staking reward",
-    nextRewardAdjustment: "Next reward adjustment",
+    nextRewardAdjustment: "Next additional period",
     updateEpoch: "Update validator status once per epoch",
 
     searchValidator: "Search by Validator Name",

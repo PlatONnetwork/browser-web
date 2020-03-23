@@ -398,7 +398,7 @@ export default {
     totalDelegations: "接受委托",
     stakeRate: "质押率",
     stakingReward: "质押奖励",
-    nextRewardAdjustment: "下个奖励调整期",
+    nextRewardAdjustment: "下个增发周期",
     updateEpoch: "每个结算周期更新一次验证节点状态",
 
     searchValidator: "输入验证节点名称查询",
