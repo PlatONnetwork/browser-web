@@ -443,7 +443,7 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.slashing.zeroProduceCumulativeTime.start}}</span>
-                <span class="regular">{{lis.slashing.zeroProduceCumulativeTime.startValue}}</span>
+                <span class="regular">zeroProduceNumberThreshold</span>
               </div>
               <div>
                 <span class="regular">{{lis.slashing.zeroProduceCumulativeTime.endValue}}</span>
@@ -495,7 +495,7 @@
                 <span class="regular">{{lis.slashing.zeroProduceNumberThreshold.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{lis.slashing.zeroProduceNumberThreshold.endValue}}</span>
+                <span class="regular">zeroProduceCumulativeTime </span>
                 <span class="medium">{{lis.slashing.zeroProduceNumberThreshold.end}}</span>
               </div>
             </div>
@@ -590,17 +590,14 @@ export default {
       .queryConfig()
       .then(res => {
         let { errMsg, code, data } = res;
-        console.log(errMsg, code, data)
         if (code == 0 && data.config) {
           for (let i = 0, d = data.config; i < d.length; i++) {
             let obj = {};
             for (let j = 0, k = d[i].detail; j < k.length; j++) {
               obj[k[j].name] = k[j];
             }
-            console.log(d[i].module)
             this.lis[d[i].module] = obj;
           }
-          console.log(Boolean(this.lis.block))
         } else {
           this.$message.error(errMsg);
         }
