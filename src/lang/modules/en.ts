@@ -526,7 +526,9 @@ export default {
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
     currentValue: "Current Value :",
-    genesisValue: "Genesis Value :"
+    genesisValue: "Genesis Value :",
+    zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
+    zeroProduceNumberThreshold:"Penalty threshold：Number of zero production blocks."
   },
   ...enLocale
 };
