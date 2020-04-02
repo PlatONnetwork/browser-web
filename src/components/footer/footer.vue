@@ -20,7 +20,7 @@
                 <span><a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
                 <span><a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a></span>
                 <span><a :href="'https://developer.platon.network/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
-                <span class="tab-last"><a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>  
+                <span class="tab-last"><a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>
             </div>
             <div class="foot-line">
             </div>
@@ -30,7 +30,7 @@
             <p>{{$t('indexInfo.platScan')}}</p>
             <p>{{$t('indexInfo.international')}}</p>
             <div class="link-wrap">
-                <a 
+                <a
                     :href="lang=='zh'
                     ?'https://t.me/PlatONNetworkCN'
                     :'https://t.me/PlatONNetwork'" target="_blank" class="link-1"></a>
@@ -54,7 +54,9 @@
             </div>
             <div class="foot-right">
                 <div class="link-wrap">
-                    <a href="https://t.me/PlatONHK" target="_blank" class="link-1"></a>
+                    <a :href="lang=='zh'
+                    ?'https://t.me/PlatONNetworkCN'
+                    :'https://t.me/PlatONNetwork'" target="_blank" class="link-1"></a>
                     <a href="javascript:volid(0);" target="_blank" class="link-2">
                         <img src="../../assets/images/weixin.jpg" alt="" class="wx-img">
                     </a>
@@ -68,7 +70,7 @@
                     <a href="https://www.chainnode.com/forum/267" target="_blank" class="link-10"></a>
                 </div>
                 <p>{{$t('indexInfo.international')}}</p>
-            </div>           
+            </div>
         </div>
     </div>
 </template>
@@ -94,7 +96,7 @@
             '$route.path'(newVal,oldVal){
                 this.path = newVal;
             }
-		
+
 		},
         components: {
 
@@ -108,18 +110,18 @@
         },
         mounted() {
 
-        }    
+        }
     }
 </script>
 <style lang="less" scoped>
 .footer-wrap{
     background: #000;
 }
- .sub-foot{      
-        text-align: center;  
+ .sub-foot{
+        text-align: center;
         // padding-bottom: 83px;
-        padding-top: 120px;        
-        h3{           
+        padding-top: 120px;
+        h3{
             margin: 0px 0 78px;
             font-size: 40px;
             color: #FFFFFF;
@@ -137,12 +139,12 @@
             justify-content: center;
             span{
                 background: #000;
-                margin-right: 8%;                                
+                margin-right: 8%;
                 width: 218px;
                 height: 69px;
-                line-height: 69px;   
+                line-height: 69px;
                 border: 1px solid #979797;
-                border-radius: 4px;            
+                border-radius: 4px;
                 display: block;
                 font-size: 20px;
                 &.tab-last{
@@ -150,17 +152,17 @@
                 }
                 a{
                     display: block;
-                    color: #fff;                    
+                    color: #fff;
                 }
                 &:hover{
                     background: #fff;
                     border: 1px solid #fff;
                     a{
-                        color: #000;                                                 
+                        color: #000;
                         -webkit-animation-duration: 0.75s;
                         animation-duration: 0.75s;
                         -webkit-animation-name: bounceIn;
-                        animation-name: bounceIn; 
+                        animation-name: bounceIn;
                     }
                 }
             }
@@ -199,7 +201,7 @@
                     background-position-x: 0;
                 }
                 &.link-2{
-                    position: relative;                
+                    position: relative;
                     background-position-x: -50px;
                     &:hover .wx-img{
                         display: block;
@@ -210,7 +212,7 @@
                         height: 100px;
                         bottom: 48px;
                         left: -26px;
-                        display: none;                        
+                        display: none;
                     }
                 }
                 &.link-3{
@@ -255,12 +257,12 @@
                 margin-right: 0;
             }
             .foot-left{
-                width: 40%;     
-                text-align: left;  
+                width: 40%;
+                text-align: left;
                 margin-top: 10px;
                 .foot-logo{
                     margin-left: 0;
-                }    
+                }
                 p{
                     color: #929292;
                 }
@@ -269,7 +271,7 @@
                 width: 50%;
                 p{
                     font-size: 12px;
-                    text-align: right; 
+                    text-align: right;
                     line-height: 14px;
                     margin-top: 6px;
                     padding-right: 10px;
@@ -283,7 +285,7 @@
                 justify-content: flex-end;
             }
             p{
-                margin-top: 14px;                
+                margin-top: 14px;
             }
         }
     }
@@ -295,7 +297,7 @@
     //     animation-name: bounceIn;
     // }
 </style>
-<style lang="less">  
+<style lang="less">
 @keyframes bounceIn {
         from,
         20%,
@@ -351,16 +353,16 @@
             //     animation-duration: 0.75s;
             //     -webkit-animation-name: bounceIn;
             //     animation-name: bounceIn;
-            // }                             
+            // }
             background: #fff;
             a{
-                color: #000;                               
+                color: #000;
                 //  -webkit-animation-fill-mode: both;
                 // animation-fill-mode: both;
                 -webkit-animation-duration: 0.75s;
                 animation-duration: 0.75s;
                 -webkit-animation-name: bounceIn;
-                animation-name: bounceIn; 
+                animation-name: bounceIn;
             }
         }
         span{
@@ -372,7 +374,7 @@
             // width: 100%;
             // z-index: 9999;
         }
-        a{            
+        a{
             display:block;
             color: #fff;
         }
