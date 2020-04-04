@@ -193,7 +193,6 @@ export default {
         .details(param)
         .then(res => {
           let { errMsg, code, data } = res;
-          // console.log(res)
           if (code == 0) {
             this.detailInfo = data;
 
