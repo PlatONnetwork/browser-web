@@ -497,7 +497,10 @@ export default {
     1: "YES",
     2: "NO",
     3: "ABSTAIN",
-    4: "SUPPORT"
+    4: "SUPPORT",
+    11: "YES(无效票)",
+    12: "NO(无效票)",
+    13: "ABSTAIN(无效票)",
   },
   actionType: {
     1: "创建验证节点",

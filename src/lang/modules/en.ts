@@ -500,7 +500,10 @@ export default {
     1: "YES",
     2: "NO",
     3: "ABSTAIN",
-    4: "SUPPORT"
+    4: "SUPPORT",
+    11: "YES(Invalid)",
+    12: "NO(Invalid)",
+    13: "ABSTAIN(Invalid)",
   },
   actionType: {
     1: "Create the Validator",
