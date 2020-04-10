@@ -119,6 +119,7 @@
         :address="height + ''"
         :tradeCount="detailInfo"
         type="block"
+        :key="height"
       ></trade-list>
     </div>
   </div>
@@ -223,7 +224,7 @@ export default {
           height: height
         }
       });
-      
+
       this.disabledLeft = true;
       this.disabledRight = true;
 
