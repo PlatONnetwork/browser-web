@@ -594,9 +594,9 @@ export default {
         this.detailData = data;
         const voteCount = data.yeas + data.nays + data.abstentions;
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
-        this.curRatio = (
+        this.curRatio = ((
           Number(voteCount) / Number(data.accuVerifiers)
-        ).toFixed(2)*100;
+        )*100).toFixed(2);
         if (voteCount == 0) {
           tmpYesPercentage = 0;
           tmpNoPercentage = 0;
