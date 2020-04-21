@@ -464,7 +464,11 @@
               detailData.type == 2
                 ? $t("voteStatus." + [4])
                 : $t("voteStatus." + [scope.row.option])
-            }}</span>
+            }}
+              <span class="grey" v-if="scope.row.option == 11 || scope.row.option == 12 || scope.row.option == 13">
+                {{$t('voteStatus.invalid')}}
+              </span>
+            </span >
           </template>
         </el-table-column>
         <el-table-column
@@ -590,9 +594,9 @@ export default {
         this.detailData = data;
         const voteCount = data.yeas + data.nays + data.abstentions;
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
-        this.curRatio = (
+        this.curRatio = ((
           Number(voteCount) / Number(data.accuVerifiers)
-        ).toFixed(2)*100;
+        )*100).toFixed(2);
         if (voteCount == 0) {
           tmpYesPercentage = 0;
           tmpNoPercentage = 0;
@@ -696,6 +700,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.grey{
+  color: #999;
+}
 .active-block {
   font-family: Gilroy-Medium;
   font-size: 13px;
