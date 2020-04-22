@@ -20,6 +20,7 @@
         <div
           class="grid-content bg-purple-light Gilroy-Bold"
           style="float:right;margin-top:-50px;"
+          v-if="detailData.status"
         >
           <span
             class="yellow vote-status yellow-status"
