@@ -623,7 +623,7 @@ export default {
           this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
           this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2); 反对
           this.quitPercentage =
-            100 - (Number(this.yesPercentage) + Number(this.noPercentage));
+            formatDecimal(100 - (Number(this.yesPercentage) + Number(this.noPercentage)),2);
         } else {
           //非
           this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
