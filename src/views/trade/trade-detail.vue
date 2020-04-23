@@ -1138,7 +1138,7 @@ export default {
   }
 }
 .trade-detail-wrap .list-item label {
-  width: 173px !important;
+  min-width: 173px!important;
 }
 .rewardGap {
   padding-left: 5px;
