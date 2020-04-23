@@ -17,7 +17,7 @@
                 </el-button>
             </div> -->
             <div class="foot-tabs">
-                <span><a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
+                <span><a :href="'https://www.platon.network/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
                 <span><a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a></span>
                 <span><a :href="'https://developer.platon.network/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
                 <span class="tab-last"><a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>
