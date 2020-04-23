@@ -1129,7 +1129,7 @@ export default {
               this.imgRatio = (dag * 100).toFixed(2);
             }
             this.getDelegetList();
-            this.draw(dag);
+            // this.draw(dag);
           } else {
             this.detailInfo = {};
             this.$message.error(errMsg);
