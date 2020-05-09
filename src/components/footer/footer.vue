@@ -19,7 +19,7 @@
             <div class="foot-tabs">
                 <span><a :href="'https://www.platon.network/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a></span>
                 <span><a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a></span>
-                <span><a :href="'https://www.platon.network/developer/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
+                <span><a :href="'https://www.platon.network/developer/?lang='+lang+'#aton'" target="_blank">{{$t('indexInfo.atonDownload')}}</a></span>
                 <span class="tab-last"><a :href="'https://devdocs.platon.network/docs/'+ (lang=='zh'?'zh-CN':'en')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a></span>
             </div>
             <div class="foot-line">
