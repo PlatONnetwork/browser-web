@@ -201,6 +201,104 @@
             </div>
           </div>
         </div>
+        <!-- 内容分割5 -->
+        <div class="cont-box">
+          <h4 class="h4">rewardPerMaxChangeRange</h4>
+          <p class="exp">{{$t("more.rewardPerMaxChangeRange")}}</p>
+          <!-- 有背景内容块 -->
+          <div class="cont-block">
+            <!-- Current Value: -->
+            <div class="current">
+              <div>
+                <span class="lable">{{$t("more.currentValue")}}</span>
+                <span class="green">{{lis.staking.rewardPerMaxChangeRange.value}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.staking.rewardPerMaxChangeRange,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- Genesis Value: -->
+            <div class="genesis">
+              <div>
+                <span class="lable">{{$t("more.genesisValue")}}</span>
+                <span class="black">{{lis.staking.rewardPerMaxChangeRange.initValue}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.staking.rewardPerMaxChangeRange,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- 底部数字 -->
+            <div class="bottom">
+              <div>
+                <span class="medium">{{lis.staking.rewardPerMaxChangeRange.start}}</span>
+                <span class="regular">{{lis.staking.rewardPerMaxChangeRange.startValue}}</span>
+              </div>
+              <div>
+                <span class="regular">{{lis.staking.rewardPerMaxChangeRange.endValue}}</span>
+                <span class="medium">{{lis.staking.rewardPerMaxChangeRange.end}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 内容分割6 -->
+        <div class="cont-box">
+          <h4 class="h4">rewardPerChangeInterval</h4>
+          <p class="exp">{{$t("more.rewardPerChangeInterval")}}</p>
+          <!-- 有背景内容块 -->
+          <div class="cont-block">
+            <!-- Current Value: -->
+            <div class="current">
+              <div>
+                <span class="lable">{{$t("more.currentValue")}}</span>
+                <span class="green">{{lis.staking.rewardPerChangeInterval.value}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.staking.rewardPerChangeInterval,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- Genesis Value: -->
+            <div class="genesis">
+              <div>
+                <span class="lable">{{$t("more.genesisValue")}}</span>
+                <span class="black">{{lis.staking.rewardPerChangeInterval.initValue}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.staking.rewardPerChangeInterval,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- 底部数字 -->
+            <div class="bottom">
+              <div>
+                <span class="medium">{{lis.staking.rewardPerChangeInterval.start}}</span>
+                <span class="regular">{{lis.staking.rewardPerChangeInterval.startValue}}</span>
+              </div>
+              <div>
+                <span class="regular">{{lis.staking.rewardPerChangeInterval.endValue}}</span>
+                <span class="medium">{{lis.staking.rewardPerChangeInterval.end}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- slashing -->

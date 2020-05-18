@@ -523,6 +523,8 @@ export default {
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
+    rewardPerMaxChangeRange:"\"Delegated Reward Ratio\" The maximum adjustable range of each modification (‱).",
+    rewardPerChangeInterval:"\"Delegated Reward Ratio\" allows to modify the number of waiting epochs again (1 epoch=10750 blocks).",
     slashBlocksReward: "Slash the number of block rewards(block rate=0%).",
     slashFractionDuplicateSign: "Slash ratio of DoubleSign(‱).",
     duplicateSignReportReward: "Reporter's reward percentage (%).",

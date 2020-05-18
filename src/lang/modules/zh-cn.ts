@@ -520,6 +520,8 @@ export default {
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
+    rewardPerMaxChangeRange:"\"委托奖励比例\" 每次修改的最大可调整幅度（‱）。",
+    rewardPerChangeInterval:"\"委托奖励比例\" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。",
     slashBlocksReward: "出块率为0，削减的区块奖励块数。",
     slashFractionDuplicateSign: "双签举报处罚节点自有质押金比例(‱)。",
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
