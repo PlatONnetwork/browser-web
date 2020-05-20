@@ -655,6 +655,61 @@
         </div>
       </div>
     </div>
+
+    <!-- reward -->
+    <div class="section" v-if="lis.reward">
+      <h3 class="h3">reward</h3>
+      <div class="cont-row">
+        <div class="cont-box">
+          <h4 class="h4">increaseIssuanceRatio</h4>
+          <p class="exp">{{$t("more.increaseIssuanceRatio")}}</p>
+          <!-- 一个内容 -->
+          <div class="cont-block">
+            <!-- Current Value: -->
+            <div class="current">
+              <div>
+                <span class="lable">{{$t("more.currentValue")}}</span>
+                <span class="green">{{lis.reward.increaseIssuanceRatio.value}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.reward.increaseIssuanceRatio,1)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#3BB012"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- Genesis Value: -->
+            <div class="genesis">
+              <div>
+                <span class="lable">{{$t("more.genesisValue")}}</span>
+                <span class="black">{{lis.reward.increaseIssuanceRatio.initValue}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress
+                  :percentage="getPercentage(lis.reward.increaseIssuanceRatio,2)"
+                  :show-text="false"
+                  stroke-width="20"
+                  color="#000000"
+                ></el-progress>
+              </div>
+            </div>
+            <!-- 底部数字 -->
+            <div class="bottom">
+              <div>
+                <span class="medium">{{lis.reward.increaseIssuanceRatio.start}}</span>
+                <span class="regular">{{lis.reward.increaseIssuanceRatio.startValue}}</span>
+              </div>
+              <div>
+                <span class="regular">{{lis.reward.increaseIssuanceRatio.endValue}}</span>
+                <span class="medium">{{lis.reward.increaseIssuanceRatio.end}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -667,7 +722,8 @@ export default {
       lis: {
         block: null,
         slashing: null,
-        staking: null
+        staking: null,
+        reward:null
       }
     };
   },

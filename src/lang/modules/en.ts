@@ -531,6 +531,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
+    increaseIssuanceRatio:"PlatON network's fixed annual issuance ratio of LAT(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
