@@ -717,15 +717,15 @@
             <span>{{ detailInfo.applyAmount | formatMoney }} LAT</span>
             <!-- <span>:{{detailInfo.formatMoney}} LAT/</span> -->
             <!-- 1： 退回中 -->
-            <span v-if="detailInfo.redeemStatus == 1"
+            <span class="letUp" v-if="detailInfo.redeemStatus == 1"
               >({{ $t("tradeAbout.pend") }})</span
             >
             <!-- 2：退回成功 -->
-            <span v-else-if="detailInfo.redeemStatus == 2"
+            <span class="letUp" v-else-if="detailInfo.redeemStatus == 2"
               >({{ $t("tradeAbout.successed") }})</span
             >
             <!-- 剩余退回 -->
-            <span v-else
+            <span class="letUp" v-else
               >({{ $t("tradeAbout.remain") }}:{{
                 detailInfo.redeemLocked | formatMoney
               }}

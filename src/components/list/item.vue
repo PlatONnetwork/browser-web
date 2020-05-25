@@ -73,7 +73,6 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 15px;
-  align-items: baseline;
   label {
     font-size: 13px;
     color: #666;
