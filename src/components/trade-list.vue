@@ -169,6 +169,7 @@
                   scope.row.txType == '1005' ||
                   scope.row.txType == '1003' ||
                   scope.row.txType == '5000' ||
+                  scope.row.txType == '3000' ||
                   (scope.row.txType == '0' && scope.row.from != address)
               }"
               class="red Gilroy-Bold"
