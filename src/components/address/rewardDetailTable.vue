@@ -189,7 +189,7 @@ export default {
     }
     .total > .value {
       display: inline-block;
-      width: 271px;
+      // width: 271px;
       height: 40px;
       line-height: 40px;
       background: rgba(7, 152, 222, 0.1);
