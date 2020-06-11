@@ -337,7 +337,7 @@ export default {
     LIVEBLOCKHEIGHT: "当前区块高度",
     CIRCULATINGSUPPLY: "流通量",
     LIVETRANSACTIONS: "实时交易笔数",
-    CURRNTMAXTPS: "当前/最大交易 TPS",
+    CURRNTMAXTPS: "10秒内平均TPS/瞬时最高TPS",
     LIVEADDRESS: "地址数",
     PENDINGTOTAL: "进行中提案/总提案",
     currentValidators: "当选验证节点",
