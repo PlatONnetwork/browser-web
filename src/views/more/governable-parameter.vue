@@ -239,6 +239,8 @@
             </div>
           </div>
         </div>
+        <div class="blank"></div>
+        <div class="blank"></div>
       </div>
     </div>
     <!-- slashing -->
@@ -479,6 +481,8 @@
             </div>
           </div>
         </div>
+        <div class="blank"></div>
+        <div class="blank"></div>
       </div>
     </div>
     <!-- block -->
@@ -523,6 +527,8 @@
             </div>
           </div>
         </div>
+        <div class="blank"></div>
+        <div class="blank"></div>
       </div>
     </div>
 
@@ -569,6 +575,8 @@
           </div>
         </div>
       </div>
+      <div class="blank"></div>
+      <div class="blank"></div>
     </div>
   </div>
 </template>
@@ -649,9 +657,14 @@ export default {
   justify-content: space-between;
   flex-flow: wrap;
 }
+.blank {
+  width: 495px;
+  height: 0;
+}
 .cont-box {
   width: 495px;
   margin: 0 10px 30px 0;
+  overflow: hidden;
   //   border:1px solid red;
 }
 .h4 {
