@@ -958,7 +958,7 @@ export default {
     }
     .bar-right {
       position: absolute;
-      right: -90px;
+      right: -60px;
     }
   }
   .polyhedron {

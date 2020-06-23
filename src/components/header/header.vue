@@ -6,62 +6,34 @@
       <p>The PlatON Block Explorer</p>
     </div>
     <div class="menu">
-      <el-menu
-        :default-active="$route.path"
-        :router="true"
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="transparent"
-        text-color="#999"
-        active-text-color="#FFF"
-      >
+      <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color="#999" active-text-color="#FFF">
         <el-menu-item index="/" :class="{ active: $route.path == '/' }">
           <router-link to="/">{{ $t("menu.home") }}</router-link>
         </el-menu-item>
-        <el-menu-item
-          index="/block"
-          :class="{ active: $route.path.indexOf('block') > -1 }"
-        >
+        <el-menu-item index="/block" :class="{ active: $route.path.indexOf('block') > -1 }">
           <router-link to="/block">{{ $t("menu.block") }}</router-link>
         </el-menu-item>
-        <el-menu-item
-          index="/trade"
-          :class="{
+        <el-menu-item index="/trade" :class="{
             active:
               $route.path.indexOf('trade') > -1 ||
               $route.path.indexOf('address') > -1
-          }"
-        >
+          }">
           <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
         </el-menu-item>
-        <el-menu-item
-          index="/node"
-          :class="{
+        <el-menu-item index="/node" :class="{
             active: $route.path.indexOf('node') > -1
-          }"
-        >
+          }">
           <router-link to="/node">{{ $t("menu.validator") }}</router-link>
         </el-menu-item>
-        <el-menu-item
-          index="/proposal"
-          :class="{ active: $route.path.indexOf('proposal') > -1 }"
-        >
+        <el-menu-item index="/proposal" :class="{ active: $route.path.indexOf('proposal') > -1 }">
           <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
         </el-menu-item>
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
-          <el-dropdown
-            placement="bottom-start"
-            class="more-dropdown"
-            @command="dropdownCommand"
-          >
-            <span
-              class="el-dropdown-link more-title"
-              :class="{
+          <el-dropdown placement="bottom-start" class="more-dropdown" @command="dropdownCommand">
+            <span class="el-dropdown-link more-title" :class="{
                 active: $route.path.indexOf('governable-parameter') > -1
-              }"
-              >{{ $t("menu.more") }}</span
-            >
+              }">{{ $t("menu.more") }}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/governable-parameter">{{
                 $t("more.governableParameter")
@@ -71,29 +43,12 @@
         </el-menu-item>
       </el-menu>
     </div>
-    <div
-      class="search search-header"
-      :class="{
+    <div class="search search-header" :class="{
         'search-active': isFocus,
         'search-hide': !hideSearch || $route.path != '/'
-      }"
-    >
-      <el-input
-        :placeholder="$t('search.placeHolder')"
-        @focus="isFocus = true"
-        @blur="isFocus = false"
-        v-model="searchKey"
-        @keyup.enter.native="searchFn"
-        size="mini"
-      ></el-input>
-      <el-button
-        type="primary"
-        class="btn-header el-searchs"
-        :class="{ 'search-btn-active': isFocus }"
-        @click="searchFn"
-        :disabled="disabledBtn"
-        >{{ $t("search.searchBtn") }}</el-button
-      >
+      }">
+      <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus = true" @blur="isFocus = false" v-model="searchKey" @keyup.enter.native="searchFn" size="mini"></el-input>
+      <el-button type="primary" class="btn-header el-searchs" :class="{ 'search-btn-active': isFocus }" @click="searchFn" :disabled="disabledBtn">{{ $t("search.searchBtn") }}</el-button>
     </div>
     <div class="right-most">
       <el-dropdown placement="bottom-start">
@@ -107,22 +62,13 @@
           }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-dropdown
-        @command="handleCommandLangage"
-        placement="bottom-start"
-        @visible-change="visibleChange2"
-      >
+      <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change="visibleChange2">
         <span class="el-dropdown-link">
           {{ languageObj[language] == "简体中文" ? "简体中文" : "English" }}
           <i class="el-icon--right" :class="iconClass2"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            v-for="(item, index) in options"
-            :key="index"
-            :command="item.value"
-            >{{ item.label }}</el-dropdown-item
-          >
+          <el-dropdown-item v-for="(item, index) in options" :key="index" :command="item.value">{{ item.label }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -372,7 +318,7 @@ export default {
   right: 0;
   left: 0;
   display: flex;
-  height: 86px;
+  height: 102px;
   z-index: 99;
   padding: 0 5.2%;
   margin: 0 auto;
@@ -418,6 +364,7 @@ export default {
     font-size: 12px;
     color: #b3b3b3;
     letter-spacing: 0;
+    min-width: 84px;
   }
 }
 .el-menu-demo {
