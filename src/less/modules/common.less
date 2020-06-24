@@ -63,6 +63,13 @@ body {
     padding-left: 5.2%;
     padding-right: 5.2%;
 
+    @media screen and (max-width: 1366px) {
+      & {
+        padding-left: 1%;
+        padding-right: 1%;
+      }
+    }
+
     @media screen and (max-width: 1200px) {
       & {
         padding-left: 0;
@@ -388,7 +395,8 @@ body {
   }
 }
 
-.el-table td {
+.el-table td,
+.el-table th {
   min-width: 100px;
 }
 
