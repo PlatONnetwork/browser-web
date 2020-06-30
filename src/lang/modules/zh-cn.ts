@@ -356,7 +356,7 @@ export default {
     developer: "开发者帮助",
     platScan: "PlatScan是PlatON区块链资源管理与分析平台",
     international:
-      "COPYRIGHT © 2019 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED."
+      "COPYRIGHT © 2020 PLATON NETWORK."
   },
   elseInfo: {
     hour: "时",

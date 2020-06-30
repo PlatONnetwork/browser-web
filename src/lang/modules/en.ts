@@ -359,7 +359,7 @@ export default {
     developer: "Developer",
     platScan: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
     international:
-      "COPYRIGHT © 2019 PLATON INTERNATIONAL LIMITED ALL RIGHTS RESERVED."
+      "COPYRIGHT © 2020 PLATON NETWORK."
   },
   elseInfo: {
     hour: "h ",
