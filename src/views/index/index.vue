@@ -60,22 +60,22 @@
           <span>#{{tooltipData.number}}/</span><span>{{tooltipData.txs}}Txs</span>
         </div>
         <ul class="block-statistics">
-          <li class="statistics-link" style="width:200px">
+          <li class="statistics-link calcWidth">
             <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
             <a class="cursor" @click="$router.push('/trade')">{{blockStatisticData.txQty | unit}}</a>
           </li>
-          <li style="width:300px">
+          <li style="min-width:300px">
             <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
             <a>
               {{blockStatisticData.currentTps | formatNumber}}
               <span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span>
             </a>
           </li>
-          <li style="width:200px">
+          <li class="calcWidth">
             <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
             <a>{{blockStatisticData.addressQty | formatNumber}}</a>
           </li>
-          <li class="cursor statistics-link" @click="goProposal" style="width:300px">
+          <li class="cursor statistics-link" @click="goProposal" style="min-width:300px">
             <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
             <a>
               {{blockStatisticData.doingProposalQty | formatNumber}}
@@ -763,6 +763,12 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .calcWidth {
+      width: calc(100% - 300px);
+      @media screen and (min-width: 1330px) {
+        width: 50%;
+      }
+    }
     li {
       width: 50%;
       margin-bottom: 40px;
