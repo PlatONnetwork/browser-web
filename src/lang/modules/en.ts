@@ -406,11 +406,13 @@ export default {
 
     searchValidator: "Search by Validator Name",
     historicalValidators: "Historical Validators",
+    zeroProduceValidators: "Node Zero Out-block Validators",
     rank: "Rank",
     validatorName: "Validator Name",
     delegationsDelegators: "Delegations\\Delegators",
     producedBlock: "Blocks",
     exitTime: "Exit time",
+    freezeTime:"Locking time",
     pendingDelegations: "Invalid delegations",
     nodeMsg: "Foundation-funded nodes do not accept delegations",
     systemBuilt: "System built-in reward pool account",

@@ -403,11 +403,13 @@ export default {
 
     searchValidator: "输入验证节点名称查询",
     historicalValidators: "历史验证节点",
+    zeroProduceValidators: "零出块惩罚验证节点",
     rank: "排名",
     validatorName: "验证节点",
     delegationsDelegators: "委托数\\委托者",
     producedBlock: "已产生区块数",
     exitTime: "退出时间",
+    freezeTime:"锁定时间",
     pendingDelegations: "待赎回委托数",
     nodeMsg: "基金会资助的节点不接受委托",
     systemBuilt: "System built-in reward pool account",

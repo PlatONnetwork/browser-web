@@ -1,6 +1,25 @@
 <template>
   <div class="gray-content content-padding">
-    <el-row v-if="type != 'history'">
+    <el-row class="history-validators-header" type="flex" justify="space-between" v-if="type == 'history' || type == 'zero'">
+      <el-col :span="12">
+        <div style="margin-top: 14px;" v-if="type == 'history'">
+          {{ $t("nodeInfo.historicalValidators") }}
+          (<b>{{ pageTotal }}</b>)
+        </div>
+        <div style="margin-top: 14px;" v-if="type == 'zero'">
+          {{ $t("nodeInfo.zeroProduceValidators") }}
+          (<b>{{ pageTotal }}</b>)
+        </div>
+      </el-col>
+      <el-col :span="12" class="historical-validators">
+        <div class="validators-search history-validators-search">
+          <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model="keyword" @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
+          <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
+        </div>
+      </el-col>
+    </el-row>
+    <!-- 验证节点表头 -->
+    <el-row v-else>
       <el-col :span="18" class="validators-tab">
         <div class="tabs">
           <el-button size="medium" :class="{ active: tabIndex == 1 }" @click="tabChange(1, 'all')">{{ $t("contract.all") }}</el-button>
@@ -13,41 +32,190 @@
         </div>
       </el-col>
       <el-col :span="6" class="historical-validators">
-        <el-button type="text" class="historical-btn" @click="goHistory">{{ $t("nodeInfo.historicalValidators") }}>></el-button>
+        <el-button type="text" class="historical-btn" @click="goZero">{{ $t("nodeInfo.zeroProduceValidators") }}</el-button>
+        <el-button type="text" class="historical-btn" @click="goHistory">{{ $t("nodeInfo.historicalValidators") }}</el-button>
       </el-col>
     </el-row>
-    <el-row class="history-validators-header" type="flex" justify="space-between" v-if="type == 'history'">
-      <el-col :span="12">
-        <div style="margin-top: 14px;">
-          {{ $t("nodeInfo.historicalValidators") }}
-          (<b>{{ pageTotal }}</b>)
-        </div>
-      </el-col>
-      <el-col :span="12" class="historical-validators">
-        <div class="validators-search history-validators-search">
-          <el-input :placeholder="$t('nodeInfo.searchValidator')" clearable v-model="keyword" @keyup.enter.native="searchFn" @change="clearInput" size="mini"></el-input>
-          <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
-        </div>
-      </el-col>
-    </el-row>
-    <div class="table node-table" v-if="type !='history'">
+    <!-- 历史验证节点、零出块惩罚验证节点 表头 -->
+
+    <!-- 历史验证节点 -->
+    <div class="table node-table" v-if="type =='history'">
       <el-table :data="tableData">
-        <!-- <el-table-column
-          type="index"
-          :label="type!='history'?$t('nodeInfo.rank'):$t('common.serialnumber')"
-        ></el-table-column> -->
-        <el-table-column :label="
-            type != 'history' ? $t('nodeInfo.rank') : $t('common.serialnumber')
-          " :width="issafariBrowser ? 100 : 80">
+        <el-table-column :label="$t('common.serialnumber')" :width="issafariBrowser ? 100 : 80">
           <template slot-scope="scope">
             <span>{{ scope.row.ranking }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="
-            type != 'history'
-              ? $t('nodeInfo.validatorName')
-              : $t('nodeInfo.name')
-          " :width="issafariBrowser ? 158 : 180">
+        <el-table-column :label="$t('nodeInfo.name')" :width="issafariBrowser ? 154 : 180">
+          <!-- TODO历史节点 table -->
+          <template slot-scope="scope">
+            <div class="flex-special validator-name">
+              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isRecommend">
+                <div slot="content">
+                  <span class="title-warning">{{
+                    $t("nodeInfo.officialRecommendation")
+                  }}</span>
+                </div>
+                <img src="../../assets/images/icon-remark.svg" class="icon-remark cursor" />
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isInit">
+                <!-- v-if='scope.row.isInit' -->
+                <div slot="content">
+                  <span class="title-warning">{{
+                    $t("nodeInfo.nodeMsg")
+                  }}</span>
+                </div>
+                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
+                <i class="el-icon-info cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"></i>
+              </el-tooltip>
+              <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
+              <img src="../../assets/images/node-avtor.svg" class="node-avtor" v-if="!scope.row.stakingIcon" alt />
+
+              <p class="cursor normal ellipsis percent60 fontSize15" @click="goDetail(scope.row.nodeId)">
+                {{ scope.row.nodeName ? scope.row.nodeName : "------" }}
+              </p>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tradeAbout.status')">
+          <template slot-scope="scope">
+            <span class="Gilroy-Bold" :class="{
+                green: scope.row.status == 2 || scope.row.status == 6,
+                yellow: scope.row.status == 3 || scope.row.status == 4,
+                red: scope.row.status == 1
+              }">{{ $t("nodeStatus." + [scope.row.status]) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.pendingDelegations')" width="300">
+          <template slot-scope="scope">
+            <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
+          <template slot-scope="scope">
+            <div class="node-stability flex-special">
+              <div style="margin-right:10px;" class="self-tooltip">
+                <i class="icon-low-block cursor"></i>
+                <span>{{ scope.row.slashLowQty }}</span>
+                <p>{{ $t("nodeInfo.lowBlockRate") }}</p>
+              </div>
+              <div class="self-tooltip self-tooltip-sign">
+                <i class="icon-two-sign cursor"></i>
+                <span>{{ scope.row.slashMultiQty }}</span>
+                <p>{{ $t("nodeInfo.twoSignNum") }}</p>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.producedBlock')">
+          <template slot-scope="scope">
+            <span>{{ scope.row.blockQty | formatNumber }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.exitTime')">
+          <template slot-scope="scope">
+            <span>{{ scope.row.leaveTime | formatTime }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination-box">
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+      </div>
+    </div>
+
+    <!-- 零出块惩罚验证节点 -->
+    <div class="table node-table" v-else-if="type =='zero'">
+      <el-table :data="tableData">
+        <el-table-column :label="$t('common.serialnumber')" :width="issafariBrowser ? 110 : 80">
+          <template slot-scope="scope">
+            <span>{{ scope.row.ranking }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.name')" :width="issafariBrowser ? 154 : 180">
+          <!-- TODO历史节点 table -->
+          <template slot-scope="scope">
+            <div class="flex-special validator-name">
+              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isRecommend">
+                <div slot="content">
+                  <span class="title-warning">{{
+                    $t("nodeInfo.officialRecommendation")
+                  }}</span>
+                </div>
+                <img src="../../assets/images/icon-remark.svg" class="icon-remark cursor" />
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isInit">
+                <!-- v-if='scope.row.isInit' -->
+                <div slot="content">
+                  <span class="title-warning">{{
+                    $t("nodeInfo.nodeMsg")
+                  }}</span>
+                </div>
+                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
+                <i class="el-icon-info cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"></i>
+              </el-tooltip>
+              <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
+              <img src="../../assets/images/node-avtor.svg" class="node-avtor" v-if="!scope.row.stakingIcon" alt />
+
+              <p class="cursor normal ellipsis percent60 fontSize15" @click="goDetail(scope.row.nodeId)">
+                {{ scope.row.nodeName ? scope.row.nodeName : "------" }}
+              </p>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tradeAbout.status')">
+          <template slot-scope="scope">
+            <span class="Gilroy-Bold" :class="{
+                green: scope.row.status == 2 || scope.row.status == 6,
+                yellow: scope.row.status == 3 || scope.row.status == 4,
+                red: scope.row.status == 1
+              }">{{ $t("nodeStatus." + [scope.row.status]) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('deleget.delegationsN')">
+          <template slot-scope="scope">
+            <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
+          <template slot-scope="scope">
+            <div class="node-stability flex-special">
+              <div style="margin-right:10px;" class="self-tooltip">
+                <i class="icon-low-block cursor"></i>
+                <span>{{ scope.row.slashLowQty }}</span>
+                <p>{{ $t("nodeInfo.lowBlockRate") }}</p>
+              </div>
+              <div class="self-tooltip self-tooltip-sign">
+                <i class="icon-two-sign cursor"></i>
+                <span>{{ scope.row.slashMultiQty }}</span>
+                <p>{{ $t("nodeInfo.twoSignNum") }}</p>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.producedBlock')">
+          <template slot-scope="scope">
+            <span>{{ scope.row.blockQty | formatNumber }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.freezeTime')">
+          <template slot-scope="scope">
+            <span>{{ scope.row.freezeTime | formatTime }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pagination-box">
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+      </div>
+    </div>
+
+    <div class="table node-table" v-else>
+      <el-table :data="tableData">
+        <el-table-column :label="$t('nodeInfo.rank')" :width="issafariBrowser ? 100 : 80">
+          <template slot-scope="scope">
+            <span>{{ scope.row.ranking }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('nodeInfo.validatorName')" :width="issafariBrowser ? 158 : 180">
           <!-- TODO历史节点 table -->
           <template slot-scope="scope">
             <div class="flex-special validator-name">
@@ -87,26 +255,21 @@
               }">{{ $t("nodeStatus." + [scope.row.status]) }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.totalStakePower')" v-if="type != 'history'">
+        <el-table-column :label="$t('nodeInfo.totalStakePower')">
           <template slot-scope="scope">
             <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('deleget.delegationsN')" v-if="type != 'history'">
+        <el-table-column :label="$t('deleget.delegationsN')">
           <template slot-scope="scope">
             <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('deleget.delegators')" v-if="type != 'history'" width="100">
+        <el-table-column :label="$t('deleget.delegators')" width="100">
           <template slot-scope="scope">
             <span>
               {{ scope.row.delegateQty | formatNumber }}
             </span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type == 'history'">
-          <template slot-scope="scope">
-            <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell" width="110">
@@ -147,7 +310,7 @@
           </template>
         </el-table-column> -->
         <!-- TODO预计年化收益率 -->
-        <el-table-column :label="$t('nodeInfo.yield3')" v-if="type != 'history'" label-class-name="yield3">
+        <el-table-column :label="$t('nodeInfo.yield3')" label-class-name="yield3">
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.yield3") }}</span>
             <el-tooltip placement="bottom" :hide-after="0">
@@ -163,7 +326,7 @@
           </template>
         </el-table-column>
         <!-- TODO预计委托年化率 -->
-        <el-table-column :label="$t('nodeInfo.delegatedYield')" v-if="type != 'history'" label-class-name="delegatedYield">
+        <el-table-column :label="$t('nodeInfo.delegatedYield')" label-class-name="delegatedYield">
           <template slot="header">
             <span class="tipsTitle"> {{ $t("nodeInfo.delegatedYield") }}</span>
             <el-tooltip placement="bottom">
@@ -178,105 +341,12 @@
             <span class="Gilroy-Medium" v-else>--</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type == 'history'">
-          <template slot-scope="scope">
-            <span>{{ scope.row.leaveTime | formatTime }}</span>
-          </template>
-        </el-table-column>
       </el-table>
       <div class="pagination-box">
         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
-    <div class="table node-table" v-else>
-      <el-table :data="tableData">
-        <el-table-column :label="
-            type != 'history' ? $t('nodeInfo.rank') : $t('common.serialnumber')
-          " :width="issafariBrowser ? 110 : 80">
-          <template slot-scope="scope">
-            <span>{{ scope.row.ranking }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="
-            type != 'history'
-              ? $t('nodeInfo.validatorName')
-              : $t('nodeInfo.name')
-          " :width="issafariBrowser ? 154 : 180">
-          <!-- TODO历史节点 table -->
-          <template slot-scope="scope">
-            <div class="flex-special validator-name">
-              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isRecommend">
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t("nodeInfo.officialRecommendation")
-                  }}</span>
-                </div>
-                <img src="../../assets/images/icon-remark.svg" class="icon-remark cursor" />
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" placement="bottom" v-if="scope.row.isInit">
-                <!-- v-if='scope.row.isInit' -->
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t("nodeInfo.nodeMsg")
-                  }}</span>
-                </div>
-                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
-                <i class="el-icon-info cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;line-height: 23px;"></i>
-              </el-tooltip>
-              <img :src="scope.row.stakingIcon" v-if="scope.row.stakingIcon" class="node-avtor" alt />
-              <img src="../../assets/images/node-avtor.svg" class="node-avtor" v-if="!scope.row.stakingIcon" alt />
 
-              <p class="cursor normal ellipsis percent60 fontSize15" @click="goDetail(scope.row.nodeId)">
-                {{ scope.row.nodeName ? scope.row.nodeName : "------" }}
-              </p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')">
-          <template slot-scope="scope">
-            <span class="Gilroy-Bold" :class="{
-                green: scope.row.status == 2 || scope.row.status == 6,
-                yellow: scope.row.status == 3 || scope.row.status == 4,
-                red: scope.row.status == 1
-              }">{{ $t("nodeStatus." + [scope.row.status]) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.pendingDelegations')" v-if="type == 'history'" width="300">
-          <template slot-scope="scope">
-            <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
-          <template slot-scope="scope">
-            <div class="node-stability flex-special">
-              <div style="margin-right:10px;" class="self-tooltip">
-                <i class="icon-low-block cursor"></i>
-                <span>{{ scope.row.slashLowQty }}</span>
-                <p>{{ $t("nodeInfo.lowBlockRate") }}</p>
-              </div>
-              <div class="self-tooltip self-tooltip-sign">
-                <i class="icon-two-sign cursor"></i>
-                <span>{{ scope.row.slashMultiQty }}</span>
-                <p>{{ $t("nodeInfo.twoSignNum") }}</p>
-              </div>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.producedBlock')">
-          <template slot-scope="scope">
-            <span>{{ scope.row.blockQty | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('nodeInfo.exitTime')" v-if="type == 'history'">
-          <template slot-scope="scope">
-            <span>{{ scope.row.leaveTime | formatTime }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -347,7 +417,7 @@ export default {
       this.queryStatus = type
       this.currentPage = 1
       this.getList()
-      if (this.type != "history") {
+      if (this.type != "history" || this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -356,7 +426,7 @@ export default {
       this.tabIndex = 1
       this.queryStatus = "all"
       this.getList()
-      if (this.type != "history") {
+      if (this.type != "history" || this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -369,6 +439,8 @@ export default {
       let methodName = ""
       if (this.type == "history") {
         methodName = "historyStakingList"
+      } else if (this.type == "zero") {
+        methodName = "historyStakingList"
       } else {
         param.queryStatus = this.queryStatus
         methodName = "aliveStakingList"
@@ -378,12 +450,12 @@ export default {
           let { data, totalPages, totalCount, code, errMsg } = res
           if (code == 0) {
             this.tableData = data
-            if (this.type == "history") {
+            if (this.type == "history" || this.type == "zero") {
               this.tableData.forEach((value, index) => {
                 value.ranking = index + 1
               })
             }
-            console.log(this.tableData)
+            // console.log(this.tableData)
             this.pageTotal = totalCount
           } else {
             this.$message.error(errMsg)
@@ -422,13 +494,13 @@ export default {
       if ("WebSocket" in window) {
         this.websocket = new WebSocket(url + param)
         this.websocket.onerror = function (e) {
-          console.log("websocket.onerror", e)
+          // console.log("websocket.onerror", e)
         }
         this.websocket.onopen = function (e) { }
         this.websocket.onmessage = e => {
           let data = JSON.parse(e.data)
           if (data.code == 0) {
-            console.log("nodeList", data)
+            // console.log("nodeList", data)
             this.tableData = data.data
             this.pageTotal = data.totalCount
           } else {
@@ -450,7 +522,7 @@ export default {
     handleCurrentChange (val) {
       this.currentPage = val
       this.getList()
-      if (this.type != "history") {
+      if (this.type != "history" || this.type != "zero") {
         this.getListBywebsocket()
         this.replace()
       }
@@ -459,7 +531,7 @@ export default {
       this.currentPage = 1
       this.pageSize = val
       this.getList()
-      if (this.type != "history") {
+      if (this.type != "history" || this.type != "zero") {
         this.getListBywebsocket()
         this.replace()
       }
@@ -470,7 +542,7 @@ export default {
       this.tabIndex = 1
       this.queryStatus = "all"
       this.getList()
-      if (this.type != "history") {
+      if (this.type != "history" || this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -487,6 +559,11 @@ export default {
     goHistory () {
       this.$router.push({
         path: "/history-node"
+      })
+    },
+    goZero () {
+      this.$router.push({
+        path: "/zero-node"
       })
     },
     //
@@ -515,7 +592,7 @@ export default {
     // }
   },
   mounted () {
-    if (this.type != "history") {
+    if (this.type != "history" || this.type != "zero") {
       this.getListBywebsocket()
     }
   },
