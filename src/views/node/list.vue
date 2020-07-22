@@ -700,7 +700,7 @@ export default {
   }
 }
 .node-table .el-table {
-  overflow: hidden;
+  overflow: visible;
   .cell {
     overflow: visible;
   }
