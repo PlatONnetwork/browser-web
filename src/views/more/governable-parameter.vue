@@ -511,10 +511,10 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.slashing.zeroProduceFreezeDuration.start}}</span>
-                <span class="regular">zeroproducefreezeduration</span>
+                <span class="regular">{{lis.slashing.zeroProduceFreezeDuration.startValue}}</span>
               </div>
               <div>
-                <span class="regular">{{lis.slashing.zeroProduceFreezeDuration.endValue}} </span>
+                <span class="regular">{{lis.slashing.zeroProduceFreezeDuration.endValue}}</span>
                 <span class="medium">{{lis.slashing.zeroProduceFreezeDuration.end}}</span>
               </div>
             </div>
