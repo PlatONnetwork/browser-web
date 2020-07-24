@@ -440,7 +440,8 @@ export default {
     3: "出块中...",
     4: "退出中",
     5: "已退出",
-    6: "共识中"
+    6: "共识中",
+    7:"已锁定"
   },
   // 交易类型
   TxType: {
@@ -513,7 +514,8 @@ export default {
     5: "提案投票",
     6: "双签处罚",
     7: "低出块率处罚",
-    10: "增加自有质押"
+    10: "增加自有质押",
+    11:"节点解除锁定"
   },
   more: {
     governableParameter: "可治理参数",
@@ -533,7 +535,8 @@ export default {
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:"零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",
-    zeroProduceNumberThreshold:"零出块次数处罚阈值。"
+    zeroProduceNumberThreshold:"零出块次数处罚阈值。",
+    zeroProduceFreezeDuration:"节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   ...zhLocale
 };

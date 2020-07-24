@@ -21,6 +21,7 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
   NODE = {
     aliveStakingList: `${NODE_URL}aliveStakingList`,
     historyStakingList: `${NODE_URL}historyStakingList`,
+    lockedStakingList: `${NODE_URL}lockedStakingList`,
     detail: `${NODE_URL}stakingDetails`,
     stakingOptRecordList: `${NODE_URL}stakingOptRecordList`,
     delegationListByStaking: `${NODE_URL}delegationListByStaking`,

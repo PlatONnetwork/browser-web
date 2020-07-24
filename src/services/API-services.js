@@ -108,6 +108,7 @@ class ApiService {
     this.node = {
       aliveStakingList: this.post.bind(this, API.NODE.aliveStakingList),
       historyStakingList: this.post.bind(this, API.NODE.historyStakingList),
+      lockedStakingList: this.post.bind(this, API.NODE.lockedStakingList),
       detail: this.post.bind(this, API.NODE.detail),
       stakingOptRecordList: this.post.bind(this, API.NODE.stakingOptRecordList),
       delegationListByStaking: this.post.bind(

@@ -165,9 +165,7 @@
         <el-table-column :label="$t('tradeAbout.status')">
           <template slot-scope="scope">
             <span class="Gilroy-Bold" :class="{
-                green: scope.row.status == 2 || scope.row.status == 6,
-                yellow: scope.row.status == 3 || scope.row.status == 4,
-                red: scope.row.status == 1
+                red: scope.row.status == 7
               }">{{ $t("nodeStatus." + [scope.row.status]) }}</span>
           </template>
         </el-table-column>
@@ -199,7 +197,7 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.freezeTime')">
           <template slot-scope="scope">
-            <span>{{ scope.row.freezeTime | formatTime }}</span>
+            <span>{{ scope.row.leaveTime | formatTime }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -440,7 +438,7 @@ export default {
       if (this.type == "history") {
         methodName = "historyStakingList"
       } else if (this.type == "zero") {
-        methodName = "historyStakingList"
+        methodName = "lockedStakingList"
       } else {
         param.queryStatus = this.queryStatus
         methodName = "aliveStakingList"

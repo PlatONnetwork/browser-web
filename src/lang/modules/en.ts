@@ -443,7 +443,8 @@ export default {
     3: "Producing…",
     4: "Exiting",
     5: "Exited",
-    6: "Verifying..."
+    6: "Verifying...",
+    7:"Locked"
   },
   // 交易类型
   TxType: {
@@ -516,7 +517,8 @@ export default {
     5: "Proposal Voting",
     6: "Double Signing",
     7: "Low Block Rate",
-    10: "Increase Self-Stakes"
+    10: "Increase Self-Stakes",
+    11:"Node release"
   },
   more: {
     governableParameter: "GOVERNABLE PARAMETER",
@@ -537,7 +539,8 @@ export default {
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
-    zeroProduceNumberThreshold:"Penalty threshold：Number of zero production blocks."
+    zeroProduceNumberThreshold:"Penalty threshold：Number of zero production blocks.",
+    zeroProduceFreezeDuration:"The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   ...enLocale
 };

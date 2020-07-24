@@ -481,6 +481,45 @@
             </div>
           </div>
         </div>
+        <!-- 内容分割7  zeroProduceNumberThreshold-->
+        <div class="cont-box">
+          <h4 class="h4">zeroProduceFreezeDuration</h4>
+          <p class="exp">{{$t("more.zeroProduceFreezeDuration")}}</p>
+          <!-- 有背景内容块 -->
+          <div class="cont-block">
+            <!-- Current Value: -->
+            <div class="current">
+              <div>
+                <span class="lable">{{$t("more.currentValue")}}</span>
+                <span class="green">{{lis.slashing.zeroProduceFreezeDuration.value}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress :percentage="getPercentage(lis.slashing.zeroProduceFreezeDuration,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+              </div>
+            </div>
+            <!-- Genesis Value: -->
+            <div class="genesis">
+              <div>
+                <span class="lable">{{$t("more.genesisValue")}}</span>
+                <span class="black">{{lis.slashing.zeroProduceFreezeDuration.initValue}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress :percentage="getPercentage(lis.slashing.zeroProduceFreezeDuration,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+              </div>
+            </div>
+            <!-- 底部数字 -->
+            <div class="bottom">
+              <div>
+                <span class="medium">{{lis.slashing.zeroProduceFreezeDuration.start}}</span>
+                <span class="regular">zeroproducefreezeduration</span>
+              </div>
+              <div>
+                <span class="regular">{{lis.slashing.zeroProduceFreezeDuration.endValue}} </span>
+                <span class="medium">{{lis.slashing.zeroProduceFreezeDuration.end}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="blank"></div>
         <div class="blank"></div>
       </div>
