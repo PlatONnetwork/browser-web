@@ -415,7 +415,7 @@ export default {
       this.queryStatus = type
       this.currentPage = 1
       this.getList()
-      if (this.type != "history" || this.type != "zero") {
+      if (this.type != "history" && this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -424,7 +424,7 @@ export default {
       this.tabIndex = 1
       this.queryStatus = "all"
       this.getList()
-      if (this.type != "history" || this.type != "zero") {
+      if (this.type != "history" && this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -520,7 +520,7 @@ export default {
     handleCurrentChange (val) {
       this.currentPage = val
       this.getList()
-      if (this.type != "history" || this.type != "zero") {
+      if (this.type != "history" && this.type != "zero") {
         this.getListBywebsocket()
         this.replace()
       }
@@ -529,7 +529,7 @@ export default {
       this.currentPage = 1
       this.pageSize = val
       this.getList()
-      if (this.type != "history" || this.type != "zero") {
+      if (this.type != "history" && this.type != "zero") {
         this.getListBywebsocket()
         this.replace()
       }
@@ -540,7 +540,7 @@ export default {
       this.tabIndex = 1
       this.queryStatus = "all"
       this.getList()
-      if (this.type != "history" || this.type != "zero") {
+      if (this.type != "history" && this.type != "zero") {
         this.getListBywebsocket()
       }
     },
@@ -590,7 +590,7 @@ export default {
     // }
   },
   mounted () {
-    if (this.type != "history" || this.type != "zero") {
+    if (this.type != "history" && this.type != "zero") {
       this.getListBywebsocket()
     }
   },
