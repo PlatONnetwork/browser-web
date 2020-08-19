@@ -631,7 +631,7 @@ export default {
           if (voteCount == 0) {
             this.noPercentage = this.yesPercentage;
           } else {
-            this.noPercentage = formatDecimal(100 - Number(this.yesPercentage),2);
+            this.noPercentage = (100 - Number(this.yesPercentage)).toFixed(2);
           }
         }
         // this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
