@@ -519,8 +519,8 @@ export default {
   },
   more: {
     governableParameter: "可治理参数",
-    stakeThreshold: "创建验证节点最低的质押LAT数。",
-    operatingThreshold: "委托用户每次委托或赎回委托的最低LAT数。",
+    stakeThreshold: "创建验证节点最低的质押ATP数。",
+    operatingThreshold: "委托用户每次委托或赎回委托的最低ATP数。",
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
@@ -531,7 +531,7 @@ export default {
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio:"PlatON网络的LAT每年增发比例（‱）。",
+    increaseIssuanceRatio:"PlatON网络的ATP每年增发比例（‱）。",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:"零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",

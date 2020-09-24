@@ -42,13 +42,13 @@
                 }}</label>
                 <div>
                   <span class="money"
-                    >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
+                    >{{ detailInfo.balance | formatMoney }}&nbsp;ATP</span
                   >
                   <div v-if="detailInfo.isRestricting">
                     <span class="restricted"
                       >{{
                         detailInfo.restrictingBalance | formatMoney
-                      }}&nbsp;LAT (<a
+                      }}&nbsp;ATP (<a
                         class="blue cursor"
                         @click="goRestricte"
                         >{{ $t("contract.restricted") }}</a

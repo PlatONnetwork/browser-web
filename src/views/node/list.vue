@@ -88,7 +88,7 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.pendingDelegations')" width="300">
           <template slot-scope="scope">
-            <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
+            <span>{{ scope.row.statDelegateReduction | formatMoney }} ATP</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
@@ -171,7 +171,7 @@
         </el-table-column>
         <el-table-column :label="$t('deleget.delegationsN')">
           <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
+            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
@@ -255,12 +255,12 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.totalStakePower')">
           <template slot-scope="scope">
-            <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
+            <span>{{ scope.row.totalValue | formatMoney }} ATP</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('deleget.delegationsN')">
           <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
+            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('deleget.delegators')" width="100">
