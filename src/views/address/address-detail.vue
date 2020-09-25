@@ -43,13 +43,13 @@
                 }}</label>
                 <div>
                   <span class="money"
-                    >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
+                    >{{ detailInfo.balance | formatMoney }}&nbsp;ATP</span
                   >
                   <div v-if="detailInfo.isRestricting">
                     <span class="restricted"
                       >{{
                         detailInfo.restrictingBalance | formatMoney
-                      }}&nbsp;LAT (<a
+                      }}&nbsp;ATP (<a
                         class="blue cursor"
                         @click="goRestricte"
                         >{{ $t("contract.restricted") }}</a
@@ -79,7 +79,7 @@
                 }}</label>
                 <div class="money">
                   <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
-                  {{ detailInfo.stakingValue | formatMoney }}&nbsp;LAT
+                  {{ detailInfo.stakingValue | formatMoney }}&nbsp;ATP
                 </div>
               </li>
               <li>
@@ -87,7 +87,7 @@
                   $t("contract.unclaimedReward")
                 }}</label>
                 <div class="money">
-                  {{ detailInfo.delegateClaim | formatMoney }}&nbsp;LAT
+                  {{ detailInfo.delegateClaim | formatMoney }}&nbsp;ATP
                 </div>
               </li>
               <li>
@@ -95,7 +95,7 @@
                   $t("contract.invalidDelegations")
                 }}</label>
                 <div class="money">
-                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
+                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;ATP
                 </div>
               </li>
             </ul>

@@ -146,7 +146,7 @@ export default {
     to: "To",
     toA: "Recipient",
     value: "Value",
-    fee: "TxFee", //(LAT)
+    fee: "TxFee", //(ATP)
     before: "ago",
 
     txInfo: "Tx Info",
@@ -266,12 +266,12 @@ export default {
     released: "Invalid delegations",
     delegationAmount: "Delegation Amount",
     locked: "Locked",
-    unlockedMsg: "Delegated LATs to be locked",
-    releasedMsg: "Undelegated LATs, ready to withdraw",
+    unlockedMsg: "Delegated ATPs to be locked",
+    releasedMsg: "Undelegated ATPs, ready to withdraw",
     delegationAmountMsg:
       "Total amount delegated to the node, which is the sum of the amount of locked and unlocked delegates",
     lockedMsg:
-      "Delegated and locked LATs, the amount of delegates that effectively contribute to the node",
+      "Delegated and locked ATPs, the amount of delegates that effectively contribute to the node",
     percentageMsg:
       "Total amount delegated to the node and the share of the total delegations",
     historicalDelegator: "Historical Delegator",
@@ -287,7 +287,7 @@ export default {
     rewardReceiveDetails: "Reward Details",
     totalReceiveReward: "Total claimed reward",
     unclaimedReward: "Unclaimed Reward",
-    unclaimedRewardMsg: "Delegated LATs，Receivable rewards."
+    unclaimedRewardMsg: "Delegated ATPs，Receivable rewards."
   },
   blockAbout: {
     morethen: "Total ",
@@ -522,8 +522,8 @@ export default {
   },
   more: {
     governableParameter: "GOVERNABLE PARAMETER",
-    stakeThreshold: "Minimum stake LATs required to create validator.",
-    operatingThreshold: "Minimum LAT for delegation or withdrawal.",
+    stakeThreshold: "Minimum stake ATPs required to create validator.",
+    operatingThreshold: "Minimum ATP for delegation or withdrawal.",
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
@@ -535,7 +535,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio:"PlatON network's fixed annual issuance ratio of LAT(‱).",
+    increaseIssuanceRatio:"PlatON network's fixed annual issuance ratio of ATP(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",

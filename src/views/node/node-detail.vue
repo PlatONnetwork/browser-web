@@ -66,7 +66,7 @@
                 </p>
               </Item>
               <!-- 累计系统奖励 -->
-              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalNodeReward') + ' (LAT)'">
+              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalNodeReward') + ' (ATP)'">
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.rewardValue | formatMoney | sliceFloat(0)
@@ -88,7 +88,7 @@
                 预计节点年化收益率：显示如图
 
                 -预计委托年化收益率：显示如图 -->
-              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalStakePower') + ' (LAT)'" class="total-stake">
+              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalStakePower') + ' (ATP)'" class="total-stake">
                 <p class="Gilroy-Medium" v-if="detailInfo.status != 4 && detailInfo.status != 5">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalValue | formatMoney | sliceFloat(0)
@@ -124,7 +124,7 @@
                 </div>
               </Item>
               <!-- 自有质押 -->
-              <Item v-if="detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.selfstake') + ' (LAT)'" class="total-stake">
+              <Item v-if="detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.selfstake') + ' (ATP)'" class="total-stake">
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(0)
@@ -163,7 +163,7 @@
                   <span class="fontSize13">%</span>
                 </p>
               </Item>
-              <Item :vertical="true" :label="$t('nodeInfo.totalDelegatedReward') + ' (LAT)'">
+              <Item :vertical="true" :label="$t('nodeInfo.totalDelegatedReward') + ' (ATP)'">
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalDeleReward | formatMoney | sliceFloat(0)
@@ -175,7 +175,7 @@
                 </p>
               </Item>
               <!-- TODO 需要在未退回到验证节点账户时，显示没有返还到节点钱 显示带解锁 此处需要一个状态 -->
-              <Item :vertical="true" :label="$t('nodeInfo.selfstake') + ' (LAT)'" class="total-stake">
+              <Item :vertical="true" :label="$t('nodeInfo.selfstake') + ' (ATP)'" class="total-stake">
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(0)
@@ -217,7 +217,7 @@
                   {{ detailInfo.delegateQty }}
                 </p>
               </Item>
-              <Item :vertical="true" :label="$t('contract.unclaimedReward') + ' (LAT)'">
+              <Item :vertical="true" :label="$t('contract.unclaimedReward') + ' (ATP)'">
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.deleRewardRed | formatMoney | sliceFloat(0)
@@ -229,7 +229,7 @@
                 </p>
               </Item>
               <!-- TODO 此处历史节点显示另外一个数据 -->
-              <Item :vertical="true" :label="$t('deleget.acceptDelegations') + ' (LAT)'" v-if="detailInfo.status != 4 && detailInfo.status != 5">
+              <Item :vertical="true" :label="$t('deleget.acceptDelegations') + ' (ATP)'" v-if="detailInfo.status != 4 && detailInfo.status != 5">
                 <p>
                   <span class="Gilroy-Medium black fontSize18" style="font-size: 18px;">{{
                       detailInfo.delegateValue | formatMoney | sliceFloat(0)
@@ -240,7 +240,7 @@
                   <span class="fontSize13 lat-mini"></span>
                 </p>
               </Item>
-              <Item v-else :vertical="true" :label="$t('nodeInfo.pendingDelegations') + ' (LAT)'">
+              <Item v-else :vertical="true" :label="$t('nodeInfo.pendingDelegations') + ' (ATP)'">
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.statDelegateReduction
@@ -377,7 +377,7 @@
               </el-table-column>
               <el-table-column :label="$t('blockAbout.blockReward')">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.blockReward | formatMoney }} LAT</span>
+                  <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -442,11 +442,11 @@
                             "actionType." + [scope.row.type]
                           )}-扣除自有质押${scope.row.percent * 100}%(${
                             scope.row.amount
-                          } LAT)，移出验证节点列表`
+                          } ATP)，移出验证节点列表`
                         : `${$t("actionType." + [scope.row.type])}-${scope.row
                             .percent * 100}% of self-stake slashed (${
                             scope.row.amount
-                          } LAT), Remove the Validator List`
+                          } ATP), Remove the Validator List`
                     }}
                   </p>
                   <p class="percent80 no-break" v-else-if="scope.row.type == 7 && scope.row.percent == 0">
@@ -467,10 +467,10 @@
                             "actionType." + [scope.row.type]
                           )}-扣除自有质押(${
                             scope.row.amount
-                          }LAT)，移出验证节点列表`
+                          }ATP)，移出验证节点列表`
                         : `${$t("actionType." + [scope.row.type])}(${
                             scope.row.amount
-                          } LAT) from self-stake, Remove the Validator List`
+                          } ATP) from self-stake, Remove the Validator List`
                     }}
                   </p>
                   <p class="percent80 no-break" v-else-if="scope.row.type == 11">
@@ -586,7 +586,7 @@
         <div v-show="tabIndex == 5">
           <div class="address-trade-last node-last">
             {{ $t("deleget.totalReceiveReward") }}
-            <b style="margin-left:20px;">{{ detailInfo.haveDeleReward | formatMoney }} LAT</b>
+            <b style="margin-left:20px;">{{ detailInfo.haveDeleReward | formatMoney }} ATP</b>
           </div>
           <div class="table">
             <el-table :data="rewardTableData" style="width: 100%" key="firstTable" size="mini">

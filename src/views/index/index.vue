@@ -29,7 +29,7 @@
             <a class="cursor" @click="goNodeDetail(blockStatisticData.nodeId)">{{blockStatisticData.nodeName}}</a>
           </li>
           <li class="statistics-odd">
-            <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(LAT)</div>
+            <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(ATP)</div>
             <p>
               {{blockStatisticData.turnValue | unit}}&nbsp;/
               <b class="tip">
@@ -136,7 +136,7 @@
                 <span class="item-number cursor">{{item.nodeName}}</span>
                 <p>
                   {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}LAT</a>
+                  <a>{{item.totalValue | formatMoney}}ATP</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -152,7 +152,7 @@
                 <span class="item-number cursor">{{item.nodeName}}</span>
                 <p>
                   {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}LAT</a>
+                  <a>{{item.totalValue | formatMoney}}ATP</a>
                 </p>
               </div>
               <div class="list-item item-right">
