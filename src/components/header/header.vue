@@ -6,35 +6,72 @@
       <p>The PlatON Block Explorer</p>
     </div>
     <div class="menu">
-      <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color="#999" active-text-color="#FFF">
+      <el-menu
+        :default-active="$route.path"
+        :router="true"
+        class="el-menu-demo"
+        mode="horizontal"
+        background-color="transparent"
+        text-color="#999"
+        active-text-color="#FFF"
+      >
         <el-menu-item index="/" :class="{ active: $route.path == '/' }">
           <router-link to="/">{{ $t("menu.home") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/block" :class="{ active: $route.path.indexOf('block') > -1 }">
+        <el-menu-item
+          index="/block"
+          :class="{ active: $route.path.indexOf('block') > -1 }"
+        >
           <router-link to="/block">{{ $t("menu.block") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/trade" :class="{
+        <el-menu-item
+          index="/trade"
+          :class="{
             active:
               $route.path.indexOf('trade') > -1 ||
-              $route.path.indexOf('address') > -1
-          }">
+              $route.path.indexOf('address') > -1,
+          }"
+        >
           <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/node" :class="{
-            active: $route.path.indexOf('node') > -1
-          }">
+        <el-menu-item
+          index="/node"
+          :class="{
+            active: $route.path.indexOf('node') > -1,
+          }"
+        >
           <router-link to="/node">{{ $t("menu.validator") }}</router-link>
         </el-menu-item>
-        <el-menu-item index="/proposal" :class="{ active: $route.path.indexOf('proposal') > -1 }">
-          <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
+        <el-menu-item
+          index="/tokens"
+          :class="{ active: $route.path.indexOf('tokens') > -1 }"
+        >
+          <router-link to="/tokens">{{ $t("menu.tokens") }}</router-link>
         </el-menu-item>
+        <!-- <el-menu-item
+          index="/proposal"
+          :class="{ active: $route.path.indexOf('proposal') > -1 }"
+        >
+          <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
+        </el-menu-item> -->
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
-          <el-dropdown placement="bottom-start" class="more-dropdown" @command="dropdownCommand">
-            <span class="el-dropdown-link more-title" :class="{
-                active: $route.path.indexOf('governable-parameter') > -1
-              }">{{ $t("menu.more") }}</span>
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active: $route.path.indexOf('governable-parameter') > -1,
+              }"
+              >{{ $t("menu.more") }}</span
+            >
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/proposal">{{
+                $t("menu.proposal")
+              }}</el-dropdown-item>
               <el-dropdown-item command="/governable-parameter">{{
                 $t("more.governableParameter")
               }}</el-dropdown-item>
@@ -43,12 +80,29 @@
         </el-menu-item>
       </el-menu>
     </div>
-    <div class="search search-header" :class="{
+    <div
+      class="search search-header"
+      :class="{
         'search-active': isFocus,
-        'search-hide': !hideSearch || $route.path != '/'
-      }">
-      <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus = true" @blur="isFocus = false" v-model="searchKey" @keyup.enter.native="searchFn" size="mini"></el-input>
-      <el-button type="primary" class="btn-header el-searchs" :class="{ 'search-btn-active': isFocus }" @click="searchFn" :disabled="disabledBtn">{{ $t("search.searchBtn") }}</el-button>
+        'search-hide': !hideSearch || $route.path != '/',
+      }"
+    >
+      <el-input
+        :placeholder="$t('search.placeHolder')"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
+        v-model="searchKey"
+        @keyup.enter.native="searchFn"
+        size="mini"
+      ></el-input>
+      <el-button
+        type="primary"
+        class="btn-header el-searchs"
+        :class="{ 'search-btn-active': isFocus }"
+        @click="searchFn"
+        :disabled="disabledBtn"
+        >{{ $t("search.searchBtn") }}</el-button
+      >
     </div>
     <div class="right-most">
       <el-dropdown placement="bottom-start">
@@ -62,13 +116,22 @@
           }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-dropdown @command="handleCommandLangage" placement="bottom-start" @visible-change="visibleChange2">
+      <el-dropdown
+        @command="handleCommandLangage"
+        placement="bottom-start"
+        @visible-change="visibleChange2"
+      >
         <span class="el-dropdown-link">
           {{ languageObj[language] == "简体中文" ? "简体中文" : "English" }}
           <i class="el-icon--right" :class="iconClass2"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="(item, index) in options" :key="index" :command="item.value">{{ item.label }}</el-dropdown-item>
+          <el-dropdown-item
+            v-for="(item, index) in options"
+            :key="index"
+            :command="item.value"
+            >{{ item.label }}</el-dropdown-item
+          >
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -92,31 +155,31 @@ export default {
       chainList: [
         {
           en: "NewBaleyworld",
-          zh: "NewBaleyworld"
-        }
+          zh: "NewBaleyworld",
+        },
       ],
       options: [
         {
           value: "zh-cn",
-          label: "简体中文"
+          label: "简体中文",
         },
         {
           value: "en",
-          label: "English"
-        }
+          label: "English",
+        },
       ],
       languageObj: {
         "zh-cn": "简体中文",
-        en: "English"
+        en: "English",
       },
-      isFocus: false
+      isFocus: false,
     };
   },
   computed: {
     ...mapGetters(["chainId", "chainHttp", "hideSearch"]),
     lang() {
       return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
-    }
+    },
   },
   watch: {},
   components: {},
@@ -172,7 +235,7 @@ export default {
       localStorage.setItem("commandContext", arr[0].context);
       localStorage.setItem("cid", command);
       this.$router.push({
-        path: "/"
+        path: "/",
       });
     },
     handleCommandLangage(command) {
@@ -198,12 +261,12 @@ export default {
     searchFn() {
       this.disabledBtn = true;
       let param = {
-        parameter: this.searchKey.trim()
+        parameter: this.searchKey.trim(),
       };
       console.warn("搜索内容》》》", param);
       apiService.search
         .query(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
 
           this.searchKey = "";
@@ -220,7 +283,7 @@ export default {
             // this.$message.error(errMsg) 替换为search无结果
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.searchKey = "";
           this.$message.error(error);
         });
@@ -235,8 +298,8 @@ export default {
           this.$router.push({
             path: "/block-detail",
             query: {
-              height: struct.number
-            }
+              height: struct.number,
+            },
           });
           if (this.$route.path == "/block-detail") {
             this.reload();
@@ -249,8 +312,8 @@ export default {
           this.$router.push({
             path: "/trade-detail",
             query: {
-              txHash: struct.txHash
-            }
+              txHash: struct.txHash,
+            },
           });
           if (this.$route.path == "/trade-detail") {
             this.reload();
@@ -261,8 +324,8 @@ export default {
           this.$router.push({
             path: "/node-detail",
             query: {
-              address: struct.nodeId
-            }
+              address: struct.nodeId,
+            },
           });
           if (this.$route.path == "/node-detail") {
             this.reload();
@@ -273,8 +336,8 @@ export default {
           this.$router.push({
             path: "/address-detail",
             query: {
-              address: struct.address
-            }
+              address: struct.address,
+            },
           });
           if (this.$route.path == "/address-detail") {
             this.reload();
@@ -285,8 +348,8 @@ export default {
           this.$router.push({
             path: "/contract-detail",
             query: {
-              address: struct.address
-            }
+              address: struct.address,
+            },
           });
           if (this.$route.path == "/contract-detail") {
             this.reload();
@@ -300,15 +363,15 @@ export default {
         path: command,
         query: {
           //   address: address
-        }
+        },
       });
-    }
+    },
   },
   //生命周期函数
   created() {
     this.language = this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en";
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

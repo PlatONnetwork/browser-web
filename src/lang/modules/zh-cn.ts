@@ -7,6 +7,7 @@ export default {
     transaction: "交易",
     validator: "验证节点",
     proposal: "治理提案",
+    tokens: "Tokens",
     more: "更多",
     comesoon: "敬请期待",
     goole: "Google reCAPTCHA无法获取！"
@@ -28,6 +29,13 @@ export default {
     time: "时间",
     serialnumber: "序号",
     export: "下载csv"
+  },
+  tokens: {
+    tokens: "Tokens",
+    token: "Token",
+    value: "价值",
+    from: "发送方",
+    to: "接收方"
   },
   tradeAbout: {
     confirmTime: "确认时间",
@@ -71,14 +79,14 @@ export default {
     proposalID: "提案ID",
     proposalStatus: "状态",
 
-    creator:"创建方",
-    executor:"执行方",
-    PPOS:"系统合约",
-    EVM:"EVM合约",
-    WASM:"WASM合约",
-    callFunction:"调用函数",
-    creation:"合约创建",
-    execution:"合约执行",
+    creator: "创建方",
+    executor: "执行方",
+    PPOS: "系统合约",
+    EVM: "EVM合约",
+    WASM: "WASM合约",
+    callFunction: "调用函数",
+    creation: "合约创建",
+    execution: "合约执行",
 
     PIPSN: "PIP编号",
     proposalTitle: "提案标题",
@@ -208,13 +216,13 @@ export default {
     fromNode: "从验证节点",
     changedTo: "变更为",
     noData: "暂无数据",
-    noProposalData:"暂无提案数据"
+    noProposalData: "暂无提案数据"
   },
   contract: {
     contractDetail: "合约详情",
     contract: "合约",
-    contractType:"合约类型",
-    ContractBytecode:"Contract Bytecode",
+    contractType: "合约类型",
+    ContractBytecode: "Contract Bytecode",
     overview: "概览",
     lockOverview: "锁仓概览",
     balance: "余额",
@@ -251,8 +259,8 @@ export default {
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
     totalDelegated: "总计委托",
-    warn:"合约已销毁，执行于交易",
-    systemBuilt:"系统合约，无上链字节码"
+    warn: "合约已销毁，执行于交易",
+    systemBuilt: "系统合约，无上链字节码"
   },
   deleget: {
     validators: "已委托验证节点",
@@ -409,7 +417,7 @@ export default {
     delegationsDelegators: "委托数\\委托者",
     producedBlock: "已产生区块数",
     exitTime: "退出时间",
-    freezeTime:"锁定时间",
+    freezeTime: "锁定时间",
     pendingDelegations: "待赎回委托数",
     nodeMsg: "基金会资助的节点不接受委托",
     systemBuilt: "System built-in reward pool account",
@@ -441,7 +449,7 @@ export default {
     4: "退出中",
     5: "已退出",
     6: "共识中",
-    7:"已锁定"
+    7: "已锁定"
   },
   // 交易类型
   TxType: {
@@ -469,9 +477,9 @@ export default {
 
   //合约类型
   contractType: {
-    0:"系统合约",
-    1:"EVM合约",
-    2:"WASM合约"
+    0: "系统合约",
+    1: "EVM合约",
+    2: "WASM合约"
   },
 
   // 创建提案的提案类型
@@ -504,7 +512,7 @@ export default {
     11: "YES ",
     12: "NO ",
     13: "ABSTAIN ",
-    invalid:"(无效票)"
+    invalid: "(无效票)"
   },
   actionType: {
     1: "创建验证节点",
@@ -515,7 +523,7 @@ export default {
     6: "双签处罚",
     7: "低出块率处罚",
     10: "增加自有质押",
-    11:"节点解除锁定"
+    11: "节点解除锁定"
   },
   more: {
     governableParameter: "可治理参数",
@@ -524,19 +532,19 @@ export default {
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
-    rewardPerMaxChangeRange:"\"委托奖励比例\" 每次修改的最大可调整幅度（‱）。",
-    rewardPerChangeInterval:"\"委托奖励比例\" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。",
+    rewardPerMaxChangeRange: "\"委托奖励比例\" 每次修改的最大可调整幅度（‱）。",
+    rewardPerChangeInterval: "\"委托奖励比例\" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。",
     slashBlocksReward: "出块率为0，削减的区块奖励块数。",
     slashFractionDuplicateSign: "双签举报处罚节点自有质押金比例(‱)。",
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio:"PlatON网络的LAT每年增发比例（‱）。",
+    increaseIssuanceRatio: "PlatON网络的LAT每年增发比例（‱）。",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
-    zeroProduceCumulativeTime:"零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",
-    zeroProduceNumberThreshold:"零出块次数处罚阈值。",
-    zeroProduceFreezeDuration:"节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
+    zeroProduceCumulativeTime: "零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",
+    zeroProduceNumberThreshold: "零出块次数处罚阈值。",
+    zeroProduceFreezeDuration: "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   ...zhLocale
 };
