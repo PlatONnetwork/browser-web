@@ -3,7 +3,7 @@
     <div class="logo cursor" @click="goIndex">
       <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
       <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
-      <p>The PlatON Block Explorer</p>
+      <p>The Alaya Block Explorer</p>
     </div>
     <div class="menu">
       <el-menu :default-active="$route.path" :router="true" class="el-menu-demo" mode="horizontal" background-color="transparent" text-color="#999" active-text-color="#FFF">

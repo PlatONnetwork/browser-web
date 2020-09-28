@@ -16,11 +16,11 @@ export default {
     placeHolder: " 请输入区块高度/地址/块哈希/交易哈希查询"
   },
   footer: {
-    desc: "PlatScan是PlatON区块链资源管理与分析平台",
+    desc: "PlatScan是Alaya区块链资源管理与分析平台",
     links: "链接",
     help: "开发帮助",
     wallet: "钱包",
-    officialWebsite: "PlatON官网",
+    officialWebsite: "Alaya官网",
     whitePaper: "白皮书",
     community: "社区"
   },
@@ -331,7 +331,7 @@ export default {
     copyfail: "复制失败"
   },
   indexInfo: {
-    WelcomeToPlatON: "欢迎来到PlatON 区块链浏览器",
+    WelcomeToPlatON: "欢迎来到Alaya 区块链浏览器",
     LIVEBLOCKTIME: "实时出块时长(s)",
     LIVEBLOCKTRANSACTIONS: "实时区块交易数",
     LIVEBLOCKHEIGHT: "当前区块高度",
@@ -350,13 +350,13 @@ export default {
     searchno: "查询无结果！",
 
     resource: "资源",
-    aboutPlatON: "关于PlatON",
-    platONWhitePaper: "PlatON白皮书",
+    aboutPlatON: "关于Alaya",
+    platONWhitePaper: "Alaya白皮书",
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
-    platScan: "PlatScan是PlatON区块链资源管理与分析平台",
+    platScan: "PlatScan是Alaya区块链资源管理与分析平台",
     international:
-      "COPYRIGHT © 2020 PLATON NETWORK."
+      "COPYRIGHT © 2020 ALAYA NETWORK."
   },
   elseInfo: {
     hour: "时",
@@ -531,7 +531,7 @@ export default {
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio:"PlatON网络的ATP每年增发比例（‱）。",
+    increaseIssuanceRatio:"Alaya网络的ATP每年增发比例（‱）。",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:"零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",

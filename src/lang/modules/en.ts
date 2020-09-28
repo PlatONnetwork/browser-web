@@ -16,11 +16,11 @@ export default {
     placeHolder: "Search by block/Address/Block hash/Txn hash"
   },
   footer: {
-    desc: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
+    desc: "PlatScan is a Block Explorer and Analytics Platform for Alaya",
     links: "Links",
     help: "Help",
     wallet: "Wallet",
-    officialWebsite: "PlatON Official Website",
+    officialWebsite: "Alaya Official Website",
     whitePaper: "White Paper",
     community: "Community"
   },
@@ -334,7 +334,7 @@ export default {
     copyfail: "Copy the failure"
   },
   indexInfo: {
-    WelcomeToPlatON: "Welcome to PlatON Blockchain Explorer",
+    WelcomeToPlatON: "Welcome to Alaya Blockchain Explorer",
     LIVEBLOCKTIME: "LIVE BLOCK TIME(s)",
     LIVEBLOCKTRANSACTIONS: "LIVE BLOCKS TRANSACTIONS",
     LIVEBLOCKHEIGHT: "LIVE BLOCK HEIGHT",
@@ -353,13 +353,13 @@ export default {
     searchno: "Search no results!",
 
     resource: "RESOURCE",
-    aboutPlatON: "About PlatON",
-    platONWhitePaper: "PlatON White Paper",
+    aboutPlatON: "About Alaya",
+    platONWhitePaper: "Alaya White Paper",
     atonDownload: "ATON Download",
     developer: "Developer",
-    platScan: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
+    platScan: "PlatScan is a Block Explorer and Analytics Platform for Alaya",
     international:
-      "COPYRIGHT © 2020 PLATON NETWORK."
+      "COPYRIGHT © 2020 ALAYA NETWORK."
   },
   elseInfo: {
     hour: "h ",
@@ -535,7 +535,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio:"PlatON network's fixed annual issuance ratio of ATP(‱).",
+    increaseIssuanceRatio:"Alaya network's fixed annual issuance ratio of ATP(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
