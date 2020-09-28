@@ -67,7 +67,7 @@
             </ul>
           </div>
         </el-col>
-        <div style="width:100px;flex-shrink:0"></div>
+        <div style="width: 100px; flex-shrink: 0"></div>
         <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
@@ -127,6 +127,12 @@
           v-if="isAddressDetailsReward"
           >{{ $t("tradeAbout.rewardDetails") }}</el-button
         >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 4 }"
+          @click="tabChange(4)"
+          >Erc20 Token Txns</el-button
+        >
       </div>
 
       <!-- 交易 -->
@@ -151,6 +157,9 @@
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
+
+      <!-- Erc20 Token -->
+      <token-list v-show="tabIndex == 4" :address="address"></token-list>
     </div>
   </div>
 </template>
@@ -159,6 +168,7 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
+import tokenList from "@/components/rec20-token-list";
 import rewardDetail from "@/components/address/rewardDetailTable";
 import delegationInfo from "@/components/address/delegations-info";
 export default {
@@ -178,14 +188,12 @@ export default {
   },
   props: {},
   computed: {
-    ...mapGetters([
-      "isAddressDetailsDelegation",
-      "isAddressDetailsReward"
-    ]),
+    ...mapGetters(["isAddressDetailsDelegation", "isAddressDetailsReward"])
   },
   watch: {},
   components: {
     tradeList,
+    tokenList,
     rewardDetail,
     delegationInfo
   },
@@ -244,7 +252,6 @@ export default {
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.getDetail();
-
   },
   mounted() {}
 };

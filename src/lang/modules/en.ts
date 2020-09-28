@@ -366,8 +366,7 @@ export default {
     atonDownload: "ATON Download",
     developer: "Developer",
     platScan: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
-    international:
-      "COPYRIGHT © 2020 PLATON NETWORK."
+    international: "COPYRIGHT © 2020 PLATON NETWORK."
   },
   elseInfo: {
     hour: "h ",
@@ -461,6 +460,9 @@ export default {
     2: "ContractExecution", //'合约执行',
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
+    // todo
+    6: "erc20合约创建", //erc20合约创建
+    7: "erc20合约执行", //erc20合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
@@ -482,7 +484,9 @@ export default {
   contractType: {
     0: "PPOS Contract",
     1: "EVM Contract",
-    2: "WASM Contract"
+    2: "WASM Contract",
+    // todo
+    3: "evm-token"
   },
 
   // 创建提案的提案类型
@@ -535,20 +539,26 @@ export default {
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
-    rewardPerMaxChangeRange: "\"Delegated Reward Ratio\" The maximum adjustable range of each modification (‱).",
-    rewardPerChangeInterval: "\"Delegated Reward Ratio\" allows to modify the number of waiting epochs again (1 epoch=10750 blocks).",
+    rewardPerMaxChangeRange:
+      '"Delegated Reward Ratio" The maximum adjustable range of each modification (‱).',
+    rewardPerChangeInterval:
+      '"Delegated Reward Ratio" allows to modify the number of waiting epochs again (1 epoch=10750 blocks).',
     slashBlocksReward: "Slash the number of block rewards(block rate=0%).",
     slashFractionDuplicateSign: "Slash ratio of DoubleSign(‱).",
     duplicateSignReportReward: "Reporter's reward percentage (%).",
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio: "PlatON network's fixed annual issuance ratio of LAT(‱).",
+    increaseIssuanceRatio:
+      "PlatON network's fixed annual issuance ratio of LAT(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
-    zeroProduceCumulativeTime: "Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
-    zeroProduceNumberThreshold: "Penalty threshold：Number of zero production blocks.",
-    zeroProduceFreezeDuration: "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
+    zeroProduceCumulativeTime:
+      "Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
+    zeroProduceNumberThreshold:
+      "Penalty threshold：Number of zero production blocks.",
+    zeroProduceFreezeDuration:
+      "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   ...enLocale
 };

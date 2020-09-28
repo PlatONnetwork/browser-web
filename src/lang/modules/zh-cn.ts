@@ -363,8 +363,7 @@ export default {
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
     platScan: "PlatScan是PlatON区块链资源管理与分析平台",
-    international:
-      "COPYRIGHT © 2020 PLATON NETWORK."
+    international: "COPYRIGHT © 2020 PLATON NETWORK."
   },
   elseInfo: {
     hour: "时",
@@ -458,6 +457,8 @@ export default {
     2: "合约执行", //合约执行
     4: "其他", //其他
     5: "MPC交易",
+    6: "erc20合约创建",
+    7: "erc20合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押
@@ -479,7 +480,8 @@ export default {
   contractType: {
     0: "系统合约",
     1: "EVM合约",
-    2: "WASM合约"
+    2: "WASM合约",
+    3: "evm-token"
   },
 
   // 创建提案的提案类型
@@ -532,8 +534,9 @@ export default {
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
-    rewardPerMaxChangeRange: "\"委托奖励比例\" 每次修改的最大可调整幅度（‱）。",
-    rewardPerChangeInterval: "\"委托奖励比例\" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。",
+    rewardPerMaxChangeRange: '"委托奖励比例" 每次修改的最大可调整幅度（‱）。',
+    rewardPerChangeInterval:
+      '"委托奖励比例" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。',
     slashBlocksReward: "出块率为0，削减的区块奖励块数。",
     slashFractionDuplicateSign: "双签举报处罚节点自有质押金比例(‱)。",
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
@@ -542,9 +545,11 @@ export default {
     increaseIssuanceRatio: "PlatON网络的LAT每年增发比例（‱）。",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
-    zeroProduceCumulativeTime: "零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",
+    zeroProduceCumulativeTime:
+      "零出块持续的共识轮数，并在该时间内进行零出块次数的累计。",
     zeroProduceNumberThreshold: "零出块次数处罚阈值。",
-    zeroProduceFreezeDuration: "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
+    zeroProduceFreezeDuration:
+      "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   ...zhLocale
 };

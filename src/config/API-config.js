@@ -78,10 +78,10 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
 
     serverWebsocket: `/browser-server/websocket/`
   },
-  TOKENS = {
+  TOKEN = {
     tokenDetail: `${TOKEN_URL}tokenDetail`,
     tokenList: `${TOKEN_URL}tokenList`,
-    tokenTransferList: `${TOKEN_URL}tokenTransferList`,
+    tokenTransferList: `${TOKEN_URL}tokenTransferList`
   },
   MORE = {
     queryConfig: `${MORE_URL}queryConfig`
@@ -98,5 +98,5 @@ export default {
   NODE,
   BASE,
   MORE,
-  TOKENS
+  TOKEN
 };

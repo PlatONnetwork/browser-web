@@ -65,9 +65,9 @@
         :border="true"
         v-if="
           detailInfo.txType == '0' ||
-            detailInfo.txType == '4' ||
-            detailInfo.txType == '5' ||
-            detailInfo.txType == '4000'
+          detailInfo.txType == '4' ||
+          detailInfo.txType == '5' ||
+          detailInfo.txType == '4000'
         "
       >
         <!-- 发送方 -->
@@ -84,7 +84,7 @@
           :label="$t('tradeAbout.recipient')"
           v-if="detailInfo.txType != '4000'"
         >
-        <!-- 用户钱包地址 -->
+          <!-- 用户钱包地址 -->
           <span
             v-if="detailInfo.receiveType == '2'"
             class="cursor normal ellipsis"
@@ -96,9 +96,9 @@
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
-                  {{ $t('contract.contract') }}
+                  {{ $t("contract.contract") }}
                 </div>
-               <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span>Contract</span>
@@ -116,7 +116,6 @@
               @click="goContractDetail(detailInfo.to)"
               >{{ detailInfo.to }}
             </span>
-
           </div>
         </Item>
 
@@ -185,13 +184,19 @@
         <!-- 合约 -->
         <Item :label="$t('contract.contract')">
           <!-- 合约创建成功， 合约执行成功，合约执行失败 -->
-          <div class="isContract" v-if="detailInfo.txReceiptStatus == 1 || (detailInfo.txReceiptStatus == 0 && detailInfo.txType == 2)">
+          <div
+            class="isContract"
+            v-if="
+              detailInfo.txReceiptStatus == 1 ||
+              (detailInfo.txReceiptStatus == 0 && detailInfo.txType == 2)
+            "
+          >
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
-                  {{ $t('contract.contract') }}
+                  {{ $t("contract.contract") }}
                 </div>
-               <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span v-if="detailInfo.txType == 1">Create Contract</span>
@@ -334,7 +339,7 @@
               Null
             </span>
             <p
-              style="width:100%"
+              style="width: 100%"
               v-for="item in detailInfo.rewards"
               :key="item.verify"
               v-else
@@ -370,11 +375,11 @@
         :border="true"
         v-if="
           detailInfo.txType == '2000' ||
-            detailInfo.txType == '2001' ||
-            detailInfo.txType == '2002' ||
-            detailInfo.txType == '2003' ||
-            detailInfo.txType == '2004' ||
-            detailInfo.txType == '2005'
+          detailInfo.txType == '2001' ||
+          detailInfo.txType == '2002' ||
+          detailInfo.txType == '2003' ||
+          detailInfo.txType == '2004' ||
+          detailInfo.txType == '2005'
         "
       >
         <!-- 提案人（创建提案特有2000） -->
@@ -473,7 +478,7 @@
               "
             >
               {{ $t("tradeAbout.versionUp") }}-V
-              <span style="font-size:16px;">{{
+              <span style="font-size: 16px">{{
                 detailInfo.proposalNewVersion
               }}</span>
             </span>
@@ -554,10 +559,10 @@
         :border="true"
         v-if="
           detailInfo.txType == '1000' ||
-            detailInfo.txType == '1001' ||
-            detailInfo.txType == '1002' ||
-            detailInfo.txType == '1003' ||
-            detailInfo.txType == '3000'
+          detailInfo.txType == '1001' ||
+          detailInfo.txType == '1002' ||
+          detailInfo.txType == '1003' ||
+          detailInfo.txType == '3000'
         "
       >
         <!-- 举报人（举报验证人特有） -->
@@ -788,12 +793,40 @@
         <Item :label="$t('tradeAbout.blockHeight')">
           <div class="cursor" @click="goBlockDetail(detailInfo.blockNumber)">
             <span class="blue">{{ detailInfo.blockNumber }}</span>
-            <span style="margin-left:5px;"
+            <span style="margin-left: 5px"
               >({{
                 detailInfo.confirmNum + "&nbsp;" + $t("tradeAbout.confirmNum")
               }})</span
             >
           </div>
+        </Item>
+        <!-- erc20 token -->
+        <Item
+          label="Tokens Transferred"
+          v-if="detailInfo.erc20Params && detailInfo.erc20Params.length > 0"
+        >
+          <ul>
+            <li v-for="(item, index) in detailInfo.erc20Params">
+              From
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerTxFrom)"
+                >{{ item.innerTxFrom }}</span
+              >
+              to
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerTxTo)"
+                >{{ item.innerTxTo }}</span
+              >
+              for
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
+              >
+            </li>
+          </ul>
         </Item>
         <!-- 燃料限制 -->
         <Item
@@ -872,6 +905,15 @@ export default {
     },
     //
     goDetail(type, id) {},
+    //进入token详情
+    goTokenDetail(address) {
+      this.$router.push({
+        path: "/tokens-detail",
+        query: {
+          address: address
+        }
+      });
+    },
     //获取交易信息详情
     getDetail() {
       let param = {
@@ -889,6 +931,14 @@ export default {
           if (code == 0) {
             this.loading = false;
             this.detailInfo = data;
+            this.detailInfo.erc20Params.push({
+              innerTxFrom: "innerTxFrom", //内部交易from
+              innerTxTo: "innerTxTo", //内部交易to
+              innerValue: "innerValue", //内部交易金额
+              innerContractAddr: "innerContractAddr", //内部交易对应地址
+              innerContractName: "innerContractName", //内部交易对应名称
+              innerSymbol: "innerSymbol" //内部交易对应符号
+            });
             // this.extraInfo = JSON.parse(data.txInfo)
             //是否第一条记录
             if (data.first) {
@@ -1035,7 +1085,7 @@ export default {
     },
     contractTypeTitle(type) {
       let s = "tradeAbout.";
-      type = Number(type)
+      type = Number(type);
       switch (type) {
         case 0:
           s += "PPOS";
@@ -1138,7 +1188,7 @@ export default {
   }
 }
 .trade-detail-wrap .list-item label {
-  min-width: 173px!important;
+  min-width: 173px !important;
 }
 .rewardGap {
   padding-left: 5px;

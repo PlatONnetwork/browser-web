@@ -93,7 +93,7 @@
         <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span
-              >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
+              >{{ timeDiffFn(scope.row.serverTime)
               }}{{ $t("tradeAbout.before") }}</span
             >
           </template>
@@ -133,7 +133,7 @@
         <el-table-column show-overflow-tooltip width="120">
           <template slot="header">
             {{ $t("tradeAbout.fee") }}
-            <span style="color:#999999;">(LAT)</span>
+            <span style="color: #999999">(LAT)</span>
           </template>
           <template slot-scope="scope">
             <span>{{ scope.row.actualTxCost | formatMoney }}</span>
@@ -209,7 +209,7 @@ export default {
           this.$message.error(error);
         });
     },
-    timeDiffFn(beginTime, endTime) {
+    timeDiffFn(beginTime, endTime = Date.now()) {
       return timeDiff(beginTime, endTime);
     },
     replace() {

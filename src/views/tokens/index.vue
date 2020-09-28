@@ -93,7 +93,7 @@
         <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span
-              >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
+              >{{ timeDiffFn(scope.row.blockTimestamp)
               }}{{ $t("tradeAbout.before") }}</span
             >
           </template>
@@ -107,13 +107,13 @@
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+                @click="goAddressDetail(scope.row.txFrom)"
+                >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
             </div>
           </template>
         </el-table-column>
-        
+
         <!--To 操作地址（Operator_Address） -->
         <el-table-column :label="$t('tokens.to')">
           <template slot-scope="scope">
@@ -122,8 +122,8 @@
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+                @click="goAddressDetail(scope.row.transferTo)"
+                >{{ scope.row.transferTo | sliceStr(16) }}</span
               >
             </div>
           </template>
@@ -139,7 +139,11 @@
         <!-- token 名称+单位 -->
         <el-table-column :label="$t('tokens.token')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.value | formatMoney }} LAT</span>
+            <span
+              class="cursor normal"
+              @click="goTokenDetail(scope.row.contract)"
+              >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -174,7 +178,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
-      displayTotalCount: 0,
+      displayTotalCount: 0
     };
   },
   props: {},
@@ -186,19 +190,20 @@ export default {
     getTradeList() {
       let param = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       };
       console.info("获取交易列表（参数）》》》", param);
-      apiService.trade
-        .transactionList(param)
-        .then((res) => {
+      // apiService.trade.transactionList(param);
+      apiService.token
+        .tokenTransferList(param)
+        .then(res => {
           let {
             data,
             totalPages,
             totalCount,
             code,
             errMsg,
-            displayTotalCount,
+            displayTotalCount
           } = res;
           if (code == 0) {
             this.tableData = data;
@@ -208,19 +213,19 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           this.$message.error(error);
         });
     },
-    timeDiffFn(beginTime, endTime) {
+    timeDiffFn(beginTime, endTime = Date.now()) {
       return timeDiff(beginTime, endTime);
     },
     replace() {
       this.$router.replace({
         query: {
           currentPage: this.currentPage,
-          pageSize: this.pageSize,
-        },
+          pageSize: this.pageSize
+        }
       });
     },
     handleCurrentChange(val) {
@@ -240,8 +245,8 @@ export default {
       this.$router.push({
         path: "/block-detail",
         query: {
-          height: height,
-        },
+          height: height
+        }
       });
     },
     //进入交易哈希详情
@@ -249,10 +254,10 @@ export default {
       this.$router.push({
         path: "/trade-detail",
         query: {
-          txHash: hash,
+          txHash: hash
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        },
+        }
       });
     },
     //进入钱包地址详情
@@ -260,16 +265,25 @@ export default {
       this.$router.push({
         path: "/address-detail",
         query: {
-          address: adr,
+          address: adr
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        },
+        }
+      });
+    },
+    //进入token详情
+    goTokenDetail(address) {
+      this.$router.push({
+        path: "/tokens-detail",
+        query: {
+          address: address
+        }
       });
     },
   },
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
+    next(vm => {
       // 通过 `vm` 访问组件实例
       if (from.path.indexOf("-detail") == -1) {
         // 不取缓存
@@ -291,7 +305,7 @@ export default {
     }
     this.getTradeList();
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 <style lang="less" scoped>
