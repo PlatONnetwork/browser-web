@@ -16,7 +16,7 @@ export default {
     placeHolder: "Search by block/Address/Block hash/Txn hash"
   },
   footer: {
-    desc: "PlatScan is a Block Explorer and Analytics Platform for Alaya",
+    desc: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
     links: "Links",
     help: "Help",
     wallet: "Wallet",
@@ -357,7 +357,7 @@ export default {
     platONWhitePaper: "Alaya White Paper",
     atonDownload: "ATON Download",
     developer: "Developer",
-    platScan: "PlatScan is a Block Explorer and Analytics Platform for Alaya",
+    platScan: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
     international:
       "COPYRIGHT © 2020 ALAYA NETWORK."
   },

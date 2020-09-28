@@ -16,7 +16,7 @@ export default {
     placeHolder: " 请输入区块高度/地址/块哈希/交易哈希查询"
   },
   footer: {
-    desc: "PlatScan是Alaya区块链资源管理与分析平台",
+    desc: "AlayaScan是Alaya区块链资源管理与分析平台",
     links: "链接",
     help: "开发帮助",
     wallet: "钱包",
@@ -354,7 +354,7 @@ export default {
     platONWhitePaper: "Alaya白皮书",
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
-    platScan: "PlatScan是Alaya区块链资源管理与分析平台",
+    platScan: "AlayaScan是Alaya区块链资源管理与分析平台",
     international:
       "COPYRIGHT © 2020 ALAYA NETWORK."
   },
