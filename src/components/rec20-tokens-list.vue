@@ -1,8 +1,8 @@
 <template>
   <div class="common-trade">
     <div class="address-trade-last">
-      {{ $t("blockAbout.morethen") }} {{ pageTotal }}
-      {{ $t("contract.transactions") }}
+      {{ $t('blockAbout.morethen') }} {{ pageTotal }}
+      {{ $t('contract.transactions') }}
     </div>
 
     <div class="table">
@@ -33,7 +33,7 @@
             <span>
               {{
                 timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
-              }}{{ $t("tradeAbout.before") }}
+              }}{{ $t('tradeAbout.before') }}
             </span>
           </template>
         </el-table-column>
@@ -43,7 +43,13 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <spanr
+                class="ellipsis ellipsisWidth"
+                v-if="scope.row.type === 'OUT'"
+                >{{ scope.row.txFrom | sliceStr(16) }}</spanr
+              >
               <span
+                v-else
                 class="cursor normal ellipsis ellipsisWidth"
                 @click="goAddressDetail(scope.row.txFrom)"
                 >{{ scope.row.txFrom | sliceStr(16) }}</span
@@ -56,8 +62,9 @@
         <el-table-column label="" width="70px">
           <template slot-scope="scope">
             <span
-              class="token-type"
-              :class="'token-type--' + getTokenType(scope.row.type)"
+              v-if="['INPUT', 'OUT'].includes(scope.row.type)"
+              class="tokens-type"
+              :class="'tokens-type--' + getTokenType(scope.row.type)"
               >{{ getTokenType(scope.row.type, false) }}</span
             >
           </template>
@@ -69,6 +76,12 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <span
+                class="ellipsis ellipsisWidth"
+                v-if="scope.row.type === 'INPUT'"
+                >{{ scope.row.transferTo | sliceStr(16) }}</span
+              >
+              <span
+                v-else
                 class="cursor normal ellipsis ellipsisWidth"
                 @click="goAddressDetail(scope.row.transferTo)"
                 >{{ scope.row.transferTo | sliceStr(16) }}</span
@@ -92,8 +105,8 @@
             </template>
           </el-table-column>
 
-          <!-- token 名称+单位 -->
-          <el-table-column :label="$t('tokens.token')" show-overflow-tooltip>
+          <!-- tokens 名称+单位 -->
+          <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
             <template slot-scope="scope">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
@@ -123,11 +136,11 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { timeDiff } from "@/services/time-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { timeDiff } from '@/services/time-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
       selectIndex: 1,
@@ -137,16 +150,16 @@ export default {
       pageSize: 20,
       pageTotal: 0,
       tradeTotal: 0,
-      tradeType: ""
+      tradeType: '',
     };
   },
   props: {
     address: String,
     tableType: {
       type: String,
-      default: "none"
+      default: 'none',
     },
-    tradeCount: Object
+    tradeCount: Object,
   },
   computed: {},
   watch: {},
@@ -156,22 +169,22 @@ export default {
     getTradeList() {
       let param = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
       };
-      let key = this.tableType === "none" ? "address" : "contract";
+      let key = this.tableType === 'none' ? 'address' : 'contract';
       param[key] = this.address;
-      console.info("获取交易列表（参数）》》》", param);
+      console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
-      apiService.token
+      apiService.tokens
         .tokenTransferList(param)
-        .then(res => {
+        .then((res) => {
           let {
             data,
             totalPages,
             totalCount,
             code,
             errMsg,
-            displayTotalCount
+            displayTotalCount,
           } = res;
           if (code == 0) {
             this.tableData = data;
@@ -181,16 +194,16 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
     getTokenType(type, lowerCase = true) {
       let Type = {
-        INPUT: "in",
-        OUT: "out",
-        NONE: "none",
-        SELF: "self" // 暂时没有
+        INPUT: 'in',
+        OUT: 'out',
+        NONE: 'none',
+        SELF: 'self', // 暂时没有
       };
       return lowerCase ? Type[type] : Type[type].toUpperCase();
     },
@@ -216,53 +229,53 @@ export default {
     exportFn() {
       //跳转至下载页
       const { href } = this.$router.resolve({
-        path: "/download",
+        path: '/download',
         query: {
           address: this.address,
-          exportname: "account"
-        }
+          exportname: 'account',
+        },
       });
-      window.open(href, "_blank");
+      window.open(href, '_blank');
     },
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
     },
     goAddressDetail(address) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
     },
     goTokenDetail(address) {
       this.$router.push({
-        path: "/tokens-detail",
+        path: '/tokens-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
     },
     //进入区块详情
     goBlockDetail(blockHeight) {
       this.$router.push({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: blockHeight
-        }
+          height: blockHeight,
+        },
       });
-    }
+    },
   },
   //生命周期函数
   created() {
     this.getTradeList();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

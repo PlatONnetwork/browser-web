@@ -93,7 +93,7 @@
         <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span
-              >{{ timeDiffFn(scope.row.serverTime)
+              >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
               }}{{ $t("tradeAbout.before") }}</span
             >
           </template>

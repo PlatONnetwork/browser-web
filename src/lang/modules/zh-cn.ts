@@ -33,7 +33,6 @@ export default {
   tokens: {
     tokens: "代币",
     tokenDetail: "代币详情",
-    token: "Token",
     value: "价值",
     from: "发送方",
     to: "接收方",

@@ -33,7 +33,6 @@ export default {
   tokens: {
     tokens: "Tokens",
     tokenDetail: "Token Detail",
-    token: "Token",
     value: "Value",
     from: "From",
     to: "To",

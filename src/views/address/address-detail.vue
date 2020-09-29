@@ -117,21 +117,21 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          v-if="isAddressDetailsDelegation"
-          >{{ $t("contract.delegations") }}</el-button
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          v-if="isAddressDetailsReward"
-          >{{ $t("tradeAbout.rewardDetails") }}</el-button
+          v-if="isAddressDetailsDelegation"
+          >{{ $t("contract.delegations") }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-          >{{ $t("tokens.erc20TokenTxns") }}</el-button
+          v-if="isAddressDetailsReward"
+          >{{ $t("tradeAbout.rewardDetails") }}</el-button
         >
       </div>
 
@@ -143,23 +143,24 @@
         :tradeCount="detailInfo"
       ></trade-list>
 
+      <!-- Erc20 Token -->
+      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+
       <!-- 委托 -->
       <delegation-info
-        v-show="tabIndex == 2"
+        v-show="tabIndex == 3"
         :detailInfo="detailInfo"
         :address="address"
       ></delegation-info>
 
       <!-- 奖励领取明细 -->
       <reward-detail
-        v-show="tabIndex == 3"
+        v-show="tabIndex == 4"
         ref="rewardDetail"
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
 
-      <!-- Erc20 Token -->
-      <token-list v-show="tabIndex == 4" :address="address"></token-list>
     </div>
   </div>
 </template>
@@ -168,7 +169,7 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
-import tokenList from "@/components/rec20-token-list";
+import tokensList from "@/components/rec20-tokens-list";
 import rewardDetail from "@/components/address/rewardDetailTable";
 import delegationInfo from "@/components/address/delegations-info";
 export default {
@@ -193,7 +194,7 @@ export default {
   watch: {},
   components: {
     tradeList,
-    tokenList,
+    tokensList,
     rewardDetail,
     delegationInfo
   },

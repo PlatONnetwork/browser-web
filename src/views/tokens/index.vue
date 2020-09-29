@@ -117,13 +117,8 @@
 
         <el-table-column label="" width="40px">
           <template slot-scope="scope">
-            <div class="token-arrow">
-              <img
-                class="arrow-icon"
-                src="@/assets/images/arrow-right.svg"
-                alt=""
-                srcset=""
-              />
+            <div class="tokens-arrow">
+              <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
           </template>
         </el-table-column>
@@ -150,8 +145,8 @@
           </template>
         </el-table-column>
 
-        <!-- token 名称+单位 -->
-        <el-table-column :label="$t('tokens.token')" show-overflow-tooltip>
+        <!-- tokens 名称+单位 -->
+        <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
           <template slot-scope="scope">
             <span
               class="cursor normal"
@@ -208,7 +203,7 @@ export default {
       };
       console.info("获取交易列表（参数）》》》", param);
       // apiService.trade.transactionList(param);
-      apiService.token
+      apiService.tokens
         .tokenTransferList(param)
         .then(res => {
           let {
@@ -337,15 +332,5 @@ export default {
   color: #ffc017;
   margin-right: 5px;
   font-size: 14px;
-}
-.token-arrow {
-  width: 20px;
-  padding: 2px 4px;
-  border-radius: 8px;
-  color: #00c9a7;
-  background: rgba(0, 201, 167, 0.1);
-  .arrow-icon {
-    width: 12px;
-  }
 }
 </style>

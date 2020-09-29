@@ -800,27 +800,31 @@
             >
           </div>
         </Item>
-        <!-- erc20 token -->
+        <!-- erc20 tokens -->
         <Item
           :label="$t('tradeAbout.tokens')"
           v-if="detailInfo.erc20Params && detailInfo.erc20Params.length > 0"
         >
           <ul>
-            <li v-for="(item, index) in detailInfo.erc20Params">
+            <li
+              class="tokens-item"
+              v-for="(item, index) in detailInfo.erc20Params"
+            >
               From
               <!-- 跳转参数都是innerContractAddr -->
               <span
                 class="cursor blue"
                 @click="goTokenDetail(item.innerContractAddr)"
-                >{{ item.innerFrom }}</span
+                >{{ item.innerFrom | sliceStr(16) }}</span
               >
               to
               <span
                 class="cursor blue"
                 @click="goTokenDetail(item.innerContractAddr)"
-                >{{ item.innerTo }}</span
+                >{{ item.innerTo | sliceStr(16) }}</span
               >
               for
+              <span class="money">{{ item.innerValue | formatMoney }}</span>
               <span
                 class="cursor blue"
                 @click="goTokenDetail(item.innerContractAddr)"
@@ -1188,5 +1192,25 @@ export default {
 }
 .letUp {
   line-height: 17px;
+}
+.tokens-item {
+  position: relative;
+  font-weight: bold;
+  padding-left: 10px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-left: 6px solid rgb(119, 131, 143);
+    border-radius: 2px;
+  }
+  .money {
+    padding: 0 6px;
+    font-weight: lighter;
+  }
 }
 </style>

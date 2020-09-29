@@ -99,6 +99,7 @@
                     {{ detailInfo.contractCreate | sliceStr(16) }}
                   </span>
                   <span
+                    style="padding: 0 8px;"
                     v-if="
                       detailInfo.contractCreate && detailInfo.contractCreateHash
                     "
@@ -118,7 +119,7 @@
                 <label class="Gilroy-Medium">{{
                   $t("contract.tokenTracker")
                 }}</label>
-                <!-- token -->
+                <!-- tokens -->
                 <div class="money contract-create-info">
                   <span class="normal" @click="goTokenDetail(address)">
                     <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
@@ -144,13 +145,13 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t("contract.contract") }}</el-button
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t("tokens.erc20TokenTxns") }}</el-button
+          >{{ $t("contract.contract") }}</el-button
         >
       </div>
 
@@ -162,12 +163,13 @@
         :tradeCount="detailInfo"
       ></trade-list>
 
+      <!-- Erc20 Token -->
+      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+      
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 2" :detailInfo="detailInfo">
+      <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
       </contract-info>
 
-      <!-- Erc20 Token -->
-      <token-list v-show="tabIndex == 3" :address="address"></token-list>
     </div>
   </div>
 </template>
@@ -176,7 +178,7 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
-import tokenList from "@/components/rec20-token-list";
+import tokensList from "@/components/rec20-tokens-list";
 import contractInfo from "@/components/contract/contract-info";
 export default {
   name: "contract-detail",
@@ -203,7 +205,7 @@ export default {
   watch: {},
   components: {
     tradeList,
-    tokenList,
+    tokensList,
     contractInfo
   },
   methods: {
@@ -226,12 +228,12 @@ export default {
           this.$message.error(error);
         });
       // 合成token 名称
-      apiService.token
+      apiService.tokens
         .tokenDetail(param)
         .then(res => {
           let { errMsg, code, data } = res;
           if (code == 0 && data.name && data.symbol) {
-            tokenName = data.name + data.symbol;
+            this.tokenName = data.name + data.symbol;
           } else {
             this.$message.error(errMsg);
           }

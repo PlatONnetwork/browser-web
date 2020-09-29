@@ -68,7 +68,7 @@ class ApiService {
         API.TRADE.transactionDetailNavigate
       )
     };
-    this.token = {
+    this.tokens = {
       tokenDetail: this.post.bind(this, API.TOKEN.tokenDetail),
       tokenList: this.post.bind(this, API.TOKEN.tokenList),
       tokenTransferList: this.post.bind(this, API.TOKEN.tokenTransferList)

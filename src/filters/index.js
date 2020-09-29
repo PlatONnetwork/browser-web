@@ -64,7 +64,7 @@ const percentage = Vue.filter("percentage", (a, b) => {
     if (x % 1 == 0) {
       return x;
     }
-    return x.toFixed(2);
+    return parseFloat(x.toFixed(2));
   }
   return 0;
 });

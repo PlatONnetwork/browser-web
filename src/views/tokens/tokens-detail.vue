@@ -2,43 +2,24 @@
   <div class="contract-detail-wrap">
     <div class="content-top-white contract-detail-top content-padding">
       <div class="page-title fontSize34">
-        {{ $t("tokens.tokenDetail") }}
+        {{ $t('tokens.tokenDetail') }}
       </div>
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t("tokens.tokens") }} </span>
+          <span>{{ $t('tokens.tokens') }} </span>
           <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
-          <b
-            class="cursor"
-            :class="{ copy: !isCopy }"
-            v-clipboard:copy="address"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-            ><p v-show="isCopy">
-              <i class="el-icon-circle-check-outline"></i
-              ><span>{{ copyText }}</span>
-            </p></b
-          >
-          <a class="code cursor">
-            <qriously
-              class="qr-code"
-              v-if="address"
-              :value="address"
-              :size="140"
-            />
-          </a>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
         <el-col :span="11">
           <!-- 概览 -->
           <div class="overview">
-            <h3 class="Gilroy-Medium">{{ $t("contract.overview") }}</h3>
+            <h3 class="Gilroy-Medium">{{ $t('contract.overview') }}</h3>
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("tokens.totalSupply")
+                  $t('tokens.totalSupply')
                 }}</label>
                 <div class="money">
                   {{ detailInfo.totalSupply | formatNumber }}
@@ -54,7 +35,7 @@
               <!-- 交易数 -->
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("tokens.transfers")
+                  $t('tokens.transfers')
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
@@ -65,10 +46,10 @@
         <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
-            <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
+            <h3 class="Gilroy-Medium">{{ $t('contract.others') }}</h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium">{{ $t("tokens.contract") }}</label>
+                <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
                   <span
                     class="normal"
@@ -76,16 +57,37 @@
                   >
                     {{ detailInfo.address | sliceStr(16) }}
                   </span>
+                  <div class="detail-copy" style="margin-left: 10px">
+                    <b
+                      class="cursor"
+                      :class="{ copy: !isCopy }"
+                      v-clipboard:copy="address"
+                      v-clipboard:success="onCopy"
+                      v-clipboard:error="onError"
+                      ><p v-show="isCopy">
+                        <i class="el-icon-circle-check-outline"></i
+                        ><span>{{ copyText }}</span>
+                      </p></b
+                    >
+                    <a class="code cursor">
+                      <qriously
+                        class="qr-code"
+                        v-if="address"
+                        :value="address"
+                        :size="140"
+                      />
+                    </a>
+                  </div>
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium">{{ $t("tokens.decimals") }}</label>
+                <label class="Gilroy-Medium">{{ $t('tokens.decimals') }}</label>
                 <div class="money">
                   {{ detailInfo.decimal }}
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium">{{ $t("tokens.website") }}</label>
+                <label class="Gilroy-Medium">{{ $t('tokens.website') }}</label>
                 <div class="money contract-create-info">
                   <a class="normal" :href="detailInfo.webSite">{{
                     detailInfo.webSite
@@ -101,47 +103,47 @@
     <div class="address-trade gray-content content-padding">
       <div class="tabs">
         <el-button size="medium" class="active">{{
-          $t("contract.transactions")
+          $t('contract.transactions')
         }}</el-button>
       </div>
 
-      <token-list :address="address" table-type="detail"></token-list>
+      <tokens-list :address="address" table-type="detail"></tokens-list>
     </div>
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import tokenList from "@/components/rec20-token-list";
-import contractInfo from "@/components/contract/contract-info";
+import tokensList from '@/components/rec20-tokens-list';
+import contractInfo from '@/components/contract/contract-info';
 export default {
-  name: "tokensDetailComponent",
+  name: 'tokensDetailComponent',
   data() {
     return {
       activeTab: 1,
-      address: "",
+      address: '',
       detailInfo: {},
       isCopy: false,
-      copyText: ""
+      copyText: '',
     };
   },
   props: {},
   computed: {},
   watch: {},
   components: {
-    tokenList,
-    contractInfo
+    tokensList,
+    contractInfo,
   },
   methods: {
     //获取地址信息详情
     getDetail() {
       let param = {
-        address: this.address
+        address: this.address,
       };
-      apiService.token
+      apiService.tokens
         .tokenDetail(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
@@ -149,60 +151,60 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
 
     onCopy() {
-      this.copyText = this.$t("modalInfo.copysuccess");
+      this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     onError() {
-      this.copyText = this.$t("modalInfo.copyfail");
+      this.copyText = this.$t('modalInfo.copyfail');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     goRestricte() {
       this.$router.push({
-        path: "/restricting-info",
+        path: '/restricting-info',
         query: {
-          address: this.address
-        }
+          address: this.address,
+        },
       });
     },
     //合约详情
     goContractDetail(adr) {
       this.$router.push({
-        path: "/contract-detail",
+        path: '/contract-detail',
         query: {
-          address: adr
-        }
+          address: adr,
+        },
       });
     },
     //进入交易详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
-    }
+    },
   },
   //生命周期函数
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.getDetail();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
