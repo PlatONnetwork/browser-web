@@ -7,7 +7,7 @@ export default {
     transaction: "交易",
     validator: "验证节点",
     proposal: "治理提案",
-    tokens: "Tokens",
+    tokens: "代币",
     more: "更多",
     comesoon: "敬请期待",
     goole: "Google reCAPTCHA无法获取！"
@@ -31,11 +31,21 @@ export default {
     export: "下载csv"
   },
   tokens: {
-    tokens: "Tokens",
+    tokens: "代币",
+    tokenDetail: "代币详情",
     token: "Token",
     value: "价值",
     from: "发送方",
-    to: "接收方"
+    to: "接收方",
+    quantity: "转账金额",
+    // todo
+    totalSupply: "发行总量",
+    holders: "持有数",
+    transfers: "交易数",
+    contract: "合约",
+    decimals: "精度",
+    website: "官网",
+    erc20TokenTxns: "Erc20交易"
   },
   tradeAbout: {
     confirmTime: "确认时间",
@@ -49,6 +59,8 @@ export default {
     txhash: "交易哈希",
     timeStamp: "时间戳",
     blockHeight: "区块",
+    // todo
+    tokens: "代币交易",
     gasLimit: "燃料限制",
     gasUsed: "燃料消耗",
     gasUsedList: "燃料用量",
@@ -238,6 +250,7 @@ export default {
     transfers: "转账",
     validatorTxns: "验证节点交易",
     governanceTxns: "治理交易",
+    tokenTracker: "代币",
 
     addressDetail: "地址详情",
     restricted: "锁仓",

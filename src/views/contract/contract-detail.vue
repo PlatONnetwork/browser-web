@@ -115,11 +115,14 @@
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium">Token Tracker</label>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.tokenTracker")
+                }}</label>
                 <!-- token -->
                 <div class="money contract-create-info">
                   <span class="normal" @click="goTokenDetail(address)">
-                    Token name
+                    <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
+                    {{ tokenName }}
                   </span>
                 </div>
               </li>
@@ -147,7 +150,7 @@
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >Erc20 Token Txns</el-button
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
         >
       </div>
 
@@ -191,7 +194,8 @@ export default {
       detailInfo: {},
       isCopy: false,
       copyText: "",
-      haveReward: 0
+      haveReward: 0,
+      tokenName: ""
     };
   },
   props: {},
@@ -214,6 +218,20 @@ export default {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+      // 合成token 名称
+      apiService.token
+        .tokenDetail(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          if (code == 0 && data.name && data.symbol) {
+            tokenName = data.name + data.symbol;
           } else {
             this.$message.error(errMsg);
           }

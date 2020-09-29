@@ -93,7 +93,8 @@
         <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span
-              >{{ timeDiffFn(scope.row.blockTimestamp)
+              >{{
+                timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
               }}{{ $t("tradeAbout.before") }}</span
             >
           </template>
@@ -110,6 +111,19 @@
                 @click="goAddressDetail(scope.row.txFrom)"
                 >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="" width="40px">
+          <template slot-scope="scope">
+            <div class="token-arrow">
+              <img
+                class="arrow-icon"
+                src="@/assets/images/arrow-right.svg"
+                alt=""
+                srcset=""
+              />
             </div>
           </template>
         </el-table-column>
@@ -132,7 +146,7 @@
         <!-- 数额(Value) -->
         <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.value | formatMoney }} LAT</span>
+            <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
           </template>
         </el-table-column>
 
@@ -171,7 +185,7 @@ import { timeDiff } from "@/services/time-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "token-list",
+  name: "tokensListComponent",
   data() {
     return {
       tableData: [],
@@ -280,7 +294,7 @@ export default {
           address: address
         }
       });
-    },
+    }
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -323,5 +337,15 @@ export default {
   color: #ffc017;
   margin-right: 5px;
   font-size: 14px;
+}
+.token-arrow {
+  width: 20px;
+  padding: 2px 4px;
+  border-radius: 8px;
+  color: #00c9a7;
+  background: rgba(0, 201, 167, 0.1);
+  .arrow-icon {
+    width: 12px;
+  }
 }
 </style>

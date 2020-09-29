@@ -802,22 +802,23 @@
         </Item>
         <!-- erc20 token -->
         <Item
-          label="Tokens Transferred"
+          :label="$t('tradeAbout.tokens')"
           v-if="detailInfo.erc20Params && detailInfo.erc20Params.length > 0"
         >
           <ul>
             <li v-for="(item, index) in detailInfo.erc20Params">
               From
+              <!-- 跳转参数都是innerContractAddr -->
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerTxFrom)"
-                >{{ item.innerTxFrom }}</span
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ item.innerFrom }}</span
               >
               to
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerTxTo)"
-                >{{ item.innerTxTo }}</span
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ item.innerTo }}</span
               >
               for
               <span
@@ -931,14 +932,6 @@ export default {
           if (code == 0) {
             this.loading = false;
             this.detailInfo = data;
-            this.detailInfo.erc20Params.push({
-              innerTxFrom: "innerTxFrom", //内部交易from
-              innerTxTo: "innerTxTo", //内部交易to
-              innerValue: "innerValue", //内部交易金额
-              innerContractAddr: "innerContractAddr", //内部交易对应地址
-              innerContractName: "innerContractName", //内部交易对应名称
-              innerSymbol: "innerSymbol" //内部交易对应符号
-            });
             // this.extraInfo = JSON.parse(data.txInfo)
             //是否第一条记录
             if (data.first) {

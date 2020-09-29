@@ -131,7 +131,7 @@
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-          >Erc20 Token Txns</el-button
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
         >
       </div>
 

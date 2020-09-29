@@ -81,7 +81,7 @@ const unit = Vue.filter("unit", value => {
 
 // 截取字符串
 const sliceStr = Vue.filter("sliceStr", (str, num) => {
-  return str.slice(0, num) + "...";
+  return str ? str.slice(0, num) + "..." : '';
 });
 
 // 世界标准时间

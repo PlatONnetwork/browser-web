@@ -32,10 +32,19 @@ export default {
   },
   tokens: {
     tokens: "Tokens",
+    tokenDetail: "Token Detail",
     token: "Token",
     value: "Value",
     from: "From",
-    to: "To"
+    to: "To",
+    quantity: "Quantity",
+    totalSupply: "Total Supply",
+    holders: "Holders",
+    transfers: "Transfers",
+    contract: "Contract",
+    decimals: "Decimals",
+    website: "Official Site",
+    erc20TokenTxns: "Erc20 Token Txns"
   },
   tradeAbout: {
     confirmTime: "Time",
@@ -49,6 +58,7 @@ export default {
     txhash: "Txhash",
     timeStamp: "TimeStamp",
     blockHeight: "Block Height",
+    tokens: "Tokens Transferred",
     gasLimit: "Gas Limit",
     gasUsed: "Gas Used",
     gasUsedList: "Gas Used",
@@ -238,6 +248,7 @@ export default {
     transfers: "Transfers",
     validatorTxns: "Validator Txns",
     governanceTxns: "Governance Txns",
+    tokenTracker: "Token Tracker",
 
     addressDetail: "ADDRESS DETAILS",
     restricted: "Restricted",

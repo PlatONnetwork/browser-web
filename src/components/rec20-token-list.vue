@@ -16,24 +16,6 @@
         <el-table-column :label="$t('tradeAbout.hash')" width="200">
           <template slot-scope="scope">
             <div class="flex-special">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom-start"
-                v-if="scope.row.txReceiptStatus == 0"
-              >
-                <div slot="content">
-                  <span class="title-warning"
-                    >{{ $t("tradeAbout.warn") }}：</span
-                  >
-                  {{
-                    scope.row.failReason
-                      ? scope.row.failReason
-                      : $t("tradeAbout.transactionFailure")
-                  }}
-                </div>
-                <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
-              </el-tooltip>
               <span
                 class="cursor normal ellipsis"
                 @click="goTradeDetail(scope.row.txHash)"
@@ -49,7 +31,8 @@
         <el-table-column :label="$t('tradeAbout.age')" width="300">
           <template slot-scope="scope">
             <span>
-              {{ timeDiffFn(scope.row.blockTimestamp)
+              {{
+                timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
               }}{{ $t("tradeAbout.before") }}
             </span>
           </template>
@@ -69,6 +52,17 @@
           </template>
         </el-table-column>
 
+        <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
+        <el-table-column label="" width="70px">
+          <template slot-scope="scope">
+            <span
+              class="token-type"
+              :class="'token-type--' + getTokenType(scope.row.type)"
+              >{{ getTokenType(scope.row.type, false) }}</span
+            >
+          </template>
+        </el-table-column>
+
         <!--To 操作地址（Operator_Address） -->
         <el-table-column :label="$t('tokens.to')">
           <template slot-scope="scope">
@@ -82,11 +76,11 @@
             </div>
           </template>
         </el-table-column>
-        <template v-if="type === 'detail'">
-          <!-- 数额(Value) -->
-          <el-table-column label="Quantity">
+        <template v-if="tableType === 'detail'">
+          <!-- 转账金额(Quantity) -->
+          <el-table-column :label="$t('tokens.quantity')">
             <template slot-scope="scope">
-              <span>Quantity</span>
+              <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
             </template>
           </el-table-column>
         </template>
@@ -94,7 +88,7 @@
           <!-- 数额(Value) -->
           <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span>{{ scope.row.value | formatMoney }} LAT</span>
+              <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
             </template>
           </el-table-column>
 
@@ -148,7 +142,7 @@ export default {
   },
   props: {
     address: String,
-    type: {
+    tableType: {
       type: String,
       default: "none"
     },
@@ -162,9 +156,10 @@ export default {
     getTradeList() {
       let param = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize,
-        address: this.address
+        pageSize: this.pageSize
       };
+      let key = this.tableType === "none" ? "address" : "contract";
+      param[key] = this.address;
       console.info("获取交易列表（参数）》》》", param);
       // apiService.trade.transactionList(param);
       apiService.token
@@ -189,6 +184,15 @@ export default {
         .catch(error => {
           this.$message.error(error);
         });
+    },
+    getTokenType(type, lowerCase = true) {
+      let Type = {
+        INPUT: "in",
+        OUT: "out",
+        NONE: "none",
+        SELF: "self" // 暂时没有
+      };
+      return lowerCase ? Type[type] : Type[type].toUpperCase();
     },
     handleCurrentChange(val) {
       this.currentPage = val;

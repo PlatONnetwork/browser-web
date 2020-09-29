@@ -1,16 +1,17 @@
 <template>
   <div class="contract-detail-wrap">
     <div class="content-top-white contract-detail-top content-padding">
-      <div class="page-title fontSize34">Token详情</div>
+      <div class="page-title fontSize34">
+        {{ $t("tokens.tokenDetail") }}
+      </div>
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>Token </span>
+          <span>{{ $t("tokens.tokens") }} </span>
           <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
           <b
             class="cursor"
             :class="{ copy: !isCopy }"
-            r
             v-clipboard:copy="address"
             v-clipboard:success="onCopy"
             v-clipboard:error="onError"
@@ -36,22 +37,26 @@
             <h3 class="Gilroy-Medium">{{ $t("contract.overview") }}</h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium">Total Supply</label>
+                <label class="Gilroy-Medium">{{
+                  $t("tokens.totalSupply")
+                }}</label>
                 <div class="money">
                   {{ detailInfo.totalSupply | formatNumber }}
                 </div>
               </li>
-              <li>
-                <label class="Gilroy-Medium">Holders</label>
+              <!-- 持有数 暂时没有 -->
+              <!-- <li>
+                <label class="Gilroy-Medium">{{ $t("tokens.holders") }}</label>
                 <div class="money">
                   {{ detailInfo.txCount }}
                 </div>
-              </li>
+              </li> -->
+              <!-- 交易数 -->
               <li>
-                <label class="Gilroy-Medium">Transfers</label>
-                <div class="money">
-                  {{ detailInfo.totalSupply | formatNumber }}
-                </div>
+                <label class="Gilroy-Medium">{{
+                  $t("tokens.transfers")
+                }}</label>
+                <div class="money">{{ detailInfo.txCount }}</div>
               </li>
             </ul>
           </div>
@@ -63,24 +68,24 @@
             <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium">Contract</label>
+                <label class="Gilroy-Medium">{{ $t("tokens.contract") }}</label>
                 <div class="money contract-create-info">
                   <span
                     class="normal"
-                    @click="goAddressDetail(detailInfo.address)"
+                    @click="goContractDetail(detailInfo.address)"
                   >
                     {{ detailInfo.address | sliceStr(16) }}
                   </span>
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium">Decimals</label>
+                <label class="Gilroy-Medium">{{ $t("tokens.decimals") }}</label>
                 <div class="money">
                   {{ detailInfo.decimal }}
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium">Official Site</label>
+                <label class="Gilroy-Medium">{{ $t("tokens.website") }}</label>
                 <div class="money contract-create-info">
                   <a class="normal" :href="detailInfo.webSite">{{
                     detailInfo.webSite
@@ -100,7 +105,7 @@
         }}</el-button>
       </div>
 
-      <token-list :address="address" type="detail"></token-list>
+      <token-list :address="address" table-type="detail"></token-list>
     </div>
   </div>
 </template>
@@ -111,7 +116,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 import tokenList from "@/components/rec20-token-list";
 import contractInfo from "@/components/contract/contract-info";
 export default {
-  name: "contract-detail",
+  name: "tokensDetailComponent",
   data() {
     return {
       activeTab: 1,
@@ -173,12 +178,12 @@ export default {
         }
       });
     },
-    //地址详情
-    goAddressDetail(address) {
+    //合约详情
+    goContractDetail(adr) {
       this.$router.push({
-        path: "/address-detail",
+        path: "/contract-detail",
         query: {
-          address: address
+          address: adr
         }
       });
     },
