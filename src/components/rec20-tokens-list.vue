@@ -59,7 +59,7 @@
         </el-table-column>
 
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
-        <el-table-column label="" width="70px">
+        <af-table-column label="" width="60px">
           <template slot-scope="scope">
             <span
               v-if="['INPUT', 'OUT'].includes(scope.row.type)"
@@ -67,8 +67,11 @@
               :class="'tokens-type--' + getTokenType(scope.row.type)"
               >{{ getTokenType(scope.row.type, false) }}</span
             >
+            <div v-else class="tokens-arrow">
+              <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
+            </div>
           </template>
-        </el-table-column>
+        </af-table-column>
 
         <!--To 操作地址（Operator_Address） -->
         <el-table-column :label="$t('tokens.to')">

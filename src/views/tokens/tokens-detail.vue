@@ -55,7 +55,8 @@
                     class="normal"
                     @click="goContractDetail(detailInfo.address)"
                   >
-                    {{ detailInfo.address | sliceStr(16) }}
+                    <!-- {{ detailInfo.address | sliceStr(16) }} -->
+                    {{ detailInfo.address }}
                   </span>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b

@@ -1,9 +1,9 @@
 <template>
   <div class="trade-detail-wrap">
-    <div class="page-title fontSize34">{{ $t("tradeAbout.tradeDetail") }}</div>
+    <div class="page-title fontSize34">{{ $t('tradeAbout.tradeDetail') }}</div>
     <div class="detail-change">
       <div class="detail-copy">
-        <span>{{ $t("tradeAbout.transactions") }}</span>
+        <span>{{ $t('tradeAbout.transactions') }}</span>
         <i>#{{ detailInfo.txHash }}</i>
         <b
           class="cursor"
@@ -96,7 +96,7 @@
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("contract.contract") }}
+                  {{ $t('contract.contract') }}
                 </div>
                 <i class="iconfont iconcontract blue">&#xe63e;</i>
               </el-tooltip>
@@ -158,10 +158,18 @@
       <List
         :title="detailTitle(detailInfo.txType)"
         :border="true"
-        v-if="detailInfo.txType == '1' || detailInfo.txType == '2'"
+        v-if="
+          detailInfo.txType == '1' ||
+          detailInfo.txType == '2' ||
+          detailInfo.txType == '6' ||
+          detailInfo.txType == '7'
+        "
       >
         <!-- 创建方 -->
-        <Item :label="$t('tradeAbout.creator')" v-if="detailInfo.txType == '1'">
+        <Item
+          :label="$t('tradeAbout.creator')"
+          v-if="detailInfo.txType == '1' || detailInfo.txType == '6'"
+        >
           <span
             class="cursor normal ellipsis"
             @click="goAddressDetail(detailInfo.from)"
@@ -172,7 +180,7 @@
         <!-- 执行方 -->
         <Item
           :label="$t('tradeAbout.executor')"
-          v-if="detailInfo.txType == '2'"
+          v-if="detailInfo.txType == '2' || detailInfo.txType == '7'"
         >
           <span
             class="cursor normal ellipsis"
@@ -194,7 +202,7 @@
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("contract.contract") }}
+                  {{ $t('contract.contract') }}
                 </div>
                 <i class="iconfont iconcontract blue">&#xe63e;</i>
               </el-tooltip>
@@ -285,7 +293,7 @@
           <!-- <span>({{$t('tradeAbout.undelegat')}}:{{detailInfo.actualTxCost}} LAT/{{$t('tradeAbout.successed')}})</span> -->
           <!-- 赎回失敗 -->
           <span v-if="detailInfo.txReceiptStatus == 0"
-            >({{ $t("tradeAbout.withFail") }})</span
+            >({{ $t('tradeAbout.withFail') }})</span
           >
           <template v-else>
             <!-- 剩余赎回 -->
@@ -297,7 +305,7 @@
               v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1"
             >({{$t('tradeAbout.undelegat')}})</span> -->
             <!-- 2：赎回成功 -->
-            <span class="letUp">({{ $t("tradeAbout.successed1") }})</span>
+            <span class="letUp">({{ $t('tradeAbout.successed1') }})</span>
           </template>
         </Item>
         <!-- 领取奖励数 -->
@@ -344,14 +352,14 @@
               :key="item.verify"
               v-else
             >
-              <span>{{ $t("tradeAbout.fromNode") }}</span>
+              <span>{{ $t('tradeAbout.fromNode') }}</span>
               <!-- 从xxx节点 此处需要做样式-->
               <span
                 @click="goNodeDetail(item.verify)"
                 class="cursor normal ellipsis rewardGap"
                 >{{ item.nodeName }}</span
               >
-              <span class="rewardGap">{{ $t("tradeAbout.claimRewards") }}</span>
+              <span class="rewardGap">{{ $t('tradeAbout.claimRewards') }}</span>
               <span class="rewardGap Gilroy-Medium">
                 {{ item.reward | formatMoney }} LAT</span
               >
@@ -423,10 +431,10 @@
           <Item :label="$t('tradeAbout.proposalType')">
             <!-- :prop="detailInfo.proposalOption" -->
             <span v-if="detailInfo.txType != '2003'">{{
-              $t("createType." + detailInfo.txType)
+              $t('createType.' + detailInfo.txType)
             }}</span>
             <span v-else-if="detailInfo.proposalOption">{{
-              $t("proposalOption." + detailInfo.proposalOption)
+              $t('proposalOption.' + detailInfo.proposalOption)
             }}</span>
           </Item>
           <!-- 提案ID -->
@@ -466,7 +474,7 @@
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2000'
               "
-              >{{ $t("createType." + [detailInfo.txType]) }}-{{
+              >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
               }}</span
             >
@@ -477,7 +485,7 @@
                 !detailInfo.proposalTitle && detailInfo.txType == '2001'
               "
             >
-              {{ $t("tradeAbout.versionUp") }}-V
+              {{ $t('tradeAbout.versionUp') }}-V
               <span style="font-size: 16px">{{
                 detailInfo.proposalNewVersion
               }}</span>
@@ -488,7 +496,7 @@
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2005'
               "
-              >{{ $t("createType." + [detailInfo.txType]) }}-{{
+              >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
               }}</span
             >
@@ -498,7 +506,7 @@
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2002'
               "
-              >{{ $t("createType." + [detailInfo.txType]) }}-{{
+              >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
               }}</span
             >
@@ -508,7 +516,7 @@
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2003'
               "
-              >{{ $t("proposalOption." + [detailInfo.proposalOption]) }}-{{
+              >{{ $t('proposalOption.' + [detailInfo.proposalOption]) }}-{{
                 detailInfo.pipNum
               }}</span
             >
@@ -527,12 +535,12 @@
             v-else-if="detailInfo.voteStatus"
             >{{
               detailInfo.voteStatus == 1
-                ? "YES"
+                ? 'YES'
                 : detailInfo.voteStatus == 2
-                ? "NO"
+                ? 'NO'
                 : detailInfo.voteStatus == 3
-                ? "ABSTAIN"
-                : ""
+                ? 'ABSTAIN'
+                : ''
             }}</span
           >
         </Item>
@@ -630,8 +638,8 @@
               :class="{ 'red-status': detailInfo.reportStatus == 1 }"
               >{{
                 detailInfo.reportStatus == 2
-                  ? $t("tradeAbout.success")
-                  : $t("tradeAbout.fail")
+                  ? $t('tradeAbout.success')
+                  : $t('tradeAbout.fail')
               }}</span
             >
           </Item>
@@ -697,7 +705,7 @@
               :href="'http:\/\/' + detailInfo.website"
               target="_blank"
               rel="noopener noreferrer"
-              >{{ detailInfo.website || "Null" }}</a
+              >{{ detailInfo.website || 'Null' }}</a
             >
           </Item>
           <!-- 描述(创建，编辑验证人) -->
@@ -723,15 +731,15 @@
             <!-- <span>:{{detailInfo.formatMoney}} LAT/</span> -->
             <!-- 1： 退回中 -->
             <span class="letUp" v-if="detailInfo.redeemStatus == 1"
-              >({{ $t("tradeAbout.pend") }})</span
+              >({{ $t('tradeAbout.pend') }})</span
             >
             <!-- 2：退回成功 -->
             <span class="letUp" v-else-if="detailInfo.redeemStatus == 2"
-              >({{ $t("tradeAbout.successed") }})</span
+              >({{ $t('tradeAbout.successed') }})</span
             >
             <!-- 剩余退回 -->
             <span class="letUp" v-else
-              >({{ $t("tradeAbout.remain") }}:{{
+              >({{ $t('tradeAbout.remain') }}:{{
                 detailInfo.redeemLocked | formatMoney
               }}
               LAT)</span
@@ -762,11 +770,11 @@
       >
         <!-- 失败信息 -->
         <div v-if="detailInfo.txReceiptStatus == 0" class="warn-info">
-          <span class="yellow">{{ $t("tradeAbout.warn") }}:</span>
+          <span class="yellow">{{ $t('tradeAbout.warn') }}:</span>
           <span>{{
             detailInfo.failReason
               ? detailInfo.failReason
-              : $t("tradeAbout.transactionFailure")
+              : $t('tradeAbout.transactionFailure')
           }}</span>
         </div>
         <!-- 状态 -->
@@ -774,12 +782,12 @@
           <span
             v-if="detailInfo.txReceiptStatus == 1"
             class="status-icon-success Gilroy-Bold"
-            >{{ $t("tradeAbout.success") }}</span
+            >{{ $t('tradeAbout.success') }}</span
           >
           <span
             v-else-if="detailInfo.txReceiptStatus == 0"
             class="pink Gilroy-Bold"
-            >{{ $t("tradeAbout.fail") }}</span
+            >{{ $t('tradeAbout.fail') }}</span
           >
         </Item>
         <!-- 交易哈希 -->
@@ -795,7 +803,7 @@
             <span class="blue">{{ detailInfo.blockNumber }}</span>
             <span style="margin-left: 5px"
               >({{
-                detailInfo.confirmNum + "&nbsp;" + $t("tradeAbout.confirmNum")
+                detailInfo.confirmNum + '&nbsp;' + $t('tradeAbout.confirmNum')
               }})</span
             >
           </div>
@@ -861,31 +869,31 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import List from "@/components/list/list";
-import Item from "@/components/list/item";
+import List from '@/components/list/list';
+import Item from '@/components/list/item';
 
-import apiService from "@/services/API-services";
+import apiService from '@/services/API-services';
 
 export default {
-  name: "trade-detail",
+  name: 'trade-detail',
   data() {
     return {
       currentPage: null,
       pageSize: null,
       loading: false,
-      txHash: "",
+      txHash: '',
       btnLeftFlag: true,
       btnRightFlag: true,
       disabledLeft: false,
       disabledRight: false,
-      address: "",
+      address: '',
       detailInfo: {},
-      descriptionProp: "trade",
+      descriptionProp: 'trade',
       extraInfo: {},
       isCopy: false,
-      copyText: ""
+      copyText: '',
     };
   },
   props: {},
@@ -893,19 +901,19 @@ export default {
   watch: {},
   components: {
     List,
-    Item
+    Item,
   },
   methods: {
     //进入提案详情
     goProposalDetail(hx) {
       this.$router.push({
-        path: "/proposal-detail",
+        path: '/proposal-detail',
         query: {
-          proposalHash: hx
+          proposalHash: hx,
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     //
@@ -913,23 +921,23 @@ export default {
     //进入token详情
     goTokenDetail(address) {
       this.$router.push({
-        path: "/tokens-detail",
+        path: '/tokens-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
     },
     //获取交易信息详情
     getDetail() {
       let param = {
         // cid:'',
-        txHash: this.txHash
+        txHash: this.txHash,
       };
       this.loading = true;
-      console.warn("交易详情》》》》", param);
+      console.warn('交易详情》》》》', param);
       apiService.trade
         .transactionDetails(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           //改变detailInfo.txType=='1'测试
           // data.txType = 2000;
@@ -958,83 +966,83 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
     onCopy() {
-      this.copyText = this.$t("modalInfo.copysuccess");
+      this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     onError() {
-      this.copyText = this.$t("modalInfo.copyfail");
+      this.copyText = this.$t('modalInfo.copyfail');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     //进入区块详情
     goBlockDetail(height) {
-      console.warn("进入区块", height);
+      console.warn('进入区块', height);
       this.$router.push({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: height
-        }
+          height: height,
+        },
       });
     },
     //进入钱包地址详情
     goAddressDetail(adr) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: adr
+          address: adr,
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     goContractDetail(adr) {
       this.$router.push({
-        path: "/contract-detail",
+        path: '/contract-detail',
         query: {
-          address: adr
-        }
+          address: adr,
+        },
       });
     },
     //进入验证人地址详情
     goNodeDetail(id) {
       //node-detail
       this.$router.push({
-        path: "/node-detail",
+        path: '/node-detail',
         query: {
-          address: id
+          address: id,
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     //前一条后一条
     detailNavigate(d) {
-      if (d == "prev") {
+      if (d == 'prev') {
         this.txHash = this.detailInfo.preHash;
-      } else if (d == "next") {
+      } else if (d == 'next') {
         this.txHash = this.detailInfo.nextHash;
       } else {
         return;
       }
       this.$router.replace({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: this.txHash
-        }
+          txHash: this.txHash,
+        },
       });
       this.getDetail();
       // this.txHash = adr;
@@ -1043,66 +1051,66 @@ export default {
     },
     //根据类型返回标题
     detailTitle(t) {
-      console.warn("传入类型", t);
-      let s = "tradeAbout.";
+      console.warn('传入类型', t);
+      let s = 'tradeAbout.';
       if (t == 0) {
-        s += "transfer";
-      } else if (t == 1) {
-        s += "creation";
-      } else if (t == 2) {
-        s += "execution";
+        s += 'transfer';
+      } else if (t == 1 || t == 6) {
+        s += 'creation';
+      } else if (t == 2 || t == 7) {
+        s += 'execution';
       } else if (t == 4 || t == 5) {
-        s += "other";
+        s += 'other';
       } else if (t == 4000) {
-        s += "restricting";
+        s += 'restricting';
       } else if (t == 1004) {
-        s += "delegate";
+        s += 'delegate';
       } else if (t == 1005) {
-        s += "undelegate";
+        s += 'undelegate';
       } else if (t == 2000 || t == 2001 || t == 2002 || t == 2005) {
-        s += "proposal";
+        s += 'proposal';
       } else if (t == 2003) {
-        s += "voting";
+        s += 'voting';
       } else if (t == 2004) {
-        s += "declare";
+        s += 'declare';
       } else if (t == 1000) {
-        s += "createValidator";
+        s += 'createValidator';
       } else if (t == 1001) {
-        s += "editValidator";
+        s += 'editValidator';
       } else if (t == 1002) {
-        s += "increase";
+        s += 'increase';
       } else if (t == 1003) {
-        s += "exitValidator";
+        s += 'exitValidator';
       } else if (t == 3000) {
-        s += "reportValidator";
+        s += 'reportValidator';
       } else if (t == 5000) {
-        s += "claimRewards";
+        s += 'claimRewards';
       }
       return this.$t(s);
     },
     contractTypeTitle(type) {
-      let s = "tradeAbout.";
+      let s = 'tradeAbout.';
       type = Number(type);
       switch (type) {
         case 0:
-          s += "PPOS";
+          s += 'PPOS';
           break;
         case 1:
-          s += "EVM";
+          s += 'EVM';
           break;
         case 2:
-          s += "WASM";
+          s += 'WASM';
           break;
       }
       return this.$t(s);
-    }
+    },
   },
   //生命周期函数
   created() {
     this.txHash = this.$route.query.txHash;
     //获取交易列表
     this.getDetail();
-  }
+  },
   // mounted() {}
 };
 </script>
@@ -1195,10 +1203,10 @@ export default {
 }
 .tokens-item {
   position: relative;
-  font-weight: bold;
+  font-family: Gilroy-Medium;
   padding-left: 10px;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 2px;
