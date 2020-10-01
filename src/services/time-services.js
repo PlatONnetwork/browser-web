@@ -1,6 +1,6 @@
 // 返回 天-小时-分钟-秒
 export function timeDiff (beginTime, endTime) {
-  let dateDiff = beginTime - endTime, // 时间差的毫秒数
+  let dateDiff = Math.abs(beginTime - endTime), // 时间差的毫秒数
     // 计算出相差天数
     dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)),
     leave1 = dateDiff % (24 * 3600 * 1000), // 计算天数后剩余的毫秒数

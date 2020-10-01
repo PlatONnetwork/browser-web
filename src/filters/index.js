@@ -64,7 +64,7 @@ const percentage = Vue.filter("percentage", (a, b) => {
     if (x % 1 == 0) {
       return x;
     }
-    return x.toFixed(2);
+    return parseFloat(x.toFixed(2));
   }
   return 0;
 });
@@ -81,7 +81,7 @@ const unit = Vue.filter("unit", value => {
 
 // 截取字符串
 const sliceStr = Vue.filter("sliceStr", (str, num) => {
-  return str.slice(0, num) + "...";
+  return str ? str.slice(0, num) + "..." : '';
 });
 
 // 世界标准时间

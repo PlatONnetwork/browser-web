@@ -44,11 +44,17 @@
           <router-link to="/node">{{ $t("menu.validator") }}</router-link>
         </el-menu-item>
         <el-menu-item
+          index="/tokens"
+          :class="{ active: $route.path.indexOf('tokens') > -1 }"
+        >
+          <router-link to="/tokens">{{ $t("menu.tokens") }}</router-link>
+        </el-menu-item>
+        <!-- <el-menu-item
           index="/proposal"
           :class="{ active: $route.path.indexOf('proposal') > -1 }"
         >
           <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
-        </el-menu-item>
+        </el-menu-item> -->
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
           <el-dropdown
@@ -64,6 +70,9 @@
               >{{ $t("menu.more") }}</span
             >
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/proposal">{{
+                $t("menu.proposal")
+              }}</el-dropdown-item>
               <el-dropdown-item command="/governable-parameter">{{
                 $t("more.governableParameter")
               }}</el-dropdown-item>

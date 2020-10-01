@@ -562,6 +562,7 @@ body {
     li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 14px;
       color: #000;
       padding: 14px 20px 11px;
@@ -757,7 +758,7 @@ body {
 
 .quest {
   width: 14px;
-  background: url("../../assets/images/icon-quest.svg") no-repeat;
+  background: url('../../assets/images/icon-quest.svg') no-repeat;
   background-size: 100% 100%;
   margin-left: 10px;
 }
@@ -768,4 +769,39 @@ body {
 
 .tabs .el-button--default {
   padding-top: 11px !important;
+}
+
+.tokens-type {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 4px;
+  &--in {
+    color: #02977e;
+    background-color: rgba(0, 201, 167, 0.2);
+  }
+  &--out {
+    color: #b47d00;
+    background-color: rgba(219, 154, 4, 0.2);
+  }
+  &--none {
+    color: #626c76;
+    background-color: rgba(119, 131, 143, 0.2);
+  }
+  &--self {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+  }
+}
+
+.tokens-arrow {
+  width: 20px;
+  padding: 2px 4px;
+  border-radius: 8px;
+  color: #00c9a7;
+  background: rgba(0, 201, 167, 0.1);
+  .arrow-icon {
+    width: 12px;
+  }
 }
