@@ -1102,7 +1102,7 @@ export default {
           s += 'WASM';
           break;
         case 4:
-          s += 'ERC20'
+          s += 'ERC20';
       }
       return this.$t(s);
     },
