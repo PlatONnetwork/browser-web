@@ -1,7 +1,7 @@
 <template>
   <div class="trade-list-wrap">
     <div class="page-title fontSize34">
-      {{ $t("tokens.tokens") }}
+      {{ $t('tokens.tokens') }}
     </div>
     <div class="sub-title">
       <!-- 暂时不要 <div class="fontSize14 trade-count">
@@ -52,12 +52,12 @@
               >
                 <div slot="content">
                   <span class="title-warning"
-                    >{{ $t("tradeAbout.warn") }}：</span
+                    >{{ $t('tradeAbout.warn') }}：</span
                   >
                   {{
                     scope.row.failReason
                       ? scope.row.failReason
-                      : $t("tradeAbout.transactionFailure")
+                      : $t('tradeAbout.transactionFailure')
                   }}
                 </div>
                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
@@ -95,7 +95,7 @@
             <span
               >{{
                 timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
-              }}{{ $t("tradeAbout.before") }}</span
+              }}{{ $t('tradeAbout.before') }}</span
             >
           </template>
         </el-table-column>
@@ -141,7 +141,7 @@
         <!-- 数额(Value) -->
         <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
+            <span>{{ scope.row.transferValue | formatMoney }} ATP</span>
           </template>
         </el-table-column>
 
@@ -175,19 +175,19 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { timeDiff } from "@/services/time-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { timeDiff } from '@/services/time-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: "tokensListComponent",
+  name: 'tokensListComponent',
   data() {
     return {
       tableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
-      displayTotalCount: 0
+      displayTotalCount: 0,
     };
   },
   props: {},
@@ -199,20 +199,20 @@ export default {
     getTradeList() {
       let param = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
       };
-      console.info("获取交易列表（参数）》》》", param);
+      console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
       apiService.tokens
         .tokenTransferList(param)
-        .then(res => {
+        .then((res) => {
           let {
             data,
             totalPages,
             totalCount,
             code,
             errMsg,
-            displayTotalCount
+            displayTotalCount,
           } = res;
           if (code == 0) {
             this.tableData = data;
@@ -222,7 +222,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -233,8 +233,8 @@ export default {
       this.$router.replace({
         query: {
           currentPage: this.currentPage,
-          pageSize: this.pageSize
-        }
+          pageSize: this.pageSize,
+        },
       });
     },
     handleCurrentChange(val) {
@@ -250,51 +250,51 @@ export default {
     },
     //进入区块详情
     goBlockDetail(height) {
-      console.warn("进入区块", height);
+      console.warn('进入区块', height);
       this.$router.push({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: height
-        }
+          height: height,
+        },
       });
     },
     //进入交易哈希详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
+          txHash: hash,
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     //进入钱包地址详情
     goAddressDetail(adr) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: adr
+          address: adr,
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     //进入token详情
     goTokenDetail(address) {
       this.$router.push({
-        path: "/tokens-detail",
+        path: '/tokens-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       // 通过 `vm` 访问组件实例
-      if (from.path.indexOf("-detail") == -1) {
+      if (from.path.indexOf('-detail') == -1) {
         // 不取缓存
         vm.currentPage = 1;
         vm.pageSize = 20;
@@ -314,7 +314,7 @@ export default {
     }
     this.getTradeList();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

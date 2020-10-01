@@ -7,10 +7,12 @@ export default {
     transaction: "TRANSACTIONS",
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
-    tokens: "Tokens",
+    tokens: "TOKENS",
+    erc20Transfer: "Erc20 Transfers",
     more: "MORE",
     comesoon: "Coming soon",
-    goole: "Google reCAPTCHA is not available!"
+    goole: "Google reCAPTCHA is not available!",
+    blockChain: "BLOCKCHAIN",
   },
   search: {
     searchBtn: "Search",
@@ -93,6 +95,7 @@ export default {
     PPOS: "PPOS Contract",
     EVM: "EVM Contract",
     WASM: "WASM Contract",
+    ERC20: "ERC20 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",
@@ -559,7 +562,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio:"Alaya network's fixed annual issuance ratio of ATP(‱).",
+    increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of ATP(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:

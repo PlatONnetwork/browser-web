@@ -96,7 +96,9 @@
           <!-- 转账金额(Quantity) -->
           <el-table-column :label="$t('tokens.quantity')">
             <template slot-scope="scope">
-              <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
+              <span
+                >{{ scope.row.transferValue | formatMoney }} ({{ currency }})
+              </span>
             </template>
           </el-table-column>
         </template>
@@ -104,7 +106,9 @@
           <!-- 数额(Value) -->
           <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
+              <span
+                >{{ scope.row.transferValue | formatMoney }} ({{ currency }})
+              </span>
             </template>
           </el-table-column>
 
@@ -163,6 +167,7 @@ export default {
       default: 'none',
     },
     tradeCount: Object,
+    currency: String,
   },
   computed: {},
   watch: {},

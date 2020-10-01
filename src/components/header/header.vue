@@ -17,23 +17,7 @@
         active-text-color="#FFF"
       >
         <el-menu-item index="/" :class="{ active: $route.path == '/' }">
-          <router-link to="/">{{ $t("menu.home") }}</router-link>
-        </el-menu-item>
-        <el-menu-item
-          index="/block"
-          :class="{ active: $route.path.indexOf('block') > -1 }"
-        >
-          <router-link to="/block">{{ $t("menu.block") }}</router-link>
-        </el-menu-item>
-        <el-menu-item
-          index="/trade"
-          :class="{
-            active:
-              $route.path.indexOf('trade') > -1 ||
-              $route.path.indexOf('address') > -1,
-          }"
-        >
-          <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
+          <router-link to="/">{{ $t('menu.home') }}</router-link>
         </el-menu-item>
         <el-menu-item
           index="/node"
@@ -41,19 +25,78 @@
             active: $route.path.indexOf('node') > -1,
           }"
         >
-          <router-link to="/node">{{ $t("menu.validator") }}</router-link>
+          <router-link to="/node">{{ $t('menu.validator') }}</router-link>
         </el-menu-item>
-        <el-menu-item
+
+        <el-menu-item class="more-item">
+          <!-- index="/governable-parameter" -->
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+            @visible-change="blockDropdownChangHandle"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active:
+                  $route.path.indexOf('block') > -1 ||
+                  $route.path.indexOf('trade') > -1 ||
+                  $route.path.indexOf('address') > -1,
+              }"
+              >{{ $t('menu.blockChain') }}</span
+            >
+            <i
+              :class="{
+                arrowDown: blockDropdownShow == false,
+                arrowUp: blockDropdownShow == true,
+              }"
+              class="arrow el-icon-arrow-down arrowUp"
+            ></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/block">{{
+                $t('menu.block')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/trade">{{
+                $t('menu.transaction')
+              }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-menu-item>
+        <el-menu-item class="more-item">
+          <!-- index="/governable-parameter" -->
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+            @visible-change="tokensDropdownChangHandle"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active: $route.path.indexOf('tokens') > -1,
+              }"
+              >{{ $t('menu.tokens') }}</span
+            >
+            <i
+              :class="{
+                arrowDown: tokensDropdownShow == false,
+                arrowUp: tokensDropdownShow == true,
+              }"
+              class="arrow el-icon-arrow-down arrowUp"
+            ></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/tokens/erc20">{{
+                $t('menu.erc20Transfer')
+              }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-menu-item>
+        <!-- <el-menu-item
           index="/tokens"
           :class="{ active: $route.path.indexOf('tokens') > -1 }"
         >
-          <router-link to="/tokens">{{ $t("menu.tokens") }}</router-link>
-        </el-menu-item>
-        <!-- <el-menu-item
-          index="/proposal"
-          :class="{ active: $route.path.indexOf('proposal') > -1 }"
-        >
-          <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
+          <router-link to="/tokens">{{ $t('menu.tokens') }}</router-link>
         </el-menu-item> -->
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
@@ -61,20 +104,30 @@
             placement="bottom-start"
             class="more-dropdown"
             @command="dropdownCommand"
+            @visible-change="moreDropdownChangHandle"
           >
             <span
               class="el-dropdown-link more-title"
               :class="{
-                active: $route.path.indexOf('governable-parameter') > -1,
+                active:
+                  $route.path.indexOf('governable-parameter') > -1 ||
+                  $route.path.indexOf('proposal') > -1,
               }"
-              >{{ $t("menu.more") }}</span
+              >{{ $t('menu.more') }}</span
             >
+            <i
+              :class="{
+                arrowDown: moreDropdownShow == false,
+                arrowUp: moreDropdownShow == true,
+              }"
+              class="arrow el-icon-arrow-down arrowUp"
+            ></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/proposal">{{
-                $t("menu.proposal")
+                $t('menu.proposal')
               }}</el-dropdown-item>
               <el-dropdown-item command="/governable-parameter">{{
-                $t("more.governableParameter")
+                $t('more.governableParameter')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -102,13 +155,13 @@
         :class="{ 'search-btn-active': isFocus }"
         @click="searchFn"
         :disabled="disabledBtn"
-        >{{ $t("search.searchBtn") }}</el-button
+        >{{ $t('search.searchBtn') }}</el-button
       >
     </div>
     <div class="right-most">
       <el-dropdown placement="bottom-start">
         <span class="el-dropdown-link">
-          {{ chainList[0][lang].split("(")[0] }}
+          {{ chainList[0][lang].split('(')[0] }}
           <i class="el-icon--right" :class="iconClass1"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -123,7 +176,7 @@
         @visible-change="visibleChange2"
       >
         <span class="el-dropdown-link">
-          {{ languageObj[language] == "简体中文" ? "简体中文" : "English" }}
+          {{ languageObj[language] == '简体中文' ? '简体中文' : 'English' }}
           <i class="el-icon--right" :class="iconClass2"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -140,73 +193,85 @@
 </template>
 
 <script lang="ts">
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-import store from "@/vuex/store";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import store from '@/vuex/store';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      iconClass1: "el-icon-arrow-down",
-      iconClass2: "el-icon-arrow-down",
+      blockDropdownShow: false,
+      moreDropdownShow: false,
+      tokensDropdownShow: false,
+      iconClass1: 'el-icon-arrow-down',
+      iconClass2: 'el-icon-arrow-down',
       disabledBtn: false,
       dropDisabled: false,
-      searchKey: "", //搜索
-      language: "zh-cn",
+      searchKey: '', //搜索
+      language: 'zh-cn',
       chainList: [
         {
-          en: "NewBaleyworld",
-          zh: "NewBaleyworld",
+          en: 'NewBaleyworld',
+          zh: 'NewBaleyworld',
         },
       ],
       options: [
         {
-          value: "zh-cn",
-          label: "简体中文",
+          value: 'zh-cn',
+          label: '简体中文',
         },
         {
-          value: "en",
-          label: "English",
+          value: 'en',
+          label: 'English',
         },
       ],
       languageObj: {
-        "zh-cn": "简体中文",
-        en: "English",
+        'zh-cn': '简体中文',
+        en: 'English',
       },
       isFocus: false,
     };
   },
   computed: {
-    ...mapGetters(["chainId", "chainHttp", "hideSearch"]),
+    ...mapGetters(['chainId', 'chainHttp', 'hideSearch']),
     lang() {
-      return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
   },
   watch: {},
   components: {},
-  inject: ["reload"],
+  inject: ['reload'],
   methods: {
-    ...mapActions(["changeChainId"]),
+    ...mapActions(['changeChainId']),
+    blockDropdownChangHandle(boolean) {
+      this.blockDropdownShow = boolean;
+    },
+    tokensDropdownChangHandle(boolean) {
+      this.tokensDropdownShow = boolean;
+    },
+    moreDropdownChangHandle(boolean) {
+      this.moreDropdownShow = boolean;
+    },
     goIndex() {
-      this.$router.push("/");
+      this.$router.push('/');
     },
     visibleChange1(val) {
       if (val) {
-        this.iconClass1 = "el-icon-arrow-up";
+        this.iconClass1 = 'el-icon-arrow-up';
       } else {
-        this.iconClass1 = "el-icon-arrow-down";
+        this.iconClass1 = 'el-icon-arrow-down';
       }
     },
     visibleChange2(val) {
-      console.warn("val>>>>>", val);
+      console.warn('val>>>>>', val);
       if (val) {
-        this.iconClass2 = "el-icon-arrow-up";
+        this.iconClass2 = 'el-icon-arrow-up';
       } else {
-        this.iconClass2 = "el-icon-arrow-down";
+        this.iconClass2 = 'el-icon-arrow-down';
       }
     },
     getNetObj(id) {
-      console.warn("首次id》》》", id);
+      console.warn('首次id》》》', id);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == id;
       });
@@ -215,44 +280,44 @@ export default {
       // })
       // debugger
       if (!arr.length) {
-        return "";
+        return '';
       }
       let arr1 = arr[0];
-      console.warn("首次net》》》", arr1["en"]);
-      return arr1["en"];
+      console.warn('首次net》》》', arr1['en']);
+      return arr1['en'];
     },
     handleCommand(command) {
-      console.log("网络切换》》》", command);
-      store.commit("CHANGE_ID", command);
+      console.log('网络切换》》》', command);
+      store.commit('CHANGE_ID', command);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == command;
       });
-      store.commit("CHANGE_HTTP", arr[0].http);
-      store.commit("CHANGE_CONTEXT", arr[0].context);
+      store.commit('CHANGE_HTTP', arr[0].http);
+      store.commit('CHANGE_CONTEXT', arr[0].context);
       //切换网络之后，将当前网络存在sessionStorage
-      sessionStorage.setItem("commandId", command);
-      sessionStorage.setItem("commandHttp", arr[0].http);
-      sessionStorage.setItem("commandContext", arr[0].context);
-      localStorage.setItem("commandContext", arr[0].context);
-      localStorage.setItem("cid", command);
+      sessionStorage.setItem('commandId', command);
+      sessionStorage.setItem('commandHttp', arr[0].http);
+      sessionStorage.setItem('commandContext', arr[0].context);
+      localStorage.setItem('commandContext', arr[0].context);
+      localStorage.setItem('cid', command);
       this.$router.push({
-        path: "/",
+        path: '/',
       });
     },
     handleCommandLangage(command) {
-      console.warn("command>>>>", command);
+      console.warn('command>>>>', command);
       this.$i18n.locale = command;
       this.language = command;
       window.i18nLocale = command;
-      localStorage.setItem("i18nLocale", command);
+      localStorage.setItem('i18nLocale', command);
 
       // 处理交易失败提示语的语言切换，需要重新请求接口
       const path = this.$route.path;
       if (
-        path == "/trade" ||
-        path == "/address-detail" ||
-        path == "/block-detail" ||
-        path == "/trade-detail"
+        path == '/trade' ||
+        path == '/address-detail' ||
+        path == '/block-detail' ||
+        path == '/trade-detail'
       ) {
         this.reload();
       }
@@ -264,28 +329,28 @@ export default {
       let param = {
         parameter: this.searchKey.trim(),
       };
-      console.warn("搜索内容》》》", param);
+      console.warn('搜索内容》》》', param);
       apiService.search
         .query(param)
         .then((res) => {
           let { errMsg, code, data } = res;
 
-          this.searchKey = "";
+          this.searchKey = '';
           if (code == 0) {
             //根据type不同进入不同的详情页
             if (!data.type) {
-              this.$message.warning(this.$t("indexInfo.searchno"));
+              this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
               this.switchFn(data.type, data.struct);
               // this.$emit('searchFn',data);
             }
           } else {
-            this.$message.warning(this.$t("indexInfo.searchno"));
+            this.$message.warning(this.$t('indexInfo.searchno'));
             // this.$message.error(errMsg) 替换为search无结果
           }
         })
         .catch((error) => {
-          this.searchKey = "";
+          this.searchKey = '';
           this.$message.error(error);
         });
       setTimeout(() => {
@@ -295,64 +360,64 @@ export default {
     switchFn(type, struct) {
       switch (type) {
         //区块详情
-        case "block":
+        case 'block':
           this.$router.push({
-            path: "/block-detail",
+            path: '/block-detail',
             query: {
               height: struct.number,
             },
           });
-          if (this.$route.path == "/block-detail") {
+          if (this.$route.path == '/block-detail') {
             this.reload();
           }
           break;
         //交易详情
-        case "transaction":
+        case 'transaction':
           // let path = ''
           // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
           this.$router.push({
-            path: "/trade-detail",
+            path: '/trade-detail',
             query: {
               txHash: struct.txHash,
             },
           });
-          if (this.$route.path == "/trade-detail") {
+          if (this.$route.path == '/trade-detail') {
             this.reload();
           }
           break;
         //节点详情
-        case "staking":
+        case 'staking':
           this.$router.push({
-            path: "/node-detail",
+            path: '/node-detail',
             query: {
               address: struct.nodeId,
             },
           });
-          if (this.$route.path == "/node-detail") {
+          if (this.$route.path == '/node-detail') {
             this.reload();
           }
           break;
         //地址详情==(钱包地址详情)
-        case "address":
+        case 'address':
           this.$router.push({
-            path: "/address-detail",
+            path: '/address-detail',
             query: {
               address: struct.address,
             },
           });
-          if (this.$route.path == "/address-detail") {
+          if (this.$route.path == '/address-detail') {
             this.reload();
           }
           break;
         //合约详情
-        case "contract":
+        case 'contract':
           this.$router.push({
-            path: "/contract-detail",
+            path: '/contract-detail',
             query: {
               address: struct.address,
             },
           });
-          if (this.$route.path == "/contract-detail") {
+          if (this.$route.path == '/contract-detail') {
             this.reload();
           }
           break;
@@ -370,7 +435,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.language = this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en";
+    this.language = this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en';
   },
   mounted() {},
 };

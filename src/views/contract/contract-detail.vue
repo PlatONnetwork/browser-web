@@ -2,12 +2,12 @@
   <div class="contract-detail-wrap">
     <div class="content-top-white contract-detail-top content-padding">
       <div class="page-title fontSize34">
-        {{ $t("contract.contractDetail") }}
+        {{ $t('contract.contractDetail') }}
       </div>
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t("contract.contract") }}</span>
+          <span>{{ $t('contract.contract') }}</span>
           <i>#{{ address }}</i>
           <b
             class="cursor"
@@ -34,11 +34,11 @@
         <el-col :span="11">
           <!-- 概览 -->
           <div class="overview">
-            <h3 class="Gilroy-Medium">{{ $t("contract.overview") }}</h3>
+            <h3 class="Gilroy-Medium">{{ $t('contract.overview') }}</h3>
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("contract.balance")
+                  $t('contract.balance')
                 }}</label>
                 <div>
                   <span class="money"
@@ -51,7 +51,7 @@
                       }}&nbsp;ATP (<a
                         class="blue cursor"
                         @click="goRestricte"
-                        >{{ $t("contract.restricted") }}</a
+                        >{{ $t('contract.restricted') }}</a
                       >)</span
                     >
                   </div>
@@ -59,7 +59,7 @@
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("contract.transactions")
+                  $t('contract.transactions')
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
@@ -70,11 +70,11 @@
         <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
-            <h3 class="Gilroy-Medium">{{ $t("contract.others") }}</h3>
+            <h3 class="Gilroy-Medium">{{ $t('contract.others') }}</h3>
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("contract.contractName")
+                  $t('contract.contractName')
                 }}</label>
                 <!-- 系统合约 -->
                 <div class="money" v-if="detailInfo.type == '2'">
@@ -84,7 +84,7 @@
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("contract.contractCreator")
+                  $t('contract.contractCreator')
                 }}</label>
                 <!-- 系统合约 -->
                 <div class="money" v-if="detailInfo.type == '2'">
@@ -99,12 +99,12 @@
                     {{ detailInfo.contractCreate | sliceStr(16) }}
                   </span>
                   <span
-                    style="padding: 0 8px;"
+                    style="padding: 0 8px"
                     v-if="
                       detailInfo.contractCreate && detailInfo.contractCreateHash
                     "
                   >
-                    {{ $t("contract.transactionsIn") }}
+                    {{ $t('contract.transactionsIn') }}
                   </span>
                   <span
                     class="normal"
@@ -117,7 +117,7 @@
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t("contract.tokenTracker")
+                  $t('contract.tokenTracker')
                 }}</label>
                 <!-- tokens -->
                 <div class="money contract-create-info">
@@ -139,19 +139,19 @@
           size="medium"
           :class="{ active: tabIndex == 1 }"
           @click="tabChange(1)"
-          >{{ $t("contract.transactions") }}</el-button
+          >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t("tokens.erc20TokenTxns") }}</el-button
+          >{{ $t('tokens.erc20TokenTxns') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t("contract.contract") }}</el-button
+          >{{ $t('contract.contract') }}</el-button
         >
       </div>
 
@@ -165,23 +165,22 @@
 
       <!-- Erc20 Token -->
       <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
-      
+
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
       </contract-info>
-
     </div>
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import tradeList from "@/components/trade-list";
-import tokensList from "@/components/rec20-tokens-list";
-import contractInfo from "@/components/contract/contract-info";
+import tradeList from '@/components/trade-list';
+import tokensList from '@/components/rec20-tokens-list';
+import contractInfo from '@/components/contract/contract-info';
 export default {
-  name: "contract-detail",
+  name: 'contract-detail',
   data() {
     return {
       tabIndex: 1,
@@ -192,12 +191,12 @@ export default {
       pageTotal: 0,
 
       activeTab: 1,
-      address: "",
+      address: '',
       detailInfo: {},
       isCopy: false,
-      copyText: "",
+      copyText: '',
       haveReward: 0,
-      tokenName: ""
+      tokenName: '',
     };
   },
   props: {},
@@ -206,17 +205,17 @@ export default {
   components: {
     tradeList,
     tokensList,
-    contractInfo
+    contractInfo,
   },
   methods: {
     //获取地址信息详情
     getDetail() {
       let param = {
-        address: this.address
+        address: this.address,
       };
       apiService.account
         .details(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
@@ -224,39 +223,39 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
       // 合成token 名称
       apiService.tokens
         .tokenDetail(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0 && data.name && data.symbol) {
-            this.tokenName = data.name + data.symbol;
+            this.tokenName = data.name + ' (' + data.symbol + ')';
           } else {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
 
     onCopy() {
-      this.copyText = this.$t("modalInfo.copysuccess");
+      this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     onError() {
-      this.copyText = this.$t("modalInfo.copyfail");
+      this.copyText = this.$t('modalInfo.copyfail');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     tabChange(index) {
@@ -264,46 +263,46 @@ export default {
     },
     goRestricte() {
       this.$router.push({
-        path: "/restricting-info",
+        path: '/restricting-info',
         query: {
-          address: this.address
-        }
+          address: this.address,
+        },
       });
     },
     //token详情
     goTokenDetail(address) {
       this.$router.push({
-        path: "/tokens-detail",
+        path: '/tokens-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
     },
     //地址详情
     goAddressDetail(address) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: address
-        }
+          address: address,
+        },
       });
     },
     //进入交易详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
-    }
+    },
   },
   //生命周期函数
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.getDetail();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

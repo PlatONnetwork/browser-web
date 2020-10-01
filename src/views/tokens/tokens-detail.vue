@@ -108,7 +108,11 @@
         }}</el-button>
       </div>
 
-      <tokens-list :address="address" table-type="detail"></tokens-list>
+      <tokens-list
+        :address="address"
+        table-type="detail"
+        :currency="detailInfo.symbol"
+      ></tokens-list>
     </div>
   </div>
 </template>
