@@ -44,15 +44,15 @@
                   $route.path.indexOf('trade') > -1 ||
                   $route.path.indexOf('address') > -1,
               }"
-              >{{ $t('menu.blockChain') }}</span
-            >
-            <i
-              :class="{
-                arrowDown: blockDropdownShow == false,
-                arrowUp: blockDropdownShow == true,
-              }"
-              class="arrow el-icon-arrow-down arrowUp"
-            ></i>
+              >{{ $t('menu.blockChain') }}
+              <i
+                :class="{
+                  arrowDown: blockDropdownShow == false,
+                  arrowUp: blockDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/block">{{
                 $t('menu.block')
@@ -76,15 +76,15 @@
               :class="{
                 active: $route.path.indexOf('tokens') > -1,
               }"
-              >{{ $t('menu.tokens') }}</span
-            >
-            <i
-              :class="{
-                arrowDown: tokensDropdownShow == false,
-                arrowUp: tokensDropdownShow == true,
-              }"
-              class="arrow el-icon-arrow-down arrowUp"
-            ></i>
+              >{{ $t('menu.tokens') }}
+              <i
+                :class="{
+                  arrowDown: tokensDropdownShow == false,
+                  arrowUp: tokensDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/tokens/erc20">{{
                 $t('menu.erc20Transfer')
@@ -113,15 +113,15 @@
                   $route.path.indexOf('governable-parameter') > -1 ||
                   $route.path.indexOf('proposal') > -1,
               }"
-              >{{ $t('menu.more') }}</span
-            >
-            <i
-              :class="{
-                arrowDown: moreDropdownShow == false,
-                arrowUp: moreDropdownShow == true,
-              }"
-              class="arrow el-icon-arrow-down arrowUp"
-            ></i>
+              >{{ $t('menu.more') }}
+              <i
+                :class="{
+                  arrowDown: moreDropdownShow == false,
+                  arrowUp: moreDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/proposal">{{
                 $t('menu.proposal')
@@ -159,10 +159,16 @@
       >
     </div>
     <div class="right-most">
-      <el-dropdown placement="bottom-start">
+      <el-dropdown placement="bottom-start" @visible-change="netVisibleChange">
         <span class="el-dropdown-link">
           {{ chainList[0][lang].split('(')[0] }}
-          <i class="el-icon--right" :class="iconClass1"></i>
+          <i
+            :class="{
+              arrowDown: netDropdownShow == false,
+              arrowUp: netDropdownShow == true,
+            }"
+            class="arrow el-icon-arrow-down arrowUp"
+          ></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="(item, index) in chainList" :key="index">{{
@@ -173,11 +179,17 @@
       <el-dropdown
         @command="handleCommandLangage"
         placement="bottom-start"
-        @visible-change="visibleChange2"
+        @visible-change="LangVisibleChange"
       >
         <span class="el-dropdown-link">
           {{ languageObj[language] == '简体中文' ? '简体中文' : 'English' }}
-          <i class="el-icon--right" :class="iconClass2"></i>
+          <i
+            :class="{
+              arrowDown: langDropdownShow == false,
+              arrowUp: langDropdownShow == true,
+            }"
+            class="arrow el-icon-arrow-down arrowUp"
+          ></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
@@ -200,6 +212,8 @@ export default {
   name: '',
   data() {
     return {
+      netDropdownShow: false,
+      langDropdownShow: false,
       blockDropdownShow: false,
       moreDropdownShow: false,
       tokensDropdownShow: false,
@@ -243,6 +257,9 @@ export default {
   inject: ['reload'],
   methods: {
     ...mapActions(['changeChainId']),
+    netVisibleChange(boolean) {
+      this.netDropdownShow = boolean;
+    },
     blockDropdownChangHandle(boolean) {
       this.blockDropdownShow = boolean;
     },
@@ -262,13 +279,8 @@ export default {
         this.iconClass1 = 'el-icon-arrow-down';
       }
     },
-    visibleChange2(val) {
-      console.warn('val>>>>>', val);
-      if (val) {
-        this.iconClass2 = 'el-icon-arrow-up';
-      } else {
-        this.iconClass2 = 'el-icon-arrow-down';
-      }
+    LangVisibleChange(boolean) {
+      this.langDropdownShow = boolean;
     },
     getNetObj(id) {
       console.warn('首次id》》》', id);
