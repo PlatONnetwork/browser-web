@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './map/index'
-import {tradeList, tradeDetail} from './map/trade'
-import {contractDetail} from './map/contract'
-import {addressDetail, restrictingInfo} from './map/address'
-import {blockDetail, blockList} from './map/block'
-import {nodeDetail, nodeList, historyNode, zeroNode} from './map/node'
-import {proposalList, proposalDetail} from './map/proposal.js'
+import { tradeList, tradeDetail } from './map/trade'
+import { contractDetail } from './map/contract'
+import { addressDetail, restrictingInfo } from './map/address'
+import { blockDetail, blockList } from './map/block'
+import { nodeDetail, nodeList, historyNode, zeroNode } from './map/node'
+import { proposalList, proposalDetail } from './map/proposal.js'
+import { tokensList, tokensDetail } from './map/tokens.js'
 import DownLoad from './map/download'
 import Redirect from './map/Redirect'
 import GovernableParameter from './map/more'
@@ -30,6 +31,8 @@ export default new Router({
     proposalList,
     proposalDetail,
     GovernableParameter,
+    tokensList,
+    tokensDetail,
     Redirect // 路由重定向(访问不存在的页面时，重定向到这个页面) 放最后面
   ]
 })

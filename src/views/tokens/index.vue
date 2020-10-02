@@ -1,10 +1,10 @@
 <template>
   <div class="trade-list-wrap">
     <div class="page-title fontSize34">
-      {{ $t("tradeAbout.transactionUp") }}
+      {{ $t("tokens.tokens") }}
     </div>
     <div class="sub-title">
-      <div class="fontSize14 trade-count">
+      <!-- 暂时不要 <div class="fontSize14 trade-count">
         <template v-if="pageTotal > 500000">
           {{ $t("tradeAbout.morethen") }}>
         </template>
@@ -16,7 +16,7 @@
         <span v-if="pageTotal > 500000">{{
           $t("tradeAbout.showingLast")
         }}</span>
-      </div>
+      </div> -->
       <!-- 上部分页标签 -->
       <div class="pagination-box1">
         <el-pagination
@@ -93,50 +93,66 @@
         <el-table-column :label="$t('tradeAbout.age')">
           <template slot-scope="scope">
             <span
-              >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
+              >{{
+                timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
               }}{{ $t("tradeAbout.before") }}</span
             >
           </template>
         </el-table-column>
 
-        <!-- 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('blockAbout.operatorAddress')">
+        <!-- From 操作地址（Operator_Address） -->
+        <el-table-column :label="$t('tokens.from')">
           <template slot-scope="scope">
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+                @click="goAddressDetail(scope.row.txFrom)"
+                >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
             </div>
           </template>
         </el-table-column>
 
-        <!-- 交易类型（Type） -->
-        <el-table-column :label="$t('tradeAbout.type')">
+        <el-table-column label="" width="40px">
           <template slot-scope="scope">
-            <span>{{ $t("TxType." + scope.row.txType) }}</span>
-            <!-- <span>{{scope.row.txType}}</span> -->
+            <div class="tokens-arrow">
+              <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
+            </div>
+          </template>
+        </el-table-column>
+
+        <!--To 操作地址（Operator_Address） -->
+        <el-table-column :label="$t('tokens.to')">
+          <template slot-scope="scope">
+            <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
+            <div class="flex-special">
+              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <span
+                class="cursor normal ellipsis ellipsisWidth"
+                @click="goAddressDetail(scope.row.transferTo)"
+                >{{ scope.row.transferTo | sliceStr(16) }}</span
+              >
+            </div>
           </template>
         </el-table-column>
 
         <!-- 数额(Value) -->
-        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+        <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.value | formatMoney }} LAT</span>
+            <span>{{ scope.row.transferValue | formatMoney }} LAT</span>
           </template>
         </el-table-column>
 
-        <!-- 交易费用（TxFee） -->
-        <el-table-column show-overflow-tooltip width="120">
-          <template slot="header">
-            {{ $t("tradeAbout.fee") }}
-            <span style="color: #999999">(LAT)</span>
-          </template>
+        <!-- tokens 名称+单位 -->
+        <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.actualTxCost | formatMoney }}</span>
+            <span
+              class="cursor normal"
+              @click="goTokenDetail(scope.row.contract)"
+              >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -164,7 +180,7 @@ import { timeDiff } from "@/services/time-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "trade-list",
+  name: "tokensListComponent",
   data() {
     return {
       tableData: [],
@@ -186,8 +202,9 @@ export default {
         pageSize: this.pageSize
       };
       console.info("获取交易列表（参数）》》》", param);
-      apiService.trade
-        .transactionList(param)
+      // apiService.trade.transactionList(param);
+      apiService.tokens
+        .tokenTransferList(param)
         .then(res => {
           let {
             data,
@@ -263,6 +280,15 @@ export default {
           // pageSize: this.pageSize
         }
       });
+    },
+    //进入token详情
+    goTokenDetail(address) {
+      this.$router.push({
+        path: "/tokens-detail",
+        query: {
+          address: address
+        }
+      });
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -297,7 +323,7 @@ export default {
 }
 .sub-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .trade-count {
   color: #333;

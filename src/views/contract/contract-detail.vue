@@ -66,7 +66,7 @@
             </ul>
           </div>
         </el-col>
-        <div style="width:100px;flex-shrink:0"></div>
+        <div style="width: 100px; flex-shrink: 0"></div>
         <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
@@ -77,19 +77,17 @@
                   $t("contract.contractName")
                 }}</label>
                 <!-- 系统合约 -->
-                <div class="money" v-if="detailInfo.type=='2'">
+                <div class="money" v-if="detailInfo.type == '2'">
                   {{ detailInfo.contractName }}
                 </div>
-                <div class="money" v-else>
-                  Not Available
-                </div>
+                <div class="money" v-else>Not Available</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
                   $t("contract.contractCreator")
                 }}</label>
                 <!-- 系统合约 -->
-                <div class="money" v-if="detailInfo.type=='2'">
+                <div class="money" v-if="detailInfo.type == '2'">
                   System Contract
                 </div>
                 <div v-else class="money contract-create-info">
@@ -100,7 +98,12 @@
                   >
                     {{ detailInfo.contractCreate | sliceStr(16) }}
                   </span>
-                  <span v-if="detailInfo.contractCreate && detailInfo.contractCreateHash">
+                  <span
+                    style="padding: 0 8px;"
+                    v-if="
+                      detailInfo.contractCreate && detailInfo.contractCreateHash
+                    "
+                  >
                     {{ $t("contract.transactionsIn") }}
                   </span>
                   <span
@@ -109,6 +112,18 @@
                     v-if="detailInfo.contractCreateHash"
                   >
                     {{ detailInfo.contractCreateHash | sliceStr(20) }}
+                  </span>
+                </div>
+              </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t("contract.tokenTracker")
+                }}</label>
+                <!-- tokens -->
+                <div class="money contract-create-info">
+                  <span class="normal" @click="goTokenDetail(address)">
+                    <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
+                    {{ tokenName }}
                   </span>
                 </div>
               </li>
@@ -130,6 +145,12 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 3 }"
+          @click="tabChange(3)"
           >{{ $t("contract.contract") }}</el-button
         >
       </div>
@@ -142,12 +163,13 @@
         :tradeCount="detailInfo"
       ></trade-list>
 
+      <!-- Erc20 Token -->
+      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+      
       <!-- 合约 -->
-      <contract-info
-        v-show="tabIndex == 2"
-        :detailInfo="detailInfo"
-        >
+      <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
       </contract-info>
+
     </div>
   </div>
 </template>
@@ -156,7 +178,8 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
-import contractInfo from "@/components/contract/contract-info"
+import tokensList from "@/components/rec20-tokens-list";
+import contractInfo from "@/components/contract/contract-info";
 export default {
   name: "contract-detail",
   data() {
@@ -174,6 +197,7 @@ export default {
       isCopy: false,
       copyText: "",
       haveReward: 0,
+      tokenName: ""
     };
   },
   props: {},
@@ -181,6 +205,7 @@ export default {
   watch: {},
   components: {
     tradeList,
+    tokensList,
     contractInfo
   },
   methods: {
@@ -195,7 +220,20 @@ export default {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
-
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch(error => {
+          this.$message.error(error);
+        });
+      // 合成token 名称
+      apiService.tokens
+        .tokenDetail(param)
+        .then(res => {
+          let { errMsg, code, data } = res;
+          if (code == 0 && data.name && data.symbol) {
+            this.tokenName = data.name + data.symbol;
           } else {
             this.$message.error(errMsg);
           }
@@ -229,6 +267,15 @@ export default {
         path: "/restricting-info",
         query: {
           address: this.address
+        }
+      });
+    },
+    //token详情
+    goTokenDetail(address) {
+      this.$router.push({
+        path: "/tokens-detail",
+        query: {
+          address: address
         }
       });
     },

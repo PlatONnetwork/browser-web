@@ -7,6 +7,7 @@ export default {
     transaction: "TRANSACTIONS",
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
+    tokens: "Tokens",
     more: "MORE",
     comesoon: "Coming soon",
     goole: "Google reCAPTCHA is not available!"
@@ -29,6 +30,21 @@ export default {
     serialnumber: "N.",
     export: "Download csv"
   },
+  tokens: {
+    tokens: "Tokens",
+    tokenDetail: "Token Detail",
+    value: "Value",
+    from: "From",
+    to: "To",
+    quantity: "Quantity",
+    totalSupply: "Total Supply",
+    holders: "Holders",
+    transfers: "Transfers",
+    contract: "Contract",
+    decimals: "Decimals",
+    website: "Official Site",
+    erc20TokenTxns: "Erc20 Token Txns"
+  },
   tradeAbout: {
     confirmTime: "Time",
     foundTransactions: "Transactions Found",
@@ -41,6 +57,7 @@ export default {
     txhash: "Txhash",
     timeStamp: "TimeStamp",
     blockHeight: "Block Height",
+    tokens: "Tokens Transferred",
     gasLimit: "Gas Limit",
     gasUsed: "Gas Used",
     gasUsedList: "Gas Used",
@@ -71,14 +88,14 @@ export default {
     proposalID: "Proposal ID",
     proposalStatus: "ProposalStatus",
 
-    creator:"Creator",
-    executor:"Executor",
-    PPOS:"PPOS Contract",
-    EVM:"EVM Contract",
-    WASM:"WASM Contract",
-    callFunction:"Call Function",
-    creation:"ContractCreation",
-    execution:"ContractExecution",
+    creator: "Creator",
+    executor: "Executor",
+    PPOS: "PPOS Contract",
+    EVM: "EVM Contract",
+    WASM: "WASM Contract",
+    callFunction: "Call Function",
+    creation: "ContractCreation",
+    execution: "ContractExecution",
 
     PIPSN: "PIP SN",
     proposalTitle: "Proposal Title",
@@ -208,13 +225,13 @@ export default {
     fromNode: "From",
     changedTo: "changed to",
     noData: "No data",
-    noProposalData:"No proposal record"
+    noProposalData: "No proposal record"
   },
   contract: {
     contractDetail: "CONTRACT DETAILS",
     contract: "Contract",
-    contractType:"Contract Type",
-    ContractBytecode:"Contract Bytecode",
+    contractType: "Contract Type",
+    ContractBytecode: "Contract Bytecode",
     overview: "Overview",
     lockOverview: "Overview",
     balance: "Balance",
@@ -230,6 +247,7 @@ export default {
     transfers: "Transfers",
     validatorTxns: "Validator Txns",
     governanceTxns: "Governance Txns",
+    tokenTracker: "Token Tracker",
 
     addressDetail: "ADDRESS DETAILS",
     restricted: "Restricted",
@@ -252,8 +270,8 @@ export default {
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
     totalDelegated: "Total Delegated",
-    warn:"Contract Self Destruct called at Txn Hash",
-    systemBuilt:"System built-in code contract, no contract bytecode."
+    warn: "Contract Self Destruct called at Txn Hash",
+    systemBuilt: "System built-in code contract, no contract bytecode."
   },
   deleget: {
     validators: "Validators",
@@ -358,8 +376,7 @@ export default {
     atonDownload: "ATON Download",
     developer: "Developer",
     platScan: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
-    international:
-      "COPYRIGHT © 2020 PLATON NETWORK."
+    international: "COPYRIGHT © 2020 PLATON NETWORK."
   },
   elseInfo: {
     hour: "h ",
@@ -412,7 +429,7 @@ export default {
     delegationsDelegators: "Delegations\\Delegators",
     producedBlock: "Blocks",
     exitTime: "Exit time",
-    freezeTime:"Locking time",
+    freezeTime: "Locking time",
     pendingDelegations: "Invalid delegations",
     nodeMsg: "Foundation-funded nodes do not accept delegations",
     systemBuilt: "System built-in reward pool account",
@@ -444,7 +461,7 @@ export default {
     4: "Exiting",
     5: "Exited",
     6: "Verifying...",
-    7:"Locked"
+    7: "Locked"
   },
   // 交易类型
   TxType: {
@@ -453,6 +470,9 @@ export default {
     2: "ContractExecution", //'合约执行',
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
+    // todo
+    6: "erc20 ContractCreation", //erc20合约创建
+    7: "erc20 ContractExecution", //erc20合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
@@ -472,9 +492,11 @@ export default {
 
   //合约类型
   contractType: {
-    0:"PPOS Contract",
-    1:"EVM Contract",
-    2:"WASM Contract"
+    0: "PPOS Contract",
+    1: "EVM Contract",
+    2: "WASM Contract",
+    // todo
+    3: "evm-token"
   },
 
   // 创建提案的提案类型
@@ -507,7 +529,7 @@ export default {
     11: "YES ",
     12: "NO ",
     13: "ABSTAIN ",
-    invalid:"(Invalid)"
+    invalid: "(Invalid)"
   },
   actionType: {
     1: "Create the Validator",
@@ -518,7 +540,7 @@ export default {
     6: "Double Signing",
     7: "Low Block Rate",
     10: "Increase Self-Stakes",
-    11:"Node release"
+    11: "Node release"
   },
   more: {
     governableParameter: "GOVERNABLE PARAMETER",
@@ -527,20 +549,26 @@ export default {
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
-    rewardPerMaxChangeRange:"\"Delegated Reward Ratio\" The maximum adjustable range of each modification (‱).",
-    rewardPerChangeInterval:"\"Delegated Reward Ratio\" allows to modify the number of waiting epochs again (1 epoch=10750 blocks).",
+    rewardPerMaxChangeRange:
+      '"Delegated Reward Ratio" The maximum adjustable range of each modification (‱).',
+    rewardPerChangeInterval:
+      '"Delegated Reward Ratio" allows to modify the number of waiting epochs again (1 epoch=10750 blocks).',
     slashBlocksReward: "Slash the number of block rewards(block rate=0%).",
     slashFractionDuplicateSign: "Slash ratio of DoubleSign(‱).",
     duplicateSignReportReward: "Reporter's reward percentage (%).",
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio:"PlatON network's fixed annual issuance ratio of LAT(‱).",
+    increaseIssuanceRatio:
+      "PlatON network's fixed annual issuance ratio of LAT(‱).",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
-    zeroProduceCumulativeTime:"Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
-    zeroProduceNumberThreshold:"Penalty threshold：Number of zero production blocks.",
-    zeroProduceFreezeDuration:"The lock time of node zero out-block penalty（1 epoch=10750blocks）"
+    zeroProduceCumulativeTime:
+      "Penalty threshold：Maintaining the consensus round number of zero production blocks,and accumulate times.",
+    zeroProduceNumberThreshold:
+      "Penalty threshold：Number of zero production blocks.",
+    zeroProduceFreezeDuration:
+      "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   ...enLocale
 };

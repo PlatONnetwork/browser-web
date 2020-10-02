@@ -67,7 +67,7 @@
             </ul>
           </div>
         </el-col>
-        <div style="width:100px;flex-shrink:0"></div>
+        <div style="width: 100px; flex-shrink: 0"></div>
         <!-- 地址其他 -->
         <el-col :span="11">
           <div class="others overview">
@@ -117,13 +117,19 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          v-if="isAddressDetailsDelegation"
-          >{{ $t("contract.delegations") }}</el-button
+          >{{ $t("tokens.erc20TokenTxns") }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
+          v-if="isAddressDetailsDelegation"
+          >{{ $t("contract.delegations") }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 4 }"
+          @click="tabChange(4)"
           v-if="isAddressDetailsReward"
           >{{ $t("tradeAbout.rewardDetails") }}</el-button
         >
@@ -137,20 +143,24 @@
         :tradeCount="detailInfo"
       ></trade-list>
 
+      <!-- Erc20 Token -->
+      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+
       <!-- 委托 -->
       <delegation-info
-        v-show="tabIndex == 2"
+        v-show="tabIndex == 3"
         :detailInfo="detailInfo"
         :address="address"
       ></delegation-info>
 
       <!-- 奖励领取明细 -->
       <reward-detail
-        v-show="tabIndex == 3"
+        v-show="tabIndex == 4"
         ref="rewardDetail"
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
+
     </div>
   </div>
 </template>
@@ -159,6 +169,7 @@ import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 import tradeList from "@/components/trade-list";
+import tokensList from "@/components/rec20-tokens-list";
 import rewardDetail from "@/components/address/rewardDetailTable";
 import delegationInfo from "@/components/address/delegations-info";
 export default {
@@ -178,14 +189,12 @@ export default {
   },
   props: {},
   computed: {
-    ...mapGetters([
-      "isAddressDetailsDelegation",
-      "isAddressDetailsReward"
-    ]),
+    ...mapGetters(["isAddressDetailsDelegation", "isAddressDetailsReward"])
   },
   watch: {},
   components: {
     tradeList,
+    tokensList,
     rewardDetail,
     delegationInfo
   },
@@ -244,7 +253,6 @@ export default {
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.getDetail();
-
   },
   mounted() {}
 };

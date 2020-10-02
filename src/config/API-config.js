@@ -17,6 +17,7 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
   TICKET_URL = `${TOTAL}browser-server/ticket/`,
   PROPOSAL_URL = `${TOTAL}browser-server/proposal/`,
   MORE_URL = `${TOTAL}browser-server/extra/`,
+  TOKEN_URL = `${TOTAL}browser-server/token/`,
   //NODE
   NODE = {
     aliveStakingList: `${NODE_URL}aliveStakingList`,
@@ -77,6 +78,11 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
 
     serverWebsocket: `/browser-server/websocket/`
   },
+  TOKEN = {
+    tokenDetail: `${TOKEN_URL}tokenDetail`,
+    tokenList: `${TOKEN_URL}tokenList`,
+    tokenTransferList: `${TOKEN_URL}tokenTransferList`
+  },
   MORE = {
     queryConfig: `${MORE_URL}queryConfig`
   };
@@ -91,5 +97,6 @@ export default {
   JSON_BASE,
   NODE,
   BASE,
-  MORE
+  MORE,
+  TOKEN
 };
