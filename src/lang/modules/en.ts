@@ -43,7 +43,7 @@ export default {
     contract: "Contract",
     decimals: "Decimals",
     website: "Official Site",
-    erc20TokenTxns: "Erc20 Token Txns"
+    erc20TokenTxns: "ERC20 Token Txns"
   },
   tradeAbout: {
     confirmTime: "Time",
@@ -471,8 +471,8 @@ export default {
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
     // todo
-    6: "erc20 ContractCreation", //erc20合约创建
-    7: "erc20 ContractExecution", //erc20合约执行
+    6: "ERC20 ContractCreation", //erc20合约创建
+    7: "ERC20 ContractExecution", //erc20合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',

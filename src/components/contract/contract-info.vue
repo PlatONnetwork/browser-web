@@ -1,14 +1,16 @@
 <template>
   <div class="address-trade-last contract-tab-wrap">
     <p>
-      {{ $t("contract.contractType") }} :
-      <span class="contract-name">{{ contractTypeTitle(detailInfo.type) }}</span>
+      {{ $t('contract.contractType') }} :
+      <span class="contract-name">{{
+        contractTypeTitle(detailInfo.type)
+      }}</span>
     </p>
 
     <!-- 自毁合约 -->
     <div v-if="detailInfo.isDestroy == 1" class="warn-info">
       <img src="../../assets/images/icon-contract.svg" alt="" />
-      <span class="yellow">{{ $t("contract.warn") }}:</span>
+      <span class="yellow">{{ $t('contract.warn') }}:</span>
       &nbsp;
       <span class="trad-hash" @click="goTradeDetail(detailInfo.destroyHash)">
         {{ detailInfo.destroyHash }}
@@ -21,7 +23,7 @@
       class="warn-info"
     >
       <img src="../../assets/images/icon-contract.svg" alt="" />
-      <span class="yellow">{{ $t("contract.systemBuilt") }}</span>
+      <span class="yellow">{{ $t('contract.systemBuilt') }}</span>
     </div>
 
     <b>Contract Bytecode</b>
@@ -30,29 +32,34 @@
       class="contract-bin"
       v-if="
         detailInfo.isDestroy == 1 ||
-          detailInfo.type == '2' ||
-          !detailInfo.contractBin
+        detailInfo.type == '2' ||
+        !detailInfo.contractBin
       "
-    >0x</div>
+    >
+      0x
+    </div>
     <div class="contract-bin" v-else>{{ detailInfo.contractBin }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["detailInfo"],
+  props: ['detailInfo'],
   methods: {
     contractTypeTitle(type) {
-      let s = "tradeAbout.";
+      let s = 'tradeAbout.';
       switch (type) {
         case 3:
-          s += "EVM";
+          s += 'EVM';
           break;
         case 2:
-          s += "PPOS";
+          s += 'PPOS';
           break;
         case 4:
-          s += "WASM";
+          s += 'WASM';
+          break;
+        case 5:
+          s += 'ERC20';
           break;
       }
       return this.$t(s);
@@ -60,13 +67,13 @@ export default {
     //进入交易详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -75,7 +82,7 @@ export default {
   p {
     margin-bottom: 20px;
   }
-  .contract-name{
+  .contract-name {
     font-family: Gilroy-Medium;
     font-size: 14px;
     color: #151515;
