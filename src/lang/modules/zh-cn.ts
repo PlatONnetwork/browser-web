@@ -46,7 +46,7 @@ export default {
     contract: "合约",
     decimals: "精度",
     website: "官网",
-    erc20TokenTxns: "Erc20交易"
+    erc20TokenTxns: "ERC20交易"
   },
   tradeAbout: {
     confirmTime: "确认时间",
@@ -472,8 +472,8 @@ export default {
     2: "合约执行", //合约执行
     4: "其他", //其他
     5: "MPC交易",
-    6: "erc20合约创建",
-    7: "erc20合约执行",
+    6: "Erc20合约创建",
+    7: "Erc20合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押

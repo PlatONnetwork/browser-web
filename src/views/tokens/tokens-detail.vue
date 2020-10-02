@@ -23,6 +23,7 @@
                 }}</label>
                 <div class="money">
                   {{ detailInfo.totalSupply | formatNumber }}
+                  ({{ detailInfo.symbol }})
                 </div>
               </li>
               <!-- 持有数 暂时没有 -->

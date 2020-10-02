@@ -140,7 +140,6 @@
         :address="address"
         v-show="tabIndex == 1"
         :tradeCount="detailInfo"
-        :currency="detailInfo.symbol"
       ></trade-list>
 
       <!-- Erc20 Token -->

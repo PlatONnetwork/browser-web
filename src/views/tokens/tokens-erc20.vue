@@ -4,19 +4,19 @@
       {{ $t('menu.tokens') }}
     </div>
     <div class="sub-title">
-      <!-- 暂时不要 <div class="fontSize14 trade-count">
+      <div class="fontSize14 trade-count">
         <template v-if="pageTotal > 500000">
-          {{ $t("tradeAbout.morethen") }}>
+          {{ $t('tradeAbout.morethen') }}>
         </template>
         <template v-else>
-          {{ $t("tradeAbout.morethen2") }}
+          {{ $t('tradeAbout.morethen2') }}
         </template>
         <b class="black">{{ pageTotal }}</b>
-        {{ $t("tradeAbout.foundTransactions") }}
+        {{ $t('tradeAbout.foundTransactions') }}
         <span v-if="pageTotal > 500000">{{
-          $t("tradeAbout.showingLast")
+          $t('tradeAbout.showingLast')
         }}</span>
-      </div> -->
+      </div>
       <!-- 上部分页标签 -->
       <div class="pagination-box1">
         <el-pagination
@@ -323,7 +323,7 @@ export default {
 }
 .sub-title {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 .trade-count {
   color: #333;
