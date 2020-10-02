@@ -1,7 +1,7 @@
 <template>
   <div class="trade-list-wrap">
     <div class="page-title fontSize34">
-      {{ $t('tokens.tokens') }}
+      {{ $t('menu.tokens') }}
     </div>
     <div class="sub-title">
       <!-- 暂时不要 <div class="fontSize14 trade-count">

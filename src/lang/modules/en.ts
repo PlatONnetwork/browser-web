@@ -8,7 +8,7 @@ export default {
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
     tokens: "TOKENS",
-    erc20Transfer: "Erc20 Transfers",
+    erc20Transfer: "ERC20 Transfers",
     more: "MORE",
     comesoon: "Coming soon",
     goole: "Google reCAPTCHA is not available!",

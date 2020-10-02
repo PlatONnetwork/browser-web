@@ -8,7 +8,7 @@ export default {
     validator: "验证节点",
     proposal: "治理提案",
     tokens: "令牌",
-    erc20Transfer: "Erc20交易",
+    erc20Transfer: "ERC20交易",
     more: "更多",
     comesoon: "敬请期待",
     goole: "Google reCAPTCHA无法获取！",

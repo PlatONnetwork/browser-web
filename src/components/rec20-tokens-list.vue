@@ -59,7 +59,7 @@
         </el-table-column>
 
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
-        <af-table-column label="" width="60px">
+        <af-table-column label="" width="70px">
           <template slot-scope="scope">
             <span
               v-if="['INPUT', 'OUT'].includes(scope.row.type)"
@@ -96,9 +96,7 @@
           <!-- 转账金额(Quantity) -->
           <el-table-column :label="$t('tokens.quantity')">
             <template slot-scope="scope">
-              <span
-                >{{ scope.row.transferValue | formatMoney }} ({{ currency }})
-              </span>
+              <span>{{ scope.row.transferValue | formatMoney }} </span>
             </template>
           </el-table-column>
         </template>
@@ -106,9 +104,7 @@
           <!-- 数额(Value) -->
           <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span
-                >{{ scope.row.transferValue | formatMoney }} ({{ currency }})
-              </span>
+              <span>{{ scope.row.transferValue | formatMoney }} </span>
             </template>
           </el-table-column>
 
@@ -167,7 +163,6 @@ export default {
       default: 'none',
     },
     tradeCount: Object,
-    currency: String,
   },
   computed: {},
   watch: {},

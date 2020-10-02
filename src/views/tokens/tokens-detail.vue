@@ -7,7 +7,7 @@
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t('tokens.tokens') }} </span>
+          <span>{{ $t('menu.tokens') }} </span>
           <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
         </div>
       </div>
@@ -107,12 +107,7 @@
           $t('contract.transactions')
         }}</el-button>
       </div>
-
-      <tokens-list
-        :address="address"
-        table-type="detail"
-        :currency="detailInfo.symbol"
-      ></tokens-list>
+      <tokens-list :address="address" table-type="detail"></tokens-list>
     </div>
   </div>
 </template>
