@@ -1,4 +1,4 @@
-const tokensListComponent = () => import("@/views/tokens/index.vue");
+const tokensListComponent = () => import("@/views/tokens/tokens-erc20.vue");
 const tokensDetailComponent = () => import("@/views/tokens/tokens-detail.vue");
 
 export const tokensList = {

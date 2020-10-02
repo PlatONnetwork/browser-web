@@ -7,10 +7,12 @@ export default {
     transaction: "TRANSACTIONS",
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
-    tokens: "Tokens",
+    tokens: "TOKENS",
+    erc20Transfer: "ERC20 TRANSFERS",
     more: "MORE",
     comesoon: "Coming soon",
-    goole: "Google reCAPTCHA is not available!"
+    goole: "Google reCAPTCHA is not available!",
+    blockChain: "BLOCKCHAIN",
   },
   search: {
     searchBtn: "Search",
@@ -93,6 +95,7 @@ export default {
     PPOS: "PPOS Contract",
     EVM: "EVM Contract",
     WASM: "WASM Contract",
+    ERC20: "ERC20 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",

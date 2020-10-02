@@ -19,40 +19,83 @@
           <router-link to="/">{{ $t("menu.home") }}</router-link>
         </el-menu-item>
         <el-menu-item
-          index="/block"
-          :class="{ active: $route.path.indexOf('block') > -1 }"
-        >
-          <router-link to="/block">{{ $t("menu.block") }}</router-link>
-        </el-menu-item>
-        <el-menu-item
-          index="/trade"
-          :class="{
-            active:
-              $route.path.indexOf('trade') > -1 ||
-              $route.path.indexOf('address') > -1,
-          }"
-        >
-          <router-link to="/trade">{{ $t("menu.transaction") }}</router-link>
-        </el-menu-item>
-        <el-menu-item
           index="/node"
           :class="{
             active: $route.path.indexOf('node') > -1,
           }"
         >
-          <router-link to="/node">{{ $t("menu.validator") }}</router-link>
+          <router-link to="/node">{{ $t('menu.validator') }}</router-link>
         </el-menu-item>
-        <el-menu-item
+
+        <el-menu-item class="more-item">
+          <!-- index="/governable-parameter" -->
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+            @visible-change="blockDropdownChangHandle"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active:
+                  $route.path.indexOf('block') > -1 ||
+                  $route.path.indexOf('trade') > -1 ||
+                  $route.path.indexOf('address') > -1,
+              }"
+              >{{ $t('menu.blockChain') }}
+              <i
+                :class="{
+                  arrowDown: blockDropdownShow == false,
+                  arrowUp: blockDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/block">{{
+                $t('menu.block')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/trade">{{
+                $t('menu.transaction')
+              }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-menu-item>
+        <el-menu-item class="more-item">
+          <!-- index="/governable-parameter" -->
+          <el-dropdown
+            placement="bottom-start"
+            class="more-dropdown"
+            @command="dropdownCommand"
+            @visible-change="tokensDropdownChangHandle"
+          >
+            <span
+              class="el-dropdown-link more-title"
+              :class="{
+                active: $route.path.indexOf('tokens') > -1,
+              }"
+              >{{ $t('menu.tokens') }}
+              <i
+                :class="{
+                  arrowDown: tokensDropdownShow == false,
+                  arrowUp: tokensDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="/tokens">{{
+                $t('menu.erc20Transfer')
+              }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-menu-item>
+        <!-- <el-menu-item
           index="/tokens"
           :class="{ active: $route.path.indexOf('tokens') > -1 }"
         >
-          <router-link to="/tokens">{{ $t("menu.tokens") }}</router-link>
-        </el-menu-item>
-        <!-- <el-menu-item
-          index="/proposal"
-          :class="{ active: $route.path.indexOf('proposal') > -1 }"
-        >
-          <router-link to="/proposal">{{ $t("menu.proposal") }}</router-link>
+          <router-link to="/tokens">{{ $t('menu.tokens') }}</router-link>
         </el-menu-item> -->
         <el-menu-item class="more-item">
           <!-- index="/governable-parameter" -->
@@ -60,20 +103,30 @@
             placement="bottom-start"
             class="more-dropdown"
             @command="dropdownCommand"
+            @visible-change="moreDropdownChangHandle"
           >
             <span
               class="el-dropdown-link more-title"
               :class="{
-                active: $route.path.indexOf('governable-parameter') > -1,
+                active:
+                  $route.path.indexOf('governable-parameter') > -1 ||
+                  $route.path.indexOf('proposal') > -1,
               }"
-              >{{ $t("menu.more") }}</span
-            >
+              >{{ $t('menu.more') }}
+              <i
+                :class="{
+                  arrowDown: moreDropdownShow == false,
+                  arrowUp: moreDropdownShow == true,
+                }"
+                class="arrow el-icon-arrow-down arrowUp"
+              ></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/proposal">{{
-                $t("menu.proposal")
+                $t('menu.proposal')
               }}</el-dropdown-item>
               <el-dropdown-item command="/governable-parameter">{{
-                $t("more.governableParameter")
+                $t('more.governableParameter')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -101,14 +154,20 @@
         :class="{ 'search-btn-active': isFocus }"
         @click="searchFn"
         :disabled="disabledBtn"
-        >{{ $t("search.searchBtn") }}</el-button
+        >{{ $t('search.searchBtn') }}</el-button
       >
     </div>
     <div class="right-most">
-      <el-dropdown placement="bottom-start">
+      <el-dropdown placement="bottom-start" @visible-change="netVisibleChange">
         <span class="el-dropdown-link">
-          {{ chainList[0][lang].split("(")[0] }}
-          <i class="el-icon--right" :class="iconClass1"></i>
+          {{ chainList[0][lang].split('(')[0] }}
+          <i
+            :class="{
+              arrowDown: netDropdownShow == false,
+              arrowUp: netDropdownShow == true,
+            }"
+            class="arrow el-icon-arrow-down arrowUp"
+          ></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="(item, index) in chainList" :key="index">{{
@@ -119,11 +178,17 @@
       <el-dropdown
         @command="handleCommandLangage"
         placement="bottom-start"
-        @visible-change="visibleChange2"
+        @visible-change="LangVisibleChange"
       >
         <span class="el-dropdown-link">
-          {{ languageObj[language] == "简体中文" ? "简体中文" : "English" }}
-          <i class="el-icon--right" :class="iconClass2"></i>
+          {{ languageObj[language] == '简体中文' ? '简体中文' : 'English' }}
+          <i
+            :class="{
+              arrowDown: langDropdownShow == false,
+              arrowUp: langDropdownShow == true,
+            }"
+            class="arrow el-icon-arrow-down arrowUp"
+          ></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
@@ -139,73 +204,85 @@
 </template>
 
 <script lang="ts">
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-import store from "@/vuex/store";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import store from '@/vuex/store';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      iconClass1: "el-icon-arrow-down",
-      iconClass2: "el-icon-arrow-down",
+      netDropdownShow: false,
+      langDropdownShow: false,
+      blockDropdownShow: false,
+      moreDropdownShow: false,
+      tokensDropdownShow: false,
+      iconClass1: 'el-icon-arrow-down',
+      iconClass2: 'el-icon-arrow-down',
       disabledBtn: false,
       dropDisabled: false,
-      searchKey: "", //搜索
-      language: "zh-cn",
+      searchKey: '', //搜索
+      language: 'zh-cn',
       chainList: [
         {
-          en: "NewBaleyworld",
-          zh: "NewBaleyworld",
+          en: 'NewBaleyworld',
+          zh: 'NewBaleyworld',
         },
       ],
       options: [
         {
-          value: "zh-cn",
-          label: "简体中文",
+          value: 'zh-cn',
+          label: '简体中文',
         },
         {
-          value: "en",
-          label: "English",
+          value: 'en',
+          label: 'English',
         },
       ],
       languageObj: {
-        "zh-cn": "简体中文",
-        en: "English",
+        'zh-cn': '简体中文',
+        en: 'English',
       },
       isFocus: false,
     };
   },
   computed: {
-    ...mapGetters(["chainId", "chainHttp", "hideSearch"]),
+    ...mapGetters(['chainId', 'chainHttp', 'hideSearch']),
     lang() {
-      return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
   },
   watch: {},
   components: {},
-  inject: ["reload"],
+  inject: ['reload'],
   methods: {
-    ...mapActions(["changeChainId"]),
+    ...mapActions(['changeChainId']),
+    netVisibleChange(boolean) {
+      this.netDropdownShow = boolean;
+    },
+    blockDropdownChangHandle(boolean) {
+      this.blockDropdownShow = boolean;
+    },
+    tokensDropdownChangHandle(boolean) {
+      this.tokensDropdownShow = boolean;
+    },
+    moreDropdownChangHandle(boolean) {
+      this.moreDropdownShow = boolean;
+    },
     goIndex() {
-      this.$router.push("/");
+      this.$router.push('/');
     },
     visibleChange1(val) {
       if (val) {
-        this.iconClass1 = "el-icon-arrow-up";
+        this.iconClass1 = 'el-icon-arrow-up';
       } else {
-        this.iconClass1 = "el-icon-arrow-down";
+        this.iconClass1 = 'el-icon-arrow-down';
       }
     },
-    visibleChange2(val) {
-      console.warn("val>>>>>", val);
-      if (val) {
-        this.iconClass2 = "el-icon-arrow-up";
-      } else {
-        this.iconClass2 = "el-icon-arrow-down";
-      }
+    LangVisibleChange(boolean) {
+      this.langDropdownShow = boolean;
     },
     getNetObj(id) {
-      console.warn("首次id》》》", id);
+      console.warn('首次id》》》', id);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == id;
       });
@@ -217,12 +294,12 @@ export default {
         return "";
       }
       let arr1 = arr[0];
-      console.warn("首次net》》》", arr1["en"]);
-      return arr1["en"];
+      console.warn('首次net》》》', arr1['en']);
+      return arr1['en'];
     },
     handleCommand(command) {
-      console.log("网络切换》》》", command);
-      store.commit("CHANGE_ID", command);
+      console.log('网络切换》》》', command);
+      store.commit('CHANGE_ID', command);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == command;
       });

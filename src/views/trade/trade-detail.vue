@@ -1101,6 +1101,8 @@ export default {
         case 2:
           s += 'WASM';
           break;
+        case 4:
+          s += 'ERC20';
       }
       return this.$t(s);
     },

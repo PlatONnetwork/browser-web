@@ -7,7 +7,7 @@
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t('tokens.tokens') }} </span>
+          <span>{{ $t('menu.tokens') }} </span>
           <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
         </div>
       </div>
@@ -23,6 +23,7 @@
                 }}</label>
                 <div class="money">
                   {{ detailInfo.totalSupply | formatNumber }}
+                  ({{ detailInfo.symbol }})
                 </div>
               </li>
               <!-- 持有数 暂时没有 -->

@@ -7,10 +7,12 @@ export default {
     transaction: "交易",
     validator: "验证节点",
     proposal: "治理提案",
-    tokens: "代币",
+    tokens: "令牌",
+    erc20Transfer: "ERC20交易",
     more: "更多",
     comesoon: "敬请期待",
-    goole: "Google reCAPTCHA无法获取！"
+    goole: "Google reCAPTCHA无法获取！",
+    blockChain: "区块链",
   },
   search: {
     searchBtn: "查询",
@@ -31,8 +33,8 @@ export default {
     export: "下载csv"
   },
   tokens: {
-    tokens: "代币",
-    tokenDetail: "代币详情",
+    tokens: "令牌",
+    tokenDetail: "令牌详情",
     value: "价值",
     from: "发送方",
     to: "接收方",
@@ -95,6 +97,7 @@ export default {
     PPOS: "系统合约",
     EVM: "EVM合约",
     WASM: "WASM合约",
+    ERC20: "ERC20合约",
     callFunction: "调用函数",
     creation: "合约创建",
     execution: "合约执行",
@@ -249,7 +252,7 @@ export default {
     transfers: "转账",
     validatorTxns: "验证节点交易",
     governanceTxns: "治理交易",
-    tokenTracker: "代币",
+    tokenTracker: "令牌",
 
     addressDetail: "地址详情",
     restricted: "锁仓",

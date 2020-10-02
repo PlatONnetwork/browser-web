@@ -805,3 +805,58 @@ body {
     width: 12px;
   }
 }
+
+.arrowUp {
+  animation: rotateDown 0.2s linear;
+  transform-origin: center center;
+  transform: rotateZ(180deg);
+}
+.arrowDown {
+  animation: rotateUp 0.2s linear;
+  transform-origin: center center;
+  transform: rotateZ(0deg);
+}
+
+@keyframes rotateUp {
+  0% {
+    transform: rotateZ(180deg);
+  }
+
+  25% {
+    transform: rotateZ(135deg);
+  }
+
+  50% {
+    transform: rotateZ(90deg);
+  }
+
+  75% {
+    transform: rotateZ(45deg);
+  }
+
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes rotateDown {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  25% {
+    transform: rotateZ(45deg);
+  }
+
+  50% {
+    transform: rotateZ(90deg);
+  }
+
+  75% {
+    transform: rotateZ(135deg);
+  }
+
+  100% {
+    transform: rotateZ(180deg);
+  }
+}
