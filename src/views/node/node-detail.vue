@@ -2,50 +2,79 @@
   <div class="contract-detail-wrap">
     <div class="content-top-white content-padding">
       <div class="page-title fontSize34">
-        {{ $t("nodeInfo.validatorDetail") }}
+        {{ $t('nodeInfo.validatorDetail') }}
       </div>
       <div class="node-header">
         <div class="node-header-left">
           <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-          <img src="../../assets/images/node-avtor.svg" v-if="!detailInfo.stakingIcon" />
+          <img
+            src="../../assets/images/node-avtor.svg"
+            v-if="!detailInfo.stakingIcon"
+          />
           <div class="node-name-wrap">
             <div class="node-name">
               <b>{{ detailInfo.nodeName }}</b>
               <i></i>
             </div>
-            <p v-if="
+            <p
+              v-if="
                 !detailInfo.isInit &&
-                  detailInfo.status != 4 &&
-                  detailInfo.status != 5 &&
-                  detailInfo.status != 7
-              ">
-              {{ $t("nodeInfo.createdat") }}:
+                detailInfo.status != 4 &&
+                detailInfo.status != 5 &&
+                detailInfo.status != 7
+              "
+            >
+              {{ $t('nodeInfo.createdat') }}:
               {{ detailInfo.joinTime | formatTime }}
             </p>
             <p v-if="detailInfo.status == 4 || detailInfo.status == 5">
-              {{ $t("nodeInfo.exitTime") }}:
+              {{ $t('nodeInfo.exitTime') }}:
               {{ detailInfo.leaveTime | formatTime }}
             </p>
             <p v-if="detailInfo.status == 7">
-              {{ $t("nodeInfo.freezeTime") }}:
+              {{ $t('nodeInfo.freezeTime') }}:
               {{ detailInfo.leaveTime | formatTime }}
             </p>
-            <p v-if="
+            <p
+              v-if="
                 detailInfo.isInit &&
-                  detailInfo.status != 4 &&
-                  detailInfo.status != 5
-              ">
-              <i class="iconfont iconxinxi lightgray" style="color:#D5D5D5;">&#xe63f;</i>
-              <span>{{ $t("nodeInfo.nodeMsg") }}</span>
+                detailInfo.status != 4 &&
+                detailInfo.status != 5
+              "
+            >
+              <i class="iconfont iconxinxi lightgray" style="color: #d5d5d5"
+                >&#xe63f;</i
+              >
+              <span>{{ $t('nodeInfo.nodeMsg') }}</span>
             </p>
           </div>
         </div>
         <div class="node-header-right">
-          <span class="green vote-status" v-if="detailInfo.status == 2 || detailInfo.status == 6">{{ $t("nodeStatus." + [detailInfo.status]) }}</span>
-          <span class="yellow vote-status yellow-status" v-else-if="detailInfo.status == 3 || detailInfo.status == 4">{{ $t("nodeStatus." + [detailInfo.status]) }}</span>
-          <span class="yellow vote-status yellow-status" v-else-if="detailInfo.status == 7">{{ $t("nodeStatus." + [detailInfo.status]) }}</span>
-          <span class="red vote-status red-status" v-else-if="detailInfo.status == 1">{{ $t("nodeStatus." + [detailInfo.status]) }}</span>
-          <span class="lightgray vote-status gray-status" v-else-if="detailInfo.status == 5">{{ $t("nodeStatus." + [detailInfo.status]) }}</span>
+          <span
+            class="green vote-status"
+            v-if="detailInfo.status == 2 || detailInfo.status == 6"
+            >{{ $t('nodeStatus.' + [detailInfo.status]) }}</span
+          >
+          <span
+            class="yellow vote-status yellow-status"
+            v-else-if="detailInfo.status == 3 || detailInfo.status == 4"
+            >{{ $t('nodeStatus.' + [detailInfo.status]) }}</span
+          >
+          <span
+            class="yellow vote-status yellow-status"
+            v-else-if="detailInfo.status == 7"
+            >{{ $t('nodeStatus.' + [detailInfo.status]) }}</span
+          >
+          <span
+            class="red vote-status red-status"
+            v-else-if="detailInfo.status == 1"
+            >{{ $t('nodeStatus.' + [detailInfo.status]) }}</span
+          >
+          <span
+            class="lightgray vote-status gray-status"
+            v-else-if="detailInfo.status == 5"
+            >{{ $t('nodeStatus.' + [detailInfo.status]) }}</span
+          >
         </div>
       </div>
       <!-- TODO 验证节点 详情 从新设计 -->
@@ -54,7 +83,10 @@
           <div class="node-statistic">
             <List class="node-left" :inline="true">
               <!-- 当选验证节点 -->
-              <Item :vertical="true" :label="$t('nodeInfo.electedRoundValidator')">
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.electedRoundValidator')"
+              >
                 <p class="Gilroy-Medium fontSize18">
                   {{ detailInfo.verifierTime }}
                 </p>
@@ -66,7 +98,11 @@
                 </p>
               </Item>
               <!-- 累计系统奖励 -->
-              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalNodeReward') + ' (ATP)'">
+              <Item
+                v-if="!detailInfo.isInit"
+                :vertical="true"
+                :label="$t('nodeInfo.totalNodeReward') + ' (ATP)'"
+              >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.rewardValue | formatMoney | sliceFloat(0)
@@ -88,8 +124,16 @@
                 预计节点年化收益率：显示如图
 
                 -预计委托年化收益率：显示如图 -->
-              <Item v-if="!detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.totalStakePower') + ' (ATP)'" class="total-stake">
-                <p class="Gilroy-Medium" v-if="detailInfo.status != 4 && detailInfo.status != 5">
+              <Item
+                v-if="!detailInfo.isInit"
+                :vertical="true"
+                :label="$t('nodeInfo.totalStakePower') + ' (ATP)'"
+                class="total-stake"
+              >
+                <p
+                  class="Gilroy-Medium"
+                  v-if="detailInfo.status != 4 && detailInfo.status != 5"
+                >
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalValue | formatMoney | sliceFloat(0)
                   }}</span>
@@ -98,20 +142,22 @@
                   }}</span>
                   <span class="fontSize13"></span>
                 </p>
-                <p v-else class="Gilroy-Medium">
-                  --
-                </p>
+                <p v-else class="Gilroy-Medium">--</p>
               </Item>
               <!-- 稳定性 -->
-              <Item v-if="detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.stability')">
+              <Item
+                v-if="detailInfo.isInit"
+                :vertical="true"
+                :label="$t('nodeInfo.stability')"
+              >
                 <div class="stability-wrap">
-                  <div style="margin-right:10px;" class="self-tooltip">
+                  <div style="margin-right: 10px" class="self-tooltip">
                     <i class="icon-low-block cursor"></i>
                     <span class="Gilroy-Regular fontSize13">{{
                       detailInfo.slashLowQty
                     }}</span>
                     <p class="Gilroy-Medium">
-                      {{ $t("nodeInfo.lowBlockRate") }}
+                      {{ $t('nodeInfo.lowBlockRate') }}
                     </p>
                   </div>
                   <div class="self-tooltip self-tooltip-sign">
@@ -119,12 +165,17 @@
                     <span class="Gilroy-Regular fontSize13">{{
                       detailInfo.slashMultiQty
                     }}</span>
-                    <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
+                    <p class="Gilroy-Medium">{{ $t('nodeInfo.twoSignNum') }}</p>
                   </div>
                 </div>
               </Item>
               <!-- 自有质押 -->
-              <Item v-if="detailInfo.isInit" :vertical="true" :label="$t('nodeInfo.selfstake') + ' (ATP)'" class="total-stake">
+              <Item
+                v-if="detailInfo.isInit"
+                :vertical="true"
+                :label="$t('nodeInfo.selfstake') + ' (ATP)'"
+                class="total-stake"
+              >
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(0)
@@ -132,26 +183,33 @@
                   <span class="black fontSize13">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span v-if="(detailInfo.status == 4 || detailInfo.status == 5) && detailInfo.totalValue > 0" class="fontSize13 onPending">({{ $t("nodeInfo.freezing") }})</span>
+                  <span
+                    v-if="
+                      (detailInfo.status == 4 || detailInfo.status == 5) &&
+                      detailInfo.totalValue > 0
+                    "
+                    class="fontSize13 onPending"
+                    >({{ $t('nodeInfo.freezing') }})</span
+                  >
                 </p>
               </Item>
             </List>
           </div>
-          <div class="node-statistic" v-if="!detailInfo.isInit ">
+          <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
               <Item :vertical="true" :label="$t('nodeInfo.stability')">
                 <div class="stability-wrap">
-                  <div style="margin-right:10px;" class="self-tooltip">
+                  <div style="margin-right: 10px" class="self-tooltip">
                     <i class="icon-low-block cursor"></i>
                     <span>{{ detailInfo.slashLowQty }}</span>
                     <p class="Gilroy-Medium">
-                      {{ $t("nodeInfo.lowBlockRate") }}
+                      {{ $t('nodeInfo.lowBlockRate') }}
                     </p>
                   </div>
                   <div class="self-tooltip self-tooltip-sign">
                     <i class="icon-two-sign cursor"></i>
                     <span>{{ detailInfo.slashMultiQty }}</span>
-                    <p class="Gilroy-Medium">{{ $t("nodeInfo.twoSignNum") }}</p>
+                    <p class="Gilroy-Medium">{{ $t('nodeInfo.twoSignNum') }}</p>
                   </div>
                 </div>
               </Item>
@@ -163,7 +221,10 @@
                   <span class="fontSize13">%</span>
                 </p>
               </Item>
-              <Item :vertical="true" :label="$t('nodeInfo.totalDelegatedReward') + ' (ATP)'">
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.totalDelegatedReward') + ' (ATP)'"
+              >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.totalDeleReward | formatMoney | sliceFloat(0)
@@ -175,7 +236,11 @@
                 </p>
               </Item>
               <!-- TODO 需要在未退回到验证节点账户时，显示没有返还到节点钱 显示带解锁 此处需要一个状态 -->
-              <Item :vertical="true" :label="$t('nodeInfo.selfstake') + ' (ATP)'" class="total-stake">
+              <Item
+                :vertical="true"
+                :label="$t('nodeInfo.selfstake') + ' (ATP)'"
+                class="total-stake"
+              >
                 <p class="Gilroy-Medium">
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(0)
@@ -183,7 +248,14 @@
                   <span class="black fontSize13">{{
                     detailInfo.stakingValue | formatMoney | sliceFloat(1)
                   }}</span>
-                  <span v-if="(detailInfo.status == 4 || detailInfo.status == 5) && detailInfo.totalValue > 0" class="fontSize13 onPending">({{ $t("nodeInfo.freezing") }})</span>
+                  <span
+                    v-if="
+                      (detailInfo.status == 4 || detailInfo.status == 5) &&
+                      detailInfo.totalValue > 0
+                    "
+                    class="fontSize13 onPending"
+                    >({{ $t('nodeInfo.freezing') }})</span
+                  >
                 </p>
               </Item>
             </List>
@@ -193,11 +265,11 @@
               <Item :vertical="true">
                 <div slot="tipHeader">
                   <label>
-                    {{ $t("nodeInfo.rewardRatio") }}
+                    {{ $t('nodeInfo.rewardRatio') }}
                   </label>
                   <el-tooltip placement="bottom" class="item" effect="dark">
                     <div slot="content" class="delegate-msg">
-                      {{ $t("nodeInfo.ratioTips") }}
+                      {{ $t('nodeInfo.ratioTips') }}
                     </div>
                     <i class="address-icon"></i>
                   </el-tooltip>
@@ -209,15 +281,26 @@
                   <span class="fontSize13"> %</span>
                 </p>
               </Item>
-              <Item v-if="detailInfo.status == 4 || detailInfo.status == 5" :vertical="true" :label="$t('nodeInfo.delegatorNum')">
+              <Item
+                v-if="detailInfo.status == 4 || detailInfo.status == 5"
+                :vertical="true"
+                :label="$t('nodeInfo.delegatorNum')"
+              >
                 <p>--</p>
               </Item>
-              <Item v-else :vertical="true" :label="$t('nodeInfo.delegatorNum')">
+              <Item
+                v-else
+                :vertical="true"
+                :label="$t('nodeInfo.delegatorNum')"
+              >
                 <p class="Gilroy-Medium fontSize18">
                   {{ detailInfo.delegateQty }}
                 </p>
               </Item>
-              <Item :vertical="true" :label="$t('contract.unclaimedReward') + ' (ATP)'">
+              <Item
+                :vertical="true"
+                :label="$t('contract.unclaimedReward') + ' (ATP)'"
+              >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.deleRewardRed | formatMoney | sliceFloat(0)
@@ -229,18 +312,30 @@
                 </p>
               </Item>
               <!-- TODO 此处历史节点显示另外一个数据 -->
-              <Item :vertical="true" :label="$t('deleget.acceptDelegations') + ' (ATP)'" v-if="detailInfo.status != 4 && detailInfo.status != 5">
+              <Item
+                :vertical="true"
+                :label="$t('deleget.acceptDelegations') + ' (ATP)'"
+                v-if="detailInfo.status != 4 && detailInfo.status != 5"
+              >
                 <p>
-                  <span class="Gilroy-Medium black fontSize18" style="font-size: 18px;">{{
+                  <span
+                    class="Gilroy-Medium black fontSize18"
+                    style="font-size: 18px"
+                    >{{
                       detailInfo.delegateValue | formatMoney | sliceFloat(0)
-                    }}</span>
+                    }}</span
+                  >
                   <span class="black fontSize13">{{
                     detailInfo.delegateValue | formatMoney | sliceFloat(1)
                   }}</span>
                   <span class="fontSize13 lat-mini"></span>
                 </p>
               </Item>
-              <Item v-else :vertical="true" :label="$t('nodeInfo.pendingDelegations') + ' (ATP)'">
+              <Item
+                v-else
+                :vertical="true"
+                :label="$t('nodeInfo.pendingDelegations') + ' (ATP)'"
+              >
                 <p>
                   <span class="Gilroy-Medium black fontSize18">{{
                     detailInfo.statDelegateReduction
@@ -252,7 +347,9 @@
                       | formatMoney
                       | sliceFloat(1)
                   }}</span>
-                  <span class="fontSize13 onPending">({{ $t("nodeInfo.undelegating") }})</span>
+                  <span class="fontSize13 onPending"
+                    >({{ $t('nodeInfo.undelegating') }})</span
+                  >
                 </p>
               </Item>
             </List>
@@ -260,27 +357,45 @@
         </div>
         <div class="node-static-right-box" v-if="!detailInfo.isInit">
           <div class="yield-box">
-            <p v-if="detailInfo.status == 4 || detailInfo.status == 5  || detailInfo.status == 7" class="value">--%</p>
-            <p v-else class="value">{{ detailInfo.expectedIncome }}%</p>
+            <p
+              v-if="
+                detailInfo.status == 4 ||
+                detailInfo.status == 5 ||
+                detailInfo.status == 7
+              "
+              class="value"
+            >
+              --%
+            </p>
+            <p v-else class="value">
+              {{ detailInfo.expectedIncome }}%
+            </p>
             <p class="text">
               <!-- TODO 需要做悬停 -->
-              <span>{{ $t("nodeInfo.validatorAnnualizedYield") }}</span>
+              <span>{{ $t('nodeInfo.validatorAnnualizedYield') }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node1Tips") }}
+                  {{ $t('nodeInfo.node1Tips') }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
             </p>
           </div>
           <div class="yield-box">
-            <p v-if="detailInfo.status == 4 || detailInfo.status == 5" class="value">--%</p>
-            <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}%</p>
+            <p
+              v-if="detailInfo.status == 4 || detailInfo.status == 5"
+              class="value"
+            >
+              --%
+            </p>
+            <p v-else class="value">
+              {{ detailInfo.deleAnnualizedRate }}%
+            </p>
             <p class="text">
-              <span>{{ $t("nodeInfo.delegatedAnnualizedYield") }}</span>
+              <span>{{ $t('nodeInfo.delegatedAnnualizedYield') }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
                 <div slot="content" class="delegate-msg">
-                  {{ $t("nodeInfo.node2Tips") }}
+                  {{ $t('nodeInfo.node2Tips') }}
                 </div>
                 <i class="address-icon"></i>
               </el-tooltip>
@@ -291,54 +406,126 @@
     </div>
     <div class="content-padding">
       <div class="tabs">
-        <el-button size="medium" :class="{ active: tabIndex == 1 }" @click="tabChange(1)">{{ $t("nodeInfo.nodeInfo") }}</el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 2 }" @click="tabChange(2)">{{ $t("nodeInfo.producedBlocks") }}</el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 3 }" @click="tabChange(3)">{{ $t("nodeInfo.validatorActions") }}</el-button>
-        <el-button size="medium" v-if="!detailInfo.isInit" :class="{ active: tabIndex == 4 }" @click="tabChange(4)">{{ $t("deleget.delegations") }}</el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" v-if="!detailInfo.isInit">{{ $t("deleget.rewardReceiveDetails") }}</el-button>
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 1 }"
+          @click="tabChange(1)"
+          >{{ $t('nodeInfo.nodeInfo') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 2 }"
+          @click="tabChange(2)"
+          >{{ $t('nodeInfo.producedBlocks') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 3 }"
+          @click="tabChange(3)"
+          >{{ $t('nodeInfo.validatorActions') }}</el-button
+        >
+        <el-button
+          size="medium"
+          v-if="!detailInfo.isInit"
+          :class="{ active: tabIndex == 4 }"
+          @click="tabChange(4)"
+          >{{ $t('deleget.delegations') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 5 }"
+          @click="tabChange(5)"
+          v-if="!detailInfo.isInit"
+          >{{ $t('deleget.rewardReceiveDetails') }}</el-button
+        >
       </div>
       <div class="node-detail-content">
         <div v-show="tabIndex == 1" class="basicInfo">
-          <h3 class="nodeInfo">{{ $t("nodeInfo.basicInfo") }}</h3>
+          <h3 class="nodeInfo">{{ $t('nodeInfo.basicInfo') }}</h3>
           <List>
             <Item :label="$t('nodeInfo.nodeID')">
               <span>{{ detailInfo.nodeId }}</span>
-              <b class="cursor copyicon" id="copy1" :class="{ copy: !isCopy }" v-clipboard:copy="detailInfo.nodeId" v-clipboard:success="onCopy" v-clipboard:error="onError">
-                <p v-show="isCopy" style="width:100%;">
+              <b
+                class="cursor copyicon"
+                id="copy1"
+                :class="{ copy: !isCopy }"
+                v-clipboard:copy="detailInfo.nodeId"
+                v-clipboard:success="onCopy"
+                v-clipboard:error="onError"
+              >
+                <p v-show="isCopy" style="width: 100%">
                   <i class="el-icon-circle-check-outline"></i>
                   <span>{{ copyText }}</span>
                 </p>
               </b>
             </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
-              <span class="blue cursor" @click="goAddressDetail(detailInfo.stakingAddr)">{{ detailInfo.stakingAddr }}</span>
-              <b class="cursor copyicon" id="copy2" :class="{ copy: !isCopy2 }" v-clipboard:copy="detailInfo.stakingAddr" v-clipboard:success="onCopy" v-clipboard:error="onError">
-                <p v-show="isCopy2" style="width:100%;">
+              <span
+                class="blue cursor"
+                @click="goAddressDetail(detailInfo.stakingAddr)"
+                >{{ detailInfo.stakingAddr }}</span
+              >
+              <b
+                class="cursor copyicon"
+                id="copy2"
+                :class="{ copy: !isCopy2 }"
+                v-clipboard:copy="detailInfo.stakingAddr"
+                v-clipboard:success="onCopy"
+                v-clipboard:error="onError"
+              >
+                <p v-show="isCopy2" style="width: 100%">
                   <i class="el-icon-circle-check-outline"></i>
                   <span>{{ copyText2 }}</span>
                 </p>
               </b>
             </Item>
             <Item :label="$t('tradeAbout.rewardAddress')">
-              <span class="blue cursor" @click="goAddressDetail(detailInfo.denefitAddr)">{{ detailInfo.denefitAddr }}</span>
-              <span class="lightgray" v-if="detailInfo.isInit">({{ $t("nodeInfo.systemBuilt") }})</span>
-              <b class="cursor copyicon" id="copy3" :class="{ copy: !isCopy3 }" v-clipboard:copy="detailInfo.denefitAddr" v-clipboard:success="onCopy" v-clipboard:error="onError">
-                <p v-show="isCopy3" style="width:100%;">
+              <span
+                class="blue cursor"
+                @click="goAddressDetail(detailInfo.denefitAddr)"
+                >{{ detailInfo.denefitAddr }}</span
+              >
+              <span class="lightgray" v-if="detailInfo.isInit"
+                >({{ $t('nodeInfo.systemBuilt') }})</span
+              >
+              <b
+                class="cursor copyicon"
+                id="copy3"
+                :class="{ copy: !isCopy3 }"
+                v-clipboard:copy="detailInfo.denefitAddr"
+                v-clipboard:success="onCopy"
+                v-clipboard:error="onError"
+              >
+                <p v-show="isCopy3" style="width: 100%">
                   <i class="el-icon-circle-check-outline"></i>
                   <span>{{ copyText3 }}</span>
                 </p>
               </b>
             </Item>
             <Item :label="$t('tradeAbout.website')">
-              <a class="blue cursor" :href="detailInfo.website" v-if="detailInfo.website" target="_blank">{{ detailInfo.website }}</a>
+              <a
+                class="blue cursor"
+                :href="detailInfo.website"
+                v-if="detailInfo.website"
+                target="_blank"
+                >{{ detailInfo.website }}</a
+              >
               <span class="lightgray" v-else>Null</span>
             </Item>
             <Item :label="$t('nodeInfo.rewardRatio')">
               <span v-if="detailInfo.isInit">--</span>
-              <span v-else class="fontSize14 Gilroy-Medium">{{ detailInfo.rewardPer }} %</span>
+              <span v-else class="fontSize14 Gilroy-Medium"
+                >{{ detailInfo.rewardPer }} %</span
+              >
             </Item>
             <Item :label="$t('tradeAbout.identity')">
-              <a class="blue cursor" v-if="detailInfo.externalId" :href="detailInfo.externalUrl" target="_blank">{{ detailInfo.externalId }}</a>
+              <a
+                class="blue cursor"
+                v-if="detailInfo.externalId"
+                :href="detailInfo.externalUrl"
+                target="_blank"
+                >{{ detailInfo.externalId }}</a
+              >
               <span class="lightgray" v-else>Null</span>
             </Item>
             <Item :label="$t('tradeAbout.introduction')">
@@ -349,20 +536,29 @@
         </div>
         <div v-show="tabIndex == 2">
           <div class="address-trade-last node-last">
-            {{ $t("blockAbout.totalProduced") }}
+            {{ $t('blockAbout.totalProduced') }}
             <b>{{ detailInfo.blockQty | formatNumber }}</b>
-            <span style="color: #3F3F3F;" v-if="newRecordFlag">{{
-              $t("contract.showingLast")
+            <span style="color: #3f3f3f" v-if="newRecordFlag">{{
+              $t('contract.showingLast')
             }}</span>
             <el-button size="medium export-btn" @click="exportFn">{{
-              $t("common.export")
+              $t('common.export')
             }}</el-button>
           </div>
           <div class="table">
-            <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('menu.block')">
                 <template slot-scope="scope">
-                  <span class="blue cursor" @click="goBlockDetail(scope.row.number)">{{ scope.row.number }}</span>
+                  <span
+                    class="blue cursor"
+                    @click="goBlockDetail(scope.row.number)"
+                    >{{ scope.row.number }}</span
+                  >
                 </template>
               </el-table-column>
               <el-table-column :label="$t('common.time')">
@@ -370,7 +566,10 @@
                   <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('indexInfo.txn')" show-overflow-tooltip>
+              <el-table-column
+                :label="$t('indexInfo.txn')"
+                show-overflow-tooltip
+              >
                 <template slot-scope="scope">
                   <span>{{ scope.row.statTxQty | formatNumber }}</span>
                 </template>
@@ -382,13 +581,28 @@
               </el-table-column>
             </el-table>
             <div class="pagination-box">
-              <el-pagination background @size-change="handleBlockSizeChange" @current-change="handleBlockCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal > 5000 ? 5000 : pageTotal" :pager-count="9"></el-pagination>
+              <el-pagination
+                background
+                @size-change="handleBlockSizeChange"
+                @current-change="handleBlockCurrentChange"
+                :current-page.sync="currentPage"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize"
+                layout="sizes,total,  prev, pager, next"
+                :total="pageTotal > 5000 ? 5000 : pageTotal"
+                :pager-count="9"
+              ></el-pagination>
             </div>
           </div>
         </div>
         <div v-show="tabIndex == 3">
           <div class="table">
-            <el-table :data="tableOperateData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableOperateData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('common.time')" width="260">
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
@@ -396,39 +610,56 @@
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.actions')">
                 <template slot-scope="scope">
-                  <p class="percent80 no-break" v-if="
+                  <p
+                    class="percent80 no-break"
+                    v-if="
                       scope.row.type == 1 ||
-                        scope.row.type == 3 ||
-                        scope.row.type == 10
-                    ">
-                    {{ $t("actionType." + [scope.row.type]) }}
+                      scope.row.type == 3 ||
+                      scope.row.type == 10
+                    "
+                  >
+                    {{ $t('actionType.' + [scope.row.type]) }}
                   </p>
                   <p class="percent80 no-break" v-if="scope.row.type == 2">
-                    {{ $t("actionType." + [scope.row.type]) }}{{ $t("nodeInfo.information") }}
-                    <span v-if="!!scope.row.beforeRate">- {{ $t("nodeInfo.rewardRatio") }}
+                    {{ $t('actionType.' + [scope.row.type])
+                    }}{{ $t('nodeInfo.information') }}
+                    <span v-if="!!scope.row.beforeRate"
+                      >- {{ $t('nodeInfo.rewardRatio') }}
                       {{ scope.row.beforeRate }}%
-                      {{ $t("tradeAbout.changedTo") }}
-                      {{ scope.row.afterRate }}%</span>
+                      {{ $t('tradeAbout.changedTo') }}
+                      {{ scope.row.afterRate }}%</span
+                    >
                   </p>
-                  <p class="percent80 no-break" v-else-if="scope.row.type == 4 || scope.row.type == 5">
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 4 || scope.row.type == 5"
+                  >
                     <template v-if="scope.row.title">
                       <span>
                         {{
-                          `${$t("actionType." + [scope.row.type])}-${
+                          `${$t('actionType.' + [scope.row.type])}-${
                             scope.row.title
                           }`
                         }}
-                        <span v-if="scope.row.type == 5">-{{ $t("voteStatus." + [scope.row.option]) }}</span>
+                        <span v-if="scope.row.type == 5"
+                          >-{{ $t('voteStatus.' + [scope.row.option]) }}</span
+                        >
                       </span>
                     </template>
                     <template v-else>
-                      <span v-if="scope.row.proposalType == 2">{{ $t("actionType." + [scope.row.type]) }}-{{
-                          $t("tradeAbout.versionUp")
-                        }}-V {{ scope.row.version }}-{{ scope.row.id }}</span>
-                      <span v-else>{{ $t("actionType." + [scope.row.type]) }}-{{
-                          $t("proposalOption." + [scope.row.proposalType])
-                        }}-{{ scope.row.id }}</span>
-                      <span v-if="scope.row.type == 5">-{{ $t("voteStatus." + [scope.row.option]) }}</span>
+                      <span v-if="scope.row.proposalType == 2"
+                        >{{ $t('actionType.' + [scope.row.type]) }}-{{
+                          $t('tradeAbout.versionUp')
+                        }}-V {{ scope.row.version }}-{{ scope.row.id }}</span
+                      >
+                      <span v-else
+                        >{{ $t('actionType.' + [scope.row.type]) }}-{{
+                          $t('proposalOption.' + [scope.row.proposalType])
+                        }}-{{ scope.row.id }}</span
+                      >
+                      <span v-if="scope.row.type == 5"
+                        >-{{ $t('voteStatus.' + [scope.row.option]) }}</span
+                      >
                     </template>
                   </p>
                   <!-- <p
@@ -437,50 +668,60 @@
                   >{{`${$t('actionType.'+[scope.row.type])}-${scope.row.title}-${$t('voteStatus.'+[scope.row.option])}`}}</p>-->
                   <p class="percent80 no-break" v-else-if="scope.row.type == 6">
                     {{
-                      lang == "zh"
+                      lang == 'zh'
                         ? `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-扣除自有质押${scope.row.percent * 100}%(${
                             scope.row.amount
                           } ATP)，移出验证节点列表`
-                        : `${$t("actionType." + [scope.row.type])}-${scope.row
-                            .percent * 100}% of self-stake slashed (${
+                        : `${$t('actionType.' + [scope.row.type])}-${
+                            scope.row.percent * 100
+                          }% of self-stake slashed (${
                             scope.row.amount
                           } ATP), Remove the Validator List`
                     }}
                   </p>
-                  <p class="percent80 no-break" v-else-if="scope.row.type == 7 && scope.row.percent == 0">
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 7 && scope.row.percent == 0"
+                  >
                     {{
-                      lang == "zh"
+                      lang == 'zh'
                         ? `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-移出验证节点列表`
                         : `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-Remove the Validator List`
                     }}
                   </p>
-                  <p class="percent80 no-break" v-else-if="scope.row.type == 7 && scope.row.percent > 0">
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 7 && scope.row.percent > 0"
+                  >
                     {{
-                      lang == "zh"
+                      lang == 'zh'
                         ? `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-扣除自有质押(${
                             scope.row.amount
                           }ATP)，移出验证节点列表`
-                        : `${$t("actionType." + [scope.row.type])}(${
+                        : `${$t('actionType.' + [scope.row.type])}(${
                             scope.row.amount
                           } ATP) from self-stake, Remove the Validator List`
                     }}
                   </p>
-                  <p class="percent80 no-break" v-else-if="scope.row.type == 11">
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 11"
+                  >
                     {{
-                      lang == "zh"
+                      lang == 'zh'
                         ? `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-移出零出块惩罚验证节点列表，节点恢复正常`
                         : `${$t(
-                            "actionType." + [scope.row.type]
+                            'actionType.' + [scope.row.type]
                           )}-Remove the node zero out-block Validator List，Node back to normal`
                     }}
                   </p>
@@ -488,22 +729,44 @@
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')">
                 <template slot-scope="scope">
-                  <p class="blue cursor percent60 ellipsis" v-if="scope.row.type != 6 && scope.row.type != 7 && scope.row.type != 11" @click="goTradeDetail(scope.row.txHash)">
-                    {{ scope.row.txHash | sliceStr(20)}}
+                  <p
+                    class="blue cursor percent60 ellipsis"
+                    v-if="
+                      scope.row.type != 6 &&
+                      scope.row.type != 7 &&
+                      scope.row.type != 11
+                    "
+                    @click="goTradeDetail(scope.row.txHash)"
+                  >
+                    {{ scope.row.txHash | sliceStr(20) }}
                   </p>
                   <span class="gray" v-else>{{
-                    $t("nodeInfo.systemOperation")
+                    $t('nodeInfo.systemOperation')
                   }}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inBlock')" width="150">
                 <template slot-scope="scope">
-                  <span class="blue cursor" @click="goBlockDetail(scope.row.blockNumber)">{{ scope.row.blockNumber }}</span>
+                  <span
+                    class="blue cursor"
+                    @click="goBlockDetail(scope.row.blockNumber)"
+                    >{{ scope.row.blockNumber }}</span
+                  >
                 </template>
               </el-table-column>
             </el-table>
             <div class="pagination-box">
-              <el-pagination background @size-change="handleOperateSizeChange" @current-change="handleOperateCurrentChange" :current-page.sync="currentPage2" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize2" layout="sizes,total,  prev, pager, next" :total="pageTotal2" :pager-count="9"></el-pagination>
+              <el-pagination
+                background
+                @size-change="handleOperateSizeChange"
+                @current-change="handleOperateCurrentChange"
+                :current-page.sync="currentPage2"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize2"
+                layout="sizes,total,  prev, pager, next"
+                :total="pageTotal2"
+                :pager-count="9"
+              ></el-pagination>
             </div>
           </div>
         </div>
@@ -511,16 +774,24 @@
           <h3 class="node-deleget-title">
             {{
               detailInfo.status == 4 || detailInfo.status == 5
-                ? $t("deleget.DelegateRecordWaiting")
-                : $t("deleget.DelegateRecord")
+                ? $t('deleget.DelegateRecordWaiting')
+                : $t('deleget.DelegateRecord')
             }}
             <b>{{ pageTotal3 | formatNumber }}</b>
           </h3>
           <div class="table">
-            <el-table :data="tableDelegetData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="tableDelegetData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('tradeAbout.delegater')">
                 <template slot-scope="scope">
-                  <p class="blue cursor percent60 ellipsis" @click="goAddressDetail(scope.row.delegateAddr)">
+                  <p
+                    class="blue cursor percent60 ellipsis"
+                    @click="goAddressDetail(scope.row.delegateAddr)"
+                  >
                     {{ scope.row.delegateAddr | sliceStr(16) }}
                   </p>
                 </template>
@@ -528,20 +799,22 @@
               <el-table-column>
                 <template slot="header">
                   {{
-                    $t("contract.delegations") + "\/" + $t("deleget.percentage")
+                    $t('contract.delegations') + '\/' + $t('deleget.percentage')
                   }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
                     <div slot="content" class="delegate-msg">
-                      {{ $t("deleget.percentageMsg") }}
+                      {{ $t('deleget.percentageMsg') }}
                     </div>
                     <i class="address-icon"></i>
                   </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                  <span>{{ scope.row.delegateValue | formatMoney }}({{
+                  <span
+                    >{{ scope.row.delegateValue | formatMoney }}({{
                       scope.row.delegateValue
                         | percentage(scope.row.delegateTotalValue)
-                    }}%)</span>
+                    }}%)</span
+                  >
                 </template>
               </el-table-column>
               <!-- <el-table-column :label="$t('deleget.locked')+'\/'+$t('deleget.percentage')">
@@ -551,10 +824,10 @@
               </el-table-column>-->
               <el-table-column>
                 <template slot="header">
-                  {{ $t("deleget.locked") }}
+                  {{ $t('deleget.locked') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
                     <div slot="content" class="delegate-msg">
-                      {{ $t("deleget.lockedMsg") }}
+                      {{ $t('deleget.lockedMsg') }}
                     </div>
                     <i class="address-icon"></i>
                   </el-tooltip>
@@ -565,10 +838,10 @@
               </el-table-column>
               <el-table-column>
                 <template slot="header">
-                  {{ $t("deleget.released") }}
+                  {{ $t('deleget.released') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
                     <div slot="content" class="delegate-msg">
-                      {{ $t("deleget.releasedMsg") }}
+                      {{ $t('deleget.releasedMsg') }}
                     </div>
                     <i class="address-icon"></i>
                   </el-tooltip>
@@ -579,28 +852,56 @@
               </el-table-column>
             </el-table>
             <div class="pagination-box">
-              <el-pagination background @size-change="handleDelegetSizeChange" @current-change="handleDelegetCurrentChange" :current-page.sync="currentPage3" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize3" layout="sizes,total,  prev, pager, next" :total="pageTotal3" :pager-count="9"></el-pagination>
+              <el-pagination
+                background
+                @size-change="handleDelegetSizeChange"
+                @current-change="handleDelegetCurrentChange"
+                :current-page.sync="currentPage3"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize3"
+                layout="sizes,total,  prev, pager, next"
+                :total="pageTotal3"
+                :pager-count="9"
+              ></el-pagination>
             </div>
           </div>
         </div>
         <div v-show="tabIndex == 5">
           <div class="address-trade-last node-last">
-            {{ $t("deleget.totalReceiveReward") }}
-            <b style="margin-left:20px;">{{ detailInfo.haveDeleReward | formatMoney }} ATP</b>
+            {{ $t('deleget.totalReceiveReward') }}
+            <b style="margin-left: 20px"
+              >{{ detailInfo.haveDeleReward | formatMoney }} ATP</b
+            >
           </div>
           <div class="table">
-            <el-table :data="rewardTableData" style="width: 100%" key="firstTable" size="mini">
+            <el-table
+              :data="rewardTableData"
+              style="width: 100%"
+              key="firstTable"
+              size="mini"
+            >
               <el-table-column :label="$t('tradeAbout.hash')">
                 <template slot-scope="scope">
-                  <span class="blue cursor percent60 ellipsis" @click="goTradeDetail(scope.row.hash)">{{ scope.row.hash | sliceStr(20) }}</span>
+                  <span
+                    class="blue cursor percent60 ellipsis"
+                    @click="goTradeDetail(scope.row.hash)"
+                    >{{ scope.row.hash | sliceStr(20) }}</span
+                  >
                 </template>
               </el-table-column>
               <el-table-column :label="$t('tradeAbout.delegater')">
                 <template slot-scope="scope">
-                  <span class="blue cursor percent60 ellipsis" @click="goAddressDetail(scope.row.addr)">{{ scope.row.addr | sliceStr(16) }}</span>
+                  <span
+                    class="blue cursor percent60 ellipsis"
+                    @click="goAddressDetail(scope.row.addr)"
+                    >{{ scope.row.addr | sliceStr(16) }}</span
+                  >
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('tradeAbout.claimTime')" show-overflow-tooltip>
+              <el-table-column
+                :label="$t('tradeAbout.claimTime')"
+                show-overflow-tooltip
+              >
                 <template slot-scope="scope">
                   <span>{{ scope.row.time | formatTime }}</span>
                 </template>
@@ -612,7 +913,17 @@
               </el-table-column>
             </el-table>
             <div class="pagination-box">
-              <el-pagination background @size-change="handleRewardSizeChange" @current-change="handleRewardCurrentChange" :current-page.sync="currentPage5" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize5" layout="sizes,total,  prev, pager, next" :total="pageTotal5 > 5000 ? 5000 : pageTotal5" :pager-count="9"></el-pagination>
+              <el-pagination
+                background
+                @size-change="handleRewardSizeChange"
+                @current-change="handleRewardCurrentChange"
+                :current-page.sync="currentPage5"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pageSize5"
+                layout="sizes,total,  prev, pager, next"
+                :total="pageTotal5 > 5000 ? 5000 : pageTotal5"
+                :pager-count="9"
+              ></el-pagination>
             </div>
           </div>
         </div>
@@ -621,19 +932,19 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services"
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex"
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import List from "@/components/list/list"
-import Item from "@/components/list/item"
+import List from '@/components/list/list';
+import Item from '@/components/list/item';
 
-import itemList from "@/components/list/newlist"
+import itemList from '@/components/list/newlist';
 
 export default {
-  name: "node-detail",
-  data () {
+  name: 'node-detail',
+  data() {
     return {
-      address: "",
+      address: '',
       tabIndex: 1,
       newRecordFlag: false,
       detailInfo: {},
@@ -661,299 +972,299 @@ export default {
 
       displayTotalCount: 0,
       isCopy: false,
-      copyText: "",
+      copyText: '',
       isCopy2: false,
-      copyText2: "",
+      copyText2: '',
       isCopy3: false,
-      copyText3: "",
+      copyText3: '',
 
-      imgRatio: 0
-    }
+      imgRatio: 0,
+    };
   },
   props: {},
   computed: {
-    lang () {
-      return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en"
-    }
+    lang() {
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
+    },
   },
   watch: {},
   components: {
     List,
-    Item
+    Item,
   },
   methods: {
-    tabChange (index) {
-      this.tabIndex = index
+    tabChange(index) {
+      this.tabIndex = index;
     },
-    handleRewardSizeChange (size) {
-      this.currentPage5 = 1
-      this.pageSize5 = size
-      this.getRewardData()
+    handleRewardSizeChange(size) {
+      this.currentPage5 = 1;
+      this.pageSize5 = size;
+      this.getRewardData();
     },
-    handleRewardCurrentChange (page) {
-      this.currentPage5 = page
-      this.getRewardData()
+    handleRewardCurrentChange(page) {
+      this.currentPage5 = page;
+      this.getRewardData();
     },
     //奖励领取明细
-    getRewardData () {
+    getRewardData() {
       let param = {
         pageNo: this.currentPage5,
         pageSize: this.pageSize5,
-        nodeId: this.address
-      }
-      let self = this
+        nodeId: this.address,
+      };
+      let self = this;
       apiService.node
         .queryClaimByStaking(param)
-        .then(res => {
-          let { errMsg, code, data, totalCount } = res
+        .then((res) => {
+          let { errMsg, code, data, totalCount } = res;
           if (code == 0) {
-            self.rewardTableData = [...data]
-            self.pageTotal5 = totalCount
+            self.rewardTableData = [...data];
+            self.pageTotal5 = totalCount;
           } else {
-            self.$message.error(errMsg)
+            self.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          self.$message.error(error)
-        })
+        .catch((error) => {
+          self.$message.error(error);
+        });
     },
     //获取详情
-    getDetail () {
+    getDetail() {
       let param = {
-        nodeId: this.address
-      }
+        nodeId: this.address,
+      };
       apiService.node
         .detail(param)
-        .then(res => {
-          let { errMsg, code, data } = res
+        .then((res) => {
+          let { errMsg, code, data } = res;
           if (code == 0) {
-            this.detailInfo = data
+            this.detailInfo = data;
             const dag =
-              this.detailInfo.delegateValue / this.detailInfo.totalValue
+              this.detailInfo.delegateValue / this.detailInfo.totalValue;
             if (!isNaN(dag)) {
-              this.imgRatio = (dag * 100).toFixed(2)
+              this.imgRatio = (dag * 100).toFixed(2);
             }
-            this.getDelegetList()
+            this.getDelegetList();
             // this.draw(dag);
           } else {
-            this.detailInfo = {}
-            this.$message.error(errMsg)
+            this.detailInfo = {};
+            this.$message.error(errMsg);
           }
           //判断最新记录是否显示  总数
           this.detailInfo.blockQty > 5000
             ? (this.newRecordFlag = true)
-            : (this.newRecordFlag = false)
+            : (this.newRecordFlag = false);
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    getBlockList () {
+    getBlockList() {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
-        nodeId: this.address
-      }
+        nodeId: this.address,
+      };
       apiService.block
         .blockListByNodeId(param)
-        .then(res => {
+        .then((res) => {
           let {
             data,
             totalPages,
             totalCount,
             code,
             errMsg,
-            displayTotalCount
-          } = res
+            displayTotalCount,
+          } = res;
           if (code == 0) {
-            this.tableData = data
-            this.pageTotal = totalCount
-            this.displayTotalCount = displayTotalCount
+            this.tableData = data;
+            this.pageTotal = totalCount;
+            this.displayTotalCount = displayTotalCount;
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    exportFn () {
+    exportFn() {
       //跳转至下载页
       const { href } = this.$router.resolve({
-        path: "/download",
+        path: '/download',
         query: {
           address: this.address,
           // description: this.description,
-          exportname: "node"
+          exportname: 'node',
           // tab:this.activeTab-1
-        }
-      })
-      window.open(href, "_blank")
+        },
+      });
+      window.open(href, '_blank');
     },
-    getOperateList () {
+    getOperateList() {
       let param = {
         pageNo: this.currentPage2,
         pageSize: this.pageSize2,
-        nodeId: this.address
-      }
+        nodeId: this.address,
+      };
       apiService.node
         .stakingOptRecordList(param)
-        .then(res => {
-          let { data, totalPages, totalCount, code, errMsg } = res
+        .then((res) => {
+          let { data, totalPages, totalCount, code, errMsg } = res;
           if (code == 0) {
-            this.tableOperateData = data
-            this.pageTotal2 = totalCount
+            this.tableOperateData = data;
+            this.pageTotal2 = totalCount;
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    getDelegetList () {
+    getDelegetList() {
       let param = {
         pageNo: this.currentPage3,
         pageSize: this.pageSize3,
         nodeId: this.address,
-        stakingBlockNum: this.detailInfo.stakingBlockNum
-      }
+        stakingBlockNum: this.detailInfo.stakingBlockNum,
+      };
       apiService.node
         .delegationListByStaking(param)
-        .then(res => {
-          let { data, totalPages, totalCount, code, errMsg } = res
+        .then((res) => {
+          let { data, totalPages, totalCount, code, errMsg } = res;
           if (code == 0) {
-            this.tableDelegetData = data
-            this.pageTotal3 = totalCount
+            this.tableDelegetData = data;
+            this.pageTotal3 = totalCount;
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
     //进入地址详情
-    goAddressDetail (address) {
+    goAddressDetail(address) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: address
-        }
-      })
+          address: address,
+        },
+      });
     },
     //进入区块详情
-    goBlockDetail (height) {
+    goBlockDetail(height) {
       this.$router.push({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: height
-        }
-      })
+          height: height,
+        },
+      });
     },
     //进入交易详情
-    goTradeDetail (hash) {
+    goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
-      })
+          txHash: hash,
+        },
+      });
     },
-    onCopy (copy) {
-      if (copy.trigger.id == "copy1") {
-        this.copyText = this.$t("modalInfo.copysuccess")
-        this.isCopy = true
-      } else if (copy.trigger.id == "copy2") {
-        this.copyText2 = this.$t("modalInfo.copysuccess")
-        this.isCopy2 = true
+    onCopy(copy) {
+      if (copy.trigger.id == 'copy1') {
+        this.copyText = this.$t('modalInfo.copysuccess');
+        this.isCopy = true;
+      } else if (copy.trigger.id == 'copy2') {
+        this.copyText2 = this.$t('modalInfo.copysuccess');
+        this.isCopy2 = true;
       } else {
-        this.copyText3 = this.$t("modalInfo.copysuccess")
-        this.isCopy3 = true
+        this.copyText3 = this.$t('modalInfo.copysuccess');
+        this.isCopy3 = true;
       }
       setTimeout(() => {
-        this.isCopy = false
-        this.copyText = ""
-        this.isCopy2 = false
-        this.copyText2 = ""
-        this.isCopy3 = false
-        this.copyText3 = ""
-      }, 2000)
+        this.isCopy = false;
+        this.copyText = '';
+        this.isCopy2 = false;
+        this.copyText2 = '';
+        this.isCopy3 = false;
+        this.copyText3 = '';
+      }, 2000);
     },
-    onError (index) {
-      if (copy.trigger.id == "copy1") {
-        this.copyText = this.$t("modalInfo.copyfail")
-        this.isCopy = true
-      } else if (copy.trigger.id == "copy2") {
-        this.copyText2 = this.$t("modalInfo.copyfail")
-        this.isCopy2 = true
+    onError(index) {
+      if (copy.trigger.id == 'copy1') {
+        this.copyText = this.$t('modalInfo.copyfail');
+        this.isCopy = true;
+      } else if (copy.trigger.id == 'copy2') {
+        this.copyText2 = this.$t('modalInfo.copyfail');
+        this.isCopy2 = true;
       } else {
-        this.copyText3 = this.$t("modalInfo.copyfail")
-        this.isCopy3 = true
+        this.copyText3 = this.$t('modalInfo.copyfail');
+        this.isCopy3 = true;
       }
       setTimeout(() => {
-        this.isCopy = false
-        this.copyText = ""
-        this.isCopy2 = false
-        this.copyText2 = ""
-        this.isCopy3 = false
-        this.copyText3 = ""
-      }, 2000)
+        this.isCopy = false;
+        this.copyText = '';
+        this.isCopy2 = false;
+        this.copyText2 = '';
+        this.isCopy3 = false;
+        this.copyText3 = '';
+      }, 2000);
     },
 
     // 区块列表
-    handleBlockCurrentChange (val) {
-      this.currentPage = val
-      this.getBlockList()
+    handleBlockCurrentChange(val) {
+      this.currentPage = val;
+      this.getBlockList();
     },
-    handleBlockSizeChange (val) {
-      this.currentPage = 1
-      this.pageSize = val
-      this.getBlockList()
+    handleBlockSizeChange(val) {
+      this.currentPage = 1;
+      this.pageSize = val;
+      this.getBlockList();
     },
 
     // 操作列表
-    handleOperateCurrentChange (val) {
-      this.currentPage2 = val
-      this.getOperateList()
+    handleOperateCurrentChange(val) {
+      this.currentPage2 = val;
+      this.getOperateList();
     },
-    handleOperateSizeChange (val) {
-      this.currentPage2 = 1
-      this.pageSize2 = val
-      this.getOperateList()
+    handleOperateSizeChange(val) {
+      this.currentPage2 = 1;
+      this.pageSize2 = val;
+      this.getOperateList();
     },
 
     // 委托列表
-    handleDelegetCurrentChange (val) {
-      this.currentPage3 = val
-      this.getDelegetList()
+    handleDelegetCurrentChange(val) {
+      this.currentPage3 = val;
+      this.getDelegetList();
     },
-    handleDelegetSizeChange (val) {
-      this.currentPage3 = 1
-      this.pageSize3 = val
-      this.getDelegetList()
+    handleDelegetSizeChange(val) {
+      this.currentPage3 = 1;
+      this.pageSize3 = val;
+      this.getDelegetList();
     },
-    draw (dag) {
-      this.cxt.clearRect(0, 0, 88, 88)
-      this.cxt.beginPath()
-      this.cxt.moveTo(44, 44)
-      this.cxt.fillStyle = "#000"
-      this.cxt.arc(44, 44, 44, 0, -Math.PI * dag * 2, true)
-      this.cxt.fill()
-    }
+    draw(dag) {
+      this.cxt.clearRect(0, 0, 88, 88);
+      this.cxt.beginPath();
+      this.cxt.moveTo(44, 44);
+      this.cxt.fillStyle = '#000';
+      this.cxt.arc(44, 44, 44, 0, -Math.PI * dag * 2, true);
+      this.cxt.fill();
+    },
   },
   //生命周期函数
-  created () {
-    this.address = this.$route.query.address
-    this.type = this.$route.query.type
-    this.getDetail()
-    this.getBlockList()
-    this.getOperateList()
-    this.getRewardData()
+  created() {
+    this.address = this.$route.query.address;
+    this.type = this.$route.query.type;
+    this.getDetail();
+    this.getBlockList();
+    this.getOperateList();
+    this.getRewardData();
   },
-  mounted () {
+  mounted() {
     //this.cxt = document.getElementById("canvas").getContext("2d");
-  }
+  },
 };
 </script>
 <style lang="less" scoped>
