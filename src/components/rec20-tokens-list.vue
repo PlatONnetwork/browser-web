@@ -165,7 +165,11 @@ export default {
     tradeCount: Object,
   },
   computed: {},
-  watch: {},
+  watch: {
+    $route(to, from) {
+      this.$router.go(0);
+    },
+  },
   components: {},
   methods: {
     //获取交易列表 下分页
