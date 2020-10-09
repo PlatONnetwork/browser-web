@@ -196,7 +196,7 @@
             class="isContract"
             v-if="
               detailInfo.txReceiptStatus == 1 ||
-              (detailInfo.txReceiptStatus == 0 && detailInfo.txType == 2)
+              (detailInfo.txReceiptStatus == 0 && detailInfo.txType !== 1)
             "
           >
             <template>
@@ -216,12 +216,7 @@
             </span>
           </div>
           <!-- 合约创建失败 -->
-          <div
-            v-else-if="
-              detailInfo.txType == 1 && detailInfo.txReceiptStatus == 0
-            "
-            class="contract-fail"
-          >
+          <div v-else class="contract-fail">
             <img src="../../assets/images/icon-warning.svg" />
             <span class="yellow">Contract creation failed</span>
           </div>
