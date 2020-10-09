@@ -1,13 +1,21 @@
 const tokensListComponent = () => import("@/views/tokens/tokens-erc20.vue");
 const tokensDetailComponent = () => import("@/views/tokens/tokens-detail.vue");
+const emptyComponent = () => import("@/components/common/empty-router.vue");
 
 export const tokensList = {
   path: "/tokens",
-  component: tokensListComponent,
+  component: emptyComponent,
+  redirect: '/tokens/erc20',
   meta: {
     keepAlive: true // 此组件需要被缓存
   },
-  name: "tokensListComponent"
+  children: [
+    {
+      path: 'erc20',
+      component: tokensListComponent,
+      name: "tokensListComponent"
+    }
+  ]
 };
 
 export const tokensDetail = {

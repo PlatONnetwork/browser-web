@@ -106,9 +106,12 @@
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <icon-contract
+                v-if="isContract(scope.row.fromType)"
+              ></icon-contract>
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.txFrom)"
+                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
                 >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
             </div>
@@ -128,10 +131,13 @@
           <template slot-scope="scope">
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
+              <icon-contract
+                v-if="isContract(scope.row.toType)"
+              ></icon-contract>
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.transferTo)"
+                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
                 >{{ scope.row.transferTo | sliceStr(16) }}</span
               >
             </div>
@@ -178,9 +184,11 @@
 import apiService from '@/services/API-services';
 import { timeDiff } from '@/services/time-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import IconContract from '@/components/common/icon-contract';
 
 export default {
   name: 'tokensListComponent',
+  components: { IconContract },
   data() {
     return {
       tableData: [],
@@ -193,7 +201,6 @@ export default {
   props: {},
   computed: {},
   watch: {},
-  components: {},
   methods: {
     //获取交易列表 下分页
     getTradeList() {
@@ -269,10 +276,15 @@ export default {
         },
       });
     },
+    // 判断是否是合约
+    isContract(type) {
+      return [2, 3, 4, 5].includes(type);
+    },
     //进入钱包地址详情
-    goAddressDetail(adr) {
+    goAddressDetail(adr, type = 0) {
+      let path = this.isContract(type) ? '/contract-detail' : '/address-detail';
       this.$router.push({
-        path: '/address-detail',
+        path,
         query: {
           address: adr,
           // description: "trade",

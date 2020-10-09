@@ -16,7 +16,7 @@
         active-text-color="#FFF"
       >
         <el-menu-item index="/" :class="{ active: $route.path == '/' }">
-          <router-link to="/">{{ $t("menu.home") }}</router-link>
+          <router-link to="/">{{ $t('menu.home') }}</router-link>
         </el-menu-item>
         <el-menu-item
           index="/node"
@@ -53,10 +53,10 @@
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/block">{{
+              <el-dropdown-item command="/block/index">{{
                 $t('menu.block')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/trade">{{
+              <el-dropdown-item command="/block/trade">{{
                 $t('menu.transaction')
               }}</el-dropdown-item>
             </el-dropdown-menu>
@@ -291,7 +291,7 @@ export default {
       // })
       // debugger
       if (!arr.length) {
-        return "";
+        return '';
       }
       let arr1 = arr[0];
       console.warn('首次net》》》', arr1['en']);
@@ -303,32 +303,32 @@ export default {
       let arr = this.chainList.filter((item, index) => {
         return item.cid == command;
       });
-      store.commit("CHANGE_HTTP", arr[0].http);
-      store.commit("CHANGE_CONTEXT", arr[0].context);
+      store.commit('CHANGE_HTTP', arr[0].http);
+      store.commit('CHANGE_CONTEXT', arr[0].context);
       //切换网络之后，将当前网络存在sessionStorage
-      sessionStorage.setItem("commandId", command);
-      sessionStorage.setItem("commandHttp", arr[0].http);
-      sessionStorage.setItem("commandContext", arr[0].context);
-      localStorage.setItem("commandContext", arr[0].context);
-      localStorage.setItem("cid", command);
+      sessionStorage.setItem('commandId', command);
+      sessionStorage.setItem('commandHttp', arr[0].http);
+      sessionStorage.setItem('commandContext', arr[0].context);
+      localStorage.setItem('commandContext', arr[0].context);
+      localStorage.setItem('cid', command);
       this.$router.push({
-        path: "/",
+        path: '/',
       });
     },
     handleCommandLangage(command) {
-      console.warn("command>>>>", command);
+      console.warn('command>>>>', command);
       this.$i18n.locale = command;
       this.language = command;
       window.i18nLocale = command;
-      localStorage.setItem("i18nLocale", command);
+      localStorage.setItem('i18nLocale', command);
 
       // 处理交易失败提示语的语言切换，需要重新请求接口
       const path = this.$route.path;
       if (
-        path == "/trade" ||
-        path == "/address-detail" ||
-        path == "/block-detail" ||
-        path == "/trade-detail"
+        path == '/block/trade' ||
+        path == '/address-detail' ||
+        path == '/block-detail' ||
+        path == '/trade-detail'
       ) {
         this.reload();
       }
@@ -340,28 +340,28 @@ export default {
       let param = {
         parameter: this.searchKey.trim(),
       };
-      console.warn("搜索内容》》》", param);
+      console.warn('搜索内容》》》', param);
       apiService.search
         .query(param)
         .then((res) => {
           let { errMsg, code, data } = res;
 
-          this.searchKey = "";
+          this.searchKey = '';
           if (code == 0) {
             //根据type不同进入不同的详情页
             if (!data.type) {
-              this.$message.warning(this.$t("indexInfo.searchno"));
+              this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
               this.switchFn(data.type, data.struct);
               // this.$emit('searchFn',data);
             }
           } else {
-            this.$message.warning(this.$t("indexInfo.searchno"));
+            this.$message.warning(this.$t('indexInfo.searchno'));
             // this.$message.error(errMsg) 替换为search无结果
           }
         })
         .catch((error) => {
-          this.searchKey = "";
+          this.searchKey = '';
           this.$message.error(error);
         });
       setTimeout(() => {
@@ -371,64 +371,64 @@ export default {
     switchFn(type, struct) {
       switch (type) {
         //区块详情
-        case "block":
+        case 'block':
           this.$router.push({
-            path: "/block-detail",
+            path: '/block-detail',
             query: {
               height: struct.number,
             },
           });
-          if (this.$route.path == "/block-detail") {
+          if (this.$route.path == '/block-detail') {
             this.reload();
           }
           break;
         //交易详情
-        case "transaction":
+        case 'transaction':
           // let path = ''
           // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
           this.$router.push({
-            path: "/trade-detail",
+            path: '/trade-detail',
             query: {
               txHash: struct.txHash,
             },
           });
-          if (this.$route.path == "/trade-detail") {
+          if (this.$route.path == '/trade-detail') {
             this.reload();
           }
           break;
         //节点详情
-        case "staking":
+        case 'staking':
           this.$router.push({
-            path: "/node-detail",
+            path: '/node-detail',
             query: {
               address: struct.nodeId,
             },
           });
-          if (this.$route.path == "/node-detail") {
+          if (this.$route.path == '/node-detail') {
             this.reload();
           }
           break;
         //地址详情==(钱包地址详情)
-        case "address":
+        case 'address':
           this.$router.push({
-            path: "/address-detail",
+            path: '/address-detail',
             query: {
               address: struct.address,
             },
           });
-          if (this.$route.path == "/address-detail") {
+          if (this.$route.path == '/address-detail') {
             this.reload();
           }
           break;
         //合约详情
-        case "contract":
+        case 'contract':
           this.$router.push({
-            path: "/contract-detail",
+            path: '/contract-detail',
             query: {
               address: struct.address,
             },
           });
-          if (this.$route.path == "/contract-detail") {
+          if (this.$route.path == '/contract-detail') {
             this.reload();
           }
           break;
@@ -446,7 +446,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.language = this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en";
+    this.language = this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en';
   },
   mounted() {},
 };

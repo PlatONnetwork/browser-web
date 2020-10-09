@@ -1,6 +1,8 @@
 
 const blockDetailComponent = () => import('@/views/block/block-detail.vue')
 const blockListComponent = () => import('@/views/block/list.vue')
+const tradeListComponent = () => import('@/views/trade/list.vue')
+const emptyComponent = () => import("@/components/common/empty-router.vue")
 
 export const blockDetail = {
     path: '/block-detail',
@@ -10,9 +12,21 @@ export const blockDetail = {
 
 export const blockList = {
     path: '/block',
-    component: blockListComponent,
+    component: emptyComponent,
+    redirect: '/block/index',
     meta: {
         keepAlive: true, // 此组件需要被缓存
     },
-    name: 'blockListComponent'
+    children: [
+        {
+            path: 'index',
+            component: blockListComponent,
+            name: 'blockListComponent'
+        },
+        {
+            path: 'trade',
+            component: tradeListComponent,
+            name: 'tradeListComponent'
+        }
+    ]
 }

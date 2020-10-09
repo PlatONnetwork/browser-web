@@ -43,15 +43,19 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <spanr
+              <icon-contract
+                v-if="isContract(scope.row.fromType)"
+                :active="scope.row.type !== 'OUT'"
+              ></icon-contract>
+              <span
                 class="ellipsis ellipsisWidth"
                 v-if="scope.row.type === 'OUT'"
-                >{{ scope.row.txFrom | sliceStr(16) }}</spanr
+                >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
               <span
                 v-else
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.txFrom)"
+                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
                 >{{ scope.row.txFrom | sliceStr(16) }}</span
               >
             </div>
@@ -67,7 +71,7 @@
               :class="'tokens-type--' + getTokenType(scope.row.type)"
               >{{ getTokenType(scope.row.type, false) }}</span
             >
-            <div v-else class="tokens-arrow">
+            <div v-else class="tokens-arrow fr">
               <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
           </template>
@@ -78,6 +82,10 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <icon-contract
+                v-if="isContract(scope.row.toType)"
+                :active="scope.row.type !== 'INPUT'"
+              ></icon-contract>
               <span
                 class="ellipsis ellipsisWidth"
                 v-if="scope.row.type === 'INPUT'"
@@ -86,7 +94,7 @@
               <span
                 v-else
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.transferTo)"
+                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
                 >{{ scope.row.transferTo | sliceStr(16) }}</span
               >
             </div>
@@ -140,6 +148,7 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
+import IconContract from '@/components/common/icon-contract';
 import { timeDiff } from '@/services/time-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
@@ -170,7 +179,7 @@ export default {
       this.$router.go(0);
     },
   },
-  components: {},
+  components: { IconContract },
   methods: {
     //获取交易列表 下分页
     getTradeList() {
@@ -252,9 +261,14 @@ export default {
         },
       });
     },
-    goAddressDetail(address) {
+    // 判断是否是合约
+    isContract(type) {
+      return [2, 3, 4, 5].includes(type);
+    },
+    goAddressDetail(address, type = 0) {
+      let path = this.isContract(type) ? '/contract-detail' : '/address-detail';
       this.$router.push({
-        path: '/address-detail',
+        path,
         query: {
           address: address,
         },
