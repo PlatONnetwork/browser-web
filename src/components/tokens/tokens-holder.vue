@@ -18,13 +18,23 @@
       >
         <!-- 地址 -->
         <el-table-column :label="$t('contract.address')" width="600">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            <span
+              class="cursor normal ellipsis"
+              @click="goAddressDetail(scope.row.address)"
+              >{{ scope.row.address }}</span
+            >
+          </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.hash')" width="300">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            {{ scope.row.balance }}
+          </template>
         </el-table-column>
         <el-table-column :label="$t('tradeAbout.hash')">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            {{ scope.row.percent }}
+          </template>
         </el-table-column>
       </el-table>
 
