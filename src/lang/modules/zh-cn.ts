@@ -9,6 +9,7 @@ export default {
     proposal: "治理提案",
     tokens: "令牌",
     erc20Transfer: "ERC20交易",
+    tokenList: "令牌列表",
     more: "更多",
     comesoon: "敬请期待",
     goole: "Google reCAPTCHA无法获取！",
@@ -33,7 +34,12 @@ export default {
     export: "下载csv"
   },
   tokens: {
+    tokenName: "令牌名称",
+    holder: "持有者",
+    unit: "单位",
+    typesToken: "种令牌",
     tokens: "令牌",
+    erc20Tokens: "ERC20令牌",
     tokenDetail: "令牌详情",
     value: "价值",
     from: "发送方",
@@ -271,11 +277,14 @@ export default {
     epoch: "锁仓周期",
     estimatedTime: "预计时间",
     unlocksNumber: "解锁数量",
+
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
     totalDelegated: "总计委托",
     warn: "合约已销毁，执行于交易",
-    systemBuilt: "系统合约，无上链字节码"
+    systemBuilt: "系统合约，无上链字节码",
+
+    ercTrade: "ERC交易",
   },
   deleget: {
     validators: "已委托验证节点",

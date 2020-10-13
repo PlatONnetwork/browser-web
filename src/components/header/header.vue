@@ -85,7 +85,10 @@
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/tokens">{{
+              <el-dropdown-item command="/tokens/tokenList">{{
+                $t('menu.tokenList')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/tokens/erc20">{{
                 $t('menu.erc20Transfer')
               }}</el-dropdown-item>
             </el-dropdown-menu>

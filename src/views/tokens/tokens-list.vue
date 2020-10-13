@@ -1,8 +1,7 @@
 <template>
   <div class="trade-list-wrap">
-    <!-- 分类筛选tab -->
     <div class="page-title fontSize34">
-      {{ $t('menu.erc20Transfer') }}
+      {{ $t('menu.tokens') }}
     </div>
     <div class="sub-title">
       <div class="fontSize14 trade-count">
@@ -13,7 +12,7 @@
           {{ $t('tradeAbout.morethen2') }}
         </template>
         <b class="black">{{ pageTotal }}</b>
-        {{ $t('tradeAbout.foundTransactions') }}
+        {{ $t('tokens.typesToken') }}
         <span v-if="pageTotal > 500000">{{
           $t('tradeAbout.showingLast')
         }}</span>
@@ -41,126 +40,31 @@
         key="firstTable"
         size="mini"
       >
-        <!-- 交易哈希值（TxHash） -->
-        <el-table-column :label="$t('tradeAbout.hash')">
-          <template slot-scope="scope">
-            <div class="flex-special">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom-start"
-                v-if="scope.row.txReceiptStatus == 0"
-              >
-                <div slot="content">
-                  <span class="title-warning"
-                    >{{ $t('tradeAbout.warn') }}：</span
-                  >
-                  {{
-                    scope.row.failReason
-                      ? scope.row.failReason
-                      : $t('tradeAbout.transactionFailure')
-                  }}
-                </div>
-                <i class="iconfont iconxinxi cursor">&#xe63f;</i>
-              </el-tooltip>
-              <!-- <el-tooltip class="item" effect="dark" placement="top">
-                            <div slot="content">{{scope.row.txHash}}</div>
-                            <span class='cursor normal ellipsis' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span>
-              </el-tooltip>-->
-
-              <!-- 交易hash: 显示0x+18 -->
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
-                >{{ scope.row.txHash | sliceStr(20) }}</span
-              >
-            </div>
-            <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
-          </template>
+        <!-- 令牌名称（令牌名称） -->
+        <el-table-column :label="$t('tokens.tokenName')">
+          <template slot-scope="scope"> </template>
         </el-table-column>
 
-        <!-- 区块（Block） -->
-        <el-table-column :label="$t('tradeAbout.block')">
-          <template slot-scope="scope">
-            <span
-              class="cursor normal"
-              @click="goBlockDetail(scope.row.blockNumber)"
-              >{{ scope.row.blockNumber }}</span
-            >
-          </template>
+        <!-- 发行总量（） -->
+        <el-table-column :label="$t('tokens.totalSupply')">
+          <template slot-scope="scope"> </template>
         </el-table-column>
 
-        <!-- 块龄（Age） -->
-        <el-table-column :label="$t('tradeAbout.age')">
-          <template slot-scope="scope">
-            <span
-              >{{
-                timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
-              }}{{ $t('tradeAbout.before') }}</span
-            >
-          </template>
+        <!-- 持有人（） -->
+        <el-table-column :label="$t('tokens.holder')">
+          <template slot-scope="scope"> </template>
         </el-table-column>
 
-        <!-- From 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.from')">
-          <template slot-scope="scope">
-            <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
-            <div class="flex-special">
-              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <icon-contract
-                v-if="isContract(scope.row.fromType)"
-              ></icon-contract>
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
-                >{{ scope.row.txFrom | sliceStr(16) }}</span
-              >
-            </div>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="" width="40px">
-          <template>
-            <div class="tokens-arrow">
-              <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
-            </div>
-          </template>
-        </el-table-column>
-
-        <!--To 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.to')">
-          <template slot-scope="scope">
-            <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
-            <div class="flex-special">
-              <icon-contract
-                v-if="isContract(scope.row.toType)"
-              ></icon-contract>
-              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
-                >{{ scope.row.transferTo | sliceStr(16) }}</span
-              >
-            </div>
-          </template>
-        </el-table-column>
-
-        <!-- 数额(Value) -->
-        <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
+        <!-- 单位(Unit) -->
+        <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.transferValue | formatMoney }} ATP</span>
           </template>
         </el-table-column>
 
-        <!-- tokens 名称+单位 -->
-        <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
-          <template slot-scope="scope">
-            <span
-              class="cursor normal"
-              @click="goTokenDetail(scope.row.contract)"
-              >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
-            >
-          </template>
+        <!-- 合约 -->
+        <el-table-column :label="$t('tokens.contract')" show-overflow-tooltip>
+          <template slot-scope="scope"> </template>
         </el-table-column>
       </el-table>
 

@@ -64,6 +64,13 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('tokens.erc20TokenTxns')
+                }}</label>
+                <!-- TODO -->
+                <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -117,7 +124,7 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t("tokens.erc20TokenTxns") }}</el-button
+          >{{ $t('tokens.erc20Tokens') }}</el-button
         >
         <el-button
           size="medium"

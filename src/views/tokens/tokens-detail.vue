@@ -40,6 +40,12 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.ercTrade')
+                }}</label>
+                <div class="money"></div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -104,12 +110,25 @@
 
     <div class="address-trade gray-content content-padding">
       <div class="tabs">
-        <el-button size="medium" class="active">{{
-          $t('contract.transactions')
-        }}</el-button>
+        <el-button
+          size="medium"
+          :class="{ active: activeTab == 1 }"
+          @click="tabChange(1)"
+          >{{ $t('contract.transactions') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: activeTab == 2 }"
+          @click="tabChange(2)"
+          >{{ $t('tokens.holder') }}</el-button
+        >
       </div>
-
-      <tokens-list :address="address" table-type="detail"></tokens-list>
+      <tokens-list
+        v-show="activeTab == 1"
+        :address="address"
+        table-type="detail"
+      ></tokens-list>
+      <tokens-holder v-show="activeTab == 2"></tokens-holder>
     </div>
   </div>
 </template>
@@ -118,6 +137,7 @@ import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tokensList from '@/components/rec20-tokens-list';
+import tokensHolder from '@/components/tokens/tokens-holder';
 import contractInfo from '@/components/contract/contract-info';
 export default {
   name: 'tokensDetailComponent',
@@ -136,6 +156,7 @@ export default {
   components: {
     tokensList,
     contractInfo,
+    tokensHolder,
   },
   methods: {
     //获取地址信息详情
@@ -157,7 +178,9 @@ export default {
           this.$message.error(error);
         });
     },
-
+    tabChange(index) {
+      this.activeTab = index;
+    },
     onCopy() {
       this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
