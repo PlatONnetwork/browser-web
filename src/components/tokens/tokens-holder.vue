@@ -47,6 +47,7 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
+console.log(apiService.tokens);
 import IconContract from '@/components/common/icon-contract';
 export default {
   data() {
@@ -77,9 +78,19 @@ export default {
   },
   components: { IconContract },
   methods: {
+    //进入钱包地址详情
+    goAddressDetail(adr) {
+      this.$router.push({
+        path: '/address-detail',
+        query: {
+          address: adr,
+        },
+      });
+    },
     //获取交易列表 下分页
     getTradeList() {
       let param = {
+        contract: this.address,
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
@@ -88,7 +99,7 @@ export default {
       console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .tokenHolderList(param)
         .then((res) => {
           let {
             data,

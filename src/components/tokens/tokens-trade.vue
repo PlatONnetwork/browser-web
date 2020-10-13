@@ -1,71 +1,13 @@
 <template>
-  <div class="common-trade">
-    <div v-if="selectIndex === 1" class="address-trade-last">
-      {{ $t('blockAbout.morethen') }} {{ pageTotal }}
-      {{ $t('tokens.typesToken') }}
-    </div>
-    <div v-else class="address-trade-last">
+  <div>
+    <div class="address-trade-last">
       <!-- 总计代币交易数量 -->
       {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
       {{ $t('tradeAbout.tokens') }}
     </div>
-    <div class="trade-tab-wrap">
-      <ul class="trade-tab">
-        <li
-          :class="{ active: selectIndex == 1 }"
-          index="1"
-          @click="typeChange(1, '')"
-        >
-          {{ $t('contract.balance') }}
-        </li>
-        <li
-          :class="{ active: selectIndex == 2 }"
-          index="2"
-          @click="typeChange(2, 'transfer')"
-        >
-          {{ $t('contract.transactions') }}
-        </li>
-      </ul>
-      <!-- <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button> -->
-      <span class="download-btn" @click="exportFn">{{
-        $t('common.export')
-      }}</span>
-    </div>
-    <!-- 余额table -->
-    <div v-show="selectIndex === 1" class="table">
+    <div class="table">
       <el-table
-        :data="tableData"
-        style="width: 100%"
-        key="firstTable"
-        size="mini"
-      >
-        <!-- 交易哈希值 -->
-        <el-table-column :label="$t('nodeInfo.name')"> </el-table-column>
-        <el-table-column :label="$t('tokens.unit')"> </el-table-column>
-        <el-table-column :label="$t('contract.balance')"> </el-table-column>
-        <el-table-column :label="$t('tokens.transfers')"> </el-table-column>
-        <el-table-column :label="$t('tokens.decimals')"> </el-table-column>
-        <el-table-column :label="$t('tokens.contract')"> </el-table-column>
-      </el-table>
-
-      <!-- 下分页 -->
-      <div class="pagination-box">
-        <el-pagination
-          background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-sizes="[20]"
-          :page-size="pageSize"
-          layout="sizes,total,  prev, pager, next"
-          :total="pageTotal > 5000 ? 5000 : pageTotal"
-          :pager-count="9"
-        ></el-pagination>
-      </div>
-    </div>
-    <div v-show="selectIndex === 2" class="table">
-      <el-table
-        :data="tableData"
+        :data="tradeTableData"
         style="width: 100%"
         key="secondTable"
         size="mini"
@@ -215,7 +157,8 @@ export default {
     return {
       selectIndex: 1,
       newRecordFlag: false,
-      tableData: [],
+      balanceTableData: [],
+      tradeTableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,

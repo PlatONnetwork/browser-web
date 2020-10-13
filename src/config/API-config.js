@@ -81,7 +81,8 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
   TOKEN = {
     tokenDetail: `${TOKEN_URL}tokenDetail`,
     tokenList: `${TOKEN_URL}tokenList`,
-    tokenTransferList: `${TOKEN_URL}tokenTransferList`
+    tokenTransferList: `${TOKEN_URL}tokenTransferList`,
+    tokenHolderList: `${TOKEN_URL}tokenHolderList`
   },
   MORE = {
     queryConfig: `${MORE_URL}queryConfig`

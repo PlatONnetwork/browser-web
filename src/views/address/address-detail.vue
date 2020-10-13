@@ -174,7 +174,8 @@ import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tradeList from '@/components/trade-list';
-import tokensList from '@/components/rec20-tokens-list';
+import tokensList from '@/components/tokens/rec20-tokens-list';
+// import tokensList from '@/components/tokens/tokens-trade';
 import rewardDetail from '@/components/address/rewardDetailTable';
 import delegationInfo from '@/components/address/delegations-info';
 export default {
