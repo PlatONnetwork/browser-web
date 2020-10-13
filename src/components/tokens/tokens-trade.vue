@@ -1,31 +1,132 @@
 <template>
-  <div class="common-trade">
-    <div class="address-trade-last space-between-div">
-      <span>
-        {{ $t('blockAbout.morethen') }} {{ pageTotal }}
-        {{ $t('tokens.holder') }}
-      </span>
-      <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
-        $t('common.export')
-      }}</span>
+  <div>
+    <div class="address-trade-last">
+      <!-- 总计代币交易数量 -->
+      {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
+      {{ $t('tradeAbout.tokens') }}
     </div>
     <div class="table">
       <el-table
-        :data="tableData"
+        :data="tradeTableData"
         style="width: 100%"
-        key="firstTable"
+        key="secondTable"
         size="mini"
       >
-        <!-- 地址 -->
-        <el-table-column :label="$t('contract.address')" width="600">
-          <template slot-scope="scope"> </template>
+        <!-- 交易哈希值 -->
+        <el-table-column :label="$t('tradeAbout.hash')" width="200">
+          <template slot-scope="scope">
+            <div class="flex-special">
+              <span
+                class="cursor normal ellipsis"
+                @click="goTradeDetail(scope.row.txHash)"
+              >
+                <!-- txHash 显示0x + 18 -->
+                {{ scope.row.txHash | sliceStr(20) }}
+              </span>
+            </div>
+          </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.hash')" width="300">
-          <template slot-scope="scope"> </template>
+
+        <!-- 块龄 -->
+        <el-table-column :label="$t('tradeAbout.age')" width="300">
+          <template slot-scope="scope">
+            <span>
+              {{
+                timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)
+              }}{{ $t('tradeAbout.before') }}
+            </span>
+          </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.hash')">
-          <template slot-scope="scope"> </template>
+
+        <!-- From 操作地址（Operator_Address） -->
+        <el-table-column :label="$t('tokens.from')">
+          <template slot-scope="scope">
+            <div class="flex-special">
+              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <icon-contract
+                v-if="isContract(scope.row.fromType)"
+                :active="scope.row.type !== 'OUT'"
+              ></icon-contract>
+              <span
+                class="ellipsis ellipsisWidth"
+                v-if="scope.row.type === 'OUT'"
+                >{{ scope.row.txFrom | sliceStr(16) }}</span
+              >
+              <span
+                v-else
+                class="cursor normal ellipsis ellipsisWidth"
+                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
+                >{{ scope.row.txFrom | sliceStr(16) }}</span
+              >
+            </div>
+          </template>
         </el-table-column>
+
+        <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
+        <af-table-column label="" width="70px">
+          <template slot-scope="scope">
+            <span
+              v-if="['INPUT', 'OUT'].includes(scope.row.type)"
+              class="tokens-type"
+              :class="'tokens-type--' + getTokenType(scope.row.type)"
+              >{{ getTokenType(scope.row.type, false) }}</span
+            >
+            <div v-else class="tokens-arrow fr">
+              <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
+            </div>
+          </template>
+        </af-table-column>
+
+        <!--To 操作地址（Operator_Address） -->
+        <el-table-column :label="$t('tokens.to')">
+          <template slot-scope="scope">
+            <div class="flex-special">
+              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <icon-contract
+                v-if="isContract(scope.row.toType)"
+                :active="scope.row.type !== 'INPUT'"
+              ></icon-contract>
+              <span
+                class="ellipsis ellipsisWidth"
+                v-if="scope.row.type === 'INPUT'"
+                >{{ scope.row.transferTo | sliceStr(16) }}</span
+              >
+              <span
+                v-else
+                class="cursor normal ellipsis ellipsisWidth"
+                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
+                >{{ scope.row.transferTo | sliceStr(16) }}</span
+              >
+            </div>
+          </template>
+        </el-table-column>
+        <template v-if="tableType === 'detail'">
+          <!-- 转账金额(Quantity) -->
+          <el-table-column :label="$t('tokens.quantity')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.transferValue | formatMoney }} </span>
+            </template>
+          </el-table-column>
+        </template>
+        <template v-else>
+          <!-- 数额(Value) -->
+          <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.transferValue | formatMoney }} </span>
+            </template>
+          </el-table-column>
+
+          <!-- tokens 名称+单位 -->
+          <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span
+                class="cursor normal ellipsis ellipsisWidth"
+                @click="goTokenDetail(scope.row.contract)"
+                >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
+              >
+            </template>
+          </el-table-column>
+        </template>
       </el-table>
 
       <!-- 下分页 -->
@@ -47,14 +148,17 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-console.log(apiService.tokens);
 import IconContract from '@/components/common/icon-contract';
+import { timeDiff } from '@/services/time-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
+  name: '',
   data() {
     return {
       selectIndex: 1,
       newRecordFlag: false,
-      tableData: [],
+      balanceTableData: [],
+      tradeTableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
@@ -78,19 +182,9 @@ export default {
   },
   components: { IconContract },
   methods: {
-    //进入钱包地址详情
-    goAddressDetail(adr) {
-      this.$router.push({
-        path: '/address-detail',
-        query: {
-          address: adr,
-        },
-      });
-    },
     //获取交易列表 下分页
     getTradeList() {
       let param = {
-        contract: this.address,
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
@@ -99,7 +193,7 @@ export default {
       console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenHolderList(param)
+        .tokenTransferList(param)
         .then((res) => {
           let {
             data,
@@ -207,11 +301,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.space-between-div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .block-trade .common-trade.block-trade-wrap {
   padding-left: 0px;
   .pagination-box {

@@ -34,7 +34,7 @@
     <!-- 余额table -->
     <div v-show="selectIndex === 1" class="table">
       <el-table
-        :data="tableData"
+        :data="balanceTableData"
         style="width: 100%"
         key="firstTable"
         size="mini"
@@ -65,7 +65,7 @@
     </div>
     <div v-show="selectIndex === 2" class="table">
       <el-table
-        :data="tableData"
+        :data="tradeTableData"
         style="width: 100%"
         key="secondTable"
         size="mini"
@@ -215,7 +215,8 @@ export default {
     return {
       selectIndex: 1,
       newRecordFlag: false,
-      tableData: [],
+      balanceTableData: [],
+      tradeTableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,

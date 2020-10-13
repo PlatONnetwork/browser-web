@@ -71,7 +71,8 @@ class ApiService {
     this.tokens = {
       tokenDetail: this.post.bind(this, API.TOKEN.tokenDetail),
       tokenList: this.post.bind(this, API.TOKEN.tokenList),
-      tokenTransferList: this.post.bind(this, API.TOKEN.tokenTransferList)
+      tokenTransferList: this.post.bind(this, API.TOKEN.tokenTransferList),
+      tokenHolderList: this.post.bind(this, API.TOKEN.tokenHolderList),
     };
     this.proposal = {
       proposalList: this.post.bind(this, API.PROPOSAL.proposalList),
@@ -239,7 +240,7 @@ class ApiService {
   }
   interceptorsOfRes() {
     Http.interceptors.response.use(
-      function(response) {
+      function (response) {
         console.log(response.config.url + "的响应数据↓↓↓\n", response.data);
         if (response.data.errorCode == 4) {
           localStorage.removeItem("sessionid");
@@ -248,7 +249,7 @@ class ApiService {
         }
         return response;
       },
-      function(error) {
+      function (error) {
         return Promise.reject(error);
       }
     );

@@ -42,29 +42,56 @@
       >
         <!-- 令牌名称（令牌名称） -->
         <el-table-column :label="$t('tokens.tokenName')">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            <span
+              @click="goTokenDetail(scope.row.address)"
+              class="cursor normal ellipsis"
+              >{{ scope.row.name }}</span
+            >
+          </template>
         </el-table-column>
 
         <!-- 发行总量（） -->
         <el-table-column :label="$t('tokens.totalSupply')">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            <span>{{ scope.row.totalSupply.toFixed(2) }}</span>
+          </template>
         </el-table-column>
 
         <!-- 持有人（） -->
         <el-table-column :label="$t('tokens.holder')">
-          <template slot-scope="scope"> </template>
+          <template slot-scope="scope">
+            <span
+              @click="goAddressDetail(scope.row.creator)"
+              class="cursor normal ellipsis ellipsisWidth"
+            >
+              {{ scope.row.creator | sliceStr(16) }}</span
+            >
+          </template>
         </el-table-column>
 
         <!-- 单位(Unit) -->
-        <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
+        <el-table-column :label="$t('tokens.unit')">
           <template slot-scope="scope">
-            <span>{{ scope.row.transferValue | formatMoney }} ATP</span>
+            <span>{{ scope.row.symbol }}</span>
           </template>
         </el-table-column>
 
         <!-- 合约 -->
-        <el-table-column :label="$t('tokens.contract')" show-overflow-tooltip>
-          <template slot-scope="scope"> </template>
+        <el-table-column :label="$t('tokens.contract')">
+          <template slot-scope="scope">
+            <!-- <span class="cursor normal ellipsis">{{ scope.row.address }}</span> -->
+
+            <div class="flex-special">
+              <icon-contract></icon-contract>
+              <!-- 操作地址：即签名交易的地址，显示0x+14 -->
+              <span
+                class="cursor normal ellipsis ellipsisWidth"
+                @click="goContractDetail(scope.row.address)"
+                >{{ scope.row.address | sliceStr(20) }}</span
+              >
+            </div>
+          </template>
         </el-table-column>
       </el-table>
 
@@ -107,8 +134,16 @@ export default {
   computed: {},
   watch: {},
   methods: {
+    goContractDetail(adr) {
+      this.$router.push({
+        path: '/contract-detail',
+        query: {
+          address: adr,
+        },
+      });
+    },
     //获取交易列表 下分页
-    getTradeList() {
+    getTokenList() {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
@@ -116,7 +151,7 @@ export default {
       console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .tokenList(param)
         .then((res) => {
           let {
             data,
@@ -151,50 +186,25 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.getTradeList();
+      this.getTokenList();
       this.replace();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
-      this.getTradeList();
+      this.getTokenList();
       this.replace();
-    },
-    //进入区块详情
-    goBlockDetail(height) {
-      console.warn('进入区块', height);
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: height,
-        },
-      });
-    },
-    //进入交易哈希详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
-        },
-      });
     },
     // 判断是否是合约
     isContract(type) {
       return [2, 3, 4, 5].includes(type);
     },
     //进入钱包地址详情
-    goAddressDetail(adr, type = 0) {
-      let path = this.isContract(type) ? '/contract-detail' : '/address-detail';
+    goAddressDetail(adr) {
       this.$router.push({
-        path,
+        path: '/address-detail',
         query: {
           address: adr,
-          // description: "trade",
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
         },
       });
     },
@@ -219,7 +229,7 @@ export default {
           vm.currentPage = vm.$route.query.currentPage - 0;
           vm.pageSize = vm.$route.query.pageSize - 0;
         }
-        vm.getTradeList();
+        vm.getTokenList();
       }
     });
   },
@@ -229,7 +239,7 @@ export default {
       this.currentPage = this.$route.query.currentPage - 0;
       this.pageSize = this.$route.query.pageSize - 0;
     }
-    this.getTradeList();
+    this.getTokenList();
   },
   mounted() {},
 };

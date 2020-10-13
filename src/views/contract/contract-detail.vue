@@ -63,11 +63,11 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
-              <li>
+              <li v-if="detailInfo.type === 5">
                 <label class="Gilroy-Medium">{{
                   $t('contract.ercTrade')
                 }}</label>
-                <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
+                <div class="money">{{ detailInfo.tokenQty | formatNumber }}</div>
               </li>
             </ul>
           </div>
@@ -183,9 +183,9 @@
 import apiService from "@/services/API-services";
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
-import tradeList from "@/components/trade-list";
-import tokensList from "@/components/rec20-tokens-list";
-import contractInfo from "@/components/contract/contract-info";
+import tradeList from '@/components/trade-list';
+import tokensList from '@/components/tokens/rec20-tokens-list';
+import contractInfo from '@/components/contract/contract-info';
 export default {
   name: "contract-detail",
   data() {

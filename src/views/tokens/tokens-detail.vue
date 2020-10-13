@@ -36,15 +36,9 @@
               <!-- 交易数 -->
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t('tokens.transfers')
-                }}</label>
-                <div class="money">{{ detailInfo.txCount }}</div>
-              </li>
-              <li>
-                <label class="Gilroy-Medium">{{
                   $t('contract.ercTrade')
                 }}</label>
-                <div class="money"></div>
+                <div class="money">{{ detailInfo.txCount }}</div>
               </li>
             </ul>
           </div>
@@ -123,12 +117,12 @@
           >{{ $t('tokens.holder') }}</el-button
         >
       </div>
-      <tokens-list
+      <tokens-trade-list
         v-show="activeTab == 1"
         :address="address"
         table-type="detail"
-      ></tokens-list>
-      <tokens-holder v-show="activeTab == 2"></tokens-holder>
+      ></tokens-trade-list>
+      <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
     </div>
   </div>
 </template>
@@ -136,7 +130,7 @@
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import tokensList from '@/components/rec20-tokens-list';
+import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';
 import contractInfo from '@/components/contract/contract-info';
 export default {
@@ -154,7 +148,7 @@ export default {
   computed: {},
   watch: {},
   components: {
-    tokensList,
+    tokensTradeList,
     contractInfo,
     tokensHolder,
   },
