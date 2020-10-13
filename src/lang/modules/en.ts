@@ -9,6 +9,7 @@ export default {
     proposal: "PROPOSALS",
     tokens: "TOKENS",
     erc20Transfer: "ERC20 TRANSFERS",
+    tokenList: "TOKEN LIST",
     more: "MORE",
     comesoon: "Coming soon",
     goole: "Google reCAPTCHA is not available!",
@@ -33,7 +34,12 @@ export default {
     export: "Download csv"
   },
   tokens: {
+    tokenName: "Token Name",
+    holder: "Holder",
+    unit: "Unit",
+    typesToken: "Types Tokens",
     tokens: "Tokens",
+    erc20Tokens: "ERC20 TOKENS",
     tokenDetail: "Token Detail",
     value: "Value",
     from: "From",
@@ -274,7 +280,9 @@ export default {
     invalidDelegations: "Invalid delegations",
     totalDelegated: "Total Delegated",
     warn: "Contract Self Destruct called at Txn Hash",
-    systemBuilt: "System built-in code contract, no contract bytecode."
+    systemBuilt: "System built-in code contract, no contract bytecode.",
+
+    ercTrade: "ERC交易",
   },
   deleget: {
     validators: "Validators",

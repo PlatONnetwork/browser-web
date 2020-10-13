@@ -1,4 +1,5 @@
-const tokensListComponent = () => import("@/views/tokens/tokens-erc20.vue");
+const tokensTransferListComponent = () => import("@/views/tokens/tokens-erc20.vue");
+const tokensListComponent = () => import("@/views/tokens/tokens-list.vue");
 const tokensDetailComponent = () => import("@/views/tokens/tokens-detail.vue");
 const emptyComponent = () => import("@/components/common/empty-router.vue");
 
@@ -27,10 +28,17 @@ export const tokensList = {
   children: [
     {
       path: 'erc20',
+      component: tokensTransferListComponent,
+      name: "tokensTransferListComponent"
+    },
+    {
+      path: '/tokens/tokenList',
       component: tokensListComponent,
-      name: "tokensListComponent"
+      name: "tokenList"
     }
+
   ]
+
 };
 
 export const tokensDetail = {

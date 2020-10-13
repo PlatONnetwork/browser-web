@@ -63,6 +63,12 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.ercTrade')
+                }}</label>
+                <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
+              </li>
             </ul>
           </div>
         </el-col>
