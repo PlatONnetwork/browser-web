@@ -65,11 +65,13 @@
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
               <li>
+                <!-- TODO 需要后台给值做判断 -->
                 <label class="Gilroy-Medium">{{
                   $t('tokens.erc20TokenTxns')
                 }}</label>
-                <!-- TODO -->
-                <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
+                <div class="money">
+                  {{ detailInfo.tokenQty | formatNumber }}
+                </div>
               </li>
             </ul>
           </div>
