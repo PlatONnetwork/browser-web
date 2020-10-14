@@ -61,7 +61,7 @@
       <div class="foot-line"></div>
     </div>
     <div class="foot-index" v-if="path == '/'">
-      <img class="foot-logo" src="../../assets/images/AlayaScan.svg" alt="" />
+      <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
       <p>{{ $t("indexInfo.platScan") }}</p>
       <p>{{ $t("indexInfo.international") }}</p>
       <div class="link-wrap">
@@ -121,7 +121,7 @@
     </div>
     <div class="foot-no-index foot-index" v-if="path != '/'">
       <div class="foot-left">
-        <img class="foot-logo" src="../../assets/images/AlayaScan.svg" alt="" />
+        <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
         <p>{{ $t("indexInfo.platScan") }}</p>
       </div>
       <div class="foot-right">
