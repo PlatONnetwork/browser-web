@@ -488,7 +488,7 @@ export default {
 .logo {
   display: inline-block;
   // height: 100%;
-  width: 200px;
+  width: 170px;
   // overflow: hidden;
   margin-right: 20px;
   .logo-right {
@@ -496,7 +496,7 @@ export default {
     margin-left: 42px;
   }
   .iconAlaya {
-    width: 200px;
+    width: 160px;
   }
   .icon1 {
     // padding-top: 10px;
