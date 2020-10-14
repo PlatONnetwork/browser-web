@@ -1,16 +1,16 @@
 <template>
   <div class="download-wrap">
-    <div class="page-title fontSize34">{{ $t("download.info") }}</div>
+    <div class="page-title fontSize34">{{ $t('download.info') }}</div>
     <div class="exportname">
       {{
-        exportname == "node" ? $t("nodeInfo.node") : $t("contract.address")
+        exportname == 'node' ? $t('nodeInfo.node') : $t('contract.address')
       }}&nbsp;#&nbsp;{{ address }}
     </div>
     <p class="download-msg">
       {{
-        exportname == "node"
-          ? $t("download.downloadNodeMsg")
-          : $t("download.downloadAddressMsg")
+        exportname == 'node'
+          ? $t('download.downloadNodeMsg')
+          : $t('download.downloadAddressMsg')
       }}
     </p>
     <div class="download">
@@ -24,7 +24,7 @@
         <!-- 谷歌机器人验证地方 -->
         <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  data-callback="robotVerified"></div> -->
         <com-recaptcha ref="recaptcha" @verify="verify"></com-recaptcha>
-        <span class="tip">{{ $t("download.dataDate") }}</span>
+        <span class="tip">{{ $t('download.dataDate') }}</span>
         <el-date-picker
           v-model="form.value"
           type="date"
@@ -34,38 +34,38 @@
           value-format="yyyy-MM-dd"
         >
         </el-date-picker>
-        <span class="tip">{{ $t("download.today") }}</span>
+        <span class="tip">{{ $t('download.today') }}</span>
       </el-form>
       <el-button
         type="primary"
         class="el-btn el-download"
         @click="downloadFn"
         :disabled="disabledBtn"
-        >{{ $t("download.download") }}</el-button
+        >{{ $t('download.download') }}</el-button
       >
       <!-- <el-button type="primary" class="el-btn el-download" @click='downloadFn'>{{$t('download.download')}}</el-button> -->
-      <p class="most-downloads">{{ $t("download.mostDownloads") }}</p>
+      <p class="most-downloads">{{ $t('download.mostDownloads') }}</p>
     </div>
   </div>
 </template>
 <script>
-import comRecaptcha from "@/components/recaptcha/recaptcha";
-import apiService from "@/services/API-services";
-import apiConfig from "@/config/API-config";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import comRecaptcha from '@/components/recaptcha/recaptcha';
+import apiService from '@/services/API-services';
+import apiConfig from '@/config/API-config';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   //组件名
-  name: "",
+  name: '',
   //实例的数据对象
   data() {
     return {
       param: {},
       tab: 0,
-      src: "",
+      src: '',
       disabledBtn: false,
-      address: "",
+      address: '',
       form: {
-        value: new Date().getFullYear() - 1 + "-01-01" //"2019-01-01"
+        value: new Date().getFullYear() - 1 + '-01-01', //"2019-01-01"
       },
       pickerOptions: {
         disabledDate(time) {
@@ -73,43 +73,43 @@ export default {
           // console.warn("myDate.getFullYear()",myDate.getFullYear())
           let val = myDate.setFullYear(myDate.getFullYear(), 0, 1);
           return time.getTime() > Date.now(); //time.getTime() < new Date(val).getTime()- 8.64e7 ||
-        }
+        },
       },
-      description: "",
-      descriptionProp: "",
+      description: '',
+      descriptionProp: '',
       rules: {
         value: [
           {
             required: true,
-            message: this.$t("download.placeholder1"),
-            trigger: "change"
-          }
-        ]
+            message: this.$t('download.placeholder1'),
+            trigger: 'change',
+          },
+        ],
       },
-      response: "",
-      exportname: "",
-      response1: "",
-      timeZone: "+8"
+      response: '',
+      exportname: '',
+      response1: '',
+      timeZone: '+8',
     };
   },
   //数组或对象，用于接收来自父组件的数据
   props: {},
   //计算
   computed: {
-    ...mapGetters(["chainId", "googleApi"]),
+    ...mapGetters(['chainId', 'googleApi']),
     lang() {
-      return this.$i18n.locale.indexOf("zh") !== -1 ? "zh-cn" : "en";
-    }
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en';
+    },
   },
   //方法
   methods: {
-    ...mapActions(["updateApiStatus"]),
+    ...mapActions(['updateApiStatus']),
     verify(data) {
-      console.warn("传给父组件的token", data);
+      console.warn('传给父组件的token', data);
       this.response = data;
       // 测试环境特殊处理
-      if (location.origin.indexOf("https") == -1) {
-        this.response = "1";
+      if (location.origin.indexOf('https') == -1) {
+        this.response = '1';
       }
       if (this.response) {
         // this.disabledBtn=false;
@@ -128,47 +128,80 @@ export default {
       this.param = {
         // cid:this.chainId,
         // address:this.address,
-        date: new Date(this.form.value).getTime()
+        date: new Date(this.form.value).getTime(),
       };
-      if (this.exportname == "account") {
-        this.param.address = this.address;
+      this.param.address = this.address;
+      if (this.exportname == 'account') {
         // console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param))
         // this.src=apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param)
         this.src =
           apiConfig.TRADE.addressTransactionDownload +
-          "?date=" +
+          '?date=' +
           this.param.date +
-          "&address=" +
+          '&address=' +
           this.param.address +
-          "&local=" +
+          '&local=' +
           this.lang +
-          "&timeZone=" +
+          '&timeZone=' +
           this.timeZone;
-      } else if (this.exportname == "contract") {
-        this.param.address = this.address;
+      } else if (this.exportname == 'contract') {
         // console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
         this.src = apiService.encodeParams(
           apiConfig.TRADE.contractDownload,
           this.param
         );
-      } else if (this.exportname == "node") {
+      } else if (this.exportname == 'node') {
         this.param.nodeId = this.address;
         // console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param))
         // this.src=apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param)
         this.src =
           apiConfig.BLOCK.blockListByNodeIdDownload +
-          "?date=" +
+          '?date=' +
           this.param.date +
-          "&nodeId=" +
+          '&nodeId=' +
           this.param.nodeId +
-          "&local=" +
+          '&local=' +
           this.lang +
-          "&timeZone=" +
+          '&timeZone=' +
+          this.timeZone;
+      } else if (this.exportname === 'tokenHolderList') {
+        this.src =
+          apiConfig.TOKEN.exportTokenHolderList +
+          '?date=' +
+          this.param.date +
+          '&nodeId=' +
+          this.param.address +
+          '&local=' +
+          this.lang +
+          '&timeZone=' +
+          this.timeZone;
+      } else if (this.exportname === 'holderTokenList') {
+        this.src =
+          apiConfig.TOKEN.exportHolderTokenList +
+          '?date=' +
+          this.param.date +
+          '&nodeId=' +
+          this.param.address +
+          '&local=' +
+          this.lang +
+          '&timeZone=' +
+          this.timeZone;
+      } else if (this.exportname === 'TokenTransferList') {
+        //导出合约内部交易列表 exportTokenTransferList
+        this.src =
+          apiConfig.TOKEN.exportTokenTransferList +
+          '?date=' +
+          this.param.date +
+          '&nodeId=' +
+          this.param.address +
+          '&local=' +
+          this.lang +
+          '&timeZone=' +
           this.timeZone;
       }
       console.log(this.src);
       window.open(this.src);
-    }
+    },
   },
   //生命周期函数
   created() {
@@ -177,9 +210,9 @@ export default {
     const num = -new Date().getTimezoneOffset();
     this.timeZone = num / 60;
     if (num > 0) {
-      this.timeZone = encodeURIComponent("+") + this.timeZone;
+      this.timeZone = encodeURIComponent('+') + this.timeZone;
     } else if (num < 0) {
-      this.timeZone = encodeURIComponent("-") + this.timeZone;
+      this.timeZone = encodeURIComponent('-') + this.timeZone;
     } else {
       this.timeZone = 0;
     }
@@ -200,13 +233,13 @@ export default {
   },
   //组件
   components: {
-    comRecaptcha
+    comRecaptcha,
   },
   watch: {
-    googleApi: function() {
+    googleApi: function () {
       this.disabledBtn = !this.googleApi;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

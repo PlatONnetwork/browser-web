@@ -73,6 +73,7 @@ class ApiService {
       tokenList: this.post.bind(this, API.TOKEN.tokenList),
       tokenTransferList: this.post.bind(this, API.TOKEN.tokenTransferList),
       tokenHolderList: this.post.bind(this, API.TOKEN.tokenHolderList),
+      tokenBalanceList: this.post.bind(this, API.TOKEN.tokenBalanceList),
     };
     this.proposal = {
       proposalList: this.post.bind(this, API.PROPOSAL.proposalList),

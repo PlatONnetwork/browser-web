@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div class="address-trade-last">
-      <!-- 总计代币交易数量 -->
-      {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
-      {{ $t('tradeAbout.tokens') }}
+  <div class="common-trade">
+    <div class="address-trade-last space-between-div">
+      <span class="lineheight-with-btn">
+        <!-- 总计代币交易数量 -->
+        {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
+        {{ $t('tradeAbout.tokens') }}
+      </span>
     </div>
     <div class="table">
       <el-table
@@ -204,7 +206,7 @@ export default {
             displayTotalCount,
           } = res;
           if (code == 0) {
-            this.tableData = data;
+            this.tradeTableData = data;
             this.pageTotal = totalCount;
             this.displayTotalCount = displayTotalCount;
           } else {
@@ -341,6 +343,9 @@ export default {
 }
 .title-warning {
   color: #ffc017;
+}
+.lineheight-with-btn {
+  line-height: 37px;
 }
 </style>
 <style lang="less">

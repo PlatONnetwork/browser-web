@@ -165,7 +165,7 @@ export default {
         path: '/download',
         query: {
           address: this.address,
-          exportname: 'account',
+          exportname: 'tokenHolderList',
         },
       });
       window.open(href, '_blank');

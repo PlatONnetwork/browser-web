@@ -82,7 +82,15 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
     tokenDetail: `${TOKEN_URL}tokenDetail`,
     tokenList: `${TOKEN_URL}tokenList`,
     tokenTransferList: `${TOKEN_URL}tokenTransferList`,
-    tokenHolderList: `${TOKEN_URL}tokenHolderList`
+    tokenHolderList: `${TOKEN_URL}tokenHolderList`,
+    //余额列表
+    tokenBalanceList: `${TOKEN_URL}holderTokenList`,
+    //持有人列表
+    exportTokenHolderList: `${TOKEN_URL}exportTokenHolderList`,
+    //持有人包含列表列表
+    exportHolderTokenList: `${TOKEN_URL}exportHolderTokenList`,
+    //导出合约内部列表
+    exportTokenTransferList: `${TOKEN_URL}exportTokenTransferList`
   },
   MORE = {
     queryConfig: `${MORE_URL}queryConfig`
