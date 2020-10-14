@@ -1,12 +1,12 @@
 <template>
   <div class="common-trade">
     <div v-if="selectIndex === 1" class="address-trade-last">
-      {{ $t('blockAbout.morethen') }} {{ pageTotal }}
+      {{ $t('blockAbout.morethen') }} {{ balanceTotalDisplay }}
       {{ $t('tokens.typesToken') }}
     </div>
     <div v-else class="address-trade-last">
       <!-- 总计代币交易数量 -->
-      {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
+      {{ $t('blockAbout.morethen') }} {{ tradeTotalDisplay }}
       {{ $t('tradeAbout.tokens') }}
     </div>
     <div class="trade-tab-wrap">
@@ -14,7 +14,7 @@
         <li
           :class="{ active: selectIndex == 1 }"
           index="1"
-          @click="typeChange(1, '')"
+          @click="typeChange(1, 'blance')"
         >
           {{ $t('contract.balance') }}
         </li>
@@ -27,9 +27,12 @@
         </li>
       </ul>
       <!-- <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button> -->
-      <span class="download-btn" @click="exportFn">{{
-        $t('common.export')
-      }}</span>
+      <span
+        v-if="tradeType !== 'address'"
+        class="download-btn"
+        @click="exportFn"
+        >{{ $t('common.export') }}</span
+      >
     </div>
     <!-- 余额table -->
     <div v-show="selectIndex === 1" class="table">
@@ -40,25 +43,67 @@
         size="mini"
       >
         <!-- 交易哈希值 -->
-        <el-table-column :label="$t('nodeInfo.name')"> </el-table-column>
-        <el-table-column :label="$t('tokens.unit')"> </el-table-column>
-        <el-table-column :label="$t('contract.balance')"> </el-table-column>
-        <el-table-column :label="$t('tokens.transfers')"> </el-table-column>
-        <el-table-column :label="$t('tokens.decimals')"> </el-table-column>
-        <el-table-column :label="$t('tokens.contract')"> </el-table-column>
+        <el-table-column :label="$t('nodeInfo.name')">
+          <template slot-scope="scope">
+            <div>
+              {{ scope.row.name }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tokens.unit')">
+          <template slot-scope="scope">
+            <div>
+              {{ scope.row.symbol }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('contract.balance')">
+          <template slot-scope="scope">
+            <div>
+              {{ scope.row.balance }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tokens.transfers')">
+          <template slot-scope="scope">
+            <span
+              @click="showAddressTokenList(scope.row.contract)"
+              class="cursor normal"
+            >
+              {{ scope.row.txCount | formatNumber }}
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tokens.decimals')">
+          <template slot-scope="scope">
+            <div>
+              {{ scope.row.decimal }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('tokens.contract')">
+          <template slot-scope="scope">
+            <span
+              @click="goContractDetail(scope.row.contract)"
+              class="cursor normal ellipsis ellipsisWidth"
+            >
+              <icon-contract></icon-contract>
+              {{ scope.row.contract | sliceStr(20) }}
+            </span>
+          </template>
+        </el-table-column>
       </el-table>
 
       <!-- 下分页 -->
       <div class="pagination-box">
         <el-pagination
           background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
+          @current-change="handleBlancePageChange"
+          :current-page.sync="blanceCurPage"
           :page-sizes="[20]"
-          :page-size="pageSize"
+          :page-size="blancePageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal > 5000 ? 5000 : pageTotal"
+          :total="balancePageTotal > 5000 ? 5000 : balancePageTotal"
           :pager-count="9"
         ></el-pagination>
       </div>
@@ -191,13 +236,13 @@
       <div class="pagination-box">
         <el-pagination
           background
-          @size-change="handleSizeChange"
+          @size-change="handleTradeSizeChange"
           @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
+          :current-page.sync="tradeCurPage"
           :page-sizes="[10, 20, 50, 100]"
-          :page-size="pageSize"
+          :page-size="tradePageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal > 5000 ? 5000 : pageTotal"
+          :total="tradePageTotal > 5000 ? 5000 : tradePageTotal"
           :pager-count="9"
         ></el-pagination>
       </div>
@@ -213,15 +258,25 @@ export default {
   name: '',
   data() {
     return {
+      balanceTotalDisplay: 0, //余额寻获展示
+      balancePageTotal: 0,
+      blanceCurPage: 1,
+      blancePageSize: 20,
+
+      tradeTotalDisplay: 0, //交易寻获展示
+      tradePageTotal: 0,
+      tradeCurPage: 1,
+      tradePageSize: 20,
+
+      currentPage: 1,
+      PageSize: 20,
       selectIndex: 1,
       newRecordFlag: false,
+
       balanceTableData: [],
       tradeTableData: [],
-      currentPage: 1,
-      pageSize: 20,
-      pageTotal: 0,
-      tradeTotal: 0,
-      tradeType: '',
+
+      tradeType: 'blance',
     };
   },
   props: {
@@ -240,11 +295,69 @@ export default {
   },
   components: { IconContract },
   methods: {
+    async showAddressTokenList(contract) {
+      this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
+      this.tradeCurPage = 1;
+      await this.getTradeAddressList(contract);
+      this.selectIndex = 2;
+    },
+    getBlanceList() {
+      apiService.tokens
+        .tokenBalanceList({
+          address: this.address,
+          pageNo: this.blanceCurPage,
+          pageSize: 20, //目前写死固定值
+        })
+        .then((res) => {
+          const { code, data, totalCount, displayTotalCount } = res;
+          if (code == 0) {
+            this.balanceTableData = data;
+            this.balancePageTotal = totalCount;
+            this.balanceTotalDisplay = displayTotalCount;
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
+    },
+    getTradeAddressList(contract) {
+      let param = {
+        pageNo: this.tradeCurPage,
+        pageSize: this.tradePageSize,
+        address: this.address,
+        contract,
+      };
+      // apiService.trade.transactionList(param);
+      apiService.tokens
+        .tokenTransferList(param)
+        .then((res) => {
+          let {
+            data,
+            totalPages,
+            totalCount,
+            code,
+            errMsg,
+            displayTotalCount,
+          } = res;
+          if (code == 0) {
+            this.tradeTableData = data;
+            this.tradePageTotal = totalCount;
+            this.tradeTotalDisplay = displayTotalCount;
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
+    },
     //获取交易列表 下分页
     getTradeList() {
       let param = {
-        pageNo: this.currentPage,
-        pageSize: this.pageSize,
+        pageNo: this.tradeCurPage,
+        pageSize: this.tradePageSize,
       };
       let key = this.tableType === 'none' ? 'address' : 'contract';
       param[key] = this.address;
@@ -262,9 +375,9 @@ export default {
             displayTotalCount,
           } = res;
           if (code == 0) {
-            this.tableData = data;
-            this.pageTotal = totalCount;
-            this.displayTotalCount = displayTotalCount;
+            this.tradeTableData = data;
+            this.tradePageTotal = totalCount;
+            this.tradeTotalDisplay = displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -272,6 +385,15 @@ export default {
         .catch((error) => {
           this.$message.error(error);
         });
+    },
+    //合约详情
+    goContractDetail(adr) {
+      this.$router.push({
+        path: '/contract-detail',
+        query: {
+          address: adr,
+        },
+      });
     },
     getTokenType(type, lowerCase = true) {
       let Type = {
@@ -282,26 +404,44 @@ export default {
       };
       return lowerCase ? Type[type] : Type[type].toUpperCase();
     },
-    handleCurrentChange(val) {
-      this.currentPage = val;
+    handleBlancePageChange(val) {
+      this.blanceCurPage = val;
+      this.getBlanceList();
+    },
+
+    handleTradePageChange(val) {
+      this.tradeCurPage = val;
       this.getTradeList();
     },
-    handleSizeChange(val) {
-      this.currentPage = 1;
-      this.pageSize = val;
+    handleTradeSizeChange(val) {
+      this.tradeCurPage = 1;
+      this.tradePageSize = val;
       this.getTradeList();
     },
+
     typeChange(index, type) {
       this.selectIndex = index;
       this.tradeType = type;
-
-      this.currentPage = 1;
-      this.getTradeList();
+      if (index === 1) {
+        this.blanceCurPage = 1;
+        this.getBlanceList();
+      } else {
+        this.tradeCurPage = 1;
+        this.getTradeList();
+      }
     },
     timeDiffFn(beginTime, endTime = Date.now()) {
       return timeDiff(beginTime, endTime);
     },
     exportFn() {
+      let exportname;
+      if (this.tradeType === 'blance') {
+        exportname === 'holderTokenList';
+      } else if (this.tradeType === 'transfer') {
+        exportname === 'TokenTransferList';
+      } else if (this.tradeType === 'address') {
+        exportname === 'addressTokenList';
+      }
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',
@@ -353,7 +493,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.getTradeList();
+    this.getBlanceList();
   },
   mounted() {},
 };
