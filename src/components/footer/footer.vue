@@ -1,7 +1,7 @@
 <template>
   <div class="footer-wrap">
     <div class="sub-foot" v-if="path == '/'">
-      <h3>{{ $t("indexInfo.resource") }}</h3>
+      <h3>{{ $t('indexInfo.resource') }}</h3>
       <!-- <div class="tabs">
                 <el-button size="medium">
                     <a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a>
@@ -21,7 +21,7 @@
           ><a
             :href="'https://www.platon.network/?lang=' + lang"
             target="_blank"
-            >{{ $t("indexInfo.aboutPlatON") }}</a
+            >{{ $t('indexInfo.aboutPlatON') }}</a
           ></span
         >
         <span
@@ -34,7 +34,7 @@
               '.pdf'
             "
             target="_blank"
-            >{{ $t("indexInfo.platONWhitePaper") }}</a
+            >{{ $t('indexInfo.platONWhitePaper') }}</a
           ></span
         >
         <span
@@ -43,7 +43,7 @@
               'https://www.platon.network/developer/?lang=' + lang + '#aton'
             "
             target="_blank"
-            >{{ $t("indexInfo.atonDownload") }}</a
+            >{{ $t('indexInfo.atonDownload') }}</a
           ></span
         >
         <span class="tab-last"
@@ -54,7 +54,7 @@
               '/'
             "
             target="_blank"
-            >{{ $t("indexInfo.developer") }}</a
+            >{{ $t('indexInfo.developer') }}</a
           ></span
         >
       </div>
@@ -62,8 +62,8 @@
     </div>
     <div class="foot-index" v-if="path == '/'">
       <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
-      <p>{{ $t("indexInfo.platScan") }}</p>
-      <p>{{ $t("indexInfo.international") }}</p>
+      <p>{{ $t('indexInfo.platScan') }}</p>
+      <p>{{ $t('indexInfo.international') }}</p>
       <div class="link-wrap">
         <a
           :href="
@@ -121,8 +121,12 @@
     </div>
     <div class="foot-no-index foot-index" v-if="path != '/'">
       <div class="foot-left">
-        <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
-        <p>{{ $t("indexInfo.platScan") }}</p>
+        <img
+          class="foot-logo"
+          src="../../assets/images/Alaya-logo.svg"
+          alt=""
+        />
+        <p>{{ $t('indexInfo.platScan') }}</p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
@@ -179,29 +183,29 @@
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t("indexInfo.international") }}</p>
+        <p>{{ $t('indexInfo.international') }}</p>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      path: "/",
+      path: '/',
     };
   },
   props: {},
   computed: {
     lang() {
-      return this.$i18n.locale.indexOf("zh") !== -1 ? "zh" : "en";
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
   },
   watch: {
-    "$route.path"(newVal, oldVal) {
+    '$route.path'(newVal, oldVal) {
       this.path = newVal;
     },
   },
