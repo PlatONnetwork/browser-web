@@ -60,7 +60,7 @@
         <el-table-column :label="$t('contract.balance')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.balance }}
+              {{ scope.row.balance | formatMoney }}
             </div>
           </template>
         </el-table-column>

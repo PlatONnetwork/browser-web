@@ -54,7 +54,7 @@
         <!-- 发行总量（） -->
         <el-table-column :label="$t('tokens.totalSupply')">
           <template slot-scope="scope">
-            <span>{{ scope.row.totalSupply.toFixed(2) }}</span>
+            <span>{{ scope.row.totalSupply.toFixed(2) | formatNumber }}</span>
           </template>
         </el-table-column>
 
