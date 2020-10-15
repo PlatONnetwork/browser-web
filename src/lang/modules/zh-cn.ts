@@ -52,7 +52,9 @@ export default {
     contract: "合约",
     decimals: "精度",
     website: "官网",
-    erc20TokenTxns: "ERC20交易"
+    erc20TokenTxns: "ERC20交易",
+    number: "数量",
+    percentage: "百分比",
   },
   tradeAbout: {
     confirmTime: "确认时间",

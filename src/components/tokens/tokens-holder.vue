@@ -26,12 +26,12 @@
             >
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.hash')" width="300">
+        <el-table-column :label="$t('tokens.number')" width="300">
           <template slot-scope="scope">
             {{ scope.row.balance }}
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.hash')">
+        <el-table-column :label="$t('tokens.percentage')">
           <template slot-scope="scope">
             {{ scope.row.percent }}
           </template>
