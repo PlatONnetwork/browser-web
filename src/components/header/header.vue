@@ -228,8 +228,8 @@ export default {
       language: 'zh-cn',
       chainList: [
         {
-          en: 'NewBaleyworld',
-          zh: 'NewBaleyworld',
+          en: 'Alaya',
+          zh: 'Alaya',
         },
       ],
       options: [
