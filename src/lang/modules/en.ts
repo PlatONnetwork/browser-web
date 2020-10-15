@@ -51,7 +51,9 @@ export default {
     contract: "Contract",
     decimals: "Decimals",
     website: "Official Site",
-    erc20TokenTxns: "ERC20 Token Txns"
+    erc20TokenTxns: "ERC20 Token Txns",
+    number: "quantity",
+    percentage: "percentage",
   },
   tradeAbout: {
     confirmTime: "Time",

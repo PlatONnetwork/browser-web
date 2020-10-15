@@ -3,7 +3,7 @@
     <div class="address-trade-last space-between-div">
       <span class="lineheight-with-btn">
         <!-- 总计代币交易数量 -->
-        {{ $t('blockAbout.morethen') }} {{ tradeTotal }}
+        {{ $t('blockAbout.morethen') }} {{ pageTotal }}
         {{ $t('tradeAbout.tokens') }}
       </span>
     </div>
