@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.number')" width="300">
           <template slot-scope="scope">
-            {{ scope.row.balance }}
+            {{ scope.row.balance | formatNumber }}
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokens.percentage')">
