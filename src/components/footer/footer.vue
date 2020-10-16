@@ -19,12 +19,12 @@
       <div class="foot-tabs">
         <span
           ><a
-            :href="'https://www.platon.network/?lang=' + lang"
+            :href="'https://www.alaya.network/?lang=' + lang"
             target="_blank"
             >{{ $t('indexInfo.aboutPlatON') }}</a
           ></span
         >
-        <span
+        <!-- <span
           ><a
             :href="
               'https://www.platon.network/static/pdf/' +
@@ -36,7 +36,7 @@
             target="_blank"
             >{{ $t('indexInfo.platONWhitePaper') }}</a
           ></span
-        >
+        > -->
         <span
           ><a
             :href="
@@ -49,7 +49,7 @@
         <span class="tab-last"
           ><a
             :href="
-              'https://devdocs.platon.network/docs/' +
+              'https://devdocs.alaya.network/docs/' +
               (lang == 'zh' ? 'zh-CN' : 'en') +
               '/'
             "
