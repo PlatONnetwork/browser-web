@@ -35,6 +35,7 @@ export default {
   },
   tokens: {
     tokenName: "令牌名称",
+    owner: "所有者",
     holder: "持有者",
     unit: "单位",
     typesToken: "种令牌",

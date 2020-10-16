@@ -58,8 +58,8 @@
           </template>
         </el-table-column>
 
-        <!-- 持有人（） -->
-        <el-table-column :label="$t('tokens.holder')">
+        <!-- 所有者 -->
+        <el-table-column :label="$t('tokens.owner')">
           <template slot-scope="scope">
             <span
               @click="goAddressDetail(scope.row.creator)"

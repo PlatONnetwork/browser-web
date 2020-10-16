@@ -35,6 +35,7 @@ export default {
   },
   tokens: {
     tokenName: "Token Name",
+    owner: "Owner",
     holder: "Holder",
     unit: "Unit",
     typesToken: "Types Tokens",
