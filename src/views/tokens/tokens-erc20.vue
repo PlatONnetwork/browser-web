@@ -148,7 +148,7 @@
         <!-- 数额(Value) -->
         <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{ scope.row.transferValue | formatMoney }} ATP</span>
+            <span>{{ scope.row.transferValue | formatMoney }}</span>
           </template>
         </el-table-column>
 
