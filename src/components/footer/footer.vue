@@ -49,7 +49,7 @@
         <span class="tab-last"
           ><a
             :href="
-              'https://devdocs.alaya.network/docs/' +
+              'https://devdocs.alaya.network/alaya-devdocs/' +
               (lang == 'zh' ? 'zh-CN' : 'en') +
               '/'
             "
