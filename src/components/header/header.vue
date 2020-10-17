@@ -496,7 +496,7 @@ export default {
     margin-left: 42px;
   }
   .iconAlaya {
-    width: 160px;
+    width: 82px;
   }
   .icon1 {
     // padding-top: 10px;
