@@ -11,37 +11,19 @@
     </div>
     <div class="trade-tab-wrap">
       <ul class="trade-tab">
-        <li
-          :class="{ active: selectIndex == 1 }"
-          index="1"
-          @click="typeChange(1, 'blance')"
-        >
+        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
           {{ $t('contract.balance') }}
         </li>
-        <li
-          :class="{ active: selectIndex == 2 }"
-          index="2"
-          @click="typeChange(2, 'transfer')"
-        >
+        <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
           {{ $t('contract.transactions') }}
         </li>
       </ul>
       <!-- <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button> -->
-      <span
-        v-if="tradeType !== 'address'"
-        class="download-btn"
-        @click="exportFn"
-        >{{ $t('common.export') }}</span
-      >
+      <span v-if="tradeType !== 'address'" class="download-btn" @click="exportFn">{{ $t('common.export') }}</span>
     </div>
     <!-- 余额table -->
     <div v-show="selectIndex === 1" class="table">
-      <el-table
-        :data="balanceTableData"
-        style="width: 100%"
-        key="firstTable"
-        size="mini"
-      >
+      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini">
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
@@ -66,10 +48,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transfers')">
           <template slot-scope="scope">
-            <span
-              @click="showAddressTokenList(scope.row.contract)"
-              class="cursor normal"
-            >
+            <span @click="showAddressTokenList(scope.row.contract)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -83,10 +62,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.contract')">
           <template slot-scope="scope">
-            <span
-              @click="goContractDetail(scope.row.contract)"
-              class="cursor normal ellipsis ellipsisWidth"
-            >
+            <span @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
               <icon-contract></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
             </span>
@@ -96,33 +72,16 @@
 
       <!-- 下分页 -->
       <div class="pagination-box">
-        <el-pagination
-          background
-          @current-change="handleBlancePageChange"
-          :current-page.sync="blanceCurPage"
-          :page-sizes="[20]"
-          :page-size="blancePageSize"
-          layout="sizes,total,  prev, pager, next"
-          :total="balancePageTotal > 5000 ? 5000 : balancePageTotal"
-          :pager-count="9"
-        ></el-pagination>
+        <el-pagination background @current-change="handleBlancePageChange" :current-page.sync="blanceCurPage" :page-sizes="[20]" :page-size="blancePageSize" layout="sizes,total,  prev, pager, next" :total="balancePageTotal > 5000 ? 5000 : balancePageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
     <div v-show="selectIndex === 2" class="table">
-      <el-table
-        :data="tradeTableData"
-        style="width: 100%"
-        key="secondTable"
-        size="mini"
-      >
+      <el-table :data="tradeTableData" style="width: 100%" key="secondTable" size="mini">
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" width="200">
           <template slot-scope="scope">
             <div class="flex-special">
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
-              >
+              <span class="cursor normal ellipsis" @click="goTradeDetail(scope.row.txHash)">
                 <!-- txHash 显示0x + 18 -->
                 {{ scope.row.txHash | sliceStr(20) }}
               </span>
@@ -146,21 +105,9 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <icon-contract
-                v-if="isContract(scope.row.fromType)"
-                :active="scope.row.type !== 'OUT'"
-              ></icon-contract>
-              <span
-                class="ellipsis ellipsisWidth"
-                v-if="scope.row.type === 'OUT'"
-                >{{ scope.row.txFrom | sliceStr(16) }}</span
-              >
-              <span
-                v-else
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
-                >{{ scope.row.txFrom | sliceStr(16) }}</span
-              >
+              <icon-contract v-if="isContract(scope.row.fromType)" :active="scope.row.type !== 'OUT'"></icon-contract>
+              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
+              <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)">{{ scope.row.txFrom | sliceStr(16) }}</span>
             </div>
           </template>
         </el-table-column>
@@ -168,12 +115,7 @@
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
         <af-table-column label="" width="70px">
           <template slot-scope="scope">
-            <span
-              v-if="['INPUT', 'OUT'].includes(scope.row.type)"
-              class="tokens-type"
-              :class="'tokens-type--' + getTokenType(scope.row.type)"
-              >{{ getTokenType(scope.row.type, false) }}</span
-            >
+            <span v-if="['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
             <div v-else class="tokens-arrow fr">
               <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
@@ -185,21 +127,9 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <icon-contract
-                v-if="isContract(scope.row.toType)"
-                :active="scope.row.type !== 'INPUT'"
-              ></icon-contract>
-              <span
-                class="ellipsis ellipsisWidth"
-                v-if="scope.row.type === 'INPUT'"
-                >{{ scope.row.transferTo | sliceStr(16) }}</span
-              >
-              <span
-                v-else
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
-                >{{ scope.row.transferTo | sliceStr(16) }}</span
-              >
+              <icon-contract v-if="isContract(scope.row.toType)" :active="scope.row.type !== 'INPUT'"></icon-contract>
+              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
+              <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.transferTo, scope.row.toType)">{{ scope.row.transferTo | sliceStr(16) }}</span>
             </div>
           </template>
         </el-table-column>
@@ -222,11 +152,7 @@
           <!-- tokens 名称+单位 -->
           <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goTokenDetail(scope.row.contract)"
-                >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
-              >
+              <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract)">{{ `${scope.row.name}  (${scope.row.symbol})` }}</span>
             </template>
           </el-table-column>
         </template>
@@ -234,17 +160,7 @@
 
       <!-- 下分页 -->
       <div class="pagination-box">
-        <el-pagination
-          background
-          @size-change="handleTradeSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="tradeCurPage"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="tradePageSize"
-          layout="sizes,total,  prev, pager, next"
-          :total="tradePageTotal > 5000 ? 5000 : tradePageTotal"
-          :pager-count="9"
-        ></el-pagination>
+        <el-pagination background @size-change="handleTradeSizeChange" @current-change="handleCurrentChange" :current-page.sync="tradeCurPage" :page-sizes="[10, 20, 50, 100]" :page-size="tradePageSize" layout="sizes,total,  prev, pager, next" :total="tradePageTotal > 5000 ? 5000 : tradePageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
   </div>
@@ -436,18 +352,18 @@ export default {
     exportFn() {
       let exportname;
       if (this.tradeType === 'blance') {
-        exportname === 'holderTokenList';
+        exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
-        exportname === 'TokenTransferList';
+        exportname = 'TokenTransferList';
       } else if (this.tradeType === 'address') {
-        exportname === 'addressTokenList';
+        exportname = 'addressTokenList';
       }
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',
         query: {
           address: this.address,
-          exportname: 'account',
+          exportname,
         },
       });
       window.open(href, '_blank');
