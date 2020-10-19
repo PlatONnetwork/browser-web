@@ -19,7 +19,7 @@
       <div class="foot-tabs">
         <span
           ><a
-            :href="'https://www.alaya.network/?lang=' + lang"
+            :href="'https://www.alaya.network' + (lang === 'en' ? '/en' : '')"
             target="_blank"
             >{{ $t('indexInfo.aboutPlatON') }}</a
           ></span
@@ -40,7 +40,9 @@
         <span
           ><a
             :href="
-              'https://www.platon.network/developer/?lang=' + lang + '#aton'
+              'https://www.platon.network/' +
+              (lang === 'en' ? 'en/' : '') +
+              'developer/#aton'
             "
             target="_blank"
             >{{ $t('indexInfo.atonDownload') }}</a
