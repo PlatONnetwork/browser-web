@@ -121,11 +121,7 @@
     </div>
     <div class="foot-no-index foot-index" v-if="path != '/'">
       <div class="foot-left">
-        <img
-          class="foot-logo"
-          src="../../assets/images/Alaya-logo.svg"
-          alt=""
-        />
+        <img src="../../assets/images/Alaya-logo.svg" alt="" />
         <p>{{ $t('indexInfo.platScan') }}</p>
       </div>
       <div class="foot-right">

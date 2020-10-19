@@ -4,7 +4,7 @@
       <!-- <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
       <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
       <p>The Alaya Block Explorer</p> -->
-      <img class="iconAlaya" src="@/assets/images/Alaya-logo.svg" alt="" />
+      <img src="@/assets/images/Alaya-logo.svg" alt="" />
     </div>
     <div class="menu">
       <el-menu
@@ -496,7 +496,7 @@ export default {
     margin-left: 42px;
   }
   .iconAlaya {
-    width: 82px;
+    width: 83px;
   }
   .icon1 {
     // padding-top: 10px;
