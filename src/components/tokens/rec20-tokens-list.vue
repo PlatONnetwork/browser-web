@@ -347,6 +347,7 @@ export default {
       this.selectIndex = index;
       this.tradeType = type;
       if (index === 1) {
+        this.tokensName = 'All'
         this.blanceCurPage = 1;
         this.getBlanceList();
       } else {
