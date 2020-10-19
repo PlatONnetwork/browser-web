@@ -285,7 +285,7 @@ export default {
     warn: "Contract Self Destruct called at Txn Hash",
     systemBuilt: "System built-in code contract, no contract bytecode.",
 
-    ercTrade: "ERC交易",
+    ercTrade: "ERC20 Token Txns",
   },
   deleget: {
     validators: "Validators",

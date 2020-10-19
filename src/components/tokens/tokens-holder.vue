@@ -3,7 +3,7 @@
     <div class="address-trade-last space-between-div">
       <span>
         {{ $t('blockAbout.morethen') }} {{ pageTotal }}
-        {{ $t('tokens.holder') }}
+        {{ $t('tokens.holders') }}
       </span>
       <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
         $t('common.export')

@@ -114,7 +114,7 @@
           size="medium"
           :class="{ active: activeTab == 2 }"
           @click="tabChange(2)"
-          >{{ $t('tokens.holder') }}</el-button
+          >{{ $t('tokens.holders') }}</el-button
         >
       </div>
       <tokens-trade-list
