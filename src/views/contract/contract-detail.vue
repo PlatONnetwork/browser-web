@@ -170,7 +170,7 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+      <tokens-list v-show="tabIndex == 2" :address="address" pageType="contract"></tokens-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
