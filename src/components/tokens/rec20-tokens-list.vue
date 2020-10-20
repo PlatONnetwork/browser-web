@@ -161,7 +161,7 @@
 
       <!-- 下分页 -->
       <div class="pagination-box">
-        <el-pagination background @size-change="handleTradeSizeChange" @current-change="handleCurrentChange" :current-page.sync="tradeCurPage" :page-sizes="[10, 20, 50, 100]" :page-size="tradePageSize" layout="sizes,total,  prev, pager, next" :total="tradePageTotal > 5000 ? 5000 : tradePageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleTradeSizeChange" @current-change="handleTradePageChange" :current-page.sync="tradeCurPage" :page-sizes="[10, 20, 50, 100]" :page-size="tradePageSize" layout="sizes,total,  prev, pager, next" :total="tradePageTotal > 5000 ? 5000 : tradePageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
   </div>
