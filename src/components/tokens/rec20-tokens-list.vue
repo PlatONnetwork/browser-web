@@ -360,23 +360,24 @@ export default {
     },
     exportFn() {
       let exportname;
+      let contract = false;
       if (this.tradeType === 'blance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
-        // if (this.pageType === 'contract'){
-        //   query.contract = 'true'
-        // }
+        contract = this.pageType === 'contract'
       } else if (this.tradeType === 'address') {
         exportname = 'addressTokenList';
       }
+      let query = {
+        address: this.address,
+        exportname,
+      }
+      contract && (query.contract = 'true')
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',
-        query: {
-          address: this.address,
-          exportname,
-        },
+        query
       });
       window.open(href, '_blank');
     },

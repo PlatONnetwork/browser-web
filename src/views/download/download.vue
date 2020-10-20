@@ -188,16 +188,14 @@ export default {
           '&token=' +
           this.response;
       } else if (this.exportname === 'TokenTransferList') {
-        // let adr = this.isContract ? 'contract' : 'address';
+        let adr = this.isContract ? 'contract' : 'address';
         //导出合约内部交易列表 exportTokenTransferList
         this.src =
           apiConfig.TOKEN.exportTokenTransferList +
           '?date=' +
           this.param.date +
-          '&address=' +
+          '&' + adr + '=' +
           this.param.address +
-          // '&contract=' +
-          // this.param.address +
           '&local=' +
           this.lang +
           '&timeZone=' +
@@ -213,7 +211,7 @@ export default {
   created() {
     this.address = this.$route.query.address;
     this.exportname = this.$route.query.exportname;
-    // this.isContract = this.$route.query.contract === 'true';
+    this.isContract = this.$route.query.contract === 'true';
     const num = -new Date().getTimezoneOffset();
     this.timeZone = num / 60;
     if (num > 0) {

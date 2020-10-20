@@ -6,6 +6,9 @@
         {{ $t('blockAbout.morethen') }} {{ pageTotal }}
         {{ $t('tradeAbout.tokens') }}
       </span>
+      <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
+        $t('common.export')
+      }}</span>
     </div>
     <div class="table">
       <el-table
@@ -251,7 +254,8 @@ export default {
         path: '/download',
         query: {
           address: this.address,
-          exportname: 'account',
+          exportname: 'TokenTransferList',
+          contract: 'true'
         },
       });
       window.open(href, '_blank');
@@ -303,6 +307,11 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.space-between-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .block-trade .common-trade.block-trade-wrap {
   padding-left: 0px;
   .pagination-box {
