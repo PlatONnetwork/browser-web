@@ -8,7 +8,7 @@ export default {
     validator: "验证节点",
     proposal: "治理提案",
     tokens: "令牌",
-    erc20Transfer: "ERC20交易",
+    erc20Transfer: "ARC20交易",
     tokenList: "令牌列表",
     more: "更多",
     comesoon: "敬请期待",
@@ -40,7 +40,7 @@ export default {
     unit: "单位",
     typesToken: "种令牌",
     tokens: "令牌",
-    erc20Tokens: "ERC20令牌",
+    erc20Tokens: "ARC20令牌",
     tokenDetail: "令牌详情",
     value: "价值",
     from: "发送方",
@@ -53,7 +53,7 @@ export default {
     contract: "合约",
     decimals: "精度",
     website: "官网",
-    erc20TokenTxns: "ERC20交易",
+    erc20TokenTxns: "ARC20交易",
     number: "数量",
     percentage: "百分比",
   },
@@ -106,7 +106,7 @@ export default {
     PPOS: "系统合约",
     EVM: "EVM合约",
     WASM: "WASM合约",
-    ERC20: "ERC20合约",
+    ERC20: "ARC20合约",
     callFunction: "调用函数",
     creation: "合约创建",
     execution: "合约执行",
@@ -286,7 +286,7 @@ export default {
     totalDelegated: "总计委托",
     warn: "合约已销毁，执行于交易",
     systemBuilt: "系统合约，无上链字节码",
-    ercTrade: "ERC交易",
+    ercTrade: "ARC交易",
   },
   deleget: {
     validators: "已委托验证节点",
@@ -483,8 +483,8 @@ export default {
     2: "合约执行", //合约执行
     4: "其他", //其他
     5: "MPC交易",
-    6: "ERC20合约创建",
-    7: "ERC20合约执行",
+    6: "ARC20合约创建",
+    7: "ARC20合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押

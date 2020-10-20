@@ -8,7 +8,7 @@ export default {
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
     tokens: "TOKENS",
-    erc20Transfer: "ERC20 TRANSFERS",
+    erc20Transfer: "ARC20 TRANSFERS",
     tokenList: "TOKEN LIST",
     more: "MORE",
     comesoon: "Coming soon",
@@ -40,7 +40,7 @@ export default {
     unit: "Unit",
     typesToken: "Types Tokens",
     tokens: "Tokens",
-    erc20Tokens: "ERC20 TOKENS",
+    erc20Tokens: "ARC20 TOKENS",
     tokenDetail: "Token Detail",
     value: "Value",
     from: "From",
@@ -52,7 +52,7 @@ export default {
     contract: "Contract",
     decimals: "Decimals",
     website: "Official Site",
-    erc20TokenTxns: "ERC20 Token Txns",
+    erc20TokenTxns: "ARC20 Token Txns",
     number: "quantity",
     percentage: "percentage",
   },
@@ -104,7 +104,7 @@ export default {
     PPOS: "PPOS Contract",
     EVM: "EVM Contract",
     WASM: "WASM Contract",
-    ERC20: "ERC20 Contract",
+    ERC20: "ARC20 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",
@@ -285,7 +285,7 @@ export default {
     warn: "Contract Self Destruct called at Txn Hash",
     systemBuilt: "System built-in code contract, no contract bytecode.",
 
-    ercTrade: "ERC20 Token Txns",
+    ercTrade: "ARC20 Token Txns",
   },
   deleget: {
     validators: "Validators",
@@ -485,8 +485,8 @@ export default {
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
     // todo
-    6: "ERC20 ContractCreation", //erc20合约创建
-    7: "ERC20 ContractExecution", //erc20合约执行
+    6: "ARC20 ContractCreation", //erc20合约创建
+    7: "ARC20 ContractExecution", //erc20合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
