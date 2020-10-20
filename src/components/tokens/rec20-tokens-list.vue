@@ -9,21 +9,21 @@
       {{ $t('blockAbout.morethen') }} {{ tradeTotalDisplay }}
       {{ $t('tradeAbout.tokens') }}
     </div>
-    <div class="trade-tab-wrap">
+    <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
         <li
           :class="{ active: selectIndex == 1 }"
           index="1"
           @click="typeChange(1, 'blance')"
         >
-          {{ $t('contract.balance') }}
+          {{ $t('contract.balance') }} ({{ balanceTotalDisplay }})
         </li>
         <li
           :class="{ active: selectIndex == 2 }"
           index="2"
           @click="typeChange(2, 'transfer')"
         >
-          {{ $t('contract.transactions') }}
+          {{ $t('contract.transactions') }} ({{ tokensName }})
         </li>
       </ul>
       <!-- <el-button size="medium" v-if="type!='block'" @click="exportFn">{{$t('common.export')}}</el-button> -->
@@ -34,6 +34,9 @@
         >{{ $t('common.export') }}</span
       >
     </div>
+    <span v-else class="download-btn abs" @click="exportFn">{{
+      $t('common.export')
+    }}</span>
     <!-- 余额table -->
     <div v-show="selectIndex === 1" class="table">
       <el-table
@@ -67,7 +70,7 @@
         <el-table-column :label="$t('tokens.transfers')">
           <template slot-scope="scope">
             <span
-              @click="showAddressTokenList(scope.row.contract)"
+              @click="showAddressTokenList(scope.row.contract, scope.row.name)"
               class="cursor normal"
             >
               {{ scope.row.txCount | formatNumber }}
@@ -277,10 +280,16 @@ export default {
       tradeTableData: [],
 
       tradeType: 'blance',
+      tokensName: 'All',
     };
   },
   props: {
     address: String,
+    // 为contract时，没有余额tab
+    pageType: {
+      type: String,
+      default: 'address',
+    },
     tableType: {
       type: String,
       default: 'none',
@@ -295,8 +304,9 @@ export default {
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract) {
+    async showAddressTokenList(contract, tokensName) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
+      this.tokensName = tokensName;
       this.tradeCurPage = 1;
       await this.getTradeAddressList(contract);
       this.selectIndex = 2;
@@ -438,7 +448,10 @@ export default {
       if (this.tradeType === 'blance') {
         exportname === 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
-        exportname === 'TokenTransferList';
+        exportname = 'TokenTransferList';
+        // if (this.pageType === 'contract'){
+        //   query.contract = 'true'
+        // }
       } else if (this.tradeType === 'address') {
         exportname === 'addressTokenList';
       }
@@ -493,12 +506,20 @@ export default {
   },
   //生命周期函数
   created() {
-    this.getBlanceList();
+    // 合约只要请求交易数据
+    if (this.pageType === 'contract') {
+      this.typeChange(2, 'transfer');
+    } else {
+      this.getBlanceList();
+    }
   },
   mounted() {},
 };
 </script>
 <style lang="less" scoped>
+.common-trade {
+  position: relative;
+}
 .block-trade .common-trade.block-trade-wrap {
   padding-left: 0px;
   .pagination-box {
@@ -529,6 +550,11 @@ export default {
     color: #0e52ac;
     border: 1px solid #0e52ac;
   }
+}
+.download-btn.abs {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .active {
   font-family: Gilroy-Medium;

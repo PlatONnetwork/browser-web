@@ -61,12 +61,7 @@
         <!-- 所有者 -->
         <el-table-column :label="$t('tokens.owner')">
           <template slot-scope="scope">
-            <span
-              @click="goAddressDetail(scope.row.creator)"
-              class="cursor normal ellipsis ellipsisWidth"
-            >
-              {{ scope.row.creator | sliceStr(16) }}</span
-            >
+            <span> {{ scope.row.holder | formatNumber }}</span>
           </template>
         </el-table-column>
 

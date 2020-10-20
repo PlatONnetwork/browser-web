@@ -88,6 +88,7 @@ export default {
       },
       response: '',
       exportname: '',
+      isContract: false,
       response1: '',
       timeZone: '+8',
     };
@@ -167,37 +168,42 @@ export default {
       } else if (this.exportname === 'tokenHolderList') {
         this.src =
           apiConfig.TOKEN.exportTokenHolderList +
-          '?date=' +
-          this.param.date +
-          '&nodeId=' +
+          '?contract=' +
           this.param.address +
           '&local=' +
           this.lang +
           '&timeZone=' +
-          this.timeZone;
+          this.timeZone +
+          '&token=' +
+          this.response;
       } else if (this.exportname === 'holderTokenList') {
         this.src =
           apiConfig.TOKEN.exportHolderTokenList +
-          '?date=' +
-          this.param.date +
-          '&nodeId=' +
+          '?address=' +
           this.param.address +
           '&local=' +
           this.lang +
           '&timeZone=' +
-          this.timeZone;
+          this.timeZone +
+          '&token=' +
+          this.response;
       } else if (this.exportname === 'TokenTransferList') {
+        // let adr = this.isContract ? 'contract' : 'address';
         //导出合约内部交易列表 exportTokenTransferList
         this.src =
           apiConfig.TOKEN.exportTokenTransferList +
           '?date=' +
           this.param.date +
-          '&nodeId=' +
+          '&address=' +
           this.param.address +
+          // '&contract=' +
+          // this.param.address +
           '&local=' +
           this.lang +
           '&timeZone=' +
-          this.timeZone;
+          this.timeZone +
+          '&token=' +
+          this.response;
       }
       console.log(this.src);
       window.open(this.src);
@@ -207,6 +213,7 @@ export default {
   created() {
     this.address = this.$route.query.address;
     this.exportname = this.$route.query.exportname;
+    // this.isContract = this.$route.query.contract === 'true';
     const num = -new Date().getTimezoneOffset();
     this.timeZone = num / 60;
     if (num > 0) {
