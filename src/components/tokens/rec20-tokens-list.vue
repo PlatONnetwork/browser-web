@@ -240,7 +240,7 @@
         <el-pagination
           background
           @size-change="handleTradeSizeChange"
-          @current-change="handleCurrentChange"
+          @current-change="handleTradePageChange"
           :current-page.sync="tradeCurPage"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="tradePageSize"
