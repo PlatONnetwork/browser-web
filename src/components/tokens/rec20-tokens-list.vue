@@ -283,7 +283,7 @@ export default {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
       };
-      let key = this.tableType === 'none' ? 'address' : 'contract';
+      let key = [this.tableType, this.pageType].includes('contract') ? 'contract' : 'address';
       param[key] = this.address;
       console.info('获取交易列表（参数）》》》', param);
       // apiService.trade.transactionList(param);
