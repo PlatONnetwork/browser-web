@@ -465,6 +465,7 @@ export default {
     undelegating: "待赎回",
     information: "信息",
     rewardRatio: "委托奖励比例",
+    nextRewardRatio:"下一结算周期委托奖励比例",
 
     ratioTips: " 节点收益(出块奖励，质押奖励)分配给委托者的奖励比例。",
     unlockBlockHeight:"预估解锁块高"

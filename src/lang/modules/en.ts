@@ -465,6 +465,7 @@ export default {
     undelegating: "undelegating",
     information: " Information",
     rewardRatio: "Delegated Reward Ratio",
+    nextRewardRatio:"下一结算周期委托奖励比例",
 
     ratioTips:
       "Proportion of rewards distributed by the node to the delegators.",

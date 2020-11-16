@@ -78,7 +78,7 @@ export default {
     color: #666;
     // line-height: 15px;
     width: auto;
-    min-width: 160px;
+    min-width: 169px;
     font-family: Gilroy-Medium;
   }
   p {
