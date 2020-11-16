@@ -574,6 +574,7 @@ export default {
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
     increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of ATP(‱).",
+    minimumRestrictingRelease:"",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:

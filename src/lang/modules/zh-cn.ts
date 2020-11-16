@@ -569,6 +569,7 @@ export default {
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
     increaseIssuanceRatio: "Alaya网络的ATP每年增发比例（‱）。",
+    minimumRestrictingRelease:"",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:
