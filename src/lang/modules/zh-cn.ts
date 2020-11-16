@@ -455,6 +455,7 @@ export default {
       "节点在最近4个结算周期每份额质押净收益折合成的年化收益率，仅做参考。",
     node2Tips:
       "委托者最近4个结算周期每份额委托净收益折合成的年化收益率，仅做参考。",
+    node3Tips:"目标解锁结算周期的起始块高",
     totalDelegatedReward: "累计委托奖励",
     delegatorNum: "当前委托者数",
     delegatedAnnualizedYield: "预计委托年化收益率",
@@ -465,7 +466,8 @@ export default {
     information: "信息",
     rewardRatio: "委托奖励比例",
 
-    ratioTips: " 节点收益(出块奖励，质押奖励)分配给委托者的奖励比例。"
+    ratioTips: " 节点收益(出块奖励，质押奖励)分配给委托者的奖励比例。",
+    unlockBlockHeight:"预估解锁块高"
   },
   nodeStatus: {
     1: "候选中",
@@ -569,7 +571,7 @@ export default {
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
     increaseIssuanceRatio: "Alaya网络的ATP每年增发比例（‱）。",
-    minimumRestrictingRelease:"",
+    minimumRestrictingRelease:"释放周期的释放金额最小值",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:

@@ -620,10 +620,10 @@
 
     <!-- restricting -->
     <div class="section" v-if="lis.restricting">
-      <h3 class="h3">restricting</h3>
+      <h3 class="h3">locking</h3>
       <div class="cont-row">
         <div class="cont-box">
-          <h4 class="h4">minimumRestrictingRelease</h4>
+          <h4 class="h4">minRelease</h4>
           <p class="exp">{{$t("more.minimumRestrictingRelease")}}</p>
           <!-- 一个内容 -->
           <div class="cont-block">

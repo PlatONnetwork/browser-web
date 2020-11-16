@@ -456,6 +456,7 @@ export default {
       "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
     node2Tips:
       "Delegator annualized rate of return for each delegated net income in the last 4 epochs，For reference only！",
+    node3Tips:"The target unlocks the starting block height of the settlement cycle",
     totalDelegatedReward: "Total Delegated Reward",
     delegatorNum: "Delegators",
     delegatedAnnualizedYield: "Delegated annualized yield",
@@ -466,7 +467,8 @@ export default {
     rewardRatio: "Delegated Reward Ratio",
 
     ratioTips:
-      "Proportion of rewards distributed by the node to the delegators."
+      "Proportion of rewards distributed by the node to the delegators.",
+    unlockBlockHeight:"Estimate the unlock block height"
   },
   nodeStatus: {
     1: "Candidate",
@@ -574,7 +576,7 @@ export default {
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
     increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of ATP(‱).",
-    minimumRestrictingRelease:"",
+    minimumRestrictingRelease:"The minimum amount of the release period",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:
