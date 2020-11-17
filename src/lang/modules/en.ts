@@ -465,7 +465,7 @@ export default {
     undelegating: "undelegating",
     information: " Information",
     rewardRatio: "Delegated Reward Ratio",
-    nextRewardRatio:"The staking reward ratio in the next settlement cycle",
+    nextRewardRatio:"Next staking reward ratio",
 
     ratioTips:
       "Proportion of rewards distributed by the node to the delegators.",
