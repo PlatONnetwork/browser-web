@@ -3,7 +3,7 @@
     <div class="address-trade-last" v-if="type != 'block'">
       {{ $t("blockAbout.morethen") }} {{ tradeCount.txQty }}
       {{ $t("contract.transactions") }}
-      <span style="color: #3F3F3F;" v-if="newRecordFlag">{{
+      <span style="color: #3F3F3F;" v-if="tradeCount.txQty > 5000">{{
         $t("contract.showingLast")
       }}</span>
     </div>
@@ -165,7 +165,7 @@ export default {
   data () {
     return {
       selectIndex: 1,
-      newRecordFlag: false,
+      // newRecordFlag: false,
       tableData: [],
       currentPage: 1,
       pageSize: 20,
@@ -210,10 +210,10 @@ export default {
             if (!this.tradeType) {
               this.tradeTotal = totalCount //此总数并非数据库交易记录总数
             }
-            //判断最新记录是否显示  总数
-            this.tradeCount.txQty > 5000
-              ? (this.newRecordFlag = true)
-              : (this.newRecordFlag = false)
+            // //判断最新记录是否显示  总数
+            // this.tradeCount.txQty > 5000
+            //   ? (this.newRecordFlag = true)
+            //   : (this.newRecordFlag = false)
           } else {
             this.$message.error(errMsg)
           }
