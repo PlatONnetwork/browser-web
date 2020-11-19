@@ -4,6 +4,9 @@
       <!-- 总计代币交易数量 -->
       {{ $t('blockAbout.morethen') }} {{ pageTotal }}
       {{ $t('tokens.typesToken') }}
+      <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{
+        $t("contract.showingLast")
+      }}</span>
     </div>
     <div class="table">
       <el-table

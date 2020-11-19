@@ -3,11 +3,17 @@
     <div v-if="selectIndex === 1" class="address-trade-last">
       {{ $t('blockAbout.morethen') }} {{ balanceTotalDisplay }}
       {{ $t('tokens.typesToken') }}
+      <span style="color: #3F3F3F;" v-if="balanceTotalDisplay > 5000">{{
+        $t("contract.showingLast")
+      }}</span>
     </div>
     <div v-else class="address-trade-last">
       <!-- 总计代币交易数量 -->
       {{ $t('blockAbout.morethen') }} {{ tradeTotalDisplay }}
       {{ $t('tradeAbout.tokens') }}
+      <span style="color: #3F3F3F;" v-if="tradeTotalDisplay > 5000">{{
+        $t("contract.showingLast")
+      }}</span>
     </div>
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">

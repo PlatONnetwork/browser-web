@@ -5,6 +5,7 @@
         <!-- 总计代币交易数量 -->
         {{ $t('blockAbout.morethen') }} {{ pageTotal }}
         {{ $t('tradeAbout.tokens') }}
+        <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{$t("contract.showingLast")}}</span>
       </span>
       <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
         $t('common.export')
