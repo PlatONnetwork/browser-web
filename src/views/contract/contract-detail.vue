@@ -239,6 +239,7 @@ export default {
           let { errMsg, code, data } = res;
           if (code == 0 && data.name && data.symbol) {
             this.tokenName = data.name + ' (' + data.symbol + ')';
+            this.detailInfo.tokenQty = data.txCount
           } else {
             this.$message.error(errMsg);
           }
