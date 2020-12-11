@@ -89,7 +89,7 @@
               <el-dropdown-item command="/tokens/tokenList">{{
                 $t('menu.tokenList')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/tokens/erc20">{{
+              <el-dropdown-item command="/tokens/arc20">{{
                 $t('menu.erc20Transfer')
               }}</el-dropdown-item>
             </el-dropdown-menu>
