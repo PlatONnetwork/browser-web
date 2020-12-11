@@ -152,7 +152,7 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address"></tokens-list>
+      <tokens-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo"></tokens-list>
 
       <!-- 委托 -->
       <delegation-info
