@@ -37,7 +37,8 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/Api": {
-        target: "http://192.168.16.173",
+        // target: "http://192.168.9.190:13500",
+        target: "https://platscan.uat.platon.network",
         secure: false,
         changeOrigin: true,
         pathRewrite: {

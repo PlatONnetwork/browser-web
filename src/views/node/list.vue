@@ -119,7 +119,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -202,7 +202,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -415,9 +415,11 @@ export default {
       this.queryStatus = type
       this.currentPage = 1
       this.getList()
-      if (this.type != "history" && this.type != "zero") {
-        this.getListBywebsocket()
+      if (this.type == "candidate") {
+        this.websocket && this.websocket.close()
+        return
       }
+      this.getListBywebsocket()
     },
     clearInput (value) {
       this.currentPage = 1
