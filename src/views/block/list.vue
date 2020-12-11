@@ -95,7 +95,7 @@ import apiService from "@/services/API-services";
 import { timeDiff } from "@/services/time-services";
 
 export default {
-  name: "trade-list",
+  name: "block-list",
   data() {
     return {
       tableData: [],
@@ -162,24 +162,6 @@ export default {
       this.pageSize = val;
       this.getTradeList();
       this.replace();
-    },
-    //进入区块详情
-    goBlockDetail(blockHeight) {
-      this.$router.push({
-        path: "/block-detail",
-        query: {
-          height: blockHeight
-        }
-      });
-    },
-    //进入节点详情
-    goNodeDetail(nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      });
     }
   },
   beforeRouteEnter (to, from, next) {

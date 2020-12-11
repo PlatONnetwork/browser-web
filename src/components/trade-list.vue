@@ -248,31 +248,6 @@ export default {
         }
       })
       window.open(href, "_blank")
-    },
-    goTradeDetail (hash) {
-      this.$router.push({
-        path: "/trade-detail",
-        query: {
-          txHash: hash
-        }
-      })
-    },
-    goAddressDetail (address) {
-      this.$router.push({
-        path: "/address-detail",
-        query: {
-          address: address
-        }
-      })
-    },
-    //进入区块详情
-    goBlockDetail (blockHeight) {
-      this.$router.push({
-        path: "/block-detail",
-        query: {
-          height: blockHeight
-        }
-      })
     }
   },
   //生命周期函数

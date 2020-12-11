@@ -15,30 +15,22 @@
         <el-col :span="11">
           <!-- 概览 -->
           <div class="overview">
-            <h3 class="Gilroy-Medium">{{ $t('contract.overview') }}</h3>
+            <h3 class="Gilroy-Medium">
+              {{ $t('contract.overview') }}
+              <span class="token-type-name">{{ $t('tokens.erc721') }}</span>
+            </h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium">{{
-                  $t('tokens.totalSupply')
-                }}</label>
-                <div class="money">
-                  {{ detailInfo.totalSupply | formatNumber }}
-                  ({{ detailInfo.symbol }})
-                </div>
+                <label class="Gilroy-Medium">{{$t('tokens.totalSupply_721')}}</label>
+                <div class="money">-</div>
               </li>
-              <!-- 持有数 暂时没有 -->
-              <!-- <li>
-                <label class="Gilroy-Medium">{{ $t("tokens.holders") }}</label>
-                <div class="money">
-                  {{ detailInfo.txCount }}
-                </div>
-              </li> -->
-              <!-- 交易数 -->
               <li>
-                <label class="Gilroy-Medium">{{
-                  $t('contract.ercTrade')
-                }}</label>
-                <div class="money">{{ detailInfo.txCount }}</div>
+                <label class="Gilroy-Medium">{{$t('tokens.holder')}}</label>
+                <div class="money">-</div>
+              </li>
+              <li>
+                <label class="Gilroy-Medium">{{$t('tokens.transfers_721')}}</label>
+                <div class="money">-</div>
               </li>
             </ul>
           </div>
@@ -52,47 +44,28 @@
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
-                  <span
-                    class="normal"
-                    @click="goContractDetail(detailInfo.address)"
-                  >
+                  <span class="normal" @click="goContractDetail(detailInfo.address)">
                     <!-- {{ detailInfo.address | sliceStr(16) }} -->
                     {{ detailInfo.address }}
                   </span>
                   <div class="detail-copy" style="margin-left: 10px">
-                    <b
-                      class="cursor"
-                      :class="{ copy: !isCopy }"
-                      v-clipboard:copy="address"
-                      v-clipboard:success="onCopy"
-                      v-clipboard:error="onError"
-                      ><p v-show="isCopy">
-                        <i class="el-icon-circle-check-outline"></i
-                        ><span>{{ copyText }}</span>
-                      </p></b
-                    >
+                    <b class="cursor" :class="{ copy: !isCopy }" v-clipboard:copy="address" v-clipboard:success="onCopy"
+                       v-clipboard:error="onError">
+                      <p v-show="isCopy">
+                        <i class="el-icon-circle-check-outline"></i><span>{{ copyText }}</span>
+                      </p>
+                    </b>
                     <a class="code cursor">
-                      <qriously
-                        class="qr-code"
-                        v-if="address"
-                        :value="address"
-                        :size="140"
-                      />
+                      <qriously class="qr-code" v-if="address" :value="address" :size="140" />
                     </a>
                   </div>
-                </div>
-              </li>
-              <li>
-                <label class="Gilroy-Medium">{{ $t('tokens.decimals') }}</label>
-                <div class="money">
-                  {{ detailInfo.decimal }}
                 </div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.website') }}</label>
                 <div class="money contract-create-info">
                   <a class="normal" :href="detailInfo.webSite">{{
-                    detailInfo.webSite
+                    detailInfo.webSite || 'N/A'
                   }}</a>
                 </div>
               </li>
@@ -104,25 +77,13 @@
 
     <div class="address-trade gray-content content-padding">
       <div class="tabs">
-        <el-button
-          size="medium"
-          :class="{ active: activeTab == 1 }"
-          @click="tabChange(1)"
-          >{{ $t('contract.transactions') }}</el-button
-        >
-        <el-button
-          size="medium"
-          :class="{ active: activeTab == 2 }"
-          @click="tabChange(2)"
-          >{{ $t('tokens.holders') }}</el-button
-        >
+        <el-button size="medium" :class="{ active: activeTab == 1 }" @click="tabChange(1)">{{ $t('contract.transactions') }}</el-button>
+        <el-button size="medium" :class="{ active: activeTab == 2 }" @click="tabChange(2)">{{ $t('tokens.holder') }}</el-button>
+        <el-button size="medium" :class="{ active: activeTab == 3 }" @click="tabChange(3)">{{$t('tokens.inventory')}}</el-button>
       </div>
-      <tokens-trade-list
-        v-show="activeTab == 1"
-        :address="address"
-        table-type="detail"
-      ></tokens-trade-list>
+      <tokens-trade-list v-show="activeTab == 1" :address="address" table-type="erc721"></tokens-trade-list>
       <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
+      <tokens-inventory v-show="activeTab == 3"></tokens-inventory>
     </div>
   </div>
 </template>
@@ -132,7 +93,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';
-import contractInfo from '@/components/contract/contract-info';
+import tokensInventory from '@/components/tokens/tokens-inventory';
 export default {
   name: 'tokensDetailComponent',
   data() {
@@ -149,8 +110,8 @@ export default {
   watch: {},
   components: {
     tokensTradeList,
-    contractInfo,
     tokensHolder,
+    tokensInventory,
   },
   methods: {
     //获取地址信息详情
@@ -199,24 +160,6 @@ export default {
         },
       });
     },
-    //合约详情
-    goContractDetail(adr) {
-      this.$router.push({
-        path: '/contract-detail',
-        query: {
-          address: adr,
-        },
-      });
-    },
-    //进入交易详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
   },
   //生命周期函数
   created() {
@@ -242,6 +185,11 @@ export default {
       cursor: pointer;
     }
   }
+}
+.token-type-name {
+  padding-left: 12px;
+  font-size: 17px;
+  color: #999;
 }
 .code {
   position: relative;

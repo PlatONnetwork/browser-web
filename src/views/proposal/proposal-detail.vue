@@ -574,14 +574,6 @@ export default {
         error.errMsg && this.$message.error(error.errMsg);
       }
     },
-    goNodeDetail(nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      });
-    },
     //获取提案详情
     async getProposalDetail() {
       console.log(this.$route.query.proposalHash);
@@ -647,15 +639,6 @@ export default {
         path: "/node-detail",
         query: {
           nodeId: nodeid
-        }
-      });
-    },
-    //进入交易详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: "/trade-detail",
-        query: {
-          txHash: hash
         }
       });
     },

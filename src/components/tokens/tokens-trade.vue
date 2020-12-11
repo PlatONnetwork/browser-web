@@ -7,7 +7,7 @@
         {{ $t('tradeAbout.tokens') }}
         <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{$t("contract.showingLast")}}</span>
       </span>
-      <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
+      <span class="download-btn" @click="exportFn">{{
         $t('common.export')
       }}</span>
     </div>
@@ -106,7 +106,7 @@
             </div>
           </template>
         </el-table-column>
-        <template v-if="tableType === 'detail'">
+        <template v-if="tableType === 'erc20'">
           <!-- 转账金额(Quantity) -->
           <el-table-column :label="$t('tokens.quantity')">
             <template slot-scope="scope">
@@ -114,21 +114,14 @@
             </template>
           </el-table-column>
         </template>
-        <template v-else>
-          <!-- 数额(Value) -->
-          <el-table-column :label="$t('tokens.value')" show-overflow-tooltip>
-            <template slot-scope="scope">
-              <span>{{ scope.row.transferValue | formatMoney }} </span>
-            </template>
-          </el-table-column>
-
-          <!-- tokens 名称+单位 -->
-          <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
+        <template v-else-if="tableType === 'erc721'">
+          <!-- 令牌ID -->
+          <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
             <template slot-scope="scope">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goTokenDetail(scope.row.contract)"
-                >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
+                @click="goTokenDetail(scope.row.contract, 'erc721id')"
+                >unclear</span
               >
             </template>
           </el-table-column>
@@ -176,7 +169,7 @@ export default {
     address: String,
     tableType: {
       type: String,
-      default: 'none',
+      default: 'erc20',
     },
     tradeCount: Object,
   },
@@ -193,11 +186,8 @@ export default {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
+        contract: this.address
       };
-      let key = this.tableType === 'none' ? 'address' : 'contract';
-      param[key] = this.address;
-      console.info('获取交易列表（参数）》》》', param);
-      // apiService.trade.transactionList(param);
       apiService.tokens
         .tokenTransferList(param)
         .then((res) => {
@@ -260,45 +250,7 @@ export default {
         },
       });
       window.open(href, '_blank');
-    },
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
-    // 判断是否是合约
-    isContract(type) {
-      return [2, 3, 4, 5].includes(type);
-    },
-    goAddressDetail(address, type = 0) {
-      let path = this.isContract(type) ? '/contract-detail' : '/address-detail';
-      this.$router.push({
-        path,
-        query: {
-          address: address,
-        },
-      });
-    },
-    goTokenDetail(address) {
-      this.$router.push({
-        path: '/tokens-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
-    //进入区块详情
-    goBlockDetail(blockHeight) {
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: blockHeight,
-        },
-      });
-    },
+    }
   },
   //生命周期函数
   created() {

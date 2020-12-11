@@ -1148,33 +1148,6 @@ export default {
           this.$message.error(error);
         });
     },
-    //进入地址详情
-    goAddressDetail(address) {
-      this.$router.push({
-        path: '/address-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
-    //进入区块详情
-    goBlockDetail(height) {
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: height,
-        },
-      });
-    },
-    //进入交易详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
     onCopy(copy) {
       if (copy.trigger.id == 'copy1') {
         this.copyText = this.$t('modalInfo.copysuccess');
