@@ -225,6 +225,8 @@ export default {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
+            // 合成token 名称
+            this.getTokenDetail()
           } else {
             this.$message.error(errMsg);
           }
@@ -232,9 +234,10 @@ export default {
         .catch((error) => {
           this.$message.error(error);
         });
-      // 合成token 名称
+    },
+    getTokenDetail() {
       apiService.tokens
-        .tokenDetail(param)
+        .tokenDetail({address: this.address})
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0 && data.name && data.symbol) {
@@ -248,7 +251,6 @@ export default {
           this.$message.error(error);
         });
     },
-
     onCopy() {
       this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
