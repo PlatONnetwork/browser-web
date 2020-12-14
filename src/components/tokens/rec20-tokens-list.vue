@@ -221,6 +221,9 @@ export default {
     $route(to, from) {
       this.$router.go(0);
     },
+    'tradeCount.tokenQty': function() {
+      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty;
+    },
   },
   components: { IconContract },
   methods: {
@@ -310,7 +313,7 @@ export default {
             this.tradeTableData = data;
             // this.tradePageTotal = totalCount;
             // this.tradeTotalDisplay = displayTotalCount;
-            // 返回的总条数不能用
+            // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
             this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
