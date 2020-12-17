@@ -415,7 +415,7 @@ export default {
       this.queryStatus = type
       this.currentPage = 1
       this.getList()
-      if (this.type == "candidate") {
+      if (type == "candidate") {
         this.websocket && this.websocket.close()
         return
       }
