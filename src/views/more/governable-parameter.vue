@@ -631,7 +631,7 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{lis.restricting.minimumRelease.value}}</span>
+                <span class="green">{{lis.restricting.minimumRelease.value}}ATP</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
@@ -641,7 +641,7 @@
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{lis.restricting.minimumRelease.initValue}}</span>
+                <span class="black">{{lis.restricting.minimumRelease.initValue}}ATP</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
@@ -651,10 +651,10 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.restricting.minimumRelease.start}}</span>
-                <span class="regular">{{lis.restricting.minimumRelease.startValue}}</span>
+                <span class="regular">{{lis.restricting.minimumRelease.startValue}} ATP</span>
               </div>
               <div>
-                <span class="regular">{{lis.restricting.minimumRelease.endValue}}</span>
+                <span class="regular">{{lis.restricting.minimumRelease.endValue}} ATP</span>
                 <span class="medium">{{lis.restricting.minimumRelease.end}}</span>
               </div>
             </div>
