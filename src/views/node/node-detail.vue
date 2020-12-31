@@ -518,6 +518,10 @@
                 >{{ detailInfo.rewardPer }} %</span
               >
             </Item>
+            <Item v-if="detailInfo.rewardPer !== detailInfo.nextRewardPer" :label="$t('nodeInfo.nextRewardRatio')">
+              <span v-if="detailInfo.isInit">--</span>
+              <span v-else class="fontSize14 Gilroy-Medium">{{ detailInfo.nextRewardPer }} %</span>
+            </Item>
             <Item :label="$t('tradeAbout.identity')">
               <a
                 class="blue cursor"

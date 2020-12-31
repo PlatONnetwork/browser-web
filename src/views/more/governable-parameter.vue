@@ -617,6 +617,53 @@
       <div class="blank"></div>
       <div class="blank"></div>
     </div>
+
+    <!-- restricting -->
+    <div class="section" v-if="lis.restricting">
+      <h3 class="h3">restricting</h3>
+      <div class="cont-row">
+        <div class="cont-box">
+          <h4 class="h4">minimumRelease</h4>
+          <p class="exp">{{$t("more.minimumRelease")}}</p>
+          <!-- 一个内容 -->
+          <div class="cont-block">
+            <!-- Current Value: -->
+            <div class="current">
+              <div>
+                <span class="lable">{{$t("more.currentValue")}}</span>
+                <span class="green">{{lis.restricting.minimumRelease.value}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
+              </div>
+            </div>
+            <!-- Genesis Value: -->
+            <div class="genesis">
+              <div>
+                <span class="lable">{{$t("more.genesisValue")}}</span>
+                <span class="black">{{lis.restricting.minimumRelease.initValue}}</span>
+              </div>
+              <div class="progress-box">
+                <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
+              </div>
+            </div>
+            <!-- 底部数字 -->
+            <div class="bottom">
+              <div>
+                <span class="medium">{{lis.restricting.minimumRelease.start}}</span>
+                <span class="regular">{{lis.restricting.minimumRelease.startValue}}</span>
+              </div>
+              <div>
+                <span class="regular">{{lis.restricting.minimumRelease.endValue}}</span>
+                <span class="medium">{{lis.restricting.minimumRelease.end}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+    </div>
   </div>
 </template>
 

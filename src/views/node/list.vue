@@ -117,6 +117,21 @@
             <span>{{ scope.row.leaveTime | formatTime }}</span>
           </template>
         </el-table-column>
+        <!-- 预估解锁块高 -->
+        <el-table-column width="250">
+          <template slot="header">
+            <span>{{$t('nodeInfo.unlockBlockHeight')}}</span>
+            <el-tooltip placement="bottom">
+              <div slot="content" class="long-tips">
+                {{ $t("nodeInfo.node3Tips") }}
+              </div>
+              <img class="tipsImg" src="@/assets/images/icon-quest.svg" alt="tips" />
+            </el-tooltip>
+          </template>
+          <template slot-scope="scope">
+            <span>{{ scope.row.unlockBlockNum }}</span>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pagination-box">
         <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
@@ -198,6 +213,21 @@
         <el-table-column :label="$t('nodeInfo.freezeTime')">
           <template slot-scope="scope">
             <span>{{ scope.row.leaveTime | formatTime }}</span>
+          </template>
+        </el-table-column>
+        <!-- 预估解锁块高 -->
+        <el-table-column width="250">
+          <template slot="header">
+            <span>{{$t('nodeInfo.unlockBlockHeight')}}</span>
+            <el-tooltip placement="bottom">
+              <div slot="content" class="long-tips">
+                {{ $t("nodeInfo.node3Tips") }}
+              </div>
+              <img class="tipsImg" src="@/assets/images/icon-quest.svg" alt="tips" />
+            </el-tooltip>
+          </template>
+          <template slot-scope="scope">
+            <span>{{ scope.row.unlockBlockNum }}</span>
           </template>
         </el-table-column>
       </el-table>
