@@ -445,9 +445,11 @@ export default {
       this.queryStatus = type
       this.currentPage = 1
       this.getList()
-      if (this.type != "history" && this.type != "zero") {
-        this.getListBywebsocket()
+      if (type == "candidate") {
+        this.websocket && this.websocket.close()
+        return
       }
+      this.getListBywebsocket()
     },
     clearInput (value) {
       this.currentPage = 1

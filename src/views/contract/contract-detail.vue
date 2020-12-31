@@ -170,7 +170,7 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address" pageType="contract"></tokens-list>
+      <tokens-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></tokens-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
@@ -225,20 +225,8 @@ export default {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
-          } else {
-            this.$message.error(errMsg);
-          }
-        })
-        .catch((error) => {
-          this.$message.error(error);
-        });
-      // 合成token 名称
-      apiService.tokens
-        .tokenDetail(param)
-        .then((res) => {
-          let { errMsg, code, data } = res;
-          if (code == 0 && data.name && data.symbol) {
-            this.tokenName = data.name + ' (' + data.symbol + ')';
+            // 合成token 名称
+            this.getTokenDetail()
           } else {
             this.$message.error(errMsg);
           }
@@ -247,7 +235,22 @@ export default {
           this.$message.error(error);
         });
     },
-
+    getTokenDetail() {
+      apiService.tokens
+        .tokenDetail({address: this.address})
+        .then((res) => {
+          let { errMsg, code, data } = res;
+          if (code == 0 && data.name && data.symbol) {
+            this.tokenName = data.name + ' (' + data.symbol + ')';
+            this.detailInfo.tokenQty = data.txCount
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
+    },
     onCopy() {
       this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;

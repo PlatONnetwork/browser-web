@@ -6,7 +6,7 @@
         {{ $t('tokens.holders') }}
         <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{$t("contract.showingLast")}}</span>
       </span>
-      <span class="download-btn" v-if="type == 'block'" @click="exportFn">{{
+      <span class="download-btn" @click="exportFn">{{
         $t('common.export')
       }}</span>
     </div>

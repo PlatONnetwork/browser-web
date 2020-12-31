@@ -55,7 +55,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transfers')">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.txCount)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -221,14 +221,17 @@ export default {
     $route(to, from) {
       this.$router.go(0);
     },
+    'tradeCount.tokenQty': function() {
+      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty;
+    },
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName) {
+    async showAddressTokenList(contract, tokensName, txCount) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = tokensName;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract);
+      await this.getTradeAddressList(contract, txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
@@ -252,7 +255,7 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract) {
+    getTradeAddressList(contract, txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
@@ -273,8 +276,10 @@ export default {
           } = res;
           if (code == 0) {
             this.tradeTableData = data;
-            this.tradePageTotal = totalCount;
-            this.tradeTotalDisplay = displayTotalCount;
+            // this.tradePageTotal = totalCount;
+            // this.tradeTotalDisplay = displayTotalCount;
+            // 返回的总条数不能用
+            this.tradePageTotal =  this.tradeTotalDisplay = txCount; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -306,8 +311,10 @@ export default {
           } = res;
           if (code == 0) {
             this.tradeTableData = data;
-            this.tradePageTotal = totalCount;
-            this.tradeTotalDisplay = displayTotalCount;
+            // this.tradePageTotal = totalCount;
+            // this.tradeTotalDisplay = displayTotalCount;
+            // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
+            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }

@@ -3,11 +3,11 @@
     <div class="address-trade-last space-between-div">
       <span class="lineheight-with-btn">
         <!-- 总计代币交易数量 -->
-        {{ $t('blockAbout.morethen') }} {{ pageTotal }}
+        {{ $t('blockAbout.morethen') }} {{ tradeCount.txCount }}
         {{ $t('tradeAbout.tokens') }}
-        <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{$t("contract.showingLast")}}</span>
+        <span style="color: #3F3F3F;" v-if="tradeCount.txCount > 5000">{{$t("contract.showingLast")}}</span>
       </span>
-      <span class="download-btn" v-if="type != 'block'" @click="exportFn">{{
+      <span class="download-btn" @click="exportFn">{{
         $t('common.export')
       }}</span>
     </div>
@@ -206,13 +206,12 @@ export default {
             totalPages,
             totalCount,
             code,
-            errMsg,
-            displayTotalCount,
+            errMsg
           } = res;
           if (code == 0) {
             this.tradeTableData = data;
-            this.pageTotal = totalCount;
-            this.displayTotalCount = displayTotalCount;
+            // 返回的总条数不能用
+            this.pageTotal = this.tradeCount.txCount; // || totalCount;
           } else {
             this.$message.error(errMsg);
           }

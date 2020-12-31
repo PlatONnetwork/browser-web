@@ -121,6 +121,7 @@
         v-show="activeTab == 1"
         :address="address"
         table-type="detail"
+        :tradeCount="detailInfo"
       ></tokens-trade-list>
       <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
     </div>
