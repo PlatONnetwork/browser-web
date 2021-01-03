@@ -207,7 +207,7 @@ export default {
           if (code == 0) {
             this.tableData = data
             // 返回的总条数不能用
-            this.pageTotal = this.tradeCount.txQty; // || totalCount
+            this.pageTotal = totalCount; // || totalCount
             if (!this.tradeType) {
               this.tradeTotal = totalCount //此总数并非数据库交易记录总数
             }
