@@ -65,7 +65,7 @@
     <div class="foot-index" v-if="path == '/'">
       <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
       <p>{{ $t('indexInfo.platScan') }}</p>
-      <p>{{ $t('indexInfo.international') }}</p>
+        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
       <div class="link-wrap">
         <a
           :href="
@@ -185,7 +185,7 @@
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international') }}</p>
+        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
       </div>
     </div>
   </div>
@@ -198,13 +198,14 @@ export default {
   data() {
     return {
       path: '/',
+      curYear: new Date().getFullYear()
     };
   },
   props: {},
   computed: {
     lang() {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
-    },
+    }
   },
   watch: {
     '$route.path'(newVal, oldVal) {
