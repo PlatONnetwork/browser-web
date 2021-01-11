@@ -390,7 +390,7 @@ export default {
     atonDownload: "ATON Download",
     developer: "Developer",
     platScan: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
-    international: "COPYRIGHT © 2020 ALAYA NETWORK."
+    international: "COPYRIGHT © __YEAR__ ALAYA NETWORK."
   },
   elseInfo: {
     hour: "h ",
