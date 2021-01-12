@@ -230,39 +230,6 @@ export default {
       this.pageSize = val;
       this.getTradeList();
       this.replace();
-    },
-    //进入区块详情
-    goBlockDetail(height) {
-      console.warn("进入区块", height);
-      this.$router.push({
-        path: "/block-detail",
-        query: {
-          height: height
-        }
-      });
-    },
-    //进入交易哈希详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: "/trade-detail",
-        query: {
-          txHash: hash
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
-        }
-      });
-    },
-    //进入钱包地址详情
-    goAddressDetail(adr) {
-      this.$router.push({
-        path: "/address-detail",
-        query: {
-          address: adr
-          // description: "trade",
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
-        }
-      });
     }
   },
   beforeRouteEnter(to, from, next) {

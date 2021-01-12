@@ -256,45 +256,7 @@ export default {
         },
       });
       window.open(href, '_blank');
-    },
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
-    // 判断是否是合约
-    isContract(type) {
-      return [2, 3, 4, 5].includes(type);
-    },
-    goAddressDetail(address, type = 0) {
-      let path = this.isContract(type) ? '/contract-detail' : '/address-detail';
-      this.$router.push({
-        path,
-        query: {
-          address: address,
-        },
-      });
-    },
-    goTokenDetail(address) {
-      this.$router.push({
-        path: '/tokens-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
-    //进入区块详情
-    goBlockDetail(blockHeight) {
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: blockHeight,
-        },
-      });
-    },
+    }
   },
   //生命周期函数
   created() {

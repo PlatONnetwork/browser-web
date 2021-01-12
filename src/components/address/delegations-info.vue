@@ -161,6 +161,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
+      tableData: []
     }
   },
   methods:{
@@ -208,15 +209,7 @@ export default {
       this.currentPage = 1;
       this.pageSize = val;
       this.getList();
-    },
-    goNodeDetail(nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      });
-    },
+    }
   },
   created(){
     this.getList();

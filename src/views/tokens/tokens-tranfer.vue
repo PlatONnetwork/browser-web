@@ -1,5 +1,6 @@
 <template>
   <div class="trade-list-wrap">
+    <!-- 分类筛选tab -->
     <div class="page-title fontSize34">
       {{ $t(getTitle()) }}
     </div>
@@ -12,7 +13,7 @@
           {{ $t('tradeAbout.morethen2') }}
         </template>
         <b class="black">{{ pageTotal }}</b>
-        {{ $t('tokens.typesToken') }}
+        {{ $t('tradeAbout.foundTransactions') }}
         <span v-if="pageTotal > 500000">{{
           $t('tradeAbout.showingLast')
         }}</span>
@@ -55,26 +56,25 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { timeDiff } from '@/services/time-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-import ERC20List from './list/erc20.vue';
-import ERC721List from './list/erc721.vue';
+import ERC20Tranfer from './tranfer/erc20.vue';
+import ERC721Tranfer from './tranfer/erc721.vue';
 const compMap = {
-  arc20: 'ERC20List',
-  arc721: 'ERC721List',
+  arc20: 'ERC20Tranfer',
+  arc721: 'ERC721Tranfer',
 };
 const API = {
-  arc20: apiService.tokens.tokenList,
-  arc721: apiService.tokens.tokenList,
+  arc20: apiService.tokens.tokenTransferList,
+  arc721: apiService.tokens.tokenTransferList,
 };
 const typeMap = {
-  arc20: 'menu.erc20Tokens',
-  arc721: 'menu.erc721Tokens',
+  arc20: 'menu.erc20Transfer',
+  arc721: 'menu.erc721Transfer',
 }
 
 export default {
   name: 'tokensListComponent',
-  components: { ERC20List, ERC721List },
+  components: { ERC20Tranfer, ERC721Tranfer },
   data() {
     return {
       tableData: [],
@@ -83,7 +83,7 @@ export default {
       pageTotal: 0,
       displayTotalCount: 0,
       type: 'erc20',
-      tableCompName: 'ERC20List',
+      tableCompName: 'ERC20Tranfer'
     };
   },
   watch: {
@@ -91,14 +91,14 @@ export default {
       handler(to, from) {
         if (to.params.type && to.params.type !== this.type) {
           if (!compMap[to.params.type]) {
-            this.$router.replace('/tokens/tokensList/arc20');
+            this.$router.replace('/tokens/tokensTranfer/arc20');
             return;
           }
           this.type = to.params.type;
           this.tableCompName = compMap[this.type];
           this.currentPage = 1;
           this.pageSize = 20;
-          this.getTokenList();
+          this.getTradeList();
         }
       },
       immediate: true,
@@ -109,7 +109,7 @@ export default {
       return typeMap[this.type]
     },
     //获取交易列表 下分页
-    getTokenList() {
+    getTradeList() {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
@@ -146,13 +146,13 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.getTokenList();
+      this.getTradeList();
       this.replace();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
-      this.getTokenList();
+      this.getTradeList();
       this.replace();
     },
   },
@@ -167,7 +167,7 @@ export default {
           vm.currentPage = vm.$route.query.currentPage - 0;
           vm.pageSize = vm.$route.query.pageSize - 0;
         }
-        vm.getTokenList();
+        vm.getTradeList();
       }
     });
   },
@@ -177,7 +177,7 @@ export default {
       this.currentPage = this.$route.query.currentPage - 0;
       this.pageSize = this.$route.query.pageSize - 0;
     }
-    this.getTokenList();
+    this.getTradeList();
   },
   mounted() {},
 };

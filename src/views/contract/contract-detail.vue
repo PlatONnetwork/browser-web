@@ -157,6 +157,12 @@
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
+          >{{ $t('tokens.erc721TokenTxns') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 4 }"
+          @click="tabChange(4)"
           >{{ $t('contract.contract') }}</el-button
         >
       </div>
@@ -170,10 +176,13 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></tokens-list>
+      <erc20-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
+
+      <!-- Erc721 Token -->
+      <erc721-list v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
 
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
+      <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
       </contract-info>
     </div>
   </div>
@@ -183,7 +192,8 @@ import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tradeList from '@/components/trade-list';
-import tokensList from '@/components/tokens/rec20-tokens-list';
+import erc20List from '@/components/tokens/erc20-tokens-list';
+import erc721List from '@/components/tokens/erc721-tokens-list';
 import contractInfo from '@/components/contract/contract-info';
 export default {
   name: 'contract-detail',
@@ -210,7 +220,8 @@ export default {
   watch: {},
   components: {
     tradeList,
-    tokensList,
+    erc20List,
+    erc721List,
     contractInfo,
   },
   methods: {
@@ -277,34 +288,7 @@ export default {
           address: this.address,
         },
       });
-    },
-    //token详情
-    goTokenDetail(address) {
-      this.$router.push({
-        path: '/tokens-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
-    //地址详情
-    goAddressDetail(address) {
-      this.$router.push({
-        path: '/address-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
-    //进入交易详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
+    }
   },
   //生命周期函数
   created() {

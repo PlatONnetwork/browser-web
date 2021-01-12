@@ -24,6 +24,7 @@ Vue.use(VueParticles)
 
 import './filters'
 import './directives'
+import routeJump from'./mixins'
 // css
 import '../static/css/reset.css'
 import '../static/css/element-ui.css'
@@ -37,6 +38,7 @@ Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
 Vue.use(VueAwesomeSwiper)
+Vue.mixin(routeJump)
 router.beforeEach((to,from,next)=>{
     // console.log(router,to)
     // if(to.path==from.path){
@@ -87,16 +89,14 @@ const GetQueryString = (name) => {
     let r = window.location.search.substr(1).match(reg);
     if (r != null) return decodeURI(decodeURI(r[2])); return null;
 }
-if (GetQueryString('lang')){
-    if (GetQueryString('lang')=='zh'){
-        //中文
-        localStorage.setItem('i18nLocale', 'zh-cn')
-    } else if (GetQueryString('lang') == 'en'){
-        //英文
-        localStorage.setItem('i18nLocale', 'en')
-    }
+let lang = GetQueryString('lang')
+if (lang =='zh'){
+    //中文
+    localStorage.setItem('i18nLocale', 'zh-cn')
+} else if (lang == 'en'){
+    //英文
+    localStorage.setItem('i18nLocale', 'en')
 }
-console.warn('GetQueryString>>>>>.', GetQueryString('lang'))
 const language = navigator.language || window.navigator['browserLanguage'];
 let browserLanguage: string = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale'):language.toLowerCase()
 browserLanguage = browserLanguage == 'zh-cn' ?  'zh-cn' : 'en'

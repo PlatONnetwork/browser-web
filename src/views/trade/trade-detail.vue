@@ -913,15 +913,6 @@ export default {
     },
     //
     goDetail(type, id) {},
-    //进入token详情
-    goTokenDetail(address) {
-      this.$router.push({
-        path: '/tokens-detail',
-        query: {
-          address: address,
-        },
-      });
-    },
     //获取交易信息详情
     getDetail() {
       let param = {
@@ -939,23 +930,15 @@ export default {
           if (code == 0) {
             this.loading = false;
             this.detailInfo = data;
+            let isFirst = Boolean(data.first)
+            let isLast = Boolean(data.last)
             // this.extraInfo = JSON.parse(data.txInfo)
             //是否第一条记录
-            if (data.first) {
-              this.btnLeftFlag = false;
-              this.disabledLeft = true;
-            } else {
-              this.btnLeftFlag = true;
-              this.disabledLeft = false;
-            }
+            this.btnLeftFlag = isFirst;
+            this.disabledLeft = !isFirst;
             //是否最后一条数据
-            if (data.last) {
-              this.btnRightFlag = false;
-              this.disabledRight = true;
-            } else {
-              this.btnRightFlag = true;
-              this.disabledRight = false;
-            }
+            this.btnRightFlag = isLast;
+            this.disabledRight = !isLast;
           } else {
             this.detailInfo = {};
             this.$message.error(errMsg);
@@ -981,49 +964,6 @@ export default {
         this.copyText = '';
       }, 2000);
     },
-    //进入区块详情
-    goBlockDetail(height) {
-      console.warn('进入区块', height);
-      this.$router.push({
-        path: '/block-detail',
-        query: {
-          height: height,
-        },
-      });
-    },
-    //进入钱包地址详情
-    goAddressDetail(adr) {
-      this.$router.push({
-        path: '/address-detail',
-        query: {
-          address: adr,
-          // description: "trade",
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
-        },
-      });
-    },
-    goContractDetail(adr) {
-      this.$router.push({
-        path: '/contract-detail',
-        query: {
-          address: adr,
-        },
-      });
-    },
-    //进入验证人地址详情
-    goNodeDetail(id) {
-      //node-detail
-      this.$router.push({
-        path: '/node-detail',
-        query: {
-          address: id,
-          // description: "trade",
-          // currentPage: this.currentPage,
-          // pageSize: this.pageSize
-        },
-      });
-    },
     //前一条后一条
     detailNavigate(d) {
       if (d == 'prev') {
@@ -1046,60 +986,35 @@ export default {
     },
     //根据类型返回标题
     detailTitle(t) {
-      console.warn('传入类型', t);
-      let s = 'tradeAbout.';
-      if (t == 0) {
-        s += 'transfer';
-      } else if (t == 1 || t == 6) {
-        s += 'creation';
-      } else if (t == 2 || t == 7) {
-        s += 'execution';
-      } else if (t == 4 || t == 5) {
-        s += 'other';
-      } else if (t == 4000) {
-        s += 'restricting';
-      } else if (t == 1004) {
-        s += 'delegate';
-      } else if (t == 1005) {
-        s += 'undelegate';
-      } else if (t == 2000 || t == 2001 || t == 2002 || t == 2005) {
-        s += 'proposal';
-      } else if (t == 2003) {
-        s += 'voting';
-      } else if (t == 2004) {
-        s += 'declare';
-      } else if (t == 1000) {
-        s += 'createValidator';
-      } else if (t == 1001) {
-        s += 'editValidator';
-      } else if (t == 1002) {
-        s += 'increase';
-      } else if (t == 1003) {
-        s += 'exitValidator';
-      } else if (t == 3000) {
-        s += 'reportValidator';
-      } else if (t == 5000) {
-        s += 'claimRewards';
+      let typeMap = {
+        0: 'transfer',
+        1: 'creation',
+        6: 'creation',
+        2: 'execution',
+        7: 'execution',
+        4: 'other',
+        5: 'other',
+        4000: 'restricting',
+        1004: 'delegate',
+        1005: 'undelegate',
+        2000: 'proposal',
+        2001: 'proposal',
+        2002: 'proposal',
+        2005: 'proposal',
+        2003: 'voting',
+        2004: 'declare',
+        1000: 'createValidator',
+        1001: 'editValidator',
+        1002: 'increase',
+        1003: 'exitValidator',
+        3000: 'reportValidator',
+        5000: 'claimRewards',
       }
-      return this.$t(s);
+      return this.$t('tradeAbout.' + typeMap[t]);
     },
     contractTypeTitle(type) {
-      let s = 'tradeAbout.';
-      type = Number(type);
-      switch (type) {
-        case 0:
-          s += 'PPOS';
-          break;
-        case 1:
-          s += 'EVM';
-          break;
-        case 2:
-          s += 'WASM';
-          break;
-        case 4:
-          s += 'ERC20';
-      }
-      return this.$t(s);
+      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20']
+      return this.$t('tradeAbout.' + typeMap[type]);
     },
   },
   //生命周期函数
