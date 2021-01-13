@@ -62,16 +62,7 @@ export default {
           s += 'ERC20';
       }
       return this.$t(s);
-    },
-    //进入交易详情
-    goTradeDetail(hash) {
-      this.$router.push({
-        path: '/trade-detail',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
+    }
   },
 };
 </script>

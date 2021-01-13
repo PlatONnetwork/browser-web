@@ -86,11 +86,18 @@
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/tokens/tokenList">{{
-                $t('menu.tokenList')
+              <el-dropdown-item command="/tokens/tokensList/arc20">{{
+                $t('menu.erc20Tokens')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/tokens/arc20">{{
+              <el-dropdown-item command="/tokens/tokensTranfer/arc20">{{
                 $t('menu.erc20Transfer')
+              }}</el-dropdown-item>
+              <div class="dividing-line"></div>
+              <el-dropdown-item command="/tokens/tokensList/arc721">{{
+                $t('menu.erc721Tokens')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/tokens/tokensTranfer/arc721">{{
+                $t('menu.erc721Transfer')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -441,10 +448,7 @@ export default {
     // 更多 选项选中事件
     dropdownCommand(command) {
       this.$router.push({
-        path: command,
-        query: {
-          //   address: address
-        },
+        path: command
       });
     },
   },
@@ -722,6 +726,19 @@ export default {
   border: 1px solid #666;
   .search-btn-active:hover {
     border-left: 1px solid #666 !important;
+  }
+}
+.dividing-line{
+  position: relative;
+  padding: 4px;
+  &::after{
+    content: "";
+    position: absolute;
+    display: block;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: #e4e7ed;
   }
 }
 // @media screen and (max-width: 1680px) {

@@ -232,14 +232,6 @@ export default {
       this.$nextTick(() => {
         this.$refs.blockTrade.getTradeList(1);
       });
-    },
-    goNodeDetail(nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      });
     }
   },
   //生命周期函数

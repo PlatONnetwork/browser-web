@@ -15,8 +15,6 @@ Http.defaults.baseURL = "";
 // Http.defaults.headers.get['Access-Control-Allow-Origin'] = "*"
 // Http.defaults.headers.post['Accept-Language'] = localStorage.getItem('i18nLocale') ? localStorage.getItem('i18nLocale') : navigator.language.toLowerCase()
 
-console.warn(localStorage.getItem("i18nLocale"));
-
 const encodeParams = params => {
   let r = "?",
     p = [];
@@ -147,7 +145,7 @@ class ApiService {
     return Http.put(url, params).then(res => res.data);
   }
   post(url, params) {
-    console.log(this.node);
+    // console.log(this.node);
     typeof params === "undefined" ? (params = {}) : "";
     localStorage.sessionid ? (params.sessionid = localStorage.sessionid) : "";
     // params.userID = localStorage.user ? JSON.parse(localStorage.user).userID : ''
@@ -162,14 +160,9 @@ class ApiService {
     for (let key in params) {
       p.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
     }
-    console.warn("url>>>", url);
-    console.warn("r>>>", r);
-    console.warn("p>>>", p);
     let arr = url.split("//");
-    console.warn(arr);
     //本地调试
     let arr1 = arr[1].split("/");
-    console.warn(arr1);
     let url1 =
       arr[0] +
       "//" +
@@ -215,7 +208,7 @@ class ApiService {
         config.headers["Accept-Language"] = localStorage.getItem("i18nLocale")
           ? localStorage.getItem("i18nLocale")
           : language.toLowerCase();
-        console.log("请求URL== " + config.url);
+        // console.log("请求URL== " + config.url);
         // if(config.url.indexOf('json')!==-1 || config.url.indexOf('recaptcha')!==-1){
         //     console.log('json数据请求',config.url);
         //     // return config;
@@ -242,7 +235,7 @@ class ApiService {
   interceptorsOfRes() {
     Http.interceptors.response.use(
       function (response) {
-        console.log(response.config.url + "的响应数据↓↓↓\n", response.data);
+        // console.log(response.config.url + "的响应数据↓↓↓\n", response.data);
         if (response.data.errorCode == 4) {
           localStorage.removeItem("sessionid");
           localStorage.removeItem("user");

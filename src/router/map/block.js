@@ -14,19 +14,22 @@ export const blockList = {
     path: '/block',
     component: emptyComponent,
     redirect: '/block/index',
-    meta: {
-        keepAlive: true, // 此组件需要被缓存
-    },
     children: [
         {
             path: 'index',
             component: blockListComponent,
-            name: 'blockListComponent'
+            name: 'blockListComponent',
+            meta: {
+                keepAlive: true
+            },
         },
         {
             path: 'trade',
             component: tradeListComponent,
-            name: 'tradeListComponent'
+            name: 'tradeListComponent',
+            meta: {
+                keepAlive: true
+            },
         }
     ]
 }

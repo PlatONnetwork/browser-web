@@ -578,24 +578,6 @@ export default {
         this.hide(true)
       }
     },
-    //进入区块详情
-    goBlockDetail (blockHeight) {
-      this.$router.push({
-        path: "/block-detail",
-        query: {
-          height: blockHeight
-        }
-      })
-    },
-    //进入节点详情
-    goNodeDetail (nodeId) {
-      this.$router.push({
-        path: "/node-detail",
-        query: {
-          address: nodeId
-        }
-      })
-    },
     //进入提案列表
     goProposal () {
       this.$router.push("/proposal")

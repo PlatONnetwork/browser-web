@@ -32,7 +32,7 @@ export default new Router({
     proposalDetail,
     GovernableParameter,
     tokensList,
-    tokensDetail,
+    ...tokensDetail,
     Redirect // 路由重定向(访问不存在的页面时，重定向到这个页面) 放最后面
   ]
 })

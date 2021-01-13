@@ -15,12 +15,7 @@
       v-if="isRouterAlive"
       :class="{
         'index-area': $route.path == '/',
-        'gray-area':
-          $route.path == '/address-detail' ||
-          $route.path == '/contract-detail' ||
-          $route.path == '/node' ||
-          $route.path == '/node-detail' ||
-          $route.path == '/tokens-detail',
+        'gray-area': needGrayArea,
       }"
     >
       <!-- <router-view></router-view> -->
@@ -57,6 +52,17 @@ export default {
   computed: {
     lang() {
       return this.$i18n.locale == 'en' ? 'en' : 'zh';
+    },
+    needGrayArea() {
+      return [
+        '/address-detail',
+        '/contract-detail',
+        '/node',
+        '/node-detail',
+        '/arc20-detail',
+        '/arc721-detail',
+        '/arc721id-detail',
+      ].includes(this.$route.path);
     },
   },
   provide() {

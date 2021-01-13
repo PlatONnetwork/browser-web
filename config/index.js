@@ -36,23 +36,23 @@ module.exports = {
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
     proxyTable: {
-      // "/Api": {
-      //   // target: "http://192.168.9.190:13500",
-      //   target: "https://platscan.uat.platon.network",
-      //   secure: false,
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     "^/Api": ""
-      //   }
-      // }
       "/Api": {
-        target: "http://192.168.9.190:15000",
+        target: "https://scan.alaya.network/",
+        // target: "https://platscan.uat.platon.network",
         secure: false,
         changeOrigin: true,
         pathRewrite: {
           "^/Api": ""
         }
       }
+      // "/Api": {
+      //   target: "http://192.168.9.190:15001",
+      //   secure: false,
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     "^/Api": ""
+      //   }
+      // }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
