@@ -1255,6 +1255,8 @@ export default {
   .index-wrap {
     .welcome-wrap {
       width: 100%;
+      margin-top: 200px;
+      margin-bottom: 100px;
       h3 {
         max-width: 460px;
         margin: auto;
@@ -1262,6 +1264,27 @@ export default {
       .search-index {
         input {
           font-size: 26px !important;
+        }
+      }
+    }
+    .bar-wrap {
+      flex-direction: column;
+      h3 {
+        font-size: 26px;
+        line-height: 1.25;
+      }
+      .bar-left {
+        width: 100%;
+      }
+      .bar-right {
+        width: 100%;
+        position: unset;
+      }
+      .block-statistics {
+        .progress-supply {
+          .el-progress-bar__outer {
+            height: 4px !important;
+          }
         }
       }
     }
