@@ -41,8 +41,8 @@
           ><a
             :href="
               'https://www.platon.network/' +
-              (lang === 'en' ? 'en/' : '') +
-              'developer/#aton'
+                (lang === 'en' ? 'en/' : '') +
+                'developer/#aton'
             "
             target="_blank"
             >{{ $t('indexInfo.atonDownload') }}</a
@@ -52,8 +52,8 @@
           ><a
             :href="
               'https://devdocs.alaya.network/alaya-devdocs/' +
-              (lang == 'zh' ? 'zh-CN' : 'en') +
-              '/'
+                (lang == 'zh' ? 'zh-CN' : 'en') +
+                '/'
             "
             target="_blank"
             >{{ $t('indexInfo.developer') }}</a
@@ -65,7 +65,7 @@
     <div class="foot-index" v-if="path == '/'">
       <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
       <p>{{ $t('indexInfo.platScan') }}</p>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
+      <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
       <div class="link-wrap">
         <a
           :href="
@@ -94,11 +94,13 @@
           target="_blank"
           class="link-5"
         ></a>
+        <div class="link-br" />
         <a
           href="https://github.com/PlatONnetwork"
           target="_blank"
           class="link-6"
         ></a>
+
         <a
           href="https://www.linkedin.com/company/platonnetwork/"
           target="_blank"
@@ -125,10 +127,13 @@
       <div class="foot-left">
         <img
           src="../../assets/images/Alaya-logo.svg"
-          style="width: 82px; height: 30px"
           alt=""
+          class="foot-logo"
         />
         <p>{{ $t('indexInfo.platScan') }}</p>
+        <p class="copy-right">
+          {{ $t('indexInfo.international').replace('__YEAR__', curYear) }}
+        </p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
@@ -159,6 +164,7 @@
             target="_blank"
             class="link-5"
           ></a>
+          <div class="link-br" />
           <a
             href="https://github.com/PlatONnetwork"
             target="_blank"
@@ -185,7 +191,9 @@
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
+        <p class="copy-right">
+          {{ $t('indexInfo.international').replace('__YEAR__', curYear) }}
+        </p>
       </div>
     </div>
   </div>
@@ -210,7 +218,7 @@ export default {
   watch: {
     '$route.path'(newVal, oldVal) {
       this.path = newVal;
-    },
+    }
   },
   components: {},
   methods: {},
@@ -218,12 +226,16 @@ export default {
   created() {
     this.path = this.$route.path;
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 <style lang="less" scoped>
 .footer-wrap {
   background: #000;
+
+  @media (max-width: 750px) {
+    padding: 0 40px;
+  }
 }
 .sub-foot {
   text-align: center;
@@ -275,6 +287,26 @@ export default {
       }
     }
   }
+  @media (max-width: 750px) {
+    padding-top: 100px;
+    h3 {
+      margin-bottom: 92px;
+    }
+    .foot-line {
+      margin: 50px 0 0 0;
+      border-style: dotted;
+    }
+    .foot-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      span {
+        margin-right: 0;
+        margin-bottom: 50px;
+        width: 45%;
+      }
+    }
+  }
 }
 .foot-index {
   text-align: center;
@@ -300,6 +332,9 @@ export default {
     margin: 0 auto;
     padding-top: 10px;
     border-top: 1px dashed #555;
+    .link-br {
+      display: none;
+    }
     a {
       // margin-right: 6px;
       width: 50px;
@@ -371,9 +406,14 @@ export default {
       margin-top: 10px;
       .foot-logo {
         margin-left: 0;
+        width: 82px;
+        height: 30px;
       }
       p {
         color: #929292;
+      }
+      .copy-right {
+        display: none;
       }
     }
     .foot-right {
@@ -397,8 +437,109 @@ export default {
       margin-top: 14px;
     }
   }
-}
 
+  @media (max-width: 750px) {
+    padding: 80px 0 40px;
+    .foot-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    p:nth-of-type(1) {
+      margin: 40px 0;
+      font-size: 24px;
+    }
+    p:nth-of-type(2) {
+      margin-bottom: 55px;
+      font-size: 22px;
+    }
+    .link-wrap {
+      border-style: dotted;
+      padding-top: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-around;
+      .link-br {
+        display: block;
+        width: 100%;
+      }
+      a {
+        width: 60px;
+        height: 60px;
+        margin: 30px 0;
+        background-position-y: center;
+        background-size: auto 160%;
+        &.link-1 {
+          background-position-x: -18px;
+        }
+        &.link-2 {
+          background-position-x: -114px;
+          .wx-img {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            bottom: 58px;
+            left: -30px;
+          }
+        }
+        &.link-3 {
+          background-position-x: -210px;
+        }
+        &.link-4 {
+          background-position-x: -306px;
+        }
+        &.link-5 {
+          background-position-x: -402px;
+        }
+        &.link-6 {
+          background-position-x: -498px;
+        }
+        &.link-7 {
+          background-position-x: -594px;
+        }
+        &.link-8 {
+          background-position-x: -690px;
+        }
+        &.link-9 {
+          background-position-x: -786px;
+        }
+        &.link-10 {
+          background-position-x: -882px;
+        }
+      }
+    }
+
+    &.foot-no-index {
+      flex-direction: column;
+      padding: 80px 0 50px;
+
+      .foot-left {
+        width: 100%;
+        margin-top: 0;
+        text-align: center;
+        .foot-logo {
+          width: 100px;
+          height: auto;
+          margin: auto;
+        }
+        .copy-right {
+          display: block;
+        }
+      }
+      .foot-right {
+        width: 100%;
+        .copy-right {
+          display: none;
+        }
+        .link-wrap {
+          justify-content: space-around;
+          flex-wrap: wrap;
+          border-top: 1px dotted #555;
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+}
 // .bounceIn {
 //     -webkit-animation-duration: 0.75s;
 //     animation-duration: 0.75s;
@@ -489,4 +630,3 @@ export default {
   }
 }
 </style>
-
