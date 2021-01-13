@@ -1279,12 +1279,23 @@ export default {
       .bar-right {
         width: 100%;
         position: unset;
+        margin-top: 60px;
       }
       .block-statistics {
         .progress-supply {
           .el-progress-bar__outer {
             height: 4px !important;
           }
+        }
+      }
+    }
+    .block-and-node {
+      flex-direction: column;
+      .el-col {
+        width: 100%;
+        float: unset;
+        &:not(:first-child) {
+          margin-top: 100px;
         }
       }
     }
