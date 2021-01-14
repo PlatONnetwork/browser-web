@@ -146,7 +146,7 @@
               blockStatisticData.txQty | unit
             }}</a>
           </li>
-          <li style="min-width:300px">
+          <li style="min-width: 300px">
             <div class="statistics-label">
               {{ $t('indexInfo.CURRNTMAXTPS') }}
             </div>
@@ -166,7 +166,7 @@
           <li
             class="cursor statistics-link"
             @click="goProposal"
-            style="min-width:300px"
+            style="min-width: 300px"
           >
             <div class="statistics-label">
               {{ $t('indexInfo.PENDINGTOTAL') }}
@@ -392,16 +392,16 @@ export default {
         'rgba(255,255,255,0.5)',
         'rgba(255,255,255,0.5)',
         'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)'
+        'rgba(255,255,255,0.5)',
       ],
       tooltipData: {
         number: 0,
         txs: 0,
-        time: 0
+        time: 0,
       },
       tooltipEl: null,
       isShowTooltip: false,
-      isWebkit: false
+      isWebkit: false,
     };
   },
   props: {},
@@ -413,7 +413,7 @@ export default {
       'ValidatorData',
       'hideSearch',
       'isMove',
-      'isMove2'
+      'isMove2',
     ]),
     showedValidatorData() {
       if (this.ValidatorData.dataList.length > 8) {
@@ -430,8 +430,9 @@ export default {
             this.styleEle,
             '@keyframes nodeMove',
             `from {
-                            transform: translate(0,${this.ValidatorData.dataList
-                              .length * -83}px);
+                            transform: translate(0,${
+                              this.ValidatorData.dataList.length * -83
+                            }px);
                         }
                         to {
                             transform: translate(0,0);
@@ -443,7 +444,7 @@ export default {
       } else {
         return [];
       }
-    }
+    },
   },
   watch: {
     chartData(val) {
@@ -456,10 +457,10 @@ export default {
     chainContext(val) {
       indexService.disconnect();
       indexService.connect();
-    }
+    },
   },
   components: {
-    comHeader
+    comHeader,
   },
   methods: {
     ...mapMutations({
@@ -470,18 +471,18 @@ export default {
       updateBlack: 'UPDATE_BLACK_DADA',
       updateValidators: 'UPDATE_VALIDATOR_DADA',
       updateChartData: 'UPDATE_CHART_DADA',
-      updateBlockStatisticData: 'UPDATE_STATISTIC_DADA'
+      updateBlockStatisticData: 'UPDATE_STATISTIC_DADA',
     }),
     //查询
     searchFn() {
       this.disabledBtn = true;
       let param = {
-        parameter: this.searchKey.trim()
+        parameter: this.searchKey.trim(),
       };
       // console.warn("搜索内容》》》", param);
       apiService.search
         .query(param)
-        .then(res => {
+        .then((res) => {
           this.searchKey = '';
           let { errMsg, code, data } = res;
           if (code == 0) {
@@ -497,7 +498,7 @@ export default {
             // this.$message.error(errMsg) 替换为search无结果
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.searchKey = '';
           this.$message.error(error);
         });
@@ -510,11 +511,11 @@ export default {
       let param = {};
       apiService.search
         .stakingOnIndex(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           this.updateValidators(data);
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -522,7 +523,7 @@ export default {
       let param = {};
       apiService.search
         .chainStatistic(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.updateBlockStatisticData(data);
@@ -531,7 +532,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -539,7 +540,7 @@ export default {
       let param = {};
       apiService.search
         .blockStatistic(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.updateChartData(data);
@@ -547,7 +548,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -558,8 +559,8 @@ export default {
           return this.$router.push({
             path: '/block-detail',
             query: {
-              height: struct.number
-            }
+              height: struct.number,
+            },
           });
           break;
         //交易详情
@@ -569,8 +570,8 @@ export default {
           return this.$router.push({
             path: '/trade-detail',
             query: {
-              txHash: struct.txHash
-            }
+              txHash: struct.txHash,
+            },
           });
           break;
         //节点详情
@@ -578,8 +579,8 @@ export default {
           return this.$router.push({
             path: '/node-detail',
             query: {
-              address: struct.nodeId
-            }
+              address: struct.nodeId,
+            },
           });
           break;
         //地址详情==(钱包地址详情)
@@ -587,8 +588,8 @@ export default {
           return this.$router.push({
             path: '/address-detail',
             query: {
-              address: struct.address
-            }
+              address: struct.address,
+            },
           });
           break;
         //合约详情
@@ -596,8 +597,8 @@ export default {
           return this.$router.push({
             path: '/contract-detail',
             query: {
-              address: struct.address
-            }
+              address: struct.address,
+            },
           });
           break;
       }
@@ -648,7 +649,7 @@ export default {
       // console.log(r);
 
       blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
-      blockTimeChart.chart.on('mouseover', e => {
+      blockTimeChart.chart.on('mouseover', (e) => {
         this.handleBarHover(e);
       });
       blockTimeChart.chart.on('mouseout', () => {
@@ -660,7 +661,7 @@ export default {
     initBlockTradeChart() {
       let r = this.$refs;
       blockTradeChart.init(r.blockTradeChart, blockTradeChart.blockTradeOption);
-      blockTradeChart.chart.on('mouseover', e => {
+      blockTradeChart.chart.on('mouseover', (e) => {
         this.handleBarHover(e);
       });
       blockTradeChart.chart.on('mouseout', () => {
@@ -687,26 +688,26 @@ export default {
       blockTimeChart.update({
         xAxis: [
           {
-            data: xList
-          }
+            data: xList,
+          },
         ],
         series: [
           {
-            data: yListTime
-          }
-        ]
+            data: yListTime,
+          },
+        ],
       });
       blockTradeChart.update({
         xAxis: [
           {
-            data: xList
-          }
+            data: xList,
+          },
         ],
         series: [
           {
-            data: yListNum
-          }
-        ]
+            data: yListNum,
+          },
+        ],
       });
     },
     updateBarColor() {
@@ -716,13 +717,13 @@ export default {
             itemStyle: {
               normal: {
                 //通过数组下标选择颜色
-                color: params => {
+                color: (params) => {
                   return this.barColorList[params.dataIndex];
-                }
-              }
-            }
-          }
-        ]
+                },
+              },
+            },
+          },
+        ],
       });
       blockTradeChart.update({
         series: [
@@ -730,13 +731,13 @@ export default {
             itemStyle: {
               normal: {
                 //通过数组下标选择颜色
-                color: params => {
+                color: (params) => {
                   return this.barColorList[params.dataIndex];
-                }
-              }
-            }
-          }
-        ]
+                },
+              },
+            },
+          },
+        ],
       });
     },
     timeDiffFn(beginTime, endTime) {
@@ -768,8 +769,8 @@ export default {
       this.$router.push({
         path: '/block-detail',
         query: {
-          height: blockHeight
-        }
+          height: blockHeight,
+        },
       });
     },
     //进入节点详情
@@ -777,8 +778,8 @@ export default {
       this.$router.push({
         path: '/node-detail',
         query: {
-          address: nodeId
-        }
+          address: nodeId,
+        },
       });
     },
     //进入提案列表
@@ -819,7 +820,7 @@ export default {
       }
 
       // console.log("aaaa", this.styleEle);
-    }
+    },
   },
   //生命周期函数
   created() {
@@ -857,7 +858,7 @@ export default {
     this.initBlockTradeChart();
     echarts.connect([blockTimeChart.chart, blockTradeChart.chart]);
 
-    window.onresize = function() {
+    window.onresize = function () {
       blockTimeChart.chart.resize();
       blockTradeChart.chart.resize();
     };
@@ -912,7 +913,7 @@ export default {
       document.getElementsByTagName('head')[0].removeChild(this.ele);
       this.ele = null;
     }
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

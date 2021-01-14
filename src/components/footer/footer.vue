@@ -41,8 +41,8 @@
           ><a
             :href="
               'https://www.platon.network/' +
-                (lang === 'en' ? 'en/' : '') +
-                'developer/#aton'
+              (lang === 'en' ? 'en/' : '') +
+              'developer/#aton'
             "
             target="_blank"
             >{{ $t('indexInfo.atonDownload') }}</a
@@ -52,8 +52,8 @@
           ><a
             :href="
               'https://devdocs.alaya.network/alaya-devdocs/' +
-                (lang == 'zh' ? 'zh-CN' : 'en') +
-                '/'
+              (lang == 'zh' ? 'zh-CN' : 'en') +
+              '/'
             "
             target="_blank"
             >{{ $t('indexInfo.developer') }}</a
@@ -206,19 +206,19 @@ export default {
   data() {
     return {
       path: '/',
-      curYear: new Date().getFullYear()
+      curYear: new Date().getFullYear(),
     };
   },
   props: {},
   computed: {
     lang() {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
-    }
+    },
   },
   watch: {
     '$route.path'(newVal, oldVal) {
       this.path = newVal;
-    }
+    },
   },
   components: {},
   methods: {},
@@ -226,7 +226,7 @@ export default {
   created() {
     this.path = this.$route.path;
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
