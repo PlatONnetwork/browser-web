@@ -236,6 +236,10 @@ export default {
   @media (max-width: 750px) {
     padding: 0 40px;
   }
+
+  @media (max-width: 500px) {
+    padding: 0 20px;
+  }
 }
 .sub-foot {
   text-align: center;
@@ -304,6 +308,33 @@ export default {
         margin-right: 0;
         margin-bottom: 50px;
         width: 45%;
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding-top: 50px;
+    h3 {
+      margin-bottom: 46px;
+    }
+    .foot-line {
+      margin: 25px 0 0 0;
+      border-style: dotted;
+    }
+    .foot-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      span {
+        margin-right: 0;
+        margin-bottom: 25px;
+        width: 45%;
+        line-height: 1;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
       }
     }
   }
@@ -462,50 +493,6 @@ export default {
         display: block;
         width: 100%;
       }
-      a {
-        width: 60px;
-        height: 60px;
-        margin: 30px 0;
-        background-position-y: center;
-        background-size: auto 160%;
-        &.link-1 {
-          background-position-x: -18px;
-        }
-        &.link-2 {
-          background-position-x: -114px;
-          .wx-img {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            bottom: 58px;
-            left: -30px;
-          }
-        }
-        &.link-3 {
-          background-position-x: -210px;
-        }
-        &.link-4 {
-          background-position-x: -306px;
-        }
-        &.link-5 {
-          background-position-x: -402px;
-        }
-        &.link-6 {
-          background-position-x: -498px;
-        }
-        &.link-7 {
-          background-position-x: -594px;
-        }
-        &.link-8 {
-          background-position-x: -690px;
-        }
-        &.link-9 {
-          background-position-x: -786px;
-        }
-        &.link-10 {
-          background-position-x: -882px;
-        }
-      }
     }
 
     &.foot-no-index {
@@ -535,6 +522,63 @@ export default {
           flex-wrap: wrap;
           border-top: 1px dotted #555;
           padding-top: 20px;
+        }
+      }
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 40px 0 20px;
+    .foot-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    p:nth-of-type(1) {
+      margin: 20px 0;
+      font-size: 20px;
+    }
+    p:nth-of-type(2) {
+      margin-bottom: 35px;
+      font-size: 18px;
+    }
+    .link-wrap {
+      border-style: dotted;
+      padding-top: 10px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-around;
+      .link-br {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    &.foot-no-index {
+      flex-direction: column;
+      padding: 40px 0 25px;
+
+      .foot-left {
+        width: 100%;
+        margin-top: 0;
+        text-align: center;
+        .foot-logo {
+          width: 100px;
+          height: auto;
+          margin: auto;
+        }
+        .copy-right {
+          display: block;
+        }
+      }
+      .foot-right {
+        width: 100%;
+        .copy-right {
+          display: none;
+        }
+        .link-wrap {
+          justify-content: space-around;
+          flex-wrap: wrap;
+          border-top: 1px dotted #555;
+          padding-top: 10px;
         }
       }
     }

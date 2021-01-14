@@ -1287,6 +1287,10 @@ export default {
             height: 4px !important;
           }
         }
+        li {
+          width: 48% !important;
+          min-width: unset !important;
+        }
       }
     }
     .block-and-node {
@@ -1301,6 +1305,59 @@ export default {
     }
   }
 }
+
+@media (max-width: 500px) {
+  .index-wrap {
+    .welcome-wrap {
+      width: 100%;
+      margin-top: 140px;
+      margin-bottom: 50px;
+      h3 {
+        max-width: 460px;
+        margin: auto;
+        font-size: 30px;
+      }
+      .search-index {
+        input {
+          font-size: 26px !important;
+        }
+      }
+    }
+    .bar-wrap {
+      flex-direction: column;
+      h3 {
+        font-size: 20px;
+        line-height: 1.25;
+      }
+      .bar-left {
+        width: 100%;
+      }
+      .bar-right {
+        width: 100%;
+        position: unset;
+        margin-top: 30px;
+      }
+      .block-statistics {
+        .progress-supply {
+          .el-progress-bar__outer {
+            height: 4px !important;
+          }
+        }
+      }
+    }
+    .block-and-node {
+      flex-direction: column;
+      margin-top: 50px;
+      .el-col {
+        width: 100%;
+        float: unset;
+        &:not(:first-child) {
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+}
 </style>
 <style lang="less">
 .index-area {
@@ -1308,6 +1365,9 @@ export default {
   overflow: hidden;
   @media (max-width: 750px) {
     padding: 0 40px;
+  }
+  @media (max-width: 500px) {
+    padding: 0 20px;
   }
 }
 .search-index {
