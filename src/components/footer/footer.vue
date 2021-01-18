@@ -471,6 +471,7 @@ export default {
 
   @media (max-width: 750px) {
     padding: 80px 0 40px;
+    width: 100%;
     .foot-logo {
       width: 100px;
       margin-bottom: 10px;
