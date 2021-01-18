@@ -1,41 +1,60 @@
 <template>
   <div class="node-list-wrap">
     <div class="content-top-white content-padding">
-      <div class="page-title fontSize34">{{$t('menu.validator')}}</div>
+      <div class="page-title fontSize34">{{ $t('menu.validator') }}</div>
       <div class="node-list-header">
         <List class="statistic-info">
-          <h3 class="Gilroy-Medium">{{$t('nodeInfo.liveStakingInfo')}}</h3>
+          <h3 class="Gilroy-Medium">{{ $t('nodeInfo.liveStakingInfo') }}</h3>
           <Item :label="$t('nodeInfo.totalStakePower')">
             <p class="Gilroy-Medium">
-              {{ValidatorStatisticData.stakingDelegationValue | unit}}
-              <span class="fontSize13 Gilroy-Regular" style="padding-right:1px">ATP</span>
+              {{ ValidatorStatisticData.stakingDelegationValue | unit }}
+              <span class="fontSize13 Gilroy-Regular" style="padding-right: 1px"
+                >ATP</span
+              >
             </p>
           </Item>
           <Item :label="$t('nodeInfo.totalDelegations')">
             <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">ATP</span></p> -->
             <p>
-              <span class="Gilroy-Medium">{{ ValidatorStatisticData.delegationValue | formatMoney |sliceFloat(0)}}</span>
-              <span style="font-size: 13px;">{{ ValidatorStatisticData.delegationValue | formatMoney |sliceFloat(1)}}</span>
+              <span class="Gilroy-Medium">{{
+                ValidatorStatisticData.delegationValue
+                  | formatMoney
+                  | sliceFloat(0)
+              }}</span>
+              <span style="font-size: 13px">{{
+                ValidatorStatisticData.delegationValue
+                  | formatMoney
+                  | sliceFloat(1)
+              }}</span>
               <span class="fontSize13">&nbsp;ATP</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.stakeRate')">
             <p>
-              <span class="Gilroy-Medium">{{ValidatorStatisticData.stakingDelegationValue | percentage(ValidatorStatisticData.issueValue)}}</span>
+              <span class="Gilroy-Medium">{{
+                ValidatorStatisticData.stakingDelegationValue
+                  | percentage(ValidatorStatisticData.issueValue)
+              }}</span>
               <span class="fontSize13">%</span>
             </p>
           </Item>
         </List>
         <List class="statistic-info">
-          <h3 class="Gilroy-Medium">{{$t('nodeInfo.currentPeriodReward')}}</h3>
+          <h3 class="Gilroy-Medium">
+            {{ $t('nodeInfo.currentPeriodReward') }}
+          </h3>
           <Item :label="$t('blockAbout.blockReward')">
             <!-- <p>
             {{ValidatorStatisticData.blockReward | formatMoney}}
             <span class="fontSize13">ATP</span>
           </p>-->
             <p>
-              <span class="Gilroy-Medium">{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(0)}}</span>
-              <span style="font-size: 13px;">{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(1)}}</span>
+              <span class="Gilroy-Medium">{{
+                ValidatorStatisticData.blockReward | formatMoney | sliceFloat(0)
+              }}</span>
+              <span style="font-size: 13px">{{
+                ValidatorStatisticData.blockReward | formatMoney | sliceFloat(1)
+              }}</span>
               <span class="fontSize13">&nbsp;ATP</span>
             </p>
           </Item>
@@ -45,24 +64,40 @@
             <span class="fontSize13">ATP</span>
           </p>-->
             <p>
-              <span class="Gilroy-Medium">{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(0)}}</span>
-              <span style="font-size: 13px;">{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(1)}}</span>
+              <span class="Gilroy-Medium">{{
+                ValidatorStatisticData.stakingReward
+                  | formatMoney
+                  | sliceFloat(0)
+              }}</span>
+              <span style="font-size: 13px">{{
+                ValidatorStatisticData.stakingReward
+                  | formatMoney
+                  | sliceFloat(1)
+              }}</span>
               <span class="fontSize13">&nbsp;ATP</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.nextRewardAdjustment')">
             <div class="next-reward-adjustment">
-              <span :style="{width:getPercentage+'%'}"></span>
+              <span :style="{ width: getPercentage + '%' }"></span>
               <span></span>
-              <p>{{$t('tradeAbout.block')}}&nbsp;{{getPercentage}}% of {{ValidatorStatisticData.addIssueEnd-ValidatorStatisticData.addIssueBegin}}</p>
+              <p>
+                {{ $t('tradeAbout.block') }}&nbsp;{{ getPercentage }}% of
+                {{
+                  ValidatorStatisticData.addIssueEnd -
+                  ValidatorStatisticData.addIssueBegin
+                }}
+              </p>
             </div>
           </Item>
         </List>
         <div class="next-epoch">
-          <h3 class="Gilroy-Medium">{{$t('nodeInfo.nextEpoch')}}</h3>
-          <p>{{$t('nodeInfo.updateEpoch')}}</p>
+          <h3 class="Gilroy-Medium">{{ $t('nodeInfo.nextEpoch') }}</h3>
+          <p>{{ $t('nodeInfo.updateEpoch') }}</p>
           <ul>
-            <li v-for="(item,index) in nextSetting" :key="index">{{item}}</li>
+            <li v-for="(item, index) in nextSetting" :key="index">
+              {{ item }}
+            </li>
           </ul>
         </div>
       </div>
@@ -71,96 +106,95 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services"
-import IndexService from "@/services/index-service"
+import apiService from '@/services/API-services';
+import IndexService from '@/services/index-service';
 
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex"
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import List from "@/components/list/list"
-import Item from "@/components/list/item"
-import Validator from "./list"
+import List from '@/components/list/list';
+import Item from '@/components/list/item';
+import Validator from './list';
 
-let indexService = null
+let indexService = null;
 export default {
-  name: "node-list",
-  data () {
-    return {}
+  name: 'node-list',
+  data() {
+    return {};
   },
   props: {},
   computed: {
-    ...mapGetters(["ValidatorStatisticData"]),
-    getPercentage () {
+    ...mapGetters(['ValidatorStatisticData']),
+    getPercentage() {
       if (this.ValidatorStatisticData.addIssueEnd) {
         const x =
-          (
-            (this.ValidatorStatisticData.currentNumber - this.ValidatorStatisticData.addIssueBegin) /
-            (this.ValidatorStatisticData.addIssueEnd - this.ValidatorStatisticData.addIssueBegin)
-          ) * 100
+          ((this.ValidatorStatisticData.currentNumber -
+            this.ValidatorStatisticData.addIssueBegin) /
+            (this.ValidatorStatisticData.addIssueEnd -
+              this.ValidatorStatisticData.addIssueBegin)) *
+          100;
         if (x % 1 == 0) {
-          return x
+          return x;
         }
-        return x.toFixed(2)
+        return x.toFixed(2);
       }
-      return 0
+      return 0;
     },
-    nextSetting () {
-      let next = this.ValidatorStatisticData.nextSetting
+    nextSetting() {
+      let next = this.ValidatorStatisticData.nextSetting;
       if (next) {
         if (next < 10) {
-          return "00000" + next
+          return '00000' + next;
         } else if (next < 100) {
-          return "0000" + next
+          return '0000' + next;
         } else if (next < 1000) {
-          return "000" + next
+          return '000' + next;
         } else if (next < 10000) {
-          return "00" + next
+          return '00' + next;
         } else if (next < 100000) {
-          return "0" + next
+          return '0' + next;
         }
       } else {
-        return "000000"
+        return '000000';
       }
-    }
+    },
   },
   watch: {},
   components: {
     List,
     Item,
-    Validator
+    Validator,
   },
   methods: {
     ...mapMutations({
-      updateValidatorStatisticData: "UPDATE_VALIDATOR_STATIC_DADA",
+      updateValidatorStatisticData: 'UPDATE_VALIDATOR_STATIC_DADA',
     }),
-    getNodeStatistic () {
-      let param = {}
+    getNodeStatistic() {
+      let param = {};
       apiService.node
         .statistic(param)
-        .then(res => {
-          let { errMsg, code, data } = res
+        .then((res) => {
+          let { errMsg, code, data } = res;
           if (code == 0) {
-            this.updateValidatorStatisticData(data)
+            this.updateValidatorStatisticData(data);
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
   },
   //生命周期函数
-  created () {
-    this.getNodeStatistic()
-    indexService = new IndexService()
-    indexService.getValidatorStatisticData()
-
+  created() {
+    this.getNodeStatistic();
+    indexService = new IndexService();
+    indexService.getValidatorStatisticData();
   },
-  mounted () {
+  mounted() {},
+  destroyed() {
+    indexService.disconnect();
   },
-  destroyed () {
-    indexService.disconnect()
-  }
 };
 </script>
 <style lang="less" scoped>
@@ -220,6 +254,53 @@ export default {
         font-size: 28px;
         line-height: 38px;
         text-align: center;
+      }
+    }
+  }
+}
+@media (max-width: 900px) {
+  .node-list-header {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+}
+@media (max-width: 750px) {
+  .node-list-wrap {
+    padding: 0 40px;
+    .node-list-header {
+      padding: 0;
+      .list-wrap {
+        .item-wrap {
+          .list-item {
+            padding-left: 20px;
+          }
+        }
+      }
+      .next-epoch {
+        p,
+        ul {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .node-list-wrap {
+    padding: 0 20px;
+    .node-list-header {
+      .list-wrap {
+        .item-wrap {
+          .list-item {
+            padding-left: 10px;
+          }
+        }
+      }
+      .next-epoch {
+        p,
+        ul {
+          padding-left: 10px;
+        }
       }
     }
   }

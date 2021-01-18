@@ -1,20 +1,20 @@
 <template>
   <div class="trade-list-wrap">
     <div class="page-title fontSize34">
-      {{ $t("tradeAbout.transactionUp") }}
+      {{ $t('tradeAbout.transactionUp') }}
     </div>
     <div class="sub-title">
       <div class="fontSize14 trade-count">
         <template v-if="pageTotal > 500000">
-          {{ $t("tradeAbout.morethen") }}>
+          {{ $t('tradeAbout.morethen') }}>
         </template>
         <template v-else>
-          {{ $t("tradeAbout.morethen2") }}
+          {{ $t('tradeAbout.morethen2') }}
         </template>
         <b class="black">{{ pageTotal }}</b>
-        {{ $t("tradeAbout.foundTransactions") }}
+        {{ $t('tradeAbout.foundTransactions') }}
         <span v-if="pageTotal > 500000">{{
-          $t("tradeAbout.showingLast")
+          $t('tradeAbout.showingLast')
         }}</span>
       </div>
       <!-- 上部分页标签 -->
@@ -28,7 +28,7 @@
           layout="prev, pager, next"
           :page-size="pageSize"
           :total="pageTotal > 500000 ? 500000 : pageTotal"
-          :pager-count="9"
+          :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
     </div>
@@ -52,12 +52,12 @@
               >
                 <div slot="content">
                   <span class="title-warning"
-                    >{{ $t("tradeAbout.warn") }}：</span
+                    >{{ $t('tradeAbout.warn') }}：</span
                   >
                   {{
                     scope.row.failReason
                       ? scope.row.failReason
-                      : $t("tradeAbout.transactionFailure")
+                      : $t('tradeAbout.transactionFailure')
                   }}
                 </div>
                 <i class="iconfont iconxinxi cursor">&#xe63f;</i>
@@ -94,13 +94,16 @@
           <template slot-scope="scope">
             <span
               >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
-              }}{{ $t("tradeAbout.before") }}</span
+              }}{{ $t('tradeAbout.before') }}</span
             >
           </template>
         </el-table-column>
 
         <!-- 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('blockAbout.operatorAddress')">
+        <el-table-column
+          :label="$t('blockAbout.operatorAddress')"
+          v-if="windowWidth > 750"
+        >
           <template slot-scope="scope">
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
@@ -115,25 +118,36 @@
         </el-table-column>
 
         <!-- 交易类型（Type） -->
-        <el-table-column :label="$t('tradeAbout.type')">
+        <el-table-column
+          :label="$t('tradeAbout.type')"
+          v-if="windowWidth > 750"
+        >
           <template slot-scope="scope">
-            <span>{{ $t("TxType." + scope.row.txType) }}</span>
+            <span>{{ $t('TxType.' + scope.row.txType) }}</span>
             <!-- <span>{{scope.row.txType}}</span> -->
           </template>
         </el-table-column>
 
         <!-- 数额(Value) -->
-        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
+        <el-table-column
+          :label="$t('tradeAbout.value')"
+          v-if="windowWidth > 750"
+          show-overflow-tooltip
+        >
           <template slot-scope="scope">
             <span>{{ scope.row.value | formatMoney }} ATP</span>
           </template>
         </el-table-column>
 
         <!-- 交易费用（TxFee） -->
-        <el-table-column show-overflow-tooltip width="120">
+        <el-table-column
+          show-overflow-tooltip
+          width="120"
+          v-if="windowWidth > 750"
+        >
           <template slot="header">
-            {{ $t("tradeAbout.fee") }}
-            <span style="color:#999999;">(ATP)</span>
+            {{ $t('tradeAbout.fee') }}
+            <span style="color: #999999">(ATP)</span>
           </template>
           <template slot-scope="scope">
             <span>{{ scope.row.actualTxCost | formatMoney }}</span>
@@ -152,26 +166,26 @@
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal > 500000 ? 500000 : pageTotal"
-          :pager-count="9"
+          :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
     </div>
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { timeDiff } from "@/services/time-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { timeDiff } from '@/services/time-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: "trade-list",
+  name: 'trade-list',
   data() {
     return {
       tableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
-      displayTotalCount: 0
+      displayTotalCount: 0,
     };
   },
   props: {},
@@ -183,19 +197,19 @@ export default {
     getTradeList() {
       let param = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
       };
-      console.info("获取交易列表（参数）》》》", param);
+      console.info('获取交易列表（参数）》》》', param);
       apiService.trade
         .transactionList(param)
-        .then(res => {
+        .then((res) => {
           let {
             data,
             totalPages,
             totalCount,
             code,
             errMsg,
-            displayTotalCount
+            displayTotalCount,
           } = res;
           if (code == 0) {
             this.tableData = data;
@@ -205,7 +219,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -216,8 +230,8 @@ export default {
       this.$router.replace({
         query: {
           currentPage: this.currentPage,
-          pageSize: this.pageSize
-        }
+          pageSize: this.pageSize,
+        },
       });
     },
     handleCurrentChange(val) {
@@ -233,42 +247,42 @@ export default {
     },
     //进入区块详情
     goBlockDetail(height) {
-      console.warn("进入区块", height);
+      console.warn('进入区块', height);
       this.$router.push({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: height
-        }
+          height: height,
+        },
       });
     },
     //进入交易哈希详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
+          txHash: hash,
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
     },
     //进入钱包地址详情
     goAddressDetail(adr) {
       this.$router.push({
-        path: "/address-detail",
+        path: '/address-detail',
         query: {
-          address: adr
+          address: adr,
           // description: "trade",
           // currentPage: this.currentPage,
           // pageSize: this.pageSize
-        }
+        },
       });
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       // 通过 `vm` 访问组件实例
-      if (from.path.indexOf("-detail") == -1) {
+      if (from.path.indexOf('-detail') == -1) {
         // 不取缓存
         vm.currentPage = 1;
         vm.pageSize = 20;
@@ -288,7 +302,7 @@ export default {
     }
     this.getTradeList();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

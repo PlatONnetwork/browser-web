@@ -8,19 +8,22 @@
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t('contract.address') }}</span>
-          <i>#{{ address }}</i>
-          <b
-            class="cursor"
-            :class="{ copy: !isCopy }"
-            v-clipboard:copy="address"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-            ><p v-show="isCopy">
-              <i class="el-icon-circle-check-outline"></i
-              ><span>{{ copyText }}</span>
-            </p></b
-          >
+          <div>
+            <span>{{ $t('contract.address') }}</span>
+            <i>#{{ address }}</i>
+            <b
+              class="cursor"
+              :class="{ copy: !isCopy }"
+              v-clipboard:copy="address"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+              ><p v-show="isCopy">
+                <i class="el-icon-circle-check-outline"></i
+                ><span>{{ copyText }}</span>
+              </p></b
+            >
+          </div>
+
           <a class="code cursor">
             <qriously
               class="qr-code"
@@ -152,7 +155,11 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo"></tokens-list>
+      <tokens-list
+        v-show="tabIndex == 2"
+        :address="address"
+        :tradeCount="detailInfo"
+      ></tokens-list>
 
       <!-- 委托 -->
       <delegation-info
@@ -303,5 +310,68 @@ export default {
 }
 .contract-detail-top {
   padding-bottom: 30px;
+}
+.detail-change {
+  .detail-copy {
+    & > *:first-child {
+      display: inline;
+    }
+  }
+}
+@media (max-width: 750px) {
+  .detail-change {
+    .detail-copy {
+      display: flex;
+      & > *:first-child {
+        word-break: break-all;
+      }
+      .code.cursor {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .overview-wrap {
+    flex-direction: column;
+    .el-col {
+      width: 100%;
+      float: unset;
+    }
+    & > * + * {
+      margin-top: 16px;
+    }
+  }
+
+  .address-trade {
+    .tabs {
+      button {
+        margin-right: 12px;
+        margin-left: 0 !important;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="less">
+@media (max-width: 750px) {
+  .trade-tab-wrap {
+    .trade-tab {
+      li {
+        margin-bottom: 12px;
+      }
+    }
+    .download-btn {
+      display: inline-block;
+
+      max-width: 140px;
+      text-align: center;
+      height: fit-content;
+      white-space: nowrap;
+    }
+  }
 }
 </style>

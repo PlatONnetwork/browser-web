@@ -860,3 +860,113 @@ body {
     transform: rotateZ(180deg);
   }
 }
+
+// mobile responsive
+@media (max-width: 750px) {
+  .trade-list-wrap {
+    padding: 0 40px;
+    .sub-title {
+      flex-direction: column;
+      .pagination-box1 {
+        margin-top: 40px;
+        .el-pagination {
+          padding: 2px 0;
+        }
+      }
+    }
+  }
+
+  .pagination-box {
+    padding-bottom: 60px;
+    .el-pagination {
+      float: none !important;
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -10px !important;
+      .el-pagination__total {
+        margin-right: 0;
+        width: calc(100% - 120px);
+        margin-bottom: 30px;
+      }
+      .btn-prev {
+        margin-left: 5px !important;
+      }
+    }
+  }
+
+  .trade-wrap,
+  .pend-wrap,
+  .trade-block-wrap,
+  .trade-filter-wrap,
+  .block-wrap,
+  .trade-detail-wrap,
+  .pend-detail-wrap,
+  .contract-detail-wrap,
+  .block-detail-wrap,
+  .address-detail-wrap,
+  .node-detail-wrap,
+  .download-wrap,
+  .wallet-wrap,
+  .document-wrap,
+  .history-node-wrap {
+    padding: 0 40px;
+  }
+
+  .trade-detail-wrap .item-wrap {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    .list-item {
+      width: 100%;
+      *:first-child {
+        min-width: 130px !important;
+      }
+      *:not(:first-child) {
+        white-space: unset;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .trade-list-wrap {
+    padding: 0 20px;
+    .sub-title {
+      .pagination-box1 {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .pagination-box {
+    padding-bottom: 40px;
+    .el-pagination {
+      .el-pagination__total {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .page-title {
+    font-size: 30px;
+    line-height: 50px;
+  }
+
+  .trade-wrap,
+  .pend-wrap,
+  .trade-block-wrap,
+  .trade-filter-wrap,
+  .block-wrap,
+  .trade-detail-wrap,
+  .pend-detail-wrap,
+  .contract-detail-wrap,
+  .block-detail-wrap,
+  .address-detail-wrap,
+  .node-detail-wrap,
+  .download-wrap,
+  .wallet-wrap,
+  .document-wrap,
+  .history-node-wrap {
+    padding: 0 20px;
+  }
+}

@@ -113,7 +113,8 @@ export default {
     align-items: center;
     background: #fff7e3;
     border: 1px solid #ffc017;
-    width: 837px;
+    max-width: 837px;
+    width: 100%;
     margin-bottom: 25px;
     border-radius: 4px;
     padding: 10px 15px;
