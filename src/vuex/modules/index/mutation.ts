@@ -31,5 +31,8 @@ export const indexMutation = {
     },
     ['UPDATE_IS_ADDRESS_DETAILS_REWARD'](state, data) {
       state.isAddressDetailsReward = data
+    },
+    ['UPDATE_CONFIG_DATA'](state, data) {
+      state.configData = data
     }
 }

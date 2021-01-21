@@ -46,7 +46,8 @@ module.exports = {
       //   }
       // }
       "/Api": {
-        target: "http://192.168.9.190:15000",
+        target: "http://192.168.9.190:40001",
+        // target: "http://192.168.9.190:15000",
         secure: false,
         changeOrigin: true,
         pathRewrite: {

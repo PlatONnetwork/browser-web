@@ -93,7 +93,8 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
     exportTokenTransferList: `${TOKEN_URL}exportTokenTransferList`
   },
   MORE = {
-    queryConfig: `${MORE_URL}queryConfig`
+    queryConfig: `${MORE_URL}queryConfig`,
+    globalConfig: `${TOTAL}browser-server/config.json`
   };
 export default {
   TOTAL,
