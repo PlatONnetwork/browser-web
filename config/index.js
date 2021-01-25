@@ -36,21 +36,21 @@ module.exports = {
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
     proxyTable: {
-      "/Api": {
-        target: "https://scan.alaya.network/",
-        // target: "https://platscan.uat.platon.network",
+      "/browser-api": {
+        target: "http://192.168.9.190:1520",
         secure: false,
         changeOrigin: true,
         pathRewrite: {
-          "^/Api": ""
+          "^/browser-api": "/browser-api"
         }
       }
-      // "/Api": {
-      //   target: "http://192.168.9.190:15001",
+      // "/browser-server": {
+      //   target: "http://192.168.9.190:40000",
+      //   // target: "http://192.168.9.190:15000",
       //   secure: false,
       //   changeOrigin: true,
       //   pathRewrite: {
-      //     "^/Api": ""
+      //     "^/browser-server": "/browser-server"
       //   }
       // }
     },

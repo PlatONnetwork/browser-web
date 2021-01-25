@@ -12,4 +12,5 @@ export const indexGetter = {
     barIsMove: state => state.barIsMove,
     isAddressDetailsDelegation:state => state.isAddressDetailsDelegation,
     isAddressDetailsReward:state => state.isAddressDetailsReward,
+    configData:state => state.configData,
 }

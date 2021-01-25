@@ -128,7 +128,8 @@ class ApiService {
       queryClaimByStaking: this.post.bind(this, API.NODE.queryClaimByStaking)
     };
     this.more = {
-      queryConfig: this.post.bind(this, API.MORE.queryConfig)
+      queryConfig: this.post.bind(this, API.MORE.queryConfig),
+      globalConfig: this.get.bind(this, API.MORE.globalConfig)
     };
     this.interceptorsOfReq();
     this.interceptorsOfRes();

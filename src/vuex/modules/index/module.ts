@@ -46,6 +46,7 @@ export const index: object = {
         },
         isAddressDetailsDelegation:false,
         isAddressDetailsReward:false,
+        configData: {}
     },
     actions: indexAction,
     getters: indexGetter,
