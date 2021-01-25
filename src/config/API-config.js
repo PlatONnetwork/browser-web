@@ -76,7 +76,7 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
     stakingStatistic: `/topic/staking/statistic/new`,
     stakingChange: `/topic/staking/change/new`,
 
-    serverWebsocket: `/websocket/`
+    serverWebsocket: `${TOTAL}/websocket/`
   },
   TOKEN = {
     tokenDetail: `${TOKEN_URL}/tokenDetail`,
