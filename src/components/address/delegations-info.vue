@@ -158,6 +158,7 @@ export default {
   },
   data(){
     return{
+      tableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
@@ -189,7 +190,7 @@ export default {
           if (code == 0) {
             this.tableData = data;
             this.pageTotal = totalCount;
-            this.displayTotalCount = displayTotalCount;
+            // this.displayTotalCount = displayTotalCount;
             if(this.tableData.length > 0){
               this.updateIsAddressDetailsDelegation(true);
             }

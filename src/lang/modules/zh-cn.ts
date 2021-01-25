@@ -403,8 +403,8 @@ export default {
     platONWhitePaper: "Alaya白皮书",
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
-    platScan: "AlayaScan是Alaya区块链资源管理与分析平台",
-    international: "COPYRIGHT © 2020 ALAYA NETWORK."
+    platScan: "__SITNAME__是__CHNINNAME__区块链资源管理与分析平台",
+    international: "COPYRIGHT © __YEAR__ __CHNINNAME__ NETWORK."
   },
   elseInfo: {
     hour: "时",

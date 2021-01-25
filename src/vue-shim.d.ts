@@ -11,7 +11,9 @@ declare global {
     i18nLocale:String
     vueVm:Object
   }
+  var process: any
 }
+
 
 declare interface Window {
   SockJS: Object;
