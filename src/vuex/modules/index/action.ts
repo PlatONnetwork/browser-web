@@ -32,4 +32,7 @@ export const indexAction = {
     updateIsAddressDetailsReward({ commit, state }, data) {
       commit('UPDATE_IS_ADDRESS_DETAILS_REWARD', data)
     },
+    updateConfigData({ commit, state }, data) {
+      commit('UPDATE_CONFIG_DATA', data)
+    }
 }

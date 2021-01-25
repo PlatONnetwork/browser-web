@@ -389,8 +389,8 @@ export default {
     platONWhitePaper: "Alaya White Paper",
     atonDownload: "ATON Download",
     developer: "Developer",
-    platScan: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
-    international: "COPYRIGHT © __YEAR__ ALAYA NETWORK."
+    platScan: "__SITNAME__ is a Block Explorer and Analytics Platform for __CHNINNAME__",
+    international: "COPYRIGHT © __YEAR__ __CHNINNAME__ NETWORK."
   },
   elseInfo: {
     hour: "h ",

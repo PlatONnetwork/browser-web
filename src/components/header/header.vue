@@ -4,7 +4,7 @@
       <!-- <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
       <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
       <p>The Alaya Block Explorer</p> -->
-      <img class="iconAlaya" src="@/assets/images/Alaya-logo.svg" alt="" />
+      <img class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
     </div>
     <div class="menu">
       <el-menu
@@ -164,7 +164,7 @@
     <div class="right-most">
       <el-dropdown placement="bottom-start" @visible-change="netVisibleChange">
         <span class="el-dropdown-link">
-          {{ chainList[0][lang].split('(')[0] }}
+          {{ configData.chainName }}
           <i
             :class="{
               arrowDown: netDropdownShow == false,
@@ -174,9 +174,9 @@
           ></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="(item, index) in chainList" :key="index">{{
-            item[lang]
-          }}</el-dropdown-item>
+          <el-dropdown-item>
+            {{ configData.chainName }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-dropdown
@@ -250,16 +250,34 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['chainId', 'chainHttp', 'hideSearch']),
+    ...mapGetters(['chainId', 'chainHttp', 'hideSearch', 'configData']),
     lang() {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
+    logoURL() {
+      return process.env.API_ROOT + this.configData.logo;
+    }
   },
   watch: {},
   components: {},
   inject: ['reload'],
   methods: {
-    ...mapActions(['changeChainId']),
+    ...mapActions(['changeChainId', 'updateConfigData']),
+    getConfig() {
+      let flag = true;
+      apiService.more.globalConfig().then(res => {
+        flag = false;
+        let sortByOrder = (a,b) => (a.order - b.order);
+        res.links.sort(sortByOrder);
+        res.social.sort(sortByOrder);
+        this.updateConfigData(res);
+      }).catch(err => {
+        if (flag) {
+          console.error('err: ', err);
+          setTimeout(this.getConfig, 1000);
+        }
+    })
+    },
     netVisibleChange(boolean) {
       this.netDropdownShow = boolean;
     },
@@ -451,6 +469,7 @@ export default {
   //生命周期函数
   created() {
     this.language = this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en';
+    this.getConfig();
   },
   mounted() {},
 };

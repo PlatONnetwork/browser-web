@@ -1,191 +1,132 @@
 <template>
   <div class="footer-wrap">
-    <div class="sub-foot" v-if="path == '/'">
+    <div class="sub-foot" v-if="path == '/' && configData.links">
       <h3>{{ $t('indexInfo.resource') }}</h3>
-      <!-- <div class="tabs">
-                <el-button size="medium">
-                    <a :href="'https://www.platon.network/#/?lang='+ lang" target="_blank">{{$t('indexInfo.aboutPlatON')}}</a>
-                </el-button>
-                <el-button size="medium">
-                    <a :href="'https://www.platon.network/static/pdf/'+lang+'/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_'+lang.toUpperCase()+'.pdf'" target="_blank">{{$t('indexInfo.platONWhitePaper')}}</a>
-                </el-button>
-                <el-button size="medium">
-                    <a :href="'https://developer.platon.network/#/?lang='+lang" target="_blank">{{$t('indexInfo.atonDownload')}}</a>
-                </el-button>
-                <el-button size="medium" style="margin-right:0;">
-                    <a :href="'https://platonnetwork.github.io/Docs/#/'+ (lang=='zh'?'zh-cn':'en-us')+'/'" target="_blank">{{$t('indexInfo.developer')}}</a>
-                </el-button>
-            </div> -->
       <div class="foot-tabs">
-        <span
-          ><a
-            :href="'https://www.alaya.network' + (lang === 'en' ? '/en' : '')"
-            target="_blank"
-            >{{ $t('indexInfo.aboutPlatON') }}</a
-          ></span
-        >
-        <!-- <span
-          ><a
-            :href="
-              'https://www.platon.network/static/pdf/' +
-              lang +
-              '/PlatON_A_High-Efficiency_Trustless_Computing_Network_Whitepaper_' +
-              lang.toUpperCase() +
-              '.pdf'
-            "
-            target="_blank"
-            >{{ $t('indexInfo.platONWhitePaper') }}</a
-          ></span
-        > -->
-        <span
-          ><a
-            :href="
-              'https://www.platon.network/' +
-              (lang === 'en' ? 'en/' : '') +
-              'developer/#aton'
-            "
-            target="_blank"
-            >{{ $t('indexInfo.atonDownload') }}</a
-          ></span
-        >
-        <span class="tab-last"
-          ><a
-            :href="
-              'https://devdocs.alaya.network/alaya-devdocs/' +
-              (lang == 'zh' ? 'zh-CN' : 'en') +
-              '/'
-            "
-            target="_blank"
-            >{{ $t('indexInfo.developer') }}</a
-          ></span
-        >
+        <span v-for="item in configData.links" :key="item.order">
+          <a :href="item.url[configLang]" target="_blank">
+            {{ item.name[configLang] }}
+          </a>
+        </span>
       </div>
       <div class="foot-line"></div>
     </div>
-    <div class="foot-index" v-if="path == '/'">
-      <img class="foot-logo" src="../../assets/images/Alaya-logo.svg" alt="" />
-      <p>{{ $t('indexInfo.platScan') }}</p>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
+    <div class="foot-index" v-if="path == '/' && configData.social">
+      <img class="foot-logo" :src="logoPrevURL + configData.logo" alt="" />
+      <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
+      <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
       <div class="link-wrap">
         <a
-          :href="
-            lang == 'zh'
-              ? 'https://t.me/PlatONNetworkCN'
-              : 'https://t.me/PlatONNetwork'
-          "
+          :href="configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'"
           target="_blank"
           class="link-1"
         ></a>
-        <a href="javascript:volid(0);" target="_blank" class="link-2">
-          <img src="../../assets/images/weixin.jpg" alt="" class="wx-img" />
+        <a href="javascript:void(0);" class="link-2">
+          <img :src="logoPrevURL + configData.social[1].qrcode || '../../assets/images/weixin.jpg'" alt="" class="wx-img" />
         </a>
         <a
-          href="https://twitter.com/PlatON_Network"
+          :href="configData.social[2].url[configLang] || 'https://twitter.com/PlatON_Network'"
           target="_blank"
           class="link-3"
         ></a>
         <a
-          href="https://www.reddit.com/user/PlatON_Network"
+          :href="configData.social[3].url[configLang] || 'https://www.reddit.com/user/PlatON_Network'"
           target="_blank"
           class="link-4"
         ></a>
         <a
-          href="https://medium.com/@PlatON_Network"
+          :href="configData.social[4].url[configLang] || 'https://medium.com/@PlatON_Network'"
           target="_blank"
           class="link-5"
         ></a>
         <a
-          href="https://github.com/PlatONnetwork"
+          :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
           target="_blank"
           class="link-6"
         ></a>
         <a
-          href="https://www.linkedin.com/company/platonnetwork/"
+          :href="configData.social[6].url[configLang] || 'https://www.linkedin.com/company/platonnetwork/'"
           target="_blank"
           class="link-7"
         ></a>
         <a
-          href="https://www.facebook.com/PlatONNetwork/"
+          :href="configData.social[7].url[configLang] || 'https://www.facebook.com/PlatONNetwork/'"
           target="_blank"
           class="link-8"
         ></a>
         <a
-          href="https://bihu.com/people/1215832888"
+          :href="configData.social[8].url[configLang] || 'https://bihu.com/people/1215832888'"
           target="_blank"
           class="link-9"
         ></a>
         <a
-          href="https://www.chainnode.com/forum/267"
+          :href="configData.social[9].url[configLang] || 'https://www.chainnode.com/forum/267'"
           target="_blank"
           class="link-10"
         ></a>
       </div>
     </div>
-    <div class="foot-no-index foot-index" v-if="path != '/'">
+    <div class="foot-no-index foot-index" v-if="path != '/' && configData.social">
       <div class="foot-left">
         <img
-          src="../../assets/images/Alaya-logo.svg"
+          :src="logoPrevURL + configData.logo"
           style="width: 82px; height: 30px"
           alt=""
         />
-        <p>{{ $t('indexInfo.platScan') }}</p>
+        <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
           <a
-            :href="
-              lang == 'zh'
-                ? 'https://t.me/PlatONNetworkCN'
-                : 'https://t.me/PlatONNetwork'
-            "
+            :href="configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'"
             target="_blank"
             class="link-1"
           ></a>
-          <a href="javascript:volid(0);" target="_blank" class="link-2">
-            <img src="../../assets/images/weixin.jpg" alt="" class="wx-img" />
+          <a href="javascript:void(0);" class="link-2">
+            <img :src="logoPrevURL + configData.social[1].qrcode || '../../assets/images/weixin.jpg'" alt="" class="wx-img" />
           </a>
           <a
-            href="https://twitter.com/PlatON_Network"
+            :href="configData.social[2].url[configLang] || 'https://twitter.com/PlatON_Network'"
             target="_blank"
             class="link-3"
           ></a>
           <a
-            href="https://www.reddit.com/user/PlatON_Network"
+            :href="configData.social[3].url[configLang] || 'https://www.reddit.com/user/PlatON_Network'"
             target="_blank"
             class="link-4"
           ></a>
           <a
-            href="https://medium.com/@PlatON_Network"
+            :href="configData.social[4].url[configLang] || 'https://medium.com/@PlatON_Network'"
             target="_blank"
             class="link-5"
           ></a>
           <a
-            href="https://github.com/PlatONnetwork"
+            :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
             target="_blank"
             class="link-6"
           ></a>
           <a
-            href="https://www.linkedin.com/company/platonnetwork/"
+            :href="configData.social[6].url[configLang] || 'https://www.linkedin.com/company/platonnetwork/'"
             target="_blank"
             class="link-7"
           ></a>
           <a
-            href="https://www.facebook.com/PlatONNetwork/"
+            :href="configData.social[7].url[configLang] || 'https://www.facebook.com/PlatONNetwork/'"
             target="_blank"
             class="link-8"
           ></a>
           <a
-            href="https://bihu.com/people/1215832888"
+            :href="configData.social[8].url[configLang] || 'https://bihu.com/people/1215832888'"
             target="_blank"
             class="link-9"
           ></a>
           <a
-            href="https://www.chainnode.com/forum/267"
+            :href="configData.social[9].url[configLang] || 'https://www.chainnode.com/forum/267'"
             target="_blank"
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear) }}</p>
+        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
       </div>
     </div>
   </div>
@@ -203,8 +144,15 @@ export default {
   },
   props: {},
   computed: {
+    ...mapGetters(["configData"]),
     lang() {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
+    },
+    configLang() {
+      return this.$i18n.locale.indexOf('zh') !== -1 ? 'cn' : 'en';
+    },
+    logoPrevURL() {
+      return process.env.API_ROOT;
     }
   },
   watch: {
