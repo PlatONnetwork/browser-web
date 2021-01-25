@@ -255,7 +255,7 @@ export default {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
     logoURL() {
-      return process.env.API_ROOT + this.configData.context + this.configData.logo;
+      return process.env.API_ROOT + this.configData.logo;
     }
   },
   watch: {},
@@ -264,14 +264,18 @@ export default {
   methods: {
     ...mapActions(['changeChainId', 'updateConfigData']),
     getConfig() {
+      let flag = true;
       apiService.more.globalConfig().then(res => {
+        flag = false;
         let sortByOrder = (a,b) => (a.order - b.order);
         res.links.sort(sortByOrder);
         res.social.sort(sortByOrder);
         this.updateConfigData(res);
       }).catch(err => {
-      console.error('err: ', err);
-      setTimeout(this.getConfig, 1000);
+        if (flag) {
+          console.error('err: ', err);
+          setTimeout(this.getConfig, 1000);
+        }
     })
     },
     netVisibleChange(boolean) {
@@ -465,7 +469,7 @@ export default {
   //生命周期函数
   created() {
     this.language = this.$i18n.locale.indexOf('zh') !== -1 ? 'zh-cn' : 'en';
-    this.getConfig()
+    this.getConfig();
   },
   mounted() {},
 };
