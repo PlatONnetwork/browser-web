@@ -1,3 +1,5 @@
+import groovy.json.JsonBuilder
+
 plugins {
   id 'org.hidetake.ssh' version '2.10.1'
   id "github.com.sakamotodesu.jcifs" version "0.2.2"
@@ -28,11 +30,17 @@ remotes {
 }
 
 task buildWeb(type:Exec,group: 'build'){
-  workingDir '.'
-  if (System.properties.getProperty('os.name').toLowerCase().contains('windows')) {
-    commandLine 'cmd','/c','npm run build'
-  } else {
-    commandLine 'npm','run','build'
+  doFirst {
+    workingDir '.'
+    if (System.properties.getProperty('os.name').toLowerCase().contains('windows')) {
+      commandLine 'cmd','/c','npm run build'
+    } else {
+      commandLine 'npm','run','build'
+    }
+  }
+  doLast {
+    def index=file("${projectDir.path}/dist/index.html")
+    index.write(index.text.replace("_VERSION_","v$projectVersion").replace("_COMMIT_ID_",shortCommitId),"utf-8")
   }
 }
 
