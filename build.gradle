@@ -43,7 +43,7 @@ monitorDistTar.compression = Compression.GZIP
 monitorDistTar.archiveExtension.set('tar.gz')
 
 // 拷包到测试环境
-def deployDir = "$deployRootDir/${projectVersion}/${project.name}-test"
+def deployDir = "$deployRootDir/${projectVersion}/${project.name}"
 task deployToTestEnv(dependsOn:['build'],group: 'deploy') {
   doLast {
     ssh.settings {
