@@ -30,10 +30,8 @@ remotes {
 task buildWeb(type:Exec,group: 'build'){
   workingDir '.'
   if (System.properties.getProperty('os.name').toLowerCase().contains('windows')) {
-    commandLine 'cmd','/c','npm install'
     commandLine 'cmd','/c','npm run build'
   } else {
-    commandLine 'npm','install'
     commandLine 'npm','run','build'
   }
 }
