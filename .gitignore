@@ -16,3 +16,9 @@ theme/
 *.ntvs*
 *.njsproj
 *.sln
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+release
