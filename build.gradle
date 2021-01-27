@@ -33,8 +33,7 @@ task buildWeb(type:Exec,group: 'build'){
     commandLine 'cmd','/c','npm clean'
     commandLine 'cmd','/c','npm run build'
   } else {
-    commandLine 'npm','clean'
-    commandLine 'npm','-i'
+    commandLine 'npm','clean','install'
     commandLine 'npm','run','build'
   }
 }
