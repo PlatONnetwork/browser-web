@@ -12,7 +12,7 @@
     </div>
     <div class="inventory-box">
       <div class="box-item" v-for="item in inventory" :key="item.tokenId">
-        <img :src="item.image || require('@/assets/images/Alaya-logo.svg')" alt="token" class="token-pic" />
+        <img :src="item.image || require('@/assets/images/Alaya-cat-721.svg')" alt="token" class="token-pic" />
         <p class="token-id">
           #
           <span class="normal cursor" @click="go721IdDetail(item.address, item.tokenId)">{{ item.tokenId }}</span>
@@ -102,10 +102,12 @@ export default {
   justify-content: space-between;
   .box-item {
     // border: 1px solid green;
+    background: #fff;
     .token-pic {
-      width: 230px;
+      margin: 0 auto;
+      max-width: 230px;
       height: 120px;
-      background: #fff;
+      // background: #fff;
     }
     .token-id {
       padding: 8px 0;
