@@ -121,6 +121,7 @@ export default {
     EVM: "EVM合约",
     WASM: "WASM合约",
     ERC20: "ARC20合约",
+    ERC721: "ARC721合约",
     callFunction: "调用函数",
     creation: "合约创建",
     execution: "合约执行",
@@ -503,6 +504,8 @@ export default {
     5: "MPC交易",
     6: "ARC20合约创建",
     7: "ARC20合约执行",
+    8: "ARC721合约创建",
+    9: "ARC721合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押

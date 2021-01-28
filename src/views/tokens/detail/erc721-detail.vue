@@ -22,15 +22,15 @@
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{$t('tokens.totalSupply_721')}}</label>
-                <div class="money">-</div>
+                <div class="money">{{ detailInfo.totalSupply }}</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{$t('tokens.holder')}}</label>
-                <div class="money">-</div>
+                <div class="money">{{ detailInfo.holder }}</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{$t('tokens.transfers_721')}}</label>
-                <div class="money">-</div>
+                <div class="money">{{ detailInfo.txCount }}</div>
               </li>
             </ul>
           </div>
@@ -83,7 +83,7 @@
       </div>
       <tokens-trade-list v-show="activeTab == 1" :address="address" :tradeCount="detailInfo" table-type="erc721"></tokens-trade-list>
       <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
-      <tokens-inventory v-show="activeTab == 3"></tokens-inventory>
+      <tokens-inventory v-show="activeTab == 3" :address="address"></tokens-inventory>
     </div>
   </div>
 </template>
@@ -95,7 +95,7 @@ import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';
 import tokensInventory from '@/components/tokens/tokens-inventory';
 export default {
-  name: 'tokensDetailComponent',
+  name: 'tokens721DetailComponent',
   data() {
     return {
       activeTab: 1,

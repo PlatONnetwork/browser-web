@@ -79,18 +79,30 @@ const BASE = process.env.API_ROOT, //process.env.API_ROOT, //process.env.API_ROO
     serverWebsocket: `${TOTAL}/websocket/`
   },
   TOKEN = {
-    tokenDetail: `${TOKEN_URL}/tokenDetail`,
-    tokenList: `${TOKEN_URL}/tokenList`,
+    tokenDetail: `${TOKEN_URL}/detail`,
+    tokenList: `${TOKEN_URL}/list`,
+    token20TxList: `${TOKEN_URL}/arc20-tx/list`,
+    token721TxList: `${TOKEN_URL}/arc721-tx/list`,
+    token721InventoryList: `${TOKEN_URL}/arc721-inventory/list`,
+    token721InventoryDetail: `${TOKEN_URL}/arc721-inventory/detail`,
+    // =================================================================
     tokenTransferList: `${TOKEN_URL}/tokenTransferList`,
-    tokenHolderList: `${TOKEN_URL}/tokenHolderList`,
+    // 持有者列表
+    // tokenHolderList: `${TOKEN_URL}/tokenHolderList`,
+    tokenHolderList: `${TOKEN_URL}/holder/list`,
     //余额列表
-    tokenBalanceList: `${TOKEN_URL}/holderTokenList`,
+    // tokenBalanceList: `${TOKEN_URL}/holderTokenList`,
+    tokenBalanceList: `${TOKEN_URL}/holder-token/list`,
     //持有人列表
-    exportTokenHolderList: `${TOKEN_URL}/exportTokenHolderList`,
+    // exportTokenHolderList: `${TOKEN_URL}/exportTokenHolderList`,
+    exportTokenHolderList: `${TOKEN_URL}/holder/export`,
     //持有人包含列表列表
-    exportHolderTokenList: `${TOKEN_URL}/exportHolderTokenList`,
+    // exportHolderTokenList: `${TOKEN_URL}/exportHolderTokenList`,
+    exportHolderTokenList: `${TOKEN_URL}/holder-token/export`,
     //导出合约内部列表
-    exportTokenTransferList: `${TOKEN_URL}/exportTokenTransferList`
+    exportTokenTransferList: `${TOKEN_URL}/exportTokenTransferList`,
+    exportT20TxList: `${TOKEN_URL}/arc20-tx/export`,
+    exportT721TxList: `${TOKEN_URL}/arc721-tx/export`,
   },
   MORE = {
     queryConfig: `${MORE_URL}/queryConfig`,

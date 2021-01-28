@@ -91,6 +91,7 @@ export default {
       isContract: false,
       response1: '',
       timeZone: '+8',
+      tokenType: '',
     };
   },
   //数组或对象，用于接收来自父组件的数据
@@ -133,8 +134,6 @@ export default {
       };
       this.param.address = this.address;
       if (this.exportname == 'account') {
-        // console.warn('导出地址详情》》》',apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param))
-        // this.src=apiService.encodeParams(apiConfig.TRADE.addressTransactionDownload,this.param)
         this.src =
           apiConfig.TRADE.addressTransactionDownload +
           '?date=' +
@@ -146,15 +145,12 @@ export default {
           '&timeZone=' +
           this.timeZone;
       } else if (this.exportname == 'contract') {
-        // console.warn('导出合约详情》》》',apiService.encodeParams(apiConfig.TRADE.contractDownload,this.param))
         this.src = apiService.encodeParams(
           apiConfig.TRADE.contractDownload,
           this.param
         );
       } else if (this.exportname == 'node') {
         this.param.nodeId = this.address;
-        // console.warn('导出节约详情》》》',apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param))
-        // this.src=apiService.encodeParams(apiConfig.BLOCK.blockListByNodeIdDownload,this.param)
         this.src =
           apiConfig.BLOCK.blockListByNodeIdDownload +
           '?date=' +
@@ -181,6 +177,8 @@ export default {
           apiConfig.TOKEN.exportHolderTokenList +
           '?address=' +
           this.param.address +
+          '&type=' +
+          this.tokenType +
           '&local=' +
           this.lang +
           '&timeZone=' +
@@ -188,10 +186,15 @@ export default {
           '&token=' +
           this.response;
       } else if (this.exportname === 'TokenTransferList') {
+        // token 交易列表导出
+        const preUrlMap = {
+          erc20: apiConfig.TOKEN.exportT20TxList, 
+          erc721: apiConfig.TOKEN.exportT721TxList, 
+          erc721Id: apiConfig.TOKEN.exportT721TxList, 
+        }
         let adr = this.isContract ? 'contract' : 'address';
-        //导出合约内部交易列表 exportTokenTransferList
         this.src =
-          apiConfig.TOKEN.exportTokenTransferList +
+          preUrlMap[this.tokenType] +
           '?date=' +
           this.param.date +
           '&' + adr + '=' +
@@ -202,6 +205,9 @@ export default {
           this.timeZone +
           '&token=' +
           this.response;
+        if (this.tableType === 'erc721Id') {
+          this.src += '&tokenId=' + this.$route.query.tokenId;
+        }
       }
       console.log(this.src);
       window.open(this.src);
@@ -211,6 +217,7 @@ export default {
   created() {
     this.address = this.$route.query.address;
     this.exportname = this.$route.query.exportname;
+    this.tokenType = this.$route.query.tokenType;
     this.isContract = this.$route.query.contract === 'true';
     const num = -new Date().getTimezoneOffset();
     this.timeZone = num / 60;

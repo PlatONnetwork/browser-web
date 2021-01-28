@@ -162,13 +162,15 @@
           detailInfo.txType == '1' ||
           detailInfo.txType == '2' ||
           detailInfo.txType == '6' ||
-          detailInfo.txType == '7'
+          detailInfo.txType == '7' ||
+          detailInfo.txType == '8' ||
+          detailInfo.txType == '9'
         "
       >
         <!-- 创建方 -->
         <Item
           :label="$t('tradeAbout.creator')"
-          v-if="detailInfo.txType == '1' || detailInfo.txType == '6'"
+          v-if="detailInfo.txType == '1' || detailInfo.txType == '6' || detailInfo.txType == '8'"
         >
           <span
             class="cursor normal ellipsis"
@@ -180,7 +182,7 @@
         <!-- 执行方 -->
         <Item
           :label="$t('tradeAbout.executor')"
-          v-if="detailInfo.txType == '2' || detailInfo.txType == '7'"
+          v-if="detailInfo.txType == '2' || detailInfo.txType == '7' || detailInfo.txType == '9'"
         >
           <span
             class="cursor normal ellipsis"
@@ -836,6 +838,40 @@
             </li>
           </ul>
         </Item>
+        <!-- erc721 tokens -->
+        <Item
+          :label="$t('tradeAbout.tokens')"
+          v-if="detailInfo.erc721Params && detailInfo.erc721Params.length > 0"
+        >
+          <ul>
+            <li
+              class="tokens-item"
+              v-for="(item, index) in detailInfo.erc721Params"
+            >
+              From
+              <!-- 跳转参数都是innerContractAddr -->
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ item.innerFrom | sliceStr(16) }}</span
+              >
+              to
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ item.innerTo | sliceStr(16) }}</span
+              >
+              for
+              <span class="money">{{ item.innerValue | formatMoney }}</span>
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerContractAddr)"
+                >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
+              >
+              <img v-if="item.innerImage" :src="item.innerImage" alt="" srcset="">
+            </li>
+          </ul>
+        </Item>
         <!-- 燃料限制 -->
         <Item
           :label="$t('tradeAbout.gasLimit')"
@@ -990,8 +1026,10 @@ export default {
         0: 'transfer',
         1: 'creation',
         6: 'creation',
+        8: 'creation',
         2: 'execution',
         7: 'execution',
+        9: 'execution',
         4: 'other',
         5: 'other',
         4000: 'restricting',
@@ -1013,7 +1051,7 @@ export default {
       return this.$t('tradeAbout.' + typeMap[t]);
     },
     contractTypeTitle(type) {
-      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20']
+      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20', 'ERC721']
       return this.$t('tradeAbout.' + typeMap[type]);
     },
   },

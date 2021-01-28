@@ -262,7 +262,7 @@ export default {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
     logoURL() {
-      return process.env.API_ROOT + this.configData.logo;
+      return this.configData.logo ? process.env.API_ROOT + this.configData.logo : '#';
     }
   },
   watch: {},
@@ -279,8 +279,8 @@ export default {
         res.social.sort(sortByOrder);
         this.updateConfigData(res);
       }).catch(err => {
+        console.error('err: ', err);
         if (flag) {
-          console.error('err: ', err);
           setTimeout(this.getConfig, 1000);
         }
     })

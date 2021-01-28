@@ -89,7 +89,11 @@
     <!-- todo 令牌ID-->
     <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
       <template slot-scope="scope">
-        <span>unclear</span>
+        <span
+          class="cursor normal"
+          @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
+          >{{ scope.row.tokenId }}</span
+        >
       </template>
     </el-table-column>
 
@@ -99,7 +103,7 @@
         <span
           class="cursor normal"
           @click="goTokenDetail(scope.row.contract, 'erc721')"
-          >{{ `${scope.row.name}` }}</span
+          >{{ scope.row.name }}</span
         >
       </template>
     </el-table-column>
