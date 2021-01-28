@@ -165,7 +165,6 @@
 import apiService from '@/services/API-services';
 import IconContract from '@/components/common/icon-contract';
 import { timeDiff } from '@/services/time-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: '',
   data() {
@@ -189,7 +188,8 @@ export default {
       tradeTableData: [],
 
       tradeType: 'blance',
-      tokensName: 'All'
+      tokensName: 'All',
+      tokenContract: '',
     };
   },
   props: {
@@ -206,8 +206,8 @@ export default {
     $route(to, from) {
       this.$router.go(0);
     },
-    'tradeCount.tokenQty': function() {
-      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty;
+    'tradeCount.erc20TxQty': function() {
+      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty;
     },
   },
   components: { IconContract },
@@ -215,6 +215,7 @@ export default {
     async showAddressTokenList(contract, tokensName, txCount) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = tokensName;
+      this.tokenContract = contract
       this.tradeCurPage = 1;
       await this.getTradeAddressList(contract, txCount);
       this.selectIndex = 2;
@@ -222,6 +223,7 @@ export default {
     getBlanceList() {
       apiService.tokens
         .tokenBalanceList({
+          type: 'erc20',
           address: this.address,
           pageNo: this.blanceCurPage,
           pageSize: 20, //目前写死固定值
@@ -230,6 +232,7 @@ export default {
           const { code, data, totalCount, displayTotalCount } = res;
           if (code == 0) {
             this.balanceTableData = data;
+            // 返回的条数无效
             this.balancePageTotal = totalCount;
             this.balanceTotalDisplay = displayTotalCount;
           } else {
@@ -249,7 +252,7 @@ export default {
       };
       // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .token20TxList(param)
         .then((res) => {
           let {
             data,
@@ -281,10 +284,8 @@ export default {
       };
       let key = this.pageType === 'contract' ? 'contract' : 'address';
       param[key] = this.address;
-      console.info('获取交易列表（参数）》》》', param);
-      // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .token20TxList(param)
         .then((res) => {
           let {
             data,
@@ -299,7 +300,7 @@ export default {
             // this.tradePageTotal = totalCount;
             // this.tradeTotalDisplay = displayTotalCount;
             // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
-            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty; // || displayTotalCount;
+            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -321,15 +322,21 @@ export default {
       this.blanceCurPage = val;
       this.getBlanceList();
     },
-
+    getListByTokenName() {
+      if (this.tokensName === 'All') {
+        this.getTradeList();
+      } else {
+        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+      }
+    },
     handleTradePageChange(val) {
       this.tradeCurPage = val;
-      this.getTradeList();
+      this.getListByTokenName()
     },
     handleTradeSizeChange(val) {
       this.tradeCurPage = 1;
       this.tradePageSize = val;
-      this.getTradeList();
+      this.getListByTokenName()
     },
 
     typeChange(index, type) {
@@ -358,6 +365,7 @@ export default {
       }
       let query = {
         address: this.address,
+        tokenType: 'erc20',
         exportname,
       }
       contract && (query.contract = 'true')

@@ -110,7 +110,7 @@ import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';
 import contractInfo from '@/components/contract/contract-info';
 export default {
-  name: 'tokensDetailComponent',
+  name: 'tokens20DetailComponent',
   data() {
     return {
       activeTab: 1,

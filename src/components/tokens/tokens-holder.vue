@@ -75,10 +75,6 @@ export default {
   },
   props: {
     address: String,
-    tableType: {
-      type: String,
-      default: 'none',
-    },
     tradeCount: Object,
   },
   computed: {},
@@ -96,10 +92,6 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
-      let key = this.tableType === 'none' ? 'address' : 'contract';
-      param[key] = this.address;
-      console.info('获取交易列表（参数）》》》', param);
-      // apiService.trade.transactionList(param);
       apiService.tokens
         .tokenHolderList(param)
         .then((res) => {

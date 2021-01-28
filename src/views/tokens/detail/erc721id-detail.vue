@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
+          <i>{{ detailInfo.name }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -22,11 +22,11 @@
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{$t('tokens.tokenID')}}</label>
-                <div class="money">-</div>
+                <div class="money">{{ tokenId }}</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{$t('tokens.transfers_721')}}</label>
-                <div class="money">-</div>
+                <div class="money">{{ detailInfo.txCount }}</div>
               </li>
             </ul>
           </div>
@@ -41,8 +41,8 @@
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
                   <span class="normal" @click="goContractDetail(detailInfo.address)">
-                    <!-- {{ detailInfo.address | sliceStr(16) }} -->
-                    {{ detailInfo.address }}
+                    <!-- {{ detailInfo.contract | sliceStr(16) }} -->
+                    {{ address }}
                   </span>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b class="cursor" :class="{ copy: !isCopy }" v-clipboard:copy="address" v-clipboard:success="onCopy"
@@ -68,23 +68,22 @@
         <el-button size="medium" :class="{ active: activeTab == 1 }" @click="tabChange(1)">{{ $t('contract.transactions') }}</el-button>
         <el-button size="medium" :class="{ active: activeTab == 2 }" @click="tabChange(2)">{{$t('tokens.inventory')}}</el-button>
       </div>
-      <tokens-trade-list v-show="activeTab == 1" :address="address" :tradeCount="detailInfo"  table-type="erc721"></tokens-trade-list>
-      <tokens-inventory v-show="activeTab == 2"></tokens-inventory>
+      <tokens-trade-list v-show="activeTab == 1" :address="address" :tradeCount="detailInfo"  table-type="erc721Id"  :token-id="tokenId"></tokens-trade-list>
+      <tokens-inventory v-show="activeTab == 2" :address="address" :token-id="tokenId" ></tokens-inventory>
     </div>
   </div>
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-
 import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensInventory from '@/components/tokens/tokens-inventory';
 export default {
-  name: 'tokensDetailComponent',
+  name: 'tokens721IdDetailComponent',
   data() {
     return {
       activeTab: 1,
       address: '',
+      tokenId: '',
       detailInfo: {},
       isCopy: false,
       copyText: '',
@@ -101,10 +100,11 @@ export default {
     //获取地址信息详情
     getDetail() {
       let param = {
-        address: this.address,
+        contract: this.address,
+        tokenId: this.tokenId
       };
       apiService.tokens
-        .tokenDetail(param)
+        .token721InventoryDetail(param)
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
@@ -148,6 +148,7 @@ export default {
   //生命周期函数
   created() {
     this.address = this.$route.query.address.toLowerCase();
+    this.tokenId = this.$route.query.id;
     this.getDetail();
   },
   mounted() {},

@@ -64,8 +64,8 @@ const compMap = {
   arc721: 'ERC721Tranfer',
 };
 const API = {
-  arc20: apiService.tokens.tokenTransferList,
-  arc721: apiService.tokens.tokenTransferList,
+  arc20: apiService.tokens.token20TxList,
+  arc721: apiService.tokens.token721TxList,
 };
 const typeMap = {
   arc20: 'menu.erc20Transfer',

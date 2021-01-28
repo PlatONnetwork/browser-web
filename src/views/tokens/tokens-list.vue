@@ -70,7 +70,11 @@ const API = {
 const typeMap = {
   arc20: 'menu.erc20Tokens',
   arc721: 'menu.erc721Tokens',
-}
+};
+const apiTypeMap = {
+  arc20: 'erc20',
+  arc721: 'erc721',
+};
 
 export default {
   name: 'tokensListComponent',
@@ -111,6 +115,7 @@ export default {
     //获取交易列表 下分页
     getTokenList() {
       let param = {
+        type: apiTypeMap[this.type],
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };

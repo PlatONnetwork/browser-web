@@ -48,7 +48,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transferNum')">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.txCount)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -65,7 +65,7 @@
 
       <!-- 下分页 -->
       <div class="pagination-box">
-        <el-pagination background @current-change="handleBlancePageChange" :current-page.sync="numberCurPage" :page-sizes="[20]" :page-size="numberPageSize" layout="sizes,total,  prev, pager, next" :total="balancePageTotal > 5000 ? 5000 : balancePageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @current-change="handleBlancePageChange" :current-page.sync="blanceCurPage" :page-sizes="[20]" :page-size="blancePageSize" layout="sizes,total,  prev, pager, next" :total="balancePageTotal > 5000 ? 5000 : balancePageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
     <div v-show="selectIndex === 2" class="table">
@@ -180,8 +180,8 @@ export default {
     return {
       balanceTotalDisplay: 0, //余额寻获展示
       balancePageTotal: 0,
-      numberCurPage: 1,
-      numberPageSize: 20,
+      blanceCurPage: 1,
+      blancePageSize: 20,
 
       tradeTotalDisplay: 0, //交易寻获展示
       tradePageTotal: 0,
@@ -196,8 +196,9 @@ export default {
       balanceTableData: [],
       tradeTableData: [],
 
-      tradeType: 'number',
-      tokensName: 'All'
+      tradeType: 'blance',
+      tokensName: 'All',
+      tokenContract: ''
     };
   },
   props: {
@@ -214,27 +215,33 @@ export default {
     $route(to, from) {
       this.$router.go(0);
     },
+    'tradeCount.erc721TxQty': function() {
+      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc721TxQty;
+    },
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName) {
+    async showAddressTokenList(contract, tokensName, txCount) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = tokensName;
+      this.tokenContract = contract;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract);
+      await this.getTradeAddressList(contract, txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
       apiService.tokens
         .tokenBalanceList({
+          type: 'erc721',
           address: this.address,
-          pageNo: this.numberCurPage,
+          pageNo: this.blanceCurPage,
           pageSize: 20, //目前写死固定值
         })
         .then((res) => {
           const { code, data, totalCount, displayTotalCount } = res;
           if (code == 0) {
             this.balanceTableData = data;
+            // 返回的条数无效
             this.balancePageTotal = totalCount;
             this.balanceTotalDisplay = displayTotalCount;
           } else {
@@ -245,7 +252,7 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract) {
+    getTradeAddressList(contract, txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
@@ -254,7 +261,7 @@ export default {
       };
       // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .token721TxList(param)
         .then((res) => {
           let {
             data,
@@ -266,8 +273,10 @@ export default {
           } = res;
           if (code == 0) {
             this.tradeTableData = data;
-            this.tradePageTotal = totalCount;
-            this.tradeTotalDisplay = displayTotalCount;
+            // this.tradePageTotal = totalCount;
+            // this.tradeTotalDisplay = displayTotalCount;
+            // 返回的总条数不能用
+            this.tradePageTotal =  this.tradeTotalDisplay = txCount; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -284,10 +293,8 @@ export default {
       };
       let key = this.pageType === 'contract' ? 'contract' : 'address';
       param[key] = this.address;
-      console.info('获取交易列表（参数）》》》', param);
-      // apiService.trade.transactionList(param);
       apiService.tokens
-        .tokenTransferList(param)
+        .token721TxList(param)
         .then((res) => {
           let {
             data,
@@ -299,8 +306,11 @@ export default {
           } = res;
           if (code == 0) {
             this.tradeTableData = data;
-            this.tradePageTotal = totalCount;
-            this.tradeTotalDisplay = displayTotalCount;
+            // this.tradePageTotal = totalCount;
+            // this.tradeTotalDisplay = displayTotalCount;
+            // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
+            console.log('this.tradeCount.: ', this.tradeCount);
+            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc721TxQty; // || displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -318,14 +328,21 @@ export default {
       };
       return lowerCase ? Type[type] : Type[type].toUpperCase();
     },
+    getListByTokenName() {
+      if (this.tokensName === 'All') {
+        this.getTradeList();
+      } else {
+        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+      }
+    },
     handleBlancePageChange(val) {
-      this.numberCurPage = val;
-      this.getBlanceList();
+      this.blanceCurPage = val;
+      this.getListByTokenName();
     },
 
     handleTradePageChange(val) {
       this.tradeCurPage = val;
-      this.getTradeList();
+      this.getListByTokenName();
     },
     handleTradeSizeChange(val) {
       this.tradeCurPage = 1;
@@ -338,7 +355,7 @@ export default {
       this.tradeType = type;
       if (index === 1) {
         this.tokensName = 'All'
-        this.numberCurPage = 1;
+        this.blanceCurPage = 1;
         this.getBlanceList();
       } else {
         this.tradeCurPage = 1;
@@ -348,11 +365,10 @@ export default {
     timeDiffFn(beginTime, endTime = Date.now()) {
       return timeDiff(beginTime, endTime);
     },
-    // todo 
     exportFn() {
       let exportname;
       let contract = false;
-      if (this.tradeType === 'number') {
+      if (this.tradeType === 'blance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
@@ -360,6 +376,7 @@ export default {
       }
       let query = {
         address: this.address,
+        tokenType: 'erc721',
         exportname,
       }
       contract && (query.contract = 'true')

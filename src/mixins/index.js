@@ -51,13 +51,22 @@ const routeJump = {
     goTokenDetail(address, type = 'erc20') {
       const pathMap = {
         erc20: '/arc20-detail',
-        erc721: '/arc721-detail',
-        erc721id: '/arc721id-detail'
+        erc721: '/arc721-detail'
       }
       this.$router.push({
         path: pathMap[type],
         query: {
           address: address
+        }
+      });
+    },
+    //进入erc721 id 详情
+    go721IdDetail(address, tokenId) {
+      this.$router.push({
+        path: '/arc721id-detail',
+        query: {
+          address: address,
+          id: tokenId
         }
       });
     },

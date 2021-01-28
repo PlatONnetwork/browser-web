@@ -120,6 +120,7 @@ export default {
     EVM: "EVM Contract",
     WASM: "WASM Contract",
     ERC20: "ARC20 Contract",
+    ERC721: "ARC721 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",
@@ -506,6 +507,8 @@ export default {
     // todo
     6: "ARC20 ContractCreation", //erc20合约创建
     7: "ARC20 ContractExecution", //erc20合约执行
+    8: "ARC721 ContractCreation", //erc721合约创建
+    9: "ARC721 ContractExecution", //erc721合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',

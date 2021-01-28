@@ -110,22 +110,23 @@
           <!-- 转账金额(Quantity) -->
           <el-table-column :label="$t('tokens.quantity')">
             <template slot-scope="scope">
-              <span>{{ scope.row.transferValue | formatMoney }} </span>
+              <span>{{ scope.row.transferValue | formatMoney }}</span>
             </template>
           </el-table-column>
         </template>
         <template v-else-if="tableType === 'erc721'">
           <!-- 令牌ID -->
-          <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
+          <el-table-column :label="$t('tokens.tokenID')">
             <template slot-scope="scope">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="goTokenDetail(scope.row.contract, 'erc721id')"
-                >unclear</span
+                @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
+                >{{ scope.row.tokenId }}</span
               >
             </template>
           </el-table-column>
         </template>
+        <el-table-column v-else-if="tableType === 'erc721Id'" :label="$t('tokens.tokenID')" prop="tokenId"></el-table-column>
       </el-table>
 
       <!-- 下分页 -->
@@ -149,7 +150,11 @@
 import apiService from '@/services/API-services';
 import IconContract from '@/components/common/icon-contract';
 import { timeDiff } from '@/services/time-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+const API = {
+  erc20: apiService.tokens.token20TxList,
+  erc721: apiService.tokens.token721TxList,
+  erc721Id: apiService.tokens.token721TxList,
+};
 export default {
   name: '',
   data() {
@@ -172,6 +177,7 @@ export default {
       default: 'erc20',
     },
     tradeCount: Object,
+    tokenId: String
   },
   computed: {},
   watch: {
@@ -188,8 +194,10 @@ export default {
         pageSize: this.pageSize,
         contract: this.address
       };
-      apiService.tokens
-        .tokenTransferList(param)
+      if (this.tableType === 'erc721Id') {
+        param.tokenId = this.tokenId;
+      }
+      API[this.tableType](param)
         .then((res) => {
           let {
             data,
@@ -239,14 +247,19 @@ export default {
       return timeDiff(beginTime, endTime);
     },
     exportFn() {
+      let query = {
+        address: this.address,
+        exportname: 'TokenTransferList',
+        tokenType: this.tableType,
+        contract: 'true'
+      }
+      if (this.tableType === 'erc721Id') {
+        query.tokenId = this.tokenId;
+      }
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',
-        query: {
-          address: this.address,
-          exportname: 'TokenTransferList',
-          contract: 'true'
-        },
+        query
       });
       window.open(href, '_blank');
     }

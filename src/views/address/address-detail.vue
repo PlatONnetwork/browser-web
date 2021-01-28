@@ -70,7 +70,7 @@
                   $t('tokens.erc20TokenTxns')
                 }}</label>
                 <div class="money">
-                  {{ detailInfo.tokenQty | formatNumber }}
+                  {{ detailInfo.erc20TxQty | formatNumber }}
                 </div>
               </li>
             </ul>
@@ -161,7 +161,7 @@
       <erc20-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo"></erc20-list>
 
       <!-- Erc721 Token -->
-      <erc721-list v-show="tabIndex == 3" :address="address"></erc721-list>
+      <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo"></erc721-list>
 
       <!-- 委托 -->
       <delegation-info
