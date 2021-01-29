@@ -59,9 +59,7 @@ export default {
         '/contract-detail',
         '/node',
         '/node-detail',
-        '/arc20-detail',
-        '/arc721-detail',
-        '/arc721id-detail',
+        '/tokens-detail'
       ].includes(this.$route.path);
     },
   },

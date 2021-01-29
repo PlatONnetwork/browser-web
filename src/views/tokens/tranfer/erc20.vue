@@ -109,7 +109,7 @@
       <template slot-scope="scope">
         <span
           class="cursor normal"
-          @click="goTokenDetail(scope.row.contract)"
+          @click="goTokenDetail(scope.row.contract, 'erc20')"
           >{{ `${scope.row.name}  (${scope.row.symbol})` }}</span
         >
       </template>

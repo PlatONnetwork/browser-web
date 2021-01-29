@@ -48,23 +48,18 @@ const routeJump = {
       });
     },
     //进入token详情
-    goTokenDetail(address, type = 'erc20') {
-      const pathMap = {
-        erc20: '/arc20-detail',
-        erc721: '/arc721-detail'
-      }
+    goTokenDetail(address, type) {
       this.$router.push({
-        path: pathMap[type],
-        query: {
-          address: address
-        }
+        path: '/tokens-detail',
+        query: { type, address }
       });
     },
     //进入erc721 id 详情
     go721IdDetail(address, tokenId) {
       this.$router.push({
-        path: '/arc721id-detail',
+        path: '/tokens-detail',
         query: {
+          type: 'erc721Id',
           address: address,
           id: tokenId
         }

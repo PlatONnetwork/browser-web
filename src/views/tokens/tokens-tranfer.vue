@@ -156,28 +156,28 @@ export default {
       this.replace();
     },
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      // 通过 `vm` 访问组件实例
-      if (from.path.indexOf('-detail') == -1) {
-        // 不取缓存
-        vm.currentPage = 1;
-        vm.pageSize = 20;
-        if (vm.$route.query.currentPage) {
-          vm.currentPage = vm.$route.query.currentPage - 0;
-          vm.pageSize = vm.$route.query.pageSize - 0;
-        }
-        vm.getTradeList();
-      }
-    });
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   next((vm) => {
+  //     // 通过 `vm` 访问组件实例
+  //     if (from.path.indexOf('-detail') == -1) {
+  //       // 不取缓存
+  //       vm.currentPage = 1;
+  //       vm.pageSize = 20;
+  //       if (vm.$route.query.currentPage) {
+  //         vm.currentPage = vm.$route.query.currentPage - 0;
+  //         vm.pageSize = vm.$route.query.pageSize - 0;
+  //       }
+  //       vm.getTradeList();
+  //     }
+  //   });
+  // },
   //生命周期函数
   created() {
     if (this.$route.query.currentPage) {
       this.currentPage = this.$route.query.currentPage - 0;
       this.pageSize = this.$route.query.pageSize - 0;
     }
-    this.getTradeList();
+    // this.getTradeList();
   },
   mounted() {},
 };

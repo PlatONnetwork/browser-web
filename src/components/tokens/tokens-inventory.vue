@@ -101,6 +101,7 @@ export default {
   grid-gap: 16px 8px;
   justify-content: space-between;
   .box-item {
+    padding: 0 8px;
     // border: 1px solid green;
     background: #fff;
     .token-pic {

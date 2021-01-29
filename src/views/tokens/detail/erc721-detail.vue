@@ -105,7 +105,7 @@ export default {
       copyText: '',
     };
   },
-  props: {},
+  props: ['tokensDetail'],
   computed: {},
   watch: {},
   components: {
@@ -164,7 +164,11 @@ export default {
   //生命周期函数
   created() {
     this.address = this.$route.query.address.toLowerCase();
-    this.getDetail();
+    if (this.tokensDetail) {
+      this.detailInfo = this.tokensDetail;
+    } else {
+      this.getDetail();
+    }
   },
   mounted() {},
 };
