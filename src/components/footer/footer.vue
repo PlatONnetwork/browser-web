@@ -13,8 +13,8 @@
     </div>
     <div class="foot-index" v-if="path == '/' && configData.social">
       <img class="foot-logo" :src="logoPrevURL + configData.logo" alt="" />
-      <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
-      <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
+      <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.copyRight) }}</p>
+      <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.copyRight.toUpperCase()) }}</p>
       <div class="link-wrap">
         <a
           :href="configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'"
@@ -73,7 +73,7 @@
           style="width: 82px; height: 30px"
           alt=""
         />
-        <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
+        <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.copyRight) }}</p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
@@ -126,7 +126,7 @@
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
+        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.copyRight.toUpperCase()) }}</p>
       </div>
     </div>
   </div>
