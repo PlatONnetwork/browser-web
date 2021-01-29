@@ -149,7 +149,7 @@
         <!-- tokens 名称+单位 -->
         <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract)">{{ `${scope.row.name}  (${scope.row.symbol})` }}</span>
+            <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` }}</span>
           </template>
         </el-table-column>
       </el-table>

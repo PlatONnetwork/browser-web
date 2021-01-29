@@ -86,7 +86,7 @@
                 <div class="money" v-if="detailInfo.type == '2'">
                   {{ detailInfo.contractName }}
                 </div>
-                <div class="money" v-else>Not Available</div>
+                <div class="money" v-else>{{ detailInfo.contractName || "Not Available" }}</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
@@ -128,8 +128,7 @@
                 <!-- tokens -->
                 <div class="money contract-create-info">
                   <span class="normal" @click="goTokenDetail(address)">
-                    <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
-                    {{ tokenName }}
+                    {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
                   </span>
                 </div>
               </li>
@@ -148,12 +147,14 @@
           >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
+          v-if="detailInfo.hasErc20"
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
           >{{ $t('tokens.erc20TokenTxns') }}</el-button
         >
         <el-button
+          v-if="detailInfo.hasErc721"
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
@@ -176,10 +177,10 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <erc20-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
+      <erc20-list v-if="detailInfo.hasErc20" v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
 
       <!-- Erc721 Token -->
-      <erc721-list v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
+      <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
@@ -189,8 +190,6 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
@@ -212,7 +211,6 @@ export default {
       isCopy: false,
       copyText: '',
       haveReward: 0,
-      tokenName: '',
     };
   },
   props: {},
@@ -238,22 +236,6 @@ export default {
             this.detailInfo = data;
             // 合成token 名称
             this.getTokenDetail()
-          } else {
-            this.$message.error(errMsg);
-          }
-        })
-        .catch((error) => {
-          this.$message.error(error);
-        });
-    },
-    getTokenDetail() {
-      apiService.tokens
-        .tokenDetail({address: this.address})
-        .then((res) => {
-          let { errMsg, code, data } = res;
-          if (code == 0 && data.name && data.symbol) {
-            this.tokenName = data.name + ' (' + data.symbol + ')';
-            this.detailInfo.tokenQty = data.txCount
           } else {
             this.$message.error(errMsg);
           }

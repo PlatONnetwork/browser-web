@@ -819,20 +819,20 @@
               <!-- 跳转参数都是innerContractAddr -->
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
                 >{{ item.innerFrom | sliceStr(16) }}</span
               >
               to
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
                 >{{ item.innerTo | sliceStr(16) }}</span
               >
               for
               <span class="money">{{ item.innerValue | formatMoney }}</span>
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
                 >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
               >
             </li>
@@ -852,20 +852,20 @@
               <!-- 跳转参数都是innerContractAddr -->
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                 >{{ item.innerFrom | sliceStr(16) }}</span
               >
               to
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                 >{{ item.innerTo | sliceStr(16) }}</span
               >
               for
               <span class="money">{{ item.innerValue | formatMoney }}</span>
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr)"
+                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                 >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
               >
               <img v-if="item.innerImage" :src="item.innerImage" alt="" srcset="">

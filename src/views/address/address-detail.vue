@@ -65,12 +65,21 @@
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
               <li>
-                <!-- TODO 需要后台给值做判断 -->
+                <!-- ARC20交易 -->
                 <label class="Gilroy-Medium">{{
                   $t('tokens.erc20TokenTxns')
                 }}</label>
                 <div class="money">
                   {{ detailInfo.erc20TxQty | formatNumber }}
+                </div>
+              </li>
+              <li>
+                <!-- ARC721交易 -->
+                <label class="Gilroy-Medium">{{
+                  $t('tokens.erc721TokenTxns')
+                }}</label>
+                <div class="money">
+                  {{ detailInfo.erc721TxQty | formatNumber }}
                 </div>
               </li>
             </ul>

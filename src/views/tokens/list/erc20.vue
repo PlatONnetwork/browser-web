@@ -4,7 +4,7 @@
     <el-table-column :label="$t('tokens.tokenName')">
       <template slot-scope="scope">
         <span
-          @click="goTokenDetail(scope.row.address)"
+          @click="goTokenDetail(scope.row.address, 'erc20')"
           class="cursor normal ellipsis"
           >{{ scope.row.name }}</span
         >

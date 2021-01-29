@@ -89,7 +89,7 @@ export default {
       copyText: '',
     };
   },
-  props: {},
+  props: ['tokensDetail'],
   computed: {},
   watch: {},
   components: {
@@ -149,7 +149,11 @@ export default {
   created() {
     this.address = this.$route.query.address.toLowerCase();
     this.tokenId = this.$route.query.id;
-    this.getDetail();
+    if (this.tokensDetail) {
+      this.detailInfo = this.tokensDetail;
+    } else {
+      this.getDetail();
+    }
   },
   mounted() {},
 };
