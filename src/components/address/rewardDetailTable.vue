@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="address-trade-last">
-      {{ $t("tradeAbout.totalClaimedReward") }}
-      <span style="color: #3F3F3F;"
+      {{ $t('tradeAbout.totalClaimedReward') }}
+      <span style="color: #3f3f3f"
         >{{ tradeCount.haveReward | formatMoney }} ATP</span
       >
     </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="table-box">
         <div class="total">
-          <span class="label">{{ $t("tradeAbout.rewardAmount") }} : </span>
+          <span class="label">{{ $t('tradeAbout.rewardAmount') }} : </span>
           <span class="value">{{ item.allRewards | formatMoney }} ATP</span>
         </div>
         <div class="reward-box">
@@ -74,26 +74,26 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
-  name: "",
+  name: '',
   data() {
     return {
       rewardTableData: [],
       totalNum: 0,
       curPage: 1,
       pageSize: 10,
-      txhash: this.address //tradeCount.txhash
+      txhash: this.address, //tradeCount.txhash
     };
   },
   props: {
     tradeCount: Object,
-    address: String
+    address: String,
   },
   methods: {
     ...mapMutations({
-      updateIsAddressDetailsReward: "UPDATE_IS_ADDRESS_DETAILS_REWARD",
+      updateIsAddressDetailsReward: 'UPDATE_IS_ADDRESS_DETAILS_REWARD',
     }),
     handleSizeFn(pageSize) {
       this.pageSize = pageSize;
@@ -105,43 +105,43 @@ export default {
     },
     goToDetailFn(hash) {
       this.$router.push({
-        name: "tradeDetailComponent",
+        name: 'tradeDetailComponent',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
     },
     goToNodeFn(node) {
       this.$router.push({
-        name: "nodeDetailComponent",
+        name: 'nodeDetailComponent',
         query: {
-          address: node
-        }
+          address: node,
+        },
       });
     },
     queryDetailByAdd() {
       let data = {
         pageNo: this.curPage,
         address: this.address,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
       };
-      apiService.trade.queryClaimByAddress(data).then(res => {
+      apiService.trade.queryClaimByAddress(data).then((res) => {
         if (res.data) {
           this.rewardTableData = [...res.data];
           this.totalNum = res.totalCount;
-          if(this.rewardTableData.length > 0){
+          if (this.rewardTableData.length > 0) {
             this.updateIsAddressDetailsReward(true);
           }
         }
       });
-    }
+    },
   },
   mounted() {
     this.queryDetailByAdd();
   },
-  destroyed(){
+  destroyed() {
     this.updateIsAddressDetailsReward(false);
-  }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -203,7 +203,7 @@ export default {
       color: #000000;
       letter-spacing: 0;
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         border-left: 20px solid rgba(7, 152, 222, 0.1);
         border-right: 20px solid transparent;
@@ -247,15 +247,53 @@ export default {
   align-items: center;
   margin: 60px auto;
 }
-.address-trade-last{
+.address-trade-last {
   color: #333;
   font-family: Gilroy-Regular;
   font-size: 14px;
   line-height: 16px;
-  span{
+  span {
     font-family: Gilroy-Medium;
     font-size: 16px;
     line-height: 19px;
+  }
+}
+
+@media (max-width: 750px) {
+  .detail-box {
+    .title-box {
+      display: flex;
+      height: auto;
+      padding: 6px 0;
+      align-items: center;
+      & > * {
+        flex: 1;
+        float: unset !important;
+        padding-right: 16px !important;
+        word-break: break-all;
+        line-height: 26px !important;
+        font-size: 16px !important;
+        & + & {
+          margin-left: 16px;
+        }
+      }
+    }
+    .table-box {
+      flex-direction: column;
+      align-items: baseline;
+      .total {
+        margin: 10px 0;
+      }
+      .reward-box {
+        width: 100%;
+        .reward-box-line {
+          justify-content: space-between;
+          .td-content {
+            margin-right: 0;
+          }
+        }
+      }
+    }
   }
 }
 </style>

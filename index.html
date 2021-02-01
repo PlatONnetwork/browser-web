@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.ico" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/static/images/favicon.ico"
+    />
     <title>Alaya Blockchain Explorer</title>
     <script src="/static/js/date-format.js"></script>
     <script src="/static/js/sockjs.min.js"></script>
@@ -18,347 +22,403 @@
     <!-- <script src="/static/js/element-ui.js"></script> -->
 
     <style type="text/css">
-        #ie-popup {
-            background: #000;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 99999;
-            display: none;
-            padding: 0 5.2%;
-        }
+      #ie-popup {
+        background: #000;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        display: none;
+        padding: 0 5.2%;
+      }
 
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-        }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
 
-        .ie-logo {
-            margin-top: 21px;
-            position: relative;
-        }
+      .ie-logo {
+        margin-top: 21px;
+        position: relative;
+      }
 
-        .ie-icon1 {
-            padding-right: 4px;
-            float: left;
-        }
+      .ie-icon1 {
+        padding-right: 4px;
+        float: left;
+      }
 
-        .ie-icon2 {
-            padding-top: 6px;
-            padding-bottom: 2px;
-        }
+      .ie-icon2 {
+        padding-top: 6px;
+        padding-bottom: 2px;
+      }
 
-        .ie-logo p {
-            font-family: ArialMT;
-            font-size: 12px;
-            color: #b3b3b3;
-        }
+      .ie-logo p {
+        font-family: ArialMT;
+        font-size: 12px;
+        color: #b3b3b3;
+      }
 
-        .browser-version {
-            margin-top: 150px;
-            text-align: center;
-        }
+      .browser-version {
+        margin-top: 150px;
+        text-align: center;
+      }
 
-        .browser-version h3 {
-            font-size: 30px;
-            color: #FFFFFF;
-        }
+      .browser-version h3 {
+        font-size: 30px;
+        color: #ffffff;
+      }
 
-        .browser-version p {
-            margin: 100px 0 66px;
-            font-size: 20px;
-            color: #FFFFFF;
-        }
+      .browser-version p {
+        margin: 100px 0 66px;
+        font-size: 20px;
+        color: #ffffff;
+      }
 
-        .browser-version img {
-            width: 110px;
-            height: 110px;
-            display: inline-block;
-            border: none;
-        }
+      .browser-version img {
+        width: 110px;
+        height: 110px;
+        display: inline-block;
+        border: none;
+      }
 
-        .browser-version .browser-chrome {
-            margin-right: 115px;
-        }
+      .browser-version .browser-chrome {
+        margin-right: 115px;
+      }
 
-        .ie-foot {
-            text-align: center;
-            padding: 40px 0 21px;
-            width: 90%;
-            border-top: 1px dashed #929292;
-            position: fixed;
-            bottom: 0;
-            left: 5%;
-        }
+      .ie-foot {
+        text-align: center;
+        padding: 40px 0 21px;
+        width: 90%;
+        border-top: 1px dashed #929292;
+        position: fixed;
+        bottom: 0;
+        left: 5%;
+      }
 
-        .ie-foot .ie-foot-logo {
-            margin: 0 auto;
-        }
+      .ie-foot .ie-foot-logo {
+        margin: 0 auto;
+      }
 
-        .ie-foot .ie-intro {
-            font-size: 14px;
-            color: #999999;
-            margin: 20px 0;
-        }
+      .ie-foot .ie-intro {
+        font-size: 14px;
+        color: #999999;
+        margin: 20px 0;
+      }
 
-        .ie-foot .ie-copy-right,.ie-foot .version-info {
-            font-size: 12px;
-            color: #777777;
-            margin-bottom: 25px;
-        }
+      .ie-foot .ie-copy-right {
+        font-size: 12px;
+        color: #777777;
+        margin-bottom: 25px;
+      }
 
-        .ie-foot .ie-link-wrap {
-            width: 50%;
-            margin: 0 auto;
-            padding-top: 10px;
-            border-top: 1px dashed #555;
-        }
+      .ie-foot .ie-link-wrap {
+        width: 50%;
+        margin: 0 auto;
+        padding-top: 10px;
+        border-top: 1px dashed #555;
+      }
 
-        .ie-foot .ie-link-wrap a {
-            display: inline-block;
-            margin-right: 17px;
-            width: 36px;
-            height: 50px;
-            background: url(./static/images/footer-link-init.svg) no-repeat;
-            background-position-y: 0;
-        }
+      .ie-foot .ie-link-wrap a {
+        display: inline-block;
+        margin-right: 17px;
+        width: 36px;
+        height: 50px;
+        background: url(./static/images/footer-link-init.svg) no-repeat;
+        background-position-y: 0;
+      }
 
-        .ie-foot .ie-link-wrap a.link-1 {
-            background-position-x: -7px;
-        }
+      .ie-foot .ie-link-wrap a.link-1 {
+        background-position-x: -7px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-2 {
-            position: relative;
-            background-position-x: -57px;
-        }
+      .ie-foot .ie-link-wrap a.link-2 {
+        position: relative;
+        background-position-x: -57px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-2:hover .wx-img {
-            display: block;
-        }
+      .ie-foot .ie-link-wrap a.link-2:hover .wx-img {
+        display: block;
+      }
 
-        .ie-foot .ie-link-wrap a.link-2 .wx-img {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            bottom: 48px;
-            left: -31px;
-            display: none;
-            border: none;
-        }
+      .ie-foot .ie-link-wrap a.link-2 .wx-img {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        bottom: 48px;
+        left: -31px;
+        display: none;
+        border: none;
+      }
 
-        .ie-foot .ie-link-wrap a.link-3 {
-            background-position-x: -107px;
-        }
+      .ie-foot .ie-link-wrap a.link-3 {
+        background-position-x: -107px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-4 {
-            background-position-x: -157px;
-        }
+      .ie-foot .ie-link-wrap a.link-4 {
+        background-position-x: -157px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-5 {
-            background-position-x: -207px;
-        }
+      .ie-foot .ie-link-wrap a.link-5 {
+        background-position-x: -207px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-6 {
-            background-position-x: -257px;
-        }
+      .ie-foot .ie-link-wrap a.link-6 {
+        background-position-x: -257px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-7 {
-            background-position-x: -307px;
-        }
+      .ie-foot .ie-link-wrap a.link-7 {
+        background-position-x: -307px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-8 {
-            background-position-x: -357px;
-        }
+      .ie-foot .ie-link-wrap a.link-8 {
+        background-position-x: -357px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-9 {
-            background-position-x: -407px;
-        }
+      .ie-foot .ie-link-wrap a.link-9 {
+        background-position-x: -407px;
+      }
 
-        .ie-foot .ie-link-wrap a.link-10 {
-            background-position-x: -456px;
-        }
+      .ie-foot .ie-link-wrap a.link-10 {
+        background-position-x: -456px;
+      }
 
-        .ie-foot .ie-link-wrap a:hover {
-            background-image: url(./static/images/footer-link-active.svg);
-        }
+      .ie-foot .ie-link-wrap a:hover {
+        background-image: url(./static/images/footer-link-active.svg);
+      }
 
-        .ie-en,
-        .ie-zh {
-            display: none;
-        }
+      .ie-en,
+      .ie-zh {
+        display: none;
+      }
 
-        .ie-menu {
-            position: absolute;
-            right: 0;
-            bottom: -20px;
-            width: 80px;
-            text-align: right;
-            color: #fff;
-            padding-bottom: 20px;
-        }
+      .ie-menu {
+        position: absolute;
+        right: 0;
+        bottom: -20px;
+        width: 80px;
+        text-align: right;
+        color: #fff;
+        padding-bottom: 20px;
+      }
 
-        .ie-menu span {
-            padding-right: 18px;
-            background: url(./static/images/icon-down.svg) right center no-repeat;
-        }
+      .ie-menu span {
+        padding-right: 18px;
+        background: url(./static/images/icon-down.svg) right center no-repeat;
+      }
 
-        .ie-menu:hover span {
-            background: url(./static/images/icon-up.svg) right center no-repeat;
-        }
+      .ie-menu:hover span {
+        background: url(./static/images/icon-up.svg) right center no-repeat;
+      }
 
-        .ie-menu:hover ul {
-            display: block;
-        }
+      .ie-menu:hover ul {
+        display: block;
+      }
 
-        .ie-menu ul {
-            position: absolute;
-            top: 26px;
-            left: 6px;
-            padding: 5px 0px;
-            border-radius: 4px;
-            width: 110px;
-            /* padding: 0 20px; */
-            background: #fff;
-            text-align: center;
-            display: none;
-        }
+      .ie-menu ul {
+        position: absolute;
+        top: 26px;
+        left: 6px;
+        padding: 5px 0px;
+        border-radius: 4px;
+        width: 110px;
+        /* padding: 0 20px; */
+        background: #fff;
+        text-align: center;
+        display: none;
+      }
 
-        .ie-menu ul:hover {
-            display: block;
-        }
+      .ie-menu ul:hover {
+        display: block;
+      }
 
-        .ie-menu ul li {
-            list-style: none;
-            line-height: 36px;
-            padding: 0 20px;
-            margin: 0;
-            font-size: 14px;
-            color: #030303;
-            cursor: pointer;
-            outline: none;
-            background-color: #fff;
-        }
+      .ie-menu ul li {
+        list-style: none;
+        line-height: 36px;
+        padding: 0 20px;
+        margin: 0;
+        font-size: 14px;
+        color: #030303;
+        cursor: pointer;
+        outline: none;
+        background-color: #fff;
+      }
 
-        .ie-menu ul li:hover {
-            color: #0798DE;
-            background: #EAEAEA;
-        }
+      .ie-menu ul li:hover {
+        color: #0798de;
+        background: #eaeaea;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <!-- <router-view></router-view> -->
+      <!-- <router-view></router-view> -->
     </div>
     <!-- built files will be auto injected -->
     <div id="ie-popup">
-        <div class="ie-header">
-            <div class="ie-logo">
-                <img class="ie-icon1" src='/static/images/herder-logo-a.svg' />
-                <img class="ie-icon2" src='/static/images/herder-logo-b.svg' />
-                <p>The Alaya Block Explorer</p>
-                <div class="ie-menu">
-                    <span id="menu-text">简体中文</span>
-                    <ul id="menu-ul">
-                        <li onclick="platonChangeLang('zh')">简体中文</li>
-                        <li onclick="platonChangeLang('en')">English</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="browser-version">
-                <h3 class="ie-en" id="ie-en-1">The version of the browser you are using is too low to view and use this
-                    website.</h3>
-                <p class="ie-en" id="ie-en-2">It is recommended to use the following browsers to access:</p>
-                <h3 class="ie-zh" id="ie-zh-1">您使用的浏览器版本太低，无法查看和使用此网站。</h3>
-                <p class="ie-zh" id="ie-zh-2">建议使用以下浏览器访问：</p>
-                <div class="browser-img">
-                    <a href="https://www.google.cn/chrome/" target="_blank">
-                        <img class="browser-chrome" src='/static/images/Chrome.png' />
-                    </a>
-                    <a href="https://www.firefox.com.cn/" target="_blank">
-                        <img src='/static/images/firefox.png' />
-                    </a>
-                </div>
-            </div>
-            <div class="ie-foot">
-                <img class="ie-foot-logo" src="/static/images/logo-PlatON.svg" alt="">
-                <p class="ie-intro ie-en" id="ie-en-3">AlayaScan is a Block Explorer and Analytics Platform for Alaya
-                </p>
-                <p class="ie-intro ie-zh" id="ie-zh-3">AlayaScan是Alaya区块链资源管理与分析平台</p>
-                <p class="ie-copy-right">COPYRIGHT © 2020 PLATON NETWORK.</p>
-                <p class="version-info">_VERSION_ Build #_COMMIT_ID_</p>
-                <div class="ie-link-wrap">
-                    <a class="ie-zh" href="https://t.me/PlatONNetworkCN" target="_blank" class="link-1"></a>
-                    <a class="ie-en" href="https://t.me/PlatONNetwork" target="_blank" class="link-1"></a>
-
-                    <a href="javascript:volid(0);" target="_blank" class="link-2">
-                        <img src="/static/images/weixin.jpg" alt="" class="wx-img">
-                    </a>
-                    <a href="https://twitter.com/PlatON_Network" target="_blank" class="link-3"></a>
-                    <a href="https://www.reddit.com/user/PlatON_Network" target="_blank" class="link-4"></a>
-                    <a href="https://medium.com/@PlatON_Network" target="_blank" class="link-5"></a>
-                    <a href="https://github.com/PlatONnetwork" target="_blank" class="link-6"></a>
-                    <a href="https://www.linkedin.com/company/platonnetwork/" target="_blank" class="link-7"></a>
-                    <a href="https://www.facebook.com/PlatONNetwork/" target="_blank" class="link-8"></a>
-                    <a href="https://bihu.com/people/1215832888" target="_blank" class="link-9"></a>
-                    <a href="https://www.chainnode.com/forum/267" target="_blank" class="link-10"></a>
-                </div>
-            </div>
+      <div class="ie-header">
+        <div class="ie-logo">
+          <img class="ie-icon1" src="/static/images/herder-logo-a.svg" />
+          <img class="ie-icon2" src="/static/images/herder-logo-b.svg" />
+          <p>The Alaya Block Explorer</p>
+          <div class="ie-menu">
+            <span id="menu-text">简体中文</span>
+            <ul id="menu-ul">
+              <li onclick="platonChangeLang('zh')">简体中文</li>
+              <li onclick="platonChangeLang('en')">English</li>
+            </ul>
+          </div>
         </div>
+        <div class="browser-version">
+          <h3 class="ie-en" id="ie-en-1">
+            The version of the browser you are using is too low to view and use
+            this website.
+          </h3>
+          <p class="ie-en" id="ie-en-2">
+            It is recommended to use the following browsers to access:
+          </p>
+          <h3 class="ie-zh" id="ie-zh-1">
+            您使用的浏览器版本太低，无法查看和使用此网站。
+          </h3>
+          <p class="ie-zh" id="ie-zh-2">建议使用以下浏览器访问：</p>
+          <div class="browser-img">
+            <a href="https://www.google.cn/chrome/" target="_blank">
+              <img class="browser-chrome" src="/static/images/Chrome.png" />
+            </a>
+            <a href="https://www.firefox.com.cn/" target="_blank">
+              <img src="/static/images/firefox.png" />
+            </a>
+          </div>
+        </div>
+        <div class="ie-foot">
+          <img
+            class="ie-foot-logo"
+            src="/static/images/logo-PlatON.svg"
+            alt=""
+          />
+          <p class="ie-intro ie-en" id="ie-en-3">
+            AlayaScan is a Block Explorer and Analytics Platform for Alaya
+          </p>
+          <p class="ie-intro ie-zh" id="ie-zh-3">
+            AlayaScan是Alaya区块链资源管理与分析平台
+          </p>
+          <p class="ie-copy-right">COPYRIGHT © 2021 PLATON NETWORK.</p>
+          <div class="ie-link-wrap">
+            <a
+              class="ie-zh"
+              href="https://t.me/PlatONNetworkCN"
+              target="_blank"
+              class="link-1"
+            ></a>
+            <a
+              class="ie-en"
+              href="https://t.me/PlatONNetwork"
+              target="_blank"
+              class="link-1"
+            ></a>
+
+            <a href="javascript:volid(0);" target="_blank" class="link-2">
+              <img src="/static/images/weixin.jpg" alt="" class="wx-img" />
+            </a>
+            <a
+              href="https://twitter.com/PlatON_Network"
+              target="_blank"
+              class="link-3"
+            ></a>
+            <a
+              href="https://www.reddit.com/user/PlatON_Network"
+              target="_blank"
+              class="link-4"
+            ></a>
+            <a
+              href="https://medium.com/@PlatON_Network"
+              target="_blank"
+              class="link-5"
+            ></a>
+            <a
+              href="https://github.com/PlatONnetwork"
+              target="_blank"
+              class="link-6"
+            ></a>
+            <a
+              href="https://www.linkedin.com/company/platonnetwork/"
+              target="_blank"
+              class="link-7"
+            ></a>
+            <a
+              href="https://www.facebook.com/PlatONNetwork/"
+              target="_blank"
+              class="link-8"
+            ></a>
+            <a
+              href="https://bihu.com/people/1215832888"
+              target="_blank"
+              class="link-9"
+            ></a>
+            <a
+              href="https://www.chainnode.com/forum/267"
+              target="_blank"
+              class="link-10"
+            ></a>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-<script type="text/javascript">
+  </body>
+  <script type="text/javascript">
     var userAgent = navigator.userAgent;
-    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+    var isIE =
+      userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1; //判断是否IE<11浏览器
     // var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
     if (isIE) {
-        var ieBody = document.getElementsByTagName('body'),
-            language = (navigator.language || window.navigator['browserLanguage']).toLowerCase(),
-            ieEn1 = document.getElementById('ie-en-1'),
-            ieEn2 = document.getElementById('ie-en-2'),
-            ieEn3 = document.getElementById('ie-en-3'),
-            ieZh1 = document.getElementById('ie-zh-1'),
-            ieZh2 = document.getElementById('ie-zh-2'),
-            ieZh3 = document.getElementById('ie-zh-3'),
-            menuUl = document.getElementById('menu-ul'),
-            metu = document.getElementById('menu-text');
-        function platonChangeLang(lang) {
-            if (lang == 'en') {
-                ieEn1.style.display = 'block';
-                ieEn2.style.display = 'block';
-                ieEn3.style.display = 'block';
-                metu.innerHTML = 'English';
-                ieZh1.style.display = 'none';
-                ieZh2.style.display = 'none';
-                ieZh3.style.display = 'none';
-            } else {
-                ieZh1.style.display = 'block';
-                ieZh2.style.display = 'block';
-                ieZh3.style.display = 'block';
-                metu.innerHTML = '简体中文';
-                ieEn1.style.display = 'none';
-                ieEn2.style.display = 'none';
-                ieEn3.style.display = 'none';
-            }
-            // menuUl.style.display = 'none';
-        }
-        if (language == 'en') {
-            ieEn1.style.display = 'block';
-            ieEn2.style.display = 'block';
-            ieEn3.style.display = 'block';
-            metu.innerHTML = 'English';
+      var ieBody = document.getElementsByTagName('body'),
+        language = (
+          navigator.language || window.navigator['browserLanguage']
+        ).toLowerCase(),
+        ieEn1 = document.getElementById('ie-en-1'),
+        ieEn2 = document.getElementById('ie-en-2'),
+        ieEn3 = document.getElementById('ie-en-3'),
+        ieZh1 = document.getElementById('ie-zh-1'),
+        ieZh2 = document.getElementById('ie-zh-2'),
+        ieZh3 = document.getElementById('ie-zh-3'),
+        menuUl = document.getElementById('menu-ul'),
+        metu = document.getElementById('menu-text');
+      function platonChangeLang(lang) {
+        if (lang == 'en') {
+          ieEn1.style.display = 'block';
+          ieEn2.style.display = 'block';
+          ieEn3.style.display = 'block';
+          metu.innerHTML = 'English';
+          ieZh1.style.display = 'none';
+          ieZh2.style.display = 'none';
+          ieZh3.style.display = 'none';
         } else {
-            ieZh1.style.display = 'block';
-            ieZh2.style.display = 'block';
-            ieZh3.style.display = 'block';
-            metu.innerHTML = '简体中文';
+          ieZh1.style.display = 'block';
+          ieZh2.style.display = 'block';
+          ieZh3.style.display = 'block';
+          metu.innerHTML = '简体中文';
+          ieEn1.style.display = 'none';
+          ieEn2.style.display = 'none';
+          ieEn3.style.display = 'none';
         }
-        document.getElementById('ie-popup').style.display = 'block';
-        ieBody[0].style.overflow = 'hidden';
+        // menuUl.style.display = 'none';
+      }
+      if (language == 'en') {
+        ieEn1.style.display = 'block';
+        ieEn2.style.display = 'block';
+        ieEn3.style.display = 'block';
+        metu.innerHTML = 'English';
+      } else {
+        ieZh1.style.display = 'block';
+        ieZh2.style.display = 'block';
+        ieZh3.style.display = 'block';
+        metu.innerHTML = '简体中文';
+      }
+      document.getElementById('ie-popup').style.display = 'block';
+      ieBody[0].style.overflow = 'hidden';
     }
-</script>
-
+  </script>
 </html>

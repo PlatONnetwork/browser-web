@@ -39,11 +39,13 @@
           target="_blank"
           class="link-5"
         ></a>
+        <div class="link-br" />
         <a
           :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
           target="_blank"
           class="link-6"
         ></a>
+
         <a
           :href="configData.social[6].url[configLang] || 'https://www.linkedin.com/company/platonnetwork/'"
           target="_blank"
@@ -72,8 +74,9 @@
           :src="logoPrevURL + configData.logo"
           style="width: 82px; height: 30px"
           alt=""
+          class="foot-logo"
         />
-        <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
+        <p class="copy-right">{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
@@ -100,6 +103,7 @@
             target="_blank"
             class="link-5"
           ></a>
+          <div class="link-br" />
           <a
             :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
             target="_blank"
@@ -126,7 +130,7 @@
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
+        <p class="copy-right">{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.chainName.toUpperCase()) }}</p>
       </div>
     </div>
   </div>
@@ -139,7 +143,7 @@ export default {
   data() {
     return {
       path: '/',
-      curYear: new Date().getFullYear()
+      curYear: new Date().getFullYear(),
     };
   },
   props: {},
@@ -172,6 +176,14 @@ export default {
 <style lang="less" scoped>
 .footer-wrap {
   background: #000;
+
+  @media (max-width: 750px) {
+    padding: 0 40px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 0 20px;
+  }
 }
 .sub-foot {
   text-align: center;
@@ -223,6 +235,53 @@ export default {
       }
     }
   }
+  @media (max-width: 750px) {
+    padding-top: 100px;
+    h3 {
+      margin-bottom: 92px;
+    }
+    .foot-line {
+      margin: 50px 0 0 0;
+      border-style: dotted;
+    }
+    .foot-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      span {
+        margin-right: 0;
+        margin-bottom: 50px;
+        width: 45%;
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding-top: 50px;
+    h3 {
+      margin-bottom: 46px;
+    }
+    .foot-line {
+      margin: 25px 0 0 0;
+      border-style: dotted;
+    }
+    .foot-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      span {
+        margin-right: 0;
+        margin-bottom: 25px;
+        width: 45%;
+        line-height: 1;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+      }
+    }
+  }
 }
 .foot-index {
   text-align: center;
@@ -248,6 +307,9 @@ export default {
     margin: 0 auto;
     padding-top: 10px;
     border-top: 1px dashed #555;
+    .link-br {
+      display: none;
+    }
     a {
       // margin-right: 6px;
       width: 50px;
@@ -319,9 +381,14 @@ export default {
       margin-top: 10px;
       .foot-logo {
         margin-left: 0;
+        width: 82px;
+        height: 30px;
       }
       p {
         color: #929292;
+      }
+      .copy-right {
+        display: none;
       }
     }
     .foot-right {
@@ -345,8 +412,123 @@ export default {
       margin-top: 14px;
     }
   }
-}
 
+  @media (max-width: 750px) {
+    padding: 80px 0 40px;
+    width: 100%;
+    .foot-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    p:nth-of-type(1) {
+      margin: 40px 0;
+      font-size: 24px;
+    }
+    p:nth-of-type(2) {
+      margin-bottom: 55px;
+      font-size: 22px;
+    }
+    .link-wrap {
+      border-style: dotted;
+      padding-top: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-around;
+      .link-br {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    &.foot-no-index {
+      flex-direction: column;
+      padding: 80px 0 50px;
+
+      .foot-left {
+        width: 100%;
+        margin-top: 0;
+        text-align: center;
+        .foot-logo {
+          width: 100px;
+          height: auto;
+          margin: auto;
+        }
+        .copy-right {
+          display: block;
+        }
+      }
+      .foot-right {
+        width: 100%;
+        .copy-right {
+          display: none;
+        }
+        .link-wrap {
+          justify-content: space-around;
+          flex-wrap: wrap;
+          border-top: 1px dotted #555;
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+  @media (max-width: 500px) {
+    padding: 40px 0 20px;
+    .foot-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    p:nth-of-type(1) {
+      margin: 20px 0;
+      font-size: 20px;
+    }
+    p:nth-of-type(2) {
+      margin-bottom: 35px;
+      font-size: 18px;
+    }
+    .link-wrap {
+      border-style: dotted;
+      padding-top: 10px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-around;
+      .link-br {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    &.foot-no-index {
+      flex-direction: column;
+      padding: 40px 0 25px;
+
+      .foot-left {
+        width: 100%;
+        margin-top: 0;
+        text-align: center;
+        .foot-logo {
+          width: 100px;
+          height: auto;
+          margin: auto;
+        }
+        .copy-right {
+          display: block;
+        }
+      }
+      .foot-right {
+        width: 100%;
+        .copy-right {
+          display: none;
+        }
+        .link-wrap {
+          justify-content: space-around;
+          flex-wrap: wrap;
+          border-top: 1px dotted #555;
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
 // .bounceIn {
 //     -webkit-animation-duration: 0.75s;
 //     animation-duration: 0.75s;
@@ -437,4 +619,3 @@ export default {
   }
 }
 </style>
-

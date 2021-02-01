@@ -367,9 +367,7 @@
             >
               --%
             </p>
-            <p v-else class="value">
-              {{ detailInfo.expectedIncome }}%
-            </p>
+            <p v-else class="value">{{ detailInfo.expectedIncome }}%</p>
             <p class="text">
               <!-- TODO 需要做悬停 -->
               <span>{{ $t('nodeInfo.validatorAnnualizedYield') }}</span>
@@ -388,9 +386,7 @@
             >
               --%
             </p>
-            <p v-else class="value">
-              {{ detailInfo.deleAnnualizedRate }}%
-            </p>
+            <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}%</p>
             <p class="text">
               <span>{{ $t('nodeInfo.delegatedAnnualizedYield') }}</span>
               <el-tooltip placement="bottom" class="item" effect="dark">
@@ -444,97 +440,118 @@
           <h3 class="nodeInfo">{{ $t('nodeInfo.basicInfo') }}</h3>
           <List>
             <Item :label="$t('nodeInfo.nodeID')">
-              <span>{{ detailInfo.nodeId }}</span>
-              <b
-                class="cursor copyicon"
-                id="copy1"
-                :class="{ copy: !isCopy }"
-                v-clipboard:copy="detailInfo.nodeId"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
-                <p v-show="isCopy" style="width: 100%">
-                  <i class="el-icon-circle-check-outline"></i>
-                  <span>{{ copyText }}</span>
-                </p>
-              </b>
+              <div>
+                <span>{{ detailInfo.nodeId }}</span>
+                <b
+                  class="cursor copyicon"
+                  id="copy1"
+                  :class="{ copy: !isCopy }"
+                  v-clipboard:copy="detailInfo.nodeId"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError"
+                >
+                  <p v-show="isCopy" style="width: 100%">
+                    <i class="el-icon-circle-check-outline"></i>
+                    <span>{{ copyText }}</span>
+                  </p>
+                </b>
+              </div>
             </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
-              <span
-                class="blue cursor"
-                @click="goAddressDetail(detailInfo.stakingAddr)"
-                >{{ detailInfo.stakingAddr }}</span
-              >
-              <b
-                class="cursor copyicon"
-                id="copy2"
-                :class="{ copy: !isCopy2 }"
-                v-clipboard:copy="detailInfo.stakingAddr"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
-                <p v-show="isCopy2" style="width: 100%">
-                  <i class="el-icon-circle-check-outline"></i>
-                  <span>{{ copyText2 }}</span>
-                </p>
-              </b>
+              <div>
+                <span
+                  class="blue cursor"
+                  @click="goAddressDetail(detailInfo.stakingAddr)"
+                  >{{ detailInfo.stakingAddr }}</span
+                >
+                <b
+                  class="cursor copyicon"
+                  id="copy2"
+                  :class="{ copy: !isCopy2 }"
+                  v-clipboard:copy="detailInfo.stakingAddr"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError"
+                >
+                  <p v-show="isCopy2" style="width: 100%">
+                    <i class="el-icon-circle-check-outline"></i>
+                    <span>{{ copyText2 }}</span>
+                  </p>
+                </b>
+              </div>
             </Item>
             <Item :label="$t('tradeAbout.rewardAddress')">
-              <span
-                class="blue cursor"
-                @click="goAddressDetail(detailInfo.denefitAddr)"
-                >{{ detailInfo.denefitAddr }}</span
-              >
-              <span class="lightgray" v-if="detailInfo.isInit"
-                >({{ $t('nodeInfo.systemBuilt') }})</span
-              >
-              <b
-                class="cursor copyicon"
-                id="copy3"
-                :class="{ copy: !isCopy3 }"
-                v-clipboard:copy="detailInfo.denefitAddr"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
-                <p v-show="isCopy3" style="width: 100%">
-                  <i class="el-icon-circle-check-outline"></i>
-                  <span>{{ copyText3 }}</span>
-                </p>
-              </b>
+              <div>
+                <span
+                  class="blue cursor"
+                  @click="goAddressDetail(detailInfo.denefitAddr)"
+                  >{{ detailInfo.denefitAddr }}</span
+                >
+                <span class="lightgray" v-if="detailInfo.isInit"
+                  >({{ $t('nodeInfo.systemBuilt') }})</span
+                >
+                <b
+                  class="cursor copyicon"
+                  id="copy3"
+                  :class="{ copy: !isCopy3 }"
+                  v-clipboard:copy="detailInfo.denefitAddr"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError"
+                >
+                  <p v-show="isCopy3" style="width: 100%">
+                    <i class="el-icon-circle-check-outline"></i>
+                    <span>{{ copyText3 }}</span>
+                  </p>
+                </b>
+              </div>
             </Item>
             <Item :label="$t('tradeAbout.website')">
-              <a
-                class="blue cursor"
-                :href="detailInfo.website"
-                v-if="detailInfo.website"
-                target="_blank"
-                >{{ detailInfo.website }}</a
-              >
-              <span class="lightgray" v-else>Null</span>
+              <div>
+                <a
+                  class="blue cursor"
+                  :href="detailInfo.website"
+                  v-if="detailInfo.website"
+                  target="_blank"
+                  >{{ detailInfo.website }}</a
+                >
+                <span class="lightgray" v-else>Null</span>
+              </div>
             </Item>
             <Item :label="$t('nodeInfo.rewardRatio')">
-              <span v-if="detailInfo.isInit">--</span>
-              <span v-else class="fontSize14 Gilroy-Medium"
-                >{{ detailInfo.rewardPer }} %</span
-              >
+              <div>
+                <span v-if="detailInfo.isInit">--</span>
+                <span v-else class="fontSize14 Gilroy-Medium"
+                  >{{ detailInfo.rewardPer }} %</span
+                >
+              </div>
             </Item>
-            <Item v-if="detailInfo.rewardPer !== detailInfo.nextRewardPer" :label="$t('nodeInfo.nextRewardRatio')">
-              <span v-if="detailInfo.isInit">--</span>
-              <span v-else class="fontSize14 Gilroy-Medium">{{ detailInfo.nextRewardPer }} %</span>
+            <Item
+              v-if="detailInfo.rewardPer !== detailInfo.nextRewardPer"
+              :label="$t('nodeInfo.nextRewardRatio')"
+            >
+              <div>
+                <span v-if="detailInfo.isInit">--</span>
+                <span v-else class="fontSize14 Gilroy-Medium"
+                  >{{ detailInfo.nextRewardPer }} %</span
+                >
+              </div>
             </Item>
             <Item :label="$t('tradeAbout.identity')">
-              <a
-                class="blue cursor"
-                v-if="detailInfo.externalId"
-                :href="detailInfo.externalUrl"
-                target="_blank"
-                >{{ detailInfo.externalId }}</a
-              >
-              <span class="lightgray" v-else>Null</span>
+              <div>
+                <a
+                  class="blue cursor"
+                  v-if="detailInfo.externalId"
+                  :href="detailInfo.externalUrl"
+                  target="_blank"
+                  >{{ detailInfo.externalId }}</a
+                >
+                <span class="lightgray" v-else>Null</span>
+              </div>
             </Item>
             <Item :label="$t('tradeAbout.introduction')">
-              <span v-if="detailInfo.details">{{ detailInfo.details }}</span>
-              <span class="lightgray" v-else>Null</span>
+              <div>
+                <span v-if="detailInfo.details">{{ detailInfo.details }}</span>
+                <span class="lightgray" v-else>Null</span>
+              </div>
             </Item>
           </List>
         </div>
@@ -550,40 +567,42 @@
             }}</el-button>
           </div>
           <div class="table">
-            <el-table
-              :data="tableData"
-              style="width: 100%"
-              key="firstTable"
-              size="mini"
-            >
-              <el-table-column :label="$t('menu.block')">
-                <template slot-scope="scope">
-                  <span
-                    class="blue cursor"
-                    @click="goBlockDetail(scope.row.number)"
-                    >{{ scope.row.number }}</span
-                  >
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('common.time')">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.timestamp | formatTime }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                :label="$t('indexInfo.txn')"
-                show-overflow-tooltip
+            <div class="table-content">
+              <el-table
+                :data="tableData"
+                style="width: 100%"
+                key="firstTable"
+                size="mini"
               >
-                <template slot-scope="scope">
-                  <span>{{ scope.row.statTxQty | formatNumber }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('blockAbout.blockReward')">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
-                </template>
-              </el-table-column>
-            </el-table>
+                <el-table-column :label="$t('menu.block')">
+                  <template slot-scope="scope">
+                    <span
+                      class="blue cursor"
+                      @click="goBlockDetail(scope.row.number)"
+                      >{{ scope.row.number }}</span
+                    >
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('common.time')">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.timestamp | formatTime }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('indexInfo.txn')"
+                  show-overflow-tooltip
+                >
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.statTxQty | formatNumber }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('blockAbout.blockReward')">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
             <div class="pagination-box">
               <el-pagination
                 background
@@ -594,7 +613,7 @@
                 :page-size="pageSize"
                 layout="sizes,total,  prev, pager, next"
                 :total="pageTotal > 5000 ? 5000 : pageTotal"
-                :pager-count="9"
+                :pager-count="windowWidth < 750 ? 5 : 9"
               ></el-pagination>
             </div>
           </div>
@@ -769,7 +788,7 @@
                 :page-size="pageSize2"
                 layout="sizes,total,  prev, pager, next"
                 :total="pageTotal2"
-                :pager-count="9"
+                :pager-count="windowWidth < 750 ? 5 : 9"
               ></el-pagination>
             </div>
           </div>
@@ -865,7 +884,7 @@
                 :page-size="pageSize3"
                 layout="sizes,total,  prev, pager, next"
                 :total="pageTotal3"
-                :pager-count="9"
+                :pager-count="windowWidth < 750 ? 5 : 9"
               ></el-pagination>
             </div>
           </div>
@@ -926,7 +945,7 @@
                 :page-size="pageSize5"
                 layout="sizes,total,  prev, pager, next"
                 :total="pageTotal5 > 5000 ? 5000 : pageTotal5"
-                :pager-count="9"
+                :pager-count="windowWidth < 750 ? 5 : 9"
               ></el-pagination>
             </div>
           </div>
@@ -1461,6 +1480,59 @@ export default {
   z-index: 9999;
   display: none;
 }
+
+@media (max-width: 750px) {
+  .node-static-box {
+    flex-direction: column;
+    .node-static-left-box {
+      width: 100%;
+      .node-statistic {
+        .list-wrap {
+          .item-wrap {
+            .list-col-item {
+              width: 49%;
+              flex: unset !important;
+              margin-left: 0 !important;
+            }
+          }
+        }
+      }
+    }
+    .node-static-right-box {
+      width: 100%;
+      .yield-box {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .content-padding {
+    .tabs {
+      .el-button {
+        margin-left: 0 !important;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .node-detail-content {
+      margin-top: 10px;
+      .basicInfo {
+        .list-wrap {
+          .item-wrap {
+            .list-item {
+              & > *:nth-child(2) {
+                word-break: break-all;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>
 <style lang="less">
 .node-statistic {
@@ -1522,5 +1594,10 @@ export default {
       width: auto;
     }
   }
+}
+
+.table-content {
+  width: 100%;
+  overflow-x: auto;
 }
 </style>

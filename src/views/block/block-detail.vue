@@ -1,9 +1,9 @@
 <template>
   <div class="block-detail-wrap">
-    <div class="page-title fontSize34">{{ $t("blockAbout.blockDetail") }}</div>
+    <div class="page-title fontSize34">{{ $t('blockAbout.blockDetail') }}</div>
     <div class="detail-change">
       <div class="detail-copy">
-        <span>{{ $t("tradeAbout.block") }}</span>
+        <span>{{ $t('tradeAbout.block') }}</span>
         <i>#{{ detailInfo.number }}</i>
         <b
           class="cursor"
@@ -45,7 +45,7 @@
         <!-- <el-button icon="el-icon-arrow-right"></el-button> -->
       </div>
     </div>
-    <div class="infomation">
+    <div class="information">
       <!-- 基础交易 -->
       <List :title="$t('blockAbout.blockInformation')" :border="true">
         <Item
@@ -78,9 +78,9 @@
           <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{
             detailInfo.nodeName
           }}</span>
-          <span style="line-height:16px;"
+          <span style="line-height: 16px"
             >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)
-            }}{{ $t("tradeAbout.before") }}】</span
+            }}{{ $t('tradeAbout.before') }}】</span
           >
         </Item>
         <Item
@@ -111,7 +111,7 @@
     </div>
     <div class="block-trade">
       <div class="block-trade-title">
-        {{ $t("tradeAbout.transactions") }}({{ detailInfo.txQty }})
+        {{ $t('tradeAbout.transactions') }}({{ detailInfo.txQty }})
       </div>
       <trade-list
         ref="blockTrade"
@@ -125,16 +125,16 @@
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { timeDiff } from "@/services/time-services";
+import apiService from '@/services/API-services';
+import { timeDiff } from '@/services/time-services';
 
-import List from "@/components/list/list";
-import Item from "@/components/list/item";
+import List from '@/components/list/list';
+import Item from '@/components/list/item';
 
-import tradeList from "@/components/trade-list";
+import tradeList from '@/components/trade-list';
 
 export default {
-  name: "block-detail",
+  name: 'block-detail',
   data() {
     return {
       height: 0,
@@ -142,7 +142,7 @@ export default {
       disabledLeft: false,
       disabledRight: false,
       isCopy: false,
-      copyText: ""
+      copyText: '',
     };
   },
   props: {},
@@ -151,17 +151,17 @@ export default {
   components: {
     List,
     Item,
-    tradeList
+    tradeList,
   },
   methods: {
     //获取地址信息详情
     getDetail() {
       let param = {
-        number: this.height
+        number: this.height,
       };
       apiService.block
         .blockDetails(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
@@ -182,7 +182,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -190,19 +190,19 @@ export default {
       return timeDiff(beginTime, endTime);
     },
     onCopy() {
-      this.copyText = this.$t("modalInfo.copysuccess");
+      this.copyText = this.$t('modalInfo.copysuccess');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
     onError() {
-      this.copyText = this.$t("modalInfo.copyfail");
+      this.copyText = this.$t('modalInfo.copyfail');
       this.isCopy = true;
       setTimeout(() => {
         this.isCopy = false;
-        this.copyText = "";
+        this.copyText = '';
       }, 2000);
     },
 
@@ -219,10 +219,10 @@ export default {
     goDetail(height) {
       this.height = height;
       this.$router.replace({
-        path: "/block-detail",
+        path: '/block-detail',
         query: {
-          height: height
-        }
+          height: height,
+        },
       });
 
       this.disabledLeft = true;
@@ -239,7 +239,7 @@ export default {
     this.height = this.$route.query.height;
     this.getDetail();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
@@ -258,6 +258,29 @@ export default {
   }
   .common-trade {
     padding-left: 30px;
+  }
+}
+
+@media (max-width: 750px) {
+  .information {
+    .list-wrap {
+      .list-item {
+        width: 100%;
+        label {
+          min-width: 120px;
+        }
+        p {
+          flex: 1;
+          width: auto;
+        }
+        *:not(:first-child) {
+          word-break: break-all;
+        }
+        span + span {
+          margin-left: 8px;
+        }
+      }
+    }
   }
 }
 </style>

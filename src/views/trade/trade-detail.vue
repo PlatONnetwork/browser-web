@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="infomation box-relative">
+    <div class="information box-relative">
       <!-- 交易状态小图标 -->
       <!-- <i
         v-if="detailInfo.txReceiptStatus==1"
@@ -759,7 +759,7 @@
 
       <!-- 基础交易end -->
 
-      <!-- 交易信息infomation -->
+      <!-- 交易信息information -->
       <List
         :title="$t('tradeAbout.information')"
         class="common-info"
@@ -895,7 +895,7 @@
           <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
         </Item>
       </List>
-      <!-- 交易信息infomation  end -->
+      <!-- 交易信息information  end -->
     </div>
   </div>
 </template>
@@ -1071,7 +1071,8 @@ export default {
 .warn-info {
   background: #fff7e3;
   border: 1px solid #ffc017;
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
   margin-bottom: 20px;
   border-radius: 4px;
   padding: 10px 15px;
@@ -1129,6 +1130,21 @@ export default {
     width: 12px;
     height: 12px;
     margin-right: 6px;
+  }
+}
+
+@media (max-width: 750px) {
+  .detail-change {
+    flex-wrap: wrap;
+    .detail-copy {
+      word-break: break-all;
+      b {
+        display: none;
+      }
+    }
+    .detail-arrow {
+      display: none;
+    }
   }
 }
 </style>

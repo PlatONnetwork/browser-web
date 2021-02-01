@@ -1,85 +1,181 @@
 <template>
   <div class="index-wrap">
-    <vue-particles color="#2E2E2E" :particleOpacity="0.7" :particlesNumber="80" shapeType="circle" :particleSize="4" linesColor="#2E2E2E" :linesWidth="1" :lineLinked="true" :lineOpacity="0.7" :linesDistance="150" :moveSpeed="2" :hoverEffect="true" hoverMode="grab" :clickEffect="false" clickMode="repulse" class="lizi" :style="{height:clientHeight+'px'}"></vue-particles>
+    <vue-particles
+      color="#2E2E2E"
+      :particleOpacity="0.7"
+      :particlesNumber="80"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#2E2E2E"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.7"
+      :linesDistance="150"
+      :moveSpeed="2"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="false"
+      clickMode="repulse"
+      class="lizi"
+      :style="{ height: clientHeight + 'px' }"
+    ></vue-particles>
     <div class="welcome-wrap">
-      <h3>{{$t('indexInfo.WelcomeToPlatON')}}</h3>
-      <div class="search search-index" :class="{'search-active':isFocus,'search-hide':!hideSearch}">
-        <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey" @keyup.enter.native="searchFn" size="mini"></el-input>
-        <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled="disabledBtn">{{ $t("search.searchBtn") }}</el-button>
+      <h3>{{ $t('indexInfo.WelcomeToPlatON') }}</h3>
+      <div
+        class="search search-index"
+        :class="{ 'search-active': isFocus, 'search-hide': !hideSearch }"
+      >
+        <el-input
+          :placeholder="$t('search.placeHolder')"
+          @focus="isFocus = true"
+          @blur="isFocus = false"
+          v-model="searchKey"
+          @keyup.enter.native="searchFn"
+          size="mini"
+        ></el-input>
+        <el-button
+          type="primary"
+          class="el-btn el-searchs"
+          :class="{ 'search-btn-active': isFocus }"
+          @click="searchFn"
+          :disabled="disabledBtn"
+          >{{ $t('search.searchBtn') }}</el-button
+        >
       </div>
-      <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron3.svg" />
-      <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron3.svg" />
-      <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron.svg" />
+      <img
+        class="polyhedron-big polyhedron"
+        src="@/assets/images/polyhedron3.svg"
+      />
+      <img
+        class="polyhedron-mid polyhedron"
+        src="@/assets/images/polyhedron3.svg"
+      />
+      <img
+        class="polyhedron-small polyhedron"
+        src="@/assets/images/polyhedron.svg"
+      />
     </div>
     <el-row type="flex" class="bar-wrap">
       <el-col :span="12" class="bar-left bar">
-        <h3>{{$t('indexInfo.LIVEBLOCKTIME')}}</h3>
-        <div class="chart" ref="blockTimeChart">
-        </div>
+        <h3>{{ $t('indexInfo.LIVEBLOCKTIME') }}</h3>
+        <div class="chart" ref="blockTimeChart"></div>
         <div class="bar-tooltip" v-if="isShowTooltip">
-          <span>#{{tooltipData.number}}/</span><span>{{tooltipData.time}}s</span>
+          <span>#{{ tooltipData.number }}/</span
+          ><span>{{ tooltipData.time }}s</span>
         </div>
         <ul class="block-statistics">
           <li class="statistics-link statistics-odd">
-            <div class="statistics-label">{{$t('indexInfo.LIVEBLOCKHEIGHT')}}</div>
-            <a class="cursor" @click="goBlockDetail(blockStatisticData.currentNumber)">{{blockStatisticData.currentNumber}}</a>
+            <div class="statistics-label">
+              {{ $t('indexInfo.LIVEBLOCKHEIGHT') }}
+            </div>
+            <a
+              class="cursor"
+              @click="goBlockDetail(blockStatisticData.currentNumber)"
+              >{{ blockStatisticData.currentNumber }}</a
+            >
           </li>
           <li class="statistics-link statistics-even">
-            <div class="statistics-label">{{$t('blockAbout.producer').toUpperCase()}}</div>
-            <a class="cursor" @click="goNodeDetail(blockStatisticData.nodeId)">{{blockStatisticData.nodeName}}</a>
+            <div class="statistics-label">
+              {{ $t('blockAbout.producer').toUpperCase() }}
+            </div>
+            <a
+              class="cursor"
+              @click="goNodeDetail(blockStatisticData.nodeId)"
+              >{{ blockStatisticData.nodeName }}</a
+            >
           </li>
           <li class="statistics-odd">
-            <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(ATP)</div>
+            <div class="statistics-label">
+              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}(ATP)
+            </div>
             <p>
-              {{blockStatisticData.turnValue | unit}}&nbsp;/
+              {{ blockStatisticData.turnValue | unit }}&nbsp;/
               <b class="tip">
-                {{blockStatisticData.issueValue | unit}}
-                <i>{{$t('indexInfo.totalSUPPLY')}}</i>
+                {{ blockStatisticData.issueValue | unit }}
+                <i>{{ $t('indexInfo.totalSUPPLY') }}</i>
               </b>
             </p>
-            <el-progress class="progress-supply" :percentage="blockStatisticData.turnValue | percentage(blockStatisticData.issueValue)"></el-progress>
+            <el-progress
+              class="progress-supply"
+              :percentage="
+                blockStatisticData.turnValue
+                  | percentage(blockStatisticData.issueValue)
+              "
+            ></el-progress>
           </li>
           <li class="statistics-even">
-            <div class="statistics-label">{{$t('nodeInfo.stakeRate').toUpperCase()}}</div>
+            <div class="statistics-label">
+              {{ $t('nodeInfo.stakeRate').toUpperCase() }}
+            </div>
             <p>
-              {{blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)}}%&nbsp;
+              {{
+                blockStatisticData.stakingDelegationValue
+                  | percentage(blockStatisticData.issueValue)
+              }}%&nbsp;
               <b class="tip">
-                {{blockStatisticData.stakingDelegationValue | formatNumber}}
-                <i>{{$t('indexInfo.totalSTAKE')}}</i>
+                {{ blockStatisticData.stakingDelegationValue | formatNumber }}
+                <i>{{ $t('indexInfo.totalSTAKE') }}</i>
               </b>
             </p>
-            <el-progress :percentage="blockStatisticData.stakingDelegationValue | percentage(blockStatisticData.issueValue)"></el-progress>
+            <el-progress
+              :percentage="
+                blockStatisticData.stakingDelegationValue
+                  | percentage(blockStatisticData.issueValue)
+              "
+            ></el-progress>
           </li>
         </ul>
-        <img class="polyhedron-mini polyhedron" src="@/assets/images/polyhedron3.svg" />
+        <img
+          class="polyhedron-mini polyhedron"
+          src="@/assets/images/polyhedron3.svg"
+        />
       </el-col>
       <el-col :span="12" class="bar-right bar">
-        <h3>{{$t('indexInfo.LIVEBLOCKTRANSACTIONS')}}</h3>
+        <h3>{{ $t('indexInfo.LIVEBLOCKTRANSACTIONS') }}</h3>
         <div class="chart" ref="blockTradeChart"></div>
         <div class="bar-tooltip" v-if="isShowTooltip">
-          <span>#{{tooltipData.number}}/</span><span>{{tooltipData.txs}}Txs</span>
+          <span>#{{ tooltipData.number }}/</span
+          ><span>{{ tooltipData.txs }}Txs</span>
         </div>
         <ul class="block-statistics">
           <li class="statistics-link calcWidth">
-            <div class="statistics-label">{{$t('indexInfo.LIVETRANSACTIONS')}}</div>
-            <a class="cursor" @click="$router.push('/trade')">{{blockStatisticData.txQty | unit}}</a>
+            <div class="statistics-label">
+              {{ $t('indexInfo.LIVETRANSACTIONS') }}
+            </div>
+            <a class="cursor" @click="$router.push('/trade')">{{
+              blockStatisticData.txQty | unit
+            }}</a>
           </li>
-          <li style="min-width:300px">
-            <div class="statistics-label">{{$t('indexInfo.CURRNTMAXTPS')}}</div>
+          <li style="min-width: 300px">
+            <div class="statistics-label">
+              {{ $t('indexInfo.CURRNTMAXTPS') }}
+            </div>
             <a>
-              {{blockStatisticData.currentTps | formatNumber}}
-              <span class="lightblue">/{{blockStatisticData.maxTps | formatNumber}}</span>
+              {{ blockStatisticData.currentTps | formatNumber }}
+              <span class="lightblue"
+                >/{{ blockStatisticData.maxTps | formatNumber }}</span
+              >
             </a>
           </li>
           <li class="calcWidth">
-            <div class="statistics-label">{{$t('indexInfo.LIVEADDRESS')}}</div>
-            <a>{{blockStatisticData.addressQty | formatNumber}}</a>
+            <div class="statistics-label">
+              {{ $t('indexInfo.LIVEADDRESS') }}
+            </div>
+            <a>{{ blockStatisticData.addressQty | formatNumber }}</a>
           </li>
-          <li class="cursor statistics-link" @click="goProposal" style="min-width:300px">
-            <div class="statistics-label">{{$t('indexInfo.PENDINGTOTAL')}}</div>
+          <li
+            class="cursor statistics-link"
+            @click="goProposal"
+            style="min-width: 300px"
+          >
+            <div class="statistics-label">
+              {{ $t('indexInfo.PENDINGTOTAL') }}
+            </div>
             <a>
-              {{blockStatisticData.doingProposalQty | formatNumber}}
-              <span class="lightblue">/{{blockStatisticData.proposalQty | formatNumber}}</span>
+              {{ blockStatisticData.doingProposalQty | formatNumber }}
+              <span class="lightblue"
+                >/{{ blockStatisticData.proposalQty | formatNumber }}</span
+              >
             </a>
           </li>
         </ul>
@@ -87,78 +183,140 @@
     </el-row>
     <el-row class="block-and-node" type="flex" justify="space-between">
       <el-col :span="11">
-        <h3>{{$t('blockAbout.Block')}}</h3>
+        <h3>{{ $t('blockAbout.Block') }}</h3>
         <div class="block-list-wrap">
-          <div class="zhezhao" id="zhezhao" :class="{active:isMove2}"></div>
-          <ul class="blocks-ul blocks-ul-new" :class="{'blocks-active':isMove2}">
+          <div class="zhezhao" id="zhezhao" :class="{ active: isMove2 }"></div>
+          <ul
+            class="blocks-ul blocks-ul-new"
+            :class="{ 'blocks-active': isMove2 }"
+          >
             <li v-if="blockData.length">
               <div class="list-item">
-                <span class="item-number cursor" @click="goBlockDetail(blockData[0].number)">{{blockData[0].number}}</span>
+                <span
+                  class="item-number cursor"
+                  @click="goBlockDetail(blockData[0].number)"
+                  >{{ blockData[0].number }}</span
+                >
                 <p>
-                  {{$t('blockAbout.producer')}}
-                  <a class="cursor" @click="goNodeDetail(blockData[0].nodeId)">{{blockData[0].nodeName}}</a>
+                  {{ $t('blockAbout.producer') }}
+                  <a
+                    class="cursor"
+                    @click="goNodeDetail(blockData[0].nodeId)"
+                    >{{ blockData[0].nodeName }}</a
+                  >
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns">{{blockData[0].statTxQty}}&nbsp;{{$t('indexInfo.txns')}}</span>
-                <span class="item-time">{{timeDiffFn(blockData[0].serverTime,blockData[0].timestamp)}}&nbsp;{{$t('tradeAbout.before')}}</span>
+                <span class="item-txns"
+                  >{{ blockData[0].statTxQty }}&nbsp;{{
+                    $t('indexInfo.txns')
+                  }}</span
+                >
+                <span class="item-time"
+                  >{{
+                    timeDiffFn(blockData[0].serverTime, blockData[0].timestamp)
+                  }}&nbsp;{{ $t('tradeAbout.before') }}</span
+                >
               </div>
               <!-- <img src="../../assets/images/avtor-black.png"> -->
             </li>
           </ul>
-          <ul class="blocks-ul blocks-ul-new2" id="blocks-ul-new2" :class="{'blocks-active2':isMove}">
-            <li v-for="(item,index) in blockData" :key="index">
+          <ul
+            class="blocks-ul blocks-ul-new2"
+            id="blocks-ul-new2"
+            :class="{ 'blocks-active2': isMove }"
+          >
+            <li v-for="(item, index) in blockData" :key="index">
               <div class="list-item">
-                <span class="item-number cursor" @click="goBlockDetail(item.number)">{{item.number}}</span>
+                <span
+                  class="item-number cursor"
+                  @click="goBlockDetail(item.number)"
+                  >{{ item.number }}</span
+                >
                 <p>
-                  {{$t('blockAbout.producer')}}
-                  <a class="cursor" @click="goNodeDetail(item.nodeId)">{{item.nodeName}}</a>
+                  {{ $t('blockAbout.producer') }}
+                  <a class="cursor" @click="goNodeDetail(item.nodeId)">{{
+                    item.nodeName
+                  }}</a>
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns">{{item.statTxQty}}&nbsp;{{$t('indexInfo.txns')}}</span>
-                <span class="item-time">{{timeDiffFn(item.serverTime,item.timestamp)}}&nbsp;{{$t('tradeAbout.before')}}</span>
+                <span class="item-txns"
+                  >{{ item.statTxQty }}&nbsp;{{ $t('indexInfo.txns') }}</span
+                >
+                <span class="item-time"
+                  >{{ timeDiffFn(item.serverTime, item.timestamp) }}&nbsp;{{
+                    $t('tradeAbout.before')
+                  }}</span
+                >
               </div>
               <!-- <img src="../../assets/images/avtor-black.png"> -->
             </li>
           </ul>
         </div>
         <div class="view-blocks">
-          <router-link to="/block" class="view-link">{{ $t("indexInfo.viewAll")+$t("blockAbout.block")}}</router-link>
+          <router-link to="/block" class="view-link">{{
+            $t('indexInfo.viewAll') + $t('blockAbout.block')
+          }}</router-link>
         </div>
       </el-col>
       <el-col :span="11">
-        <h3>{{$t('indexInfo.currentValidators')}}</h3>
+        <h3>{{ $t('indexInfo.currentValidators') }}</h3>
         <div class="block-list-wrap">
-          <ul class="node-ul" :class="{'node-animation':ValidatorData.dataList.length>8}">
-            <li class="cursor" v-for="(item,index) in ValidatorData.dataList" :key="index" @click="goNodeDetail(item.nodeId)">
+          <ul
+            class="node-ul"
+            :class="{ 'node-animation': ValidatorData.dataList.length > 8 }"
+          >
+            <li
+              class="cursor"
+              v-for="(item, index) in ValidatorData.dataList"
+              :key="index"
+              @click="goNodeDetail(item.nodeId)"
+            >
               <div class="list-item item-left">
-                <span class="item-number cursor">{{item.nodeName}}</span>
+                <span class="item-number cursor">{{ item.nodeName }}</span>
                 <p>
-                  {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}ATP</a>
+                  {{ $t('nodeInfo.totalStakePower') }}
+                  <a>{{ item.totalValue | formatMoney }}ATP</a>
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns fontSize13" v-if="item.expectedIncome">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield2')}}</span>
+                <span class="item-txns fontSize13" v-if="item.expectedIncome"
+                  >{{ item.expectedIncome }}&nbsp;{{
+                    $t('nodeInfo.yield2')
+                  }}</span
+                >
                 <span class="item-txns" v-else>--</span>
-                <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
+                <span class="item-time"
+                  >{{ item.ranking }}&nbsp;{{ $t('nodeInfo.rank') }}</span
+                >
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
               <img src="../../assets/images/avtor-black.svg" v-else />
             </li>
-            <li class="cursor" v-for="(item,index) in showedValidatorData" :key="index" @click="goNodeDetail(item.nodeId)">
+            <li
+              class="cursor"
+              v-for="(item, index) in showedValidatorData"
+              :key="index"
+              @click="goNodeDetail(item.nodeId)"
+            >
               <div class="list-item item-left">
-                <span class="item-number cursor">{{item.nodeName}}</span>
+                <span class="item-number cursor">{{ item.nodeName }}</span>
                 <p>
-                  {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}ATP</a>
+                  {{ $t('nodeInfo.totalStakePower') }}
+                  <a>{{ item.totalValue | formatMoney }}ATP</a>
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns" v-if="item.expectedIncome">{{item.expectedIncome}}&nbsp;{{$t('nodeInfo.yield2')}}</span>
+                <span class="item-txns" v-if="item.expectedIncome"
+                  >{{ item.expectedIncome }}&nbsp;{{
+                    $t('nodeInfo.yield2')
+                  }}</span
+                >
                 <span class="item-txns" v-else>--</span>
-                <span class="item-time">{{item.ranking}}&nbsp;{{$t('nodeInfo.rank')}}</span>
+                <span class="item-time"
+                  >{{ item.ranking }}&nbsp;{{ $t('nodeInfo.rank') }}</span
+                >
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
               <img src="../../assets/images/avtor-black.svg" v-else />
@@ -166,36 +324,38 @@
           </ul>
         </div>
         <div class="view-blocks">
-          <router-link to="/node" class="view-link">{{ $t("indexInfo.viewAll")+ $t("nodeInfo.validator")}}</router-link>
+          <router-link to="/node" class="view-link">{{
+            $t('indexInfo.viewAll') + $t('nodeInfo.validator')
+          }}</router-link>
         </div>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services"
-import ChartService from "@/services/chart-services"
-import IndexService from "@/services/index-service"
-import { timeDiff } from "@/services/time-services"
+import apiService from '@/services/API-services';
+import ChartService from '@/services/chart-services';
+import IndexService from '@/services/index-service';
+import { timeDiff } from '@/services/time-services';
 
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex"
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
-import comHeader from "@/components/header/header.vue"
+import comHeader from '@/components/header/header.vue';
 
-const blockTimeChart = new ChartService()
-const blockTradeChart = new ChartService()
+const blockTimeChart = new ChartService();
+const blockTradeChart = new ChartService();
 
-let indexService = null
+let indexService = null;
 
 export default {
-  name: "index",
-  data () {
+  name: 'index',
+  data() {
     return {
-      searchKey: "",
+      searchKey: '',
       disabledBtn: false,
       isFocus: false,
       tabIndex: 1,
-      i18nLocale: "zh-cn",
+      i18nLocale: 'zh-cn',
       // isMove:false,
       // isMove2: false,
       styleEle: null,
@@ -203,329 +363,354 @@ export default {
       chartMove: false,
       clientHeight: 700,
       barColorList: [
-        '#fff', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
-        'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)', 'rgba(255,255,255,0.5)',
+        '#fff',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
+        'rgba(255,255,255,0.5)',
       ],
       tooltipData: {
         number: 0,
         txs: 0,
-        time: 0
+        time: 0,
       },
       tooltipEl: null,
       isShowTooltip: false,
       isWebkit: false,
-    }
+    };
   },
   props: {},
   computed: {
     ...mapGetters([
-      "chartData",
-      "blockStatisticData",
-      "blockData",
-      "ValidatorData",
-      "hideSearch",
-      "isMove",
-      "isMove2"
+      'chartData',
+      'blockStatisticData',
+      'blockData',
+      'ValidatorData',
+      'hideSearch',
+      'isMove',
+      'isMove2',
     ]),
-    showedValidatorData () {
+    showedValidatorData() {
       if (this.ValidatorData.dataList.length > 8) {
         if (this.styleEle && this.ValidatorData.isRefresh) {
           // const index = document.styleSheets[0].cssRules.length
           // debugger
           // console.log('bbbb',this.styleEle)
 
-          const index = this.isWebkit ? 2 : 0
+          const index = this.isWebkit ? 2 : 0;
           if (this.styleEle.cssRules[index]) {
-            this.styleEle.deleteRule(index)
+            this.styleEle.deleteRule(index);
           }
           this.addCSSRule(
             this.styleEle,
-            "@keyframes nodeMove",
+            '@keyframes nodeMove',
             `from {
-                            transform: translate(0,${this.ValidatorData.dataList
-              .length * -83}px);
+                            transform: translate(0,${
+                              this.ValidatorData.dataList.length * -83
+                            }px);
                         }
                         to {
                             transform: translate(0,0);
                         }`,
             index
-          )
+          );
         }
-        return this.ValidatorData.dataList.slice(0, 8)
+        return this.ValidatorData.dataList.slice(0, 8);
       } else {
-        return []
+        return [];
       }
-    }
+    },
   },
   watch: {
-    chartData (val) {
-      this.updateChart(val)
+    chartData(val) {
+      this.updateChart(val);
     },
-    chainId (val) {
-      indexService.disconnect()
-      indexService.connect()
+    chainId(val) {
+      indexService.disconnect();
+      indexService.connect();
     },
-    chainContext (val) {
-      indexService.disconnect()
-      indexService.connect()
-    }
+    chainContext(val) {
+      indexService.disconnect();
+      indexService.connect();
+    },
   },
   components: {
-    comHeader
+    comHeader,
   },
   methods: {
     ...mapMutations({
-      hide: "HIDE_SEARCH",
-      updateIsMove: "UPDATE_IS_MOVE",
-      updateIsMove2: "UPDATE_IS_MOVE2",
-      updateBarIsMove: "UPDATE_BAR_IS_MOVE",
-      updateBlack: "UPDATE_BLACK_DADA",
-      updateValidators: "UPDATE_VALIDATOR_DADA",
-      updateChartData: "UPDATE_CHART_DADA",
-      updateBlockStatisticData: "UPDATE_STATISTIC_DADA",
+      hide: 'HIDE_SEARCH',
+      updateIsMove: 'UPDATE_IS_MOVE',
+      updateIsMove2: 'UPDATE_IS_MOVE2',
+      updateBarIsMove: 'UPDATE_BAR_IS_MOVE',
+      updateBlack: 'UPDATE_BLACK_DADA',
+      updateValidators: 'UPDATE_VALIDATOR_DADA',
+      updateChartData: 'UPDATE_CHART_DADA',
+      updateBlockStatisticData: 'UPDATE_STATISTIC_DADA',
     }),
     //查询
-    searchFn () {
-      this.disabledBtn = true
+    searchFn() {
+      this.disabledBtn = true;
       let param = {
-        parameter: this.searchKey.trim()
-      }
+        parameter: this.searchKey.trim(),
+      };
       // console.warn("搜索内容》》》", param);
       apiService.search
         .query(param)
-        .then(res => {
-          this.searchKey = ""
-          let { errMsg, code, data } = res
+        .then((res) => {
+          this.searchKey = '';
+          let { errMsg, code, data } = res;
           if (code == 0) {
             //根据type不同进入不同的详情页
             if (!data.type) {
-              this.$message.warning(this.$t("indexInfo.searchno"))
+              this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
-              this.switchFn(data.type, data.struct)
+              this.switchFn(data.type, data.struct);
               // this.$emit('searchFn',data);
             }
           } else {
-            this.$message.warning(this.$t("indexInfo.searchno"))
+            this.$message.warning(this.$t('indexInfo.searchno'));
             // this.$message.error(errMsg) 替换为search无结果
           }
         })
-        .catch(error => {
-          this.searchKey = ""
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.searchKey = '';
+          this.$message.error(error);
+        });
       setTimeout(() => {
-        this.disabledBtn = false
-      }, 2000)
+        this.disabledBtn = false;
+      }, 2000);
     },
     //
-    getStaking () {
-      let param = {}
+    getStaking() {
+      let param = {};
       apiService.search
         .stakingOnIndex(param)
-        .then(res => {
-          let { errMsg, code, data } = res
-          this.updateValidators(data)
+        .then((res) => {
+          let { errMsg, code, data } = res;
+          this.updateValidators(data);
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    getStatistic () {
-      let param = {}
+    getStatistic() {
+      let param = {};
       apiService.search
         .chainStatistic(param)
-        .then(res => {
-          let { errMsg, code, data } = res
+        .then((res) => {
+          let { errMsg, code, data } = res;
           if (code == 0) {
-            this.updateBlockStatisticData(data)
-            this.updateBlack(data.blockList)
+            this.updateBlockStatisticData(data);
+            this.updateBlack(data.blockList);
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    getChartData () {
-      let param = {}
+    getChartData() {
+      let param = {};
       apiService.search
         .blockStatistic(param)
-        .then(res => {
-          let { errMsg, code, data } = res
+        .then((res) => {
+          let { errMsg, code, data } = res;
           if (code == 0) {
-            this.updateChartData(data)
+            this.updateChartData(data);
           } else {
-            this.$message.error(errMsg)
+            this.$message.error(errMsg);
           }
         })
-        .catch(error => {
-          this.$message.error(error)
-        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
     },
-    switchFn (type, struct) {
+    switchFn(type, struct) {
       switch (type) {
         //区块详情
-        case "block":
+        case 'block':
           return this.$router.push({
-            path: "/block-detail",
+            path: '/block-detail',
             query: {
-              height: struct.number
-            }
-          })
-          break
+              height: struct.number,
+            },
+          });
+          break;
         //交易详情
-        case "transaction":
+        case 'transaction':
           // let path = ''
           // struct.txReceiptStatus == -1 ? path='/trade-pending-detail' : path = '/trade-detail'
           return this.$router.push({
-            path: "/trade-detail",
+            path: '/trade-detail',
             query: {
-              txHash: struct.txHash
-            }
-          })
-          break
+              txHash: struct.txHash,
+            },
+          });
+          break;
         //节点详情
-        case "staking":
+        case 'staking':
           return this.$router.push({
-            path: "/node-detail",
+            path: '/node-detail',
             query: {
-              address: struct.nodeId
-            }
-          })
-          break
+              address: struct.nodeId,
+            },
+          });
+          break;
         //地址详情==(钱包地址详情)
-        case "address":
+        case 'address':
           return this.$router.push({
-            path: "/address-detail",
+            path: '/address-detail',
             query: {
-              address: struct.address
-            }
-          })
-          break
+              address: struct.address,
+            },
+          });
+          break;
         //合约详情
-        case "contract":
+        case 'contract':
           return this.$router.push({
-            path: "/contract-detail",
+            path: '/contract-detail',
             query: {
-              address: struct.address
-            }
-          })
-          break
+              address: struct.address,
+            },
+          });
+          break;
       }
     },
-    handleBarHover (e) {
+    handleBarHover(e) {
       // console.log('aaa','Hover')
-      this.isShowTooltip = true
+      this.isShowTooltip = true;
       this.$nextTick(() => {
-        this.tooltipData.time = this.chartData.ya[e.dataIndex]
-        this.tooltipData.txs = this.chartData.yb[e.dataIndex]
-        this.tooltipEl[0].style.top = 36 + 'px'
-        this.tooltipEl[0].style.left = e.event.offsetX - 80 + 'px'
-        this.tooltipEl[1].style.top = 36 + 'px'
-        this.tooltipEl[1].style.left = e.event.offsetX - 80 + 'px'
-        this.tooltipData.number = e.name
-      })
+        this.tooltipData.time = this.chartData.ya[e.dataIndex];
+        this.tooltipData.txs = this.chartData.yb[e.dataIndex];
+        this.tooltipEl[0].style.top = 36 + 'px';
+        this.tooltipEl[0].style.left = e.event.offsetX - 80 + 'px';
+        this.tooltipEl[1].style.top = 36 + 'px';
+        this.tooltipEl[1].style.left = e.event.offsetX - 80 + 'px';
+        this.tooltipData.number = e.name;
+      });
 
       this.barColorList.forEach((value, index) => {
         if (e.dataIndex == index) {
-          this.barColorList[index] = '#66B7DE'
+          this.barColorList[index] = '#66B7DE';
         } else {
-          this.barColorList[index] = 'rgba(255,255,255,0.5)'
+          this.barColorList[index] = 'rgba(255,255,255,0.5)';
         }
-      })
+      });
       if (e.dataIndex != 0) {
-        this.barColorList[0] = '#fff'
+        this.barColorList[0] = '#fff';
       }
       // console.log('barColorList',this.barColorList)
-      this.updateBarColor()
+      this.updateBarColor();
 
-      this.updateBarIsMove(false)
+      this.updateBarIsMove(false);
       // indexService.unsubBlock();
     },
-    handleBarMouseout () {
+    handleBarMouseout() {
       // console.log('aaa','Mouseout')
-      this.isShowTooltip = false
+      this.isShowTooltip = false;
       this.barColorList.forEach((value, index) => {
         if (index == 0) {
-          this.barColorList[index] = '#FFF'
+          this.barColorList[index] = '#FFF';
         } else {
-          this.barColorList[index] = 'rgba(255,255,255,0.5)'
+          this.barColorList[index] = 'rgba(255,255,255,0.5)';
         }
-      })
-      this.updateBarColor()
+      });
+      this.updateBarColor();
     },
-    initBlockTimeChart () {
-      let r = this.$refs
+    initBlockTimeChart() {
+      let r = this.$refs;
       // console.log(r);
 
-      blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption)
-      blockTimeChart.chart.on("mouseover", e => {
-        this.handleBarHover(e)
-      })
-      blockTimeChart.chart.on("mouseout", () => {
+      blockTimeChart.init(r.blockTimeChart, blockTimeChart.blockTimeOption);
+      blockTimeChart.chart.on('mouseover', (e) => {
+        this.handleBarHover(e);
+      });
+      blockTimeChart.chart.on('mouseout', () => {
         // indexService.getChartData();
-        this.updateBarIsMove(true)
-        this.handleBarMouseout()
-      })
+        this.updateBarIsMove(true);
+        this.handleBarMouseout();
+      });
     },
-    initBlockTradeChart () {
-      let r = this.$refs
-      blockTradeChart.init(r.blockTradeChart, blockTradeChart.blockTradeOption)
-      blockTradeChart.chart.on("mouseover", e => {
-        this.handleBarHover(e)
-      })
-      blockTradeChart.chart.on("mouseout", () => {
+    initBlockTradeChart() {
+      let r = this.$refs;
+      blockTradeChart.init(r.blockTradeChart, blockTradeChart.blockTradeOption);
+      blockTradeChart.chart.on('mouseover', (e) => {
+        this.handleBarHover(e);
+      });
+      blockTradeChart.chart.on('mouseout', () => {
         // indexService.getChartData();
-        this.updateBarIsMove(true)
-        this.handleBarMouseout()
-      })
+        this.updateBarIsMove(true);
+        this.handleBarMouseout();
+      });
     },
-    updateChart (data) {
+    updateChart(data) {
       // console.warn('data>>>>>>',typeof data,data.length)
       //遍历data  得到 x轴  双 y轴
       let xList = [],
         yListTime = [],
-        yListNum = []
+        yListNum = [];
       // this.chartMove = true;
       // setTimeout(()=>{
       //     this.chartMove = false;
       // },500)
       if (data) {
-        xList = data.x
-        yListTime = data.ya
-        yListNum = data.yb
+        xList = data.x;
+        yListTime = data.ya;
+        yListNum = data.yb;
       }
       blockTimeChart.update({
         xAxis: [
           {
-            data: xList
-          }
+            data: xList,
+          },
         ],
         series: [
           {
-            data: yListTime
-          }
-        ]
-      })
+            data: yListTime,
+          },
+        ],
+      });
       blockTradeChart.update({
         xAxis: [
           {
-            data: xList
-          }
+            data: xList,
+          },
         ],
         series: [
           {
-            data: yListNum
-          }
-        ]
-      })
+            data: yListNum,
+          },
+        ],
+      });
     },
-    updateBarColor () {
+    updateBarColor() {
       blockTimeChart.update({
         series: [
           {
@@ -533,13 +718,13 @@ export default {
               normal: {
                 //通过数组下标选择颜色
                 color: (params) => {
-                  return this.barColorList[params.dataIndex]
+                  return this.barColorList[params.dataIndex];
                 },
-              }
-            }
-          }
-        ]
-      })
+              },
+            },
+          },
+        ],
+      });
       blockTradeChart.update({
         series: [
           {
@@ -547,16 +732,16 @@ export default {
               normal: {
                 //通过数组下标选择颜色
                 color: (params) => {
-                  return this.barColorList[params.dataIndex]
+                  return this.barColorList[params.dataIndex];
                 },
-              }
-            }
-          }
-        ]
-      })
+              },
+            },
+          },
+        ],
+      });
     },
-    timeDiffFn (beginTime, endTime) {
-      return timeDiff(beginTime, endTime)
+    timeDiffFn(beginTime, endTime) {
+      return timeDiff(beginTime, endTime);
     },
     // percentage(a,b){
     //     console.log(a/b*100)
@@ -565,150 +750,152 @@ export default {
     //     }
     //     return 0;
     // },
-    scrollHandle () {
-      const windowH = document.documentElement.clientHeight || document.body.clientHeight
-      const top = document.documentElement.scrollTop || document.body.scrollTop
-      let count = 320
+    scrollHandle() {
+      const windowH =
+        document.documentElement.clientHeight || document.body.clientHeight;
+      const top = document.documentElement.scrollTop || document.body.scrollTop;
+      let count = 320;
       if (windowH < 768) {
-        count = 280
+        count = 280;
       }
       if (top > count) {
-        this.hide(false)
+        this.hide(false);
       } else {
-        this.hide(true)
+        this.hide(true);
       }
     },
     //进入提案列表
-    goProposal () {
-      this.$router.push("/proposal")
+    goProposal() {
+      this.$router.push('/proposal');
     },
     // 动态追加css
-    addCSSRule (sheet, selector, rules, index) {
-      if ("insertRule" in sheet) {
-        sheet.insertRule(selector + "{" + rules + "}", index)
-      } else if ("addRule" in sheet) {
-        sheet.addRule(selector, rules, index)
+    addCSSRule(sheet, selector, rules, index) {
+      if ('insertRule' in sheet) {
+        sheet.insertRule(selector + '{' + rules + '}', index);
+      } else if ('addRule' in sheet) {
+        sheet.addRule(selector, rules, index);
       }
     },
     //处理验证人轮播
-    createStyle () {
-      this.ele = document.createElement("style")
+    createStyle() {
+      this.ele = document.createElement('style');
       // 设置style属性
-      this.ele.type = "text/css"
+      this.ele.type = 'text/css';
       // 将 keyframes样式写入style内
       // 将style样式存放到head标签
-      document.getElementsByTagName("head")[0].appendChild(this.ele)
-      this.styleEle = document.styleSheets[document.styleSheets.length - 1]
+      document.getElementsByTagName('head')[0].appendChild(this.ele);
+      this.styleEle = document.styleSheets[document.styleSheets.length - 1];
       // 设置滚动条颜色
       if (this.isWebkit) {
         this.addCSSRule(
           this.styleEle,
-          "::-webkit-scrollbar-track-piece",
+          '::-webkit-scrollbar-track-piece',
           `background-color:#111111;`,
           0
-        )
+        );
         this.addCSSRule(
           this.styleEle,
-          "::-webkit-scrollbar-thumb",
+          '::-webkit-scrollbar-thumb',
           `background-color:#202020;`,
           1
-        )
+        );
       }
 
       // console.log("aaaa", this.styleEle);
-    }
+    },
   },
   //生命周期函数
-  created () {
-    const agent = navigator.userAgent.toLowerCase()
-    this.isWebkit = (agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/') == -1)
-    this.updateIsMove(false)  //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
-    this.updateIsMove2(false)
+  created() {
+    const agent = navigator.userAgent.toLowerCase();
+    this.isWebkit =
+      agent.indexOf('applewebkit/') > -1 && agent.indexOf('edge/') == -1;
+    this.updateIsMove(false); //避免视图摧毁后websocket才拿到数据，又将IsMove置为true了。
+    this.updateIsMove2(false);
     // console.log("aaa", IndexService);
     // indexService = new IndexService();
     //当选验证节点
-    this.getStaking()
+    this.getStaking();
 
     //统计数据
-    this.getStatistic()
+    this.getStatistic();
     //图标数据
-    this.getChartData()
+    this.getChartData();
 
-    indexService = new IndexService()
-    indexService.getChartData()
-    indexService.getStatisticData()
-    indexService.getValidatorData()
+    indexService = new IndexService();
+    indexService.getChartData();
+    indexService.getStatisticData();
+    indexService.getValidatorData();
     // indexService.getBlockData();
   },
-  mounted () {
+  mounted() {
     // console.log('aaaa',document.styleSheets);
     // this.styleEle = document.styleSheets[0];
-    this.createStyle()
+    this.createStyle();
 
     this.clientHeight =
       (document.documentElement.clientHeight || document.body.clientHeight) -
-      100
+      100;
 
-    this.initBlockTimeChart()
-    this.initBlockTradeChart()
-    echarts.connect([blockTimeChart.chart, blockTradeChart.chart])
+    this.initBlockTimeChart();
+    this.initBlockTradeChart();
+    echarts.connect([blockTimeChart.chart, blockTradeChart.chart]);
 
     window.onresize = function () {
-      blockTimeChart.chart.resize()
-      blockTradeChart.chart.resize()
-    }
+      blockTimeChart.chart.resize();
+      blockTradeChart.chart.resize();
+    };
 
-    this.scrollHandle() //处理从其他页面返回首页搜索框隐藏的问题
-    window.addEventListener("scroll", this.scrollHandle, false)
+    this.scrollHandle(); //处理从其他页面返回首页搜索框隐藏的问题
+    window.addEventListener('scroll', this.scrollHandle, false);
 
-    const block1 = document.getElementById("zhezhao")
-    const block2 = document.getElementById("blocks-ul-new2")
-    this.tooltipEl = document.getElementsByClassName('bar-tooltip')
+    const block1 = document.getElementById('zhezhao');
+    const block2 = document.getElementById('blocks-ul-new2');
+    this.tooltipEl = document.getElementsByClassName('bar-tooltip');
     block2.addEventListener(
-      "transitionend",
+      'transitionend',
       () => {
         // this.isMove2 = true;
-        this.updateIsMove2(true)
+        this.updateIsMove2(true);
       },
       false
-    )
+    );
     block1.addEventListener(
-      "transitionend",
+      'transitionend',
       () => {
         // console.log("cccc", this.isMove);
-        this.updateIsMove(false)
+        this.updateIsMove(false);
 
         // this.isMove2 = false;
-        this.updateIsMove2(false)
+        this.updateIsMove2(false);
       },
       false
-    )
+    );
   },
-  beforeDestroy () {
+  beforeDestroy() {
     // indexService.disconnect();
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
-    this.updateIsMove(false)
-    this.updateIsMove2(false)
+    this.updateIsMove(false);
+    this.updateIsMove2(false);
     if (this.ele) {
       // 移除动态追加的style
-      document.getElementsByTagName("head")[0].removeChild(this.ele)
-      this.ele = null
+      document.getElementsByTagName('head')[0].removeChild(this.ele);
+      this.ele = null;
     }
   },
-  destroyed () {
+  destroyed() {
     //此事件并不一定百分百触发
-    window.removeEventListener("scroll", this.scrollHandle)
-    indexService.disconnect()
+    window.removeEventListener('scroll', this.scrollHandle);
+    indexService.disconnect();
 
     //视图摧毁需要将IsMove重置为false,否则在区块生长过程中的时候离开了视图，IsMove一直都是true；
-    this.updateIsMove(false)
-    this.updateIsMove2(false)
+    this.updateIsMove(false);
+    this.updateIsMove2(false);
     if (this.ele) {
       // 移除动态追加的style
-      document.getElementsByTagName("head")[0].removeChild(this.ele)
-      this.ele = null
+      document.getElementsByTagName('head')[0].removeChild(this.ele);
+      this.ele = null;
     }
-  }
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -1047,22 +1234,158 @@ export default {
   }
 }
 
-// @keyframes nodeMove {
-//     from {
-//         transform: translate(0,-2075px);
-//     }
+@media (max-width: 750px) {
+  .index-wrap {
+    .welcome-wrap {
+      width: 100%;
+      margin-top: 180px;
+      margin-bottom: 100px;
+      h3 {
+        max-width: 460px;
+        margin: auto;
+      }
+      .search-index {
+        input {
+          font-size: 26px !important;
+        }
+      }
+    }
+    .bar-wrap {
+      flex-direction: column;
+      h3 {
+        font-size: 26px;
+        line-height: 1.25;
+      }
+      .bar-left {
+        width: 100%;
+      }
+      .bar-right {
+        width: 100%;
+        position: relative;
+        margin-top: 60px;
+      }
+      .block-statistics {
+        .progress-supply {
+          .el-progress-bar__outer {
+            height: 4px !important;
+          }
+        }
+        li {
+          width: 48% !important;
+          min-width: unset !important;
+        }
+      }
+      .chart {
+        margin-right: -100px;
+      }
+    }
+    .block-and-node {
+      flex-direction: column;
+      .el-col {
+        width: 100%;
+        float: unset;
+        &:not(:first-child) {
+          margin-top: 100px;
+        }
+      }
+    }
+  }
+}
 
-//     to {
-//         transform: translate(0,0);
-//     }
-// }
+@media (max-width: 550px) {
+  .welcome-wrap {
+    .search-index {
+      height: 60px;
+
+      button {
+        width: 80px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .welcome-wrap {
+    .search-index {
+      height: 50px;
+      input {
+        padding: 0 8px !important;
+        font-size: 14px !important;
+      }
+      button {
+        width: 60px !important;
+        padding: 10px 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .index-wrap {
+    .welcome-wrap {
+      width: 100%;
+      margin-top: 100px;
+      margin-bottom: 50px;
+      h3 {
+        max-width: 460px;
+        margin: auto;
+        font-size: 30px;
+      }
+      .search-index {
+        input {
+          font-size: 26px !important;
+        }
+      }
+    }
+    .bar-wrap {
+      flex-direction: column;
+      h3 {
+        font-size: 20px;
+        line-height: 1.25;
+      }
+      .bar-left {
+        width: 100%;
+      }
+      .bar-right {
+        width: 100%;
+        position: unset;
+        margin-top: 30px;
+      }
+      .block-statistics {
+        .progress-supply {
+          .el-progress-bar__outer {
+            height: 4px !important;
+          }
+        }
+      }
+      .chart {
+        margin-right: -60px;
+      }
+    }
+    .block-and-node {
+      flex-direction: column;
+      margin-top: 50px;
+      .el-col {
+        width: 100%;
+        float: unset;
+        &:not(:first-child) {
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+}
 </style>
 <style lang="less">
 .index-area {
   background: #000;
   overflow: hidden;
-  // padding: 86px 0 0 0;
-  // height: 100%;
+  @media (max-width: 750px) {
+    padding: 0 40px;
+  }
+  @media (max-width: 500px) {
+    padding: 0 20px;
+  }
 }
 .search-index {
   &.search {
@@ -1122,10 +1445,4 @@ export default {
     color: #fff;
   }
 }
-@media only screen and (max-height: 768px) {
-  .index-wrap .welcome-wrap {
-    margin: 100px auto !important;
-  }
-}
 </style>
-

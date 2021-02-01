@@ -7,19 +7,22 @@
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t('contract.contract') }}</span>
-          <i>#{{ address }}</i>
-          <b
-            class="cursor"
-            :class="{ copy: !isCopy }"
-            v-clipboard:copy="address"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-            ><p v-show="isCopy">
-              <i class="el-icon-circle-check-outline"></i
-              ><span>{{ copyText }}</span>
-            </p></b
-          >
+          <div>
+            <span>{{ $t('contract.contract') }}</span>
+            <i>#{{ address }}</i>
+            <b
+              class="cursor"
+              :class="{ copy: !isCopy }"
+              v-clipboard:copy="address"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+              ><p v-show="isCopy">
+                <i class="el-icon-circle-check-outline"></i
+                ><span>{{ copyText }}</span>
+              </p></b
+            >
+          </div>
+
           <a class="code cursor">
             <qriously
               class="qr-code"
@@ -67,7 +70,9 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.ercTrade')
                 }}</label>
-                <div class="money">{{ detailInfo.tokenQty | formatNumber }}</div>
+                <div class="money">
+                  {{ detailInfo.tokenQty | formatNumber }}
+                </div>
               </li>
             </ul>
           </div>
@@ -86,7 +91,7 @@
                 <div class="money" v-if="detailInfo.type == '2'">
                   {{ detailInfo.contractName }}
                 </div>
-                <div class="money" v-else>{{ detailInfo.contractName || "Not Available" }}</div>
+                <div class="money" v-else>Not Available</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{
@@ -128,7 +133,8 @@
                 <!-- tokens -->
                 <div class="money contract-create-info">
                   <span class="normal" @click="goTokenDetail(address)">
-                    {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
+                    <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
+                    {{ tokenName }}
                   </span>
                 </div>
               </li>
@@ -147,23 +153,15 @@
           >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc20"
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
           >{{ $t('tokens.erc20TokenTxns') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc721"
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t('tokens.erc721TokenTxns') }}</el-button
-        >
-        <el-button
-          size="medium"
-          :class="{ active: tabIndex == 4 }"
-          @click="tabChange(4)"
           >{{ $t('contract.contract') }}</el-button
         >
       </div>
@@ -183,13 +181,15 @@
       <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
 
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
+      <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
       </contract-info>
     </div>
   </div>
 </template>
 <script>
 import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
@@ -211,6 +211,7 @@ export default {
       isCopy: false,
       copyText: '',
       haveReward: 0,
+      tokenName: '',
     };
   },
   props: {},
@@ -235,7 +236,7 @@ export default {
           if (code == 0) {
             this.detailInfo = data;
             // 合成token 名称
-            this.getTokenDetail()
+            this.getTokenDetail();
           } else {
             this.$message.error(errMsg);
           }
@@ -316,5 +317,72 @@ export default {
 
 .contract-detail-top {
   padding-bottom: 30px;
+}
+
+.detail-change {
+  .detail-copy {
+    & > *:first-child {
+      display: inline;
+    }
+  }
+}
+@media (max-width: 750px) {
+  .detail-change {
+    .detail-copy {
+      display: flex;
+      & > *:first-child {
+        word-break: break-all;
+      }
+      .code.cursor {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .overview-wrap {
+    flex-direction: column;
+    .el-col {
+      width: 100%;
+      float: unset;
+      .money.contract-create-info {
+        flex-wrap: wrap;
+        line-height: 1.35;
+      }
+    }
+    & > * + * {
+      margin-top: 16px;
+    }
+  }
+
+  .address-trade {
+    .tabs {
+      button {
+        margin-right: 12px;
+        margin-left: 0 !important;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+</style>
+<style lang="less">
+@media (max-width: 750px) {
+  .trade-tab-wrap {
+    .trade-tab {
+      li {
+        margin-bottom: 12px;
+      }
+    }
+    .download-btn {
+      display: inline-block;
+
+      max-width: 140px;
+      text-align: center;
+      height: fit-content;
+      white-space: nowrap;
+    }
+  }
 }
 </style>

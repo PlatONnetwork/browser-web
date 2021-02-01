@@ -4,7 +4,9 @@
       <span>
         {{ $t('blockAbout.morethen') }} {{ pageTotal }}
         {{ $t('tokens.holders') }}
-        <span style="color: #3F3F3F;" v-if="pageTotal > 5000">{{$t("contract.showingLast")}}</span>
+        <span style="color: #3f3f3f" v-if="pageTotal > 5000">{{
+          $t('contract.showingLast')
+        }}</span>
       </span>
       <span class="download-btn" @click="exportFn">{{
         $t('common.export')
@@ -50,7 +52,7 @@
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal > 5000 ? 5000 : pageTotal"
-          :pager-count="9"
+          :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
     </div>
