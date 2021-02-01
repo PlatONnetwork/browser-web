@@ -103,12 +103,10 @@ export default {
             totalCount,
             code,
             errMsg,
-            displayTotalCount,
           } = res;
           if (code == 0) {
             this.tableData = data;
             this.pageTotal = totalCount;
-            this.displayTotalCount = displayTotalCount;
           } else {
             this.$message.error(errMsg);
           }
