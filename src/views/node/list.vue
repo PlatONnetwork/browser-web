@@ -90,164 +90,157 @@
 
     <!-- 历史验证节点 -->
     <div class="table node-table" v-if="type == 'history'">
-      <el-table :data="tableData">
-        <el-table-column
-          :label="$t('common.serialnumber')"
-          :width="issafariBrowser ? 100 : 80"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.ranking }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('nodeInfo.name')"
-          :width="windowWidth < 750 ? 'unset' : issafariBrowser ? 158 : 180"
-        >
-          <!-- TODO历史节点 table -->
-          <template slot-scope="scope">
-            <div class="flex-special validator-name">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isRecommend"
+      <div class="table-content">
+        <el-table :data="tableData">
+          <el-table-column
+            :label="$t('common.serialnumber')"
+            :width="issafariBrowser ? 100 : 80"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.ranking }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.name')"
+            :width="issafariBrowser ? 158 : 180"
+          >
+            <!-- TODO历史节点 table -->
+            <template slot-scope="scope">
+              <div class="flex-special validator-name">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isRecommend"
+                >
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.officialRecommendation')
+                    }}</span>
+                  </div>
+                  <img
+                    src="../../assets/images/icon-remark.svg"
+                    class="icon-remark cursor"
+                  />
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isInit"
+                >
+                  <!-- v-if='scope.row.isInit' -->
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.nodeMsg')
+                    }}</span>
+                  </div>
+                  <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
+                  <i
+                    class="el-icon-info cursor"
+                    style="
+                      margin-left: 8px;
+                      color: #d5d5d5;
+                      font-size: 12px;
+                      line-height: 23px;
+                    "
+                  ></i>
+                </el-tooltip>
+                <img
+                  :src="scope.row.stakingIcon"
+                  v-if="scope.row.stakingIcon"
+                  class="node-avtor"
+                  alt
+                />
+                <img
+                  src="../../assets/images/node-avtor.svg"
+                  class="node-avtor"
+                  v-if="!scope.row.stakingIcon"
+                  alt
+                />
+
+                <p
+                  class="cursor normal ellipsis percent60 fontSize15"
+                  @click="goDetail(scope.row.nodeId)"
+                >
+                  {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
+                </p>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.status')">
+            <template slot-scope="scope">
+              <span
+                class="Gilroy-Bold"
+                :class="{
+                  green: scope.row.status == 2 || scope.row.status == 6,
+                  yellow: scope.row.status == 3 || scope.row.status == 4,
+                  red: scope.row.status == 1,
+                }"
+                >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
               >
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.officialRecommendation')
-                  }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.pendingDelegations')"
+            width="300"
+          >
+            <template slot-scope="scope">
+              <span
+                >{{ scope.row.statDelegateReduction | formatMoney }} ATP</span
+              >
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.stability')"
+            class="stability-cell"
+          >
+            <template slot-scope="scope">
+              <div class="node-stability flex-special">
+                <div style="margin-right: 10px" class="self-tooltip">
+                  <i class="icon-low-block cursor"></i>
+                  <span>{{ scope.row.slashLowQty }}</span>
+                  <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
+                </div>
+                <div class="self-tooltip self-tooltip-sign">
+                  <i class="icon-two-sign cursor"></i>
+                  <span>{{ scope.row.slashMultiQty }}</span>
+                  <p>{{ $t('nodeInfo.twoSignNum') }}</p>
+                </div>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.producedBlock')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.blockQty | formatNumber }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.exitTime')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.leaveTime | formatTime }}</span>
+            </template>
+          </el-table-column>
+          <!-- 预估解锁块高 -->
+          <el-table-column width="250">
+            <template slot="header">
+              <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
+              <el-tooltip placement="bottom">
+                <div slot="content" class="long-tips">
+                  {{ $t('nodeInfo.node3Tips') }}
                 </div>
                 <img
-                  src="../../assets/images/icon-remark.svg"
-                  class="icon-remark cursor"
+                  class="tipsImg"
+                  src="@/assets/images/icon-quest.svg"
+                  alt="tips"
                 />
               </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isInit"
-              >
-                <!-- v-if='scope.row.isInit' -->
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.nodeMsg')
-                  }}</span>
-                </div>
-                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
-                <i
-                  class="el-icon-info cursor"
-                  style="
-                    margin-left: 8px;
-                    color: #d5d5d5;
-                    font-size: 12px;
-                    line-height: 23px;
-                  "
-                ></i>
-              </el-tooltip>
-              <img
-                :src="scope.row.stakingIcon"
-                v-if="scope.row.stakingIcon"
-                class="node-avtor"
-                alt
-              />
-              <img
-                src="../../assets/images/node-avtor.svg"
-                class="node-avtor"
-                v-if="!scope.row.stakingIcon"
-                alt
-              />
-
-              <p
-                class="cursor normal ellipsis percent60 fontSize15"
-                @click="goDetail(scope.row.nodeId)"
-              >
-                {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-              </p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :width="windowWidth >= 750 ? 'unset' : 100"
-          :label="$t('tradeAbout.status')"
-        >
-          <template slot-scope="scope">
-            <span
-              class="Gilroy-Bold"
-              :class="{
-                green: scope.row.status == 2 || scope.row.status == 6,
-                yellow: scope.row.status == 3 || scope.row.status == 4,
-                red: scope.row.status == 1,
-              }"
-              >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
-            >
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.pendingDelegations')"
-          width="300"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.statDelegateReduction | formatMoney }} ATP</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('nodeInfo.stability')"
-          class="stability-cell"
-          v-if="windowWidth > 750"
-        >
-          <template slot-scope="scope">
-            <div class="node-stability flex-special">
-              <div style="margin-right: 10px" class="self-tooltip">
-                <i class="icon-low-block cursor"></i>
-                <span>{{ scope.row.slashLowQty }}</span>
-                <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
-              </div>
-              <div class="self-tooltip self-tooltip-sign">
-                <i class="icon-two-sign cursor"></i>
-                <span>{{ scope.row.slashMultiQty }}</span>
-                <p>{{ $t('nodeInfo.twoSignNum') }}</p>
-              </div>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.producedBlock')"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.blockQty | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.exitTime')"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.leaveTime | formatTime }}</span>
-          </template>
-        </el-table-column>
-        <!-- 预估解锁块高 -->
-        <el-table-column width="250" v-if="windowWidth > 750">
-          <template slot="header">
-            <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
-            <el-tooltip placement="bottom">
-              <div slot="content" class="long-tips">
-                {{ $t('nodeInfo.node3Tips') }}
-              </div>
-              <img
-                class="tipsImg"
-                src="@/assets/images/icon-quest.svg"
-                alt="tips"
-              />
-            </el-tooltip>
-          </template>
-          <template slot-scope="scope">
-            <span>{{ scope.row.unlockBlockNum }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+            </template>
+            <template slot-scope="scope">
+              <span>{{ scope.row.unlockBlockNum }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div class="pagination-box">
         <el-pagination
           background
@@ -265,158 +258,150 @@
 
     <!-- 零出块惩罚验证节点 -->
     <div class="table node-table" v-else-if="type == 'zero'">
-      <el-table :data="tableData">
-        <el-table-column
-          :label="$t('common.serialnumber')"
-          :width="issafariBrowser ? 110 : 80"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.ranking }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('nodeInfo.name')"
-          :width="windowWidth < 750 ? 'unset' : issafariBrowser ? 158 : 180"
-        >
-          <!-- TODO历史节点 table -->
-          <template slot-scope="scope">
-            <div class="flex-special validator-name">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isRecommend"
+      <div class="table-content">
+        <el-table :data="tableData">
+          <el-table-column
+            :label="$t('common.serialnumber')"
+            :width="issafariBrowser ? 110 : 80"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.ranking }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.name')"
+            :width="issafariBrowser ? 158 : 180"
+          >
+            <!-- TODO历史节点 table -->
+            <template slot-scope="scope">
+              <div class="flex-special validator-name">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isRecommend"
+                >
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.officialRecommendation')
+                    }}</span>
+                  </div>
+                  <img
+                    src="../../assets/images/icon-remark.svg"
+                    class="icon-remark cursor"
+                  />
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isInit"
+                >
+                  <!-- v-if='scope.row.isInit' -->
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.nodeMsg')
+                    }}</span>
+                  </div>
+                  <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
+                  <i
+                    class="el-icon-info cursor"
+                    style="
+                      margin-left: 8px;
+                      color: #d5d5d5;
+                      font-size: 12px;
+                      line-height: 23px;
+                    "
+                  ></i>
+                </el-tooltip>
+                <img
+                  :src="scope.row.stakingIcon"
+                  v-if="scope.row.stakingIcon"
+                  class="node-avtor"
+                  alt
+                />
+                <img
+                  src="../../assets/images/node-avtor.svg"
+                  class="node-avtor"
+                  v-if="!scope.row.stakingIcon"
+                  alt
+                />
+
+                <p
+                  class="cursor normal ellipsis percent60 fontSize15"
+                  @click="goDetail(scope.row.nodeId)"
+                >
+                  {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
+                </p>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.status')">
+            <template slot-scope="scope">
+              <span
+                class="Gilroy-Bold"
+                :class="{
+                  red: scope.row.status == 7,
+                }"
+                >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
               >
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.officialRecommendation')
-                  }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('deleget.delegationsN')">
+            <template slot-scope="scope">
+              <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.stability')"
+            class="stability-cell"
+          >
+            <template slot-scope="scope">
+              <div class="node-stability flex-special">
+                <div style="margin-right: 10px" class="self-tooltip">
+                  <i class="icon-low-block cursor"></i>
+                  <span>{{ scope.row.slashLowQty }}</span>
+                  <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
+                </div>
+                <div class="self-tooltip self-tooltip-sign">
+                  <i class="icon-two-sign cursor"></i>
+                  <span>{{ scope.row.slashMultiQty }}</span>
+                  <p>{{ $t('nodeInfo.twoSignNum') }}</p>
+                </div>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.producedBlock')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.blockQty | formatNumber }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.freezeTime')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.leaveTime | formatTime }}</span>
+            </template>
+          </el-table-column>
+          <!-- 预估解锁块高 -->
+          <el-table-column width="250">
+            <template slot="header">
+              <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
+              <el-tooltip placement="bottom">
+                <div slot="content" class="long-tips">
+                  {{ $t('nodeInfo.node3Tips') }}
                 </div>
                 <img
-                  src="../../assets/images/icon-remark.svg"
-                  class="icon-remark cursor"
+                  class="tipsImg"
+                  src="@/assets/images/icon-quest.svg"
+                  alt="tips"
                 />
               </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isInit"
-              >
-                <!-- v-if='scope.row.isInit' -->
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.nodeMsg')
-                  }}</span>
-                </div>
-                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
-                <i
-                  class="el-icon-info cursor"
-                  style="
-                    margin-left: 8px;
-                    color: #d5d5d5;
-                    font-size: 12px;
-                    line-height: 23px;
-                  "
-                ></i>
-              </el-tooltip>
-              <img
-                :src="scope.row.stakingIcon"
-                v-if="scope.row.stakingIcon"
-                class="node-avtor"
-                alt
-              />
-              <img
-                src="../../assets/images/node-avtor.svg"
-                class="node-avtor"
-                v-if="!scope.row.stakingIcon"
-                alt
-              />
-
-              <p
-                class="cursor normal ellipsis percent60 fontSize15"
-                @click="goDetail(scope.row.nodeId)"
-              >
-                {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-              </p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')">
-          <template slot-scope="scope">
-            <span
-              class="Gilroy-Bold"
-              :class="{
-                red: scope.row.status == 7,
-              }"
-              >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
-            >
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('deleget.delegationsN')"
-        >
-          <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('nodeInfo.stability')"
-          class="stability-cell"
-          v-if="windowWidth > 750"
-        >
-          <template slot-scope="scope">
-            <div class="node-stability flex-special">
-              <div style="margin-right: 10px" class="self-tooltip">
-                <i class="icon-low-block cursor"></i>
-                <span>{{ scope.row.slashLowQty }}</span>
-                <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
-              </div>
-              <div class="self-tooltip self-tooltip-sign">
-                <i class="icon-two-sign cursor"></i>
-                <span>{{ scope.row.slashMultiQty }}</span>
-                <p>{{ $t('nodeInfo.twoSignNum') }}</p>
-              </div>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.producedBlock')"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.blockQty | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.freezeTime')"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.leaveTime | formatTime }}</span>
-          </template>
-        </el-table-column>
-        <!-- 预估解锁块高 -->
-        <el-table-column v-if="windowWidth > 750" width="250">
-          <template slot="header">
-            <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
-            <el-tooltip placement="bottom">
-              <div slot="content" class="long-tips">
-                {{ $t('nodeInfo.node3Tips') }}
-              </div>
-              <img
-                class="tipsImg"
-                src="@/assets/images/icon-quest.svg"
-                alt="tips"
-              />
-            </el-tooltip>
-          </template>
-          <template slot-scope="scope">
-            <span>{{ scope.row.unlockBlockNum }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+            </template>
+            <template slot-scope="scope">
+              <span>{{ scope.row.unlockBlockNum }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div class="pagination-box">
         <el-pagination
           background
@@ -433,155 +418,141 @@
     </div>
 
     <div class="table node-table" v-else>
-      <el-table :data="tableData">
-        <el-table-column
-          :label="$t('nodeInfo.rank')"
-          :width="issafariBrowser ? 100 : 80"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.ranking }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('nodeInfo.validatorName')"
-          :width="windowWidth < 750 ? 'unset' : issafariBrowser ? 158 : 180"
-        >
-          <!-- TODO历史节点 table -->
-          <template slot-scope="scope">
-            <div class="flex-special validator-name">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isRecommend"
-              >
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.officialRecommendation')
-                  }}</span>
-                </div>
+      <div class="table-content">
+        <el-table :data="tableData">
+          <el-table-column
+            :label="$t('nodeInfo.rank')"
+            :width="issafariBrowser ? 100 : 80"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.ranking }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.validatorName')"
+            :width="issafariBrowser ? 158 : 180"
+          >
+            <!-- TODO历史节点 table -->
+            <template slot-scope="scope">
+              <div class="flex-special validator-name">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isRecommend"
+                >
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.officialRecommendation')
+                    }}</span>
+                  </div>
+                  <img
+                    src="../../assets/images/icon-remark.svg"
+                    class="icon-remark cursor"
+                  />
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  placement="bottom"
+                  v-if="scope.row.isInit"
+                >
+                  <!-- v-if='scope.row.isInit' -->
+                  <div slot="content">
+                    <span class="title-warning">{{
+                      $t('nodeInfo.nodeMsg')
+                    }}</span>
+                  </div>
+                  <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
+                  <i
+                    class="el-icon-info cursor"
+                    style="
+                      margin-left: 8px;
+                      color: #d5d5d5;
+                      font-size: 12px;
+                      line-height: 23px;
+                    "
+                  ></i>
+                </el-tooltip>
                 <img
-                  src="../../assets/images/icon-remark.svg"
-                  class="icon-remark cursor"
+                  :src="scope.row.stakingIcon"
+                  v-if="scope.row.stakingIcon"
+                  class="node-avtor"
+                  alt
                 />
-              </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                placement="bottom"
-                v-if="scope.row.isInit"
-              >
-                <!-- v-if='scope.row.isInit' -->
-                <div slot="content">
-                  <span class="title-warning">{{
-                    $t('nodeInfo.nodeMsg')
-                  }}</span>
-                </div>
-                <!-- <i class="iconfont iconxinxi cursor" style="margin-left:8px;color:#D5D5D5;font-size:12px;">&#xe63f;</i> -->
-                <i
-                  class="el-icon-info cursor"
-                  style="
-                    margin-left: 8px;
-                    color: #d5d5d5;
-                    font-size: 12px;
-                    line-height: 23px;
-                  "
-                ></i>
-              </el-tooltip>
-              <img
-                :src="scope.row.stakingIcon"
-                v-if="scope.row.stakingIcon"
-                class="node-avtor"
-                alt
-              />
-              <img
-                src="../../assets/images/node-avtor.svg"
-                class="node-avtor"
-                v-if="!scope.row.stakingIcon"
-                alt
-              />
+                <img
+                  src="../../assets/images/node-avtor.svg"
+                  class="node-avtor"
+                  v-if="!scope.row.stakingIcon"
+                  alt
+                />
 
-              <p
-                class="cursor normal ellipsis percent60 fontSize15"
-                @click="goDetail(scope.row.nodeId)"
+                <p
+                  class="cursor normal ellipsis percent60 fontSize15"
+                  @click="goDetail(scope.row.nodeId)"
+                >
+                  {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
+                </p>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.status')" width="100">
+            <template slot-scope="scope">
+              <span
+                class="Gilroy-Bold"
+                :class="{
+                  green: scope.row.status == 2 || scope.row.status == 6,
+                  yellow: scope.row.status == 3 || scope.row.status == 4,
+                  red: scope.row.status == 1,
+                }"
+                >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
               >
-                {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-              </p>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.status')" width="100">
-          <template slot-scope="scope">
-            <span
-              class="Gilroy-Bold"
-              :class="{
-                green: scope.row.status == 2 || scope.row.status == 6,
-                yellow: scope.row.status == 3 || scope.row.status == 4,
-                red: scope.row.status == 1,
-              }"
-              >{{ $t('nodeStatus.' + [scope.row.status]) }}</span
-            >
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.totalStakePower')"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.totalValue | formatMoney }} ATP</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('deleget.delegationsN')"
-        >
-          <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('deleget.delegators')"
-          width="100"
-        >
-          <template slot-scope="scope">
-            <span>
-              {{ scope.row.delegateQty | formatNumber }}
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.stability')"
-          class="stability-cell"
-          width="110"
-        >
-          <template slot-scope="scope">
-            <div class="node-stability flex-special">
-              <div style="margin-right: 10px" class="self-tooltip">
-                <i class="icon-low-block cursor"></i>
-                <span>{{ scope.row.slashLowQty }}</span>
-                <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.totalStakePower')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.totalValue | formatMoney }} ATP</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('deleget.delegationsN')">
+            <template slot-scope="scope">
+              <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('deleget.delegators')" width="100">
+            <template slot-scope="scope">
+              <span>
+                {{ scope.row.delegateQty | formatNumber }}
+              </span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('nodeInfo.stability')"
+            class="stability-cell"
+            width="110"
+          >
+            <template slot-scope="scope">
+              <div class="node-stability flex-special">
+                <div style="margin-right: 10px" class="self-tooltip">
+                  <i class="icon-low-block cursor"></i>
+                  <span>{{ scope.row.slashLowQty }}</span>
+                  <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
+                </div>
+                <div class="self-tooltip self-tooltip-sign">
+                  <i class="icon-two-sign cursor"></i>
+                  <span>{{ scope.row.slashMultiQty }}</span>
+                  <p>{{ $t('nodeInfo.twoSignNum') }}</p>
+                </div>
               </div>
-              <div class="self-tooltip self-tooltip-sign">
-                <i class="icon-two-sign cursor"></i>
-                <span>{{ scope.row.slashMultiQty }}</span>
-                <p>{{ $t('nodeInfo.twoSignNum') }}</p>
-              </div>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-if="windowWidth > 750"
-          :label="$t('nodeInfo.producedBlock')"
-          width="120"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.blockQty | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <!-- TODO委托奖励比例 最新文档显示无此列-->
-        <!-- <el-table-column :label="$t('tradeAbout.rewardRatio')">
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('nodeInfo.producedBlock')" width="120">
+            <template slot-scope="scope">
+              <span>{{ scope.row.blockQty | formatNumber }}</span>
+            </template>
+          </el-table-column>
+          <!-- TODO委托奖励比例 最新文档显示无此列-->
+          <!-- <el-table-column :label="$t('tradeAbout.rewardRatio')">
           <template slot="header">
             <span>{{ $t("tradeAbout.rewardRatio") }}</span>
             <el-tooltip
@@ -596,59 +567,60 @@
             </el-tooltip>
           </template>
         </el-table-column> -->
-        <!-- TODO预计年化收益率 -->
-        <el-table-column
-          :label="$t('nodeInfo.yield3')"
-          label-class-name="yield3"
-          v-if="windowWidth > 750"
-        >
-          <template slot="header">
-            <span class="tipsTitle"> {{ $t('nodeInfo.yield3') }}</span>
-            <el-tooltip placement="bottom" :hide-after="0">
-              <div slot="content" class="long-tips">
-                {{ $t('nodeInfo.node1Tips') }}
-              </div>
-              <img
-                class="tipsImg"
-                src="@/assets/images/icon-quest.svg"
-                alt="tips"
-              />
-            </el-tooltip>
-          </template>
-          <template slot-scope="scope">
-            <span class="Gilroy-Medium" v-if="!scope.row.isInit"
-              >{{ scope.row.expectedIncome }}%</span
-            >
-            <span class="Gilroy-Medium" v-else>--</span>
-          </template>
-        </el-table-column>
-        <!-- TODO预计委托年化率 -->
-        <el-table-column
-          :label="$t('nodeInfo.delegatedYield')"
-          label-class-name="delegatedYield"
-          v-if="windowWidth > 750"
-        >
-          <template slot="header">
-            <span class="tipsTitle"> {{ $t('nodeInfo.delegatedYield') }}</span>
-            <el-tooltip placement="bottom">
-              <div slot="content" class="long-tips">
-                {{ $t('nodeInfo.node2Tips') }}
-              </div>
-              <img
-                class="tipsImg"
-                src="@/assets/images/icon-quest.svg"
-                alt="tips"
-              />
-            </el-tooltip>
-          </template>
-          <template slot-scope="scope">
-            <span class="Gilroy-Medium" v-if="!scope.row.isInit"
-              >{{ scope.row.deleAnnualizedRate }}%</span
-            >
-            <span class="Gilroy-Medium" v-else>--</span>
-          </template>
-        </el-table-column>
-      </el-table>
+          <!-- TODO预计年化收益率 -->
+          <el-table-column
+            :label="$t('nodeInfo.yield3')"
+            label-class-name="yield3"
+          >
+            <template slot="header">
+              <span class="tipsTitle"> {{ $t('nodeInfo.yield3') }}</span>
+              <el-tooltip placement="bottom" :hide-after="0">
+                <div slot="content" class="long-tips">
+                  {{ $t('nodeInfo.node1Tips') }}
+                </div>
+                <img
+                  class="tipsImg"
+                  src="@/assets/images/icon-quest.svg"
+                  alt="tips"
+                />
+              </el-tooltip>
+            </template>
+            <template slot-scope="scope">
+              <span class="Gilroy-Medium" v-if="!scope.row.isInit"
+                >{{ scope.row.expectedIncome }}%</span
+              >
+              <span class="Gilroy-Medium" v-else>--</span>
+            </template>
+          </el-table-column>
+          <!-- TODO预计委托年化率 -->
+          <el-table-column
+            :label="$t('nodeInfo.delegatedYield')"
+            label-class-name="delegatedYield"
+          >
+            <template slot="header">
+              <span class="tipsTitle">
+                {{ $t('nodeInfo.delegatedYield') }}</span
+              >
+              <el-tooltip placement="bottom">
+                <div slot="content" class="long-tips">
+                  {{ $t('nodeInfo.node2Tips') }}
+                </div>
+                <img
+                  class="tipsImg"
+                  src="@/assets/images/icon-quest.svg"
+                  alt="tips"
+                />
+              </el-tooltip>
+            </template>
+            <template slot-scope="scope">
+              <span class="Gilroy-Medium" v-if="!scope.row.isInit"
+                >{{ scope.row.deleAnnualizedRate }}%</span
+              >
+              <span class="Gilroy-Medium" v-else>--</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div class="pagination-box">
         <el-pagination
           background
@@ -936,6 +908,8 @@ export default {
   text-align: right;
   .historical-btn {
     display: inline-block;
+    margin-right: 10px;
+    margin-left: 0 !important;
   }
 }
 .validators-tab {
@@ -1076,6 +1050,25 @@ export default {
     width: 14px;
     margin-left: 4px;
     vertical-align: text-bottom;
+  }
+}
+
+.table-content {
+  width: 100%;
+  overflow-x: auto;
+  .el-table__header-wrapper {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 750px) {
+  .node-list-header {
+    .list-item {
+      width: 100%;
+      .next-reward-adjustment {
+        flex: 1;
+      }
+    }
   }
 }
 </style>

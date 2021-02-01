@@ -98,3 +98,13 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+@media (max-width: 750px) {
+  .content-area {
+    padding-top: 132px;
+    &.index-area {
+      padding-top: 102px;
+    }
+  }
+}
+</style>

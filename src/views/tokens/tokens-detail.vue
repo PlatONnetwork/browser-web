@@ -264,4 +264,58 @@ export default {
 .contract-detail-top {
   padding-bottom: 30px;
 }
+
+@media (max-width: 750px) {
+  .overview-wrap {
+    flex-direction: column;
+    .el-col {
+      width: 100%;
+      float: unset;
+      .money.contract-create-info {
+        display: inline-block;
+        line-height: 1.35;
+        word-break: break-all;
+        padding-left: 10px;
+        .detail-copy {
+          display: inline-block;
+        }
+      }
+    }
+    & > * + * {
+      margin-top: 16px;
+    }
+  }
+
+  .address-trade {
+    .tabs {
+      button {
+        margin-right: 12px;
+        margin-left: 0 !important;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+</style>
+<style lang="less">
+@media (max-width: 750px) {
+  .address-trade {
+    .trade-tab {
+      li {
+        margin-bottom: 12px;
+      }
+    }
+    .address-trade-last {
+      align-items: baseline;
+      .download-btn {
+        display: inline-block;
+
+        max-width: 140px;
+        text-align: center;
+        height: fit-content;
+        white-space: nowrap;
+      }
+    }
+  }
+}
 </style>

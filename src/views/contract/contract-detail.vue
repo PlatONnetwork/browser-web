@@ -7,19 +7,22 @@
 
       <div class="detail-change">
         <div class="detail-copy">
-          <span>{{ $t('contract.contract') }}</span>
-          <i>#{{ address }}</i>
-          <b
-            class="cursor"
-            :class="{ copy: !isCopy }"
-            v-clipboard:copy="address"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-            ><p v-show="isCopy">
-              <i class="el-icon-circle-check-outline"></i
-              ><span>{{ copyText }}</span>
-            </p></b
-          >
+          <div>
+            <span>{{ $t('contract.contract') }}</span>
+            <i>#{{ address }}</i>
+            <b
+              class="cursor"
+              :class="{ copy: !isCopy }"
+              v-clipboard:copy="address"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+              ><p v-show="isCopy">
+                <i class="el-icon-circle-check-outline"></i
+                ><span>{{ copyText }}</span>
+              </p></b
+            >
+          </div>
+
           <a class="code cursor">
             <qriously
               class="qr-code"
@@ -67,7 +70,9 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.ercTrade')
                 }}</label>
-                <div class="money">{{ detailInfo.tokenQty | formatNumber }}</div>
+                <div class="money">
+                  {{ detailInfo.tokenQty | formatNumber }}
+                </div>
               </li>
             </ul>
           </div>
@@ -170,7 +175,12 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <tokens-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></tokens-list>
+      <tokens-list
+        v-show="tabIndex == 2"
+        :address="address"
+        :tradeCount="detailInfo"
+        pageType="contract"
+      ></tokens-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
@@ -226,7 +236,7 @@ export default {
           if (code == 0) {
             this.detailInfo = data;
             // 合成token 名称
-            this.getTokenDetail()
+            this.getTokenDetail();
           } else {
             this.$message.error(errMsg);
           }
@@ -237,12 +247,12 @@ export default {
     },
     getTokenDetail() {
       apiService.tokens
-        .tokenDetail({address: this.address})
+        .tokenDetail({ address: this.address })
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0 && data.name && data.symbol) {
             this.tokenName = data.name + ' (' + data.symbol + ')';
-            this.detailInfo.tokenQty = data.txCount
+            this.detailInfo.tokenQty = data.txCount;
           } else {
             this.$message.error(errMsg);
           }
@@ -350,5 +360,72 @@ export default {
 
 .contract-detail-top {
   padding-bottom: 30px;
+}
+
+.detail-change {
+  .detail-copy {
+    & > *:first-child {
+      display: inline;
+    }
+  }
+}
+@media (max-width: 750px) {
+  .detail-change {
+    .detail-copy {
+      display: flex;
+      & > *:first-child {
+        word-break: break-all;
+      }
+      .code.cursor {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .overview-wrap {
+    flex-direction: column;
+    .el-col {
+      width: 100%;
+      float: unset;
+      .money.contract-create-info {
+        flex-wrap: wrap;
+        line-height: 1.35;
+      }
+    }
+    & > * + * {
+      margin-top: 16px;
+    }
+  }
+
+  .address-trade {
+    .tabs {
+      button {
+        margin-right: 12px;
+        margin-left: 0 !important;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+</style>
+<style lang="less">
+@media (max-width: 750px) {
+  .trade-tab-wrap {
+    .trade-tab {
+      li {
+        margin-bottom: 12px;
+      }
+    }
+    .download-btn {
+      display: inline-block;
+
+      max-width: 140px;
+      text-align: center;
+      height: fit-content;
+      white-space: nowrap;
+    }
+  }
 }
 </style>

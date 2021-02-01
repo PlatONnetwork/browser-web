@@ -24,74 +24,70 @@
       </div>
     </div>
     <div class="table">
-      <el-table
-        :data="tableData"
-        style="width: 100%"
-        key="firstTable"
-        size="mini"
-      >
-        <el-table-column :label="$t('tradeAbout.blockHeight')">
-          <template slot-scope="scope">
-            <div class="flex-special">
-              <span
-                class="cursor blue ellipsis"
-                @click="goBlockDetail(scope.row.number)"
-                >{{ scope.row.number }}</span
-              >
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.age')">
-          <template slot-scope="scope">
-            <span
-              >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
-              }}{{ $t('tradeAbout.before') }}</span
-            >
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('indexInfo.txn')">
-          <template slot-scope="scope">
-            <span>{{ scope.row.statTxQty | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('blockAbout.size')">
-          <template slot-scope="scope">
-            <span>{{ scope.row.size }}&nbsp;bytes</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('blockAbout.producer')"
-          v-if="windowWidth > 750"
+      <div class="table-content">
+        <el-table
+          :data="tableData"
+          style="width: 100%"
+          key="firstTable"
+          size="mini"
         >
-          <template slot-scope="scope">
-            <div class="flex-special">
+          <el-table-column :label="$t('tradeAbout.blockHeight')">
+            <template slot-scope="scope">
+              <div class="flex-special">
+                <span
+                  class="cursor blue ellipsis"
+                  @click="goBlockDetail(scope.row.number)"
+                  >{{ scope.row.number }}</span
+                >
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.age')">
+            <template slot-scope="scope">
               <span
-                class="cursor blue ellipsis ellipsisWidth"
-                @click="goNodeDetail(scope.row.nodeId)"
-                >{{ scope.row.nodeName }}</span
+                >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)
+                }}{{ $t('tradeAbout.before') }}</span
               >
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('tradeAbout.gasUsedList')"
-          v-if="windowWidth > 750"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.gasUsed | formatNumber }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column width="200" v-if="windowWidth > 750">
-          <!-- :label="$t('blockAbout.blockReward')+'(ATP)'" -->
-          <template slot="header">
-            {{ $t('blockAbout.blockReward') }}
-            <span style="color: #999999">(ATP)</span>
-          </template>
-          <template slot-scope="scope">
-            <span>{{ scope.row.blockReward | formatMoney }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('indexInfo.txn')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.statTxQty | formatNumber }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('blockAbout.size')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.size }}&nbsp;bytes</span>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('blockAbout.producer')">
+            <template slot-scope="scope">
+              <div class="flex-special">
+                <span
+                  class="cursor blue ellipsis ellipsisWidth"
+                  @click="goNodeDetail(scope.row.nodeId)"
+                  >{{ scope.row.nodeName }}</span
+                >
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.gasUsedList')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.gasUsed | formatNumber }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column width="200">
+            <!-- :label="$t('blockAbout.blockReward')+'(ATP)'" -->
+            <template slot="header">
+              {{ $t('blockAbout.blockReward') }}
+              <span style="color: #999999">(ATP)</span>
+            </template>
+            <template slot-scope="scope">
+              <span>{{ scope.row.blockReward | formatMoney }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div class="pagination-box">
         <el-pagination
           background
@@ -237,6 +233,10 @@ export default {
 }
 .trade-count {
   color: #333;
+}
+.table-content {
+  width: 100%;
+  overflow-x: auto;
 }
 </style>
 

@@ -1256,7 +1256,7 @@ export default {
   .index-wrap {
     .welcome-wrap {
       width: 100%;
-      margin-top: 200px;
+      margin-top: 180px;
       margin-bottom: 100px;
       h3 {
         max-width: 460px;
@@ -1279,7 +1279,7 @@ export default {
       }
       .bar-right {
         width: 100%;
-        position: unset;
+        position: relative;
         margin-top: 60px;
       }
       .block-statistics {
@@ -1292,6 +1292,9 @@ export default {
           width: 48% !important;
           min-width: unset !important;
         }
+      }
+      .chart {
+        margin-right: -100px;
       }
     }
     .block-and-node {
@@ -1307,11 +1310,39 @@ export default {
   }
 }
 
+@media (max-width: 550px) {
+  .welcome-wrap {
+    .search-index {
+      height: 60px;
+
+      button {
+        width: 80px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .welcome-wrap {
+    .search-index {
+      height: 50px;
+      input {
+        padding: 0 8px !important;
+        font-size: 14px !important;
+      }
+      button {
+        width: 60px !important;
+        padding: 10px 8px;
+      }
+    }
+  }
+}
+
 @media (max-width: 500px) {
   .index-wrap {
     .welcome-wrap {
       width: 100%;
-      margin-top: 140px;
+      margin-top: 100px;
       margin-bottom: 50px;
       h3 {
         max-width: 460px;
@@ -1344,6 +1375,9 @@ export default {
             height: 4px !important;
           }
         }
+      }
+      .chart {
+        margin-right: -60px;
       }
     }
     .block-and-node {

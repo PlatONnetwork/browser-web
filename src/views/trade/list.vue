@@ -100,10 +100,7 @@
         </el-table-column>
 
         <!-- 操作地址（Operator_Address） -->
-        <el-table-column
-          :label="$t('blockAbout.operatorAddress')"
-          v-if="windowWidth > 750"
-        >
+        <el-table-column :label="$t('blockAbout.operatorAddress')">
           <template slot-scope="scope">
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
@@ -118,10 +115,7 @@
         </el-table-column>
 
         <!-- 交易类型（Type） -->
-        <el-table-column
-          :label="$t('tradeAbout.type')"
-          v-if="windowWidth > 750"
-        >
+        <el-table-column :label="$t('tradeAbout.type')">
           <template slot-scope="scope">
             <span>{{ $t('TxType.' + scope.row.txType) }}</span>
             <!-- <span>{{scope.row.txType}}</span> -->
@@ -129,22 +123,14 @@
         </el-table-column>
 
         <!-- 数额(Value) -->
-        <el-table-column
-          :label="$t('tradeAbout.value')"
-          v-if="windowWidth > 750"
-          show-overflow-tooltip
-        >
+        <el-table-column :label="$t('tradeAbout.value')" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.value | formatMoney }} ATP</span>
           </template>
         </el-table-column>
 
         <!-- 交易费用（TxFee） -->
-        <el-table-column
-          show-overflow-tooltip
-          width="120"
-          v-if="windowWidth > 750"
-        >
+        <el-table-column show-overflow-tooltip width="120">
           <template slot="header">
             {{ $t('tradeAbout.fee') }}
             <span style="color: #999999">(ATP)</span>

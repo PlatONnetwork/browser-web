@@ -567,44 +567,42 @@
             }}</el-button>
           </div>
           <div class="table">
-            <el-table
-              :data="tableData"
-              style="width: 100%"
-              key="firstTable"
-              size="mini"
-            >
-              <el-table-column :label="$t('menu.block')">
-                <template slot-scope="scope">
-                  <span
-                    class="blue cursor"
-                    @click="goBlockDetail(scope.row.number)"
-                    >{{ scope.row.number }}</span
-                  >
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('common.time')">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.timestamp | formatTime }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                :label="$t('indexInfo.txn')"
-                show-overflow-tooltip
-                v-if="windowWidth > 750"
+            <div class="table-content">
+              <el-table
+                :data="tableData"
+                style="width: 100%"
+                key="firstTable"
+                size="mini"
               >
-                <template slot-scope="scope">
-                  <span>{{ scope.row.statTxQty | formatNumber }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                v-if="windowWidth > 750"
-                :label="$t('blockAbout.blockReward')"
-              >
-                <template slot-scope="scope">
-                  <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
-                </template>
-              </el-table-column>
-            </el-table>
+                <el-table-column :label="$t('menu.block')">
+                  <template slot-scope="scope">
+                    <span
+                      class="blue cursor"
+                      @click="goBlockDetail(scope.row.number)"
+                      >{{ scope.row.number }}</span
+                    >
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('common.time')">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.timestamp | formatTime }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('indexInfo.txn')"
+                  show-overflow-tooltip
+                >
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.statTxQty | formatNumber }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('blockAbout.blockReward')">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
             <div class="pagination-box">
               <el-pagination
                 background
@@ -752,10 +750,7 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column
-                v-if="windowWidth > 750"
-                :label="$t('nodeInfo.inTxHash')"
-              >
+              <el-table-column :label="$t('nodeInfo.inTxHash')">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
@@ -773,11 +768,7 @@
                   }}</span>
                 </template>
               </el-table-column>
-              <el-table-column
-                v-if="windowWidth > 750"
-                :label="$t('nodeInfo.inBlock')"
-                width="150"
-              >
+              <el-table-column :label="$t('nodeInfo.inBlock')" width="150">
                 <template slot-scope="scope">
                   <span
                     class="blue cursor"
@@ -854,7 +845,7 @@
                   <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                 </template>
               </el-table-column>-->
-              <el-table-column v-if="windowWidth > 750">
+              <el-table-column>
                 <template slot="header">
                   {{ $t('deleget.locked') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -868,7 +859,7 @@
                   <span>{{ scope.row.delegateLocked | formatMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column v-if="windowWidth > 750">
+              <el-table-column>
                 <template slot="header">
                   {{ $t('deleget.released') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -933,16 +924,12 @@
               <el-table-column
                 :label="$t('tradeAbout.claimTime')"
                 show-overflow-tooltip
-                v-if="windowWidth > 750"
               >
                 <template slot-scope="scope">
                   <span>{{ scope.row.time | formatTime }}</span>
                 </template>
               </el-table-column>
-              <el-table-column
-                v-if="windowWidth > 750"
-                :label="$t('tradeAbout.delegateReward')"
-              >
+              <el-table-column :label="$t('tradeAbout.delegateReward')">
                 <template slot-scope="scope">
                   <span>{{ scope.row.reward | formatMoney }}</span>
                 </template>
@@ -1634,5 +1621,10 @@ export default {
       width: auto;
     }
   }
+}
+
+.table-content {
+  width: 100%;
+  overflow-x: auto;
 }
 </style>

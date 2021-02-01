@@ -161,10 +161,7 @@
         </el-table-column>
 
         <!-- 交易类型 -->
-        <el-table-column
-          :label="$t('tradeAbout.type')"
-          v-if="windowWidth > 750"
-        >
+        <el-table-column :label="$t('tradeAbout.type')">
           <template slot-scope="scope">
             <span
               :class="{
@@ -191,17 +188,14 @@
         </el-table-column>
 
         <!-- 价值 -->
-        <el-table-column
-          :label="$t('tradeAbout.value')"
-          v-if="windowWidth > 750"
-        >
+        <el-table-column :label="$t('tradeAbout.value')">
           <template slot-scope="scope">
             <span>{{ scope.row.value | formatMoney }} ATP</span>
           </template>
         </el-table-column>
 
         <!-- 交易费用 -->
-        <el-table-column v-if="windowWidth > 750">
+        <el-table-column>
           <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
           <template slot="header">
             {{ $t('tradeAbout.fee') }}

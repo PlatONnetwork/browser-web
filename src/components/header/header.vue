@@ -143,6 +143,7 @@
         'search-active': isFocus,
         'search-hide': !hideSearch || $route.path != '/',
       }"
+      v-if="windowWidth >= 750"
     >
       <el-input
         :placeholder="$t('search.placeHolder')"
@@ -203,6 +204,172 @@
           >
         </el-dropdown-menu>
       </el-dropdown>
+      <span class="mobile-menu-btn">
+        <img
+          src="/static/images/icon_menu.svg"
+          @click="toggleMobileMenuOpenend"
+        />
+      </span>
+    </div>
+    <div
+      class="search search-header mobile-search"
+      :class="{
+        'search-active': isFocus,
+      }"
+      v-if="windowWidth < 750 && $route.path != '/'"
+    >
+      <el-input
+        :placeholder="$t('search.placeHolder')"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
+        v-model="searchKey"
+        @keyup.enter.native="searchFn"
+        size="mini"
+      ></el-input>
+      <el-button
+        type="primary"
+        class="btn-header el-searchs"
+        :class="{ 'search-btn-active': isFocus }"
+        @click="searchFn"
+        :disabled="disabledBtn"
+        >{{ $t('search.searchBtn') }}</el-button
+      >
+    </div>
+    <div
+      :class="{ mobileMenuWrapper: true, opened: mobileMenuOpenend }"
+      v-if="windowWidth < 750"
+    >
+      <div class="mobile-menu-back" @click="toggleMobileMenuOpenend"></div>
+      <div class="mobile-menu-content">
+        <el-menu
+          :default-active="$route.pth"
+          :router="true"
+          class="mobile-menu"
+          background-color="#FFF"
+          text-color="#121f38"
+          active-text-color="#121f38"
+        >
+          <el-menu-item
+            @click="toggleMobileMenuOpenend"
+            index="/"
+            :class="{ active: $route.path == '/' }"
+          >
+            <router-link to="/">{{ $t('menu.home') }}</router-link>
+          </el-menu-item>
+          <el-menu-item
+            @click="toggleMobileMenuOpenend"
+            index="/node"
+            :class="{
+              active: $route.path.indexOf('node') > -1,
+            }"
+          >
+            <router-link to="/node">{{ $t('menu.validator') }}</router-link>
+          </el-menu-item>
+          <el-submenu index="1">
+            <template slot="title">
+              <span>{{ $t('menu.blockChain') }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                index="/block/index"
+                @click="toggleMobileMenuOpenend"
+                :class="{ active: $route.path == '/block/index' }"
+              >
+                <router-link to="/block/index">{{
+                  $t('menu.block')
+                }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                index="/block/trade"
+                @click="toggleMobileMenuOpenend"
+                :class="{ active: $route.path == '/block/trade' }"
+              >
+                <router-link to="/block/trade">{{
+                  $t('menu.transaction')
+                }}</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <span>{{ $t('menu.tokens') }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                index="/tokens/tokenList"
+                @click="toggleMobileMenuOpenend"
+                :class="{ active: $route.path == '/tokens/tokenList' }"
+              >
+                <router-link to="/tokens/tokenList">{{
+                  $t('menu.tokenList')
+                }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                index="/tokens/arc20"
+                @click="toggleMobileMenuOpenend"
+                :class="{ active: $route.path == '/tokens/arc20' }"
+              >
+                <router-link to="/tokens/arc20">{{
+                  $t('menu.erc20Transfer')
+                }}</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <span>{{ $t('menu.more') }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                index="/proposal"
+                :class="{ active: $route.path == '/proposal' }"
+              >
+                <router-link to="/proposal">{{
+                  $t('menu.proposal')
+                }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                class="governable-parameter"
+                index="/governable-parameter"
+                :class="{ active: $route.path == '/governable-parameter' }"
+              >
+                <router-link to="/governable-parameter">{{
+                  $t('more.governableParameter')
+                }}</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="4">
+            <template slot="title">
+              <span>{{ chainList[0][lang].split('(')[0] }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item v-for="(item, index) in chainList" :key="index">
+                {{ item[lang] }}
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+        <div class="language-section">
+          <div
+            v-for="(item, index) in options"
+            :key="index"
+            :class="{
+              languageItem: true,
+              active: languageObj[language] == item.label,
+            }"
+          >
+            <span
+              class="language-text"
+              @click="handleCommandLangage(item.value)"
+              >{{ item.label === '简体中文' ? '中' : 'En' }}</span
+            >
+            <span class="language-divider">/</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -215,6 +382,7 @@ export default {
   name: '',
   data() {
     return {
+      mobileMenuOpenend: false,
       netDropdownShow: false,
       langDropdownShow: false,
       blockDropdownShow: false,
@@ -260,6 +428,9 @@ export default {
   inject: ['reload'],
   methods: {
     ...mapActions(['changeChainId']),
+    toggleMobileMenuOpenend() {
+      this.mobileMenuOpenend = !this.mobileMenuOpenend;
+    },
     netVisibleChange(boolean) {
       this.netDropdownShow = boolean;
     },
@@ -320,6 +491,7 @@ export default {
       });
     },
     handleCommandLangage(command) {
+      this.toggleMobileMenuOpenend();
       console.warn('command>>>>', command);
       this.$i18n.locale = command;
       this.language = command;
@@ -472,6 +644,10 @@ export default {
   .menu {
     margin: 0 10% 0 0;
     flex: 1;
+    .active {
+      color: #fff !important;
+      font-family: Gilroy-Bold;
+    }
   }
   .search {
     opacity: 0;
@@ -479,10 +655,6 @@ export default {
     &.search-hide {
       opacity: 1;
     }
-  }
-  .active {
-    color: #fff !important;
-    font-family: Gilroy-Bold;
   }
 }
 .logo {
@@ -636,6 +808,135 @@ export default {
 .more-item {
   color: #999999 !important;
 }
+.mobile-menu-btn {
+  display: none;
+}
+.mobileMenuWrapper {
+  position: fixed;
+  left: 100vw;
+  right: -100vw;
+  transition: all 0.5s;
+  top: 0;
+  bottom: 0;
+  z-index: 101;
+  display: flex;
+  flex-direction: row-reverse;
+
+  .mobile-menu-back {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+  }
+  &.opened {
+    left: 0;
+    right: 0;
+    .mobile-menu-back {
+      display: block;
+    }
+  }
+
+  .mobile-menu-content {
+    width: 208px;
+    background-color: white;
+    z-index: 102;
+    padding: 12px;
+    overflow-y: auto;
+    .mobile-menu {
+      .el-menu-item {
+        color: #121f38;
+        min-width: auto;
+        a {
+          color: #121f38;
+        }
+        &.active {
+          font-weight: 700;
+          a {
+            font-weight: 700;
+          }
+        }
+        &.governable-parameter {
+          font-size: 12px;
+        }
+      }
+      li {
+        padding: 0 !important;
+        text-align: center;
+      }
+    }
+    .language-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .languageItem {
+        color: #121f38;
+        font-size: 14px;
+        line-height: 56px;
+        .language-text {
+          cursor: pointer;
+          padding: 8px;
+          color: #7d7d7d;
+        }
+        &.active {
+          .language-text {
+            color: #121f38;
+          }
+        }
+        &:last-child {
+          .language-divider {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .header-wrap {
+    flex-wrap: wrap;
+    min-height: 102px;
+    height: auto;
+    padding: 20px 0;
+    .logo.cursor {
+      margin-left: 20px;
+    }
+    .menu {
+      .el-menu-demo {
+        display: none;
+      }
+    }
+    .mobile-search {
+      min-width: calc(100% - 80px);
+      max-width: unset;
+      margin: 0 20px;
+      margin-top: 20px;
+      opacity: 1;
+
+      button {
+        padding: 0 8px !important;
+      }
+    }
+    .right-most {
+      .el-dropdown {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+        margin-right: 20px;
+        img {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
 </style>
 <style lang="less">
 .search-header .el-input .el-input__inner {
@@ -749,4 +1050,38 @@ export default {
 //     }
 
 // }
+
+.mobileMenuWrapper {
+  .mobile-menu-content {
+    .mobile-menu {
+      border-right: none !important;
+      li {
+        .el-submenu__title {
+          padding: 0 !important;
+          .el-submenu__icon-arrow {
+            color: #121f38;
+            font-size: 16px;
+          }
+        }
+      }
+      .el-submenu {
+        .el-menu {
+          .el-menu-item-group {
+            .el-menu-item-group__title {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .mobile-search {
+    input {
+      padding: 0 8px !important;
+    }
+  }
+}
 </style>
