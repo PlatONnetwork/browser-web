@@ -5,7 +5,9 @@
         <!-- 总计代币交易数量 -->
         {{ $t('blockAbout.morethen') }} {{ tradeCount.txCount }}
         {{ $t('tradeAbout.tokens') }}
-        <span style="color: #3F3F3F;" v-if="tradeCount.txCount > 5000">{{$t("contract.showingLast")}}</span>
+        <span style="color: #3f3f3f" v-if="tradeCount.txCount > 5000">{{
+          $t('contract.showingLast')
+        }}</span>
       </span>
       <span class="download-btn" @click="exportFn">{{
         $t('common.export')
@@ -146,7 +148,7 @@
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal > 5000 ? 5000 : pageTotal"
-          :pager-count="9"
+          :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
     </div>
@@ -201,13 +203,7 @@ export default {
       apiService.tokens
         .tokenTransferList(param)
         .then((res) => {
-          let {
-            data,
-            totalPages,
-            totalCount,
-            code,
-            errMsg
-          } = res;
+          let { data, totalPages, totalCount, code, errMsg } = res;
           if (code == 0) {
             this.tradeTableData = data;
             // 返回的总条数不能用
@@ -255,7 +251,7 @@ export default {
         query: {
           address: this.address,
           exportname: 'TokenTransferList',
-          contract: 'true'
+          contract: 'true',
         },
       });
       window.open(href, '_blank');

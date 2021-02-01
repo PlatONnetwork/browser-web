@@ -1,9 +1,9 @@
 <template>
   <div class="trade-list-wrap">
     <div class="page-title fontSize34">
-      {{ $t("tradeAbout.proposalDetail").toUpperCase() }}
+      {{ $t('tradeAbout.proposalDetail').toUpperCase() }}
     </div>
-    <el-row>
+    <el-row class="row-info">
       <el-col :span="12">
         <div class="proposal-box">
           <a class="proposal-id" :href="detailData.url" target="_blank"
@@ -18,46 +18,46 @@
       </el-col>
       <el-col :span="12">
         <div
-          class="grid-content bg-purple-light Gilroy-Bold"
-          style="float:right;margin-top:-50px;"
+          class="proposal-status grid-content bg-purple-light Gilroy-Bold"
+          style="float: right; margin-top: -50px"
           v-if="detailData.status"
         >
           <span
             class="yellow vote-status yellow-status"
             v-if="detailData.status == 1"
-            >{{ $t("proposalStatus." + [detailData.status]) }}</span
+            >{{ $t('proposalStatus.' + [detailData.status]) }}</span
           >
           <span
             class="red vote-status red-status"
             v-else-if="detailData.status == 3 || detailData.status == 6"
-            >{{ $t("proposalStatus." + [detailData.status]) }}</span
+            >{{ $t('proposalStatus.' + [detailData.status]) }}</span
           >
           <span class="green vote-status" v-else>{{
-            $t("proposalStatus." + [detailData.status])
+            $t('proposalStatus.' + [detailData.status])
           }}</span>
         </div>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="row-details">
       <el-col :span="14">
         <div class="update">
           <p v-if="detailData.topic">{{ detailData.topic }}</p>
           <p v-else-if="!detailData.topic && detailData.type == 1">
-            {{ $t("proposalOption." + [detailData.type]) }}-{{
+            {{ $t('proposalOption.' + [detailData.type]) }}-{{
               detailData.pipNum
             }}
           </p>
           <p v-else-if="!detailData.topic && detailData.type == 2">
-            {{ $t("tradeAbout.versionUp") }}-V
-            <span style="font-size:16px;">{{ detailData.newVersion }}</span>
+            {{ $t('tradeAbout.versionUp') }}-V
+            <span style="font-size: 16px">{{ detailData.newVersion }}</span>
           </p>
           <p v-else-if="!detailData.topic && detailData.type == 4">
-            {{ $t("proposalOption." + [detailData.type]) }}-{{
+            {{ $t('proposalOption.' + [detailData.type]) }}-{{
               detailData.pipNum
             }}
           </p>
           <p v-else-if="!detailData.topic && detailData.type == 3">
-            {{ $t("proposalOption." + [detailData.type]) }}-{{
+            {{ $t('proposalOption.' + [detailData.type]) }}-{{
               detailData.pipNum
             }}
           </p>
@@ -65,12 +65,12 @@
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.proposalType") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.proposalType') }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content">
                 <span class="fontSize13">{{
-                  $t("proposalOption." + [detailData.type])
+                  $t('proposalOption.' + [detailData.type])
                 }}</span>
               </div>
             </el-col>
@@ -79,14 +79,14 @@
         <div class="item" v-if="detailData.type == '4'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.proposalToCancel") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.proposalToCancel') }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content fontSize13" v-if="detailData.canceledTopic">
                 {{ detailData.canceledTopic }}
               </div>
               <div class="content fontSize13" v-else>
-                {{ $t("proposalOption." + [detailData.type]) }}-{{
+                {{ $t('proposalOption.' + [detailData.type]) }}-{{
                   detailData.pipNum
                 }}
               </div>
@@ -96,7 +96,7 @@
         <div class="item" v-if="detailData.type == '4'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.cancellID") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.cancellID') }}：</div>
             </el-col>
             <el-col :span="16">
               <div
@@ -111,7 +111,7 @@
         <div class="item" v-if="detailData.type == '2'">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.upgradeVersion") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.upgradeVersion') }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content new-version">{{ detailData.newVersion }}</div>
@@ -121,7 +121,7 @@
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.proposer") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.proposer') }}：</div>
             </el-col>
             <el-col :span="15">
               <div
@@ -136,7 +136,7 @@
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.proposalID") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.proposalID') }}：</div>
             </el-col>
             <el-col :span="16">
               <div
@@ -151,7 +151,7 @@
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.proposalTime") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.proposalTime') }}：</div>
             </el-col>
             <el-col :span="15">
               <!-- {{detailData.timestamp | formatTime}}[{{detailData.inBlock}}] -->
@@ -165,7 +165,7 @@
         <div class="item">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.votingEndBlock") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.votingEndBlock') }}：</div>
             </el-col>
             <el-col :span="15">
               <div class="content progress">
@@ -185,7 +185,7 @@
             </el-col>
             <el-col :span="15">
               <div class="content estimatedTime">
-                {{ $t("contract.estimatedTime") }}:
+                {{ $t('contract.estimatedTime') }}:
                 {{ detailData.endVotingBlockTime | formatTime }}
               </div>
             </el-col>
@@ -194,7 +194,7 @@
         <div class="item" v-if="detailData.type == 2">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.activeBlock") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.activeBlock') }}：</div>
             </el-col>
             <el-col :span="15">
               <p class="active-block">
@@ -206,7 +206,7 @@
         <div class="item" v-if="detailData.type == 3">
           <el-row>
             <el-col :span="6">
-              <div class="desc">{{ $t("tradeAbout.effectiveBlock") }}：</div>
+              <div class="desc">{{ $t('tradeAbout.effectiveBlock') }}：</div>
             </el-col>
             <el-col :span="15">
               <p class="active-block">
@@ -218,15 +218,15 @@
       </el-col>
       <el-col :span="10">
         <div class="item" v-if="detailData.type == 3">
-          <div class="desc" style="margin:41px 0px 21px 0px;">
-            {{ $t("tradeAbout.parameterDetails") }}：
+          <div class="desc" style="margin: 41px 0px 21px 0px">
+            {{ $t('tradeAbout.parameterDetails') }}：
           </div>
           <div class="fontSize15 Gilroy-Medium">
             <span class="parame-name">{{ detailData.paramName }}:</span
             ><span class="parame-new-value"
               >{{ detailData.newValue }}&nbsp;</span
             ><span class="parame-value"
-              >({{ $t("tradeAbout.originalValue") }}：{{
+              >({{ $t('tradeAbout.originalValue') }}：{{
                 detailData.currentValue
               }})</span
             >
@@ -237,16 +237,18 @@
             class="desc"
             :style="{
               margin:
-                detailData.type == 3 ? '35px 0px 10px 0px' : '41px 0px 10px 0px'
+                detailData.type == 3
+                  ? '35px 0px 10px 0px'
+                  : '41px 0px 10px 0px',
             }"
           >
-            {{ $t("tradeAbout.propasalDescription") }}：
+            {{ $t('tradeAbout.propasalDescription') }}：
           </div>
           <div class="fontSize15">
             {{
               detailData.description
                 ? detailData.description
-                : $t("tradeAbout.noDescription")
+                : $t('tradeAbout.noDescription')
             }}
           </div>
         </div>
@@ -263,7 +265,7 @@
       </div>
       <div class="big-progress-text">
         <div class="vote-text">
-          {{ $t("tradeAbout.support") }}&nbsp;({{
+          {{ $t('tradeAbout.support') }}&nbsp;({{
             detailData.yeas | formatNumber
           }})
         </div>
@@ -276,7 +278,7 @@
         :style="{ left: detailData.supportRateThreshold }"
       >
         <span
-          >{{ $t("tradeAbout.passCondition") }}>={{
+          >{{ $t('tradeAbout.passCondition') }}>={{
             detailData.supportRateThreshold
           }}</span
         >
@@ -285,9 +287,9 @@
     <!-- 其他提案进度 -->
     <div class="other-progress" v-else>
       <div class="join-progress">
-        {{ $t("tradeAbout.currentParticipationrate") }}：
+        {{ $t('tradeAbout.currentParticipationrate') }}：
         <span class="Gilroy-Medium fontSize13">
-          {{ curRatio }}% ({{ $t("tradeAbout.participationRate")
+          {{ curRatio }}% ({{ $t('tradeAbout.participationRate')
           }}{{ detailData.participationRate }})</span
         >
       </div>
@@ -302,7 +304,7 @@
           :style="{ display: yesPercentage < 4 ? 'none' : 'block' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.yes") }}&nbsp;({{
+            {{ $t('tradeAbout.yes') }}&nbsp;({{
               detailData.yeas | formatNumber
             }})
           </div>
@@ -315,7 +317,7 @@
           :style="{ display: voteDisplayStyle.yes ? 'block' : 'none' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.yes") }}&nbsp;<span
+            {{ $t('tradeAbout.yes') }}&nbsp;<span
               >({{ detailData.yeas | formatNumber }})</span
             >
           </div>
@@ -335,7 +337,7 @@
           :style="{ display: noPercentage < 4 ? 'none' : 'block' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.no") }}&nbsp;<span
+            {{ $t('tradeAbout.no') }}&nbsp;<span
               >({{ detailData.nays | formatNumber }})</span
             >
           </div>
@@ -348,7 +350,7 @@
           :style="{ display: voteDisplayStyle.not ? 'block' : 'none' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.no") }}&nbsp;<span
+            {{ $t('tradeAbout.no') }}&nbsp;<span
               >({{ detailData.nays | formatNumber }})</span
             >
           </div>
@@ -360,7 +362,7 @@
       <div
         class="voteQuit"
         :style="{
-          width: quitPercentage == 0 ? '0%' : quitPercentage + 1 + '%'
+          width: quitPercentage == 0 ? '0%' : quitPercentage + 1 + '%',
         }"
         @mouseover="mouseoverQuit(quitPercentage, 'quit')"
         @mouseleave="mouseleaveQuit()"
@@ -371,7 +373,7 @@
           :style="{ display: quitPercentage < 4 ? 'none' : 'block' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.abstain") }}&nbsp;({{
+            {{ $t('tradeAbout.abstain') }}&nbsp;({{
               detailData.abstentions | formatNumber
             }})
           </div>
@@ -384,7 +386,7 @@
           :style="{ display: voteDisplayStyle.quit ? 'block' : 'none' }"
         >
           <div class="vote-text">
-            {{ $t("tradeAbout.abstain") }}&nbsp;<span
+            {{ $t('tradeAbout.abstain') }}&nbsp;<span
               >({{ detailData.abstentions | formatNumber }})</span
             >
           </div>
@@ -398,17 +400,17 @@
         :style="{ left: detailData.supportRateThreshold }"
       >
         <span
-          >{{ $t("tradeAbout.passCondition") }}>={{
+          >{{ $t('tradeAbout.passCondition') }}>={{
             detailData.supportRateThreshold
           }}</span
         >
       </div>
     </div>
-    <div style="color:#333;font-family: Gilroy-Regular;font-size:14px;">
+    <div style="color: #333; font-family: Gilroy-Regular; font-size: 14px">
       {{
         detailData.type == 2
-          ? $t("tradeAbout.voteUpgradeNumber")
-          : $t("tradeAbout.NumberOfVotes")
+          ? $t('tradeAbout.voteUpgradeNumber')
+          : $t('tradeAbout.NumberOfVotes')
       }}: {{ pageTotal }}
     </div>
     <div
@@ -421,7 +423,7 @@
         class="cursor"
         :class="{ active: selectIndex == 0 }"
         @click="selectVoteOption(0, '')"
-        >{{ $t("contract.all") }}</a
+        >{{ $t('contract.all') }}</a
       >
       <a
         class="cursor"
@@ -443,58 +445,68 @@
       >
     </div>
     <div class="table">
-      <el-table
-        :data="tableData"
-        style="width: 100%"
-        key="firstTable"
-        size="mini"
-      >
-        <el-table-column :label="$t('tradeAbout.voter')" min-width="20%">
-          <template slot-scope="scope">
-            <p
-              class="cursor blue percent60 ellipsis"
-              @click="goNodeDetail(scope.row.voter)"
-            >
-              {{ scope.row.voterName }}
-            </p>
-          </template>
-        </el-table-column>
-        <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
-          <template slot-scope="scope">
-            <span>{{
-              detailData.type == 2
-                ? $t("voteStatus." + [4])
-                : $t("voteStatus." + [scope.row.option])
-            }}
-              <span class="grey" v-if="scope.row.option == 11 || scope.row.option == 12 || scope.row.option == 13">
-                {{$t('voteStatus.invalid')}}
+      <div class="table-content">
+        <el-table
+          :data="tableData"
+          style="width: 100%"
+          key="firstTable"
+          size="mini"
+        >
+          <el-table-column :label="$t('tradeAbout.voter')" min-width="20%">
+            <template slot-scope="scope">
+              <p
+                class="cursor blue percent60 ellipsis"
+                @click="goNodeDetail(scope.row.voter)"
+              >
+                {{ scope.row.voterName }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
+            <template slot-scope="scope">
+              <span
+                >{{
+                  detailData.type == 2
+                    ? $t('voteStatus.' + [4])
+                    : $t('voteStatus.' + [scope.row.option])
+                }}
+                <span
+                  class="grey"
+                  v-if="
+                    scope.row.option == 11 ||
+                    scope.row.option == 12 ||
+                    scope.row.option == 13
+                  "
+                >
+                  {{ $t('voteStatus.invalid') }}
+                </span>
               </span>
-            </span >
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('tradeAbout.trasactionHash')"
-          min-width="40%"
-        >
-          <template slot-scope="scope">
-            <p
-              class="cursor blue percent60 ellipsis"
-              @click="goTradeDetail(scope.row.txHash)"
-            >
-              {{ scope.row.txHash | sliceStr(20) }}
-            </p>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('tradeAbout.trasactionTime')"
-          show-overflow-tooltip
-          min-width="20%"
-        >
-          <template slot-scope="scope">
-            <span>{{ scope.row.timestamp | formatTime }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('tradeAbout.trasactionHash')"
+            min-width="40%"
+          >
+            <template slot-scope="scope">
+              <p
+                class="cursor blue percent60 ellipsis"
+                @click="goTradeDetail(scope.row.txHash)"
+              >
+                {{ scope.row.txHash | sliceStr(20) }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('tradeAbout.trasactionTime')"
+            show-overflow-tooltip
+            min-width="20%"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.timestamp | formatTime }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
       <div class="pagination-box" v-if="paginationFlag">
         <el-pagination
           background
@@ -512,25 +524,25 @@
   </div>
 </template>
 <script>
-import { formatDecimal } from "@/services/utils";
-import apiService from "@/services/API-services";
-import { timeDiff } from "@/services/time-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
-import moment from "moment";
+import { formatDecimal } from '@/services/utils';
+import apiService from '@/services/API-services';
+import { timeDiff } from '@/services/time-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import moment from 'moment';
 
 export default {
-  name: "trade-list",
+  name: 'trade-list',
   data() {
     return {
       newRecordFlag: false,
       paginationFlag: true,
-      curRatio: "",
+      curRatio: '',
       tableData: [],
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
       searchTotal: 0,
-      endVotingPercentage: "",
+      endVotingPercentage: '',
       yesPercentage: 0,
       noPercentage: 0,
       quitPercentage: 0,
@@ -538,10 +550,10 @@ export default {
       voteDisplayStyle: {
         quit: false,
         not: false,
-        yes: false
+        yes: false,
       },
       selectIndex: 0,
-      detailData: {}
+      detailData: {},
     };
   },
   props: {},
@@ -550,12 +562,12 @@ export default {
   components: {},
   methods: {
     //获取投票列表
-    async getVoteList(option = "") {
+    async getVoteList(option = '') {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
         proposalHash: this.$route.query.proposalHash,
-        option: option
+        option: option,
       };
       try {
         let {
@@ -563,7 +575,7 @@ export default {
           totalPages,
           totalCount,
           code,
-          errMsg
+          errMsg,
         } = await apiService.proposal.voteList(param);
         this.tableData = data;
         if (!option) {
@@ -576,17 +588,17 @@ export default {
     },
     goNodeDetail(nodeId) {
       this.$router.push({
-        path: "/node-detail",
+        path: '/node-detail',
         query: {
-          address: nodeId
-        }
+          address: nodeId,
+        },
       });
     },
     //获取提案详情
     async getProposalDetail() {
       console.log(this.$route.query.proposalHash);
       let param = {
-        proposalHash: this.$route.query.proposalHash
+        proposalHash: this.$route.query.proposalHash,
       };
       try {
         let { data, code, errMsg } = await apiService.proposal.proposalDetails(
@@ -595,16 +607,17 @@ export default {
         this.detailData = data;
         const voteCount = data.yeas + data.nays + data.abstentions;
         let tmpYesPercentage, tmpNoPercentage, tmpQuitPercentage;
-        this.curRatio = ((
-          Number(voteCount) / Number(data.accuVerifiers)
-        )*100).toFixed(2);
+        this.curRatio = (
+          (Number(voteCount) / Number(data.accuVerifiers)) *
+          100
+        ).toFixed(2);
         if (voteCount == 0) {
           tmpYesPercentage = 0;
           tmpNoPercentage = 0;
           tmpQuitPercentage = 0;
         } else {
           tmpYesPercentage =
-            data.type == "2"
+            data.type == '2'
               ? (data.yeas / data.accuVerifiers) * 100
               : (data.yeas / voteCount) * 100;
           tmpNoPercentage = (data.nays / voteCount) * 100;
@@ -612,19 +625,21 @@ export default {
         }
         let tmpEndVotingPercentage =
           data.curBlock - 0 > data.endVotingBlock - 0
-            ? "100%"
+            ? '100%'
             : ((data.curBlock - data.inBlock) /
                 (data.endVotingBlock - data.inBlock)) *
                 100 +
-              "%";
+              '%';
         // debugger
         this.endVotingPercentage = tmpEndVotingPercentage;
         if (tmpQuitPercentage > 0) {
           //存在弃权情况
           this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
           this.noPercentage = formatDecimal(tmpNoPercentage, 2); //.toFixed(2); 反对
-          this.quitPercentage =
-            formatDecimal(100 - (Number(this.yesPercentage) + Number(this.noPercentage)),2);
+          this.quitPercentage = formatDecimal(
+            100 - (Number(this.yesPercentage) + Number(this.noPercentage)),
+            2
+          );
         } else {
           //非
           this.yesPercentage = formatDecimal(tmpYesPercentage, 2); //.toFixed(2); 同意
@@ -644,19 +659,19 @@ export default {
     //进入验证人详情
     async goVerifierDetail(nodeid) {
       this.$router.push({
-        path: "/node-detail",
+        path: '/node-detail',
         query: {
-          nodeId: nodeid
-        }
+          nodeId: nodeid,
+        },
       });
     },
     //进入交易详情
     goTradeDetail(hash) {
       this.$router.push({
-        path: "/trade-detail",
+        path: '/trade-detail',
         query: {
-          txHash: hash
-        }
+          txHash: hash,
+        },
       });
     },
     timeDiffFn(beginTime, endTime) {
@@ -677,11 +692,11 @@ export default {
       this.getVoteList(type);
     },
     mouseoverQuit(param1, param2) {
-      if (param1 < 4 && param2 == "quit") {
+      if (param1 < 4 && param2 == 'quit') {
         this.voteDisplayStyle.quit = true;
-      } else if (param1 < 4 && param2 == "no") {
+      } else if (param1 < 4 && param2 == 'no') {
         this.voteDisplayStyle.not = true;
-      } else if (param1 < 4 && param2 == "yes") {
+      } else if (param1 < 4 && param2 == 'yes') {
         this.voteDisplayStyle.yes = true;
       }
     },
@@ -689,7 +704,7 @@ export default {
       this.voteDisplayStyle.quit = false;
       this.voteDisplayStyle.not = false;
       this.voteDisplayStyle.yes = false;
-    }
+    },
   },
   //生命周期函数
   created() {
@@ -697,11 +712,11 @@ export default {
     this.getVoteList();
   },
   computed: {},
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
-.grey{
+.grey {
   color: #999;
 }
 .active-block {
@@ -1128,6 +1143,52 @@ export default {
       bottom: 0;
       width: 150px;
       margin-left: 6px;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .row-info {
+    .proposal-status {
+      margin-top: 0 !important;
+    }
+  }
+  .row-details {
+    & > .el-col {
+      width: 100%;
+      float: unset;
+    }
+  }
+}
+.table-content {
+  width: 100%;
+  overflow-x: auto;
+}
+@media (max-width: 500px) {
+  .row-details {
+    .item {
+      .el-row {
+        display: flex;
+        .el-col {
+          float: unset;
+          width: auto;
+          flex: 1;
+          &:first-child {
+            flex: 0;
+            min-width: 130px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .table-content {
+    .el-table {
+      overflow: visible;
+      width: 750px !important;
+      min-width: 750px;
     }
   }
 }
