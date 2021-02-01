@@ -320,7 +320,6 @@
                     $t('menu.erc20Transfer')
                   }}</router-link>
               </el-menu-item>
-              <div class="dividing-line"></div>
               <el-menu-item
                 index="/tokens/tokensList/arc721"
                 @click="toggleMobileMenuOpenend"
@@ -1068,6 +1067,19 @@ export default {
   border: 1px solid #666;
   .search-btn-active:hover {
     border-left: 1px solid #666 !important;
+  }
+}
+.dividing-line{
+  position: relative;
+  padding: 4px;
+  &::after{
+    content: "";
+    position: absolute;
+    display: block;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: #e4e7ed;
   }
 }
 // @media screen and (max-width: 1680px) {
