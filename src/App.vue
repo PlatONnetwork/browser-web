@@ -59,7 +59,7 @@ export default {
         '/contract-detail',
         '/node',
         '/node-detail',
-        '/tokens-detail'
+        '/tokens-detail',
       ].includes(this.$route.path);
     },
   },
@@ -104,6 +104,14 @@ export default {
 </script>
 <style lang="less" scoped>
 @media (max-width: 750px) {
+  .content-area {
+    padding-top: 152px;
+    &.index-area {
+      padding-top: 122px;
+    }
+  }
+}
+@media (max-width: 500px) {
   .content-area {
     padding-top: 132px;
     &.index-area {

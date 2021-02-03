@@ -314,11 +314,13 @@
               <el-menu-item
                 index="/tokens/tokensTranfer/arc20"
                 @click="toggleMobileMenuOpenend"
-                :class="{ active: $route.path == '/tokens/tokensTranfer/arc20' }"
+                :class="{
+                  active: $route.path == '/tokens/tokensTranfer/arc20',
+                }"
               >
                 <router-link to="/tokens/tokensTranfer/arc20">{{
-                    $t('menu.erc20Transfer')
-                  }}</router-link>
+                  $t('menu.erc20Transfer')
+                }}</router-link>
               </el-menu-item>
               <el-menu-item
                 index="/tokens/tokensList/arc721"
@@ -326,17 +328,19 @@
                 :class="{ active: $route.path == '/tokens/tokensList/arc721' }"
               >
                 <router-link to="/tokens/tokensList/arc721">{{
-                    $t('menu.erc721Tokens')
-                  }}</router-link>
+                  $t('menu.erc721Tokens')
+                }}</router-link>
               </el-menu-item>
               <el-menu-item
                 index="/tokens/tokensTranfer/arc721"
                 @click="toggleMobileMenuOpenend"
-                :class="{ active: $route.path == '/tokens/tokensTranfer/arc721' }"
+                :class="{
+                  active: $route.path == '/tokens/tokensTranfer/arc721',
+                }"
               >
                 <router-link to="/tokens/tokensTranfer/arc721">{{
-                    $t('menu.erc721Transfer')
-                  }}</router-link>
+                  $t('menu.erc721Transfer')
+                }}</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -448,8 +452,10 @@ export default {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
     logoURL() {
-      return this.configData.logo ? process.env.API_ROOT + this.configData.logo : '#';
-    }
+      return this.configData.logo
+        ? process.env.API_ROOT + this.configData.logo
+        : '#';
+    },
   },
   watch: {},
   components: {},
@@ -458,18 +464,21 @@ export default {
     ...mapActions(['changeChainId', 'updateConfigData']),
     getConfig() {
       let flag = true;
-      apiService.more.globalConfig().then(res => {
-        flag = false;
-        let sortByOrder = (a,b) => (a.order - b.order);
-        res.links.sort(sortByOrder);
-        res.social.sort(sortByOrder);
-        this.updateConfigData(res);
-      }).catch(err => {
-        console.error('err: ', err);
-        if (flag) {
-          setTimeout(this.getConfig, 1000);
-        }
-    })
+      apiService.more
+        .globalConfig()
+        .then((res) => {
+          flag = false;
+          let sortByOrder = (a, b) => a.order - b.order;
+          res.links.sort(sortByOrder);
+          res.social.sort(sortByOrder);
+          this.updateConfigData(res);
+        })
+        .catch((err) => {
+          console.error('err: ', err);
+          if (flag) {
+            setTimeout(this.getConfig, 1000);
+          }
+        });
     },
     toggleMobileMenuOpenend() {
       this.mobileMenuOpenend = !this.mobileMenuOpenend;
@@ -945,6 +954,47 @@ export default {
     flex-wrap: wrap;
     min-height: 102px;
     height: auto;
+    padding: 30px 0;
+    .logo.cursor {
+      margin-left: 30px;
+    }
+    .menu {
+      .el-menu-demo {
+        display: none;
+      }
+    }
+    .mobile-search {
+      min-width: calc(100% - 80px);
+      max-width: unset;
+      margin: 0 30px;
+      margin-top: 30px;
+      opacity: 1;
+
+      button {
+        padding: 0 8px !important;
+      }
+    }
+    .right-most {
+      .el-dropdown {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+        margin-right: 30px;
+        img {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .header-wrap {
+    flex-wrap: wrap;
+    min-height: 102px;
+    height: auto;
     padding: 20px 0;
     .logo.cursor {
       margin-left: 20px;
@@ -1069,11 +1119,11 @@ export default {
     border-left: 1px solid #666 !important;
   }
 }
-.dividing-line{
+.dividing-line {
   position: relative;
   padding: 4px;
-  &::after{
-    content: "";
+  &::after {
+    content: '';
     position: absolute;
     display: block;
     left: 20px;
