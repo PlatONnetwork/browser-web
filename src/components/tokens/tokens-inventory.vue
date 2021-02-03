@@ -12,18 +12,28 @@
     </div>
     <div class="inventory-box">
       <div class="box-item" v-for="item in inventory" :key="item.tokenId">
-        <img :src="item.image || require('@/assets/images/Alaya-cat-721.svg')" alt="token" class="token-pic" />
+        <img
+          :src="item.image || require('@/assets/images/Alaya-cat-721.svg')"
+          alt="token"
+          class="token-pic"
+        />
         <p class="token-id">
           #
-          <span class="normal cursor" @click="go721IdDetail(item.address, item.tokenId)">{{ item.tokenId }}</span>
+          <span
+            class="normal cursor"
+            @click="go721IdDetail(item.address, item.tokenId)"
+            >{{ item.tokenId }}</span
+          >
         </p>
         <p class="token-owner">
           Owner
-          <span class="normal cursor" @click="goAddressDetail(item.address)">{{ item.address  | sliceStr(20) }}</span>
+          <span class="normal cursor" @click="goAddressDetail(item.address)">{{
+            item.address | sliceStr(20)
+          }}</span>
         </p>
       </div>
     </div>
-    
+
     <!-- 下分页 -->
     <div class="pagination-box">
       <el-pagination
@@ -47,10 +57,10 @@ import apiService from '@/services/API-services';
 export default {
   props: {
     address: {
-      type: "string",
-      required: true
+      type: 'string',
+      required: true,
     },
-    tokenId: String
+    tokenId: String,
   },
   data() {
     return {
@@ -70,13 +80,11 @@ export default {
       if (this.tokenId) {
         param.tokenId = this.tokenId;
       }
-      apiService.tokens
-        .token721InventoryList(param)
-        .then(res => {
-          let { data, totalCount } = res;
-          this.inventory = data;
-          this.pageTotal = totalCount;
-        })
+      apiService.tokens.token721InventoryList(param).then((res) => {
+        let { data, totalCount } = res;
+        this.inventory = data;
+        this.pageTotal = totalCount;
+      });
     },
     handleCurrentChange() {
       this.getTradeList();
@@ -88,8 +96,8 @@ export default {
     },
   },
   created() {
-    this.getInventory()
-  }
+    this.getInventory();
+  },
 };
 </script>
 
@@ -113,6 +121,12 @@ export default {
     .token-id {
       padding: 8px 0;
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .inventory-box {
+    grid-template-columns: repeat(auto-fill, calc(50% - 10px));
   }
 }
 </style>
