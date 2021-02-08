@@ -133,8 +133,7 @@
                 <!-- tokens -->
                 <div class="money contract-create-info">
                   <span class="normal" @click="goTokenDetail(address)">
-                    <!-- // todo 暂时没有返回，请求token/detail接口合成 -->
-                    {{ tokenName }}
+                    {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
                   </span>
                 </div>
               </li>
@@ -153,15 +152,23 @@
           >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
+          v-if="detailInfo.hasErc20"
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
           >{{ $t('tokens.erc20TokenTxns') }}</el-button
         >
         <el-button
+          v-if="detailInfo.hasErc721"
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
+          >{{ $t('tokens.erc721TokenTxns') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 4 }"
+          @click="tabChange(4)"
           >{{ $t('contract.contract') }}</el-button
         >
       </div>
@@ -181,15 +188,13 @@
       <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
 
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 3" :detailInfo="detailInfo">
+      <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
       </contract-info>
     </div>
   </div>
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';

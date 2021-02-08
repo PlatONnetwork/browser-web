@@ -868,7 +868,8 @@
                 @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                 >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
               >
-              <img v-if="item.innerImage" :src="item.innerImage" alt="" srcset="">
+              <img class="token-pic" v-if="item.innerImage" :src="item.innerImage" alt="" srcset="">
+
             </li>
           </ul>
         </Item>
@@ -1131,6 +1132,13 @@ export default {
     height: 12px;
     margin-right: 6px;
   }
+}
+
+.token-pic {
+  margin: 0 auto;
+  max-width: 230px;
+  height: 120px;
+  // background: #fff;
 }
 
 @media (max-width: 750px) {
