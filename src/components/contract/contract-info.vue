@@ -60,9 +60,11 @@ export default {
           break;
         case 5:
           s += 'ERC20';
+        case 6:
+          s += 'ERC721';
       }
       return this.$t(s);
-    }
+    },
   },
 };
 </script>

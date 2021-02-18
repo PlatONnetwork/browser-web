@@ -170,7 +170,11 @@
         <!-- 创建方 -->
         <Item
           :label="$t('tradeAbout.creator')"
-          v-if="detailInfo.txType == '1' || detailInfo.txType == '6' || detailInfo.txType == '8'"
+          v-if="
+            detailInfo.txType == '1' ||
+            detailInfo.txType == '6' ||
+            detailInfo.txType == '8'
+          "
         >
           <span
             class="cursor normal ellipsis"
@@ -182,7 +186,11 @@
         <!-- 执行方 -->
         <Item
           :label="$t('tradeAbout.executor')"
-          v-if="detailInfo.txType == '2' || detailInfo.txType == '7' || detailInfo.txType == '9'"
+          v-if="
+            detailInfo.txType == '2' ||
+            detailInfo.txType == '7' ||
+            detailInfo.txType == '9'
+          "
         >
           <span
             class="cursor normal ellipsis"
@@ -833,7 +841,10 @@
               <span
                 class="cursor blue"
                 @click="goTokenDetail(item.innerContractAddr, 'erc20')"
-                >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
+                >{{
+                  `${item.innerContractName}  (${item.innerSymbol})`
+                    | sliceStr(50)
+                }}</span
               >
             </li>
           </ul>
@@ -843,35 +854,55 @@
           :label="$t('tradeAbout.tokens')"
           v-if="detailInfo.erc721Params && detailInfo.erc721Params.length > 0"
         >
-          <ul>
-            <li
-              class="tokens-item"
+          <table>
+            <tr>
+              <th>from</th>
+              <th>to</th>
+              <th>token</th>
+              <th>icon</th>
+            </tr>
+            <tr
               v-for="(item, index) in detailInfo.erc721Params"
+              class="tokens-tr"
             >
-              From
-              <!-- 跳转参数都是innerContractAddr -->
-              <span
-                class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
-                >{{ item.innerFrom | sliceStr(16) }}</span
-              >
-              to
-              <span
-                class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
-                >{{ item.innerTo | sliceStr(16) }}</span
-              >
-              for
-              <span class="money">{{ item.innerValue | formatMoney }}</span>
-              <span
-                class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc721')"
-                >{{ `${item.innerContractName}  (${item.innerSymbol})` }}</span
-              >
-              <img class="token-pic" v-if="item.innerImage" :src="item.innerImage" alt="" srcset="">
-
-            </li>
-          </ul>
+              <td>
+                <span
+                  class="cursor blue"
+                  @click="goTokenDetail(item.innerContractAddr, 'erc721')"
+                  >{{ item.innerFrom | sliceStr(16) }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="cursor blue"
+                  @click="goTokenDetail(item.innerContractAddr, 'erc721')"
+                  >{{ item.innerTo | sliceStr(16) }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="cursor blue"
+                  @click="
+                    go721IdDetail(item.innerContractAddr, item.innerValue)
+                  "
+                  >{{
+                    `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
+                      | sliceStr(50)
+                  }}
+                </span>
+              </td>
+              <td>
+                <img
+                  v-pic-preview
+                  class="token-pic"
+                  :src="
+                    item.innerImage ||
+                    require('@/assets/images/Alaya-cat-721.svg')
+                  "
+                />
+              </td>
+            </tr>
+          </table>
         </Item>
         <!-- 燃料限制 -->
         <Item
@@ -901,8 +932,6 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-
 import List from '@/components/list/list';
 import Item from '@/components/list/item';
 
@@ -967,8 +996,8 @@ export default {
           if (code == 0) {
             this.loading = false;
             this.detailInfo = data;
-            let isFirst = Boolean(data.first)
-            let isLast = Boolean(data.last)
+            let isFirst = Boolean(data.first);
+            let isLast = Boolean(data.last);
             // this.extraInfo = JSON.parse(data.txInfo)
             //是否第一条记录
             this.btnLeftFlag = isFirst;
@@ -1048,11 +1077,11 @@ export default {
         1003: 'exitValidator',
         3000: 'reportValidator',
         5000: 'claimRewards',
-      }
+      };
       return this.$t('tradeAbout.' + typeMap[t]);
     },
     contractTypeTitle(type) {
-      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20', 'ERC721']
+      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20', 'ERC721'];
       return this.$t('tradeAbout.' + typeMap[type]);
     },
   },
@@ -1136,8 +1165,8 @@ export default {
 
 .token-pic {
   margin: 0 auto;
-  max-width: 230px;
-  height: 120px;
+  max-width: 210px;
+  height: 100px;
   // background: #fff;
 }
 
@@ -1193,6 +1222,11 @@ export default {
   .money {
     padding: 0 6px;
     font-weight: lighter;
+  }
+}
+.tokens-tr {
+  td {
+    padding: 0 10px;
   }
 }
 </style>

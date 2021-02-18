@@ -34,7 +34,7 @@
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.name }}
+              {{ scope.row.name | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
@@ -42,7 +42,7 @@
         <el-table-column :label="$t('tokens.tokenID')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.symbol }}
+              {{ scope.row.symbol | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
@@ -142,10 +142,12 @@
           </template>
         </el-table-column>
         <template v-if="pageType === 'contract'">
-          <!-- todo 令牌ID-->
           <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span>unclear</span>
+              <span 
+                class="cursor normal"
+                @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
+                >{{ scope.row.tokenId }}</span>
             </template>
           </el-table-column>
 
@@ -155,7 +157,7 @@
               <span
                 class="cursor normal"
                 @click="goTokenDetail(scope.row.contract, 'erc721')"
-                >{{ `${scope.row.name}` }}</span
+                >{{ `${scope.row.name}` | sliceStr(50) }}</span
               >
             </template>
           </el-table-column>
@@ -351,6 +353,7 @@ export default {
     },
 
     typeChange(index, type) {
+      if(this.selectIndex === index) { return; }
       this.selectIndex = index;
       this.tradeType = type;
       if (index === 1) {

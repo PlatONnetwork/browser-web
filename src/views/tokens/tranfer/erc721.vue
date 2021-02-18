@@ -103,7 +103,7 @@
         <span
           class="cursor normal"
           @click="goTokenDetail(scope.row.contract, 'erc721')"
-          >{{ scope.row.name }}</span
+          >{{`${scope.row.name}  (${scope.row.symbol})` | sliceStr(50)  }}</span
         >
       </template>
     </el-table-column>
