@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` }}</i>
+          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` | sliceStr(50) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">

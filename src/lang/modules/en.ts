@@ -504,7 +504,6 @@ export default {
     2: "ContractExecution", //'合约执行',
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
-    // todo
     6: "ARC20 ContractCreation", //erc20合约创建
     7: "ARC20 ContractExecution", //erc20合约执行
     8: "ARC721 ContractCreation", //erc721合约创建
@@ -514,7 +513,8 @@ export default {
     1002: "IncreaseStaking", //'增持质押',
     1003: "ExitValidator", //'撤销质押',
     1004: "Delegate", //'发起委托',
-    1005: "Undelegate", //'减持/撤销委托',
+    1005: "Undelegate", //减持/撤销委托
+    1006: "Redemption Mandate", //赎回委托
     2000: "TextProposal", //'提交文本提案',
     2001: "UpgradeProposal", //'提交升级提案',
     2002: "ParameterProposal", //'提交参数提案',
@@ -531,7 +531,6 @@ export default {
     0: "PPOS Contract",
     1: "EVM Contract",
     2: "WASM Contract",
-    // todo
     3: "evm-token"
   },
 

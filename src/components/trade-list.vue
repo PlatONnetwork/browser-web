@@ -167,6 +167,7 @@
               :class="{
                 green:
                   scope.row.txType == '1005' ||
+                  scope.row.txType == '1006' ||
                   scope.row.txType == '1003' ||
                   scope.row.txType == '5000' ||
                   scope.row.txType == '3000' ||

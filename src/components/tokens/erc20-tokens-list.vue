@@ -34,14 +34,14 @@
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.name }}
+              {{ scope.row.name | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokens.unit')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.symbol }}
+              {{ scope.row.symbol | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
@@ -149,7 +149,7 @@
         <!-- tokens 名称+单位 -->
         <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` }}</span>
+            <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(50) }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -340,6 +340,7 @@ export default {
     },
 
     typeChange(index, type) {
+      if(this.selectIndex === index) { return; }
       this.selectIndex = index;
       this.tradeType = type;
       if (index === 1) {
