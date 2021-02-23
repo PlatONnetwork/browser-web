@@ -6,13 +6,13 @@ const emptyComponent = () => import("@/components/common/empty-router.vue");
 export const tokensList = {
   path: "/tokens",
   component: emptyComponent,
-  redirect: '/tokens/arc20',
+  redirect: '/tokens/prc20',
   meta: {
     keepAlive: true // 此组件需要被缓存
   },
   children: [
     {
-      path: 'arc20',
+      path: 'prc20',
       component: tokensTransferListComponent,
       name: "tokensTransferListComponent"
     },

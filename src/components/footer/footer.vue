@@ -13,7 +13,7 @@
     </div>
     <div class="foot-index" v-if="path == '/' && configData.social">
       <img class="foot-logo" :src="logoPrevURL + configData.logo" alt="" />
-      <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.copyRight) }}</p>
+      <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.chainName) }}</p>
       <p>{{ $t('indexInfo.international').replace('__YEAR__', curYear).replace('__CHNINNAME__', configData.copyRight.toUpperCase()) }}</p>
       <div class="link-wrap">
         <a
@@ -70,7 +70,6 @@
       <div class="foot-left">
         <img
           :src="logoPrevURL + configData.logo"
-          style="width: 82px; height: 30px"
           alt=""
         />
         <p>{{ $t('indexInfo.platScan').replace('__SITNAME__', configData.siteName).replace('__CHNINNAME__', configData.copyRight) }}</p>
@@ -228,7 +227,7 @@ export default {
   text-align: center;
   padding: 40px 0 31px;
   .foot-logo {
-    width: 200px;
+    // width: 200px;
     margin: 0 auto;
   }
   p:nth-of-type(1) {

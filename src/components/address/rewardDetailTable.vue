@@ -3,7 +3,7 @@
     <div class="address-trade-last">
       {{ $t("tradeAbout.totalClaimedReward") }}
       <span style="color: #3F3F3F;"
-        >{{ tradeCount.haveReward | formatMoney }} ATP</span
+        >{{ tradeCount.haveReward | formatMoney }} LAT</span
       >
     </div>
     <!-- <div v-show="rewardTableData.length == 0" class="title-line">
@@ -20,7 +20,7 @@
       <div class="table-box">
         <div class="total">
           <span class="label">{{ $t("tradeAbout.rewardAmount") }} : </span>
-          <span class="value">{{ item.allRewards | formatMoney }} ATP</span>
+          <span class="value">{{ item.allRewards | formatMoney }} LAT</span>
         </div>
         <div class="reward-box">
           <!-- <table class="reward-table-box">
@@ -36,7 +36,7 @@
                 {{ ele.nodeName | formatMoney }}
               </td>
               <td class="gap-td-box"></td>
-              <td class="td-content">{{ ele.reward }} &nbsp;ATP</td>
+              <td class="td-content">{{ ele.reward }} &nbsp;LAT</td>
             </tr>
           </table> -->
           <div
@@ -51,7 +51,7 @@
               {{ ele.nodeName }}
             </div>
             <div class="td-content">
-              {{ ele.reward | formatMoney }} &nbsp;&nbsp;ATP
+              {{ ele.reward | formatMoney }} &nbsp;&nbsp;LAT
             </div>
           </div>
         </div>

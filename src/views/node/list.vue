@@ -88,7 +88,7 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.pendingDelegations')" width="300">
           <template slot-scope="scope">
-            <span>{{ scope.row.statDelegateReduction | formatMoney }} ATP</span>
+            <span>{{ scope.row.statDelegateReduction | formatMoney }} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
@@ -134,7 +134,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150, 300, 500]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -186,7 +186,7 @@
         </el-table-column>
         <el-table-column :label="$t('deleget.delegationsN')">
           <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
+            <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.stability')" class="stability-cell">
@@ -232,7 +232,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150, 300, 500]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -285,12 +285,12 @@
         </el-table-column>
         <el-table-column :label="$t('nodeInfo.totalStakePower')">
           <template slot-scope="scope">
-            <span>{{ scope.row.totalValue | formatMoney }} ATP</span>
+            <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('deleget.delegationsN')">
           <template slot-scope="scope">
-            <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
+            <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('deleget.delegators')" width="100">
@@ -371,7 +371,7 @@
         </el-table-column>
       </el-table>
       <div class="pagination-box">
-        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150,300]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100, 150, 300, 500]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
 
@@ -390,7 +390,7 @@ export default {
       tabIndex: 1,
       tableData: [],
       currentPage: 1,
-      pageSize: 300,
+      pageSize: 500,
       pageTotal: 0,
       keyword: "",
       queryStatus: "all",

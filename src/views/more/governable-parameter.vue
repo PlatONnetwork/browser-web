@@ -15,7 +15,7 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{lis.staking.stakeThreshold.value| formatMoney}}ATP</span>
+                <span class="green">{{lis.staking.stakeThreshold.value| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.staking.stakeThreshold,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
@@ -25,7 +25,7 @@
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{lis.staking.stakeThreshold.initValue| formatMoney}}ATP</span>
+                <span class="black">{{lis.staking.stakeThreshold.initValue| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.staking.stakeThreshold,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
@@ -35,10 +35,10 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.staking.stakeThreshold.start}}</span>
-                <span class="regular">{{lis.staking.stakeThreshold.startValue| formatMoney}}ATP</span>
+                <span class="regular">{{lis.staking.stakeThreshold.startValue| formatMoney}}LAT</span>
               </div>
               <div>
-                <span class="regular">{{lis.staking.stakeThreshold.endValue| formatMoney}}ATP</span>
+                <span class="regular">{{lis.staking.stakeThreshold.endValue| formatMoney}}LAT</span>
                 <span class="medium">{{lis.staking.stakeThreshold.end}}</span>
               </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{lis.staking.operatingThreshold.value| formatMoney}}ATP</span>
+                <span class="green">{{lis.staking.operatingThreshold.value| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.staking.operatingThreshold,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
@@ -64,7 +64,7 @@
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{lis.staking.operatingThreshold.initValue| formatMoney}}ATP</span>
+                <span class="black">{{lis.staking.operatingThreshold.initValue| formatMoney}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.staking.operatingThreshold,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
@@ -74,10 +74,10 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.staking.operatingThreshold.start}}</span>
-                <span class="regular">{{lis.staking.operatingThreshold.startValue| formatMoney}}ATP</span>
+                <span class="regular">{{lis.staking.operatingThreshold.startValue| formatMoney}}LAT</span>
               </div>
               <div>
-                <span class="regular">{{lis.staking.operatingThreshold.endValue| formatMoney}}ATP</span>
+                <span class="regular">{{lis.staking.operatingThreshold.endValue| formatMoney}}LAT</span>
                 <span class="medium">{{lis.staking.operatingThreshold.end}}</span>
               </div>
             </div>
@@ -631,7 +631,7 @@
             <div class="current">
               <div>
                 <span class="lable">{{$t("more.currentValue")}}</span>
-                <span class="green">{{lis.restricting.minimumRelease.value}}ATP</span>
+                <span class="green">{{lis.restricting.minimumRelease.value}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,1)" :show-text="false" stroke-width="20" color="#3BB012"></el-progress>
@@ -641,7 +641,7 @@
             <div class="genesis">
               <div>
                 <span class="lable">{{$t("more.genesisValue")}}</span>
-                <span class="black">{{lis.restricting.minimumRelease.initValue}}ATP</span>
+                <span class="black">{{lis.restricting.minimumRelease.initValue}}LAT</span>
               </div>
               <div class="progress-box">
                 <el-progress :percentage="getPercentage(lis.restricting.minimumRelease,2)" :show-text="false" stroke-width="20" color="#000000"></el-progress>
@@ -651,10 +651,10 @@
             <div class="bottom">
               <div>
                 <span class="medium">{{lis.restricting.minimumRelease.start}}</span>
-                <span class="regular">{{lis.restricting.minimumRelease.startValue}} ATP</span>
+                <span class="regular">{{lis.restricting.minimumRelease.startValue}} LAT</span>
               </div>
               <div>
-                <span class="regular">{{lis.restricting.minimumRelease.endValue}} ATP</span>
+                <span class="regular">{{lis.restricting.minimumRelease.endValue}} LAT</span>
                 <span class="medium">{{lis.restricting.minimumRelease.end}}</span>
               </div>
             </div>

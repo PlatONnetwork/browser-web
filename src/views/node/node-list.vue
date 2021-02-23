@@ -8,15 +8,15 @@
           <Item :label="$t('nodeInfo.totalStakePower')">
             <p class="Gilroy-Medium">
               {{ValidatorStatisticData.stakingDelegationValue | unit}}
-              <span class="fontSize13 Gilroy-Regular" style="padding-right:1px">ATP</span>
+              <span class="fontSize13 Gilroy-Regular" style="padding-right:1px">LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.totalDelegations')">
-            <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">ATP</span></p> -->
+            <!-- <p>{{(ValidatorStatisticData.stakingDelegationValue-ValidatorStatisticData.stakingValue) | formatMoney}}<span class="fontSize13">LAT</span></p> -->
             <p>
               <span class="Gilroy-Medium">{{ ValidatorStatisticData.delegationValue | formatMoney |sliceFloat(0)}}</span>
               <span style="font-size: 13px;">{{ ValidatorStatisticData.delegationValue | formatMoney |sliceFloat(1)}}</span>
-              <span class="fontSize13">&nbsp;ATP</span>
+              <span class="fontSize13">&nbsp;LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.stakeRate')">
@@ -31,23 +31,23 @@
           <Item :label="$t('blockAbout.blockReward')">
             <!-- <p>
             {{ValidatorStatisticData.blockReward | formatMoney}}
-            <span class="fontSize13">ATP</span>
+            <span class="fontSize13">LAT</span>
           </p>-->
             <p>
               <span class="Gilroy-Medium">{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(0)}}</span>
               <span style="font-size: 13px;">{{ValidatorStatisticData.blockReward | formatMoney |sliceFloat(1)}}</span>
-              <span class="fontSize13">&nbsp;ATP</span>
+              <span class="fontSize13">&nbsp;LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.stakingReward')">
             <!-- <p>
             {{ValidatorStatisticData.stakingReward | formatMoney}}
-            <span class="fontSize13">ATP</span>
+            <span class="fontSize13">LAT</span>
           </p>-->
             <p>
               <span class="Gilroy-Medium">{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(0)}}</span>
               <span style="font-size: 13px;">{{ValidatorStatisticData.stakingReward | formatMoney |sliceFloat(1)}}</span>
-              <span class="fontSize13">&nbsp;ATP</span>
+              <span class="fontSize13">&nbsp;LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.nextRewardAdjustment')">

@@ -2,7 +2,7 @@
   <div class="index-wrap">
     <vue-particles color="#2E2E2E" :particleOpacity="0.7" :particlesNumber="80" shapeType="circle" :particleSize="4" linesColor="#2E2E2E" :linesWidth="1" :lineLinked="true" :lineOpacity="0.7" :linesDistance="150" :moveSpeed="2" :hoverEffect="true" hoverMode="grab" :clickEffect="false" clickMode="repulse" class="lizi" :style="{height:clientHeight+'px'}"></vue-particles>
     <div class="welcome-wrap">
-      <h3>{{$t('indexInfo.WelcomeToPlatON')}}</h3>
+      <h3>{{$t('indexInfo.WelcomeToPlatON').replace('__CHNINNAME__', configData.chainName)}}</h3>
       <div class="search search-index" :class="{'search-active':isFocus,'search-hide':!hideSearch}">
         <el-input :placeholder="$t('search.placeHolder')" @focus="isFocus=true;" @blur="isFocus=false;" v-model="searchKey" @keyup.enter.native="searchFn" size="mini"></el-input>
         <el-button type="primary" class="el-btn el-searchs" :class="{'search-btn-active':isFocus}" @click="searchFn" :disabled="disabledBtn">{{ $t("search.searchBtn") }}</el-button>
@@ -29,7 +29,7 @@
             <a class="cursor" @click="goNodeDetail(blockStatisticData.nodeId)">{{blockStatisticData.nodeName}}</a>
           </li>
           <li class="statistics-odd">
-            <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(ATP)</div>
+            <div class="statistics-label">{{$t('indexInfo.CIRCULATINGSUPPLY')}}(LAT)</div>
             <p>
               {{blockStatisticData.turnValue | unit}}&nbsp;/
               <b class="tip">
@@ -136,7 +136,7 @@
                 <span class="item-number cursor">{{item.nodeName}}</span>
                 <p>
                   {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}ATP</a>
+                  <a>{{item.totalValue | formatMoney}}LAT</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -152,7 +152,7 @@
                 <span class="item-number cursor">{{item.nodeName}}</span>
                 <p>
                   {{$t('nodeInfo.totalStakePower')}}
-                  <a>{{item.totalValue | formatMoney}}ATP</a>
+                  <a>{{item.totalValue | formatMoney}}LAT</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -223,6 +223,7 @@ export default {
   props: {},
   computed: {
     ...mapGetters([
+      "configData",
       "chartData",
       "blockStatisticData",
       "blockData",

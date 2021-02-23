@@ -8,7 +8,7 @@ export default {
     validator: "验证节点",
     proposal: "治理提案",
     tokens: "令牌",
-    erc20Transfer: "ARC20交易",
+    erc20Transfer: "PRC20交易",
     tokenList: "令牌列表",
     more: "更多",
     comesoon: "敬请期待",
@@ -40,7 +40,7 @@ export default {
     unit: "单位",
     typesToken: "种令牌",
     tokens: "令牌",
-    erc20Tokens: "ARC20令牌",
+    erc20Tokens: "PRC20令牌",
     tokenDetail: "令牌详情",
     value: "价值",
     from: "发送方",
@@ -53,7 +53,7 @@ export default {
     contract: "合约",
     decimals: "精度",
     website: "官网",
-    erc20TokenTxns: "ARC20交易",
+    erc20TokenTxns: "PRC20交易",
     number: "数量",
     percentage: "百分比",
   },
@@ -106,7 +106,7 @@ export default {
     PPOS: "系统合约",
     EVM: "EVM合约",
     WASM: "WASM合约",
-    ERC20: "ARC20合约",
+    ERC20: "PRC20合约",
     callFunction: "调用函数",
     creation: "合约创建",
     execution: "合约执行",
@@ -365,7 +365,7 @@ export default {
     copyfail: "复制失败"
   },
   indexInfo: {
-    WelcomeToPlatON: "欢迎来到Alaya 区块链浏览器",
+    WelcomeToPlatON: "欢迎来到__CHNINNAME__ 区块链浏览器",
     LIVEBLOCKTIME: "实时出块时长(s)",
     LIVEBLOCKTRANSACTIONS: "实时区块交易数",
     LIVEBLOCKHEIGHT: "当前区块高度",
@@ -486,8 +486,8 @@ export default {
     2: "合约执行", //合约执行
     4: "其他", //其他
     5: "MPC交易",
-    6: "ARC20合约创建",
-    7: "ARC20合约执行",
+    6: "PRC20合约创建",
+    7: "PRC20合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押
@@ -558,8 +558,8 @@ export default {
   },
   more: {
     governableParameter: "可治理参数",
-    stakeThreshold: "创建验证节点最低的质押ATP数。",
-    operatingThreshold: "委托用户每次委托或赎回委托的最低ATP数。",
+    stakeThreshold: "创建验证节点最低的质押LAT数。",
+    operatingThreshold: "委托用户每次委托或赎回委托的最低LAT数。",
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
@@ -571,7 +571,7 @@ export default {
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio: "Alaya网络的ATP每年增发比例（‱）。",
+    increaseIssuanceRatio: "Alaya网络的LAT每年增发比例（‱）。",
     minimumRelease:"释放周期的释放金额最小值",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",

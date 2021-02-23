@@ -1,10 +1,12 @@
 <template>
   <div class="header-wrap">
     <div class="logo cursor" @click="goIndex">
-      <!-- <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
-      <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
-      <p>The Alaya Block Explorer</p> -->
-      <img class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
+      <template v-if="configData.siteName === 'PlatScan'">
+        <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
+        <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
+        <p>The PlatScan Block Explorer</p>
+      </template>
+      <img v-else class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
     </div>
     <div class="menu">
       <el-menu
@@ -89,7 +91,7 @@
               <el-dropdown-item command="/tokens/tokenList">{{
                 $t('menu.tokenList')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/tokens/arc20">{{
+              <el-dropdown-item command="/tokens/prc20">{{
                 $t('menu.erc20Transfer')
               }}</el-dropdown-item>
             </el-dropdown-menu>
@@ -164,7 +166,7 @@
     <div class="right-most">
       <el-dropdown placement="bottom-start" @visible-change="netVisibleChange">
         <span class="el-dropdown-link">
-          {{ configData.chainName }}
+          {{ configData.headerChainName }}
           <i
             :class="{
               arrowDown: netDropdownShow == false,
@@ -175,7 +177,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            {{ configData.chainName }}
+            {{ configData.headerChainName }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -270,11 +272,12 @@ export default {
         let sortByOrder = (a,b) => (a.order - b.order);
         res.links.sort(sortByOrder);
         res.social.sort(sortByOrder);
+        !res.headerChainName && (res.headerChainName = res.chainName);
         this.updateConfigData(res);
       }).catch(err => {
         if (flag) {
           console.error('err: ', err);
-          setTimeout(this.getConfig, 1000);
+          setTimeout(this.getConfig, 3000);
         }
     })
     },
@@ -507,9 +510,10 @@ export default {
 .logo {
   display: inline-block;
   // height: 100%;
-  width: 170px;
-  // overflow: hidden;
-  margin-right: 20px;
+  width: 212px;
+  overflow: hidden;
+  flex-shrink: 0;
+  // margin-right: 20px;
   .logo-right {
     margin-top: 5px;
     margin-left: 42px;
@@ -532,6 +536,7 @@ export default {
     font-size: 12px;
     color: #b3b3b3;
     letter-spacing: 0;
+    white-space: nowrap;
     min-width: 84px;
   }
 }

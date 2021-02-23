@@ -8,7 +8,7 @@ export default {
     validator: "VALIDATORS",
     proposal: "PROPOSALS",
     tokens: "TOKENS",
-    erc20Transfer: "ARC20 TRANSFERS",
+    erc20Transfer: "PRC20 TRANSFERS",
     tokenList: "TOKEN LIST",
     more: "MORE",
     comesoon: "Coming soon",
@@ -40,7 +40,7 @@ export default {
     unit: "Unit",
     typesToken: "Types Tokens",
     tokens: "Tokens",
-    erc20Tokens: "ARC20 TOKENS",
+    erc20Tokens: "PRC20 TOKENS",
     tokenDetail: "Token Detail",
     value: "Value",
     from: "From",
@@ -52,7 +52,7 @@ export default {
     contract: "Contract",
     decimals: "Decimals",
     website: "Official Site",
-    erc20TokenTxns: "ARC20 Token Txns",
+    erc20TokenTxns: "PRC20 Token Txns",
     number: "quantity",
     percentage: "percentage",
   },
@@ -104,7 +104,7 @@ export default {
     PPOS: "PPOS Contract",
     EVM: "EVM Contract",
     WASM: "WASM Contract",
-    ERC20: "ARC20 Contract",
+    ERC20: "PRC20 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",
@@ -175,7 +175,7 @@ export default {
     to: "To",
     toA: "Recipient",
     value: "Value",
-    fee: "TxFee", //(ATP)
+    fee: "TxFee", //(LAT)
     before: "ago",
 
     txInfo: "Tx Info",
@@ -285,7 +285,7 @@ export default {
     warn: "Contract Self Destruct called at Txn Hash",
     systemBuilt: "System built-in code contract, no contract bytecode.",
 
-    ercTrade: "ARC20 Token Txns",
+    ercTrade: "PRC20 Token Txns",
   },
   deleget: {
     validators: "Validators",
@@ -298,12 +298,12 @@ export default {
     released: "Invalid delegations",
     delegationAmount: "Delegation Amount",
     locked: "Locked",
-    unlockedMsg: "Delegated ATPs to be locked",
-    releasedMsg: "Undelegated ATPs, ready to withdraw",
+    unlockedMsg: "Delegated LATs to be locked",
+    releasedMsg: "Undelegated LATs, ready to withdraw",
     delegationAmountMsg:
       "Total amount delegated to the node, which is the sum of the amount of locked and unlocked delegates",
     lockedMsg:
-      "Delegated and locked ATPs, the amount of delegates that effectively contribute to the node",
+      "Delegated and locked LATs, the amount of delegates that effectively contribute to the node",
     percentageMsg:
       "Total amount delegated to the node and the share of the total delegations",
     historicalDelegator: "Historical Delegator",
@@ -319,7 +319,7 @@ export default {
     rewardReceiveDetails: "Reward Details",
     totalReceiveReward: "Total claimed reward",
     unclaimedReward: "Unclaimed Reward",
-    unclaimedRewardMsg: "Delegated ATPs，Receivable rewards."
+    unclaimedRewardMsg: "Delegated LATs，Receivable rewards."
   },
   blockAbout: {
     morethen: "Total ",
@@ -366,7 +366,7 @@ export default {
     copyfail: "Copy the failure"
   },
   indexInfo: {
-    WelcomeToPlatON: "Welcome to Alaya Blockchain Explorer",
+    WelcomeToPlatON: "Welcome to __CHNINNAME__ Blockchain Explorer",
     LIVEBLOCKTIME: "LIVE BLOCK TIME(s)",
     LIVEBLOCKTRANSACTIONS: "LIVE BLOCKS TRANSACTIONS",
     LIVEBLOCKHEIGHT: "LIVE BLOCK HEIGHT",
@@ -488,8 +488,8 @@ export default {
     4: "Others", //其他
     5: "MPCTx", //'MPC交易',
     // todo
-    6: "ARC20 ContractCreation", //erc20合约创建
-    7: "ARC20 ContractExecution", //erc20合约执行
+    6: "PRC20 ContractCreation", //erc20合约创建
+    7: "PRC20 ContractExecution", //erc20合约执行
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
@@ -561,8 +561,8 @@ export default {
   },
   more: {
     governableParameter: "GOVERNABLE PARAMETER",
-    stakeThreshold: "Minimum stake ATPs required to create validator.",
-    operatingThreshold: "Minimum ATP for delegation or withdrawal.",
+    stakeThreshold: "Minimum stake LATs required to create validator.",
+    operatingThreshold: "Minimum LAT for delegation or withdrawal.",
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
@@ -576,7 +576,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of ATP(‱).",
+    increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of LAT(‱).",
     minimumRelease:"The minimum amount of the release period",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
