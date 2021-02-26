@@ -326,4 +326,11 @@ export default {
 .contract-detail-top {
   padding-bottom: 30px;
 }
+.detail-change {
+  .detail-copy {
+    & > *:first-child {
+      display: inline;
+    }
+  }
+}
 </style>
