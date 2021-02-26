@@ -83,7 +83,8 @@ export default {
     txhash: "交易哈希",
     timeStamp: "时间戳",
     blockHeight: "区块",
-    // todo
+    all: "总计",
+    inventory: "个有效令牌",
     tokens: "代币交易",
     gasLimit: "燃料限制",
     gasUsed: "燃料消耗",
