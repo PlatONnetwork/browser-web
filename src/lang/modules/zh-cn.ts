@@ -20,11 +20,11 @@ export default {
     placeHolder: " 请输入区块高度/地址/块哈希/交易哈希查询"
   },
   footer: {
-    desc: "AlayaScan是Alaya区块链资源管理与分析平台",
+    desc: "PlatScan是PlatON区块链资源管理与分析平台",
     links: "链接",
     help: "开发帮助",
     wallet: "钱包",
-    officialWebsite: "Alaya官网",
+    officialWebsite: "PlatON官网",
     whitePaper: "白皮书",
     community: "社区"
   },
@@ -384,8 +384,8 @@ export default {
     searchno: "查询无结果！",
 
     resource: "资源",
-    aboutPlatON: "关于Alaya",
-    platONWhitePaper: "Alaya白皮书",
+    aboutPlatON: "关于PlatON",
+    platONWhitePaper: "PlatON白皮书",
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
     platScan: "__SITNAME__是__CHNINNAME__区块链资源管理与分析平台",
@@ -571,7 +571,7 @@ export default {
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio: "Alaya网络的LAT每年增发比例（‱）。",
+    increaseIssuanceRatio: "PlatON网络的LAT每年增发比例（‱）。",
     minimumRelease:"释放周期的释放金额最小值",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
