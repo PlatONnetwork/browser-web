@@ -390,7 +390,7 @@ export default {
       tabIndex: 1,
       tableData: [],
       currentPage: 1,
-      pageSize: 500,
+      pageSize: 300,
       pageTotal: 0,
       keyword: "",
       queryStatus: "all",
