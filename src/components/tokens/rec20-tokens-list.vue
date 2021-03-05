@@ -186,6 +186,7 @@ export default {
       blanceCurPage: 1,
       blancePageSize: 20,
 
+      noTradeData: false,
       tradeTotalDisplay: 0, //交易寻获展示
       tradePageTotal: 0,
       tradeCurPage: 1,
@@ -200,7 +201,8 @@ export default {
       tradeTableData: [],
 
       tradeType: 'blance',
-      tokensName: 'All'
+      tokensName: 'All',
+      tokenContract: ''
     };
   },
   props: {
@@ -222,7 +224,7 @@ export default {
       this.$router.go(0);
     },
     'tradeCount.tokenQty': function() {
-      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty;
+      !noTradeData && (this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty);
     },
   },
   components: { IconContract },
@@ -230,6 +232,7 @@ export default {
     async showAddressTokenList(contract, tokensName, txCount) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = tokensName;
+      this.tokenContract = contract;
       this.tradeCurPage = 1;
       await this.getTradeAddressList(contract, txCount);
       this.selectIndex = 2;
@@ -314,7 +317,12 @@ export default {
             // this.tradePageTotal = totalCount;
             // this.tradeTotalDisplay = displayTotalCount;
             // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
-            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty; // || displayTotalCount;
+            if (data.length < 1) {
+              this.noTradeData = true;
+              this.tradePageTotal =  this.tradeTotalDisplay = 0;
+              return
+            }
+            this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.tokenQty;
           } else {
             this.$message.error(errMsg);
           }
@@ -345,16 +353,23 @@ export default {
       this.blanceCurPage = val;
       this.getBlanceList();
     },
-
+    getListByTokenName() {
+      if (this.tokensName === 'All') {
+        this.getTradeList();
+      } else {
+        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+      }
+    },
     handleTradePageChange(val) {
       this.tradeCurPage = val;
-      this.getTradeList();
+      this.getListByTokenName()
     },
     handleTradeSizeChange(val) {
       this.tradeCurPage = 1;
       this.tradePageSize = val;
-      this.getTradeList();
+      this.getListByTokenName()
     },
+
 
     typeChange(index, type) {
       this.selectIndex = index;

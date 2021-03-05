@@ -216,7 +216,7 @@ class ApiService {
         config.headers["Accept-Language"] = localStorage.getItem("i18nLocale")
           ? localStorage.getItem("i18nLocale")
           : language.toLowerCase();
-        console.log("请求URL== " + config.url);
+        // console.log("请求URL== " + config.url);
         // if(config.url.indexOf('json')!==-1 || config.url.indexOf('recaptcha')!==-1){
         //     console.log('json数据请求',config.url);
         //     // return config;
