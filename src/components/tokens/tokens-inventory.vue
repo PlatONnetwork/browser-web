@@ -4,7 +4,7 @@
       <span class="lineheight-with-btn">
         <!-- 总计代币交易数量 -->
         {{ $t('blockAbout.morethen') }} {{ pageTotal }}
-        {{ $t('tradeAbout.tokens') }}
+        {{ $t('tradeAbout.inventory') }}
         <span style="color: #3f3f3f" v-if="pageTotal > 5000">{{
           $t('contract.showingLast')
         }}</span>

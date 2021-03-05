@@ -83,6 +83,8 @@ export default {
     txhash: "Txhash",
     timeStamp: "TimeStamp",
     blockHeight: "Block Height",
+    all: "Total",
+    inventory: "valid tokens",
     tokens: "Tokens Transferred",
     gasLimit: "Gas Limit",
     gasUsed: "Gas Used",
