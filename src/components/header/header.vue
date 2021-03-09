@@ -4,7 +4,7 @@
       <template v-if="configData.siteName === 'PlatScan'">
         <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
         <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
-        <p>The PlatScan Blockchain Explorer</p>
+        <p>The PlatON Blockchain Explorer</p>
       </template>
       <img v-else class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
     </div>
