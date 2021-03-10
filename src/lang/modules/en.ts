@@ -65,7 +65,7 @@ export default {
     morethen: "More Than",
     morethen2: "",
     status: "Status",
-    txhash: "Txhash",
+    txhash: "TxHash",
     timeStamp: "TimeStamp",
     blockHeight: "Block Height",
     tokens: "Tokens Transferred",
