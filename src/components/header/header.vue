@@ -510,7 +510,7 @@ export default {
 .logo {
   display: inline-block;
   // height: 100%;
-  width: 212px;
+  width: 225px;
   overflow: hidden;
   flex-shrink: 0;
   // margin-right: 20px;

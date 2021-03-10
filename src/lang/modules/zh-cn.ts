@@ -17,7 +17,7 @@ export default {
   },
   search: {
     searchBtn: "查询",
-    placeHolder: " 请输入区块高度/地址/块哈希/交易哈希查询"
+    placeHolder: "请输入地址/区块高度/区块哈希/交易哈希查询"
   },
   footer: {
     desc: "PlatScan是PlatON区块链资源管理与分析平台",
@@ -334,6 +334,7 @@ export default {
     blockHash: "区块哈希",
     parentHash: "上一区块哈希",
     extraData: "额外数据",
+    postscript: "附言",
     blockDetail: "区块详情",
     operatorAddress: "操作地址",
     blockInformation: "区块信息",

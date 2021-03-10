@@ -45,8 +45,8 @@ module.exports = {
       //   }
       // }
       "/browser-server": {
-        // target: "http://192.168.9.190:40000",
-        target: "https://scan.alaya.network/",
+        target: "http://192.168.9.190:40000",
+        // target: "https://scan.alaya.network/",
         secure: false,
         changeOrigin: true,
         pathRewrite: {
