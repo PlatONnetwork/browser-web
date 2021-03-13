@@ -4,7 +4,7 @@
       <template v-if="configData.siteName === 'PlatScan'">
         <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
         <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
-        <p>The PlatON Blockchain Explorer</p>
+        <p class="text">The PlatON Blockchain Explorer</p>
       </template>
       <img v-else class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
     </div>
@@ -139,6 +139,7 @@
         </el-menu-item>
       </el-menu>
     </div>
+    <div style="flex: 1"></div>
     <div
       class="search search-header"
       :class="{
@@ -478,6 +479,15 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@media screen and (max-width: 1200px) {
+  .logo.cursor {
+    width: auto;
+    padding-right: 8px;
+    .icon2, .text {
+      display: none;
+    }
+  }
+}
 .header-wrap {
   position: fixed;
   top: 0;
@@ -491,10 +501,6 @@ export default {
   background: #000;
   align-items: center; //居中对齐
   justify-content: space-between; //两端对齐
-  .menu {
-    margin: 0 10% 0 0;
-    flex: 1;
-  }
   .search {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -541,7 +547,9 @@ export default {
   }
 }
 .el-menu-demo {
-  width: 632px;
+  display: flex;
+  padding-right: 18px;
+  // width: 632px;
   // border: 0px;
   // border-bottom-color: #040B27;
   li.el-menu-item {
@@ -602,7 +610,7 @@ export default {
     padding: 0 19px;
   }
 }
-@media only screen and (max-width: 1680px) {
+@media only screen and (max-width: 1366px) {
   .header-wrap {
     padding: 0 3.2%;
   }
@@ -610,7 +618,6 @@ export default {
     margin: 0 0 0 0;
   }
   .el-menu-demo {
-    width: 520px;
     .el-menu-item {
       padding: 0 10px;
     }
@@ -627,9 +634,6 @@ export default {
 //     }
 // }
 @media screen and (max-width: 1280px) {
-  // .el-menu-demo{
-  //     width:350px;
-  // }
   .header-wrap {
     padding: 0 0;
     // .menu{
