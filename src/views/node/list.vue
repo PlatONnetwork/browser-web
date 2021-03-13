@@ -19,9 +19,9 @@
       </el-col>
     </el-row>
     <!-- 验证节点表头 -->
-    <el-row v-else>
-      <el-col :span="18" class="validators-tab">
-        <div class="tabs">
+    <el-row v-else type="flex" justify="space-between">
+      <el-col class="validators-tab">
+        <div class="tabs" style="display: flex;">
           <el-button size="medium" :class="{ active: tabIndex == 1 }" @click="tabChange(1, 'all')">{{ $t("contract.all") }}</el-button>
           <el-button size="medium" :class="{ active: tabIndex == 2 }" @click="tabChange(2, 'active')">{{ $t("nodeStatus.2") }}</el-button>
           <el-button size="medium" :class="{ active: tabIndex == 3 }" @click="tabChange(3, 'candidate')">{{ $t("nodeStatus.1") }}</el-button>
@@ -31,7 +31,7 @@
           <el-button type="primary" class="el-btn el-searchs" @click="searchFn">{{ $t("search.searchBtn") }}</el-button>
         </div>
       </el-col>
-      <el-col :span="6" class="historical-validators">
+      <el-col class="historical-validators">
         <el-button type="text" class="historical-btn" @click="goZero">{{ $t("nodeInfo.zeroProduceValidators") }}</el-button>
         <el-button type="text" class="historical-btn" @click="goHistory">{{ $t("nodeInfo.historicalValidators") }}</el-button>
       </el-col>
