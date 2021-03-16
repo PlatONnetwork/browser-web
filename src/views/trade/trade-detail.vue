@@ -123,7 +123,7 @@
         <Item
           :label="$t('tradeAbout.amount')"
           v-if="detailInfo.txType != '4000'"
-          >{{ detailInfo.value | formatMoney }} ATP</Item
+          >{{ detailInfo.value | formatMoney }} LAT</Item
         >
         <!-- 锁仓 -->
         <template v-if="detailInfo.txType == '4000'">
@@ -135,7 +135,7 @@
             >
           </Item>
           <Item :label="$t('tradeAbout.restrictedAmount')">
-            <span>{{ detailInfo.rpnum | formatMoney }} ATP</span>
+            <span>{{ detailInfo.rpnum | formatMoney }} LAT</span>
           </Item>
           <Item :label="$t('tradeAbout.restrictedPlan')">
             <ul class="restricted-plan">
@@ -143,14 +143,14 @@
                 {{ item.epoch }} Epoch({{ item.blockNumber }})：{{
                   item.amount | formatMoney
                 }}
-                ATP
+                LAT
               </li>
             </ul>
           </Item>
         </template>
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -234,7 +234,7 @@
 
         <!-- 价值 -->
         <Item :label="$t('tradeAbout.value')"
-          >{{ detailInfo.value | formatMoney }} ATP</Item
+          >{{ detailInfo.value | formatMoney }} LAT</Item
         >
 
         <!-- 合约类型 -->
@@ -251,7 +251,7 @@
 
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -285,17 +285,17 @@
           v-if="detailInfo.txType == '1004'"
           :label="$t('tradeAbout.delegationAmount')"
         >
-          <!-- :prop="detailInfo.value + 'ATP'" -->
-          <span>{{ detailInfo.txAmount | formatMoney }} ATP</span>
+          <!-- :prop="detailInfo.value + 'LAT'" -->
+          <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <!-- 赎回数量 -->
         <Item
           v-else-if="detailInfo.txType == '1005'"
           :label="$t('tradeAbout.withdrawal')"
         >
-          <!-- :prop="detailInfo.value + 'ATP'" -->
-          <span>{{ detailInfo.applyAmount | formatMoney }} ATP</span>
-          <!-- <span>({{$t('tradeAbout.undelegat')}}:{{detailInfo.actualTxCost}} ATP/{{$t('tradeAbout.successed')}})</span> -->
+          <!-- :prop="detailInfo.value + 'LAT'" -->
+          <span>{{ detailInfo.applyAmount | formatMoney }} LAT</span>
+          <!-- <span>({{$t('tradeAbout.undelegat')}}:{{detailInfo.actualTxCost}} LAT/{{$t('tradeAbout.successed')}})</span> -->
           <!-- 赎回失敗 -->
           <span v-if="detailInfo.txReceiptStatus == 0"
             >({{ $t('tradeAbout.withFail') }})</span
@@ -304,7 +304,7 @@
             <!-- 剩余赎回 -->
             <!-- <span
               v-if="detailInfo.redeemLocked>0"
-            >({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} ATP)</span> -->
+            >({{$t('tradeAbout.remain1')}}:{{detailInfo.redeemLocked | formatMoney}} LAT)</span> -->
             <!-- 1： 赎回中 -->
             <!-- <span
               v-else-if="(detailInfo.redeemLocked=='0' || detailInfo.redeemLocked=='') && detailInfo.redeemStatus==1"
@@ -318,12 +318,12 @@
           v-if="detailInfo.txAmount > 0 && detailInfo.txType == '1005'"
           :label="$t('tradeAbout.rewardAmount')"
         >
-          <span>{{ detailInfo.txAmount | formatMoney }} ATP</span>
+          <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
-          <!-- :prop="detailInfo.actualTxCost + 'ATP'" -->
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <!-- :prop="detailInfo.actualTxCost + 'LAT'" -->
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -343,10 +343,10 @@
           >
         </Item>
         <Item :label="$t('tradeAbout.rewardAmount')">
-          <span> {{ detailInfo.txAmount | formatMoney }} ATP</span>
+          <span> {{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <Item :label="$t('tradeAbout.rewardDetails')">
-          <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxATP -->
+          <!-- TODO 增加从验证节点 Validater_124 领取委托奖励 xxxxLAT -->
           <div>
             <span class="lightgray" v-if="detailInfo.rewards.length == 0">
               Null
@@ -366,13 +366,13 @@
               >
               <span class="rewardGap">{{ $t('tradeAbout.claimRewards') }}</span>
               <span class="rewardGap Gilroy-Medium">
-                {{ item.reward | formatMoney }} ATP</span
+                {{ item.reward | formatMoney }} LAT</span
               >
             </p>
           </div>
         </Item>
         <Item :label="$t('tradeAbout.transactionFee')">
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -557,7 +557,7 @@
         ></Item>
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -651,7 +651,7 @@
           <!-- 举报奖励 -->
           <Item :label="$t('tradeAbout.reportReward')">
             <!-- :prop="detailInfo.reportRewards|formatMoney" -->
-            <span>{{ detailInfo.reportRewards | formatMoney }} ATP</span>
+            <span>{{ detailInfo.reportRewards | formatMoney }} LAT</span>
           </Item>
         </template>
         <!-- 操作地址（举报验证人没有） -->
@@ -726,14 +726,14 @@
           :label="$t('tradeAbout.stakeAmount')"
         >
           <!-- :prop="detailInfo.value" -->
-          <span>{{ detailInfo.txAmount | formatMoney }} ATP</span>
+          <span>{{ detailInfo.txAmount | formatMoney }} LAT</span>
         </Item>
         <template v-if="detailInfo.txType == '1003'">
           <!-- 退回数量（退出验证人特有） -->
           <Item :label="$t('tradeAbout.returnAmount')">
             <!-- :prop="detailInfo.applyAmount" -->
-            <span>{{ detailInfo.applyAmount | formatMoney }} ATP</span>
-            <!-- <span>:{{detailInfo.formatMoney}} ATP/</span> -->
+            <span>{{ detailInfo.applyAmount | formatMoney }} LAT</span>
+            <!-- <span>:{{detailInfo.formatMoney}} LAT/</span> -->
             <!-- 1： 退回中 -->
             <span class="letUp" v-if="detailInfo.redeemStatus == 1"
               >({{ $t('tradeAbout.pend') }})</span
@@ -747,7 +747,7 @@
               >({{ $t('tradeAbout.remain') }}:{{
                 detailInfo.redeemLocked | formatMoney
               }}
-              ATP)</span
+              LAT)</span
             >
           </Item>
           <!-- 预计到账区块（退出验证人特有） -->
@@ -760,8 +760,8 @@
         <template></template>
         <!-- 交易手续费 -->
         <Item :label="$t('tradeAbout.transactionFee')">
-          <!-- :prop="detailInfo.actualTxCost + 'ATP'" -->
-          <span>{{ detailInfo.actualTxCost | formatMoney }} ATP</span>
+          <!-- :prop="detailInfo.actualTxCost + 'LAT'" -->
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
       </List>
 
@@ -916,7 +916,7 @@
         ></Item>
         <!-- 燃料价格 -->
         <Item :label="$t('tradeAbout.gasPrice')"
-          >{{ detailInfo.gasPrice | formatMoney }} ATP</Item
+          >{{ detailInfo.gasPrice | formatMoney }} LAT</Item
         >
         <!-- 交易数据 -->
         <Item

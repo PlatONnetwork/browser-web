@@ -58,20 +58,20 @@ import apiService from '@/services/API-services';
 import ERC20List from './list/erc20.vue';
 import ERC721List from './list/erc721.vue';
 const compMap = {
-  arc20: 'ERC20List',
-  arc721: 'ERC721List',
+  prc20: 'ERC20List',
+  prc721: 'ERC721List',
 };
 const API = {
-  arc20: apiService.tokens.tokenList,
-  arc721: apiService.tokens.tokenList,
+  prc20: apiService.tokens.tokenList,
+  prc721: apiService.tokens.tokenList,
 };
 const typeMap = {
-  arc20: 'menu.erc20Tokens',
-  arc721: 'menu.erc721Tokens',
+  prc20: 'menu.erc20Tokens',
+  prc721: 'menu.erc721Tokens',
 };
 const apiTypeMap = {
-  arc20: 'erc20',
-  arc721: 'erc721',
+  prc20: 'erc20',
+  prc721: 'erc721',
 };
 
 export default {
@@ -93,7 +93,7 @@ export default {
       handler(to, from) {
         if (to.params.type && to.params.type !== this.type) {
           if (!compMap[to.params.type]) {
-            this.$router.replace('/tokens/tokensList/arc20');
+            this.$router.replace('/tokens/tokensList/prc20');
             return;
           }
           this.type = to.params.type;

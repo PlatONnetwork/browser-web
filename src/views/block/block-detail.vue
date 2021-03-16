@@ -100,12 +100,18 @@
         </Item>
         <Item
           :label="$t('blockAbout.blockReward')"
-          :prop="detailInfo.blockReward + ' ATP'"
+          :prop="detailInfo.blockReward + ' LAT'"
         ></Item>
         <Item
           class="extra-data"
           :label="$t('blockAbout.extraData')"
           :prop="detailInfo.extraData"
+        ></Item>
+        <Item
+          v-if="detailInfo.postscript"
+          class="postscript"
+          :label="$t('blockAbout.postscript')"
+          :prop="detailInfo.postscript"
         ></Item>
       </List>
     </div>

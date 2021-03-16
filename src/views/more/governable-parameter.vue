@@ -16,7 +16,7 @@
               <div>
                 <span class="lable">{{ $t('more.currentValue') }}</span>
                 <span class="green"
-                  >{{ lis.staking.stakeThreshold.value | formatMoney }}ATP</span
+                  >{{ lis.staking.stakeThreshold.value | formatMoney }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -35,7 +35,7 @@
                 <span class="black"
                   >{{
                     lis.staking.stakeThreshold.initValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -56,14 +56,14 @@
                 <span class="regular"
                   >{{
                     lis.staking.stakeThreshold.startValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
               </div>
               <div>
                 <span class="regular"
                   >{{
                     lis.staking.stakeThreshold.endValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
                 <span class="medium">{{ lis.staking.stakeThreshold.end }}</span>
               </div>
@@ -83,7 +83,7 @@
                 <span class="green"
                   >{{
                     lis.staking.operatingThreshold.value | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -102,7 +102,7 @@
                 <span class="black"
                   >{{
                     lis.staking.operatingThreshold.initValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -123,14 +123,14 @@
                 <span class="regular"
                   >{{
                     lis.staking.operatingThreshold.startValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
               </div>
               <div>
                 <span class="regular"
                   >{{
                     lis.staking.operatingThreshold.endValue | formatMoney
-                  }}ATP</span
+                  }}LAT</span
                 >
                 <span class="medium">{{
                   lis.staking.operatingThreshold.end
@@ -996,7 +996,7 @@
               <div>
                 <span class="lable">{{ $t('more.currentValue') }}</span>
                 <span class="green"
-                  >{{ lis.restricting.minimumRelease.value }}ATP</span
+                  >{{ lis.restricting.minimumRelease.value }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -1013,7 +1013,7 @@
               <div>
                 <span class="lable">{{ $t('more.genesisValue') }}</span>
                 <span class="black"
-                  >{{ lis.restricting.minimumRelease.initValue }}ATP</span
+                  >{{ lis.restricting.minimumRelease.initValue }}LAT</span
                 >
               </div>
               <div class="progress-box">
@@ -1032,12 +1032,12 @@
                   lis.restricting.minimumRelease.start
                 }}</span>
                 <span class="regular"
-                  >{{ lis.restricting.minimumRelease.startValue }} ATP</span
+                  >{{ lis.restricting.minimumRelease.startValue }} LAT</span
                 >
               </div>
               <div>
                 <span class="regular"
-                  >{{ lis.restricting.minimumRelease.endValue }} ATP</span
+                  >{{ lis.restricting.minimumRelease.endValue }} LAT</span
                 >
                 <span class="medium">{{
                   lis.restricting.minimumRelease.end

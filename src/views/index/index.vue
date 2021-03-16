@@ -20,7 +20,7 @@
       :style="{ height: clientHeight + 'px' }"
     ></vue-particles>
     <div class="welcome-wrap">
-      <h3>{{ $t('indexInfo.WelcomeToPlatON') }}</h3>
+      <h3>{{ $t('indexInfo.WelcomeToPlatON', { chain: configData.chainName }) }}</h3>
       <div
         class="search search-index"
         :class="{ 'search-active': isFocus, 'search-hide': !hideSearch }"
@@ -86,7 +86,7 @@
           </li>
           <li class="statistics-odd">
             <div class="statistics-label">
-              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}(ATP)
+              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}(LAT)
             </div>
             <p>
               {{ blockStatisticData.turnValue | unit }}&nbsp;/
@@ -277,7 +277,7 @@
                 <span class="item-number cursor">{{ item.nodeName }}</span>
                 <p>
                   {{ $t('nodeInfo.totalStakePower') }}
-                  <a>{{ item.totalValue | formatMoney }}ATP</a>
+                  <a>{{ item.totalValue | formatMoney }}LAT</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -304,7 +304,7 @@
                 <span class="item-number cursor">{{ item.nodeName }}</span>
                 <p>
                   {{ $t('nodeInfo.totalStakePower') }}
-                  <a>{{ item.totalValue | formatMoney }}ATP</a>
+                  <a>{{ item.totalValue | formatMoney }}LAT</a>
                 </p>
               </div>
               <div class="list-item item-right">
@@ -412,6 +412,7 @@ export default {
       'blockData',
       'ValidatorData',
       'hideSearch',
+      'configData',
       'isMove',
       'isMove2',
     ]),
