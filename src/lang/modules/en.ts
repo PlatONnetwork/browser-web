@@ -20,7 +20,7 @@ export default {
   },
   search: {
     searchBtn: "Search",
-    placeHolder: "Search by block/Address/Block hash/Txn hash"
+    placeHolder: "Search by Address/BlockHeight/BlockHash/TxHash"
   },
   footer: {
     desc: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
@@ -80,7 +80,7 @@ export default {
     morethen: "More Than",
     morethen2: "",
     status: "Status",
-    txhash: "Txhash",
+    txhash: "TxHash",
     timeStamp: "TimeStamp",
     blockHeight: "Block Height",
     all: "Total",
@@ -353,6 +353,7 @@ export default {
     blockHash: "Block Hash",
     parentHash: "Parent Hash",
     extraData: "Extra Data",
+    postscript: "Postscript",
     blockDetail: "BLOCK DETAILS",
     blockInformation: "Block Information",
     operatorAddress: "Operator_Address",
@@ -385,7 +386,7 @@ export default {
     copyfail: "Copy the failure"
   },
   indexInfo: {
-    WelcomeToPlatON: "Welcome to Alaya Blockchain Explorer",
+    WelcomeToPlatON: "Welcome to {chain} Blockchain Explorer",
     LIVEBLOCKTIME: "LIVE BLOCK TIME(s)",
     LIVEBLOCKTRANSACTIONS: "LIVE BLOCKS TRANSACTIONS",
     LIVEBLOCKHEIGHT: "LIVE BLOCK HEIGHT",
@@ -408,8 +409,8 @@ export default {
     platONWhitePaper: "Alaya White Paper",
     atonDownload: "ATON Download",
     developer: "Developer",
-    platScan: "__SITNAME__ is a Block Explorer and Analytics Platform for __CHNINNAME__",
-    international: "COPYRIGHT © __YEAR__ __CHNINNAME__ NETWORK."
+    platScan: "{siteName} is a Block Explorer and Analytics Platform for {chain}",
+    international: "COPYRIGHT © {year} {copyRight} NETWORK."
   },
   elseInfo: {
     hour: "h ",

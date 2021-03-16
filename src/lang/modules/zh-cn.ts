@@ -20,7 +20,7 @@ export default {
   },
   search: {
     searchBtn: "查询",
-    placeHolder: " 请输入区块高度/地址/块哈希/交易哈希查询"
+    placeHolder: "请输入地址/区块高度/区块哈希/交易哈希查询"
   },
   footer: {
     desc: "AlayaScan是Alaya区块链资源管理与分析平台",
@@ -351,6 +351,7 @@ export default {
     blockHash: "区块哈希",
     parentHash: "上一区块哈希",
     extraData: "额外数据",
+    postscript: "附言",
     blockDetail: "区块详情",
     operatorAddress: "操作地址",
     blockInformation: "区块信息",
@@ -382,7 +383,7 @@ export default {
     copyfail: "复制失败"
   },
   indexInfo: {
-    WelcomeToPlatON: "欢迎来到Alaya 区块链浏览器",
+    WelcomeToPlatON: "欢迎来到 {chain} 区块链浏览器",
     LIVEBLOCKTIME: "实时出块时长(s)",
     LIVEBLOCKTRANSACTIONS: "实时区块交易数",
     LIVEBLOCKHEIGHT: "当前区块高度",
@@ -405,8 +406,8 @@ export default {
     platONWhitePaper: "Alaya白皮书",
     atonDownload: "ATON钱包下载",
     developer: "开发者帮助",
-    platScan: "__SITNAME__是__CHNINNAME__区块链资源管理与分析平台",
-    international: "COPYRIGHT © __YEAR__ __CHNINNAME__ NETWORK."
+    platScan: "{siteName}是{chain}区块链资源管理与分析平台",
+    international: "COPYRIGHT © {year} {copyRight} NETWORK."
   },
   elseInfo: {
     hour: "时",

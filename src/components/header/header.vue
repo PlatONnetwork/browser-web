@@ -144,6 +144,7 @@
         </el-menu-item>
       </el-menu>
     </div>
+    <div style="flex: 1"></div>
     <div
       class="search search-header"
       :class="{
@@ -172,7 +173,7 @@
     <div class="right-most">
       <el-dropdown placement="bottom-start" @visible-change="netVisibleChange">
         <span class="el-dropdown-link">
-          {{ configData.chainName }}
+          {{ configData.headerChainName }}
           <i
             :class="{
               arrowDown: netDropdownShow == false,
@@ -183,7 +184,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            {{ configData.chainName }}
+            {{ configData.headerChainName }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -372,11 +373,11 @@
           </el-submenu>
           <el-submenu index="4">
             <template slot="title">
-              <span>{{ configData.chainName }}</span>
+              <span>{{ configData.headerChainName }}</span>
             </template>
             <el-menu-item-group>
               <el-menu-item>
-                {{ configData.chainName }}
+                {{ configData.headerChainName }}
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -407,6 +408,7 @@
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import store from '@/vuex/store';
+let configRetryTime = 1000;
 export default {
   name: '',
   data() {
@@ -475,8 +477,9 @@ export default {
         })
         .catch((err) => {
           console.error('err: ', err);
+          configRetryTime = Math.ceil(configRetryTime * 1.2);
           if (flag) {
-            setTimeout(this.getConfig, 1000);
+            setTimeout(this.getConfig, configRetryTime);
           }
         });
     },
@@ -695,8 +698,7 @@ export default {
   align-items: center; //居中对齐
   justify-content: space-between; //两端对齐
   .menu {
-    margin: 0 10% 0 0;
-    flex: 1;
+    margin-right: 18px;
     .active {
       color: #fff !important;
       font-family: Gilroy-Bold;
@@ -742,9 +744,7 @@ export default {
   }
 }
 .el-menu-demo {
-  width: 632px;
-  // border: 0px;
-  // border-bottom-color: #040B27;
+  display: flex;
   li.el-menu-item {
     border: 0px;
   }
@@ -807,13 +807,9 @@ export default {
   .header-wrap {
     padding: 0 3.2%;
   }
-  .header-wrap .menu {
-    margin: 0 0 0 0;
-  }
   .el-menu-demo {
-    width: 520px;
     .el-menu-item {
-      padding: 0 10px;
+      padding: 0 16px;
     }
   }
 }
