@@ -23,11 +23,11 @@ export default {
     placeHolder: "Search by Address/BlockHeight/BlockHash/TxHash"
   },
   footer: {
-    desc: "AlayaScan is a Block Explorer and Analytics Platform for Alaya",
+    desc: "PlatScan is a Block Explorer and Analytics Platform for PlatON",
     links: "Links",
     help: "Help",
     wallet: "Wallet",
-    officialWebsite: "Alaya Official Website",
+    officialWebsite: "PlatON Official Website",
     whitePaper: "White Paper",
     community: "Community"
   },
@@ -405,8 +405,8 @@ export default {
     searchno: "Search no results!",
 
     resource: "RESOURCE",
-    aboutPlatON: "About Alaya",
-    platONWhitePaper: "Alaya White Paper",
+    aboutPlatON: "About PlatON",
+    platONWhitePaper: "PlatON White Paper",
     atonDownload: "ATON Download",
     developer: "Developer",
     platScan: "{siteName} is a Block Explorer and Analytics Platform for {chain}",
@@ -597,7 +597,7 @@ export default {
     maxEvidenceAge:
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
-    increaseIssuanceRatio: "Alaya network's fixed annual issuance ratio of LAT(‱).",
+    increaseIssuanceRatio: "PlatON network's fixed annual issuance ratio of LAT(‱).",
     minimumRelease:"The minimum amount of the release period",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
