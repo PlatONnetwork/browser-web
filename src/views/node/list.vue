@@ -39,7 +39,7 @@
     </el-row>
     <!-- 验证节点表头 -->
     <el-row v-else>
-      <el-col :span="18" class="validators-tab">
+      <el-col :lg="16" :md="18" :sm="24" :xs="24" class="validators-tab">
         <div class="tabs">
           <el-button
             size="medium"
@@ -77,7 +77,7 @@
           >
         </div>
       </el-col>
-      <el-col :span="6" class="historical-validators">
+      <el-col :lg="8" class="historical-validators">
         <el-button type="text" class="historical-btn" @click="goZero">{{
           $t('nodeInfo.zeroProduceValidators')
         }}</el-button>
@@ -247,7 +247,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
-          :page-sizes="[10, 20, 50, 100, 150, 300]"
+          :page-sizes="pageSizes"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal"
@@ -408,7 +408,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
-          :page-sizes="[10, 20, 50, 100, 150, 300]"
+          :page-sizes="pageSizes"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal"
@@ -627,7 +627,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
-          :page-sizes="[10, 20, 50, 100, 150, 300]"
+          :page-sizes="pageSizes"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal"
@@ -639,7 +639,6 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import API from '@/config/API-config';
 import IconImg from '@/assets/images/icon-quest.svg';
 
@@ -651,6 +650,7 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 300,
+      pageSizes: [10, 20, 50, 100, 150, 300, 500],
       pageTotal: 0,
       keyword: '',
       queryStatus: 'all',
@@ -905,7 +905,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .historical-validators {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  @media (max-width: 1200px) {
+    justify-content: initial;
+    margin-top: 10px;
+  }
   .historical-btn {
     display: inline-block;
     margin-right: 10px;
@@ -998,6 +1003,7 @@ export default {
         }
       }
       .historical-validators {
+        justify-content: initial;
         float: unset;
         width: 100%;
         text-align: left;

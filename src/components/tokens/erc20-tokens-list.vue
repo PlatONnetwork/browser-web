@@ -174,6 +174,7 @@ export default {
       blanceCurPage: 1,
       blancePageSize: 20,
 
+      noTradeData: false,
       tradeTotalDisplay: 0, //交易寻获展示
       tradePageTotal: 0,
       tradeCurPage: 1,
@@ -207,7 +208,7 @@ export default {
       this.$router.go(0);
     },
     'tradeCount.erc20TxQty': function() {
-      this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty;
+      !noTradeData && (this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty);
     },
   },
   components: { IconContract },
@@ -299,6 +300,11 @@ export default {
             this.tradeTableData = data;
             // this.tradePageTotal = totalCount;
             // this.tradeTotalDisplay = displayTotalCount;
+            if (data.length < 1) {
+              this.noTradeData = true;
+              this.tradePageTotal =  this.tradeTotalDisplay = 0;
+              return
+            }
             // 返回的总条数不能用, (bug: 接口并行调用问题, 放一份到watch里面)
             this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty; // || displayTotalCount;
           } else {
