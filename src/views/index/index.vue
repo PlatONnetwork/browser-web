@@ -20,7 +20,7 @@
       :style="{ height: clientHeight + 'px' }"
     ></vue-particles>
     <div class="welcome-wrap">
-      <h3>{{ $t('indexInfo.WelcomeToPlatON') }}</h3>
+      <h3>{{ $t('indexInfo.WelcomeToPlatON', { chain: configData.chainName }) }}</h3>
       <div
         class="search search-index"
         :class="{ 'search-active': isFocus, 'search-hide': !hideSearch }"
@@ -412,6 +412,7 @@ export default {
       'blockData',
       'ValidatorData',
       'hideSearch',
+      'configData',
       'isMove',
       'isMove2',
     ]),

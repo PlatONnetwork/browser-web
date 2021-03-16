@@ -120,4 +120,14 @@ export default {
     padding: 6px;
   }
 }
+.postscript.list-item {
+  margin-bottom: 10px;
+  p {
+    width: 474px;
+    border: 1px solid #f5f5f5;
+    word-break: break-all;
+    border-radius: 1px;
+    padding: 6px;
+  }
+}
 </style>
