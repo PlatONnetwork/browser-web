@@ -8,10 +8,10 @@ export default {
     validator: "验证节点",
     proposal: "治理提案",
     tokens: "令牌",
-    erc20Tokens: "ARC20 令牌",
-    erc20Transfer: "ARC20 交易",
-    erc721Tokens: "ARC721 令牌",
-    erc721Transfer: "ARC721 交易",
+    erc20Tokens: "PRC20 令牌",
+    erc20Transfer: "PRC20 交易",
+    erc721Tokens: "PRC721 令牌",
+    erc721Transfer: "PRC721 交易",
     tokenList: "令牌列表",
     more: "更多",
     comesoon: "敬请期待",
@@ -37,20 +37,20 @@ export default {
     export: "下载csv"
   },
   tokens: {
-    erc20: "ARC 20",
-    erc721: "ARC 721",
+    erc20: "PRC 20",
+    erc721: "PRC 721",
     tokenName: "令牌名称",
     owner: "所有者",
     holder: "持有者",
     holder_: "持有人",
     unit: "单位",
     typesToken: "种令牌",
-    typeErc20Token: "种ARC20令牌",
-    typeErc721Token: "种ARC721令牌",
+    typeErc20Token: "种PRC20令牌",
+    typeErc721Token: "种PRC721令牌",
     tokens: "令牌",
     tokenID: "令牌ID",
-    erc20Tokens: "ARC20令牌",
-    erc721Tokens: "ARC721令牌",
+    erc20Tokens: "PRC20令牌",
+    erc721Tokens: "PRC721令牌",
     tokenDetail: "令牌详情",
     value: "价值",
     from: "发送方",
@@ -66,8 +66,8 @@ export default {
     contract: "合约",
     decimals: "精度",
     website: "官网",
-    erc20TokenTxns: "ARC20交易",
-    erc721TokenTxns: "ARC721交易",
+    erc20TokenTxns: "PRC20交易",
+    erc721TokenTxns: "PRC721交易",
     number: "数量",
     percentage: "百分比",
   },
@@ -121,8 +121,8 @@ export default {
     PPOS: "系统合约",
     EVM: "EVM合约",
     WASM: "WASM合约",
-    ERC20: "ARC20合约",
-    ERC721: "ARC721合约",
+    ERC20: "PRC20合约",
+    ERC721: "PRC721合约",
     callFunction: "调用函数",
     creation: "合约创建",
     execution: "合约执行",
@@ -303,7 +303,7 @@ export default {
     totalDelegated: "总计委托",
     warn: "合约已销毁，执行于交易",
     systemBuilt: "系统合约，无上链字节码",
-    ercTrade: "ARC交易",
+    ercTrade: "PRC交易",
   },
   deleget: {
     validators: "已委托验证节点",
@@ -504,16 +504,16 @@ export default {
     2: "合约执行", //合约执行
     4: "其他", //其他
     5: "MPC交易",
-    6: "ARC20合约创建",
-    7: "ARC20合约执行",
-    8: "ARC721合约创建",
-    9: "ARC721合约执行",
+    6: "PRC20合约创建",
+    7: "PRC20合约执行",
+    8: "PRC721合约创建",
+    9: "PRC721合约执行",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押
     1003: "退出验证节点", //撤销质押
     1004: "委托", //发起委托
-    1005: "解除委托", //减持/撤销委托
+    1005: "赎回委托", //减持/撤销委托
     1006: "赎回委托", //赎回委托
     2000: "创建文本提案", //提交文本提案
     2001: "创建升级提案", //提交升级提案
@@ -579,8 +579,8 @@ export default {
   },
   more: {
     governableParameter: "可治理参数",
-    stakeThreshold: "创建验证节点最低的质押ATP数。",
-    operatingThreshold: "委托用户每次委托或赎回委托的最低ATP数。",
+    stakeThreshold: "创建验证节点最低的质押LAT数。",
+    operatingThreshold: "委托用户每次委托或赎回委托的最低LAT数。",
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
@@ -592,7 +592,7 @@ export default {
     duplicateSignReportReward: "举报人可获得处罚金的奖励比例（%）。",
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
-    increaseIssuanceRatio: "Alaya网络的ATP每年增发比例（‱）。",
+    increaseIssuanceRatio: "Alaya网络的LAT每年增发比例（‱）。",
     minimumRelease:"释放周期的释放金额最小值",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",

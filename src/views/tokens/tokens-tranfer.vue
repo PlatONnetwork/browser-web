@@ -60,16 +60,16 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import ERC20Tranfer from './tranfer/erc20.vue';
 import ERC721Tranfer from './tranfer/erc721.vue';
 const compMap = {
-  arc20: 'ERC20Tranfer',
-  arc721: 'ERC721Tranfer',
+  prc20: 'ERC20Tranfer',
+  prc721: 'ERC721Tranfer',
 };
 const API = {
-  arc20: apiService.tokens.token20TxList,
-  arc721: apiService.tokens.token721TxList,
+  prc20: apiService.tokens.token20TxList,
+  prc721: apiService.tokens.token721TxList,
 };
 const typeMap = {
-  arc20: 'menu.erc20Transfer',
-  arc721: 'menu.erc721Transfer',
+  prc20: 'menu.erc20Transfer',
+  prc721: 'menu.erc721Transfer',
 }
 
 export default {
@@ -91,7 +91,7 @@ export default {
       handler(to, from) {
         if (to.params.type && to.params.type !== this.type) {
           if (!compMap[to.params.type]) {
-            this.$router.replace('/tokens/tokensTranfer/arc20');
+            this.$router.replace('/tokens/tokensTranfer/prc20');
             return;
           }
           this.type = to.params.type;

@@ -46,13 +46,13 @@
                 }}</label>
                 <div>
                   <span class="money"
-                    >{{ detailInfo.balance | formatMoney }}&nbsp;ATP</span
+                    >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
                   >
                   <div v-if="detailInfo.isRestricting">
                     <span class="restricted"
                       >{{
                         detailInfo.restrictingBalance | formatMoney
-                      }}&nbsp;ATP (<a
+                      }}&nbsp;LAT (<a
                         class="blue cursor"
                         @click="goRestricte"
                         >{{ $t('contract.restricted') }}</a
@@ -68,7 +68,7 @@
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
               <li>
-                <!-- ARC20交易 -->
+                <!-- PRC20交易 -->
                 <label class="Gilroy-Medium">{{
                   $t('tokens.erc20TokenTxns')
                 }}</label>
@@ -77,7 +77,7 @@
                 </div>
               </li>
               <li>
-                <!-- ARC721交易 -->
+                <!-- PRC721交易 -->
                 <label class="Gilroy-Medium">{{
                   $t('tokens.erc721TokenTxns')
                 }}</label>
@@ -100,7 +100,7 @@
                 }}</label>
                 <div class="money">
                   <!-- TODO! 先用质押的字段 需要合并质押和委托中 -->
-                  {{ detailInfo.stakingValue | formatMoney }}&nbsp;ATP
+                  {{ detailInfo.stakingValue | formatMoney }}&nbsp;LAT
                 </div>
               </li>
               <li>
@@ -108,7 +108,7 @@
                   $t('contract.unclaimedReward')
                 }}</label>
                 <div class="money">
-                  {{ detailInfo.delegateClaim | formatMoney }}&nbsp;ATP
+                  {{ detailInfo.delegateClaim | formatMoney }}&nbsp;LAT
                 </div>
               </li>
               <li>
@@ -116,7 +116,7 @@
                   $t('contract.invalidDelegations')
                 }}</label>
                 <div class="money">
-                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;ATP
+                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
                 </div>
               </li>
             </ul>

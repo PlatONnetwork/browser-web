@@ -1,10 +1,12 @@
 <template>
   <div class="header-wrap">
     <div class="logo cursor" @click="goIndex">
-      <!-- <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
-      <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
-      <p>The Alaya Block Explorer</p> -->
-      <img class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
+      <template v-if="configData.siteName === 'PlatScan'">
+        <img class="icon1" src="@/assets/images/herder-logo-a.svg" />
+        <img class="icon2" src="@/assets/images/herder-logo-b.svg" />
+        <p class="text">The PlatON Blockchain Explorer</p>
+      </template>
+      <img v-else class="iconAlaya" :src="logoURL" alt="SCAN" title="SCAN" />
     </div>
     <div class="menu">
       <el-menu
@@ -86,17 +88,17 @@
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/tokens/tokensList/arc20">{{
+              <el-dropdown-item command="/tokens/tokensList/prc20">{{
                 $t('menu.erc20Tokens')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/tokens/tokensTranfer/arc20">{{
+              <el-dropdown-item command="/tokens/tokensTranfer/prc20">{{
                 $t('menu.erc20Transfer')
               }}</el-dropdown-item>
               <div class="dividing-line"></div>
-              <el-dropdown-item command="/tokens/tokensList/arc721">{{
+              <el-dropdown-item command="/tokens/tokensList/prc721">{{
                 $t('menu.erc721Tokens')
               }}</el-dropdown-item>
-              <el-dropdown-item command="/tokens/tokensTranfer/arc721">{{
+              <el-dropdown-item command="/tokens/tokensTranfer/prc721">{{
                 $t('menu.erc721Transfer')
               }}</el-dropdown-item>
             </el-dropdown-menu>
@@ -304,42 +306,42 @@
             </template>
             <el-menu-item-group>
               <el-menu-item
-                index="/tokens/tokensList/arc20"
+                index="/tokens/tokensList/prc20"
                 @click="toggleMobileMenuOpenend"
-                :class="{ active: $route.path == '/tokens/tokensList/arc20' }"
+                :class="{ active: $route.path == '/tokens/tokensList/prc20' }"
               >
-                <router-link to="/tokens/tokensList/arc20">{{
+                <router-link to="/tokens/tokensList/prc20">{{
                   $t('menu.erc20Tokens')
                 }}</router-link>
               </el-menu-item>
               <el-menu-item
-                index="/tokens/tokensTranfer/arc20"
+                index="/tokens/tokensTranfer/prc20"
                 @click="toggleMobileMenuOpenend"
                 :class="{
-                  active: $route.path == '/tokens/tokensTranfer/arc20',
+                  active: $route.path == '/tokens/tokensTranfer/prc20',
                 }"
               >
-                <router-link to="/tokens/tokensTranfer/arc20">{{
+                <router-link to="/tokens/tokensTranfer/prc20">{{
                   $t('menu.erc20Transfer')
                 }}</router-link>
               </el-menu-item>
               <el-menu-item
-                index="/tokens/tokensList/arc721"
+                index="/tokens/tokensList/prc721"
                 @click="toggleMobileMenuOpenend"
-                :class="{ active: $route.path == '/tokens/tokensList/arc721' }"
+                :class="{ active: $route.path == '/tokens/tokensList/prc721' }"
               >
-                <router-link to="/tokens/tokensList/arc721">{{
+                <router-link to="/tokens/tokensList/prc721">{{
                   $t('menu.erc721Tokens')
                 }}</router-link>
               </el-menu-item>
               <el-menu-item
-                index="/tokens/tokensTranfer/arc721"
+                index="/tokens/tokensTranfer/prc721"
                 @click="toggleMobileMenuOpenend"
                 :class="{
-                  active: $route.path == '/tokens/tokensTranfer/arc721',
+                  active: $route.path == '/tokens/tokensTranfer/prc721',
                 }"
               >
-                <router-link to="/tokens/tokensTranfer/arc721">{{
+                <router-link to="/tokens/tokensTranfer/prc721">{{
                   $t('menu.erc721Transfer')
                 }}</router-link>
               </el-menu-item>
@@ -697,6 +699,7 @@ export default {
   background: #000;
   align-items: center; //居中对齐
   justify-content: space-between; //两端对齐
+  user-select: none;
   .menu {
     margin-right: 18px;
     .active {
@@ -715,7 +718,7 @@ export default {
 .logo {
   display: inline-block;
   // height: 100%;
-  width: 170px;
+  width: 225px;
   // overflow: hidden;
   margin-right: 20px;
   .logo-right {
@@ -740,6 +743,7 @@ export default {
     font-size: 12px;
     color: #b3b3b3;
     letter-spacing: 0;
+    white-space: nowrap;
     min-width: 84px;
   }
 }
@@ -813,29 +817,21 @@ export default {
     }
   }
 }
-// @media only screen and (max-width: 1440px) {
-//     .header-wrap .menu {
-//         margin: 0 0 0 0;
-//     }
-// }
-// @media only screen and (max-width: 1366px) {
-//     .header-wrap .menu {
-//         margin: 0 0 0 0;
-//     }
-// }
-@media screen and (max-width: 1280px) {
-  // .el-menu-demo{
-  //     width:350px;
-  // }
+@media only screen and (max-width: 1366px) {
   .header-wrap {
     padding: 0 0;
-    // .menu{
-    //     margin-right: 10%;
-    // }
+    .logo {
+      width: 130px;
+      margin-right: 0;
+      flex-shrink: 0;
+      .icon2 {
+        padding-top: 15px;
+      }
+      .text {
+        display: none;
+      }
+    }
   }
-  // .logo{
-  //     display: none;
-  // }
 }
 .to-help {
   width: 100%;
