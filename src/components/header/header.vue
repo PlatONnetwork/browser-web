@@ -909,8 +909,11 @@ export default {
             font-weight: 700;
           }
         }
+        // &.governable-parameter {
+        //   font-size: 12px;
+        // }
         &.governable-parameter {
-          font-size: 12px;
+          font-size: 14px;
         }
       }
       li {
