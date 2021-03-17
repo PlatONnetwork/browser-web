@@ -208,7 +208,7 @@ export default {
       this.$router.go(0);
     },
     'tradeCount.erc20TxQty': function() {
-      !noTradeData && (this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty);
+      !this.noTradeData && (this.tradePageTotal =  this.tradeTotalDisplay = this.tradeCount.erc20TxQty);
     },
   },
   components: { IconContract },
@@ -400,19 +400,6 @@ export default {
 .common-trade {
   position: relative;
 }
-.block-trade .common-trade.block-trade-wrap {
-  padding-left: 0px;
-  .pagination-box {
-    padding-bottom: 60px;
-    margin-right: 30px;
-  }
-  .table .el-table th {
-    padding-left: 30px;
-  }
-  .trade-tab-wrap {
-    padding-left: 30px;
-  }
-}
 .download-btn {
   border: 1px solid #0798de;
   border-radius: 2px;
@@ -445,17 +432,5 @@ export default {
 }
 .title-warning {
   color: #ffc017;
-}
-</style>
-<style lang="less">
-.block-trade-wrap {
-  .table .el-table {
-    th {
-      padding-left: 20px;
-    }
-    td {
-      padding-left: 20px;
-    }
-  }
 }
 </style>

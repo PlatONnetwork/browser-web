@@ -4,7 +4,7 @@
       {{ $t('tradeAbout.proposalDetail').toUpperCase() }}
     </div>
     <el-row class="row-info">
-      <el-col :span="12">
+      <el-col :span="18">
         <div class="proposal-box">
           <a class="proposal-id" :href="detailData.url" target="_blank"
             ># {{ detailData.pipNum }}</a
@@ -16,7 +16,7 @@
           </a>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="6">
         <div
           class="proposal-status grid-content bg-purple-light Gilroy-Bold"
           style="float: right; margin-top: -50px"
@@ -761,6 +761,9 @@ export default {
   border-radius: 2px;
   line-height: 26px;
   padding: 7px 10px;
+  @media screen and (max-width: 750px) {
+    min-width: 64px;
+  }
 }
 .new-version {
   color: #000000;
@@ -781,6 +784,9 @@ export default {
   color: #666;
   span {
     color: #000000;
+  }
+  @media screen and (max-width: 750px) {
+    top: -40px;
   }
 }
 .voteOption {
@@ -934,6 +940,9 @@ export default {
 }
 .other-progress {
   margin: 15px 0px 30px 0px;
+  @media screen and (max-width: 750px) {
+    margin: 20px 0px 30px 0px;
+  }
   width: 100%;
   height: 70px;
   display: flex;

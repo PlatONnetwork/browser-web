@@ -626,12 +626,18 @@
               key="firstTable"
               size="mini"
             >
-              <el-table-column :label="$t('common.time')" width="260">
+              <el-table-column
+                :label="$t('common.time')"
+                :width="windowWidth < 750 ? '220' : '260'"
+              >
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('nodeInfo.actions')">
+              <el-table-column
+                :label="$t('nodeInfo.actions')"
+                :width="windowWidth < 750 ? '120' : ''"
+              >
                 <template slot-scope="scope">
                   <p
                     class="percent80 no-break"
@@ -809,7 +815,10 @@
               key="firstTable"
               size="mini"
             >
-              <el-table-column :label="$t('tradeAbout.delegater')">
+              <el-table-column
+                :min-width="windowWidth < 750 ? 80 : ''"
+                :label="$t('tradeAbout.delegater')"
+              >
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
@@ -819,7 +828,7 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column>
+              <el-table-column :min-width="windowWidth < 750 ? 200 : ''">
                 <template slot="header">
                   {{
                     $t('contract.delegations') + '\/' + $t('deleget.percentage')
@@ -845,7 +854,7 @@
                   <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                 </template>
               </el-table-column>-->
-              <el-table-column>
+              <el-table-column :min-width="windowWidth < 750 ? 80 : ''">
                 <template slot="header">
                   {{ $t('deleget.locked') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -859,7 +868,7 @@
                   <span>{{ scope.row.delegateLocked | formatMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column>
+              <el-table-column :min-width="windowWidth < 750 ? 160 : ''">
                 <template slot="header">
                   {{ $t('deleget.released') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -892,7 +901,7 @@
         <div v-show="tabIndex == 5">
           <div class="address-trade-last node-last">
             {{ $t('deleget.totalReceiveReward') }}
-            <b style="margin-left: 20px"
+            <b class="limit-number" style="margin-left: 20px"
               >{{ detailInfo.haveDeleReward | formatMoney }} LAT</b
             >
           </div>
@@ -903,7 +912,10 @@
               key="firstTable"
               size="mini"
             >
-              <el-table-column :label="$t('tradeAbout.hash')">
+              <el-table-column
+                :label="$t('tradeAbout.hash')"
+                :min-width="windowWidth < 750 ? 120 : ''"
+              >
                 <template slot-scope="scope">
                   <span
                     class="blue cursor percent60 ellipsis"
@@ -912,7 +924,10 @@
                   >
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('tradeAbout.delegater')">
+              <el-table-column
+                :label="$t('tradeAbout.delegater')"
+                :min-width="windowWidth < 750 ? 120 : ''"
+              >
                 <template slot-scope="scope">
                   <span
                     class="blue cursor percent60 ellipsis"
@@ -924,12 +939,16 @@
               <el-table-column
                 :label="$t('tradeAbout.claimTime')"
                 show-overflow-tooltip
+                :min-width="windowWidth < 750 ? 120 : ''"
               >
                 <template slot-scope="scope">
                   <span>{{ scope.row.time | formatTime }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('tradeAbout.delegateReward')">
+              <el-table-column
+                :label="$t('tradeAbout.delegateReward')"
+                :min-width="windowWidth < 750 ? 120 : ''"
+              >
                 <template slot-scope="scope">
                   <span>{{ scope.row.reward | formatMoney }}</span>
                 </template>
@@ -1280,6 +1299,10 @@ export default {
   border-radius: 2px;
   line-height: 26px;
   padding: 7px 10px;
+  @media screen and (max-width: 750px) {
+    min-width: 64px;
+    display: inline-block;
+  }
 }
 .page-zh {
   .vote-status {
@@ -1399,6 +1422,9 @@ export default {
   .node-left {
     .list-col-item {
       flex: 1;
+      @media screen and (max-width: 750px) {
+        display: block;
+      }
       justify-content: center;
       &:nth-child(2) {
         margin-left: -100px;
@@ -1430,6 +1456,10 @@ export default {
 }
 .node-last {
   position: relative;
+  display: flex;
+  @media screen and (max-width: 750px) {
+    display: block;
+  }
   .export-btn {
     position: absolute;
     right: 0;
@@ -1437,6 +1467,10 @@ export default {
     font-family: Gilroy-Medium;
     background: #fbfbfc;
     color: #0798de;
+    @media screen and (max-width: 750px) {
+      position: relative;
+      top: unset;
+    }
     &:hover {
       background: #fbfbfc !important;
       color: #5cb2db;
@@ -1450,6 +1484,14 @@ export default {
   }
   b {
     font-family: Gilroy-Medium;
+  }
+  .limit-number {
+    @media screen and (max-width: 750px) {
+      width: 180px;
+      word-break: break-all;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 }
 .statistic-right-data {
