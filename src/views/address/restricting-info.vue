@@ -166,22 +166,6 @@
     color: #999;
     line-height: 16px;
 }
-.code{
-    position: relative;
-    .qr-code{
-        position: absolute;
-        top: 32px;
-        left: -55px;
-        z-index: 999;
-        display: none;
-        background: rgba(255,255,255,0.90);
-        box-shadow: 0 0 8px 0 rgba(0,0,0,0.10);
-        border-radius: 4px;
-    }
-    &:hover .qr-code{
-        display: block;
-    }
-}
 .restricted-table{
     .el-table{
         margin-left: 10px;

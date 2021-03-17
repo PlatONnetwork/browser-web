@@ -100,7 +100,7 @@
         </el-table-column>
 
         <!-- 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('blockAbout.operatorAddress')">
+        <el-table-column :label="$t('blockAbout.operatorAddress')" min-width="150">
           <template slot-scope="scope">
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
