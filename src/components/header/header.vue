@@ -912,9 +912,6 @@ export default {
         // &.governable-parameter {
         //   font-size: 12px;
         // }
-        &.governable-parameter {
-          font-size: 14px;
-        }
       }
       li {
         padding: 0 !important;

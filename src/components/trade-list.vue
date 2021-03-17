@@ -153,7 +153,7 @@
         <el-table-column
           :label="$t('tradeAbout.confirmTime')"
           v-if="type != 'block'"
-          width="300"
+          min-width="200"
         >
           <template slot-scope="scope">
             <span>{{ scope.row.timestamp | formatTime }}</span>
@@ -196,7 +196,7 @@
         </el-table-column>
 
         <!-- 交易费用 -->
-        <el-table-column>
+        <el-table-column min-width="120">
           <!-- :label="$t('tradeAbout.fee')" prop="actualTxCost" -->
           <template slot="header">
             {{ $t('tradeAbout.fee') }}
@@ -333,8 +333,12 @@ export default {
     padding-bottom: 60px;
     margin-right: 30px;
   }
-  .table .el-table th {
-    padding-left: 30px;
+  /deep/ .table .el-table{
+    th, td {
+      &:first-child {
+        padding-left: 20px;
+      }
+    }
   }
   .trade-tab-wrap {
     padding-left: 30px;
@@ -349,6 +353,8 @@ export default {
   letter-spacing: 0;
   cursor: pointer;
   font-family: Gilroy-Medium;
+  white-space: nowrap;
+  height: 37px;
   &:hover {
     color: #5cb2db;
     border: 1px solid #5cb2db;
@@ -378,18 +384,6 @@ export default {
           white-space: nowrap;
         }
       }
-    }
-  }
-}
-</style>
-<style lang="less">
-.block-trade-wrap {
-  .table .el-table {
-    th {
-      padding-left: 20px;
-    }
-    td {
-      padding-left: 20px;
     }
   }
 }

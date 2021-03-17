@@ -303,22 +303,6 @@ export default {
     }
   }
 }
-.code {
-  position: relative;
-  .qr-code {
-    position: absolute;
-    top: 32px;
-    left: -55px;
-    z-index: 999;
-    display: none;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-  }
-  &:hover .qr-code {
-    display: block;
-  }
-}
 
 .contract-detail-top {
   padding-bottom: 30px;
@@ -368,25 +352,6 @@ export default {
         margin-left: 0 !important;
         margin-bottom: 15px;
       }
-    }
-  }
-}
-</style>
-<style lang="less">
-@media (max-width: 750px) {
-  .trade-tab-wrap {
-    .trade-tab {
-      li {
-        margin-bottom: 12px;
-      }
-    }
-    .download-btn {
-      display: inline-block;
-
-      max-width: 140px;
-      text-align: center;
-      height: fit-content;
-      white-space: nowrap;
     }
   }
 }

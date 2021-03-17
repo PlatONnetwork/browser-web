@@ -8,6 +8,7 @@
       'is-mac': isMac,
       'is-ie11': isIE11,
     }"
+    style="-webkit-tap-highlight-color: transparent"
   >
     <com-header></com-header>
     <div

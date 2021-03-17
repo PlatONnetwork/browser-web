@@ -243,5 +243,16 @@ export default {
       }
     }
   }
+  @media (max-width: 750px) {
+    ul {
+      justify-content: space-between;
+      gap: 1em;
+      li {
+        padding: 5px 8px;
+        max-width: 21%;
+        margin-right: 0;
+      }
+    }
+  }
 }
 </style>

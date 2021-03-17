@@ -3,7 +3,7 @@
     <div class="sub-foot" v-if="path == '/' && configData.links">
       <h3>{{ $t('indexInfo.resource') }}</h3>
       <div class="foot-tabs">
-        <span v-for="item in configData.links" :key="item.order">
+        <span v-for="item in configData.links" :key="item.order" :class="{ hanim: windowWidth > 750 }">
           <a :href="item.url[configLang]" target="_blank">
             {{ item.name[configLang] }}
           </a>
@@ -222,7 +222,7 @@ export default {
         display: block;
         color: #fff;
       }
-      &:hover {
+      &.hanim:hover {
         background: #fff;
         border: 1px solid #fff;
         a {
@@ -252,6 +252,10 @@ export default {
         margin-right: 0;
         margin-bottom: 50px;
         width: 45%;
+        a {
+          width: 100%;
+          line-height: 48px;
+        }
       }
     }
   }
@@ -467,6 +471,10 @@ export default {
           flex-wrap: wrap;
           border-top: 1px dotted #555;
           padding-top: 20px;
+        }
+        p {
+          text-align: center;
+          margin: 20px 0 0;
         }
       }
     }
