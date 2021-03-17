@@ -904,9 +904,9 @@ export default {
             font-weight: 700;
           }
         }
-        &.governable-parameter {
-          font-size: 12px;
-        }
+        // &.governable-parameter {
+        //   font-size: 12px;
+        // }
       }
       li {
         padding: 0 !important;

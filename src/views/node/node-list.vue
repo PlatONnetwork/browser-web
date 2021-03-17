@@ -26,7 +26,7 @@
                   | formatMoney
                   | sliceFloat(1)
               }}</span>
-              <span class="fontSize13">&nbsp;LAT</span>
+              <span class="fontSize13 currency">&nbsp;LAT</span>
             </p>
           </Item>
           <Item :label="$t('nodeInfo.stakeRate')">

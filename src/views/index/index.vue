@@ -20,7 +20,9 @@
       :style="{ height: clientHeight + 'px' }"
     ></vue-particles>
     <div class="welcome-wrap">
-      <h3>{{ $t('indexInfo.WelcomeToPlatON', { chain: configData.chainName }) }}</h3>
+      <h3>
+        {{ $t('indexInfo.WelcomeToPlatON', { chain: configData.chainName }) }}
+      </h3>
       <div
         class="search search-index"
         :class="{ 'search-active': isFocus, 'search-hide': !hideSearch }"
@@ -281,15 +283,17 @@
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns fontSize13" v-if="item.expectedIncome"
-                  >{{ item.expectedIncome }}&nbsp;{{
-                    $t('nodeInfo.yield2')
-                  }}</span
-                >
+                <span class="item-txns fontSize13" v-if="item.expectedIncome">{{
+                  windowWidth > 750
+                    ? `${item.expectedIncome} ${$t('nodeInfo.yield2')}`
+                    : `${$t('nodeInfo.yield2')}    ${item.expectedIncome}`
+                }}</span>
                 <span class="item-txns" v-else>--</span>
-                <span class="item-time"
-                  >{{ item.ranking }}&nbsp;{{ $t('nodeInfo.rank') }}</span
-                >
+                <span class="item-time">{{
+                  windowWidth > 750
+                    ? `${item.ranking} ${$t('nodeInfo.rank')}`
+                    : `${$t('nodeInfo.rank')}          ${item.ranking}`
+                }}</span>
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
               <img src="../../assets/images/avtor-black.svg" v-else />
@@ -308,15 +312,17 @@
                 </p>
               </div>
               <div class="list-item item-right">
-                <span class="item-txns" v-if="item.expectedIncome"
-                  >{{ item.expectedIncome }}&nbsp;{{
-                    $t('nodeInfo.yield2')
-                  }}</span
-                >
+                <span class="item-txns fontSize13" v-if="item.expectedIncome">{{
+                  windowWidth > 750
+                    ? `${item.expectedIncome} ${$t('nodeInfo.yield2')}`
+                    : `${$t('nodeInfo.yield2')}    ${item.expectedIncome}`
+                }}</span>
                 <span class="item-txns" v-else>--</span>
-                <span class="item-time"
-                  >{{ item.ranking }}&nbsp;{{ $t('nodeInfo.rank') }}</span
-                >
+                <span class="item-time">{{
+                  windowWidth > 750
+                    ? `${item.ranking} ${$t('nodeInfo.rank')}`
+                    : `${$t('nodeInfo.rank')}          ${item.ranking}`
+                }}</span>
               </div>
               <img :src="item.stakingIcon" v-if="item.stakingIcon" />
               <img src="../../assets/images/avtor-black.svg" v-else />
@@ -960,6 +966,8 @@ export default {
         color: #fff;
         font-size: 20px;
         line-height: 23px;
+        max-width: 90%;
+        word-wrap:break-word;
         b {
           color: #999;
           color: #7d7d7d;
@@ -1162,6 +1170,16 @@ export default {
           width: 46px;
           height: 46px;
           border-radius: 50%;
+        }
+      }
+      @media (max-width: 750px) {
+        li {
+          display: flex;
+          flex-direction: column;
+          .list-item.item-right {
+            white-space: pre;
+            text-align: left;
+          }
         }
       }
     }

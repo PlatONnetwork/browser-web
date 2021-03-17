@@ -1172,15 +1172,10 @@ export default {
 
 @media (max-width: 750px) {
   .detail-change {
+    justify-content: flex-end;
     flex-wrap: wrap;
     .detail-copy {
       word-break: break-all;
-      b {
-        display: none;
-      }
-    }
-    .detail-arrow {
-      display: none;
     }
   }
 }

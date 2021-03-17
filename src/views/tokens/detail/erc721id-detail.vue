@@ -216,22 +216,6 @@ export default {
   font-size: 17px;
   color: #999;
 }
-.code {
-  position: relative;
-  .qr-code {
-    position: absolute;
-    top: 32px;
-    left: -55px;
-    z-index: 999;
-    display: none;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-  }
-  &:hover .qr-code {
-    display: block;
-  }
-}
 
 .contract-detail-top {
   padding-bottom: 30px;
