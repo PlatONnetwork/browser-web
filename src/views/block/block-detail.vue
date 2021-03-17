@@ -75,13 +75,28 @@
           :label="$t('blockAbout.producer')"
           v-if="detailInfo.txType != '4000'"
         >
-          <span class="blue cursor" @click="goNodeDetail(detailInfo.nodeId)">{{
-            detailInfo.nodeName
-          }}</span>
-          <span style="line-height: 16px"
-            >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)
-            }}{{ $t('tradeAbout.before') }}】</span
-          >
+          <p class="mobile-block-text" v-if="windowWidth < 750">
+            <span
+              class="blue cursor"
+              @click="goNodeDetail(detailInfo.nodeId)"
+              >{{ detailInfo.nodeName }}</span
+            >
+            <span class="mobile-block-text" style="line-height: 16px"
+              >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)
+              }}{{ $t('tradeAbout.before') }}】</span
+            >
+          </p>
+          <p v-else>
+            <span
+              class="blue cursor"
+              @click="goNodeDetail(detailInfo.nodeId)"
+              >{{ detailInfo.nodeName }}</span
+            >
+            <span class="mobile-block-text" style="line-height: 16px"
+              >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)
+              }}{{ $t('tradeAbout.before') }}】</span
+            >
+          </p>
         </Item>
         <Item
           :label="$t('blockAbout.size')"
@@ -238,7 +253,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.blockTrade.getTradeList(1);
       });
-    }
+    },
   },
   //生命周期函数
   created() {
