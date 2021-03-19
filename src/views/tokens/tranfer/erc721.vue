@@ -36,6 +36,17 @@
       </template>
     </el-table-column>
 
+    <!-- 区块（Block） -->
+    <el-table-column :label="$t('tradeAbout.block')">
+      <template slot-scope="scope">
+        <span
+          class="cursor normal"
+          @click="goBlockDetail(scope.row.blockNumber)"
+          >{{ scope.row.blockNumber }}</span
+        >
+      </template>
+    </el-table-column>
+
     <!-- 块龄（Age） -->
     <el-table-column :label="$t('tradeAbout.age')">
       <template slot-scope="scope">

@@ -854,32 +854,31 @@
           :label="$t('tradeAbout.tokens')"
           v-if="detailInfo.erc721Params && detailInfo.erc721Params.length > 0"
         >
-          <table>
-            <tr>
-              <th>from</th>
-              <th>to</th>
-              <th>token</th>
-              <th>icon</th>
-            </tr>
-            <tr
+          <div class="table-721">
+            <ul class="theader">
+              <li>from</li>
+              <li>to</li>
+              <li>token</li>
+              <li>icon</li>
+            </ul>
+            <ul
               v-for="(item, index) in detailInfo.erc721Params"
-              class="tokens-tr"
             >
-              <td>
+              <li>
                 <span
                   class="cursor blue"
                   @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                   >{{ item.innerFrom | sliceStr(16) }}
                 </span>
-              </td>
-              <td>
+              </li>
+              <li>
                 <span
                   class="cursor blue"
                   @click="goTokenDetail(item.innerContractAddr, 'erc721')"
                   >{{ item.innerTo | sliceStr(16) }}
                 </span>
-              </td>
-              <td>
+              </li>
+              <li>
                 <span
                   class="cursor blue"
                   @click="
@@ -890,8 +889,8 @@
                       | sliceStr(50)
                   }}
                 </span>
-              </td>
-              <td>
+              </li>
+              <li>
                 <img
                   v-pic-preview
                   class="token-pic"
@@ -900,9 +899,9 @@
                     require('@/assets/images/Alaya-cat-721.svg')
                   "
                 />
-              </td>
-            </tr>
-          </table>
+              </li>
+            </ul>
+        </div>
         </Item>
         <!-- 燃料限制 -->
         <Item
@@ -1162,7 +1161,25 @@ export default {
     margin-right: 6px;
   }
 }
-
+.table-721 {
+  display: flex;
+ & > ul {
+   display: flex;
+   flex-direction: column;
+   flex-shrink: 0;
+   padding-right: 1em;
+   &.theader {
+     width: 60px;
+     font-family: Gilroy-Medium;
+   }
+   li {
+     line-height: 32px;
+     &:not(:last-child) {
+       border-bottom: 1px solid #F5F5F5;
+     }
+   }
+ }
+}
 .token-pic {
   margin: 0 auto;
   max-width: 210px;
@@ -1178,6 +1195,13 @@ export default {
       word-break: break-all;
     }
   }
+ .table-721 {
+    max-width: 100%;
+    overflow-x: scroll;
+    ul.theader {
+      min-width: unset !important;
+    }
+ }
 }
 </style>
 <style lang="less">
@@ -1217,11 +1241,6 @@ export default {
   .money {
     padding: 0 6px;
     font-weight: lighter;
-  }
-}
-.tokens-tr {
-  td {
-    padding: 0 10px;
   }
 }
 </style>
