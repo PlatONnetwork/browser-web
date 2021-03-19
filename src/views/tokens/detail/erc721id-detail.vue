@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i>{{ detailInfo.name | sliceStr(50) }}</i>
+          <i @click="goTokenDetail(detailInfo.contract, 'erc721')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(50) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -44,7 +44,7 @@
                 <div class="money contract-create-info">
                   <span
                     class="normal"
-                    @click="goContractDetail(detailInfo.address)"
+                    @click="goContractDetail(detailInfo.contract)"
                   >
                     <!-- {{ detailInfo.contract | sliceStr(16) }} -->
                     {{ address }}
