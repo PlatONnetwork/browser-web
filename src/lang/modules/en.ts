@@ -304,7 +304,8 @@ export default {
     warn: "Contract Self Destruct called at Txn Hash",
     systemBuilt: "System built-in code contract, no contract bytecode.",
 
-    ercTrade: "PRC20 Token Txns",
+    erc20Trade: "PRC20 Token Txns",
+    erc721Trade: "PRC721 Token Txns",
   },
   deleget: {
     validators: "Validators",

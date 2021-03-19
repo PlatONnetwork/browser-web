@@ -39,7 +39,7 @@
               <!-- 交易数 -->
               <li>
                 <label class="Gilroy-Medium">{{
-                  $t('contract.ercTrade')
+                  $t('tokens.transfers_721')
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
