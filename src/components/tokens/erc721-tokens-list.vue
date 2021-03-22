@@ -108,15 +108,6 @@
           </template>
         </el-table-column>
 
-        <!-- 令牌ID -->
-        <el-table-column :label="$t('tokens.tokenID')">
-          <template slot-scope="scope">
-            <div>
-              {{ scope.row.tokenId | sliceStr(50) }}
-            </div>
-          </template>
-        </el-table-column>
-
         <!-- From 操作地址（Operator_Address） -->
         <el-table-column :label="$t('tokens.from')">
           <template slot-scope="scope">
