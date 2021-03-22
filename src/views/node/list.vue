@@ -1059,7 +1059,7 @@ export default {
   }
 }
 
-.table-content {
+.node-table .table-content {
   width: 100%;
   overflow-x: auto;
   .el-table__header-wrapper {
