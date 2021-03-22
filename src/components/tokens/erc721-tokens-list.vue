@@ -41,9 +41,9 @@
         <!-- 令牌ID -->
         <el-table-column :label="$t('tokens.tokenID')">
           <template slot-scope="scope">
-            <div>
+            <span @click="go721IdDetail(scope.row.contract, scope.row.tokenId)" class="cursor normal">
               {{ scope.row.tokenId | sliceStr(50) }}
-            </div>
+            </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokens.transferNum')">
@@ -157,7 +157,7 @@
               <span
                 class="cursor normal"
                 @click="goTokenDetail(scope.row.contract, 'erc721')"
-                >{{ `${scope.row.name}` | sliceStr(50) }}</span
+                >{{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(50) }}</span
               >
             </template>
           </el-table-column>
