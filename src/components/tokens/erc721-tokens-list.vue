@@ -34,7 +34,7 @@
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.name | sliceStr(50) }}
+              {{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
@@ -42,13 +42,13 @@
         <el-table-column :label="$t('tokens.tokenID')">
           <template slot-scope="scope">
             <div>
-              {{ scope.row.symbol | sliceStr(50) }}
+              {{ scope.row.tokenId | sliceStr(50) }}
             </div>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokens.transferNum')">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.txCount)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.tokenId, scope.row.txCount)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -224,12 +224,12 @@ export default {
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName, txCount) {
+    async showAddressTokenList(contract, tokensName, tokenId, txCount) {
       this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = tokensName;
       this.tokenContract = contract;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract, txCount);
+      await this.getTradeAddressList(contract, tokenId, txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
@@ -255,11 +255,12 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract, txCount) {
+    getTradeAddressList(contract, tokenId, txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
         address: this.address,
+        tokenId,
         contract,
       };
       // apiService.trade.transactionList(param);

@@ -303,7 +303,8 @@ export default {
     totalDelegated: "总计委托",
     warn: "合约已销毁，执行于交易",
     systemBuilt: "系统合约，无上链字节码",
-    ercTrade: "PRC交易",
+    erc20Trade: "PRC20交易",
+    erc721Trade: "PRC721交易",
   },
   deleget: {
     validators: "已委托验证节点",
