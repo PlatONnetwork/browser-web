@@ -467,7 +467,7 @@ export default {
     getConfig() {
       let flag = true;
       apiService.more
-        .globalConfig()
+        .globalConfig({ v: Date.now() })
         .then((res) => {
           flag = false;
           let sortByOrder = (a, b) => a.order - b.order;

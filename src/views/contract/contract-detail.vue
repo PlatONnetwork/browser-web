@@ -67,12 +67,20 @@
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
               <li v-if="detailInfo.type === 5">
-                <label class="Gilroy-Medium">{{
-                  $t('contract.ercTrade')
-                }}</label>
-                <div class="money">
-                  {{ detailInfo.tokenQty | formatNumber }}
-                </div>
+                  <label class="Gilroy-Medium">{{
+                    $t('contract.erc20Trade')
+                  }}</label>
+                  <div class="money">
+                    {{ detailInfo.erc20TxQty | formatNumber }}
+                  </div>
+              </li>
+              <li v-if="detailInfo.type === 6">
+                  <label class="Gilroy-Medium">{{
+                    $t('contract.erc721Trade')
+                  }}</label>
+                  <div class="money">
+                    {{ detailInfo.erc721TxQty | formatNumber }}
+                  </div>
               </li>
             </ul>
           </div>
@@ -185,7 +193,7 @@
       <erc20-list v-if="detailInfo.hasErc20" v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
 
       <!-- Erc721 Token -->
-      <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" pageType="contract"></erc721-list>
+      <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contract"></erc721-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
@@ -242,6 +250,22 @@ export default {
             this.detailInfo = data;
             // 合成token 名称
             this.getTokenDetail();
+          } else {
+            this.$message.error(errMsg);
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        });
+    },
+    
+    getTokenDetail() {
+      apiService.tokens
+        .tokenDetail({address: this.address})
+        .then((res) => {
+          let { errMsg, code, data } = res;
+          if (code == 0) {
+            this.detailInfo[data.type + 'TxQty'] = data.txCount;
           } else {
             this.$message.error(errMsg);
           }

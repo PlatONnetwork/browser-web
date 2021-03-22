@@ -44,7 +44,7 @@
                 <div class="money contract-create-info">
                   <span
                     class="normal"
-                    @click="goContractDetail(detailInfo.address)"
+                    @click="goContractDetail(detailInfo.contract)"
                   >
                     <!-- {{ detailInfo.contract | sliceStr(16) }} -->
                     {{ address }}
