@@ -567,7 +567,7 @@
             }}</el-button>
           </div>
           <div class="table">
-            <div class="table-content">
+            <div class="node table-content">
               <el-table
                 :data="tableData"
                 style="width: 100%"
@@ -1638,7 +1638,7 @@ export default {
   }
 }
 
-.table-content {
+.node.table-content {
   width: 100%;
   overflow-x: auto;
 }
