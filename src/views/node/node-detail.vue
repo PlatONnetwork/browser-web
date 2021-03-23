@@ -6,11 +6,7 @@
       </div>
       <div class="node-header">
         <div class="node-header-left">
-          <img :src="detailInfo.stakingIcon" v-if="detailInfo.stakingIcon" />
-          <img
-            src="../../assets/images/node-avtor.svg"
-            v-if="!detailInfo.stakingIcon"
-          />
+          <img :src="detailInfo.stakingIcon || require('../../assets/images/node-avtor.svg')" />
           <div class="node-name-wrap">
             <div class="node-name">
               <b>{{ detailInfo.nodeName }}</b>
@@ -583,7 +579,7 @@
                     >
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('common.time')">
+                <el-table-column :label="$t('common.time')"  min-width="180">
                   <template slot-scope="scope">
                     <span>{{ scope.row.timestamp | formatTime }}</span>
                   </template>
@@ -596,7 +592,7 @@
                     <span>{{ scope.row.statTxQty | formatNumber }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('blockAbout.blockReward')">
+                <el-table-column :label="$t('blockAbout.blockReward')" min-width="150">
                   <template slot-scope="scope">
                     <span>{{ scope.row.blockReward | formatMoney }} ATP</span>
                   </template>
@@ -628,7 +624,7 @@
             >
               <el-table-column
                 :label="$t('common.time')"
-                :width="windowWidth < 750 ? '220' : '260'"
+                :min-width="windowWidth < 750 ? '180' : ''"
               >
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
@@ -756,7 +752,7 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('nodeInfo.inTxHash')">
+              <el-table-column :label="$t('nodeInfo.inTxHash')" min-width="150">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
@@ -774,7 +770,7 @@
                   }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('nodeInfo.inBlock')" width="150">
+              <el-table-column :label="$t('nodeInfo.inBlock')" min-width="90">
                 <template slot-scope="scope">
                   <span
                     class="blue cursor"
@@ -816,7 +812,7 @@
               size="mini"
             >
               <el-table-column
-                :min-width="windowWidth < 750 ? 80 : ''"
+                min-width="100"
                 :label="$t('tradeAbout.delegater')"
               >
                 <template slot-scope="scope">
@@ -828,7 +824,7 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column :min-width="windowWidth < 750 ? 200 : ''">
+              <el-table-column min-width="200">
                 <template slot="header">
                   {{
                     $t('contract.delegations') + '\/' + $t('deleget.percentage')
@@ -854,7 +850,7 @@
                   <span>{{scope.row.delegateLocked | formatMoney}}({{scope.row.delegateLocked | percentage(scope.row.allDelegateLocked)}}%)</span>
                 </template>
               </el-table-column>-->
-              <el-table-column :min-width="windowWidth < 750 ? 80 : ''">
+              <el-table-column  min-width="120">
                 <template slot="header">
                   {{ $t('deleget.locked') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -868,7 +864,7 @@
                   <span>{{ scope.row.delegateLocked | formatMoney }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :min-width="windowWidth < 750 ? 160 : ''">
+              <el-table-column  min-width="160">
                 <template slot="header">
                   {{ $t('deleget.released') }}
                   <el-tooltip class="item" effect="dark" placement="bottom">
@@ -1396,6 +1392,12 @@ export default {
         color: #666666;
         letter-spacing: 0;
       }
+      @media screen and (max-width: 750px) {
+        .value {
+          font-size: 32px;
+          word-break: break-all;
+        }
+      }
     }
   }
 }
@@ -1470,6 +1472,8 @@ export default {
     @media screen and (max-width: 750px) {
       position: relative;
       top: unset;
+      margin: 12px 0;
+      float: right;
     }
     &:hover {
       background: #fbfbfc !important;
