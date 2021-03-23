@@ -96,7 +96,7 @@
         </el-table-column>
 
         <!-- 块龄 -->
-        <el-table-column :label="$t('tradeAbout.age')" width="300">
+        <el-table-column :label="$t('tradeAbout.age')" min-width="100">
           <template slot-scope="scope">
             <span>
               {{
@@ -147,7 +147,7 @@
         </el-table-column>
 
         <!-- tokens 名称+单位 -->
-        <el-table-column :label="$t('tokens.unit')" show-overflow-tooltip>
+        <el-table-column :label="$t('tokens.unit')">
           <template slot-scope="scope">
             <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(50) }}</span>
           </template>
