@@ -430,7 +430,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.validatorName')"
-            :width="issafariBrowser ? 158 : 180"
+            :min-width="issafariBrowser ? 158 : 180"
           >
             <!-- TODO历史节点 table -->
             <template slot-scope="scope">
@@ -509,7 +509,7 @@
               >
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.totalStakePower')">
+          <el-table-column :label="$t('nodeInfo.totalStakePower')" min-width="150">
             <template slot-scope="scope">
               <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
             </template>
@@ -571,6 +571,7 @@
           <el-table-column
             :label="$t('nodeInfo.yield3')"
             label-class-name="yield3"
+            min-width="150"
           >
             <template slot="header">
               <span class="tipsTitle"> {{ $t('nodeInfo.yield3') }}</span>
@@ -596,6 +597,7 @@
           <el-table-column
             :label="$t('nodeInfo.delegatedYield')"
             label-class-name="delegatedYield"
+            min-width="150"
           >
             <template slot="header">
               <span class="tipsTitle">
