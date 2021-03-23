@@ -61,7 +61,7 @@
         size="mini"
       >
         <!-- 交易哈希值 -->
-        <el-table-column :label="$t('tradeAbout.hash')" width="200">
+        <el-table-column :label="$t('tradeAbout.hash')" min-width="200">
           <template slot-scope="scope">
             <!-- <div class="flex-special">
               <el-tooltip
@@ -114,6 +114,7 @@
         <!-- 操作地址 -->
         <el-table-column
           :label="$t('blockAbout.operatorAddress')"
+          min-width="150"
           v-if="type == 'block'"
         >
           <!-- <template slot-scope="scope">
@@ -161,7 +162,7 @@
         </el-table-column>
 
         <!-- 交易类型 -->
-        <el-table-column :label="$t('tradeAbout.type')">
+        <el-table-column :label="$t('tradeAbout.type')" min-width="100">
           <template slot-scope="scope">
             <span
               :class="{
