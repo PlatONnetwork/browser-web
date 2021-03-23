@@ -1366,8 +1366,6 @@ export default {
         width: 100%;
       }
       .bar-right {
-        width: 100%;
-        position: unset;
         margin-top: 30px;
       }
       .block-statistics {

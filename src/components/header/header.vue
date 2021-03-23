@@ -947,6 +947,7 @@ export default {
     min-height: 102px;
     height: auto;
     padding: 30px 0;
+    z-index: 9999;
     .logo.cursor {
       margin-left: 30px;
     }

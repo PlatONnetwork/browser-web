@@ -98,7 +98,7 @@
     </el-table-column>
 
     <!-- todo 令牌ID-->
-    <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
+    <el-table-column :label="$t('tokens.tokenID')">
       <template slot-scope="scope">
         <span
           class="cursor normal"
@@ -109,10 +109,10 @@
     </el-table-column>
 
     <!-- todo tokens 名称+单位 -->
-    <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
+    <el-table-column :label="$t('tokens.tokens')">
       <template slot-scope="scope">
         <span
-          class="cursor normal"
+          class="cursor normal ellipsis"
           @click="goTokenDetail(scope.row.contract, 'erc721')"
           >{{`${scope.row.name}  (${scope.row.symbol})` | sliceStr(50)  }}</span
         >

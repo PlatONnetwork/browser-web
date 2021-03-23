@@ -30,10 +30,10 @@
       </ul>
     </div>
 
-    <div class="table gray-table" >
+    <div class="table gray-table">
       <el-table
         :data="tableData"
-        style="width: 100%"
+        style="width: 100%;min-width: 910px;"
         key="firstTable"
         size="mini"
       >
@@ -130,20 +130,20 @@
                       </template>
                   </el-table-column> -->
       </el-table>
-      <div class="pagination-box">
-        <el-pagination
-          background
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="pageSize"
-          layout="sizes,total,  prev, pager, next"
-          :total="pageTotal"
-          :pager-count="9"
-        >
-        </el-pagination>
-      </div>
+    </div>
+    <div class="pagination-box">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="pageSize"
+        layout="sizes,total,  prev, pager, next"
+        :total="pageTotal"
+        :pager-count="9"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -249,10 +249,20 @@ export default {
       gap: 1em;
       li {
         padding: 5px 8px;
-        max-width: 21%;
+        max-width: 22%;
         margin-right: 0;
+        p {
+          word-break: break-all;
+        }
       }
+      
     }
+  }
+}
+@media (max-width: 750px) {
+  .gray-table {
+    width: 100%;
+    overflow-x: scroll;
   }
 }
 </style>

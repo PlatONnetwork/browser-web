@@ -105,10 +105,10 @@
     </el-table-column>
 
     <!-- tokens 名称+单位 -->
-    <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
+    <el-table-column :label="$t('tokens.tokens')">
       <template slot-scope="scope">
         <span
-          class="cursor normal"
+          class="cursor normal ellipsis"
           @click="goTokenDetail(scope.row.contract, 'erc20')"
           >{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(50) }}</span
         >
