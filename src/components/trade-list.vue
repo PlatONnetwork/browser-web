@@ -220,7 +220,7 @@
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
           :total="pageTotal > 5000 ? 5000 : pageTotal"
-          :pager-count="windowWith < 750 ? 5 : 9"
+          :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
     </div>

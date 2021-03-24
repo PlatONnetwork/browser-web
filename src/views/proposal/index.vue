@@ -10,24 +10,24 @@
 
     <div class="table" :class="{'no-data':!tableData.length}">
       <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini" :empty-text="$t('tradeAbout.noProposalData')">
-        <el-table-column :label="$t('tradeAbout.PIPSN')">
+        <el-table-column :label="$t('tradeAbout.PIPSN')" min-width="120">
           <template slot-scope="scope">
-            <span style="font-weight:bold;">
+            <span style="font-weight:bold; display: flex;">
               <!-- <i class="el-icon-time"></i> -->
               <img class='iconlink' src="@/assets/images/icon-link.svg" />
               <!-- {{scope.row.url}} -->
-              <a :href="scope.row.url" class="blue" target="_blank">{{scope.row.pipNum}}</a>
+              <a :href="scope.row.url" class="blue ellipsis" target="_blank">{{scope.row.pipNum}}</a>
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalTitle')">
+        <el-table-column :label="$t('tradeAbout.proposalTitle')"  min-width="180">
           <template slot-scope="scope">
             <div class="flex-special" @click="goDetail(scope.row.proposalHash)">
-              <p class="cursor blue ellipsis percent60 fontSize15" v-if="scope.row.topic">{{scope.row.topic}}</p>
-              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==1">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
-              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==2">{{$t('tradeAbout.versionUp')}}-V {{scope.row.newVersion}}</p>
-              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==4">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
-              <p class="cursor blue ellipsis percent60 fontSize15" v-else-if="!scope.row.topic&&scope.row.type==3">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis fontSize15" v-if="scope.row.topic">{{scope.row.topic}}</p>
+              <p class="cursor blue ellipsis fontSize15" v-else-if="!scope.row.topic&&scope.row.type==1">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis fontSize15" v-else-if="!scope.row.topic&&scope.row.type==2">{{$t('tradeAbout.versionUp')}}-V {{scope.row.newVersion}}</p>
+              <p class="cursor blue ellipsis fontSize15" v-else-if="!scope.row.topic&&scope.row.type==4">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
+              <p class="cursor blue ellipsis fontSize15" v-else-if="!scope.row.topic&&scope.row.type==3">{{$t('proposalOption.'+[scope.row.type])}}-{{scope.row.pipNum}}</p>
             </div>
           </template>
         </el-table-column>
@@ -50,7 +50,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalTime')">
+        <el-table-column :label="$t('tradeAbout.proposalTime')"  min-width="180">
           <template slot-scope="scope">
             <span>{{scope.row.timestamp | formatTime}}</span>
           </template>
