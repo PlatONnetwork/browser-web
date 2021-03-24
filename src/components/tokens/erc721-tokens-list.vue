@@ -46,7 +46,7 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tokens.transferNum')">
+        <el-table-column :label="$t('tokens.transferNum')" :min-width="$i18n.locale == 'en' ? 150 : 80">
           <template slot-scope="scope">
             <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.tokenId, scope.row.txCount)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
@@ -98,7 +98,7 @@
           </el-table-column>
         </template>
         <!-- 块龄 -->
-        <el-table-column v-else :label="$t('tradeAbout.age')" width="300">
+        <el-table-column v-else :label="$t('tradeAbout.age')" min-width="100">
           <template slot-scope="scope">
             <span>
               {{
@@ -142,7 +142,7 @@
           </template>
         </el-table-column>
         <template v-if="pageType === 'contract'">
-          <el-table-column :label="$t('tokens.tokenID')" show-overflow-tooltip>
+          <el-table-column :label="$t('tokens.tokenID')">
             <template slot-scope="scope">
               <span 
                 class="cursor normal"
@@ -152,10 +152,10 @@
           </el-table-column>
 
           <!-- todo tokens 名称+单位 -->
-          <el-table-column :label="$t('tokens.tokens')" show-overflow-tooltip>
+          <el-table-column :label="$t('tokens.tokens')">
             <template slot-scope="scope">
               <span
-                class="cursor normal"
+                class="cursor normal ellipsis"
                 @click="goTokenDetail(scope.row.contract, 'erc721')"
                 >{{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(50) }}</span
               >

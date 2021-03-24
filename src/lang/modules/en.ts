@@ -61,7 +61,7 @@ export default {
     holders: "Holders",
     transfers: "Transfers",
     transfers_721: "Transfers",
-    transferNum: "Number of Transactions",
+    transferNum: "Transaction Number",
     inventory: "Inventory",
     contract: "Contract",
     decimals: "Decimals",

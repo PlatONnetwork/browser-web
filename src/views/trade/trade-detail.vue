@@ -20,14 +20,14 @@
       </div>
       <!-- 查看上下交易按钮 -->
       <div class="detail-arrow">
-        <el-tooltip :content="$t('tradeAbout.viewLeft')" placement="top">
+        <el-tooltip :content="$t('tradeAbout.viewLeft')" placement="top" :disabled="windowWidth < 750">
           <el-button
             icon="el-icon-arrow-left"
             @click="detailNavigate('prev')"
             :disabled="detailInfo.preHash ? false : true"
           ></el-button>
         </el-tooltip>
-        <el-tooltip :content="$t('tradeAbout.viewRight')" placement="top">
+        <el-tooltip :content="$t('tradeAbout.viewRight')" placement="top" :disabled="windowWidth < 750">
           <el-button
             icon="el-icon-arrow-right"
             @click="detailNavigate('next')"
