@@ -114,6 +114,14 @@ export default {
       padding: 8px 0;
     }
   }
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .box-item {
+      margin: 12px 24px 0 0;
+    }
+  }
 }
 
 @media (max-width: 600px) {

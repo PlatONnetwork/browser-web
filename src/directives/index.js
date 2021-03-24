@@ -13,7 +13,7 @@ const nodeMove = Vue.directive('nodeMove', {
 
 function createPreviewBox() {
   let close = () => {
-    document.body.style = '';
+    document.body.style.overflow = 'unset';
     box.style.visibility = 'hidden';
   };
   // 遮罩
@@ -30,7 +30,8 @@ function createPreviewBox() {
   iconWrapper.addEventListener('click', close);
   // 图片
   const img = document.createElement('img');
-  img.style = 'max-height: 100%;max-width: 100%;';
+  img.className = 'pic-preview__main';
+  // img.style = 'max-height: 100%;max-width: 100%;';
   img.addEventListener('click', e => {
     e.stopPropagation();
   });
@@ -48,7 +49,7 @@ const picPreview = Vue.directive('picPreview', {
         document.querySelector('.pic-preview-mask') || createPreviewBox();
       box.querySelector('img').src = el.src;
       // 处理滚动条
-      document.body.style = 'overflow: hidden';
+      document.body.style.overflow = 'hidden';
       // 显示
       box.style.visibility = 'visible';
     });
