@@ -9,8 +9,8 @@
           <a class="proposal-id" :href="detailData.url" target="_blank"
             ># {{ detailData.pipNum }}</a
           >
+          <br v-if="windowWidth < 751" />
           <a class="github" :href="detailData.url" target="_blank">
-            &nbsp;
             <i></i>
             See on github
           </a>
@@ -737,6 +737,7 @@ export default {
   margin: 23px 0 10px;
 }
 .proposal-id {
+  margin-right: 16px;
   font-family: Gilroy-Medium;
   font-size: 20px;
   color: #0798de;

@@ -94,7 +94,7 @@
         <el-table :data="tableData">
           <el-table-column
             :label="$t('common.serialnumber')"
-            :width="issafariBrowser ? 100 : 80"
+            width="80"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.ranking }}</span>
@@ -183,7 +183,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.pendingDelegations')"
-            width="300"
+            min-width="180"
           >
             <template slot-scope="scope">
               <span
@@ -215,13 +215,13 @@
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.exitTime')">
+          <el-table-column :label="$t('nodeInfo.exitTime')" min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.leaveTime | formatTime }}</span>
             </template>
           </el-table-column>
           <!-- 预估解锁块高 -->
-          <el-table-column width="250">
+          <el-table-column min-width="250">
             <template slot="header">
               <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
               <el-tooltip placement="bottom">
@@ -347,7 +347,7 @@
               >
             </template>
           </el-table-column>
-          <el-table-column :label="$t('deleget.delegationsN')">
+          <el-table-column :label="$t('deleget.delegationsN')" min-width="100">
             <template slot-scope="scope">
               <span> {{ scope.row.delegateValue | formatMoney }} ATP </span>
             </template>
@@ -376,13 +376,13 @@
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.freezeTime')">
+          <el-table-column :label="$t('nodeInfo.freezeTime')"  min-width="200">
             <template slot-scope="scope">
               <span>{{ scope.row.leaveTime | formatTime }}</span>
             </template>
           </el-table-column>
           <!-- 预估解锁块高 -->
-          <el-table-column width="250">
+          <el-table-column min-width="250">
             <template slot="header">
               <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
               <el-tooltip placement="bottom">
