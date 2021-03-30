@@ -25,13 +25,17 @@
         <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"  data-callback="robotVerified"></div> -->
         <com-recaptcha ref="recaptcha" @verify="verify"></com-recaptcha>
         <span class="tip">{{ $t('download.dataDate') }}</span>
+        <div class="mdate-picker" @click="showDateSelect"><i class="el-input__icon el-icon-date"></i>{{ form.value }}</div>
         <el-date-picker
           v-model="form.value"
           type="date"
           :placeholder="$t('download.placeholder')"
           :picker-options="pickerOptions"
           class="select-date"
+          popper-class="mdate-picker-popper"
           value-format="yyyy-MM-dd"
+          ref="datepick"
+          @blur="datePickClose"
         >
         </el-date-picker>
         <span class="tip">{{ $t('download.today') }}</span>
@@ -106,6 +110,13 @@ export default {
   //方法
   methods: {
     ...mapActions(['updateApiStatus']),
+    showDateSelect() {
+      document.body.style.overflow = 'hidden';
+      this.$refs.datepick.showPicker()
+    },
+    datePickClose() {
+      document.body.style.overflow = 'unset';
+    },
     verify(data) {
       console.warn('传给父组件的token', data);
       this.response = data;
@@ -281,6 +292,32 @@ export default {
   color: #999999;
   margin-top: 14px;
 }
+.mdate-picker {
+  display: none;
+  margin: 20px 9px;
+  padding: 0 30px 0 5px;
+  width: 130px;
+  font-family: Arial;
+  font-size: 12px;
+  font-weight: 400px;
+  color: #aaaaaa;
+  height: 34px;
+  line-height: 34px;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+@media (max-width: 750px) {
+  .select-date {
+    margin: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .mdate-picker {
+    display: inline-block;
+  }
+}
 </style>
 <style lang="less">
 .download {
@@ -317,5 +354,16 @@ export default {
 }
 #script-area {
   margin-top: 20px;
+}
+@media (max-width: 750px) {
+  .mdate-picker-popper{
+    z-index: 10000 !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    .popper__arrow {
+      display: none;
+    }
+  }
 }
 </style>

@@ -20,16 +20,16 @@
         size="mini"
       >
         <!-- 地址 -->
-        <el-table-column :label="$t('contract.address')" width="600">
+        <el-table-column :label="$t('contract.address')">
           <template slot-scope="scope">
             <span
               class="cursor normal ellipsis"
               @click="goAddressDetail(scope.row.address)"
-              >{{ scope.row.address }}</span
+              >{{ scope.row.address | sliceStr(16)  }}</span
             >
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tokens.number')" width="300">
+        <el-table-column :label="$t('tokens.number')">
           <template slot-scope="scope">
             {{ scope.row.balance | formatNumber }}
           </template>
