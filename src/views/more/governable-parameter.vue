@@ -828,9 +828,10 @@
                 }}</span>
               </div>
               <div>
-                <span class="regular">{{
+                <!-- <span class="regular">{{
                   lis.slashing.zeroProduceFreezeDuration.endValue
-                }}</span>
+                }}</span> -->
+                <span class="regular">unStakeFreezeDuration</span>
                 <span class="medium">{{
                   lis.slashing.zeroProduceFreezeDuration.end
                 }}</span>
@@ -1095,6 +1096,7 @@ export default {
         } else {
           this.$message.error(errMsg);
         }
+            console.log('this.lis: ', this.lis);
       })
       .catch((error) => {
         this.$message.error(error);
