@@ -85,7 +85,7 @@ export default {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src =
-      'https://s9.cnzz.com/z_stat.php?id=1278248458&web_id=1278248458'; //友盟中的代码
+      'https://v1.cnzz.com/z_stat.php?id=1279800991&web_id=127980099'; //友盟中的代码
     document.body.appendChild(script);
   },
   watch: {
