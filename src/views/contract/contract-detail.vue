@@ -140,7 +140,8 @@
                 }}</label>
                 <!-- tokens -->
                 <div class="money contract-create-info">
-                  <span class="normal" @click="goTokenDetail(address)">
+                  <span v-if="noTokens">--</span>
+                  <span v-else class="normal" @click="goTokenDetail(address)" >
                     {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
                   </span>
                 </div>
@@ -225,6 +226,7 @@ export default {
       copyText: '',
       haveReward: 0,
       tokenName: '',
+      noTokens: false,
     };
   },
   props: {},
@@ -265,6 +267,10 @@ export default {
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
+            if (!data) {
+              this.noTokens = true;
+              return;
+            }
             this.detailInfo[data.type + 'TxQty'] = data.txCount;
           } else {
             this.$message.error(errMsg);
