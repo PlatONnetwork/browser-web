@@ -99,9 +99,9 @@ export default {
     amount: "Amount",
     transactionFee: "Transaction Fee",
 
-    restrictedAccount: "Restricted Account",
-    restrictedAmount: "Restricted Amount",
-    restrictedPlan: "Restricted Plan",
+    restrictedAccount: "Locked-up Account",
+    restrictedAmount: "Locked-up Amount",
+    restrictedPlan: "Lockup",
 
     delegator: "Delegator",
     delegater: "Delegator",
@@ -150,7 +150,7 @@ export default {
     NumberOfVotes: "Number of votes",
     passCondition: "Pass Condition",
     voteUpgradeNumber: "Vote upgrade number",
-    totalRestricted: "Total Restricted",
+    totalRestricted: "Total Locked-up",
     transactionFailure: "Transaction failure",
 
     vote: "Vote",
@@ -202,7 +202,7 @@ export default {
     transfer: "Transfer",
     information: "Information", //Transaction
     other: "ContractCreation\\ContractExecution\\MPCTx\\Others",
-    restricting: "CreateRestricting",
+    restricting: "CreateLockup",
 
     delegate: "Delegate",
     undelegate: "Undelegate",
@@ -281,22 +281,22 @@ export default {
     tokenTracker: "Token Tracker",
 
     addressDetail: "ADDRESS DETAILS",
-    restricted: "Restricted",
+    restricted: "Locked-up",
     address: "Address",
     delegations: "Delegations",
     staking: "Stakes",
     inRedemption: "Undelegating", //In redemption
     stackingAndDelegations: "Stakes/Delegations",
 
-    restrictedBalance: "Restricted Balance",
+    restrictedBalance: "Locked-up Balance",
     forDelegations: "For Delegations\\Staking",
     slash: "Slash",
     debt: "Debt",
-    totalRestricted: "Total Restricted",
+    totalRestricted: "Total Locked-up",
     released: "Released",
     epoch: "Epoch",
     estimatedTime: "Estimated Time",
-    unlocksNumber: "Unrestricted",
+    unlocksNumber: "Redeemed",
 
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
@@ -526,7 +526,7 @@ export default {
     2004: "DeclareVersion", //'版本声明',
     2005: "CancelProposal", //取消提案
     3000: "ReportValidator", //'举报验证节点',
-    4000: "CreateRestricting", //'创建锁仓计划'
+    4000: "CreateLockup", //'创建锁仓计划'
     5000: "ClaimRewards"
   },
 
