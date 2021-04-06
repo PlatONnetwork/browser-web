@@ -175,12 +175,15 @@ export default {
     }
   }
   .table-box {
-    min-height: 100px;
     height: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    margin-bottom: 8px;
+    .total {
+      align-self: flex-start;
+    }
     .total > .label {
       font-family: Gilroy-Medium;
       font-size: 14px;
