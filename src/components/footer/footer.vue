@@ -4,7 +4,7 @@
       <h3>{{ $t('indexInfo.resource') }}</h3>
       <div class="foot-tabs">
         <span v-for="item in configData.links" :key="item.order" :class="{ hanim: windowWidth > 750 }">
-          <a :href="item.url[configLang]" target="_blank">
+          <a class="ellipsis" style="padding: 0 4px;" :href="item.url[configLang]" target="_blank">
             {{ item.name[configLang] }}
           </a>
         </span>

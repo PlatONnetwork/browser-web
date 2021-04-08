@@ -37,7 +37,7 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/apis": {
-        target: "http://192.168.9.190:50000",
+        target: "http://192.168.9.190:40000",
         // target: "https://scan.alaya.network/",
         secure: false,
         changeOrigin: true,
