@@ -31,7 +31,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tradeAbout.proposalType')">
+        <el-table-column :label="$t('tradeAbout.proposalType')"   min-width="120">
           <template slot-scope="scope">
             <span>{{$t('proposalOption.'+[scope.row.type])}}</span>
           </template>
