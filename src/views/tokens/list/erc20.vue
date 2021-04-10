@@ -1,7 +1,7 @@
 <template>
   <el-table :data="data" style="width: 100%" key="firstTable" size="mini">
     <!-- 令牌名称（令牌名称） -->
-    <el-table-column :label="$t('tokens.tokenName')">
+    <el-table-column :label="$t('tokens.tokenName')" min-width="120px">
       <template slot-scope="scope">
         <span
           @click="goTokenDetail(scope.row.address, 'erc20')"
@@ -12,7 +12,7 @@
     </el-table-column>
 
     <!-- 发行总量（） -->
-    <el-table-column :label="$t('tokens.totalSupply')">
+    <el-table-column :label="$t('tokens.totalSupply')" min-width="120px">
       <template slot-scope="scope">
         <span>{{ scope.row.totalSupply.toFixed(2) | formatNumber }}</span>
       </template>
@@ -33,7 +33,7 @@
     </el-table-column>
 
     <!-- 合约 -->
-    <el-table-column :label="$t('tokens.contract')">
+    <el-table-column :label="$t('tokens.contract')" min-width="140px">
       <template slot-scope="scope">
         <!-- <span class="cursor normal ellipsis">{{ scope.row.address }}</span> -->
 
