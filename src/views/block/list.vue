@@ -31,7 +31,7 @@
           key="firstTable"
           size="mini"
         >
-          <el-table-column :label="$t('tradeAbout.blockHeight')">
+          <el-table-column :label="$t('tradeAbout.blockHeight')" width="120px">
             <template slot-scope="scope">
               <div class="flex-special">
                 <span
@@ -109,7 +109,7 @@ import apiService from '@/services/API-services';
 import { timeDiff } from '@/services/time-services';
 
 export default {
-  name: "block-list",
+  name: 'block-list',
   data() {
     return {
       tableData: [],
@@ -176,7 +176,7 @@ export default {
       this.pageSize = val;
       this.getTradeList();
       this.replace();
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
