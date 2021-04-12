@@ -843,7 +843,7 @@
                 @click="goTokenDetail(item.innerContractAddr, 'erc20')"
                 >{{
                   `${item.innerContractName}  (${item.innerSymbol})`
-                    | sliceStr(50)
+                    | sliceStr(21)
                 }}</span
               >
             </li>
@@ -886,7 +886,7 @@
                   "
                   >{{
                     `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
-                      | sliceStr(50)
+                      | sliceStr(21)
                   }}
                 </span>
               </li>

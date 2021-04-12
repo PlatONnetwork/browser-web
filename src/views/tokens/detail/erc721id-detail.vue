@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i @click="goTokenDetail(detailInfo.contract, 'erc721')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(50) }}</i>
+          <i @click="goTokenDetail(detailInfo.contract, 'erc721')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(21) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -22,7 +22,7 @@
             <ul>
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.tokenID') }}</label>
-                <div class="money">{{ tokenId }}</div>
+                <div class="money">{{ tokenId | sliceStr(20) }}</div>
               </li>
               <li>
                 <label class="Gilroy-Medium">{{

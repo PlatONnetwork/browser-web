@@ -15,12 +15,12 @@
         <img v-pic-preview :src="item.image || require('@/assets/images/Alaya-cat-721.svg')" alt="token" class="token-pic" />
         <p class="token-id">
           #
-          <span class="normal cursor" @click="go721IdDetail(item.contract, item.tokenId)">{{ item.tokenId }}</span>
+          <span class="normal cursor" @click="go721IdDetail(item.contract, item.tokenId)">{{ item.tokenId  | sliceStr(20) }}</span>
         </p>
         <p class="token-owner">
           Owner
           <span class="normal cursor" @click="goAddressDetail(item.address)">{{
-            item.address | sliceStr(20)
+            item.address | sliceStr(16)
           }}</span>
         </p>
       </div>
@@ -107,7 +107,7 @@ export default {
     .token-pic {
       margin: 0 auto;
       max-width: 230px;
-      height: 120px;
+      max-height: 120px;
       // background: #fff;
     }
     .token-id {
@@ -120,6 +120,22 @@ export default {
     justify-content: flex-start;
     .box-item {
       margin: 12px 24px 0 0;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .inventory-box {
+    .box-item {
+      font-size: 14px;
+      .token-id,
+      .token-owner {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: break-all;
+      }
     }
   }
 }
