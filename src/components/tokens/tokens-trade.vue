@@ -21,7 +21,7 @@
         size="mini"
       >
         <!-- 交易哈希值 -->
-        <el-table-column :label="$t('tradeAbout.hash')" width="200">
+        <el-table-column :label="$t('tradeAbout.hash')" min-width="180">
           <template slot-scope="scope">
             <div class="flex-special">
               <span
@@ -36,7 +36,7 @@
         </el-table-column>
 
         <!-- 块龄 -->
-        <el-table-column :label="$t('tradeAbout.age')" width="300">
+        <el-table-column :label="$t('tradeAbout.age')" min-width="120">
           <template slot-scope="scope">
             <span>
               {{
@@ -47,7 +47,7 @@
         </el-table-column>
 
         <!-- From 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.from')">
+        <el-table-column :label="$t('tokens.from')" min-width="150">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
@@ -86,7 +86,7 @@
         </af-table-column>
 
         <!--To 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.to')">
+        <el-table-column :label="$t('tokens.to')" min-width="150">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
@@ -118,17 +118,26 @@
         </template>
         <template v-else-if="tableType === 'erc721'">
           <!-- 令牌ID -->
-          <el-table-column :label="$t('tokens.tokenID')">
+          <el-table-column :label="$t('tokens.tokenID')"  min-width="120">
             <template slot-scope="scope">
               <span
                 class="cursor normal ellipsis ellipsisWidth"
+                :title="scope.row.tokenId"
                 @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
-                >{{ scope.row.tokenId }}</span
+                >{{ scope.row.tokenId | sliceStr(16) }}</span
               >
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-else-if="tableType === 'erc721Id'" :label="$t('tokens.tokenID')" prop="tokenId"></el-table-column>
+        <el-table-column v-else-if="tableType === 'erc721Id'" :label="$t('tokens.tokenID')" prop="tokenId"  min-width="120">
+          <template slot-scope="scope">
+              <span
+                class="ellipsis ellipsisWidth"
+                :title="scope.row.tokenId"
+                >{{ scope.row.tokenId | sliceStr(16) }}</span
+              >
+            </template>
+        </el-table-column>
       </el-table>
 
       <!-- 下分页 -->

@@ -34,7 +34,7 @@
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div>
-              {{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(50) }}
+              {{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(21) }}
             </div>
           </template>
         </el-table-column>
@@ -42,7 +42,7 @@
         <el-table-column :label="$t('tokens.tokenID')">
           <template slot-scope="scope">
             <span @click="go721IdDetail(scope.row.contract, scope.row.tokenId)" class="cursor normal">
-              {{ scope.row.tokenId | sliceStr(50) }}
+              {{ scope.row.tokenId | sliceStr(21) }}
             </span>
           </template>
         </el-table-column>
@@ -157,7 +157,7 @@
               <span
                 class="cursor normal ellipsis"
                 @click="goTokenDetail(scope.row.contract, 'erc721')"
-                >{{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(50) }}</span
+                >{{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(21) }}</span
               >
             </template>
           </el-table-column>

@@ -6,7 +6,7 @@
         <span
           @click="goTokenDetail(scope.row.address, 'erc721')"
           class="cursor normal ellipsis"
-          >{{ scope.row.name | sliceStr(50) }}</span
+          >{{ scope.row.name | sliceStr(21) }}</span
         >
       </template>
     </el-table-column>

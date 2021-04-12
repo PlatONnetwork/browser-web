@@ -110,7 +110,7 @@
         <span
           class="cursor normal ellipsis"
           @click="goTokenDetail(scope.row.contract, 'erc20')"
-          >{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(50) }}</span
+          >{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(21) }}</span
         >
       </template>
     </el-table-column>
