@@ -97,18 +97,18 @@
       </template>
     </el-table-column>
 
-    <!-- todo 令牌ID-->
+    <!-- 令牌ID-->
     <el-table-column :label="$t('tokens.tokenID')">
       <template slot-scope="scope">
         <span
-          class="cursor normal"
+          class="cursor normal ellipsis"
           @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
           >{{ scope.row.tokenId  | sliceStr(16) }}</span
         >
       </template>
     </el-table-column>
 
-    <!-- todo tokens 名称+单位 -->
+    <!-- tokens 名称+单位 -->
     <el-table-column :label="$t('tokens.tokens')">
       <template slot-scope="scope">
         <span

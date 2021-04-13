@@ -42,7 +42,7 @@
         <el-table-column :label="$t('tokens.tokenID')">
           <template slot-scope="scope">
             <span @click="go721IdDetail(scope.row.contract, scope.row.tokenId)" class="cursor normal">
-              {{ scope.row.tokenId | sliceStr(21) }}
+              {{ scope.row.tokenId | sliceStr(20) }}
             </span>
           </template>
         </el-table-column>
@@ -84,21 +84,21 @@
         
         <template v-if="pageType === 'contract'">
           <!-- 块高 -->
-          <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" width="160">
+          <el-table-column prop="blockHeight" :label="$t('tradeAbout.block')" width="120">
             <template slot-scope="scope">
               <span class="cursor blue" @click="goBlockDetail(scope.row.blockNumber)">{{ scope.row.blockNumber }}</span>
             </template>
           </el-table-column>
 
           <!-- 时间 -->
-          <el-table-column :label="$t('common.time')">
+          <el-table-column :label="$t('common.time')" min-width="170">
             <template slot-scope="scope">
               <span>{{ scope.row.blockTimestamp | formatTime }}</span>
             </template>
           </el-table-column>
         </template>
         <!-- 块龄 -->
-        <el-table-column v-else :label="$t('tradeAbout.age')" min-width="100">
+        <el-table-column v-else :label="$t('tradeAbout.age')" min-width="120">
           <template slot-scope="scope">
             <span>
               {{
@@ -145,9 +145,9 @@
           <el-table-column :label="$t('tokens.tokenID')">
             <template slot-scope="scope">
               <span 
-                class="cursor normal"
+                class="cursor normal ellipsis ellipsisWidth"
                 @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
-                >{{ scope.row.tokenId }}</span>
+                >{{ scope.row.tokenId | sliceStr(20) }}</span>
             </template>
           </el-table-column>
 
