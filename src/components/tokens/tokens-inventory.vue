@@ -12,7 +12,9 @@
     </div>
     <div class="inventory-box">
       <div class="box-item" v-for="item in inventory" :key="item.tokenId">
-        <img v-pic-preview :src="item.image || require('@/assets/images/Alaya-cat-721.svg')" alt="token" class="token-pic" />
+        <div class="token-pic-wrapper">
+          <img v-pic-preview :src="item.image || require('@/assets/images/Platon-cat-721.svg')" alt="token" class="token-pic" />
+        </div>
         <p class="token-id">
           #
           <span class="normal cursor" @click="go721IdDetail(item.contract, item.tokenId)">{{ item.tokenId  | sliceStr(20) }}</span>
@@ -102,13 +104,18 @@ export default {
   justify-content: space-between;
   .box-item {
     padding: 0 8px;
-    // border: 1px solid green;
     background: #fff;
-    .token-pic {
-      margin: 0 auto;
-      max-width: 230px;
-      max-height: 120px;
-      // background: #fff;
+    .token-pic-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 230px;
+      height: 120px;
+      overflow: hidden;
+      .token-pic {
+        max-width: 230px;
+        max-height: 120px;
+      }
     }
     .token-id {
       padding: 8px 0;

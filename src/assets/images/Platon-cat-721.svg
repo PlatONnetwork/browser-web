@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="100px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo</title>
+    <g id="0.15.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1." transform="translate(-1514.000000, -643.000000)" fill="#eee" fill-rule="nonzero">
+            <g id="Currency-Card/01备份-4" transform="translate(1404.000000, 588.000000)">
+                <g id="logo" transform="translate(110.000000, 55.000000)">
+                    <polygon id="Rectangle-path" points="18.8130374 18.8150901 31.1099227 18.8150901 31.1099227 31.0798678 18.8130374 31.0798678"></polygon>
+                    <polygon id="Rectangle-path" points="42.9963418 0.153522948 49.8203435 0.153522948 49.8203435 6.95970696 42.9963418 6.95970696"></polygon>
+                    <polygon id="Rectangle-path" points="0.119719329 42.9523091 6.94372106 42.9523091 6.94372106 49.7584931 0.119719329 49.7584931"></polygon>
+                    <g id="Group" transform="translate(6.841104, 6.823242)">
+                        <path d="M6.07148024,36.129067 L30.9388951,36.129067 C33.812159,36.129067 36.1552373,33.7921066 36.1552373,30.9263449 L36.1552373,6.1238598 L30.442915,6.1238598 L30.442915,30.4146017 L6.07148024,30.4146017 L6.07148024,36.129067 Z" id="Shape"></path>
+                        <path d="M30.1863736,5.85093012 L30.1863736,0.136464842 L5.31895875,0.136464842 C2.44569486,0.136464842 0.102616567,2.47342527 0.102616567,5.33918696 L0.102616567,30.1416721 L5.81493882,30.1416721 L5.81493882,5.85093012 L30.1863736,5.85093012 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
