@@ -216,7 +216,7 @@ export default {
           this.timeZone +
           '&token=' +
           this.response;
-        if (this.tableType === 'erc721Id') {
+        if (this.tokenType === 'erc721Id') {
           this.src += '&tokenId=' + this.$route.query.tokenId;
         }
       }
