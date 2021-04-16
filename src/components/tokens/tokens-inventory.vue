@@ -81,12 +81,12 @@ export default {
       });
     },
     handleCurrentChange() {
-      this.getTradeList();
+      this.getInventory();
     },
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
-      this.getTradeList();
+      this.getInventory();
     },
   },
   created() {
