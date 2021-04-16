@@ -345,7 +345,7 @@ export default {
     },
     handleBlancePageChange(val) {
       this.blanceCurPage = val;
-      this.getListByTokenName();
+      this.getBlanceList();
     },
 
     handleTradePageChange(val) {
@@ -355,7 +355,7 @@ export default {
     handleTradeSizeChange(val) {
       this.tradeCurPage = 1;
       this.tradePageSize = val;
-      this.getTradeList();
+      this.getListByTokenName();
     },
 
     typeChange(index, type) {
