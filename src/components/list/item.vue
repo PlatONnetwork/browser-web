@@ -17,16 +17,15 @@
     >
       {{ prop }}
     </p>
-    <slot name="tipHeader">
-    </slot>
+    <slot name="tipHeader"> </slot>
     <slot></slot>
   </div>
 </template>
 <script>
-import apiService from "@/services/API-services";
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import apiService from '@/services/API-services';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
-  name: "list",
+  name: 'list',
   data() {
     return {};
   },
@@ -38,11 +37,11 @@ export default {
     },
     type: {
       type: String,
-      default: "normal"
+      default: 'normal'
     },
     width: {
       type: String,
-      default: "135"
+      default: '135'
     },
     inline: {
       type: Boolean,
@@ -128,6 +127,9 @@ export default {
     word-break: break-all;
     border-radius: 1px;
     padding: 6px;
+  }
+  .zero-block {
+    width: auto !important;
   }
 }
 </style>
