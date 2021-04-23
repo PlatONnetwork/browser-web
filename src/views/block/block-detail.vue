@@ -122,12 +122,6 @@
           :label="$t('blockAbout.extraData')"
           :prop="detailInfo.extraData"
         ></Item>
-        <Item
-          v-if="detailInfo.postscript"
-          class="postscript"
-          :label="$t('blockAbout.postscript')"
-          :prop="detailInfo.postscript"
-        ></Item>
       </List>
     </div>
     <div class="block-trade">

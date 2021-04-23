@@ -3,8 +3,17 @@
     <div class="sub-foot" v-if="path == '/' && configData.links">
       <h3>{{ $t('indexInfo.resource') }}</h3>
       <div class="foot-tabs">
-        <span v-for="item in configData.links" :key="item.order" :class="{ hanim: windowWidth > 750 }">
-          <a class="ellipsis" style="padding: 0 4px;" :href="item.url[configLang]" target="_blank">
+        <span
+          v-for="item in configData.links"
+          :key="item.order"
+          :class="{ hanim: windowWidth > 750 }"
+        >
+          <a
+            class="ellipsis"
+            style="padding: 0 4px"
+            :href="item.url[configLang]"
+            target="_blank"
+          >
             {{ item.name[configLang] }}
           </a>
         </span>
@@ -13,62 +22,112 @@
     </div>
     <div class="foot-index" v-if="path == '/' && configData.social">
       <img class="foot-logo" :src="logoPrevURL + configData.logo" alt="" />
-      <p>{{ $t('indexInfo.platScan', { siteName: configData.siteName, chain: configData.chainName }) }}</p>
-      <p>{{ $t('indexInfo.international', { year: curYear, copyRight: configData.copyRight.toUpperCase() }) }}</p>
+      <p>
+        {{
+          $t('indexInfo.platScan', {
+            siteName: configData.siteName,
+            chain: configData.chainName,
+          })
+        }}
+      </p>
+      <p>
+        {{
+          $t('indexInfo.international', {
+            year: curYear,
+            copyRight: configData.copyRight.toUpperCase(),
+          })
+        }}
+      </p>
       <div class="link-wrap">
         <a
-          :href="configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'"
+          :href="
+            configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'
+          "
           target="_blank"
           class="link-1"
         ></a>
         <a href="javascript:void(0);" class="link-2">
-          <img :src="logoPrevURL + configData.social[1].qrcode || '../../assets/images/weixin.jpg'" alt="" class="wx-img" />
+          <img
+            :src="
+              logoPrevURL + configData.social[1].qrcode ||
+              '../../assets/images/weixin.jpg'
+            "
+            alt=""
+            class="wx-img"
+          />
         </a>
         <a
-          :href="configData.social[2].url[configLang] || 'https://twitter.com/PlatON_Network'"
+          :href="
+            configData.social[2].url[configLang] ||
+            'https://twitter.com/PlatON_Network'
+          "
           target="_blank"
           class="link-3"
         ></a>
         <a
-          :href="configData.social[3].url[configLang] || 'https://www.reddit.com/user/PlatON_Network'"
+          :href="
+            configData.social[3].url[configLang] ||
+            'https://www.reddit.com/user/PlatON_Network'
+          "
           target="_blank"
           class="link-4"
         ></a>
         <a
-          :href="configData.social[4].url[configLang] || 'https://medium.com/@PlatON_Network'"
+          :href="
+            configData.social[4].url[configLang] ||
+            'https://medium.com/@PlatON_Network'
+          "
           target="_blank"
           class="link-5"
         ></a>
         <div class="link-br" />
         <a
-          :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
+          :href="
+            configData.social[5].url[configLang] ||
+            'https://github.com/PlatONnetwork'
+          "
           target="_blank"
           class="link-6"
         ></a>
 
         <a
-          :href="configData.social[6].url[configLang] || 'https://www.linkedin.com/company/platonnetwork/'"
+          :href="
+            configData.social[6].url[configLang] ||
+            'https://www.linkedin.com/company/platonnetwork/'
+          "
           target="_blank"
           class="link-7"
         ></a>
         <a
-          :href="configData.social[7].url[configLang] || 'https://www.facebook.com/PlatONNetwork/'"
+          :href="
+            configData.social[7].url[configLang] ||
+            'https://www.facebook.com/PlatONNetwork/'
+          "
           target="_blank"
           class="link-8"
         ></a>
         <a
-          :href="configData.social[8].url[configLang] || 'https://bihu.com/people/1215832888'"
+          :href="
+            configData.social[8].url[configLang] ||
+            'https://bihu.com/people/1215832888'
+          "
           target="_blank"
           class="link-9"
         ></a>
         <a
-          :href="configData.social[9].url[configLang] || 'https://www.chainnode.com/forum/267'"
+          :href="
+            configData.social[9].url[configLang] ||
+            'https://www.chainnode.com/forum/267'
+          "
           target="_blank"
           class="link-10"
         ></a>
       </div>
     </div>
-    <div class="foot-no-index foot-index" v-if="path != '/' && configData.social">
+    <div
+      class="foot-no-index foot-index"
+      v-if="path != '/' && configData.social"
+    >
       <div class="foot-left">
         <img
           :src="logoPrevURL + configData.logo"
@@ -76,61 +135,109 @@
           alt=""
           class="foot-logo"
         />
-        <p>{{ $t('indexInfo.platScan', { siteName: configData.siteName, chain: configData.chainName }) }}</p>
+        <p>
+          {{
+            $t('indexInfo.platScan', {
+              siteName: configData.siteName,
+              chain: configData.chainName,
+            })
+          }}
+        </p>
       </div>
       <div class="foot-right">
         <div class="link-wrap">
           <a
-            :href="configData.social[0].url[configLang] || 'https://t.me/PlatONNetwork'"
+            :href="
+              configData.social[0].url[configLang] ||
+              'https://t.me/PlatONNetwork'
+            "
             target="_blank"
             class="link-1"
           ></a>
           <a href="javascript:void(0);" class="link-2">
-            <img :src="logoPrevURL + configData.social[1].qrcode || '../../assets/images/weixin.jpg'" alt="" class="wx-img" />
+            <img
+              :src="
+                logoPrevURL + configData.social[1].qrcode ||
+                '../../assets/images/weixin.jpg'
+              "
+              alt=""
+              class="wx-img"
+            />
           </a>
           <a
-            :href="configData.social[2].url[configLang] || 'https://twitter.com/PlatON_Network'"
+            :href="
+              configData.social[2].url[configLang] ||
+              'https://twitter.com/PlatON_Network'
+            "
             target="_blank"
             class="link-3"
           ></a>
           <a
-            :href="configData.social[3].url[configLang] || 'https://www.reddit.com/user/PlatON_Network'"
+            :href="
+              configData.social[3].url[configLang] ||
+              'https://www.reddit.com/user/PlatON_Network'
+            "
             target="_blank"
             class="link-4"
           ></a>
           <a
-            :href="configData.social[4].url[configLang] || 'https://medium.com/@PlatON_Network'"
+            :href="
+              configData.social[4].url[configLang] ||
+              'https://medium.com/@PlatON_Network'
+            "
             target="_blank"
             class="link-5"
           ></a>
           <div class="link-br" />
           <a
-            :href="configData.social[5].url[configLang] || 'https://github.com/PlatONnetwork'"
+            :href="
+              configData.social[5].url[configLang] ||
+              'https://github.com/PlatONnetwork'
+            "
             target="_blank"
             class="link-6"
           ></a>
           <a
-            :href="configData.social[6].url[configLang] || 'https://www.linkedin.com/company/platonnetwork/'"
+            :href="
+              configData.social[6].url[configLang] ||
+              'https://www.linkedin.com/company/platonnetwork/'
+            "
             target="_blank"
             class="link-7"
           ></a>
           <a
-            :href="configData.social[7].url[configLang] || 'https://www.facebook.com/PlatONNetwork/'"
+            :href="
+              configData.social[7].url[configLang] ||
+              'https://www.facebook.com/PlatONNetwork/'
+            "
             target="_blank"
             class="link-8"
           ></a>
           <a
-            :href="configData.social[8].url[configLang] || 'https://bihu.com/people/1215832888'"
+            :href="
+              configData.social[8].url[configLang] ||
+              'https://bihu.com/people/1215832888'
+            "
             target="_blank"
             class="link-9"
           ></a>
           <a
-            :href="configData.social[9].url[configLang] || 'https://www.chainnode.com/forum/267'"
+            :href="
+              configData.social[9].url[configLang] ||
+              'https://www.chainnode.com/forum/267'
+            "
             target="_blank"
             class="link-10"
           ></a>
         </div>
-        <p>{{ $t('indexInfo.international', { year: curYear, copyRight: configData.copyRight.toUpperCase() }) }}</p>
+        <p>
+          {{
+            $t('indexInfo.international', {
+              year: curYear,
+              copyRight: configData.copyRight.toUpperCase(),
+            })
+          }}
+        </p>
       </div>
     </div>
   </div>
@@ -148,7 +255,7 @@ export default {
   },
   props: {},
   computed: {
-    ...mapGetters(["configData"]),
+    ...mapGetters(['configData']),
     lang() {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'zh' : 'en';
     },
@@ -157,7 +264,7 @@ export default {
     },
     logoPrevURL() {
       return process.env.API_ROOT;
-    }
+    },
   },
   watch: {
     '$route.path'(newVal, oldVal) {
@@ -207,7 +314,7 @@ export default {
     justify-content: center;
     span {
       background: #000;
-      margin-right: 8%;
+      margin: 0 4%;
       width: 218px;
       height: 69px;
       line-height: 69px;
@@ -215,9 +322,6 @@ export default {
       border-radius: 4px;
       display: block;
       font-size: 20px;
-      &.tab-last {
-        margin-right: 0;
-      }
       a {
         display: block;
         color: #fff;
