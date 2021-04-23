@@ -130,7 +130,7 @@
           <!-- {{ splitFn(detailInfo.postscript) }} -->
           <p
             class="zero-block"
-            style="white-space:pre-line"
+            style="white-space: pre-line"
             v-html="splitFn(detailInfo.postscript)"
           ></p>
         </Item>
@@ -169,7 +169,7 @@ export default {
       disabledLeft: false,
       disabledRight: false,
       isCopy: false,
-      copyText: ''
+      copyText: '',
     };
   },
   props: {},
@@ -178,22 +178,22 @@ export default {
   components: {
     List,
     Item,
-    tradeList
+    tradeList,
   },
   methods: {
     //切割
     splitFn(text) {
       if (!text) return;
-      return text.replaceAll('\n', '\n\n');
+      return text.replace(/\n/g, '\n\n');
     },
     //获取地址信息详情
     getDetail() {
       let param = {
-        number: this.height
+        number: this.height,
       };
       apiService.block
         .blockDetails(param)
-        .then(res => {
+        .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
             this.detailInfo = data;
@@ -214,7 +214,7 @@ export default {
             this.$message.error(errMsg);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$message.error(error);
         });
     },
@@ -253,8 +253,8 @@ export default {
       this.$router.replace({
         path: '/block-detail',
         query: {
-          height: height
-        }
+          height: height,
+        },
       });
 
       this.disabledLeft = true;
@@ -264,14 +264,14 @@ export default {
       this.$nextTick(() => {
         this.$refs.blockTrade.getTradeList(1);
       });
-    }
+    },
   },
   //生命周期函数
   created() {
     this.height = this.$route.query.height;
     this.getDetail();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
