@@ -1,15 +1,13 @@
-# Alaya 区块链浏览器
+# Platon Blockchain Browser
 
-## 开始
+## start
 
 ``` bash
-# clone this repo
-git clone https://github.com/ws456999/vue-typescript-starter
-
+# into workspace dir
 # Install project dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# run server, and default url localhost:8080 
 npm run dev
 
 # build for production with minification
