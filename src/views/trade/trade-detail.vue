@@ -1163,14 +1163,22 @@ export default {
 }
 .table-721 {
   display: flex;
+  padding-left: 60px;
+  flex-wrap: wrap;
+  position: relative;
+  
  & > ul {
    display: flex;
    flex-direction: column;
    flex-shrink: 0;
    padding-right: 1em;
+   
    &.theader {
-     width: 60px;
-     font-family: Gilroy-Medium;
+    width: 60px;
+    font-family: Gilroy-Medium;
+    position: absolute;
+    left: 0;
+    top: 0;
    }
    li {
      line-height: 32px;
@@ -1181,7 +1189,7 @@ export default {
  }
 }
 .token-pic {
-  margin: 0 auto;
+  margin: 10px auto;
   max-width: 210px;
   height: 100px;
   // background: #fff;
@@ -1197,6 +1205,7 @@ export default {
   }
  .table-721 {
     max-width: 100%;
+    flex-wrap: nowrap;
     overflow-x: scroll;
     ul.theader {
       min-width: unset !important;
