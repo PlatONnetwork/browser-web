@@ -1205,6 +1205,7 @@ export default {
   }
  .table-721 {
     max-width: 100%;
+    flex-wrap: nowrap;
     overflow-x: scroll;
     ul.theader {
       min-width: unset !important;
