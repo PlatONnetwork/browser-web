@@ -822,18 +822,19 @@
             <li
               class="tokens-item"
               v-for="(item, index) in detailInfo.erc20Params"
+              :key="index"
             >
               From
               <!-- 跳转参数都是innerContractAddr -->
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
+                @click="goAddressDetail(item.innerFrom)"
                 >{{ item.innerFrom | sliceStr(16) }}</span
               >
               to
               <span
                 class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
+                @click="goAddressDetail(item.innerTo)"
                 >{{ item.innerTo | sliceStr(16) }}</span
               >
               for
@@ -863,18 +864,19 @@
             </ul>
             <ul
               v-for="(item, index) in detailInfo.erc721Params"
+              :key="index"
             >
               <li>
                 <span
                   class="cursor blue"
-                  @click="goTokenDetail(item.innerContractAddr, 'erc721')"
+                  @click="goAddressDetail(item.innerFrom)"
                   >{{ item.innerFrom | sliceStr(16) }}
                 </span>
               </li>
               <li>
                 <span
                   class="cursor blue"
-                  @click="goTokenDetail(item.innerContractAddr, 'erc721')"
+                  @click="goAddressDetail(item.innerTo)"
                   >{{ item.innerTo | sliceStr(16) }}
                 </span>
               </li>
