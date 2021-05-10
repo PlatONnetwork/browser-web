@@ -17,7 +17,7 @@
     </div>
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
-        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'number')">
+        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
           {{ $t('contract.number') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
@@ -48,15 +48,19 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transferNum')" :min-width="$i18n.locale == 'en' ? 150 : 80">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.tokenId, scope.row.txCount)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('tokens.contract')">
           <template slot-scope="scope">
-            <span @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
+            <span v-if="isAddress" @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
               <icon-contract></icon-contract>
+              {{ scope.row.contract | sliceStr(20) }}
+            </span>
+            <span v-else class="ellipsis ellipsisWidth">
+              <icon-contract :active="false"></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
             </span>
           </template>
@@ -114,7 +118,7 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.fromType)" :active="scope.row.type !== 'OUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
+              <span class="ellipsis ellipsisWidth" v-if="isAddress && scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
               <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)">{{ scope.row.txFrom | sliceStr(16) }}</span>
             </div>
           </template>
@@ -123,7 +127,7 @@
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
         <el-table-column label="" width="70px">
           <template slot-scope="scope">
-            <span v-if="['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
+            <span v-if="isAddress && ['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
             <div v-else class="tokens-arrow fr">
               <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
@@ -136,7 +140,7 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.toType)" :active="scope.row.type !== 'INPUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
+              <span class="ellipsis ellipsisWidth" v-if="isAddress && scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
               <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.transferTo, scope.row.toType)">{{ scope.row.transferTo | sliceStr(16) }}</span>
             </div>
           </template>
@@ -146,7 +150,7 @@
             <template slot-scope="scope">
               <span 
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
+                @click="go721IdDetail(scope.row)"
                 >{{ scope.row.tokenId | sliceStr(20) }}</span>
             </template>
           </el-table-column>
@@ -201,19 +205,26 @@ export default {
 
       tradeType: 'blance',
       tokensName: 'All',
-      tokenContract: ''
+      tokenContract: '',
+      tokenId: ''
     };
   },
   props: {
     address: String,
-    // 为contract时，没有余额tab
+    // //为contract时，没有余额tab
+    // 逻辑修改: 当为contract时，ui和处理逻辑都和address一样，只有接口的addrss字段改为contract字段
+    // 
     pageType: {
       type: String,
-      default: 'address',
+      default: 'address', // address, contract, contranctA(需求修改后的新字段，为防止其他修改，暂时不删除原有逻辑)
     },
     tradeCount: Object,
   },
-  computed: {},
+  computed: {
+    isAddress() {
+      return this.pageType === 'address'
+    }
+  },
   watch: {
     $route(to, from) {
       this.$router.go(0);
@@ -224,15 +235,17 @@ export default {
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName, tokenId, txCount) {
-      this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
-      this.tokensName = tokensName;
-      this.tokenContract = contract;
+    async showAddressTokenList(token) {
+      this.tradeType = 'transfer'; //切换到交易界面 展示地址下的相关交易列表
+      this.tokensName = token.name;
+      this.tokenContract = this.isAddress ? token.contract : token.address;
+      this.tokenId = token.tokenId;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract, tokenId, txCount);
+      await this.getTradeAddressList(token.txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
+      // let key = this.isAddress ? 'address' : 'contract';
       apiService.tokens
         .tokenBalanceList({
           type: 'erc721',
@@ -255,13 +268,13 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract, tokenId, txCount) {
+    getTradeAddressList(txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
-        address: this.address,
-        tokenId,
-        contract,
+        address: this.isAddress ? this.address : this.tokenContract,
+        contract: this.isAddress ? this.tokenContract : this.address,
+        tokenId: this.tokenId,
       };
       // apiService.trade.transactionList(param);
       apiService.tokens
@@ -294,9 +307,10 @@ export default {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
+        address: this.address
       };
-      let key = this.pageType === 'contract' ? 'contract' : 'address';
-      param[key] = this.address;
+      // let key = this.isAddress ? 'address' : 'contract';
+      // param[key] = this.address;
       apiService.tokens
         .token721TxList(param)
         .then((res) => {
@@ -340,7 +354,7 @@ export default {
       if (this.tokensName === 'All') {
         this.getTradeList();
       } else {
-        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+        this.getTradeAddressList(this.tradePageTotal);
       }
     },
     handleBlancePageChange(val) {
@@ -376,19 +390,19 @@ export default {
     },
     exportFn() {
       let exportname;
-      let contract = false;
+      // let contract = false;
       if (this.tradeType === 'blance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
-        contract = this.pageType === 'contract'
+        // contract = !this.isAddress;
       }
       let query = {
         address: this.address,
         tokenType: 'erc721',
         exportname,
       }
-      contract && (query.contract = 'true')
+      // contract && (query.contract = 'true')
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',

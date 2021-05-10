@@ -66,7 +66,7 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
-              <li v-if="detailInfo.type === 5">
+              <li>
                   <label class="Gilroy-Medium">{{
                     $t('contract.erc20Trade')
                   }}</label>
@@ -74,7 +74,7 @@
                     {{ detailInfo.erc20TxQty | formatNumber }}
                   </div>
               </li>
-              <li v-if="detailInfo.type === 6">
+              <li>
                   <label class="Gilroy-Medium">{{
                     $t('contract.erc721Trade')
                   }}</label>
@@ -161,18 +161,16 @@
           >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc20"
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t('tokens.erc20TokenTxns') }}</el-button
+          >{{ $t('tokens.erc20Tokens') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc721"
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t('tokens.erc721TokenTxns') }}</el-button
+          >{{ $t('tokens.erc721Tokens') }}</el-button
         >
         <el-button
           size="medium"
@@ -191,14 +189,15 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <erc20-list v-if="detailInfo.hasErc20" v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
+      <erc20-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc20-list>
 
       <!-- Erc721 Token -->
-      <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contract"></erc721-list>
+      <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc721-list>
 
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
       </contract-info>
+
     </div>
   </div>
 </template>
@@ -251,7 +250,7 @@ export default {
           if (code == 0) {
             this.detailInfo = data;
             // 合成token 名称
-            this.getTokenDetail();
+            // this.getTokenDetail();
           } else {
             this.$message.error(errMsg);
           }
