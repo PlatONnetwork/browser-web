@@ -8,12 +8,10 @@ import VueI18n from 'vue-i18n';
 import messages from '@/lang/index';
 import ElementUI from 'element-ui';
 import ElementLocale from 'element-ui/lib/locale';
-import AFTableColumn from 'af-table-column';
 import VueWindowSize from 'vue-window-size';
 
 import VueClipboard from 'vue-clipboard2';
 import { mapActions } from 'vuex';
-import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 // 二维码生成
 import VueQriously from 'vue-qriously';
@@ -30,7 +28,6 @@ import routeJump from'./mixins';
 import '../static/css/reset.css';
 import '../static/css/element-ui.css';
 import '../static/css/iconfont.css';
-import 'swiper/dist/css/swiper.css';
 import '../static/css/gilroy.css';
 // less
 import '@/less/index.less';
@@ -38,7 +35,6 @@ import '@/less/index.less';
 Vue.use(VueI18n);
 Vue.use(ElementUI);
 Vue.use(VueClipboard);
-Vue.use(VueAwesomeSwiper);
 Vue.use(VueWindowSize);
 Vue.mixin(routeJump);
 
@@ -109,9 +105,6 @@ const i18n = new VueI18n({
   locale: browserLanguage,
   messages
 });
-
-//table列宽自适应
-Vue.use(AFTableColumn);
 
 ElementLocale.i18n((key, value) => i18n.t(key, value));
 

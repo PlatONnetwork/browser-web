@@ -123,14 +123,14 @@
         </el-table-column>
 
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
-        <af-table-column label="" width="70px">
+        <el-table-column label="" width="70px">
           <template slot-scope="scope">
             <span v-if="isAddress && ['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
             <div v-else class="tokens-arrow fr">
               <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
           </template>
-        </af-table-column>
+        </el-table-column>
 
         <!--To 操作地址（Operator_Address） -->
         <el-table-column :label="$t('tokens.to')">
