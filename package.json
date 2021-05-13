@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "af-table-column": "^1.0.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "echarts": "^4.2.0-rc.2",
     "echarts-gl": "^1.1.1",
     "element-ui": "^2.4.8",

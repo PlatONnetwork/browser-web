@@ -88,7 +88,7 @@
           </li>
           <li class="statistics-odd">
             <div class="statistics-label">
-              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}(LAT)
+              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}
             </div>
             <p>
               {{ blockStatisticData.turnValue | unit }}&nbsp;/
