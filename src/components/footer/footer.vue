@@ -314,7 +314,7 @@ export default {
     justify-content: center;
     span {
       background: #000;
-      margin: 0 auto;
+      margin: 0 4%;
       width: 218px;
       height: 69px;
       line-height: 69px;
@@ -322,9 +322,6 @@ export default {
       border-radius: 4px;
       display: block;
       font-size: 20px;
-      &.tab-last {
-        margin-right: 0;
-      }
       a {
         display: block;
         color: #fff;
