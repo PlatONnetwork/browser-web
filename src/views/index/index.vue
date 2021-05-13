@@ -92,7 +92,7 @@
             </div>
             <p>
               {{ blockStatisticData.turnValue | unit }}&nbsp;/
-              <b class="tip">
+              <b class="tip" style="color: #fff;">
                 {{ blockStatisticData.issueValue | unit }}
                 <i>{{ $t('indexInfo.totalSUPPLY') }}</i>
               </b>
@@ -969,7 +969,6 @@ export default {
         max-width: 90%;
         word-wrap:break-word;
         b {
-          color: #999;
           color: #7d7d7d;
           font-weight: normal;
         }
