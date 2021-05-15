@@ -41,6 +41,7 @@ module.exports = {
         // target: "https://scan.alaya.network/",
         secure: false,
         changeOrigin: true,
+        ws: true,
         pathRewrite: {
           "^/apis": "/browser-server"
         }

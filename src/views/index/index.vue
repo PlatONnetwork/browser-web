@@ -112,7 +112,7 @@
             <p>
               {{
                 blockStatisticData.stakingDelegationValue
-                  | percentage(blockStatisticData.issueValue)
+                  | percentage(blockStatisticData.stakingDenominator)
               }}%&nbsp;
               <b class="tip">
                 {{ blockStatisticData.stakingDelegationValue | formatNumber }}
