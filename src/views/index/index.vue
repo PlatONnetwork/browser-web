@@ -99,6 +99,7 @@
             </p>
             <el-progress
               class="progress-supply"
+              :show-text="false"
               :percentage="
                 blockStatisticData.turnValue
                   | percentage(blockStatisticData.issueValue)
@@ -120,9 +121,10 @@
               </b>
             </p>
             <el-progress
+              :show-text="false"
               :percentage="
                 blockStatisticData.stakingDelegationValue
-                  | percentage(blockStatisticData.issueValue)
+                  | percentage(blockStatisticData.stakingDenominator)
               "
             ></el-progress>
           </li>
