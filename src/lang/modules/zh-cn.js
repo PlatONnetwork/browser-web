@@ -388,7 +388,7 @@ export default {
     LIVEBLOCKTIME: "实时出块时长(s)",
     LIVEBLOCKTRANSACTIONS: "实时区块交易数",
     LIVEBLOCKHEIGHT: "当前区块高度",
-    CIRCULATINGSUPPLY: "流通量",
+    CIRCULATINGSUPPLY: "流通量/总发行量",
     LIVETRANSACTIONS: "实时交易笔数",
     CURRNTMAXTPS: "10秒内平均TPS/瞬时最高TPS",
     LIVEADDRESS: "地址数",

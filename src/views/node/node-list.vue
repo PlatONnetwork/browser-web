@@ -33,7 +33,7 @@
             <p>
               <span class="Gilroy-Medium">{{
                 ValidatorStatisticData.stakingDelegationValue
-                  | percentage(ValidatorStatisticData.issueValue)
+                  | percentage(ValidatorStatisticData.stakingDenominator)
               }}</span>
               <span class="fontSize13">%</span>
             </p>

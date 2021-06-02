@@ -773,16 +773,12 @@ export default {
       param += ',' + this.queryStatus;
       param += ',' + this.keyword.trim();
 
-      if (origin.indexOf('localhost') != -1) {
-        url = (API.BASE + url).replace('http', 'ws');
-      } else {
-        if (origin.indexOf('https') != -1) {
-          // url = url.replace("https", "wss");
-          url = origin.replace('https', 'wss') + url;
-        } else if (origin.indexOf('http') != -1) {
-          // url = url.replace("http", "ws");
-          url = origin.replace('http', 'ws') + url;
-        }
+      if (origin.indexOf('https') != -1) {
+        // url = url.replace("https", "wss");
+        url = origin.replace('https', 'wss') + url;
+      } else if (origin.indexOf('http') != -1) {
+        // url = url.replace("http", "ws");
+        url = origin.replace('http', 'ws') + url;
       }
 
       if ('WebSocket' in window) {

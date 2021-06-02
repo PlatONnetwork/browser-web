@@ -88,17 +88,18 @@
           </li>
           <li class="statistics-odd">
             <div class="statistics-label">
-              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}(LAT)
+              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}
             </div>
             <p>
               {{ blockStatisticData.turnValue | unit }}&nbsp;/
-              <b class="tip">
+              <b class="tip" style="color: #fff;">
                 {{ blockStatisticData.issueValue | unit }}
                 <i>{{ $t('indexInfo.totalSUPPLY') }}</i>
               </b>
             </p>
             <el-progress
               class="progress-supply"
+              :show-text="false"
               :percentage="
                 blockStatisticData.turnValue
                   | percentage(blockStatisticData.issueValue)
@@ -112,7 +113,7 @@
             <p>
               {{
                 blockStatisticData.stakingDelegationValue
-                  | percentage(blockStatisticData.issueValue)
+                  | percentage(blockStatisticData.stakingDenominator)
               }}%&nbsp;
               <b class="tip">
                 {{ blockStatisticData.stakingDelegationValue | formatNumber }}
@@ -120,9 +121,10 @@
               </b>
             </p>
             <el-progress
+              :show-text="false"
               :percentage="
                 blockStatisticData.stakingDelegationValue
-                  | percentage(blockStatisticData.issueValue)
+                  | percentage(blockStatisticData.stakingDenominator)
               "
             ></el-progress>
           </li>
@@ -969,7 +971,6 @@ export default {
         max-width: 90%;
         word-wrap:break-word;
         b {
-          color: #999;
           color: #7d7d7d;
           font-weight: normal;
         }
