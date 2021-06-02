@@ -1,35 +1,8 @@
 import API from '@/config/API-config'
 import store from '@/vuex/store'
 
-interface StompClientConfigConfig {
-    heartbeat?: {
-        outgoing: number
-        incoming: number
-        [propName: string]: any
-    }
-    connect: Function
-    disconnect: Function
-    [propName: string]: any
-}
-interface MsgConfig {
-    body: string
-}
-
-interface ResConfig {
-    errMsg: string,
-    code: number,
-    data: any
-}
-
-interface ChartList {
-    latitude: number,
-    longitude: number,
-    netState: number,
-    nodeType: number,
-}
-
 class Sub {
-    subs: Array<Function> = []
+    subs = []
     addSub(sub) {
         this.subs.push(sub)
     }
@@ -39,24 +12,23 @@ class Sub {
         })
     }
 }
-
 const sub = new Sub()
 
 class Ws {
-    stompClient: StompClientConfigConfig = null
-    allUrl: string = API.TOTAL
-    // websocketUrl: string = API.WS_CONFIG.root
-    websocketUrl: string = API.WS_CONFIG.root
-    timeSettimeout: number = null
-    connectFlag: boolean = false
+    stompClient = null
+    allUrl = API.TOTAL
+    // websocketUrl = API.WS_CONFIG.root
+    websocketUrl = API.WS_CONFIG.root
+    timeSettimeout = null
+    connectFlag = false
 
-    timer:any = null
+    timer = null
 
     constructor() {
         this.connect()
     }
 
-    connect(): void {
+    connect() {
         // if (this.stompClient) { return }
         let socket = new window['SockJS'](API.WS_CONFIG.root)
         this.stompClient = window['Stomp'].over(socket)
@@ -72,7 +44,7 @@ class Ws {
     }
 
     //由于服务断开导致连接失败，客户端自动连接
-    errorCallBack(error: any): void {
+    errorCallBack(error) {
         //连接失败时，服务器响应的回调方法
         //console.log('连接失败【' + error + '】')
         //连接失败后重新连接；设置延迟避免请求过多
@@ -85,7 +57,7 @@ class Ws {
 
     }
     //主动断开连接
-    disconnect(): void {
+    disconnect() {
         // 设置延时器避免页面切换太快，在视图摧毁的生命周期里，连接还没建立，执行disconnect方法无效
         this.timer = setTimeout(() => {
             console.log('connectFlag',this.connectFlag)
@@ -100,14 +72,14 @@ class Ws {
 }
 
 class IndexService extends Ws {
-    // chainId: string = store.state.common.chainId
-    blackSubHandle: any = null
-    chartSubHandle: any = null
+    // chainId = store.state.common.chainId
+    blackSubHandle = null
+    chartSubHandle = null
 
-    getChainId(): string {
+    getChainId() {
         return store.state.common.chainId
     }
-    static dealData(now: Array<object>, old = []) {
+    static dealData(now = []) {
         if (now.length) {
             if (now.length === 10) {
                 return now
@@ -120,11 +92,11 @@ class IndexService extends Ws {
             return old
         }
     }
-    static dealChartList(data: Array<any>) {
+    static dealChartList(data) {
         if (!data.length) { return [] }
 
-        let list: Array<Array<number>> = []
-        let arr: Array<number> = []
+        let list = []
+        let arr = []
 
         data.map(item => {
             if (item.latitude && item.longitude) {
@@ -133,15 +105,15 @@ class IndexService extends Ws {
             }
         })
 
-        let newList: any = new Float32Array(list.length)
+        let newList = new Float32Array(list.length)
         list.map((item, index) => {
             newList[index] = item
         })
         return newList
     }
 
-    static dealEarthCHartList(data: Array<ChartList>) {
-        let list: Array<Array<any>> = [[], [], []]
+    static dealEarthCHartList(data) {
+        let list = [[], [], []]
         data.forEach((item) => {
             if (item.netState === 1) {
                 //正常 判断是否是共识节点
@@ -153,10 +125,10 @@ class IndexService extends Ws {
         })
         return list
     }
-    getChartData(): any {
+    getChartData() {
         // sub.addSub(() => {
-        //     this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
-        //         const res: ResConfig = JSON.parse(msg.body)
+        //     this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg => {
+        //         const res = JSON.parse(msg.body)
         //         const { data, code } = res
         //         console.log(`getChartData`, res)
         //         if (code === 0) {
@@ -167,8 +139,8 @@ class IndexService extends Ws {
         //     })
         // })
         const fn = () => {
-            this.chartSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
+            this.chartSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg) => {
+                const res = JSON.parse(msg.body)
                 const { data, code } = res
                 console.log(`getChartData`, res)
                 if (code === 0) {
@@ -183,10 +155,10 @@ class IndexService extends Ws {
         this.connectFlag ? fn() : sub.addSub(fn)
     }
 
-    getStatisticData(): any {
+    getStatisticData() {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
+            this.stompClient.subscribe(API.WS_CONFIG.chainStatistic, (msg) => {
+                const res = JSON.parse(msg.body)
                 const { data, code } = res
                 console.log(`getStatisticData`, data)
                 if (code === 0) {
@@ -215,10 +187,10 @@ class IndexService extends Ws {
         })
     }
 
-    getValidatorData(): any {
+    getValidatorData() {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
+            this.stompClient.subscribe(API.WS_CONFIG.stakingList, (msg) => {
+                const res = JSON.parse(msg.body)
                 const { data, code } = res
                 // debugger                              
                 console.log(`updateValidatorData`, res)
@@ -247,8 +219,8 @@ class IndexService extends Ws {
 
     // getBlockData() {
     //     const fn = () => {
-    //         this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg: MsgConfig) => {
-    //             const res: ResConfig = JSON.parse(msg.body)
+    //         this.blackSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockList, (msg => {
+    //             const res = JSON.parse(msg.body)
     //             console.log(`updateBlockData`, res)
     //             if (res.code === 0) {
     //                 if (res.data[0].isRefresh) {
@@ -268,8 +240,8 @@ class IndexService extends Ws {
 
     getValidatorStatisticData() {
         sub.addSub(() => {
-            this.stompClient.subscribe(API.WS_CONFIG.stakingStatistic, (msg: MsgConfig) => {
-                const res: ResConfig = JSON.parse(msg.body)
+            this.stompClient.subscribe(API.WS_CONFIG.stakingStatistic, (msg) => {
+                const res = JSON.parse(msg.body)
                 const { data, code } = res
                 console.log(`getValidatorStatisticData`, res)
                 if (code === 0) {

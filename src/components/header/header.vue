@@ -406,7 +406,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import store from '@/vuex/store';
@@ -457,7 +457,7 @@ export default {
     },
     logoURL() {
       return this.configData.logo
-        ? process.env.API_ROOT + this.configData.logo
+        ? process.env.VUE_APP_API_ROOT + this.configData.logo
         : '#';
     },
   },

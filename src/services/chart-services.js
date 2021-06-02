@@ -1,4 +1,4 @@
-import echarts from 'echarts'
+import * as echarts from 'echarts';
 
 /*
  * fun init(ele, option) 初始化

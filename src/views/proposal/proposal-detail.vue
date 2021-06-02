@@ -528,7 +528,6 @@ import { formatDecimal } from '@/services/utils';
 import apiService from '@/services/API-services';
 import { timeDiff } from '@/services/time-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-import moment from 'moment';
 
 export default {
   name: 'trade-list',

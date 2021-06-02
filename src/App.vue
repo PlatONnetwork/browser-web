@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
 
 import comHeader from '@/components/header/header.vue';

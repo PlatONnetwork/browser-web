@@ -242,7 +242,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
@@ -263,7 +263,7 @@ export default {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'cn' : 'en';
     },
     logoPrevURL() {
-      return process.env.API_ROOT;
+      return process.env.VUE_APP_API_ROOT;
     },
   },
   watch: {

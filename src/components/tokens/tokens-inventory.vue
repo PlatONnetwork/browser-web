@@ -51,7 +51,7 @@ import apiService from '@/services/API-services';
 export default {
   props: {
     address: {
-      type: 'string',
+      type: String,
       required: true,
     },
     tokenId: String,
