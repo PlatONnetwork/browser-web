@@ -94,7 +94,7 @@
         <el-table :data="tableData">
           <el-table-column
             :label="$t('common.serialnumber')"
-            width="80"
+            width="50"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.ranking }}</span>
@@ -102,7 +102,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.name')"
-            :width="issafariBrowser ? 158 : 180"
+            min-width="140"
           >
             <!-- TODO历史节点 table -->
             <template slot-scope="scope">
@@ -168,7 +168,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('tradeAbout.status')">
+          <el-table-column :label="$t('tradeAbout.status')" width="90">
             <template slot-scope="scope">
               <span
                 class="Gilroy-Bold"
@@ -183,7 +183,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.pendingDelegations')"
-            min-width="180"
+            min-width="160"
           >
             <template slot-scope="scope">
               <span
@@ -210,18 +210,18 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.producedBlock')">
+          <el-table-column :label="$t('nodeInfo.producedBlock')" width="120">
             <template slot-scope="scope">
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.exitTime')" min-width="200">
+          <el-table-column :label="$t('nodeInfo.exitTime')" width="180">
             <template slot-scope="scope">
               <span>{{ scope.row.leaveTime | formatTime }}</span>
             </template>
           </el-table-column>
           <!-- 预估解锁块高 -->
-          <el-table-column min-width="250">
+          <el-table-column width="140">
             <template slot="header">
               <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
               <el-tooltip placement="bottom">
@@ -262,7 +262,7 @@
         <el-table :data="tableData">
           <el-table-column
             :label="$t('common.serialnumber')"
-            :width="issafariBrowser ? 110 : 80"
+            width="50"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.ranking }}</span>
@@ -270,7 +270,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.name')"
-            :width="issafariBrowser ? 158 : 180"
+            min-width="180"
           >
             <!-- TODO历史节点 table -->
             <template slot-scope="scope">
@@ -336,7 +336,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('tradeAbout.status')">
+          <el-table-column :label="$t('tradeAbout.status')" width="80">
             <template slot-scope="scope">
               <span
                 class="Gilroy-Bold"
@@ -347,7 +347,7 @@
               >
             </template>
           </el-table-column>
-          <el-table-column :label="$t('deleget.delegationsN')" min-width="100">
+          <el-table-column :label="$t('deleget.delegationsN')" min-width="120">
             <template slot-scope="scope">
               <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
             </template>
@@ -371,18 +371,18 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.producedBlock')">
+          <el-table-column :label="$t('nodeInfo.producedBlock')"  width="150">
             <template slot-scope="scope">
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.freezeTime')"  min-width="200">
+          <el-table-column :label="$t('nodeInfo.freezeTime')" width="180">
             <template slot-scope="scope">
               <span>{{ scope.row.leaveTime | formatTime }}</span>
             </template>
           </el-table-column>
           <!-- 预估解锁块高 -->
-          <el-table-column min-width="250">
+          <el-table-column width="140">
             <template slot="header">
               <span>{{ $t('nodeInfo.unlockBlockHeight') }}</span>
               <el-tooltip placement="bottom">
@@ -418,15 +418,14 @@
     </div>
 
     <div class="table node-table" v-else>
-      <div class="table-content">
+      <div class="table-content" :style="{height: windowWidth < 750 ? 'auto' : 'calc(100vh - 280px)'}">
         <el-table :data="tableData">
           <el-table-column
+            fixed
             :label="$t('nodeInfo.rank')"
-            :width="issafariBrowser ? 100 : 80"
+            :width="50"
+            prop="ranking"
           >
-            <template slot-scope="scope">
-              <span>{{ scope.row.ranking }}</span>
-            </template>
           </el-table-column>
           <el-table-column
             :label="$t('nodeInfo.validatorName')"
@@ -509,15 +508,18 @@
               >
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.totalStakePower')" min-width="150">
+          <el-table-column :label="$t('nodeInfo.totalStakePower')" min-width="120">
             <template slot-scope="scope">
               <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('deleget.delegationsN')">
+          <el-table-column :label="$t('deleget.delegationsN')"  min-width="120">
             <template slot-scope="scope">
               <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
             </template>
+          </el-table-column>
+          <!-- 委托奖励比例 -->
+          <el-table-column :label="$t('tradeAbout.rewardRatio')" prop="delegatedRewardRatio" width="180">
           </el-table-column>
           <el-table-column :label="$t('deleget.delegators')" width="100">
             <template slot-scope="scope">
@@ -551,22 +553,6 @@
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <!-- TODO委托奖励比例 最新文档显示无此列-->
-          <!-- <el-table-column :label="$t('tradeAbout.rewardRatio')">
-          <template slot="header">
-            <span>{{ $t("tradeAbout.rewardRatio") }}</span>
-            <el-tooltip
-              :content="$t('nodeInfo.node1Tips')"
-              placement="right-end"
-            >
-              <img
-                class="tipsImg"
-                src="@/assets/images/icon-quest.svg"
-                alt="tips"
-              />
-            </el-tooltip>
-          </template>
-        </el-table-column> -->
           <!-- TODO预计年化收益率 -->
           <el-table-column
             :label="$t('nodeInfo.yield3')"
@@ -576,8 +562,7 @@
             <template slot="header">
               <span class="tipsTitle"> {{ $t('nodeInfo.yield3') }}</span>
               <el-tooltip placement="bottom" :hide-after="0">
-                <div slot="content" class="long-tips">
-                  {{ $t('nodeInfo.node1Tips') }}
+                <div slot="content" class="long-tips" v-html="$t('tips.validatorYield')">
                 </div>
                 <img
                   class="tipsImg"
@@ -604,8 +589,7 @@
                 {{ $t('nodeInfo.delegatedYield') }}</span
               >
               <el-tooltip placement="bottom">
-                <div slot="content" class="long-tips">
-                  {{ $t('nodeInfo.node2Tips') }}
+                <div slot="content" class="long-tips" v-html="$t('tips.delegatedYield')">
                 </div>
                 <img
                   class="tipsImg"
@@ -620,6 +604,26 @@
               >
               <span class="Gilroy-Medium" v-else>--</span>
             </template>
+          </el-table-column>
+          <!-- 出块率 -->
+          <el-table-column :label="$t('nodeInfo.gBlockRate')" prop="genBlocksRate" min-width="150">
+            <template slot="header">
+              <span class="tipsTitle">
+                {{ $t('nodeInfo.gBlockRate') }}</span
+              >
+              <el-tooltip placement="bottom">
+                <div slot="content" class="long-tips" v-html="$t('tips.gBlockRate')">
+                </div>
+                <img
+                  class="tipsImg"
+                  src="@/assets/images/icon-quest.svg"
+                  alt="tips"
+                />
+              </el-tooltip>
+            </template>
+          </el-table-column>
+          <!-- 版本号 -->
+          <el-table-column :label="$t('nodeInfo.version')" prop="version">
           </el-table-column>
         </el-table>
       </div>

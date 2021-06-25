@@ -6,16 +6,17 @@ module.exports = {
     port: 8080,
     open: true,
     proxy: {
-      "/apis": {
-        target: "http://192.168.9.190:40000",
-        // target: "https://scan.alaya.network/",
+      '/apis': {
+        // target: 'http://192.168.9.190:40000',
+        target: "https://scan.platon.network/",
         secure: false,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          "^/apis": "/browser-server"
+          '^/apis': '/browser-server'
         }
       }
     }
-  }
+  },
+  transpileDependencies:['vue-particles']
 }

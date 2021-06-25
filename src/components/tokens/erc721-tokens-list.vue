@@ -18,7 +18,7 @@
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
         <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
-          {{ $t('contract.number') }} ({{ balanceTotalDisplay }})
+          {{ $t('tokens.hold721') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
           {{ $t('contract.transactions') }} ({{ tokensName }})
@@ -102,7 +102,7 @@
           </el-table-column>
         </template>
         <!-- 块龄 -->
-        <el-table-column v-else :label="$t('tradeAbout.age')" min-width="120">
+        <el-table-column v-else :label="$t('tradeAbout.age')" width="120">
           <template slot-scope="scope">
             <span>
               {{
@@ -113,7 +113,7 @@
         </el-table-column>
 
         <!-- From 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.from')">
+        <el-table-column :label="$t('tokens.from')" min-width="140">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
@@ -135,7 +135,7 @@
         </el-table-column>
 
         <!--To 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.to')">
+        <el-table-column :label="$t('tokens.to')"  min-width="140">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->

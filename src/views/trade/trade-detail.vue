@@ -253,6 +253,98 @@
         <Item :label="$t('tradeAbout.transactionFee')">
           <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
+        <!-- erc20 tokens -->
+        <Item
+          :label="$t('tradeAbout.tokens')"
+          v-if="detailInfo.erc20Params && detailInfo.erc20Params.length > 0"
+        >
+          <ul>
+            <li
+              class="tokens-item"
+              v-for="(item, index) in detailInfo.erc20Params"
+              :key="index"
+            >
+              From
+              <!-- 跳转参数都是innerContractAddr -->
+              <span
+                class="cursor blue"
+                @click="goAddressDetail(item.innerFrom, item.fromType)"
+                >{{ item.innerFrom | sliceStr(16) }}</span
+              >
+              to
+              <span
+                class="cursor blue"
+                @click="goAddressDetail(item.innerTo, item.toType)"
+                >{{ item.innerTo | sliceStr(16) }}</span
+              >
+              for
+              <span class="money">{{ item.innerValue | formatMoney }}</span>
+              <span
+                class="cursor blue"
+                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
+                >{{
+                  `${item.innerContractName}  (${item.innerSymbol})`
+                    | sliceStr(21)
+                }}</span
+              >
+            </li>
+          </ul>
+        </Item>
+        <!-- erc721 tokens -->
+        <Item
+          :label="$t('tradeAbout.tokens')"
+          v-if="detailInfo.erc721Params && detailInfo.erc721Params.length > 0"
+        >
+          <div class="table-721">
+            <ul class="theader">
+              <li>from</li>
+              <li>to</li>
+              <li>token</li>
+              <li>icon</li>
+            </ul>
+            <ul
+              v-for="(item, index) in detailInfo.erc721Params"
+              :key="index"
+            >
+              <li>
+                <span
+                  class="cursor blue"
+                  @click="goAddressDetail(item.innerFrom, item.fromType)"
+                  >{{ item.innerFrom | sliceStr(16) }}
+                </span>
+              </li>
+              <li>
+                <span
+                  class="cursor blue"
+                  @click="goAddressDetail(item.innerTo, item.toType)"
+                  >{{ item.innerTo | sliceStr(16) }}
+                </span>
+              </li>
+              <li>
+                <span
+                  class="cursor blue"
+                  @click="
+                    go721IdDetail(item.innerContractAddr, item.innerValue)
+                  "
+                  >{{
+                    `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
+                      | sliceStr(21)
+                  }}
+                </span>
+              </li>
+              <li>
+                <img
+                  v-pic-preview
+                  class="token-pic"
+                  :src="
+                    item.innerImage ||
+                    require('@/assets/images/Alaya-cat-721.svg')
+                  "
+                />
+              </li>
+            </ul>
+        </div>
+        </Item>
       </List>
 
       <!-- 委托交易-->
@@ -812,98 +904,6 @@
               }})</span
             >
           </div>
-        </Item>
-        <!-- erc20 tokens -->
-        <Item
-          :label="$t('tradeAbout.tokens')"
-          v-if="detailInfo.erc20Params && detailInfo.erc20Params.length > 0"
-        >
-          <ul>
-            <li
-              class="tokens-item"
-              v-for="(item, index) in detailInfo.erc20Params"
-              :key="index"
-            >
-              From
-              <!-- 跳转参数都是innerContractAddr -->
-              <span
-                class="cursor blue"
-                @click="goAddressDetail(item.innerFrom)"
-                >{{ item.innerFrom | sliceStr(16) }}</span
-              >
-              to
-              <span
-                class="cursor blue"
-                @click="goAddressDetail(item.innerTo)"
-                >{{ item.innerTo | sliceStr(16) }}</span
-              >
-              for
-              <span class="money">{{ item.innerValue | formatMoney }}</span>
-              <span
-                class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
-                >{{
-                  `${item.innerContractName}  (${item.innerSymbol})`
-                    | sliceStr(21)
-                }}</span
-              >
-            </li>
-          </ul>
-        </Item>
-        <!-- erc721 tokens -->
-        <Item
-          :label="$t('tradeAbout.tokens')"
-          v-if="detailInfo.erc721Params && detailInfo.erc721Params.length > 0"
-        >
-          <div class="table-721">
-            <ul class="theader">
-              <li>from</li>
-              <li>to</li>
-              <li>token</li>
-              <li>icon</li>
-            </ul>
-            <ul
-              v-for="(item, index) in detailInfo.erc721Params"
-              :key="index"
-            >
-              <li>
-                <span
-                  class="cursor blue"
-                  @click="goAddressDetail(item.innerFrom)"
-                  >{{ item.innerFrom | sliceStr(16) }}
-                </span>
-              </li>
-              <li>
-                <span
-                  class="cursor blue"
-                  @click="goAddressDetail(item.innerTo)"
-                  >{{ item.innerTo | sliceStr(16) }}
-                </span>
-              </li>
-              <li>
-                <span
-                  class="cursor blue"
-                  @click="
-                    go721IdDetail(item.innerContractAddr, item.innerValue)
-                  "
-                  >{{
-                    `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
-                      | sliceStr(21)
-                  }}
-                </span>
-              </li>
-              <li>
-                <img
-                  v-pic-preview
-                  class="token-pic"
-                  :src="
-                    item.innerImage ||
-                    require('@/assets/images/Platon-cat-721.svg')
-                  "
-                />
-              </li>
-            </ul>
-        </div>
         </Item>
         <!-- 燃料限制 -->
         <Item

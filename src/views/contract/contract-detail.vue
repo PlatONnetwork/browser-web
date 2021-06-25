@@ -164,20 +164,29 @@
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t('tokens.erc20Tokens') }}</el-button
+          >{{ $t('contract.erc20Trade') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t('tokens.erc721Tokens') }}</el-button
+          >{{ $t('contract.erc721Trade') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-          >{{ $t('contract.contract') }}</el-button
+          v-if="isAddressDetailsDelegation"
         >
+          {{ $t('contract.delegations') }}
+        </el-button>
+        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" v-if="isAddressDetailsReward">
+          {{ $t('tradeAbout.rewardDetails') }}
+        </el-button>
+        <el-button size="medium" :class="{ active: tabIndex == 6 }" @click="tabChange(6)">
+          {{ $t('contract.contract') }}
+        </el-button>
+
       </div>
 
       <!-- 交易 -->
@@ -194,19 +203,27 @@
       <!-- Erc721 Token -->
       <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc721-list>
 
+      <!-- 委托 -->
+      <delegation-info v-show="tabIndex == 4" :detailInfo="detailInfo" :address="address"></delegation-info>
+
+      <!-- 奖励领取明细 -->
+      <reward-detail v-show="tabIndex == 5" :tradeCount="detailInfo" :address="address"></reward-detail>
+
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
-      </contract-info>
+      <contract-info v-show="tabIndex == 6" :detailInfo="detailInfo"></contract-info>
 
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import apiService from '@/services/API-services';
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
-import contractInfo from '@/components/contract/contract-info';
+import rewardDetail from '@/components/address/rewardDetailTable'
+import delegationInfo from '@/components/address/delegations-info'
+import contractInfo from '@/components/contract/contract-info'
 export default {
   name: 'contract-detail',
   data() {
@@ -229,13 +246,17 @@ export default {
     };
   },
   props: {},
-  computed: {},
+  computed: {
+    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward']),
+  },
   watch: {},
   components: {
     tradeList,
     erc20List,
     erc721List,
     contractInfo,
+    rewardDetail,
+    delegationInfo,
   },
   methods: {
     //获取地址信息详情

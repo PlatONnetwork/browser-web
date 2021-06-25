@@ -105,7 +105,8 @@ const BASE = process.env.VUE_APP_API_ROOT,
   },
   MORE = {
     queryConfig: `${MORE_URL}/queryConfig`,
-    globalConfig: `${TOTAL}/config.json`
+    globalConfig: `${TOTAL}/config.json`,
+    queryFundAddress: `${TOTAL}/internalAddress/foundationInfo`,
   };
 export default {
   TOTAL,

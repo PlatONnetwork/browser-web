@@ -141,6 +141,9 @@
               <el-dropdown-item command="/governable-parameter">{{
                 $t('more.governableParameter')
               }}</el-dropdown-item>
+              <el-dropdown-item command="/foundation-address">{{
+                $t('more.foundationAddress')
+              }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -363,12 +366,20 @@
               </el-menu-item>
               <el-menu-item
                 @click="toggleMobileMenuOpenend"
-                class="governable-parameter"
                 index="/governable-parameter"
                 :class="{ active: $route.path == '/governable-parameter' }"
               >
                 <router-link to="/governable-parameter">{{
                   $t('more.governableParameter')
+                }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                index="/foundation-address"
+                :class="{ active: $route.path == '/foundation-address' }"
+              >
+                <router-link to="/foundation-address">{{
+                  $t('more.foundationAddress')
                 }}</router-link>
               </el-menu-item>
             </el-menu-item-group>
@@ -904,9 +915,6 @@ export default {
             font-weight: 700;
           }
         }
-        // &.governable-parameter {
-        //   font-size: 12px;
-        // }
       }
       li {
         padding: 0 !important;

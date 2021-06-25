@@ -1,4 +1,6 @@
 module.exports = {
-  semi: true,
-  singleQuote: true
-};
+  singleQuote: true,
+  semi: false,
+  htmlWhitespaceSensitivity: 'ignore',
+  printWidth: 120
+}

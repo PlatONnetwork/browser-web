@@ -18,7 +18,7 @@
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
         <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
-          {{ $t('contract.balance') }} ({{ balanceTotalDisplay }})
+          {{ $t('tokens.hold20') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
           {{ $t('contract.transactions') }} ({{ tokensName }})
@@ -38,7 +38,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tokens.unit')">
+        <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
             <div>
               {{ scope.row.symbol | sliceStr(21) }}

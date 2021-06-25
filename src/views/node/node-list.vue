@@ -5,7 +5,7 @@
       <div class="node-list-header">
         <List class="statistic-info">
           <h3 class="Gilroy-Medium">{{ $t('nodeInfo.liveStakingInfo') }}</h3>
-          <Item :label="$t('nodeInfo.totalStakePower')">
+          <Item :label="$t('nodeInfo.totalStakePower')" :tips="$t('tips.totalStakePower')">
             <p class="Gilroy-Medium">
               {{ ValidatorStatisticData.stakingDelegationValue | unit }}
               <span class="fontSize13 Gilroy-Regular" style="padding-right: 1px"
@@ -29,7 +29,7 @@
               <span class="fontSize13 currency">&nbsp;LAT</span>
             </p>
           </Item>
-          <Item :label="$t('nodeInfo.stakeRate')">
+          <Item :label="$t('nodeInfo.stakeRate')" :tips="$t('tips.stakeRate')">
             <p>
               <span class="Gilroy-Medium">{{
                 ValidatorStatisticData.stakingDelegationValue

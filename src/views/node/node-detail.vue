@@ -258,25 +258,6 @@
           </div>
           <div class="node-statistic" v-if="!detailInfo.isInit">
             <List class="node-left" :inline="true">
-              <Item :vertical="true">
-                <div slot="tipHeader">
-                  <label>
-                    {{ $t('nodeInfo.rewardRatio') }}
-                  </label>
-                  <el-tooltip placement="bottom" class="item" effect="dark">
-                    <div slot="content" class="delegate-msg">
-                      {{ $t('nodeInfo.ratioTips') }}
-                    </div>
-                    <i class="address-icon"></i>
-                  </el-tooltip>
-                </div>
-                <p>
-                  <span class="Gilroy-Medium fontSize18">{{
-                    detailInfo.rewardPer
-                  }}</span>
-                  <span class="fontSize13"> %</span>
-                </p>
-              </Item>
               <Item
                 v-if="detailInfo.status == 4 || detailInfo.status == 5"
                 :vertical="true"
@@ -291,6 +272,23 @@
               >
                 <p class="Gilroy-Medium fontSize18">
                   {{ detailInfo.delegateQty }}
+                </p>
+              </Item>
+              <Item :vertical="true">
+                <div slot="tipHeader">
+                  <label>
+                    {{ $t('nodeInfo.blockRate24h') }}
+                  </label>
+                  <el-tooltip placement="bottom" class="item" effect="dark">
+                    <div slot="content" class="delegate-msg" v-html="$t('tips.blockRate24h')">
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </div>
+                <p>
+                  <span class="Gilroy-Medium fontSize18">{{
+                    detailInfo.genBlocksRate
+                  }}</span>
                 </p>
               </Item>
               <Item
@@ -453,6 +451,11 @@
                 </b>
               </div>
             </Item>
+            <Item :label="$t('nodeInfo.version')">
+              <div>
+                {{ detailInfo.version }}
+              </div>
+            </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
               <div>
                 <span
@@ -512,7 +515,16 @@
                 <span class="lightgray" v-else>Null</span>
               </div>
             </Item>
-            <Item :label="$t('nodeInfo.rewardRatio')">
+            <Item>
+              <label slot="tipHeader">
+                {{ $t('nodeInfo.rewardRatio') }}
+                ：<el-tooltip placement="bottom" class="item" effect="dark">
+                  <div slot="content" class="delegate-msg">
+                    {{ $t('nodeInfo.ratioTips') }}
+                  </div>
+                  <i class="address-icon"></i>
+                </el-tooltip>
+              </label>
               <div>
                 <span v-if="detailInfo.isInit">--</span>
                 <span v-else class="fontSize14 Gilroy-Medium"
@@ -579,7 +591,7 @@
                     >
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('common.time')"  min-width="180">
+                <el-table-column :label="$t('common.time')"  width="180">
                   <template slot-scope="scope">
                     <span>{{ scope.row.timestamp | formatTime }}</span>
                   </template>
@@ -624,7 +636,7 @@
             >
               <el-table-column
                 :label="$t('common.time')"
-                :min-width="windowWidth < 750 ? '180' : ''"
+                width="200"
               >
                 <template slot-scope="scope">
                   <span>{{ scope.row.timestamp | formatTime }}</span>
@@ -632,7 +644,7 @@
               </el-table-column>
               <el-table-column
                 :label="$t('nodeInfo.actions')"
-                :width="windowWidth < 750 ? '120' : ''"
+                min-width="180"
               >
                 <template slot-scope="scope">
                   <p
@@ -752,7 +764,7 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('nodeInfo.inTxHash')" min-width="150">
+              <el-table-column :label="$t('nodeInfo.inTxHash')" min-width="180">
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
@@ -935,7 +947,7 @@
               <el-table-column
                 :label="$t('tradeAbout.claimTime')"
                 show-overflow-tooltip
-                :min-width="windowWidth < 750 ? 120 : ''"
+                width="180"
               >
                 <template slot-scope="scope">
                   <span>{{ scope.row.time | formatTime }}</span>
@@ -1455,6 +1467,17 @@ export default {
     font-family: Gilroy-Medium;
     font-size: 14px;
   }
+  .basicInfo {
+    .list-wrap {
+      .item-wrap {
+        .list-item {
+          /deep/ & > label {
+            min-width: 180px;
+          }
+        }
+      }
+    }
+  }
 }
 .node-last {
   position: relative;
@@ -1571,6 +1594,9 @@ export default {
             .list-item {
               & > *:nth-child(2) {
                 word-break: break-all;
+              }
+              & > label {
+                min-width: 210px;
               }
             }
           }

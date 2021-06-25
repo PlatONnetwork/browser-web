@@ -42,7 +42,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('tradeAbout.age')">
+          <el-table-column :label="$t('tradeAbout.age')" width="120px">
             <template slot-scope="scope">
               <span
                 >{{ timeDiffFn(scope.row.serverTime, scope.row.timestamp)

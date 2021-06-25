@@ -1,7 +1,14 @@
 const GovernableParameter = () => import('@/views/more/governable-parameter.vue')
-export default {
-    path: '/governable-parameter',
-    component: GovernableParameter,
-    name: 'governableParameter',
+const Fund = () => import('@/views/more/fund.vue')
+
+export const governableParameter = {
+  path: '/governable-parameter',
+  component: GovernableParameter,
+  name: 'governableParameter'
 }
-// src\views\more\governable-parameter.vue
+
+export const foundationAddress = {
+  path: '/foundation-address',
+  component: Fund,
+  name: 'foundationAddress'
+}

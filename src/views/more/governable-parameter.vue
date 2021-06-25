@@ -23,7 +23,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.stakeThreshold, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -42,7 +42,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.stakeThreshold, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -90,7 +90,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.operatingThreshold, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -109,7 +109,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.operatingThreshold, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -155,7 +155,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.maxValidators, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -172,7 +172,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.staking.maxValidators, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -216,7 +216,7 @@
                     getPercentage(lis.staking.unStakeFreezeDuration, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -235,7 +235,7 @@
                     getPercentage(lis.staking.unStakeFreezeDuration, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -279,7 +279,7 @@
                     getPercentage(lis.staking.rewardPerMaxChangeRange, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -298,7 +298,7 @@
                     getPercentage(lis.staking.rewardPerMaxChangeRange, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -344,7 +344,7 @@
                     getPercentage(lis.staking.rewardPerChangeInterval, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -363,7 +363,7 @@
                     getPercentage(lis.staking.rewardPerChangeInterval, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -415,7 +415,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.slashing.slashBlocksReward, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -432,7 +432,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.slashing.slashBlocksReward, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -478,7 +478,7 @@
                     getPercentage(lis.slashing.slashFractionDuplicateSign, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -497,7 +497,7 @@
                     getPercentage(lis.slashing.slashFractionDuplicateSign, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -543,7 +543,7 @@
                     getPercentage(lis.slashing.duplicateSignReportReward, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -562,7 +562,7 @@
                     getPercentage(lis.slashing.duplicateSignReportReward, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -606,7 +606,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.slashing.maxEvidenceAge, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -623,7 +623,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.slashing.maxEvidenceAge, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -667,7 +667,7 @@
                     getPercentage(lis.slashing.zeroProduceCumulativeTime, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -686,7 +686,7 @@
                     getPercentage(lis.slashing.zeroProduceCumulativeTime, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -730,7 +730,7 @@
                     getPercentage(lis.slashing.zeroProduceNumberThreshold, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -749,7 +749,7 @@
                     getPercentage(lis.slashing.zeroProduceNumberThreshold, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -793,7 +793,7 @@
                     getPercentage(lis.slashing.zeroProduceFreezeDuration, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -812,7 +812,7 @@
                     getPercentage(lis.slashing.zeroProduceFreezeDuration, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -864,7 +864,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.block.maxBlockGasLimit, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -881,7 +881,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.block.maxBlockGasLimit, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -933,7 +933,7 @@
                     getPercentage(lis.reward.increaseIssuanceRatio, 1)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -952,7 +952,7 @@
                     getPercentage(lis.reward.increaseIssuanceRatio, 2)
                   "
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
@@ -1004,7 +1004,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.restricting.minimumRelease, 1)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#3BB012"
                 ></el-progress>
               </div>
@@ -1021,7 +1021,7 @@
                 <el-progress
                   :percentage="getPercentage(lis.restricting.minimumRelease, 2)"
                   :show-text="false"
-                  stroke-width="20"
+                  :stroke-width="20"
                   color="#000000"
                 ></el-progress>
               </div>
