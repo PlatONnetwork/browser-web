@@ -171,6 +171,7 @@ export default {
       pageSize: 20,
       pageTotal: 0,
       displayTotalCount: 0,
+      isLoaded: false,
     };
   },
   props: {},
@@ -242,6 +243,10 @@ export default {
           vm.currentPage = vm.$route.query.currentPage - 0;
           vm.pageSize = vm.$route.query.pageSize - 0;
         }
+        if (vm.isLoaded){
+          vm.isLoaded = false;
+          return
+        }
         vm.getTradeList();
       }
     });
@@ -252,6 +257,7 @@ export default {
       this.currentPage = this.$route.query.currentPage - 0;
       this.pageSize = this.$route.query.pageSize - 0;
     }
+    this.isLoaded = true;
     this.getTradeList();
   },
   mounted() {},
