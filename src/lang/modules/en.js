@@ -481,7 +481,7 @@ export default {
     node: "Node",
     officialRecommendation: "Official Recommendation",
 
-    delegatedYield: "delegated Yield",
+    delegatedYield: "Delegated Yield",
     node1Tips:
       "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
     node2Tips:
@@ -620,14 +620,15 @@ export default {
       "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   tips: {
-    circulatingSupply:`The number of tokens that are circulating in the market and in the general public’s hands Circulating Supply in = Total Supply - Locked Tokens - Tokens Hosted by LatticeX Foundation<br />
-    Where the locked tokens include the tokens staked and delegated by the node as well as the tokens locked in the lockup contract`,
-    totalSupply:`The number of tokens that have been created minus the number of tokens that have been burned<br />
+    circulatingSupply:`The number of tokens that are circulating in the market and in the general public’s hands.<br />
+    Circulating Supply in = Total Supply - Locked Tokens - Tokens Hosted by LatticeX Foundation<br />
+    Where the locked tokens include the tokens staked and delegated by the node as well as the tokens locked in the lockup contract.`,
+    totalSupply:`The number of tokens that have been created minus the number of tokens that have been burned.<br />
     Total Supply = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
-    Where W is the initial issued amount of 10 billion, n is the serial number of the current issuance cycle, 1 is the starting serial number of the genesis block, and a% is the additional issuance ratio, which is at 2.5% currently`,
-    totalStakePower: `The number of tokens staked, including the tokens staked by nodes and total delegations<br />
+    Where W is the initial issued amount of 10 billion, n is the serial number of the current issuance cycle, 1 is the starting serial number of the genesis block, and a% is the additional issuance ratio, which is at 2.5% currently.`,
+    totalStakePower: `The number of tokens staked, including the tokens staked by nodes and total delegations.<br />
     Total Stakes = Balance of the Staking Contract Address (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7)`,
-    stakeRate: `The proportion of tokens staked to the total tokens that can be staked, the latter including the tokens locked in the lockup contract<br />
+    stakeRate: `The proportion of tokens staked to the total tokens that can be staked, the latter including the tokens locked in the lockup contract.<br />
     Stake Rate = Total Stakes / Total Supply - Balance of Staking-related System Contracts - LatticeX Foundation Lockup Balance<br />
     The staking-related system contracts include RewardManagerPool (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrdyjj2v) and DelegateRewardPool (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxlcypcy)`,
     validatorYield: `The APY (Annual Percentage Yield) converted from the net income per share of the node’s stakes, based on the last 4 epochs. It is for reference only, and does not constitute any recommendation. <br />

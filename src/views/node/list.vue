@@ -612,7 +612,7 @@
                 {{ $t('nodeInfo.gBlockRate') }}</span
               >
               <el-tooltip placement="bottom">
-                <div slot="content" class="long-tips" v-html="$t('tips.gBlockRate')">
+                <div slot="content" class="long-tips" v-html="$t('tips.blockRate24h')">
                 </div>
                 <img
                   class="tipsImg"

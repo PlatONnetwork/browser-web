@@ -614,15 +614,15 @@ export default {
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   tips: {
-    circulatingSupply:`在市场上实时流通的、公众手中的Token数量<br />
+    circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
     实时流通供应量 = 总发行量 - 锁定的Token - 基金会托管的Token<br />
-    其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token`,
-    totalSupply:`已经创造出来的Token数量减去已销毁的Token数量<br />
+    其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token。`,
+    totalSupply:`已经创造出来的Token数量减去已销毁的Token数量。<br />
     总发行量 = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     其中 W为初始发行100亿，n为当前增发周期序号，创世区块开始序号为1，a%为增发比例，当前为2.5%`,
-    totalStakePower: `参与Staking的Token数，包含节点质押金和接收的委托<br />
-    总质押 =  Staking合约地址余额（ lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7）`,
-    stakeRate: `参与Staking的Token占总可质押Token的比例，其中可质押Token包含锁仓合约锁定的Token<br />
+    totalStakePower: `参与Staking的Token数，包含节点质押金和接收的委托。<br />
+    总质押 =  Staking合约地址余额（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7）`,
+    stakeRate: `参与Staking的Token占总可质押Token的比例，其中可质押Token包含锁仓合约锁定的Token。<br />
     质押率 = 总质押 / 总发行量 - Staking相关系统合约余额 - 基金会账户余额有锁仓余额<br />
     Staking相关系统合约包含<br />
     RewardManagerPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrdyjj2v），DelegateRewardPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxlcypcy）`,
@@ -642,12 +642,12 @@ export default {
   },
   fund: {
     title: "基金会地址",
-    totalBalance: "余额总数",
-    totalLocked: "锁仓余额总数",
-    pageTotal: `总共 <b class="black">{0}</b> 个地址`,
+    totalBalance: "自由金总余额",
+    totalLocked: "锁仓金总余额",
+    pageTotal: `总计 <b class="black">{0}</b> 个地址`,
     tAddress: "地址",
-    tBalance: "余额 (LAT)",
-    tLockedBalance: "锁仓余额 (LAT)"
+    tBalance: "自由金余额 (LAT)",
+    tLockedBalance: "锁仓金余额 (LAT)"
   },
   ...zhLocale
 };
