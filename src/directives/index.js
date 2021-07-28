@@ -56,4 +56,32 @@ const picPreview = Vue.directive('picPreview', {
   }
 });
 
-export default [nodeMove, picPreview];
+const mousescroll = Vue.directive('mousescroll', {
+  bind(el) {
+    let isActive = false;
+    const open = () => {
+      isActive = true;
+      el.style.cursor = 'move';
+    }
+    const close = () => {
+      isActive = false;
+      el.style.cursor = 'default';
+    }
+    el.addEventListener('mousedown', () => {
+      open();
+    });
+    el.addEventListener('mousemove', (e) => {
+      if (isActive) {
+        el.scrollBy(-e.movementX, -e.movementY)
+      }
+    });
+    el.addEventListener('mouseleave', () => {
+      isActive && close()
+    });
+    el.addEventListener('mouseup', () => {
+      close();
+    });
+  }
+});
+
+export default { nodeMove, picPreview, mousescroll };
