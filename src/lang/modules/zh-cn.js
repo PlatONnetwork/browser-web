@@ -614,6 +614,7 @@ export default {
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   tips: {
+    totalSupply_721: "已铸造的Token总量",
     circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
     实时流通供应量 = 总发行量 - 锁定的Token - 基金会托管的Token<br />
     其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token。`,

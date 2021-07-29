@@ -8,7 +8,7 @@
           <p>{{ $t('fund.totalBalance') }}</p>
         </li>
         <li class="t-li">
-          <p class="h3">{{ totalBalance | formatMoney }}</p>
+          <p class="h3">{{ totalRestrictingBalance | formatMoney }}</p>
           <p>{{ $t('fund.totalLocked') }}</p>
         </li>
       </ul>
@@ -78,9 +78,6 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val
-      if (val > this.pageTotal) {
-        return
-      }
       this.currentPage = 1
       this.getList()
     },

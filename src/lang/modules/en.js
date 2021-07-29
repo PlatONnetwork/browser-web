@@ -620,6 +620,7 @@ export default {
       "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   tips: {
+    totalSupply_721: "Total amount of Tokens",
     circulatingSupply:`The number of tokens that are circulating in the market and in the general public’s hands.<br />
     Circulating Supply in = Total Supply - Locked Tokens - Tokens Hosted by LatticeX Foundation<br />
     Where the locked tokens include the tokens staked and delegated by the node as well as the tokens locked in the lockup contract.`,
