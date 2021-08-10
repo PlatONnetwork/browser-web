@@ -68,14 +68,14 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.contract')">
           <template slot-scope="scope">
-            <span v-if="isAddress" @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
+            <span @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
               <icon-contract></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
             </span>
-            <span v-else class="ellipsis ellipsisWidth">
+            <!-- <span v-else class="ellipsis ellipsisWidth">
               <icon-contract :active="false"></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
-            </span>
+            </span> -->
           </template>
         </el-table-column>
       </el-table>
@@ -116,7 +116,7 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.fromType)" :active="scope.row.type !== 'OUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="isAddress && scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
+              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
               <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)">{{ scope.row.txFrom | sliceStr(16) }}</span>
             </div>
           </template>
@@ -125,7 +125,7 @@
         <!-- 交易方向type, INPUT 进账，OUT 出账，NONE 无方向 -->
         <af-table-column label="" width="70px">
           <template slot-scope="scope">
-            <span v-if="isAddress && ['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
+            <span v-if="['INPUT', 'OUT'].includes(scope.row.type)" class="tokens-type" :class="'tokens-type--' + getTokenType(scope.row.type)">{{ getTokenType(scope.row.type, false) }}</span>
             <div v-else class="tokens-arrow fr">
               <img class="arrow-icon" src="@/assets/images/arrow-right.svg" />
             </div>
@@ -138,7 +138,7 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.toType)" :active="scope.row.type !== 'INPUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="isAddress && scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
+              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
               <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.transferTo, scope.row.toType)">{{ scope.row.transferTo | sliceStr(16) }}</span>
             </div>
           </template>
