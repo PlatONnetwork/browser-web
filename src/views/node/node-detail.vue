@@ -460,7 +460,7 @@
               <div>
                 <span
                   class="blue cursor"
-                  @click="goAddressDetail(detailInfo.stakingAddr)"
+                  @click="goAddressDetail(detailInfo.stakingAddr, detailInfo.stakingAddrType)"
                   >{{ detailInfo.stakingAddr }}</span
                 >
                 <b
@@ -482,7 +482,7 @@
               <div>
                 <span
                   class="blue cursor"
-                  @click="goAddressDetail(detailInfo.denefitAddr)"
+                  @click="goAddressDetail(detailInfo.denefitAddr, detailInfo.denefitAddrType)"
                   >{{ detailInfo.denefitAddr }}</span
                 >
                 <span class="lightgray" v-if="detailInfo.isInit"
@@ -830,7 +830,7 @@
                 <template slot-scope="scope">
                   <p
                     class="blue cursor percent60 ellipsis"
-                    @click="goAddressDetail(scope.row.delegateAddr)"
+                    @click="goAddressDetail(scope.row.delegateAddr, scope.row.delegateAddrType)"
                   >
                     {{ scope.row.delegateAddr | sliceStr(16) }}
                   </p>
@@ -939,7 +939,7 @@
                 <template slot-scope="scope">
                   <span
                     class="blue cursor percent60 ellipsis"
-                    @click="goAddressDetail(scope.row.addr)"
+                    @click="goAddressDetail(scope.row.addr, scope.row.addrType)"
                     >{{ scope.row.addr | sliceStr(16) }}</span
                   >
                 </template>
