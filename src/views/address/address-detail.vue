@@ -10,11 +10,11 @@
         <div class="detail-copy">
           <div>
             <span>{{ $t('contract.address') }}</span>
-            <i>#{{ address }}</i>
+            <i>#{{ showAdr }}</i>
             <b
               class="cursor"
               :class="{ copy: !isCopy }"
-              v-clipboard:copy="address"
+              v-clipboard:copy="showAdr"
               v-clipboard:success="onCopy"
               v-clipboard:error="onError"
               ><p v-show="isCopy">
@@ -27,11 +27,13 @@
           <a class="code cursor">
             <qriously
               class="qr-code"
-              v-if="address"
-              :value="address"
+              v-if="showAdr"
+              :value="showAdr"
               :size="140"
             />
           </a>
+          <span v-if="!adrErr" class="adr-trans" @click="adrTypeChange">{{ adrType }}</span>
+          <span v-else class="adr-err">{{ $t('contract.addressErr') }}</span>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -194,15 +196,19 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
 import rewardDetail from '@/components/address/rewardDetailTable';
 import delegationInfo from '@/components/address/delegations-info';
+
+import AdrTrans from '@/mixins/adrTrans';
+
 export default {
   name: 'contract-detail',
+  mixins: [AdrTrans],
   data() {
     return {
       tabIndex: 1,
@@ -216,9 +222,8 @@ export default {
       haveReward: 0,
     };
   },
-  props: {},
   computed: {
-    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward']),
+    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward'])
   },
   watch: {},
   components: {
@@ -281,10 +286,8 @@ export default {
   },
   //生命周期函数
   created() {
-    this.address = this.$route.query.address.toLowerCase();
-    this.getDetail();
+    this.checkAdr() && this.getDetail()
   },
-  mounted() {},
 };
 </script>
 <style lang="less" scoped>
@@ -292,6 +295,12 @@ export default {
   font-size: 12px;
   color: #999;
   line-height: 16px;
+}
+.adr-err {
+  color: #cf326e;
+  font-size: 14px;
+  margin-left: 4px;
+  line-height:24px;
 }
 .money {
   color: #000;

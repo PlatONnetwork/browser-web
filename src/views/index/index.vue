@@ -358,7 +358,8 @@ import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 import { timeDiff } from '@/services/time-services';
 
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { toBech32Address, isAddress } from '@/services/web3-utils';
 
 import comHeader from '@/components/header/header.vue';
 
@@ -497,12 +498,14 @@ export default {
     //查询
     searchFn() {
       this.disabledBtn = true;
-      let param = {
-        parameter: this.searchKey.trim(),
-      };
-      // console.warn("搜索内容》》》", param);
+      let param = this.searchKey.trim();
+      let isHEX = false;
+      if (isAddress(param)) {
+        isHEX = param;
+        param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
+      }
       apiService.search
-        .query(param)
+        .query({ parameter: param })
         .then((res) => {
           this.searchKey = '';
           let { errMsg, code, data } = res;
@@ -511,12 +514,13 @@ export default {
             if (!data.type) {
               this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
+              if (isHEX && data.struct.address) {
+                data.struct.address = isHEX;
+              }
               this.switchFn(data.type, data.struct);
-              // this.$emit('searchFn',data);
             }
           } else {
             this.$message.warning(this.$t('indexInfo.searchno'));
-            // this.$message.error(errMsg) 替换为search无结果
           }
         })
         .catch((error) => {

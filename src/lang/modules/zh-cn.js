@@ -318,8 +318,9 @@ export default {
       destructed: "合约已销毁",
       destructed2: "合约销毁",
       destructed3: "已销毁",
-    }
+    },
 
+    addressErr: "地址格式错误",
   },
   deleget: {
     validators: "已委托验证节点",

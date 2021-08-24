@@ -319,7 +319,9 @@ export default {
       destructed: "Contract was Destructed",
       destructed2: "Contract Destructed",
       destructed3: "Destructed",
-    }
+    },
+
+    addressErr: "Wrong address",
   },
   deleget: {
     validators: "Validators",
