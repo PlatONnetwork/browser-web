@@ -44,7 +44,8 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.status.name')
                 }}</label>
-                <div class="money">{{ $t('contract.status.normal') }}</div>
+                <div v-if="detailInfo.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+                <div v-else>{{ $t('contract.status.normal') }}</div>
               </li>
             </ul>
           </div>

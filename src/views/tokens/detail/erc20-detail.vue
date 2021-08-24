@@ -43,19 +43,20 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
-              <!-- 持有者 todo -->
+              <!-- 持有者 -->
               <li>
                 <label class="Gilroy-Medium">{{
                   $t('tokens.holders_')
                 }}</label>
                 <div class="money">{{ detailInfo.holder }}</div>
               </li>
-              <!-- 状态 todo -->
+              <!-- 状态 -->
               <li>
                 <label class="Gilroy-Medium">{{
                   $t('contract.status.name')
                 }}</label>
-                <div class="red">{{ $t('contract.status.destructed') }}</div>
+                <div v-if="detailInfo.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+                <div v-else>{{ $t('contract.status.normal') }}</div>
               </li>
             </ul>
           </div>

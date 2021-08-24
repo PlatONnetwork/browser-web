@@ -63,9 +63,9 @@
         </el-table-column>
         <!-- 合约状态 todo  -->
         <el-table-column :label="$t('contract.status.name2')">
-          <!-- <template slot-scope="scope"> -->
-          <template>
-              {{ $t('contract.status.normal') }}
+          <template slot-scope="scope">
+            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+            <div v-else>{{ $t('contract.status.normal') }}</div>
           </template>
         </el-table-column>
       </el-table>

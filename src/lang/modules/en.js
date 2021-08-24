@@ -533,6 +533,7 @@ export default {
     7: "PRC20 ContractExecution", //erc20合约执行
     8: "PRC721 ContractCreation", //erc721合约创建
     9: "PRC721 ContractExecution", //erc721合约执行
+    21: "Contract Destructed", // 合约销毁
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
