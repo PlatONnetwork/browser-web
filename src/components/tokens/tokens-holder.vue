@@ -18,6 +18,7 @@
         style="width: 100%"
         key="firstTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 地址 -->
         <el-table-column :label="$t('contract.address')">
@@ -60,7 +61,6 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-console.log(apiService.tokens);
 import IconContract from '@/components/common/icon-contract';
 export default {
   data() {
@@ -73,6 +73,7 @@ export default {
       pageTotal: 0,
       tradeTotal: 0,
       tradeType: '',
+      loading: false,
     };
   },
   props: {
@@ -94,6 +95,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
+      this.loading = true;
       apiService.tokens
         .tokenHolderList(param)
         .then((res) => {
@@ -113,6 +115,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     getTokenType(type, lowerCase = true) {

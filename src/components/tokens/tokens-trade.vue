@@ -19,6 +19,7 @@
         style="width: 100%"
         key="secondTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" min-width="180">
@@ -179,6 +180,7 @@ export default {
       pageTotal: 0,
       tradeTotal: 0,
       tradeType: '',
+      loading: false,
     };
   },
   props: {
@@ -208,6 +210,7 @@ export default {
       if (this.tableType === 'erc721Id') {
         param.tokenId = this.tokenId;
       }
+      this.loading = true;
       API[this.tableType](param)
         .then((res) => {
           let { data, totalPages, totalCount, code, errMsg } = res;
@@ -221,6 +224,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     getTokenType(type, lowerCase = true) {

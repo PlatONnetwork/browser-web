@@ -27,9 +27,9 @@
       <span class="download-btn" @click="exportFn">{{ $t('common.export') }}</span>
     </div>
     <span v-else class="download-btn abs" @click="exportFn">{{ $t('common.export') }}</span>
-    <!-- 余额table -->
+    <!-- 持有令牌table -->
     <div v-show="selectIndex === 1" class="table">
-      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini">
+      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini" v-loading="loading.blance">
         <!-- 名称 -->
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
@@ -69,7 +69,7 @@
       </div>
     </div>
     <div v-show="selectIndex === 2" class="table">
-      <el-table :data="tradeTableData" style="width: 100%" key="secondTable" size="mini">
+      <el-table :data="tradeTableData" style="width: 100%" key="secondTable" size="mini" v-loading="loading.trade">
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" width="200">
           <template slot-scope="scope">
@@ -202,7 +202,12 @@ export default {
       tradeType: 'blance',
       tokensName: 'All',
       tokenContract: '',
-      tokenId: ''
+      tokenId: '',
+
+      loading: {
+        balance: false,
+        trade: false,
+      }
     };
   },
   props: {
@@ -242,6 +247,7 @@ export default {
     },
     getBlanceList() {
       // let key = this.isAddress ? 'address' : 'contract';
+      this.loading.balance = true;
       apiService.tokens
         .tokenBalanceList({
           type: 'erc721',
@@ -262,8 +268,12 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.balance = false;
         });
     },
+    // 从持有令牌跳转过来的
     getTradeAddressList(txCount) {
       let param = {
         pageNo: this.tradeCurPage,
@@ -273,6 +283,7 @@ export default {
         tokenId: this.tokenId,
       };
       // apiService.trade.transactionList(param);
+      this.loading.trade = true;
       apiService.tokens
         .token721TxList(param)
         .then((res) => {
@@ -296,6 +307,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.trade = false;
         });
     },
     //获取交易列表 下分页
@@ -307,6 +321,7 @@ export default {
       };
       // let key = this.isAddress ? 'address' : 'contract';
       // param[key] = this.address;
+      this.loading.trade = true;
       apiService.tokens
         .token721TxList(param)
         .then((res) => {
@@ -335,6 +350,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.trade = false;
         });
     },
     getTokenType(type, lowerCase = true) {

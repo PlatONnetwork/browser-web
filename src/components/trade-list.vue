@@ -59,6 +59,7 @@
         style="width: 100%"
         key="firstTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" min-width="200">
@@ -241,6 +242,7 @@ export default {
       pageTotal: 0,
       tradeTotal: 0,
       tradeType: '',
+      loading: false,
     };
   },
   props: {
@@ -270,6 +272,7 @@ export default {
         param.address = this.address;
         methodName = 'transactionListByAddress';
       }
+      this.loading = true;
       apiService.trade[methodName](param)
         .then((res) => {
           let { data, totalPages, totalCount, code, errMsg } = res;
@@ -290,6 +293,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     handleCurrentChange(val) {

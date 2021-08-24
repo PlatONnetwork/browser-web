@@ -39,6 +39,7 @@
         style="width: 100%"
         key="firstTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值（TxHash） -->
         <el-table-column :label="$t('tradeAbout.hash')" min-width="150px">
@@ -171,6 +172,7 @@ export default {
       pageSize: 20,
       pageTotal: 0,
       displayTotalCount: 0,
+      loading: false,
       isLoaded: false,
     };
   },
@@ -185,7 +187,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
-      console.info('获取交易列表（参数）》》》', param);
+      this.loading = true;
       apiService.trade
         .transactionList(param)
         .then((res) => {
@@ -207,6 +209,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     timeDiffFn(beginTime, endTime = Date.now()) {
