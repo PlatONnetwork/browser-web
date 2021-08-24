@@ -63,6 +63,7 @@ export default {
     totalSupply: "发行总量",
     totalSupply_721: "总供应量",
     holders: "持有数",
+    holders_: "持有者",
     transfers: "交易数",
     transfers_721: "交易",
     transferNum: "交易次数",
@@ -309,6 +310,16 @@ export default {
     systemBuilt: "系统合约，无上链字节码",
     erc20Trade: "PRC20交易",
     erc721Trade: "PRC721交易",
+
+    status: {
+      name: "状态",
+      name2: "合约状态",
+      normal: "正常",
+      destructed: "合约已销毁",
+      destructed2: "合约销毁",
+      destructed3: "已销毁",
+    }
+
   },
   deleget: {
     validators: "已委托验证节点",
@@ -585,7 +596,8 @@ export default {
     6: "双签处罚",
     7: "低出块率处罚",
     10: "增加自有质押",
-    11: "节点解除锁定"
+    11: "节点解除锁定",
+    12: "版本声明",
   },
   more: {
     foundationAddress: '基金会地址',

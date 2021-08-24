@@ -760,6 +760,13 @@
                           )}-Remove the node zero out-block Validator List，Node back to normal`
                     }}
                   </p>
+                  <!-- 版本声明 todo -->
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 12"
+                  >
+                    {{ $t('actionType.' + [scope.row.type]) }}
+                  </p>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')" min-width="180">

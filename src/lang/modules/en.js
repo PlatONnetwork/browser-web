@@ -63,6 +63,7 @@ export default {
     totalSupply: "Total Supply",
     totalSupply_721: "Total Supply",
     holders: "Holders",
+    holders_: "Holders",
     transfers: "Transfers",
     transfers_721: "Transfers",
     transferNum: "Transaction Number",
@@ -310,6 +311,15 @@ export default {
 
     erc20Trade: "PRC20 Token Txns",
     erc721Trade: "PRC721 Token Txns",
+
+    status: {
+      name: "status",
+      name2: "Contract State",
+      normal: "normal",
+      destructed: "Contract was Destructed",
+      destructed2: "Contract Destructed",
+      destructed3: "Destructed",
+    }
   },
   deleget: {
     validators: "Validators",
@@ -588,7 +598,8 @@ export default {
     6: "Double Signing",
     7: "Low Block Rate",
     10: "Increase Self-Stakes",
-    11: "Node release"
+    11: "Node release",
+    12: "DeclareVersion",
   },
   more: {
     foundationAddress: 'Foundation Address',

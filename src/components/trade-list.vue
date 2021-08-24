@@ -177,7 +177,7 @@
               }"
               class="red Gilroy-Bold"
             >
-              <!-- 接受还是发送 -->
+              <!-- 接受还是发送 todo -->
               <template v-if="type != 'block' && scope.row.txType == '0'">{{
                 scope.row.from == address
                   ? $t('tradeAbout.sender2')

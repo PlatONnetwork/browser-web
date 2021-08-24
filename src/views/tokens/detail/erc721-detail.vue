@@ -39,6 +39,13 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
+              <!-- 状态 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.status.name')
+                }}</label>
+                <div class="money">{{ $t('contract.status.normal') }}</div>
+              </li>
             </ul>
           </div>
         </el-col>

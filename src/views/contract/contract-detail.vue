@@ -82,6 +82,13 @@
                     {{ detailInfo.erc721TxQty | formatNumber }}
                   </div>
               </li>
+              <!-- 状态 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.status.name')
+                }}</label>
+                <div class="red">{{ $t('contract.status.destructed3') }}</div>
+              </li>
             </ul>
           </div>
         </el-col>

@@ -61,6 +61,13 @@
             </router-link>
           </template>
         </el-table-column>
+        <!-- 合约状态 todo  -->
+        <el-table-column :label="$t('contract.status.name2')">
+          <!-- <template slot-scope="scope"> -->
+          <template>
+              {{ $t('contract.status.normal') }}
+          </template>
+        </el-table-column>
       </el-table>
 
       <!-- 下分页 -->

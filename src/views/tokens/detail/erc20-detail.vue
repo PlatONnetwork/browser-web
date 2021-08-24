@@ -43,6 +43,20 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
+              <!-- 持有者 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('tokens.holders_')
+                }}</label>
+                <div class="money">{{ detailInfo.holder }}</div>
+              </li>
+              <!-- 状态 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.status.name')
+                }}</label>
+                <div class="red">{{ $t('contract.status.destructed') }}</div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -95,7 +109,7 @@
     <div class="address-trade gray-content content-padding">
       <div class="tabs">
         <el-button size="medium" :class="{ active: activeTab == 1 }" @click="tabChange(1)">{{ $t('contract.transactions') }}</el-button>
-        <el-button size="medium" :class="{ active: activeTab == 2 }" @click="tabChange(2)">{{ $t('tokens.holders') }}</el-button>
+        <el-button size="medium" :class="{ active: activeTab == 2 }" @click="tabChange(2)">{{ $t('tokens.holders_') }}</el-button>
       </div>
       <tokens-trade-list v-show="activeTab == 1" :address="address" :tradeCount="detailInfo" table-type="erc20"></tokens-trade-list>
       <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
