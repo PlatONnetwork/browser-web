@@ -8,7 +8,7 @@
         <div class="node-header-left">
           <img :src="detailInfo.stakingIcon || require('../../assets/images/node-avtor.svg')" />
           <div class="node-name-wrap">
-            <div class="node-name">
+            <div class="node-name ellipsis">
               <b>{{ detailInfo.nodeName }}</b>
               <i></i>
             </div>
@@ -1307,6 +1307,7 @@ export default {
   border-radius: 2px;
   line-height: 26px;
   padding: 7px 10px;
+  margin-left: 73px;
   @media screen and (max-width: 750px) {
     min-width: 64px;
     display: inline-block;
@@ -1347,6 +1348,7 @@ export default {
 .node-header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: 23px;
   .node-header-left {
     display: flex;
