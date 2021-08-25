@@ -974,6 +974,7 @@ export default {
   .el-icon-info {
     position: absolute;
     left: -23px;
+    z-index: 9;
   }
   .icon-remark {
     position: absolute;
