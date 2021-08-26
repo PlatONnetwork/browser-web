@@ -433,7 +433,7 @@ export default {
     electedRoundValidator: "Elected Validator",
     blocks: "Blocks",
     blockRate: "Block Rate",
-    gBlockRate: "Gen-Block Rate",
+    gBlockRate: "Gen-Blocks Rate",
     blockRate24h: "24H Gen-Blocks Rate",
     version: "Version",
     totalStakePower: "Total Stakes",
@@ -630,7 +630,7 @@ export default {
     totalStakePower: `The number of tokens staked, including the tokens staked by nodes and total delegations.<br />
     Total Stakes = Balance of the Staking Contract Address (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7)`,
     stakeRate: `The proportion of tokens staked to the total tokens that can be staked, the latter including the tokens locked in the lockup contract.<br />
-    Stake Rate = Total Stakes / Total Supply - Balance of Staking-related System Contracts - LatticeX Foundation Lockup Balance<br />
+    Stake Rate = Total Stakes / (Total Supply - Balance of Staking-related System Contracts - LatticeX Foundation Account Balance and Lockup Balance)<br />
     The staking-related system contracts include RewardManagerPool (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrdyjj2v) and DelegateRewardPool (lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxlcypcy)`,
     validatorYield: `The APY (Annual Percentage Yield) converted from the net income per share of the node’s stakes, based on the last 4 epochs. It is for reference only, and does not constitute any recommendation. <br />
     Assuming the actual income of the node in each of the last 4 epochs (block reward + staking reward + block transaction fee) is respectively W1, W2, W3, and W4; the number of tokens staked by the node in each of the last 4 epochs is respectively C1, C2, C3, and C4.<br />

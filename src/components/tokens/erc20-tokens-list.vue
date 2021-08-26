@@ -151,7 +151,7 @@
         </el-table-column>
 
         <!-- tokens 名称+单位 -->
-        <el-table-column :label="$t('tokens.unit')">
+        <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
             <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(21) }}</span>
           </template>
@@ -226,7 +226,7 @@ export default {
     async showAddressTokenList(token) {
       this.tradeType = 'transfer'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = token.name;
-      this.tokenContract = this.isAddress ? token.contract : token.address;
+      this.tokenContract = token.contract;
       this.tradeCurPage = 1;
       await this.getTradeAddressList(token.txCount);
       this.selectIndex = 2;
@@ -259,8 +259,8 @@ export default {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
-        address: this.isAddress ? this.address : this.tokenContract,
-        contract: this.isAddress ? this.tokenContract : this.address
+        address: this.address,
+        contract: this.tokenContract
       };
       // apiService.trade.transactionList(param);
       apiService.tokens

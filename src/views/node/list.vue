@@ -609,7 +609,7 @@
             </template>
           </el-table-column>
           <!-- 出块率 -->
-          <el-table-column :label="$t('nodeInfo.gBlockRate')" prop="genBlocksRate" min-width="150">
+          <el-table-column prop="genBlocksRate" min-width="150">
             <template slot="header">
               <span class="tipsTitle">
                 {{ $t('nodeInfo.gBlockRate') }}</span

@@ -624,7 +624,7 @@ export default {
     totalStakePower: `参与Staking的Token数，包含节点质押金和接收的委托。<br />
     总质押 =  Staking合约地址余额（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7）`,
     stakeRate: `参与Staking的Token占总可质押Token的比例，其中可质押Token包含锁仓合约锁定的Token。<br />
-    质押率 = 总质押 / 总发行量 - Staking相关系统合约余额 - 基金会账户余额有锁仓余额<br />
+    质押率 = 总质押 / （总发行量 - Staking相关系统合约余额 - 基金会账户余额和锁仓余额）<br />
     Staking相关系统合约包含<br />
     RewardManagerPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrdyjj2v），DelegateRewardPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxlcypcy）`,
     validatorYield: `基于最近4个结算周期，节点每份额自有质押金净收益折合成的年化收益率，仅供参考不构成任何建议。<br />

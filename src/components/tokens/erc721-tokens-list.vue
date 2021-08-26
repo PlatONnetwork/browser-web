@@ -238,7 +238,7 @@ export default {
     async showAddressTokenList(token) {
       this.tradeType = 'transfer'; //切换到交易界面 展示地址下的相关交易列表
       this.tokensName = token.name;
-      this.tokenContract = this.isAddress ? token.contract : token.address;
+      this.tokenContract = token.contract;
       this.tokenId = token.tokenId;
       this.tradeCurPage = 1;
       await this.getTradeAddressList(token.txCount);
@@ -272,8 +272,8 @@ export default {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
-        address: this.isAddress ? this.address : this.tokenContract,
-        contract: this.isAddress ? this.tokenContract : this.address,
+        address: this.address,
+        contract: this.tokenContract,
         tokenId: this.tokenId,
       };
       // apiService.trade.transactionList(param);

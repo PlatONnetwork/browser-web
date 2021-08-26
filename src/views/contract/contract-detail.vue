@@ -269,29 +269,8 @@ export default {
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
+            this.noTokens = !(data.tokenName && data.tokenSymbol)
             this.detailInfo = data;
-            // 合成token 名称
-            // this.getTokenDetail();
-          } else {
-            this.$message.error(errMsg);
-          }
-        })
-        .catch((error) => {
-          this.$message.error(error);
-        });
-    },
-    
-    getTokenDetail() {
-      apiService.tokens
-        .tokenDetail({address: this.address})
-        .then((res) => {
-          let { errMsg, code, data } = res;
-          if (code == 0) {
-            if (!data) {
-              this.noTokens = true;
-              return;
-            }
-            this.detailInfo[data.type + 'TxQty'] = data.txCount;
           } else {
             this.$message.error(errMsg);
           }
