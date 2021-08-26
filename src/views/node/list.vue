@@ -556,7 +556,7 @@
               <span>{{ scope.row.blockQty | formatNumber }}</span>
             </template>
           </el-table-column>
-          <!-- TODO预计年化收益率 -->
+          <!-- 预计年化收益率 -->
           <el-table-column
             :label="$t('nodeInfo.yield3')"
             label-class-name="yield3"
@@ -581,7 +581,7 @@
               <span class="Gilroy-Medium" v-else>--</span>
             </template>
           </el-table-column>
-          <!-- TODO预计委托年化率 -->
+          <!-- T预计委托年化率 -->
           <el-table-column
             :label="$t('nodeInfo.delegatedYield')"
             label-class-name="delegatedYield"
@@ -681,10 +681,10 @@ export default {
       let tooltipsInfo = '';
       if (column.labelClassName == 'yield3') {
         //预计年化收益率
-        tooltipsInfo = this.$t('nodeInfo.node1Tips');
+        tooltipsInfo = this.$t('tips.validatorYield');
       } else if (column.labelClassName == 'delegatedYield') {
         //预计委托年化率
-        tooltipsInfo = this.$t('nodeInfo.node2Tips');
+        tooltipsInfo = this.$t('tips.delegatedYield');
       }
       return h('div', [
         h('span', column.label),

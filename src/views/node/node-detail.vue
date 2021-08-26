@@ -363,12 +363,10 @@
             </p>
             <p v-else class="value">{{ detailInfo.expectedIncome }}%</p>
             <p class="text">
-              <!-- TODO 需要做悬停 -->
-              <span>{{ $t('nodeInfo.validatorAnnualizedYield') }}</span>
+              <!--  需要做悬停 -->
+              <span>{{ $t('nodeInfo.yield3') }} </span>
               <el-tooltip placement="bottom" class="item" effect="dark">
-                <div slot="content" class="delegate-msg">
-                  {{ $t('nodeInfo.node1Tips') }}
-                </div>
+                <div slot="content" class="delegate-msg" v-html="$t('tips.validatorYield')"></div>
                 <i class="address-icon"></i>
               </el-tooltip>
             </p>
@@ -382,11 +380,9 @@
             </p>
             <p v-else class="value">{{ detailInfo.deleAnnualizedRate }}%</p>
             <p class="text">
-              <span>{{ $t('nodeInfo.delegatedAnnualizedYield') }}</span>
+              <span>{{ $t('nodeInfo.delegatedYield') }} </span>
               <el-tooltip placement="bottom" class="item" effect="dark">
-                <div slot="content" class="delegate-msg">
-                  {{ $t('nodeInfo.node2Tips') }}
-                </div>
+                <div slot="content" class="delegate-msg" v-html="$t('tips.delegatedYield')"></div>
                 <i class="address-icon"></i>
               </el-tooltip>
             </p>
