@@ -421,7 +421,7 @@
     <div v-else class="table" :class="{'node-table': windowWidth < 750 || windowWidth > 1800}">
       <div class="table-content">
       <!-- <div class="table-content" :style="{height: windowWidth < 750 ? 'auto' : 'calc(100vh - 280px)'}"> -->
-        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800) ? null : 'calc(100vh - 280px)'">
+        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800 || tableData.length < 12) ? null : 'calc(100vh - 280px)'">
           <el-table-column
             fixed
             :label="$t('nodeInfo.rank')"
@@ -431,9 +431,11 @@
           >
           </el-table-column>
           <el-table-column
-            :label="$t('nodeInfo.validatorName')"
             :min-width="issafariBrowser ? 158 : 180"
           >
+            <template slot="header">
+              <span style="padding-left: 10px;"></span>{{$t('nodeInfo.validatorName')}}
+            </template>
             <!-- TODO历史节点 table -->
             <template slot-scope="scope">
               <div class="flex-special validator-name">
@@ -469,7 +471,6 @@
                   <i
                     class="el-icon-info cursor"
                     style="
-                      margin-left: 8px;
                       color: #d5d5d5;
                       font-size: 12px;
                       line-height: 23px;
@@ -511,14 +512,14 @@
               >
             </template>
           </el-table-column>
-          <el-table-column :label="$t('nodeInfo.totalStakePower')" min-width="120">
+          <el-table-column :label="$t('nodeInfo.totalStakePower')" min-width="165">
             <template slot-scope="scope">
               <span>{{ scope.row.totalValue | formatMoney }} LAT</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('deleget.delegationsN')"  min-width="120">
+          <el-table-column :label="$t('deleget.delegationsN')"  min-width="165">
             <template slot-scope="scope">
-              <span> {{ scope.row.delegateValue | formatMoney }} LAT </span>
+              <span> {{ scope.row.delegateValue | formatMoney }} LAT</span>
             </template>
           </el-table-column>
           <!-- 委托奖励比例 -->
@@ -973,8 +974,7 @@ export default {
   width: 100%;
   .el-icon-info {
     position: absolute;
-    left: -23px;
-    z-index: 9;
+    left: -10px;
   }
   .icon-remark {
     position: absolute;
@@ -987,7 +987,7 @@ export default {
 .node-avtor {
   width: 30px;
   height: 30px;
-  margin-right: 8px;
+  margin: 0 8px;
   border-radius: 50%;
   margin-top: -3px;
 }
