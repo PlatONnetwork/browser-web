@@ -26,7 +26,7 @@
     </el-table-column>
 
     <!-- 单位(Unit) -->
-    <el-table-column :label="$t('tokens.unit')">
+    <el-table-column :label="$t('tokens.symbol')">
       <template slot-scope="scope">
         <span>{{ scope.row.symbol }}</span>
       </template>

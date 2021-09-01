@@ -31,12 +31,12 @@
         </el-table-column>
         <el-table-column prop="balance" :label="$t('fund.tBalance')" min-width="120">
           <template slot-scope="scope">
-            <span>{{ scope.row.balance | formatNumber }}</span>
+            <span>{{ scope.row.balance | formatMoney }}</span>
           </template>
         </el-table-column>
         <el-table-column align="right" prop="restrictingBalance" :label="$t('fund.tLockedBalance')" min-width="180">
           <template slot-scope="scope">
-            <span>{{ scope.row.restrictingBalance | formatNumber }}</span>
+            <span>{{ scope.row.restrictingBalance | formatMoney }}</span>
           </template>
         </el-table-column>
       </el-table>
