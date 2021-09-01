@@ -22,10 +22,10 @@
         <!-- 地址 -->
         <el-table-column :label="$t('contract.address')">
           <template slot-scope="scope">
-            <span
-              class="cursor normal ellipsis"
-              @click="goAddressDetail(scope.row.address)"
-              >{{ scope.row.address | sliceStr(16)  }}</span
+            <router-link
+              class="cursor normal ellipsis adr-width"
+              :to="getAddressUrl(scope.row.address)"
+              >{{ scope.row.address }}</router-link
             >
           </template>
         </el-table-column>

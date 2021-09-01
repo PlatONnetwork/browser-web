@@ -3,10 +3,10 @@
     <!-- todo 令牌名称（令牌名称） -->
     <el-table-column :label="$t('tokens.tokenName')">
       <template slot-scope="scope">
-        <span
-          @click="goTokenDetail(scope.row.address, 'erc721')"
+        <router-link
+          :to="getTokenUrl(scope.row.address, 'erc721')"
           class="cursor normal ellipsis"
-          >{{ scope.row.name | sliceStr(21) }}</span
+          >{{ scope.row.name }}</router-link
         >
       </template>
     </el-table-column>
@@ -26,10 +26,10 @@
         <div class="flex-special">
           <icon-contract></icon-contract>
           <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-          <span
-            class="cursor normal ellipsis ellipsisWidth"
-            @click="goContractDetail(scope.row.address)"
-            >{{ scope.row.address | sliceStr(20) }}</span
+          <router-link
+            class="cursor normal ellipsis adr-width"
+            :to="getContractUrl(scope.row.address)"
+            >{{ scope.row.address }}</router-link
           >
         </div>
       </template>

@@ -110,13 +110,13 @@
                   System Contract
                 </div>
                 <div v-else class="money contract-create-info">
-                  <span
-                    class="normal"
-                    @click="goAddressDetail(detailInfo.contractCreate)"
+                  <router-link
+                    class="normal ellipsis adr-width"
+                    :to="getAddressUrl(detailInfo.contractCreate)"
                     v-if="detailInfo.contractCreate"
                   >
-                    {{ detailInfo.contractCreate | sliceStr(16) }}
-                  </span>
+                    {{ detailInfo.contractCreate }}
+                  </router-link>
                   <span
                     style="padding: 0 8px"
                     v-if="
@@ -125,13 +125,13 @@
                   >
                     {{ $t('contract.transactionsIn') }}
                   </span>
-                  <span
-                    class="normal"
-                    @click="goTradeDetail(detailInfo.contractCreateHash)"
+                  <router-link
+                    class="normal ellipsis hash-width"
+                    :to="getTradeUrl(detailInfo.contractCreateHash)"
                     v-if="detailInfo.contractCreateHash"
                   >
-                    {{ detailInfo.contractCreateHash | sliceStr(20) }}
-                  </span>
+                    {{ detailInfo.contractCreateHash }}
+                  </router-link>
                 </div>
               </li>
               <li>
@@ -141,9 +141,9 @@
                 <!-- tokens -->
                 <div class="money contract-create-info">
                   <span v-if="noTokens">--</span>
-                  <span v-else class="normal" @click="goTokenDetail(address)" >
+                  <router-link v-else class="normal" :to="getTokenUrl(address)" >
                     {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
-                  </span>
+                  </router-link>
                 </div>
               </li>
             </ul>

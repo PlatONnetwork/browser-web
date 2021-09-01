@@ -26,10 +26,10 @@
               </el-tooltip>-->
 
           <!-- 交易hash: 显示0x+18 -->
-          <span
-            class="cursor normal ellipsis"
-            @click="goTradeDetail(scope.row.txHash)"
-            >{{ scope.row.txHash | sliceStr(20) }}</span
+          <router-link
+            class="cursor normal ellipsis hash-width"
+            :to="getTradeUrl(scope.row.txHash)"
+            >{{ scope.row.txHash }}</router-link
           >
         </div>
         <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
@@ -39,10 +39,10 @@
     <!-- 区块（Block） -->
     <el-table-column :label="$t('tradeAbout.block')">
       <template slot-scope="scope">
-        <span
+        <router-link
           class="cursor normal"
-          @click="goBlockDetail(scope.row.blockNumber)"
-          >{{ scope.row.blockNumber }}</span
+          :to="getBlockUrl(scope.row.blockNumber)"
+          >{{ scope.row.blockNumber }}</router-link
         >
       </template>
     </el-table-column>
@@ -64,10 +64,10 @@
         <div class="flex-special">
           <!-- 操作地址：即签名交易的地址，显示0x+14 -->
           <icon-contract v-if="isContract(scope.row.fromType)"></icon-contract>
-          <span
-            class="cursor normal ellipsis ellipsisWidth"
-            @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
-            >{{ scope.row.txFrom | sliceStr(16) }}</span
+          <router-link
+            class="cursor normal ellipsis adr-width"
+            :to="getAddressUrl(scope.row.txFrom, scope.row.fromType)"
+            >{{ scope.row.txFrom }}</router-link
           >
         </div>
       </template>
@@ -88,10 +88,10 @@
         <div class="flex-special">
           <icon-contract v-if="isContract(scope.row.toType)"></icon-contract>
           <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-          <span
-            class="cursor normal ellipsis ellipsisWidth"
-            @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
-            >{{ scope.row.transferTo | sliceStr(16) }}</span
+          <router-link
+            class="cursor normal ellipsis adr-width"
+            :to="getAddressUrl(scope.row.transferTo, scope.row.toType)"
+            >{{ scope.row.transferTo }}</router-link
           >
         </div>
       </template>
@@ -100,10 +100,10 @@
     <!-- 令牌ID-->
     <el-table-column :label="$t('tokens.tokenID')">
       <template slot-scope="scope">
-        <span
+        <router-link
           class="cursor normal ellipsis"
-          @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
-          >{{ scope.row.tokenId  | sliceStr(16) }}</span
+          :to="get721IdUrl(scope.row.contract, scope.row.tokenId)"
+          >{{ scope.row.tokenId }}</router-link
         >
       </template>
     </el-table-column>
@@ -111,10 +111,10 @@
     <!-- tokens 名称+单位 -->
     <el-table-column :label="$t('tokens.tokens')">
       <template slot-scope="scope">
-        <span
+        <router-link
           class="cursor normal ellipsis"
-          @click="goTokenDetail(scope.row.contract, 'erc721')"
-          >{{`${scope.row.name}  (${scope.row.symbol})` | sliceStr(21)  }}</span
+          :to="getTokenUrl(scope.row.contract, 'erc721')"
+          >{{`${scope.row.name}  (${scope.row.symbol})` }}</router-link
         >
       </template>
     </el-table-column>

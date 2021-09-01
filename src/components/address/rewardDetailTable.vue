@@ -12,9 +12,9 @@
     <!-- 账户详情-奖励明细 TODO 2次循环展示数据 并且在hover时候展示边框 -->
     <div class="detail-box" v-for="item in rewardTableData" :key="item.id">
       <div class="title-box">
-        <span class="hash normal cursor" @click="goToDetailFn(item.txHash)">
+        <router-link class="hash normal cursor" :to="getTradeUrl(item.txHash)">
           {{ item.txHash }}
-        </span>
+        </router-link>
         <span class="date">{{ item.timestamp | formatTime }}</span>
       </div>
       <div class="table-box">
@@ -31,7 +31,7 @@
             >
               <td
                 class="td-title cursor normal ellipsis"
-                @click="goToNodeFn(ele.verify)"
+                @click="getNodeUrl(ele.verify)"
               >
                 {{ ele.nodeName | formatMoney }}
               </td>
@@ -44,12 +44,12 @@
             v-for="(ele, $index) in item.rewardsDetails"
             :key="$index"
           >
-            <div
-              @click="goToNodeFn(ele.verify)"
+            <router-link
+              :to="getNodeUrl(ele.verify)"
               class="td-title cursor normal ellipsis"
             >
               {{ ele.nodeName }}
-            </div>
+            </router-link>
             <div class="td-content">
               {{ ele.reward | formatMoney }} &nbsp;&nbsp;LAT
             </div>
@@ -102,22 +102,6 @@ export default {
     handleChange(page) {
       this.curPage = page;
       this.queryDetailByAdd();
-    },
-    goToDetailFn(hash) {
-      this.$router.push({
-        name: 'tradeDetailComponent',
-        query: {
-          txHash: hash,
-        },
-      });
-    },
-    goToNodeFn(node) {
-      this.$router.push({
-        name: 'nodeDetailComponent',
-        query: {
-          address: node,
-        },
-      });
     },
     queryDetailByAdd() {
       let data = {

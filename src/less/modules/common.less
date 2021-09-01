@@ -269,10 +269,19 @@ body {
 }
 
 .ellipsis {
+  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+}
+
+.hash-width {
+  width: 150px;
+}
+
+.adr-width {
+  width: 120px;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -309,7 +318,7 @@ body {
 }
 
 .flex-special {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }

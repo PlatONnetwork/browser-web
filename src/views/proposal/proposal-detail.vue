@@ -488,12 +488,12 @@
             min-width="40%"
           >
             <template slot-scope="scope">
-              <p
+              <router-link
                 class="cursor blue percent60 ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
+                :to="getTradeUrl(scope.row.txHash)"
               >
-                {{ scope.row.txHash | sliceStr(20) }}
-              </p>
+                {{ scope.row.txHash }}
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column

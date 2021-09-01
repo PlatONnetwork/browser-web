@@ -42,13 +42,13 @@
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
-                  <span
+                  <router-link
                     class="normal"
-                    @click="goContractDetail(detailInfo.contract)"
+                    :to="getContractUrl(detailInfo.contract)"
                   >
                     <!-- {{ detailInfo.contract | sliceStr(16) }} -->
                     {{ address }}
-                  </span>
+                  </router-link>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b
                       class="cursor"

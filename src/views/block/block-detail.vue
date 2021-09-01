@@ -87,10 +87,10 @@
             >
           </p>
           <p v-else>
-            <span
+            <router-link
               class="blue cursor"
-              @click="goNodeDetail(detailInfo.nodeId)"
-              >{{ detailInfo.nodeName }}</span
+              :to="getNodeUrl(detailInfo.nodeId)"
+              >{{ detailInfo.nodeName }}</router-link
             >
             <span class="mobile-block-text" style="line-height: 16px"
               >【{{ timeDiffFn(detailInfo.serverTime, detailInfo.timestamp)

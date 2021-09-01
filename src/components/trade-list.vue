@@ -100,13 +100,13 @@
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
+              <router-link
+                class="cursor normal ellipsis hash-width"
+                :to="getTradeUrl(scope.row.txHash)"
               >
                 <!-- txHash 显示0x + 18 -->
-                {{ scope.row.txHash | sliceStr(20) }}
-              </span>
+                {{ scope.row.txHash }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -126,10 +126,10 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址显示 0x + 14 -->
-              <span
-                class="cursor blue ellipsis"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+              <router-link
+                class="cursor blue ellipsis adr-width"
+                :to="getAddressUrl(scope.row.from)"
+                >{{ scope.row.from }}</router-link
               >
             </div>
           </template>
@@ -142,10 +142,10 @@
           v-if="type != 'block'"
         >
           <template slot-scope="scope">
-            <span
+            <router-link
               class="cursor blue"
-              @click="goBlockDetail(scope.row.blockNumber)"
-              >{{ scope.row.blockNumber }}</span
+              :to="getBlockUrl(scope.row.blockNumber)"
+              >{{ scope.row.blockNumber }}</router-link
             >
           </template>
         </el-table-column>

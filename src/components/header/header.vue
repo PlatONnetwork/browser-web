@@ -705,7 +705,7 @@ export default {
   left: 0;
   display: flex;
   height: 102px;
-  z-index: 99;
+  z-index: 2001;
   padding: 0 5.2%;
   margin: 0 auto;
   background: #000;

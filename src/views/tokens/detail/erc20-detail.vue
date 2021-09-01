@@ -55,10 +55,10 @@
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
-                  <span class="normal" @click="goContractDetail(detailInfo.address)">
+                  <router-link class="normal" :to="getContractUrl(detailInfo.address)">
                     <!-- {{ detailInfo.address | sliceStr(16) }} -->
                     {{ detailInfo.address }}
-                  </span>
+                  </router-link>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b class="cursor" :class="{ copy: !isCopy }" v-clipboard:copy="address" v-clipboard:success="onCopy"
                        v-clipboard:error="onError">
@@ -104,7 +104,6 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';

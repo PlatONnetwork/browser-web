@@ -15,15 +15,13 @@
         <div class="token-pic-wrapper">
           <img v-pic-preview :src="item.image || require('@/assets/images/Platon-cat-721.svg')" alt="token" class="token-pic" />
         </div>
-        <p class="token-id">
+        <p class="token-id ellipsis">
           #
-          <span class="normal cursor" @click="go721IdDetail(item.contract, item.tokenId)">{{ item.tokenId  | sliceStr(20) }}</span>
+          <router-link class="normal cursor" :to="get721IdUrl(item.contract, item.tokenId)">{{ item.tokenId }}</router-link>
         </p>
-        <p class="token-owner">
+        <p class="token-owner ellipsis">
           Owner
-          <span class="normal cursor" @click="goAddressDetail(item.address)">{{
-            item.address | sliceStr(16)
-          }}</span>
+          <router-link class="normal cursor" :to="getAddressUrl(item.address)">{{ item.address }}</router-link>
         </p>
       </div>
     </div>
@@ -119,6 +117,10 @@ export default {
     }
     .token-id {
       padding: 8px 0;
+    }
+    .token-owner,
+    .token-id {
+      max-width: 90%;
     }
   }
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {

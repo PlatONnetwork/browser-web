@@ -40,12 +40,12 @@
         <el-table-column :label="$t('nodeInfo.validator')">
           <template slot-scope="scope">
             <div class="flex-special">
-              <p
-                class="cursor blue ellipsis percent60"
-                @click="goNodeDetail(scope.row.nodeId)"
+              <router-link
+                class="cursor blue ellipsis"
+                :to="getNodeUrl(scope.row.nodeId)"
               >
                 {{ scope.row.nodeName }}
-              </p>
+              </router-link>
             </div>
           </template>
         </el-table-column>
