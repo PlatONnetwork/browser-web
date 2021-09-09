@@ -1,5 +1,7 @@
 <template>
-  <div class="fund trade-list-wrap">
+  <div class="fund trade-list-wrap"><div class="top">
+      <h3 class="title">{{ $t('fund.title') }}</h3>
+    </div>
     <div class="main table">
       <el-table :data="list" style="width: 100%" size="mini">
         <el-table-column type="index" label="#" :index="indexMethod" width="50" align="center" />
