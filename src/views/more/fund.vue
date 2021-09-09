@@ -1,42 +1,11 @@
 <template>
   <div class="fund trade-list-wrap">
-    <div class="top">
-      <h3 class="title">{{ $t('fund.title') }}</h3>
-      <ul class="total">
-        <li class="t-li">
-          <p class="h3">{{ totalBalance | formatMoney }}</p>
-          <p>{{ $t('fund.totalBalance') }}</p>
-        </li>
-        <li class="t-li">
-          <p class="h3">{{ totalRestrictingBalance | formatMoney }}</p>
-          <p>{{ $t('fund.totalLocked') }}</p>
-        </li>
-      </ul>
-    </div>
     <div class="main table">
-      <p class="main-title" v-html="$t('fund.pageTotal', [pageTotal])"></p>
       <el-table :data="list" style="width: 100%" size="mini">
-        <el-table-column type="index" label="#" :index="indexMethod" width="50"></el-table-column>
-        <el-table-column prop="address" :label="$t('fund.tAddress')" min-width="120">
+        <el-table-column type="index" label="#" :index="indexMethod" width="50" align="center" />
+        <el-table-column :label="$t('fund.tAddress')" show-overflow-tooltip min-width="120">
           <template slot-scope="scope">
-            <div class="flex-special">
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.address, scope.row.type)"
-              >
-                {{ scope.row.address }}
-              </span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="balance" :label="$t('fund.tBalance')" min-width="120">
-          <template slot-scope="scope">
-            <span>{{ scope.row.balance | formatMoney }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column align="right" prop="restrictingBalance" :label="$t('fund.tLockedBalance')" min-width="180">
-          <template slot-scope="scope">
-            <span>{{ scope.row.restrictingBalance | formatMoney }}</span>
+            {{ scope.row }}
           </template>
         </el-table-column>
       </el-table>
@@ -90,11 +59,7 @@ export default {
         .then((res) => {
           let { data, totalCount, code, errMsg } = res
           if (code == 0) {
-            if (data[0]) {
-              this.list = data[0].internalAddressBaseResp
-              this.totalBalance = data[0].totalBalance
-              this.totalRestrictingBalance = data[0].totalRestrictingBalance
-            }
+            data && (this.list = data)
             this.pageTotal = totalCount
           } else {
             this.$message.error(errMsg)
@@ -140,6 +105,7 @@ export default {
     }
   }
   .main {
+    user-select: none;
     .main-title {
       margin: 20px 0;
     }
