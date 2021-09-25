@@ -97,8 +97,8 @@ export default {
           }
           this.type = to.params.type;
           this.tableCompName = compMap[this.type];
-          this.currentPage = 1;
-          this.pageSize = 20;
+          this.currentPage = to.query.currentPage || 1;
+          this.pageSize = to.query.pageSize || 20;
           this.getTradeList();
         }
       },

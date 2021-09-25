@@ -555,6 +555,7 @@ export default {
       selectIndex: 0,
       detailData: {},
       loading: false,
+      pageLoading: false,
     };
   },
   props: {},
@@ -596,6 +597,7 @@ export default {
       let param = {
         proposalHash: this.$route.query.proposalHash,
       };
+      this.pageLoading = true;
       try {
         let { data, code, errMsg } = await apiService.proposal.proposalDetails(
           param
@@ -650,6 +652,8 @@ export default {
         // this.quitPercentage = formatDecimal(tmpQuitPercentage, 2); //.toFixed(2); 齐全
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
+      } finally {
+        this.pageLoading = false;
       }
     },
     //进入验证人详情

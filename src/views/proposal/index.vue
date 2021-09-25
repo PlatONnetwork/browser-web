@@ -9,7 +9,7 @@
     </div>
 
     <div class="table" :class="{'no-data':!tableData.length}">
-      <el-table :data="tableData" style="width: 100%" key="firstTable" size="mini" :empty-text="$t('tradeAbout.noProposalData')">
+      <el-table :data="tableData" v-loading="loading" style="width: 100%" key="firstTable" size="mini" :empty-text="$t('tradeAbout.noProposalData')">
         <el-table-column :label="$t('tradeAbout.PIPSN')" min-width="120">
           <template slot-scope="scope">
             <span style="font-weight:bold; display: flex;">
@@ -77,7 +77,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
-
+      loading: false,
     };
   },
   props: {},
@@ -91,15 +91,16 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
-      console.warn('获取提案列表》》》', param);
+      this.loading = true;
       try {
         let { data, totalPages, totalCount, code, errMsg } = await apiService.proposal.proposalList(param);
-        console.log(data)
         let tmpdata = data.sort(this.proposalTimeCompare('timestamp'));
         this.tableData = tmpdata;
         this.pageTotal = totalCount;
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
+      } finally {
+        this.loading = false;
       }
     },
     //进入钱包地址详情或者合约详情

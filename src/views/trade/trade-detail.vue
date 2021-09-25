@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="information box-relative">
+    <div class="information box-relative" v-loading="loading">
       <!-- 交易状态小图标 -->
       <!-- <i
         v-if="detailInfo.txReceiptStatus==1"
@@ -92,13 +92,13 @@
             >{{ detailInfo.to }}
           </router-link>
           <!-- 如果是合约显示 -->
-          <div class="isContract" v-if="detailInfo.receiveType == '1'">
+          <div class="isContract " v-if="detailInfo.receiveType == '1'">
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
                   {{ $t('contract.contract') }}
                 </div>
-                <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue mr4">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span>Contract</span>
@@ -189,7 +189,8 @@
           v-if="
             detailInfo.txType == '2' ||
             detailInfo.txType == '7' ||
-            detailInfo.txType == '9'
+            detailInfo.txType == '9' ||
+            detailInfo.txType == '21'
           "
         >
           <router-link
@@ -203,7 +204,7 @@
         <Item :label="$t('contract.contract')">
           <!-- 合约创建成功， 合约执行成功，合约执行失败 -->
           <div
-            class="isContract"
+            class="isContract contract-fail"
             v-if="
               detailInfo.txReceiptStatus == 1 ||
               (detailInfo.txReceiptStatus == 0 && detailInfo.txType !== 1)
@@ -214,7 +215,7 @@
                 <div slot="content" class="delegate-msg">
                   {{ $t('contract.contract') }}
                 </div>
-                <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue mr4">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span v-if="detailInfo.txType == 1">Create Contract</span>
@@ -999,7 +1000,6 @@ export default {
           //改变detailInfo.txType=='1'测试
           // data.txType = 2000;
           if (code == 0) {
-            this.loading = false;
             this.detailInfo = data;
             let isFirst = Boolean(data.first);
             let isLast = Boolean(data.last);
@@ -1017,6 +1017,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+            this.loading = false;
         });
     },
     onCopy() {

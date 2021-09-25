@@ -313,9 +313,9 @@ export default {
     erc721Trade: "PRC721 Token Txns",
 
     status: {
-      name: "status",
+      name: "Status",
       name2: "Contract State",
-      normal: "normal",
+      normal: "Normal",
       destructed: "Contract was Destructed",
       destructed2: "Contract Destructed",
       destructed3: "Destructed",

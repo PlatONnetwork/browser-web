@@ -64,7 +64,7 @@
         <!-- 合约状态 todo  -->
         <el-table-column :label="$t('contract.status.name2')">
           <template slot-scope="scope">
-            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed3') }}</div>
             <div v-else>{{ $t('contract.status.normal') }}</div>
           </template>
         </el-table-column>
@@ -81,10 +81,10 @@
         <el-table-column :label="$t('tradeAbout.hash')" width="200">
           <template slot-scope="scope">
             <div class="flex-special">
-              <span class="cursor normal ellipsis hash-width" :to="getTradeUrl(scope.row.txHash)">
+              <router-link class="cursor normal ellipsis hash-width" :to="getTradeUrl(scope.row.txHash)">
                 <!-- txHash 显示0x + 18 -->
                 {{ scope.row.txHash }}
-              </span>
+              </router-link>
             </div>
           </template>
         </el-table-column>

@@ -77,7 +77,7 @@
         <!-- 合约状态  -->
         <el-table-column :label="$t('contract.status.name2')">
           <template slot-scope="scope">
-            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed3') }}</div>
             <div v-else>{{ $t('contract.status.normal') }}</div>
           </template>
         </el-table-column>
@@ -156,7 +156,7 @@
         <!-- tokens 名称+单位 -->
         <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
-            <span class="cursor normal ellipsis adr-width" :to="getTokenUrl(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` }}</span>
+            <router-link class="cursor normal ellipsis adr-width" :to="getTokenUrl(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` }}</router-link>
           </template>
         </el-table-column>
       </el-table>

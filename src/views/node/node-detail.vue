@@ -765,7 +765,7 @@
                     class="percent80 no-break"
                     v-else-if="scope.row.type == 12"
                   >
-                    {{ $t('actionType.' + [scope.row.type]) }}
+                    {{ $t('actionType.' + [scope.row.type]) }}&nbsp;&nbsp;{{scope.row.version}}
                   </p>
                 </template>
               </el-table-column>
