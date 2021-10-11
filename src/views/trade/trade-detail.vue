@@ -164,7 +164,8 @@
           detailInfo.txType == '6' ||
           detailInfo.txType == '7' ||
           detailInfo.txType == '8' ||
-          detailInfo.txType == '9'
+          detailInfo.txType == '9' ||
+          detailInfo.txType == '21'
         "
       >
         <!-- 创建方 -->
@@ -1068,6 +1069,7 @@ export default {
         2: 'execution',
         7: 'execution',
         9: 'execution',
+        21: 'execution',
         4: 'other',
         5: 'other',
         4000: 'restricting',
