@@ -421,7 +421,7 @@
     <div v-else class="table"  v-loading="tLoading" :class="{'node-table': windowWidth < 750 || windowWidth > 1800}">
       <div class="table-content">
       <!-- <div class="table-content" :style="{height: windowWidth < 750 ? 'auto' : 'calc(100vh - 280px)'}"> -->
-        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800 || tableData.length < 12) ? null : 'calc(100vh - 280px)'">
+        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800 || pageTotal.length < 10) ? null : 'calc(100vh - 280px)'">
           <el-table-column
             fixed
             :label="$t('nodeInfo.rank')"
