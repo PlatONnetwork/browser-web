@@ -44,7 +44,7 @@
                 active:
                   $route.path.indexOf('block') > -1 ||
                   $route.path.indexOf('trade') > -1 ||
-                  $route.path.indexOf('address') > -1,
+                  $route.path.indexOf('/address') > -1,
               }"
               >{{ $t('menu.blockChain') }}
               <i
@@ -123,7 +123,8 @@
               :class="{
                 active:
                   $route.path.indexOf('governable-parameter') > -1 ||
-                  $route.path.indexOf('proposal') > -1,
+                  $route.path.indexOf('proposal') > -1 ||
+                  $route.path.indexOf('/foundation-address') > -1,
               }"
               >{{ $t('menu.more') }}
               <i
@@ -140,6 +141,9 @@
               }}</el-dropdown-item>
               <el-dropdown-item command="/governable-parameter">{{
                 $t('more.governableParameter')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/foundation-address">{{
+                $t('more.foundationAddress')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -363,12 +367,20 @@
               </el-menu-item>
               <el-menu-item
                 @click="toggleMobileMenuOpenend"
-                class="governable-parameter"
                 index="/governable-parameter"
                 :class="{ active: $route.path == '/governable-parameter' }"
               >
                 <router-link to="/governable-parameter">{{
                   $t('more.governableParameter')
+                }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                index="/foundation-address"
+                :class="{ active: $route.path == '/foundation-address' }"
+              >
+                <router-link to="/foundation-address">{{
+                  $t('more.foundationAddress')
                 }}</router-link>
               </el-menu-item>
             </el-menu-item-group>
@@ -406,7 +418,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import store from '@/vuex/store';
@@ -457,7 +469,7 @@ export default {
     },
     logoURL() {
       return this.configData.logo
-        ? process.env.API_ROOT + this.configData.logo
+        ? process.env.VUE_APP_API_ROOT + this.configData.logo
         : '#';
     },
   },
@@ -904,9 +916,6 @@ export default {
             font-weight: 700;
           }
         }
-        // &.governable-parameter {
-        //   font-size: 12px;
-        // }
       }
       li {
         padding: 0 !important;

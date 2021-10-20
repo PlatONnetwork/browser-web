@@ -10,7 +10,7 @@
         >
           <a
             class="ellipsis"
-            style="padding: 0 4px;"
+            style="padding: 0 4px"
             :href="item.url[configLang]"
             target="_blank"
           >
@@ -26,7 +26,7 @@
         {{
           $t('indexInfo.platScan', {
             siteName: configData.siteName,
-            chain: configData.chainName
+            chain: configData.chainName,
           })
         }}
       </p>
@@ -34,7 +34,7 @@
         {{
           $t('indexInfo.international', {
             year: curYear,
-            copyRight: configData.copyRight.toUpperCase()
+            copyRight: configData.copyRight.toUpperCase(),
           })
         }}
       </p>
@@ -50,7 +50,7 @@
           <img
             :src="
               logoPrevURL + configData.social[1].qrcode ||
-                '../../assets/images/weixin.jpg'
+              '../../assets/images/weixin.jpg'
             "
             alt=""
             class="wx-img"
@@ -59,7 +59,7 @@
         <a
           :href="
             configData.social[2].url[configLang] ||
-              'https://twitter.com/PlatON_Network'
+            'https://twitter.com/PlatON_Network'
           "
           target="_blank"
           class="link-3"
@@ -67,7 +67,7 @@
         <a
           :href="
             configData.social[3].url[configLang] ||
-              'https://www.reddit.com/user/PlatON_Network'
+            'https://www.reddit.com/user/PlatON_Network'
           "
           target="_blank"
           class="link-4"
@@ -75,7 +75,7 @@
         <a
           :href="
             configData.social[4].url[configLang] ||
-              'https://medium.com/@PlatON_Network'
+            'https://medium.com/@PlatON_Network'
           "
           target="_blank"
           class="link-5"
@@ -84,7 +84,7 @@
         <a
           :href="
             configData.social[5].url[configLang] ||
-              'https://github.com/PlatONnetwork'
+            'https://github.com/PlatONnetwork'
           "
           target="_blank"
           class="link-6"
@@ -93,7 +93,7 @@
         <a
           :href="
             configData.social[6].url[configLang] ||
-              'https://www.linkedin.com/company/platonnetwork/'
+            'https://www.linkedin.com/company/platonnetwork/'
           "
           target="_blank"
           class="link-7"
@@ -101,7 +101,7 @@
         <a
           :href="
             configData.social[7].url[configLang] ||
-              'https://www.facebook.com/PlatONNetwork/'
+            'https://www.facebook.com/PlatONNetwork/'
           "
           target="_blank"
           class="link-8"
@@ -109,7 +109,7 @@
         <a
           :href="
             configData.social[8].url[configLang] ||
-              'https://bihu.com/people/1215832888'
+            'https://bihu.com/people/1215832888'
           "
           target="_blank"
           class="link-9"
@@ -117,7 +117,7 @@
         <a
           :href="
             configData.social[9].url[configLang] ||
-              'https://www.chainnode.com/forum/267'
+            'https://www.chainnode.com/forum/267'
           "
           target="_blank"
           class="link-10"
@@ -139,7 +139,7 @@
           {{
             $t('indexInfo.platScan', {
               siteName: configData.siteName,
-              chain: configData.chainName
+              chain: configData.chainName,
             })
           }}
         </p>
@@ -149,7 +149,7 @@
           <a
             :href="
               configData.social[0].url[configLang] ||
-                'https://t.me/PlatONNetwork'
+              'https://t.me/PlatONNetwork'
             "
             target="_blank"
             class="link-1"
@@ -158,7 +158,7 @@
             <img
               :src="
                 logoPrevURL + configData.social[1].qrcode ||
-                  '../../assets/images/weixin.jpg'
+                '../../assets/images/weixin.jpg'
               "
               alt=""
               class="wx-img"
@@ -167,7 +167,7 @@
           <a
             :href="
               configData.social[2].url[configLang] ||
-                'https://twitter.com/PlatON_Network'
+              'https://twitter.com/PlatON_Network'
             "
             target="_blank"
             class="link-3"
@@ -175,7 +175,7 @@
           <a
             :href="
               configData.social[3].url[configLang] ||
-                'https://www.reddit.com/user/PlatON_Network'
+              'https://www.reddit.com/user/PlatON_Network'
             "
             target="_blank"
             class="link-4"
@@ -183,7 +183,7 @@
           <a
             :href="
               configData.social[4].url[configLang] ||
-                'https://medium.com/@PlatON_Network'
+              'https://medium.com/@PlatON_Network'
             "
             target="_blank"
             class="link-5"
@@ -192,7 +192,7 @@
           <a
             :href="
               configData.social[5].url[configLang] ||
-                'https://github.com/PlatONnetwork'
+              'https://github.com/PlatONnetwork'
             "
             target="_blank"
             class="link-6"
@@ -200,7 +200,7 @@
           <a
             :href="
               configData.social[6].url[configLang] ||
-                'https://www.linkedin.com/company/platonnetwork/'
+              'https://www.linkedin.com/company/platonnetwork/'
             "
             target="_blank"
             class="link-7"
@@ -208,7 +208,7 @@
           <a
             :href="
               configData.social[7].url[configLang] ||
-                'https://www.facebook.com/PlatONNetwork/'
+              'https://www.facebook.com/PlatONNetwork/'
             "
             target="_blank"
             class="link-8"
@@ -216,7 +216,7 @@
           <a
             :href="
               configData.social[8].url[configLang] ||
-                'https://bihu.com/people/1215832888'
+              'https://bihu.com/people/1215832888'
             "
             target="_blank"
             class="link-9"
@@ -224,7 +224,7 @@
           <a
             :href="
               configData.social[9].url[configLang] ||
-                'https://www.chainnode.com/forum/267'
+              'https://www.chainnode.com/forum/267'
             "
             target="_blank"
             class="link-10"
@@ -234,7 +234,7 @@
           {{
             $t('indexInfo.international', {
               year: curYear,
-              copyRight: configData.copyRight.toUpperCase()
+              copyRight: configData.copyRight.toUpperCase(),
             })
           }}
         </p>
@@ -242,7 +242,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
@@ -250,7 +250,7 @@ export default {
   data() {
     return {
       path: '/',
-      curYear: new Date().getFullYear()
+      curYear: new Date().getFullYear(),
     };
   },
   props: {},
@@ -263,13 +263,13 @@ export default {
       return this.$i18n.locale.indexOf('zh') !== -1 ? 'cn' : 'en';
     },
     logoPrevURL() {
-      return process.env.API_ROOT;
-    }
+      return process.env.VUE_APP_API_ROOT;
+    },
   },
   watch: {
     '$route.path'(newVal, oldVal) {
       this.path = newVal;
-    }
+    },
   },
   components: {},
   methods: {},
@@ -277,7 +277,7 @@ export default {
   created() {
     this.path = this.$route.path;
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>

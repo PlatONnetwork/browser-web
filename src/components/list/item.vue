@@ -5,8 +5,18 @@
       'list-col-item': vertical === true
     }"
   >
-    <label v-if="vertical === false"> {{ label }}： </label>
-    <label v-else> {{ label }}</label>
+    <template v-if="label">
+      <label v-if="vertical === false">{{
+          label 
+        }}：<el-tooltip v-if="tips" placement="bottom" class="item" effect="dark">
+          <div slot="content" class="delegate-msg" v-html="tips">
+          </div>
+          <i class="address-icon"></i>
+        </el-tooltip>
+      </label>
+      <label v-else> {{ label }}</label>
+      
+    </template>
     <p
       v-if="prop || prop == 0"
       :class="{
@@ -49,7 +59,11 @@ export default {
     },
     label: {
       type: String,
-      required: true
+      default: ""
+    },
+    tips: {
+      type: String,
+      default: ""
     }
   },
   computed: {},

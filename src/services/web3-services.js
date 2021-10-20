@@ -1,3 +1,6 @@
+/**
+ * 这个文件暂时没有使用， 把pagejson的web3删除了
+ */
 // 引入web3.js
 import Web3 from 'web3'
 class contractService {

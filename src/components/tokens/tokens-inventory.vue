@@ -51,7 +51,7 @@ import apiService from '@/services/API-services';
 export default {
   props: {
     address: {
-      type: 'string',
+      type: String,
       required: true,
     },
     tokenId: String,
@@ -109,7 +109,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 230px;
+      max-width: 230px;
       height: 120px;
       overflow: hidden;
       .token-pic {

@@ -18,7 +18,7 @@
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
         <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
-          {{ $t('contract.balance') }} ({{ balanceTotalDisplay }})
+          {{ $t('tokens.hold20') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
           {{ $t('contract.transactions') }} ({{ tokensName }})
@@ -38,7 +38,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('tokens.unit')">
+        <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
             <div>
               {{ scope.row.symbol | sliceStr(21) }}
@@ -54,7 +54,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transfers')">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.txCount)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -72,6 +72,10 @@
               <icon-contract></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
             </span>
+            <!-- <span v-else class="ellipsis ellipsisWidth">
+              <icon-contract :active="false"></icon-contract>
+              {{ scope.row.contract | sliceStr(20) }}
+            </span> -->
           </template>
         </el-table-column>
       </el-table>
@@ -147,7 +151,7 @@
         </el-table-column>
 
         <!-- tokens 名称+单位 -->
-        <el-table-column :label="$t('tokens.unit')">
+        <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
             <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(21) }}</span>
           </template>
@@ -195,14 +199,20 @@ export default {
   },
   props: {
     address: String,
-    // 为contract时，没有余额tab
+    // //为contract时，没有余额tab
+    // 逻辑修改: 当为contract时，ui和处理逻辑都和address一样，只有接口的addrss字段改为contract字段
+    // 
     pageType: {
       type: String,
-      default: 'address',
+      default: 'address', // address, contract, contranctA(需求修改后的新字段，为防止其他修改，暂时不删除原有逻辑)
     },
     tradeCount: Object,
   },
-  computed: {},
+  computed: {
+    isAddress() {
+      return this.pageType === 'address'
+    }
+  },
   watch: {
     $route(to, from) {
       this.$router.go(0);
@@ -213,15 +223,16 @@ export default {
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName, txCount) {
-      this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
-      this.tokensName = tokensName;
-      this.tokenContract = contract
+    async showAddressTokenList(token) {
+      this.tradeType = 'transfer'; //切换到交易界面 展示地址下的相关交易列表
+      this.tokensName = token.name;
+      this.tokenContract = token.contract;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract, txCount);
+      await this.getTradeAddressList(token.txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
+      // let key = this.isAddress ? 'address' : 'contract';
       apiService.tokens
         .tokenBalanceList({
           type: 'erc20',
@@ -244,12 +255,12 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract, txCount) {
+    getTradeAddressList(txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
         address: this.address,
-        contract,
+        contract: this.tokenContract
       };
       // apiService.trade.transactionList(param);
       apiService.tokens
@@ -282,9 +293,10 @@ export default {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
+        address: this.address
       };
-      let key = this.pageType === 'contract' ? 'contract' : 'address';
-      param[key] = this.address;
+      // let key = this.isAddress ? 'address' : 'contract';
+      // param[key] = this.address;
       apiService.tokens
         .token20TxList(param)
         .then((res) => {
@@ -332,7 +344,7 @@ export default {
       if (this.tokensName === 'All') {
         this.getTradeList();
       } else {
-        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+        this.getTradeAddressList(this.tradePageTotal);
       }
     },
     handleTradePageChange(val) {
@@ -363,19 +375,19 @@ export default {
     },
     exportFn() {
       let exportname;
-      let contract = false;
+      // let contract = false;
       if (this.tradeType === 'blance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
-        contract = this.pageType === 'contract'
+        // contract = !this.isAddress;
       }
       let query = {
         address: this.address,
         tokenType: 'erc20',
         exportname,
       }
-      contract && (query.contract = 'true')
+      // contract && (query.contract = 'true')
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',

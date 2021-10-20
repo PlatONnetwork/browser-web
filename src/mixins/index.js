@@ -23,7 +23,7 @@ const routeJump = {
     },
     // 判断是否是合约
     isContract(type) {
-      return [2, 3, 4, 5].includes(type);
+      return [2, 3, 4, 5, 6].includes(type);
     },
     //进入钱包地址详情
     goAddressDetail(adr, type = 0) {

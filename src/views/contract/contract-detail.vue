@@ -66,7 +66,7 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txQty | formatNumber }}</div>
               </li>
-              <li v-if="detailInfo.type === 5">
+              <li>
                   <label class="Gilroy-Medium">{{
                     $t('contract.erc20Trade')
                   }}</label>
@@ -74,7 +74,7 @@
                     {{ detailInfo.erc20TxQty | formatNumber }}
                   </div>
               </li>
-              <li v-if="detailInfo.type === 6">
+              <li>
                   <label class="Gilroy-Medium">{{
                     $t('contract.erc721Trade')
                   }}</label>
@@ -161,25 +161,32 @@
           >{{ $t('contract.transactions') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc20"
           size="medium"
           :class="{ active: tabIndex == 2 }"
           @click="tabChange(2)"
-          >{{ $t('tokens.erc20TokenTxns') }}</el-button
+          >{{ $t('contract.erc20Trade') }}</el-button
         >
         <el-button
-          v-if="detailInfo.hasErc721"
           size="medium"
           :class="{ active: tabIndex == 3 }"
           @click="tabChange(3)"
-          >{{ $t('tokens.erc721TokenTxns') }}</el-button
+          >{{ $t('contract.erc721Trade') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-          >{{ $t('contract.contract') }}</el-button
+          v-if="isAddressDetailsDelegation"
         >
+          {{ $t('contract.delegations') }}
+        </el-button>
+        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" v-if="isAddressDetailsReward">
+          {{ $t('tradeAbout.rewardDetails') }}
+        </el-button>
+        <el-button size="medium" :class="{ active: tabIndex == 6 }" @click="tabChange(6)">
+          {{ $t('contract.contract') }}
+        </el-button>
+
       </div>
 
       <!-- 交易 -->
@@ -191,23 +198,32 @@
       ></trade-list>
 
       <!-- Erc20 Token -->
-      <erc20-list v-if="detailInfo.hasErc20" v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contract"></erc20-list>
+      <erc20-list v-show="tabIndex == 2" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc20-list>
 
       <!-- Erc721 Token -->
-      <erc721-list v-if="detailInfo.hasErc721" v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contract"></erc721-list>
+      <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc721-list>
+
+      <!-- 委托 -->
+      <delegation-info v-show="tabIndex == 4" :detailInfo="detailInfo" :address="address"></delegation-info>
+
+      <!-- 奖励领取明细 -->
+      <reward-detail v-show="tabIndex == 5" :tradeCount="detailInfo" :address="address"></reward-detail>
 
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 4" :detailInfo="detailInfo">
-      </contract-info>
+      <contract-info v-show="tabIndex == 6" :detailInfo="detailInfo"></contract-info>
+
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import apiService from '@/services/API-services';
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
-import contractInfo from '@/components/contract/contract-info';
+import rewardDetail from '@/components/address/rewardDetailTable'
+import delegationInfo from '@/components/address/delegations-info'
+import contractInfo from '@/components/contract/contract-info'
 export default {
   name: 'contract-detail',
   data() {
@@ -230,13 +246,17 @@ export default {
     };
   },
   props: {},
-  computed: {},
+  computed: {
+    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward']),
+  },
   watch: {},
   components: {
     tradeList,
     erc20List,
     erc721List,
     contractInfo,
+    rewardDetail,
+    delegationInfo,
   },
   methods: {
     //获取地址信息详情
@@ -249,29 +269,8 @@ export default {
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
+            this.noTokens = !(data.tokenName && data.tokenSymbol)
             this.detailInfo = data;
-            // 合成token 名称
-            this.getTokenDetail();
-          } else {
-            this.$message.error(errMsg);
-          }
-        })
-        .catch((error) => {
-          this.$message.error(error);
-        });
-    },
-    
-    getTokenDetail() {
-      apiService.tokens
-        .tokenDetail({address: this.address})
-        .then((res) => {
-          let { errMsg, code, data } = res;
-          if (code == 0) {
-            if (!data) {
-              this.noTokens = true;
-              return;
-            }
-            this.detailInfo[data.type + 'TxQty'] = data.txCount;
           } else {
             this.$message.error(errMsg);
           }

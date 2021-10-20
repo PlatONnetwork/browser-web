@@ -467,6 +467,7 @@ body {
     color: #0798de;
     font-style: normal;
     font-family: Gilroy-Medium;
+    padding: 0 6px;
   }
 
   span {
@@ -479,7 +480,7 @@ body {
     height: 16px;
     font-weight: normal;
     // background: url(../../assets/images/icon-copy.png) no-repeat;
-    margin-left: 4px;
+    margin: 0 4px;
     font-size: 14px;
     color: #666;
 
@@ -543,7 +544,7 @@ body {
   height: 16px;
   font-weight: normal;
   // background: url(../../assets/images/icon-copy.png) no-repeat;
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 .copy {
@@ -1007,4 +1008,23 @@ body {
   .currency {
     word-break: break-word;
   }
+}
+
+
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+ 
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
+ 
+table {
+  width: 100% !important;
+}
+ 
+.el-table__body {
+  // 使表格兼容safari，不错位
+  width: 100%;
+  table-layout: fixed !important;
 }

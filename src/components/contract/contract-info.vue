@@ -47,23 +47,25 @@ export default {
   props: ['detailInfo'],
   methods: {
     contractTypeTitle(type) {
-      let s = 'tradeAbout.';
+      let s
       switch (type) {
-        case 3:
-          s += 'EVM';
-          break;
         case 2:
-          s += 'PPOS';
-          break;
+          s = 'PPOS'
+          break
+        case 3:
+          s = 'EVM'
+          break
         case 4:
-          s += 'WASM';
-          break;
+          s = 'WASM'
+          break
         case 5:
-          s += 'ERC20';
+          s = 'ERC20'
+          break
         case 6:
-          s += 'ERC721';
+          s = 'ERC721'
+          break
       }
-      return this.$t(s);
+      return s ? this.$t(`tradeAbout.${s}`) : '--';
     },
   },
 };

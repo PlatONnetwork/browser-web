@@ -134,7 +134,8 @@ class ApiService {
     };
     this.more = {
       queryConfig: this.post.bind(this, API.MORE.queryConfig),
-      globalConfig: this.get.bind(this, API.MORE.globalConfig)
+      globalConfig: this.get.bind(this, API.MORE.globalConfig),
+      queryFundAddress: this.post.bind(this, API.MORE.queryFundAddress)
     };
     this.interceptorsOfReq();
     this.interceptorsOfRes();

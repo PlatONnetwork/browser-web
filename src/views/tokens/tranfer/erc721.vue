@@ -48,7 +48,7 @@
     </el-table-column>
 
     <!-- 块龄（Age） -->
-    <el-table-column :label="$t('tradeAbout.age')">
+    <el-table-column :label="$t('tradeAbout.age')" :width="windowWidth < 750 ? 112 : null">
       <template slot-scope="scope">
         <span
           >{{ timeDiffFn(scope.row.blockTimestamp, scope.row.systemTimestamp)

@@ -17,8 +17,8 @@
     </div>
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
-        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'number')">
-          {{ $t('contract.number') }} ({{ balanceTotalDisplay }})
+        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
+          {{ $t('tokens.hold721') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
           {{ $t('contract.transactions') }} ({{ tokensName }})
@@ -48,7 +48,7 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.transferNum')" :min-width="$i18n.locale == 'en' ? 150 : 80">
           <template slot-scope="scope">
-            <span @click="showAddressTokenList(scope.row.contract, scope.row.name, scope.row.tokenId, scope.row.txCount)" class="cursor normal">
+            <span @click="showAddressTokenList(scope.row)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
@@ -59,6 +59,10 @@
               <icon-contract></icon-contract>
               {{ scope.row.contract | sliceStr(20) }}
             </span>
+            <!-- <span v-else class="ellipsis ellipsisWidth">
+              <icon-contract :active="false"></icon-contract>
+              {{ scope.row.contract | sliceStr(20) }}
+            </span> -->
           </template>
         </el-table-column>
       </el-table>
@@ -98,7 +102,7 @@
           </el-table-column>
         </template>
         <!-- 块龄 -->
-        <el-table-column v-else :label="$t('tradeAbout.age')" min-width="120">
+        <el-table-column v-else :label="$t('tradeAbout.age')" width="120">
           <template slot-scope="scope">
             <span>
               {{
@@ -109,7 +113,7 @@
         </el-table-column>
 
         <!-- From 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.from')">
+        <el-table-column :label="$t('tokens.from')" min-width="140">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
@@ -131,7 +135,7 @@
         </el-table-column>
 
         <!--To 操作地址（Operator_Address） -->
-        <el-table-column :label="$t('tokens.to')">
+        <el-table-column :label="$t('tokens.to')"  min-width="140">
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
@@ -146,7 +150,7 @@
             <template slot-scope="scope">
               <span 
                 class="cursor normal ellipsis ellipsisWidth"
-                @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
+                @click="go721IdDetail(scope.row)"
                 >{{ scope.row.tokenId | sliceStr(20) }}</span>
             </template>
           </el-table-column>
@@ -201,19 +205,26 @@ export default {
 
       tradeType: 'blance',
       tokensName: 'All',
-      tokenContract: ''
+      tokenContract: '',
+      tokenId: ''
     };
   },
   props: {
     address: String,
-    // 为contract时，没有余额tab
+    // //为contract时，没有余额tab
+    // 逻辑修改: 当为contract时，ui和处理逻辑都和address一样，只有接口的addrss字段改为contract字段
+    // 
     pageType: {
       type: String,
-      default: 'address',
+      default: 'address', // address, contract, contranctA(需求修改后的新字段，为防止其他修改，暂时不删除原有逻辑)
     },
     tradeCount: Object,
   },
-  computed: {},
+  computed: {
+    isAddress() {
+      return this.pageType === 'address'
+    }
+  },
   watch: {
     $route(to, from) {
       this.$router.go(0);
@@ -224,15 +235,17 @@ export default {
   },
   components: { IconContract },
   methods: {
-    async showAddressTokenList(contract, tokensName, tokenId, txCount) {
-      this.tradeType = 'address'; //切换到交易界面 展示地址下的相关交易列表
-      this.tokensName = tokensName;
-      this.tokenContract = contract;
+    async showAddressTokenList(token) {
+      this.tradeType = 'transfer'; //切换到交易界面 展示地址下的相关交易列表
+      this.tokensName = token.name;
+      this.tokenContract = token.contract;
+      this.tokenId = token.tokenId;
       this.tradeCurPage = 1;
-      await this.getTradeAddressList(contract, tokenId, txCount);
+      await this.getTradeAddressList(token.txCount);
       this.selectIndex = 2;
     },
     getBlanceList() {
+      // let key = this.isAddress ? 'address' : 'contract';
       apiService.tokens
         .tokenBalanceList({
           type: 'erc721',
@@ -255,13 +268,13 @@ export default {
           this.$message.error(error);
         });
     },
-    getTradeAddressList(contract, tokenId, txCount) {
+    getTradeAddressList(txCount) {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
         address: this.address,
-        tokenId,
-        contract,
+        contract: this.tokenContract,
+        tokenId: this.tokenId,
       };
       // apiService.trade.transactionList(param);
       apiService.tokens
@@ -294,9 +307,10 @@ export default {
       let param = {
         pageNo: this.tradeCurPage,
         pageSize: this.tradePageSize,
+        address: this.address
       };
-      let key = this.pageType === 'contract' ? 'contract' : 'address';
-      param[key] = this.address;
+      // let key = this.isAddress ? 'address' : 'contract';
+      // param[key] = this.address;
       apiService.tokens
         .token721TxList(param)
         .then((res) => {
@@ -340,7 +354,7 @@ export default {
       if (this.tokensName === 'All') {
         this.getTradeList();
       } else {
-        this.getTradeAddressList(this.tokenContract, this.tradePageTotal);
+        this.getTradeAddressList(this.tradePageTotal);
       }
     },
     handleBlancePageChange(val) {
@@ -376,19 +390,19 @@ export default {
     },
     exportFn() {
       let exportname;
-      let contract = false;
+      // let contract = false;
       if (this.tradeType === 'blance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
-        contract = this.pageType === 'contract'
+        // contract = !this.isAddress;
       }
       let query = {
         address: this.address,
         tokenType: 'erc721',
         exportname,
       }
-      contract && (query.contract = 'true')
+      // contract && (query.contract = 'true')
       //跳转至下载页
       const { href } = this.$router.resolve({
         path: '/download',

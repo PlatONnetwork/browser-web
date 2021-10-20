@@ -88,7 +88,19 @@
           </li>
           <li class="statistics-odd">
             <div class="statistics-label">
-              {{ $t('indexInfo.CIRCULATINGSUPPLY') }}
+              {{ $t('indexInfo.circulatingSupply') }}
+              <el-tooltip placement="bottom" class="item" effect="dark">
+                <div slot="content" class="delegate-msg" v-html="$t('tips.circulatingSupply')">
+                </div>
+                <i class="address-icon"></i>
+              </el-tooltip>
+              /
+              {{ $t('indexInfo.totalSupply') }}
+              <el-tooltip placement="bottom" class="item" effect="dark">
+                <div slot="content" class="delegate-msg" v-html="$t('tips.totalSupply')">
+                </div>
+                <i class="address-icon"></i>
+              </el-tooltip>
             </div>
             <p>
               {{ blockStatisticData.turnValue | unit }}&nbsp;/
@@ -302,8 +314,8 @@
             </li>
             <li
               class="cursor"
-              v-for="(item, index) in showedValidatorData"
-              :key="index"
+              v-for="item in showedValidatorData"
+              :key="item.nodeId"
               @click="goNodeDetail(item.nodeId)"
             >
               <div class="list-item item-left">

@@ -8,9 +8,9 @@ export default {
     validator: "验证节点",
     proposal: "治理提案",
     tokens: "令牌",
-    erc20Tokens: "PRC20 令牌",
+    erc20Tokens: "PRC20热门令牌",
     erc20Transfer: "PRC20 交易",
-    erc721Tokens: "PRC721 令牌",
+    erc721Tokens: "PRC721热门令牌",
     erc721Transfer: "PRC721 交易",
     tokenList: "令牌列表",
     more: "更多",
@@ -43,7 +43,11 @@ export default {
     owner: "所有者",
     holder: "持有者",
     holder_: "持有人",
+    Tokens: "持有人",
+    hold20: "持有令牌",
+    hold721: "持有令牌",
     unit: "单位",
+    symbol: "符号",
     typesToken: "种令牌",
     typeErc20Token: "种PRC20令牌",
     typeErc721Token: "种PRC721令牌",
@@ -388,6 +392,8 @@ export default {
     LIVEBLOCKTIME: "实时出块时长(s)",
     LIVEBLOCKTRANSACTIONS: "实时区块交易数",
     LIVEBLOCKHEIGHT: "当前区块高度",
+    circulatingSupply: "流通量",
+    totalSupply: "总发行量",
     CIRCULATINGSUPPLY: "流通量/总发行量",
     LIVETRANSACTIONS: "实时交易笔数",
     CURRNTMAXTPS: "10秒内平均TPS/瞬时最高TPS",
@@ -424,6 +430,9 @@ export default {
     electedRoundValidator: "当选验证节点",
     blocks: "累计出块",
     blockRate: "出块率",
+    gBlockRate: "出块率",
+    blockRate24h: "24小时出块率",
+    version: "版本号",
     totalStakePower: "总质押",
     totalReward: "累计奖励",
     totalNodeReward: "累计系统奖励",
@@ -486,7 +495,7 @@ export default {
     rewardRatio: "委托奖励比例",
     nextRewardRatio:"下一结算周期委托奖励比例",
 
-    ratioTips: " 节点收益(出块奖励，质押奖励)分配给委托者的奖励比例。",
+    ratioTips: " 节点收益（出块奖励，质押奖励）分配给委托者的奖励比例。",
     unlockBlockHeight:"预估解锁块高"
   },
   nodeStatus: {
@@ -579,6 +588,7 @@ export default {
     11: "节点解除锁定"
   },
   more: {
+    foundationAddress: '基金会地址',
     governableParameter: "可治理参数",
     stakeThreshold: "创建验证节点最低的质押LAT数。",
     operatingThreshold: "委托用户每次委托或赎回委托的最低LAT数。",
@@ -602,6 +612,43 @@ export default {
     zeroProduceNumberThreshold: "零出块次数处罚阈值。",
     zeroProduceFreezeDuration:
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
+  },
+  tips: {
+    totalSupply_721: "已铸造的Token总量",
+    circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
+    实时流通供应量 = 总发行量 - 锁定的Token - 基金会托管的Token<br />
+    其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token。`,
+    totalSupply:`已经创造出来的Token数量减去已销毁的Token数量。<br />
+    总发行量 = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
+    其中 W为初始发行100亿，n为当前增发周期序号，创世区块开始序号为1，a%为增发比例，当前为2.5%`,
+    totalStakePower: `参与Staking的Token数，包含节点质押金和接收的委托。<br />
+    总质押 =  Staking合约地址余额（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzsjx8h7）`,
+    stakeRate: `参与Staking的Token占总可质押Token的比例，其中可质押Token包含锁仓合约锁定的Token。<br />
+    质押率 = 总质押 / （总发行量 - Staking相关系统合约余额 - 基金会账户余额和锁仓余额）<br />
+    Staking相关系统合约包含<br />
+    RewardManagerPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrdyjj2v），DelegateRewardPool（lat1zqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxlcypcy）`,
+    validatorYield: `基于最近4个结算周期，节点每份额自有质押金净收益折合成的年化收益率，仅供参考不构成任何建议。<br />
+    假设最近4个结算周期，每个结算周期节点实际获得的收益（区块奖励+质押奖励+所出区块内的交易手续费）W1、W2、W3、W4；最近4个结算周期，每个结算周期节点实际自有质押的token数C1、C2、C3、C4。<br />
+    节点年化收益率 = [(W1+W2+W3+W4)/(C1+C2+C3+C4)]*(当前增发周期的结算周期数)*100%`,
+    delegatedYield: `基于最近4个结算周期，每份额委托可获得的净收益折合成的年化收益率，仅供参考不构成任何建议。<br />
+    假设最近4个结算周期，每个结算周期实际获得该节点分配的委托收益W1、W2、W3、W4；最近4个结算周期各个结算区块中处于锁定状态委托成本C1、C2、C3、C4。<br />
+    预计委托年化收益率 = [(W1+W2+W3+W4)/(C1+C2+C3+C4)]*(当前增发周期的结算周期数)*100%`,
+    validatorYield2: ``,
+    validatorYield1: ``,
+    gBlockRate: `节点在过去24小时内出块的数量占节点应当出块数量的比例。<br />
+    计算公式：<br />
+    过去24小时（即最近7个结算周期内），该节点出过的所有的块数量，除以，该节点应当出块的数量。其中，应当出块数量 = 该节点过去7个结算周期内（不包含当前结算周期），当选出块节点的次数 * 10。`,
+    blockRate24h: `节点在过去24小时内实际出块数占节点应当出块数的比例。<br />
+    过去7个结算周期内（按照区块高度统计，实际在24小时左右），该节点出过的所有块数量，除以，该节点应当出块的数量。其中，应当出块数量 = 该节点过去7个结算周期内（不包含当前结算周期），当选出块节点的次数 * 10。`,
+  },
+  fund: {
+    title: "基金会地址",
+    totalBalance: "自由金总余额 (LAT)",
+    totalLocked: "锁仓金总余额 (LAT)",
+    pageTotal: `总计 <b class="black">{0}</b> 个地址`,
+    tAddress: "地址",
+    tBalance: "自由金余额 (LAT)",
+    tLockedBalance: "锁仓金余额 (LAT)"
   },
   ...zhLocale
 };

@@ -21,9 +21,12 @@
             </h3>
             <ul>
               <li>
-                <label class="Gilroy-Medium">{{
-                  $t('tokens.totalSupply_721')
-                }}</label>
+                <label class="Gilroy-Medium">
+                  {{ $t('tokens.totalSupply_721') }}&nbsp;
+                  <el-tooltip placement="bottom" class="item" effect="dark" :content="$t('tips.totalSupply_721')">
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </label>
                 <div class="money">{{ detailInfo.totalSupply }}</div>
               </li>
               <li>

@@ -11,11 +11,21 @@
     }
 }
 
+@media screen and (max-width: 750px) {
+    .el-tooltip__popper.is-dark{
+        max-width: 84vw;
+        word-wrap: break-word;
+    }
+}
+
 .self-tooltip{
     position: relative;
-    p{
+    & > span {
+      margin-left: 4px;
+    }
+    & > p {
         position: absolute;
-        top: 23px;
+        top: -40px;
         left: -65px;
         z-index: 9999;
         background: rgba(255,255,255,0.90);

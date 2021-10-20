@@ -1,5 +1,5 @@
-import 'babel-polyfill';
-
+import 'core-js/stable'
+import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import App from './App';
 import router from './router';
@@ -13,7 +13,6 @@ import VueWindowSize from 'vue-window-size';
 
 import VueClipboard from 'vue-clipboard2';
 import { mapActions } from 'vuex';
-import VueAwesomeSwiper from 'vue-awesome-swiper';
 
 // 二维码生成
 import VueQriously from 'vue-qriously';
@@ -27,18 +26,16 @@ import './filters';
 import './directives';
 import routeJump from'./mixins';
 // css
-import '../static/css/reset.css';
-import '../static/css/element-ui.css';
-import '../static/css/iconfont.css';
-import 'swiper/dist/css/swiper.css';
-import '../static/css/gilroy.css';
+import '../public/static/css/reset.css';
+import '../public/static/css/element-ui.css';
+import '../public/static/css/iconfont.css';
+import '../public/static/css/gilroy.css';
 // less
 import '@/less/index.less';
 
 Vue.use(VueI18n);
 Vue.use(ElementUI);
 Vue.use(VueClipboard);
-Vue.use(VueAwesomeSwiper);
 Vue.use(VueWindowSize);
 Vue.mixin(routeJump);
 
@@ -85,7 +82,7 @@ router.afterEach(function(to) {
 
 Vue.config.productionTip = false;
 // window.responseInfo = '';
-// const browserLanguage: string = navigator.language.toLowerCase()
+// const browserLanguage = navigator.language.toLowerCase()
 //获取location后的search信息
 const GetQueryString = (name) => {
     let  reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -101,7 +98,7 @@ if (lang =='zh'){
     localStorage.setItem('i18nLocale', 'en')
 }
 const language = navigator.language || window.navigator['browserLanguage'];
-let browserLanguage: string = localStorage.getItem('i18nLocale')
+let browserLanguage = localStorage.getItem('i18nLocale')
   ? localStorage.getItem('i18nLocale')
   : language.toLowerCase();
 browserLanguage = browserLanguage == 'zh-cn' ? 'zh-cn' : 'en';
@@ -160,7 +157,7 @@ export default window.vueVm = new Vue({
 // })
 
 //提案类型   1：文本提案； 2：升级提案；  3参数提案。
-Vue.filter('proposalType', (type: string): string => {
+Vue.filter('proposalType', (type) => {
   if (type === '1') return '文本提案';
   if (type === '2') return '升级提案';
   if (type === '3') return '参数提案';
@@ -169,7 +166,7 @@ Vue.filter('proposalType', (type: string): string => {
 });
 
 //状态  1：投票中  2：通过  3：失败   4：预升级  5：升级完成    已通过=2 或4 或 5
-Vue.filter('proposalStatus', (status: string): string => {
+Vue.filter('proposalStatus', (status) => {
   if (status === '1') return '投票中';
   if (status === '2' || status === '4' || status === '5') return '已通过';
   if (status === '3') return '已拒绝';
@@ -177,7 +174,7 @@ Vue.filter('proposalStatus', (status: string): string => {
 });
 
 //投票选型  1：支持；  2：反对；  3弃权
-Vue.filter('votePropotype', (status: string): string => {
+Vue.filter('votePropotype', (status) => {
   if (status === '1') return '支持';
   if (status === '2') return '反对';
   if (status === '3') return '弃权';
