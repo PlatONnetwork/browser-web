@@ -957,6 +957,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    word-break: break-word;
     .calcWidth {
       width: calc(100% - 300px);
       @media screen and (min-width: 1330px) {
@@ -966,6 +967,7 @@ export default {
     li {
       width: 50%;
       margin-bottom: 40px;
+      padding-right: 0.5em;
       .statistics-label {
         color: #999;
         font-size: 16px;
@@ -996,6 +998,7 @@ export default {
       }
       &.statistics-even {
         width: 45%;
+        padding-right: 1em;
       }
     }
   }
