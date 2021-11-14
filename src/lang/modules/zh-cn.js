@@ -630,8 +630,8 @@ export default {
   tips: {
     totalSupply_721: "已铸造的Token总量",
     circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
-    实时流通供应量 = 总发行量 - 锁定的Token - 基金会托管的Token<br />
-    其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token。`,
+    实时流通供应量 = 总发行量 - 锁仓的Token - 激励池中的Token - 基金会托管的Token<br />
+    其中，锁仓的Token为所有锁仓状态的Token，包含用于质押或委托的锁仓状态的Token，激励池中的Token包含激励池合约中的Token和未领取的Staking奖励Token。`,
     totalSupply:`已经创造出来的Token数量减去已销毁的Token数量。<br />
     总发行量 = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     其中 W为初始发行100亿，n为当前增发周期序号，创世区块开始序号为1，a%为增发比例，当前为2.5%`,
