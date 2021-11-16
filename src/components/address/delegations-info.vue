@@ -225,6 +225,7 @@ export default {
   .address-delegation {
   ul {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 20px;
     text-align: center;
     li {
@@ -249,10 +250,9 @@ export default {
       gap: 1em;
       li {
         padding: 5px 8px;
-        max-width: 22%;
         margin-right: 0;
         p {
-          word-break: break-all;
+          white-space: nowrap;
         }
       }
       
