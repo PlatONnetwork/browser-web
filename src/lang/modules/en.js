@@ -605,6 +605,7 @@ export default {
     12: "DeclareVersion",
   },
   more: {
+    addToExtension: "Add to Extension",
     foundationAddress: 'Foundation Address',
     governableParameter: "GOVERNABLE PARAMETER",
     stakeThreshold: "Minimum stake LATs required to create validator.",
@@ -632,6 +633,23 @@ export default {
       "Penalty threshold：Number of zero production blocks.",
     zeroProduceFreezeDuration:
       "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
+  },
+  extension: {
+    desc: "Users can quickly add to their wallets and Web3 middleware providers to connect to the correct Chain ID and Network ID to connect to the correct chain.",
+    form: {
+      rpc: "Network URL",
+      chainId: "Chain ID",
+      currency: "Currency",
+      website: "Explorer URL",
+      connect: "Connect MetaMask",
+      add: "Add to MetaMask",
+    },
+    error: {
+      already: "MetaMask already exists {0}",
+      noMetaMask: `MetaMask plugin is not detected, please <a href="https://metamask.io" target="_black"  style="color: #409eff;font-weight: bold;">install</a>.`,
+      tips: "TIPS",
+      mobile: "Please install MetaMask on the PC Chrome browser to operate.",
+    }
   },
   tips: {
     totalSupply_721: "Total amount of Tokens",

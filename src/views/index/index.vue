@@ -497,13 +497,16 @@ export default {
     }),
     //查询
     searchFn() {
-      this.disabledBtn = true;
       let param = this.searchKey.trim();
+      if (!param) {
+        return
+      }
       let isHEX = false;
       if (isAddress(param)) {
         isHEX = param;
         param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
       }
+      this.disabledBtn = true;
       apiService.search
         .query({ parameter: param })
         .then((res) => {
@@ -526,10 +529,10 @@ export default {
         .catch((error) => {
           this.searchKey = '';
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.disabledBtn = false;
         });
-      setTimeout(() => {
-        this.disabledBtn = false;
-      }, 2000);
     },
     //
     getStaking() {
@@ -1414,16 +1417,6 @@ export default {
 }
 </style>
 <style lang="less">
-.index-area {
-  background: #000;
-  overflow: hidden;
-  @media (max-width: 750px) {
-    padding: 0 40px;
-  }
-  @media (max-width: 500px) {
-    padding: 0 20px;
-  }
-}
 .search-index {
   &.search {
     border: 1px solid #6e6e6e;

@@ -121,10 +121,8 @@
             <span
               class="el-dropdown-link more-title"
               :class="{
-                active:
-                  $route.path.indexOf('governable-parameter') > -1 ||
-                  $route.path.indexOf('proposal') > -1 ||
-                  $route.path.indexOf('/foundation-address') > -1,
+                active: 
+                  ['/proposal', '/governable-parameter', '/foundation-address', '/add-to-extension'].includes($route.path)
               }"
               >{{ $t('menu.more') }}
               <i
@@ -144,6 +142,9 @@
               }}</el-dropdown-item>
               <el-dropdown-item command="/foundation-address">{{
                 $t('more.foundationAddress')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/add-to-extension">{{
+                $t('more.addToExtension')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -383,6 +384,15 @@
                   $t('more.foundationAddress')
                 }}</router-link>
               </el-menu-item>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                index="/add-to-extension"
+                :class="{ active: $route.path == '/add-to-extension' }"
+              >
+                <router-link to="/add-to-extension">{{
+                  $t('more.addToExtension')
+                }}</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="4">
@@ -583,13 +593,16 @@ export default {
     },
     //查询
     searchFn() {
-      this.disabledBtn = true;
       let param = this.searchKey.trim();
+      if (!param) {
+        return
+      }
       let isHEX = false;
       if (isAddress(param)) {
         isHEX = param;
         param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
       }
+      this.disabledBtn = true;
       apiService.search
         .query({ parameter: param })
         .then((res) => {
@@ -613,10 +626,10 @@ export default {
         .catch((error) => {
           this.searchKey = '';
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.disabledBtn = false;
         });
-      setTimeout(() => {
-        this.disabledBtn = false;
-      }, 2000);
     },
     switchFn(type, struct) {
       switch (type) {
@@ -710,7 +723,7 @@ export default {
   left: 0;
   display: flex;
   height: 102px;
-  z-index: 2001;
+  z-index: 2000;
   padding: 0 5.2%;
   margin: 0 auto;
   background: #000;
@@ -725,10 +738,12 @@ export default {
     }
   }
   .search {
+    display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
     &.search-hide {
       opacity: 1;
+      display: inherit;
     }
   }
 }

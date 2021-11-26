@@ -602,6 +602,7 @@ export default {
     12: "版本声明",
   },
   more: {
+    addToExtension: "Add to Extension",
     foundationAddress: '基金会地址',
     governableParameter: "可治理参数",
     stakeThreshold: "创建验证节点最低的质押LAT数。",
@@ -626,6 +627,24 @@ export default {
     zeroProduceNumberThreshold: "零出块次数处罚阈值。",
     zeroProduceFreezeDuration:
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
+  },
+  extension: {
+    desc: "用户可以快速添加到他们的钱包和Web3 中间件提供商连接到正确的Chain ID 和 Network ID 以连接到正确的链。",
+    form: {
+      rpc: "网络链接 URL",
+      chainId: "链 ID",
+      currency: "符号",
+      website: "浏览器 URL",
+      connect: "连接 MetaMask",
+      add: "添加到 MetaMask",
+    },
+    error: {
+      already: "MetaMask已存在 {0}",
+      noMetaMask: `未检测到MetaMask插件，请先
+        <a href="https://metamask.io" target="_black" style="color: #409eff;font-weight: bold;">安装</a>。`,
+      tips: "提示",
+      mobile: "请在PC端Chrome浏览器安装MetaMask进行操作。",
+    }
   },
   tips: {
     totalSupply_721: "已铸造的Token总量",
