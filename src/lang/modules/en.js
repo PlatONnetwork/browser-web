@@ -645,7 +645,7 @@ export default {
       add: "Add to MetaMask",
     },
     error: {
-      already: "MetaMask already exists {0}",
+      already: "MetaMask already exists Chain ID {0}",
       noMetaMask: `MetaMask plugin is not detected, please <a href="https://metamask.io" target="_black"  style="color: #409eff;font-weight: bold;">install</a>.`,
       tips: "TIPS",
       mobile: "Please install MetaMask on the PC Chrome browser to operate.",

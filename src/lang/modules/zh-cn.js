@@ -639,7 +639,7 @@ export default {
       add: "添加到 MetaMask",
     },
     error: {
-      already: "MetaMask已存在 {0}",
+      already: "MetaMask已存在链ID {0}",
       noMetaMask: `未检测到MetaMask插件，请先
         <a href="https://metamask.io" target="_black" style="color: #409eff;font-weight: bold;">安装</a>。`,
       tips: "提示",

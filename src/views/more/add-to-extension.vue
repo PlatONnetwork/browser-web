@@ -22,7 +22,7 @@
     <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron3.svg" />
     <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.svg" />
     <section class="content" v-if="config">
-      <p class="title" :class="{ cn: lang === 'cn' && isMobile }">{{ $t('extension.desc') }}</p>
+      <p class="title">{{ $t('extension.desc') }}</p>
       <p v-if="status.isMobile" class="mobile-err">{{ $t('extension.error.mobile') }}</p>
       <div class="detail">
         <p class="title">{{ config.title[lang] }}</p>
@@ -123,7 +123,7 @@ export default {
       const { chainName, rpcUrl, chainId: id, nativeCurrency, blockExplorerUrl } = this.config
       const chainId = '0x' + id.toString(16)
       if (currentChainId === chainId) {
-        this.$message.warning(this.$t('extension.error.already', [this.config.title[this.lang]]))
+        this.$message.warning(this.$t('extension.error.already', [id]))
         return
       }
       this.loading.add = true
@@ -186,9 +186,6 @@ export default {
       font-size: 20px;
       line-height: 30px;
       font-weight: 500;
-      &.cn {
-        padding: 30px 100px 12px;
-      }
     }
     .detail {
       margin-top: 70px;
