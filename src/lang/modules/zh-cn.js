@@ -629,7 +629,8 @@ export default {
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
   extension: {
-    desc: "用户可以快速添加到他们的钱包和Web3 中间件提供商连接到正确的Chain ID 和 Network ID 以连接到正确的链。",
+    desc: "用户可以快速添加到他们的钱包和Web3 中间件提供商（如：MetaMask）连接到正确的Chain ID 和 Network ID 以连接到正确的链；步骤：",
+    steps: ["连接...", "添加到...", "添加成功"],
     form: {
       rpc: "网络链接 URL",
       chainId: "链 ID",

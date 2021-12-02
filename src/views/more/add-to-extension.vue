@@ -23,6 +23,11 @@
     <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.svg" />
     <section class="content" v-if="config">
       <p class="title">{{ $t('extension.desc') }}</p>
+      <el-steps :align-center="true">
+        <el-step status="process" :title="$t('extension.steps.0')"></el-step>
+        <el-step status="process" :title="$t('extension.steps.1')"></el-step>
+        <el-step status="process" :title="$t('extension.steps.2')"></el-step>
+      </el-steps>
       <p v-if="status.isMobile" class="mobile-err">{{ $t('extension.error.mobile') }}</p>
       <div class="detail">
         <p class="title">{{ config.title[lang] }}</p>
@@ -284,6 +289,23 @@ export default {
   &::before {
     content: '*';
     color: #f56c6c;
+  }
+}
+
+.el-steps {
+  margin-top: 16px;
+  /deep/ .el-step__line {
+    top: 23px;
+    background: #fff;
+  }
+  /deep/ .el-step__icon {
+    background: #000;
+    width: 48px;
+    height: 48px;
+    border-width: 1px;
+  }
+  /deep/ .el-step__title.is-process {
+    font-weight: normal;
   }
 }
 

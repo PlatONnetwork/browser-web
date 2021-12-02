@@ -635,7 +635,8 @@ export default {
       "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
   extension: {
-    desc: "Users can quickly add to their wallets and Web3 middleware providers to connect to the correct Chain ID and Network ID to connect to the correct chain.",
+    desc: "Users can quickly add to their wallets and Web3 middleware providers (such as MetaMask) to connect to the correct Chain ID and Network ID to connect to the correct chain.Step:",
+    steps: ["Connect...", "Add to...", "Success"],
     form: {
       rpc: "Network URL",
       chainId: "Chain ID",
