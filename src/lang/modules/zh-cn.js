@@ -644,7 +644,9 @@ export default {
       noMetaMask: `未检测到MetaMask插件，请先
         <a href="https://metamask.io" target="_black" style="color: #409eff;font-weight: bold;">安装</a>。`,
       tips: "提示",
+      isChrome: "请使用chrome浏览器安装MetaMask进行操作。",
       mobile: "请在PC端Chrome浏览器安装MetaMask进行操作。",
+      noChainId: "MateMask版本过低或当前非MetaMask钱包",
     }
   },
   tips: {

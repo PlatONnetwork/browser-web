@@ -29,6 +29,7 @@
         <el-step status="process" :title="$t('extension.steps.2')"></el-step>
       </el-steps>
       <p v-if="status.isMobile" class="mobile-err">{{ $t('extension.error.mobile') }}</p>
+      <p v-else class="mobile-err">{{ $t('extension.error.isChrome') }}</p>
       <div class="detail">
         <p class="title">{{ config.title[lang] }}</p>
         <p class="item">
@@ -48,10 +49,22 @@
           <span class="text ellipsis1">{{ config.blockExplorerUrl }}</span>
         </p>
         <template v-if="!status.isMobile">
-          <button v-if="status.accounts.length" @click="addToNetwork" class="btn add" :class="{ active: loading.add }">
+          <button
+            v-if="status.accounts.length"
+            @click="addToNetwork"
+            class="btn add"
+            :disabled="loading.add"
+            :class="{ active: loading.add }"
+          >
             {{ $t('extension.form.add') }}
           </button>
-          <button v-else @click="connect" class="btn connect" :class="{ active: loading.connect }">
+          <button
+            v-else
+            @click="connect"
+            class="btn connect"
+            :disabled="loading.connect"
+            :class="{ active: loading.connect }"
+          >
             {{ $t('extension.form.connect') }}
           </button>
         </template>
@@ -75,6 +88,7 @@ export default {
       clientHeight: 700,
       status: {
         isMobile: true,
+        isChrome: true,
         metamaskEnable: false,
         accounts: [],
       },
@@ -124,14 +138,22 @@ export default {
         })
     },
     async addToNetwork() {
-      const currentChainId = await ethereum.request({ method: 'eth_chainId' })
+      // try {
+      //   currentChainId = await ethereum.request({ method: 'eth_chainId' })
+      // } catch (error) {
+      //   this.loading.add = false
+      //   this.$message.warning(this.$t('extension.error.noChainId'))
+      //   return
+      // }
+      const currentChainId = ethereum.chainId
+      this.loading.add = true
       const { chainName, rpcUrl, chainId: id, nativeCurrency, blockExplorerUrl } = this.config
       const chainId = '0x' + id.toString(16)
       if (currentChainId === chainId) {
         this.$message.warning(this.$t('extension.error.already', [id]))
+        this.loading.add = false
         return
       }
-      this.loading.add = true
       ethereum
         .request({
           method: 'wallet_addEthereumChain',
@@ -153,9 +175,11 @@ export default {
     },
   },
   created() {
-    this.status.isMobile = !!navigator.userAgent.match(
+    const ua = navigator.userAgent
+    this.status.isMobile = !!ua.match(
       /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
     )
+    this.status.isChrome = !!ua.match(/chrome/i)
   },
   mounted() {
     this.clientHeight = (document.documentElement.clientHeight || document.body.clientHeight) - 100
@@ -261,6 +285,9 @@ export default {
   // &:hover {
   //   color: #0798de;
   // }
+  &.active {
+    cursor: not-allowed;
+  }
   &.active::after {
     animation: blink 2s ease-in-out infinite;
   }
