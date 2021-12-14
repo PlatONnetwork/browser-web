@@ -336,7 +336,7 @@
                   class="token-pic"
                   :src="
                     item.innerImage ||
-                    require('@/assets/images/Alaya-cat-721.svg')
+                    require('@/assets/images/Platon-cat-721.svg')
                   "
                 />
               </li>
