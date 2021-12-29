@@ -106,14 +106,14 @@
           target="_blank"
           class="link-8"
         ></a>
-        <a
+        <!-- <a
           :href="
             configData.social[8].url[configLang] ||
             'https://bihu.com/people/1215832888'
           "
           target="_blank"
           class="link-9"
-        ></a>
+        ></a> -->
         <a
           :href="
             configData.social[9].url[configLang] ||
@@ -213,14 +213,14 @@
             target="_blank"
             class="link-8"
           ></a>
-          <a
+          <!-- <a
             :href="
               configData.social[8].url[configLang] ||
               'https://bihu.com/people/1215832888'
             "
             target="_blank"
             class="link-9"
-          ></a>
+          ></a> -->
           <a
             :href="
               configData.social[9].url[configLang] ||
