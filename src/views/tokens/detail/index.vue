@@ -1,5 +1,5 @@
 <template>
-  <component :is="componentName" :tokens-detail="componentData"></component>
+  <component :is="componentName" :tokens-detail="componentData" :address="address"></component>
 </template>
 
 <script>
@@ -7,15 +7,18 @@ import apiService from '@/services/API-services';
 import erc20DetailComponent from "@/views/tokens/detail/erc20-detail.vue";
 import erc721DetailComponent from "@/views/tokens/detail/erc721-detail.vue";
 import erc721IdDetailComponent from "@/views/tokens/detail/erc721id-detail.vue";
+import AdrTrans from '@/mixins/adrTrans';
 const componentMap = {
     erc20: 'erc20DetailComponent',
     erc721: 'erc721DetailComponent',
     erc721Id: 'erc721IdDetailComponent'
 }
 export default {
+  mixins: [AdrTrans],
   data() {
     return {
       type: '',
+      address: '',
       componentData: null
     }
   },
@@ -30,7 +33,7 @@ export default {
     erc721IdDetailComponent
   },
   created() {
-    this.address = this.$route.query.address.toLowerCase();
+    this.checkAdr()
     this.tokenId = this.$route.query.id;
     let type = this.$route.query.type;
     if (type) {

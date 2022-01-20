@@ -9,11 +9,11 @@
         <div class="detail-copy">
           <div>
             <span>{{ $t('contract.contract') }}</span>
-            <i>#{{ address }}</i>
+            <i>#{{ showAdr }}</i>
             <b
               class="cursor"
               :class="{ copy: !isCopy }"
-              v-clipboard:copy="address"
+              v-clipboard:copy="showAdr"
               v-clipboard:success="onCopy"
               v-clipboard:error="onError"
               ><p v-show="isCopy">
@@ -26,11 +26,13 @@
           <a class="code cursor">
             <qriously
               class="qr-code"
-              v-if="address"
-              :value="address"
+              v-if="showAdr"
+              :value="showAdr"
               :size="140"
             />
           </a>
+          <span v-if="!adrErr" class="adr-trans" @click="adrTypeChange">{{ adrType }}</span>
+          <span v-else class="adr-err">{{ $t('contract.addressErr') }}</span>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -82,6 +84,14 @@
                     {{ detailInfo.erc721TxQty | formatNumber }}
                   </div>
               </li>
+              <!-- 状态 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.status.name')
+                }}</label>
+                <div v-if="detailInfo.isDestroy" class="red">{{ $t('contract.status.destructed3') }}</div>
+                <div v-else>{{ $t('contract.status.normal') }}</div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -110,13 +120,13 @@
                   System Contract
                 </div>
                 <div v-else class="money contract-create-info">
-                  <span
-                    class="normal"
-                    @click="goAddressDetail(detailInfo.contractCreate)"
+                  <router-link
+                    class="normal ellipsis adr-width"
+                    :to="getAddressUrl(detailInfo.contractCreate)"
                     v-if="detailInfo.contractCreate"
                   >
-                    {{ detailInfo.contractCreate | sliceStr(16) }}
-                  </span>
+                    {{ detailInfo.contractCreate }}
+                  </router-link>
                   <span
                     style="padding: 0 8px"
                     v-if="
@@ -125,13 +135,13 @@
                   >
                     {{ $t('contract.transactionsIn') }}
                   </span>
-                  <span
-                    class="normal"
-                    @click="goTradeDetail(detailInfo.contractCreateHash)"
+                  <router-link
+                    class="normal ellipsis hash-width"
+                    :to="getTradeUrl(detailInfo.contractCreateHash)"
                     v-if="detailInfo.contractCreateHash"
                   >
-                    {{ detailInfo.contractCreateHash | sliceStr(20) }}
-                  </span>
+                    {{ detailInfo.contractCreateHash }}
+                  </router-link>
                 </div>
               </li>
               <li>
@@ -141,9 +151,9 @@
                 <!-- tokens -->
                 <div class="money contract-create-info">
                   <span v-if="noTokens">--</span>
-                  <span v-else class="normal" @click="goTokenDetail(address)" >
+                  <router-link v-else class="normal" :to="getTokenUrl(address)" >
                     {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
-                  </span>
+                  </router-link>
                 </div>
               </li>
             </ul>
@@ -224,8 +234,11 @@ import erc721List from '@/components/tokens/erc721-tokens-list';
 import rewardDetail from '@/components/address/rewardDetailTable'
 import delegationInfo from '@/components/address/delegations-info'
 import contractInfo from '@/components/contract/contract-info'
+import AdrTrans from '@/mixins/adrTrans';
+
 export default {
   name: 'contract-detail',
+  mixins: [AdrTrans],
   data() {
     return {
       tabIndex: 1,
@@ -309,8 +322,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.address = this.$route.query.address.toLowerCase();
-    this.getDetail();
+    this.checkAdr() && this.getDetail()
   },
   mounted() {},
 };
@@ -320,6 +332,12 @@ export default {
   font-size: 12px;
   color: #999;
   line-height: 16px;
+}
+.adr-err {
+  color: #cf326e;
+  font-size: 14px;
+  margin-left: 4px;
+  line-height:24px;
 }
 .money {
   color: #000;

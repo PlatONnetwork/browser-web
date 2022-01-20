@@ -38,6 +38,7 @@ export default {
       currentPage: 1,
       pageSize: 20,
       pageTotal: 0,
+      loading: false,
     }
   },
   methods: {
@@ -53,6 +54,7 @@ export default {
       this.getList()
     },
     getList() {
+      this.loading = true
       apiService.more
         .queryFundAddress({
           pageNo: this.currentPage,
@@ -66,6 +68,9 @@ export default {
           } else {
             this.$message.error(errMsg)
           }
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
   },

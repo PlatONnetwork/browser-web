@@ -35,7 +35,7 @@
     </div>
     <!-- 主表格区域 -->
     <div class="table">
-      <component :is="tableCompName" :data="tableData"></component>
+      <component :is="tableCompName" :data="tableData" v-loading="loading"></component>
 
       <!-- 表格下方分页标签 -->
       <div class="pagination-box">
@@ -83,7 +83,8 @@ export default {
       pageTotal: 0,
       displayTotalCount: 0,
       type: 'erc20',
-      tableCompName: 'ERC20Tranfer'
+      tableCompName: 'ERC20Tranfer',
+      loading: false,
     };
   },
   watch: {
@@ -96,8 +97,8 @@ export default {
           }
           this.type = to.params.type;
           this.tableCompName = compMap[this.type];
-          this.currentPage = 1;
-          this.pageSize = 20;
+          this.currentPage = to.query.currentPage || 1;
+          this.pageSize = to.query.pageSize || 20;
           this.getTradeList();
         }
       },
@@ -114,6 +115,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
+      this.loading = true;
       API[this.type](param)
         .then((res) => {
           let {
@@ -134,6 +136,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     replace() {

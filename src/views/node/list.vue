@@ -76,18 +76,18 @@
         </div>
       </el-col>
       <el-col :lg="8" class="historical-validators">
-        <el-button type="text" class="historical-btn" @click="goZero">{{
+        <router-link type="text" class="historical-btn" to='/zero-node'>{{
           $t('nodeInfo.zeroProduceValidators')
-        }}</el-button>
-        <el-button type="text" class="historical-btn" @click="goHistory">{{
+        }}</router-link >
+        <router-link type="text" class="historical-btn" to='/history-node'>{{
           $t('nodeInfo.historicalValidators')
-        }}</el-button>
+        }}</router-link>
       </el-col>
     </el-row>
     <!-- 历史验证节点、零出块惩罚验证节点 表头 -->
 
     <!-- 历史验证节点 -->
-    <div class="table node-table" v-if="type == 'history'">
+    <div class="table node-table" v-if="type == 'history'" v-loading="tLoading">
       <div class="table-content">
         <el-table :data="tableData">
           <el-table-column
@@ -158,12 +158,12 @@
                   alt
                 />
 
-                <p
+                <router-link
                   class="cursor normal ellipsis percent60 fontSize15"
-                  @click="goDetail(scope.row.nodeId)"
+                  :to="getDetailUrl(scope.row.nodeId)"
                 >
                   {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-                </p>
+                </router-link>
               </div>
             </template>
           </el-table-column>
@@ -256,7 +256,7 @@
     </div>
 
     <!-- 零出块惩罚验证节点 -->
-    <div class="table node-table" v-else-if="type == 'zero'">
+    <div class="table node-table" v-else-if="type == 'zero'" v-loading="tLoading">
       <div class="table-content">
         <el-table :data="tableData">
           <el-table-column
@@ -327,12 +327,12 @@
                   alt
                 />
 
-                <p
+                <router-link
                   class="cursor normal ellipsis fontSize15"
-                  @click="goDetail(scope.row.nodeId)"
+                  :to="getDetailUrl(scope.row.nodeId)"
                 >
                   {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-                </p>
+                </router-link>
               </div>
             </template>
           </el-table-column>
@@ -418,10 +418,10 @@
       </div>
     </div>
 
-    <div v-else class="table" :class="{'node-table': windowWidth < 750 || windowWidth > 1800}">
+    <div v-else class="table"  v-loading="tLoading" :class="{'node-table': windowWidth < 750 || windowWidth > 1800}">
       <div class="table-content">
       <!-- <div class="table-content" :style="{height: windowWidth < 750 ? 'auto' : 'calc(100vh - 280px)'}"> -->
-        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800 || tableData.length < 12) ? null : 'calc(100vh - 280px)'">
+        <el-table :data="tableData" :height="(windowWidth < 750 || windowWidth > 1800 || pageTotal.length < 10) ? null : 'calc(100vh - 280px)'">
           <el-table-column
             fixed
             :label="$t('nodeInfo.rank')"
@@ -490,12 +490,12 @@
                   alt
                 />
 
-                <p
+                <router-link
                   class="cursor normal ellipsis percent60 fontSize15"
-                  @click="goDetail(scope.row.nodeId)"
+                  :to="getDetailUrl(scope.row.nodeId)"
                 >
                   {{ scope.row.nodeName ? scope.row.nodeName : '------' }}
-                </p>
+                </router-link>
               </div>
             </template>
           </el-table-column>
@@ -664,6 +664,7 @@ export default {
       pageTotal: 0,
       keyword: '',
       queryStatus: 'all',
+      tLoading: false,
       timer: null,
       websocket: null,
       issafariBrowser:
@@ -747,9 +748,14 @@ export default {
         param.queryStatus = this.queryStatus;
         methodName = 'aliveStakingList';
       }
+      this.tLoading = true;
+      this.tableData.length = 0;
       apiService.node[methodName](param)
         .then((res) => {
           let { data, totalPages, totalCount, code, errMsg } = res;
+          if (param.queryStatus && param.queryStatus !== this.queryStatus) {
+            return;
+          }
           if (code == 0) {
             this.tableData = data;
             if (this.type == 'history' || this.type == 'zero') {
@@ -765,6 +771,12 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          if (param.queryStatus && param.queryStatus !== this.queryStatus) {
+            return;
+          }
+          this.tLoading = false;
         });
     },
     //从websocket获取数据
@@ -845,14 +857,17 @@ export default {
       }
     },
     //进入节点详情
-    goDetail(nodeId) {
-      this.$router.push({
-        path: '/node-detail',
+    getDetailUrl(nodeId) {
+      return {
+      path: '/node-detail',
         query: {
-          address: nodeId,
-          type: this.type,
-        },
-      });
+        address: nodeId,
+         type: this.type,
+        }
+      };
+    },
+    goDetail(nodeId) {
+      this.$router.push(this.getDetailUrl(nodeId));
     },
     goHistory() {
       this.$router.push({
@@ -921,6 +936,7 @@ export default {
     display: inline-block;
     margin-right: 10px;
     margin-left: 0 !important;
+    color: #0798de;
   }
 }
 .validators-tab {

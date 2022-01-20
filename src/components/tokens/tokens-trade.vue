@@ -19,18 +19,19 @@
         style="width: 100%"
         key="secondTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" min-width="180">
           <template slot-scope="scope">
             <div class="flex-special">
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
+              <router-link
+                class="cursor normal ellipsis hash-width"
+                :to="getTradeUrl(scope.row.txHash)"
               >
                 <!-- txHash 显示0x + 18 -->
-                {{ scope.row.txHash | sliceStr(20) }}
-              </span>
+                {{ scope.row.txHash }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -56,15 +57,15 @@
                 :active="scope.row.type !== 'OUT'"
               ></icon-contract>
               <span
-                class="ellipsis ellipsisWidth"
+                class="ellipsis adr-width"
                 v-if="scope.row.type === 'OUT'"
-                >{{ scope.row.txFrom | sliceStr(16) }}</span
+                >{{ scope.row.txFrom }}</span
               >
-              <span
+              <router-link
                 v-else
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)"
-                >{{ scope.row.txFrom | sliceStr(16) }}</span
+                class="cursor normal ellipsis adr-width"
+                :to="getAddressUrl(scope.row.txFrom, scope.row.fromType)"
+                >{{ scope.row.txFrom }}</router-link
               >
             </div>
           </template>
@@ -95,15 +96,15 @@
                 :active="scope.row.type !== 'INPUT'"
               ></icon-contract>
               <span
-                class="ellipsis ellipsisWidth"
+                class="ellipsis adr-width"
                 v-if="scope.row.type === 'INPUT'"
-                >{{ scope.row.transferTo | sliceStr(16) }}</span
+                >{{ scope.row.transferTo }}</span
               >
-              <span
+              <router-link
                 v-else
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.transferTo, scope.row.toType)"
-                >{{ scope.row.transferTo | sliceStr(16) }}</span
+                class="cursor normal ellipsis adr-width"
+                :to="getAddressUrl(scope.row.transferTo, scope.row.toType)"
+                >{{ scope.row.transferTo }}</router-link
               >
             </div>
           </template>
@@ -120,11 +121,11 @@
           <!-- 令牌ID -->
           <el-table-column :label="$t('tokens.tokenID')"  min-width="120">
             <template slot-scope="scope">
-              <span
+              <router-link
                 class="cursor normal ellipsis ellipsisWidth"
                 :title="scope.row.tokenId"
-                @click="go721IdDetail(scope.row.contract, scope.row.tokenId)"
-                >{{ scope.row.tokenId | sliceStr(16) }}</span
+                :to="get721IdUrl(scope.row.contract, scope.row.tokenId)"
+                >{{ scope.row.tokenId }}</router-link
               >
             </template>
           </el-table-column>
@@ -179,6 +180,7 @@ export default {
       pageTotal: 0,
       tradeTotal: 0,
       tradeType: '',
+      loading: false,
     };
   },
   props: {
@@ -208,6 +210,7 @@ export default {
       if (this.tableType === 'erc721Id') {
         param.tokenId = this.tokenId;
       }
+      this.loading = true;
       API[this.tableType](param)
         .then((res) => {
           let { data, totalPages, totalCount, code, errMsg } = res;
@@ -221,6 +224,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     getTokenType(type, lowerCase = true) {

@@ -451,15 +451,16 @@
           style="width: 100%"
           key="firstTable"
           size="mini"
+          v-loading="loading"
         >
           <el-table-column :label="$t('tradeAbout.voter')" min-width="20%">
             <template slot-scope="scope">
-              <p
-                class="cursor blue percent60 ellipsis"
-                @click="goNodeDetail(scope.row.voter)"
+              <router-link
+                class="cursor blue ellipsis"
+                :to="getNodeUrl(scope.row.voter)"
               >
                 {{ scope.row.voterName }}
-              </p>
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
@@ -488,12 +489,12 @@
             min-width="40%"
           >
             <template slot-scope="scope">
-              <p
-                class="cursor blue percent60 ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
+              <router-link
+                class="cursor blue hash-width ellipsis"
+                :to="getTradeUrl(scope.row.txHash)"
               >
-                {{ scope.row.txHash | sliceStr(20) }}
-              </p>
+                {{ scope.row.txHash }}
+              </router-link>
             </template>
           </el-table-column>
           <el-table-column
@@ -553,6 +554,8 @@ export default {
       },
       selectIndex: 0,
       detailData: {},
+      loading: false,
+      pageLoading: false,
     };
   },
   props: {},
@@ -568,6 +571,7 @@ export default {
         proposalHash: this.$route.query.proposalHash,
         option: option,
       };
+      this.loading = true;
       try {
         let {
           data,
@@ -583,6 +587,8 @@ export default {
         this.searchTotal = totalCount;
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
+      } finally {
+        this.loading = false;
       }
     },
     //获取提案详情
@@ -591,6 +597,7 @@ export default {
       let param = {
         proposalHash: this.$route.query.proposalHash,
       };
+      this.pageLoading = true;
       try {
         let { data, code, errMsg } = await apiService.proposal.proposalDetails(
           param
@@ -645,6 +652,8 @@ export default {
         // this.quitPercentage = formatDecimal(tmpQuitPercentage, 2); //.toFixed(2); 齐全
       } catch (error) {
         error.errMsg && this.$message.error(error.errMsg);
+      } finally {
+        this.pageLoading = false;
       }
     },
     //进入验证人详情

@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="information box-relative">
+    <div class="information box-relative" v-loading="loading">
       <!-- 交易状态小图标 -->
       <!-- <i
         v-if="detailInfo.txReceiptStatus==1"
@@ -72,10 +72,10 @@
       >
         <!-- 发送方 -->
         <Item :label="$t('tradeAbout.sender')">
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
 
@@ -85,37 +85,37 @@
           v-if="detailInfo.txType != '4000'"
         >
           <!-- 用户钱包地址 -->
-          <span
+          <router-link
             v-if="detailInfo.receiveType == '2'"
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.to)"
+            :to="getAddressUrl(detailInfo.to)"
             >{{ detailInfo.to }}
-          </span>
+          </router-link>
           <!-- 如果是合约显示 -->
-          <div class="isContract" v-if="detailInfo.receiveType == '1'">
+          <div class="isContract " v-if="detailInfo.receiveType == '1'">
             <template>
               <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content" class="delegate-msg">
                   {{ $t('contract.contract') }}
                 </div>
-                <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue mr4">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span>Contract</span>
             <!-- 如果是有合约名称的系统合约  显示合约名称 -->
-            <span
+            <router-link
               class="cursor normal ellipsis"
               v-if="detailInfo.contractType == 0 && detailInfo.contractName"
-              @click="goContractDetail(detailInfo.to)"
+              :to="getContractUrl(detailInfo.to)"
               >{{ detailInfo.contractName }}
-            </span>
+            </router-link>
             <!-- 否则显示合约地址 -->
-            <span
+            <router-link
               v-else
               class="cursor normal ellipsis"
-              @click="goContractDetail(detailInfo.to)"
+              :to="getContractUrl(detailInfo.to)"
               >{{ detailInfo.to }}
-            </span>
+            </router-link>
           </div>
         </Item>
 
@@ -128,10 +128,10 @@
         <!-- 锁仓 -->
         <template v-if="detailInfo.txType == '4000'">
           <Item :label="$t('tradeAbout.restrictedAccount')">
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goAddressDetail(detailInfo.rpaccount)"
-              >{{ detailInfo.rpaccount }}</span
+              :to="getAddressUrl(detailInfo.rpaccount)"
+              >{{ detailInfo.rpaccount }}</router-link
             >
           </Item>
           <Item :label="$t('tradeAbout.restrictedAmount')">
@@ -164,7 +164,8 @@
           detailInfo.txType == '6' ||
           detailInfo.txType == '7' ||
           detailInfo.txType == '8' ||
-          detailInfo.txType == '9'
+          detailInfo.txType == '9' ||
+          detailInfo.txType == '21'
         "
       >
         <!-- 创建方 -->
@@ -176,10 +177,10 @@
             detailInfo.txType == '8'
           "
         >
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
 
@@ -189,13 +190,14 @@
           v-if="
             detailInfo.txType == '2' ||
             detailInfo.txType == '7' ||
-            detailInfo.txType == '9'
+            detailInfo.txType == '9' ||
+            detailInfo.txType == '21'
           "
         >
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
 
@@ -203,7 +205,7 @@
         <Item :label="$t('contract.contract')">
           <!-- 合约创建成功， 合约执行成功，合约执行失败 -->
           <div
-            class="isContract"
+            class="isContract contract-fail"
             v-if="
               detailInfo.txReceiptStatus == 1 ||
               (detailInfo.txReceiptStatus == 0 && detailInfo.txType !== 1)
@@ -214,16 +216,16 @@
                 <div slot="content" class="delegate-msg">
                   {{ $t('contract.contract') }}
                 </div>
-                <i class="iconfont iconcontract blue">&#xe63e;</i>
+                <i class="iconfont iconcontract blue mr4">&#xe63e;</i>
               </el-tooltip>
             </template>
             <span v-if="detailInfo.txType == 1">Create Contract</span>
             <span v-else-if="detailInfo.txType == 2">Invoke Contract</span>
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goContractDetail(detailInfo.to)"
+              :to="getContractUrl(detailInfo.to)"
               >{{ detailInfo.to }}
-            </span>
+            </router-link>
           </div>
           <!-- 合约创建失败 -->
           <div v-else class="contract-fail">
@@ -266,26 +268,25 @@
             >
               From
               <!-- 跳转参数都是innerContractAddr -->
-              <span
-                class="cursor blue"
-                @click="goAddressDetail(item.innerFrom, item.fromType)"
-                >{{ item.innerFrom | sliceStr(16) }}</span
+              <router-link
+                class="cursor blue ellipsis token-width"
+                :to="getAddressUrl(item.innerFrom, item.fromType)"
+                >{{ item.innerFrom }}</router-link
               >
               to
-              <span
-                class="cursor blue"
-                @click="goAddressDetail(item.innerTo, item.toType)"
-                >{{ item.innerTo | sliceStr(16) }}</span
+              <router-link
+                class="cursor blue ellipsis token-width"
+                :to="getAddressUrl(item.innerTo, item.toType)"
+                >{{ item.innerTo }}</router-link
               >
               for
               <span class="money">{{ item.innerValue | formatMoney }}</span>
-              <span
-                class="cursor blue"
-                @click="goTokenDetail(item.innerContractAddr, 'erc20')"
+              <router-link
+                class="cursor blue ellipsis token-width"
+                :to="getTokenUrl(item.innerContractAddr, 'erc20')"
                 >{{
                   `${item.innerContractName}  (${item.innerSymbol})`
-                    | sliceStr(21)
-                }}</span
+                }}</router-link
               >
             </li>
           </ul>
@@ -307,30 +308,27 @@
               :key="index"
             >
               <li>
-                <span
-                  class="cursor blue"
-                  @click="goAddressDetail(item.innerFrom, item.fromType)"
-                  >{{ item.innerFrom | sliceStr(16) }}
-                </span>
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="getAddressUrl(item.innerFrom, item.fromType)"
+                  >{{ item.innerFrom }}
+                </router-link>
               </li>
               <li>
-                <span
-                  class="cursor blue"
-                  @click="goAddressDetail(item.innerTo, item.toType)"
-                  >{{ item.innerTo | sliceStr(16) }}
-                </span>
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="getAddressUrl(item.innerTo, item.toType)"
+                  >{{ item.innerTo }}
+                </router-link>
               </li>
               <li>
-                <span
-                  class="cursor blue"
-                  @click="
-                    go721IdDetail(item.innerContractAddr, item.innerValue)
-                  "
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="get721IdUrl(item.innerContractAddr, item.innerValue)"
                   >{{
                     `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
-                      | sliceStr(21)
                   }}
-                </span>
+                </router-link>
               </li>
               <li>
                 <img
@@ -338,7 +336,7 @@
                   class="token-pic"
                   :src="
                     item.innerImage ||
-                    require('@/assets/images/Alaya-cat-721.svg')
+                    require('@/assets/images/Platon-cat-721.svg')
                   "
                 />
               </li>
@@ -356,19 +354,19 @@
       >
         <!-- 委托人 -->
         <Item :label="$t('tradeAbout.delegator')">
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
         <!-- 验证人 -->
         <Item :label="$t('tradeAbout.validator')">
-          <span
+          <router-link
             v-if="detailInfo.nodeName"
             class="cursor normal ellipsis"
-            @click="goNodeDetail(detailInfo.nodeId)"
-            >{{ detailInfo.nodeName }}</span
+            :to="getNodeUrl(detailInfo.nodeId)"
+            >{{ detailInfo.nodeName }}</router-link
           >
           <span v-else>Null</span>
         </Item>
@@ -428,10 +426,10 @@
       >
         <!-- 委托人 -->
         <Item :label="$t('tradeAbout.delegator')">
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
         <Item :label="$t('tradeAbout.rewardAmount')">
@@ -451,10 +449,10 @@
             >
               <span>{{ $t('tradeAbout.fromNode') }}</span>
               <!-- 从xxx节点 此处需要做样式-->
-              <span
-                @click="goNodeDetail(item.verify)"
+              <router-link
                 class="cursor normal ellipsis rewardGap"
-                >{{ item.nodeName }}</span
+                :to="getNodeUrl(item.verify)"
+                >{{ item.nodeName }}</router-link
               >
               <span class="rewardGap">{{ $t('tradeAbout.claimRewards') }}</span>
               <span class="rewardGap Gilroy-Medium">
@@ -500,11 +498,11 @@
             )
           "
         >
-          <span
+          <router-link
             v-if="detailInfo.nodeName"
             class="cursor normal ellipsis"
-            @click="goNodeDetail(detailInfo.nodeId)"
-            >{{ detailInfo.nodeName }}</span
+            :to="getNodeUrl(detailInfo.nodeId)"
+            >{{ detailInfo.nodeName }}</router-link
           >
           <span v-else>Null</span>
         </Item>
@@ -517,10 +515,10 @@
         </Item>-->
         <!-- 操作地址 -->
         <Item :label="$t('tradeAbout.operatorAddress')">
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
         <template v-if="detailInfo.txType != '2004'">
@@ -559,25 +557,25 @@
           </Item>
           <!-- 提案标题 -->
           <Item :label="$t('tradeAbout.proposalTitle')">
-            <span
+            <router-link
               class="cursor normal ellipsis"
               v-if="detailInfo.proposalTitle"
-              @click="goProposalDetail(detailInfo.proposalHash)"
-              >{{ detailInfo.proposalTitle }}</span
+              :to="getProposalUrl(detailInfo.proposalHash)"
+              >{{ detailInfo.proposalTitle }}</router-link
             >
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goProposalDetail(detailInfo.proposalHash)"
+              :to="getProposalUrl(detailInfo.proposalHash)"
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2000'
               "
               >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
-              }}</span
+              }}</router-link
             >
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goProposalDetail(detailInfo.proposalHash)"
+              :to="getProposalUrl(detailInfo.proposalHash)"
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2001'
               "
@@ -586,36 +584,36 @@
               <span style="font-size: 16px">{{
                 detailInfo.proposalNewVersion
               }}</span>
-            </span>
-            <span
+            </router-link>
+            <router-link
               class="cursor normal ellipsis"
-              @click="goProposalDetail(detailInfo.proposalHash)"
+              :to="getProposalUrl(detailInfo.proposalHash)"
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2005'
               "
               >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
-              }}</span
+              }}</router-link
             >
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goProposalDetail(detailInfo.proposalHash)"
+              :to="getProposalUrl(detailInfo.proposalHash)"
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2002'
               "
               >{{ $t('createType.' + [detailInfo.txType]) }}-{{
                 detailInfo.pipNum
-              }}</span
+              }}</router-link
             >
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goProposalDetail(detailInfo.proposalHash)"
+              :to="getProposalUrl(detailInfo.proposalHash)"
               v-else-if="
                 !detailInfo.proposalTitle && detailInfo.txType == '2003'
               "
               >{{ $t('proposalOption.' + [detailInfo.proposalOption]) }}-{{
                 detailInfo.pipNum
-              }}</span
+              }}</router-link
             >
           </Item>
         </template>
@@ -675,10 +673,10 @@
           v-if="detailInfo.txType == '3000'"
           :label="$t('tradeAbout.reporter')"
         >
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
         <!-- 验证人(都有) -->
@@ -751,10 +749,10 @@
           v-if="detailInfo.txType != '3000'"
           :label="$t('tradeAbout.operatorAddress')"
         >
-          <span
+          <router-link
             class="cursor normal ellipsis"
-            @click="goAddressDetail(detailInfo.from)"
-            >{{ detailInfo.from }}</span
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
           >
         </Item>
         <template
@@ -773,10 +771,10 @@
           </Item>
           <!-- 奖励账户(创建，编辑验证人) -->
           <Item :label="$t('tradeAbout.rewardAddress')">
-            <span
+            <router-link
               class="cursor normal ellipsis"
-              @click="goAddressDetail(detailInfo.benefitAddr)"
-              >{{ detailInfo.benefitAddr }}</span
+              :to="getAddressUrl(detailInfo.benefitAddr)"
+              >{{ detailInfo.benefitAddr }}</router-link
             >
           </Item>
           <!-- 委托奖励比例(创建，编辑验证人) -->
@@ -967,6 +965,14 @@ export default {
   },
   methods: {
     //进入提案详情
+    getProposalUrl(hx) {
+      return {
+        path: '/proposal-detail',
+        query: {
+          proposalHash: hx,
+        },
+      };
+    },
     goProposalDetail(hx) {
       this.$router.push({
         path: '/proposal-detail',
@@ -995,7 +1001,6 @@ export default {
           //改变detailInfo.txType=='1'测试
           // data.txType = 2000;
           if (code == 0) {
-            this.loading = false;
             this.detailInfo = data;
             let isFirst = Boolean(data.first);
             let isLast = Boolean(data.last);
@@ -1013,6 +1018,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+            this.loading = false;
         });
     },
     onCopy() {
@@ -1061,6 +1069,7 @@ export default {
         2: 'execution',
         7: 'execution',
         9: 'execution',
+        21: 'execution',
         4: 'other',
         5: 'other',
         4000: 'restricting',
@@ -1183,9 +1192,13 @@ export default {
     top: 0;
    }
    li {
+     max-width: 140px;
      line-height: 32px;
      &:not(:last-child) {
        border-bottom: 1px solid #F5F5F5;
+     }
+     .token-width {
+       display: block;
      }
    }
  }
@@ -1235,6 +1248,8 @@ export default {
   line-height: 17px;
 }
 .tokens-item {
+  display: flex;
+  gap: 8px;
   position: relative;
   font-family: Gilroy-Medium;
   padding-left: 10px;
@@ -1253,5 +1268,8 @@ export default {
     padding: 0 6px;
     font-weight: lighter;
   }
+}
+.token-width {
+  max-width: 120px;
 }
 </style>

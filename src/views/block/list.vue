@@ -30,14 +30,15 @@
           style="width: 100%"
           key="firstTable"
           size="mini"
+          v-loading="loading"
         >
           <el-table-column :label="$t('tradeAbout.blockHeight')" width="120px">
             <template slot-scope="scope">
               <div class="flex-special">
-                <span
+                <router-link
                   class="cursor blue ellipsis"
-                  @click="goBlockDetail(scope.row.number)"
-                  >{{ scope.row.number }}</span
+                  :to="getBlockUrl(scope.row.number)"
+                  >{{ scope.row.number }}</router-link
                 >
               </div>
             </template>
@@ -63,10 +64,10 @@
           <el-table-column :label="$t('blockAbout.producer')">
             <template slot-scope="scope">
               <div class="flex-special">
-                <span
+                <router-link
                   class="cursor blue ellipsis ellipsisWidth"
-                  @click="goNodeDetail(scope.row.nodeId)"
-                  >{{ scope.row.nodeName }}</span
+                  :to="getNodeUrl(scope.row.nodeId)"
+                  >{{ scope.row.nodeName }}</router-link
                 >
               </div>
             </template>
@@ -117,6 +118,7 @@ export default {
       pageSize: 20,
       pageTotal: 0,
       displayTotalCount: 0,
+      loading: false,
       isLoaded: false,
     };
   },
@@ -131,6 +133,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
+      this.loading = true;
       apiService.block
         .blockList(param)
         .then((res) => {
@@ -154,6 +157,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     timeDiffFn(beginTime, endTime) {

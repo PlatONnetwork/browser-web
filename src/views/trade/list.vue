@@ -39,9 +39,10 @@
         style="width: 100%"
         key="firstTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值（TxHash） -->
-        <el-table-column :label="$t('tradeAbout.hash')">
+        <el-table-column :label="$t('tradeAbout.hash')" min-width="150px">
           <template slot-scope="scope">
             <div class="flex-special">
               <el-tooltip
@@ -68,10 +69,10 @@
               </el-tooltip>-->
 
               <!-- 交易hash: 显示0x+18 -->
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
-                >{{ scope.row.txHash | sliceStr(20) }}</span
+              <router-link
+                class="cursor normal ellipsis hash-width"
+                :to="getTradeUrl(scope.row.txHash)"
+                >{{ scope.row.txHash }}</router-link
               >
             </div>
             <!-- <span class='cursor normal' @click='goTradeDetail(scope.$index,scope.row)'>{{scope.row.txHash}}</span> -->
@@ -81,10 +82,10 @@
         <!-- 区块（Block） -->
         <el-table-column :label="$t('tradeAbout.block')">
           <template slot-scope="scope">
-            <span
+            <router-link
               class="cursor normal"
-              @click="goBlockDetail(scope.row.blockNumber)"
-              >{{ scope.row.blockNumber }}</span
+              :to="getBlockUrl(scope.row.blockNumber)"
+              >{{ scope.row.blockNumber }}</router-link
             >
           </template>
         </el-table-column>
@@ -105,10 +106,10 @@
             <!-- <span class='cursor normal' @click='goAddressDetail(scope.$index,scope.row)'>{{scope.row.from}}</span> -->
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
-              <span
-                class="cursor normal ellipsis ellipsisWidth"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+              <router-link
+                class="cursor normal ellipsis adr-width"
+                :to="getAddressUrl(scope.row.from)"
+                >{{ scope.row.from }}</router-link
               >
             </div>
           </template>
@@ -171,6 +172,7 @@ export default {
       pageSize: 20,
       pageTotal: 0,
       displayTotalCount: 0,
+      loading: false,
       isLoaded: false,
     };
   },
@@ -185,7 +187,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
-      console.info('获取交易列表（参数）》》》', param);
+      this.loading = true;
       apiService.trade
         .transactionList(param)
         .then((res) => {
@@ -207,6 +209,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     timeDiffFn(beginTime, endTime = Date.now()) {

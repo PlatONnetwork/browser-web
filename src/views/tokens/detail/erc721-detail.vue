@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` | sliceStr(21) }}</i>
+          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` | sliceStr(50) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -39,6 +39,14 @@
                 }}</label>
                 <div class="money">{{ detailInfo.txCount }}</div>
               </li>
+              <!-- 状态 todo -->
+              <li>
+                <label class="Gilroy-Medium">{{
+                  $t('contract.status.name')
+                }}</label>
+                <div v-if="detailInfo.isContractDestroy" class="red">{{ $t('contract.status.destructed') }}</div>
+                <div v-else>{{ $t('contract.status.normal') }}</div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -51,13 +59,13 @@
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
-                  <span
+                  <router-link
                     class="normal"
-                    @click="goContractDetail(detailInfo.address)"
+                    :to="getContractUrl(detailInfo.address)"
                   >
                     <!-- {{ detailInfo.address | sliceStr(16) }} -->
                     {{ detailInfo.address }}
-                  </span>
+                  </router-link>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b
                       class="cursor"
@@ -133,7 +141,6 @@
 </template>
 <script>
 import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 
 import tokensTradeList from '@/components/tokens/tokens-trade';
 import tokensHolder from '@/components/tokens/tokens-holder';
@@ -143,13 +150,13 @@ export default {
   data() {
     return {
       activeTab: 1,
-      address: '',
+      // address: '',
       detailInfo: {},
       isCopy: false,
       copyText: '',
     };
   },
-  props: ['tokensDetail'],
+  props: ['tokensDetail', 'address'],
   computed: {},
   watch: {},
   components: {
@@ -207,7 +214,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.address = this.$route.query.address.toLowerCase();
+    // this.address = this.$route.query.address.toLowerCase();
     if (this.tokensDetail) {
       this.detailInfo = this.tokensDetail;
     } else {

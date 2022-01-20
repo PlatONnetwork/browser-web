@@ -358,7 +358,8 @@ import ChartService from '@/services/chart-services';
 import IndexService from '@/services/index-service';
 import { timeDiff } from '@/services/time-services';
 
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { toBech32Address, isAddress } from '@/services/web3-utils';
 
 import comHeader from '@/components/header/header.vue';
 
@@ -496,13 +497,18 @@ export default {
     }),
     //查询
     searchFn() {
+      let param = this.searchKey.trim();
+      if (!param) {
+        return
+      }
+      let isHEX = false;
+      if (isAddress(param)) {
+        isHEX = param;
+        param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
+      }
       this.disabledBtn = true;
-      let param = {
-        parameter: this.searchKey.trim(),
-      };
-      // console.warn("搜索内容》》》", param);
       apiService.search
-        .query(param)
+        .query({ parameter: param })
         .then((res) => {
           this.searchKey = '';
           let { errMsg, code, data } = res;
@@ -511,21 +517,22 @@ export default {
             if (!data.type) {
               this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
+              if (isHEX && data.struct.address) {
+                data.struct.address = isHEX;
+              }
               this.switchFn(data.type, data.struct);
-              // this.$emit('searchFn',data);
             }
           } else {
             this.$message.warning(this.$t('indexInfo.searchno'));
-            // this.$message.error(errMsg) 替换为search无结果
           }
         })
         .catch((error) => {
           this.searchKey = '';
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.disabledBtn = false;
         });
-      setTimeout(() => {
-        this.disabledBtn = false;
-      }, 2000);
     },
     //
     getStaking() {
@@ -953,6 +960,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    word-break: break-word;
     .calcWidth {
       width: calc(100% - 300px);
       @media screen and (min-width: 1330px) {
@@ -962,6 +970,7 @@ export default {
     li {
       width: 50%;
       margin-bottom: 40px;
+      padding-right: 0.5em;
       .statistics-label {
         color: #999;
         font-size: 16px;
@@ -992,6 +1001,7 @@ export default {
       }
       &.statistics-even {
         width: 45%;
+        padding-right: 1em;
       }
     }
   }
@@ -1407,16 +1417,6 @@ export default {
 }
 </style>
 <style lang="less">
-.index-area {
-  background: #000;
-  overflow: hidden;
-  @media (max-width: 750px) {
-    padding: 0 40px;
-  }
-  @media (max-width: 500px) {
-    padding: 0 20px;
-  }
-}
 .search-index {
   &.search {
     border: 1px solid #6e6e6e;

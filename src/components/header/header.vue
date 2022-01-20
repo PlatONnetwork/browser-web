@@ -121,10 +121,8 @@
             <span
               class="el-dropdown-link more-title"
               :class="{
-                active:
-                  $route.path.indexOf('governable-parameter') > -1 ||
-                  $route.path.indexOf('proposal') > -1 ||
-                  $route.path.indexOf('/foundation-address') > -1,
+                active: 
+                  ['/proposal', '/governable-parameter', '/foundation-address', '/add-to-extension'].includes($route.path)
               }"
               >{{ $t('menu.more') }}
               <i
@@ -144,6 +142,9 @@
               }}</el-dropdown-item>
               <el-dropdown-item command="/foundation-address">{{
                 $t('more.foundationAddress')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="/add-to-extension">{{
+                $t('more.addToExtension')
               }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -383,6 +384,15 @@
                   $t('more.foundationAddress')
                 }}</router-link>
               </el-menu-item>
+              <el-menu-item
+                @click="toggleMobileMenuOpenend"
+                index="/add-to-extension"
+                :class="{ active: $route.path == '/add-to-extension' }"
+              >
+                <router-link to="/add-to-extension">{{
+                  $t('more.addToExtension')
+                }}</router-link>
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="4">
@@ -422,6 +432,8 @@
 import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import store from '@/vuex/store';
+import { toBech32Address, isAddress } from '@/services/web3-utils';
+
 let configRetryTime = 1000;
 export default {
   name: '',
@@ -581,13 +593,18 @@ export default {
     },
     //查询
     searchFn() {
+      let param = this.searchKey.trim();
+      if (!param) {
+        return
+      }
+      let isHEX = false;
+      if (isAddress(param)) {
+        isHEX = param;
+        param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
+      }
       this.disabledBtn = true;
-      let param = {
-        parameter: this.searchKey.trim(),
-      };
-      console.warn('搜索内容》》》', param);
       apiService.search
-        .query(param)
+        .query({ parameter: param })
         .then((res) => {
           let { errMsg, code, data } = res;
 
@@ -597,21 +614,22 @@ export default {
             if (!data.type) {
               this.$message.warning(this.$t('indexInfo.searchno'));
             } else {
+              if (isHEX && data.struct.address) {
+                data.struct.address = isHEX;
+              }
               this.switchFn(data.type, data.struct);
-              // this.$emit('searchFn',data);
             }
           } else {
             this.$message.warning(this.$t('indexInfo.searchno'));
-            // this.$message.error(errMsg) 替换为search无结果
           }
         })
         .catch((error) => {
           this.searchKey = '';
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.disabledBtn = false;
         });
-      setTimeout(() => {
-        this.disabledBtn = false;
-      }, 2000);
     },
     switchFn(type, struct) {
       switch (type) {
@@ -705,7 +723,7 @@ export default {
   left: 0;
   display: flex;
   height: 102px;
-  z-index: 99;
+  z-index: 2000;
   padding: 0 5.2%;
   margin: 0 auto;
   background: #000;
@@ -720,10 +738,12 @@ export default {
     }
   }
   .search {
+    display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
     &.search-hide {
       opacity: 1;
+      display: inherit;
     }
   }
 }

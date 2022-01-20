@@ -15,7 +15,7 @@
       class="content-area"
       v-if="isRouterAlive"
       :class="{
-        'index-area': $route.path == '/',
+        'index-area': $route.path == '/' || $route.path == '/add-to-extension',
         'gray-area': needGrayArea,
       }"
     >
@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-
 import comHeader from '@/components/header/header.vue';
 import comFooter from '@/components/footer/footer.vue';
 
@@ -104,6 +102,16 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.index-area {
+  background: #000;
+  overflow: hidden;
+  @media (max-width: 750px) {
+    padding: 0 40px;
+  }
+  @media (max-width: 500px) {
+    padding: 0 20px;
+  }
+}
 @media (max-width: 750px) {
   .content-area {
     padding-top: 152px;

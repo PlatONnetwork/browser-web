@@ -59,6 +59,7 @@
         style="width: 100%"
         key="firstTable"
         size="mini"
+        v-loading="loading"
       >
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" min-width="200">
@@ -100,13 +101,13 @@
                 </div>
                 <i class="iconfont iconxinxi cursor yellow">&#xe63f;</i>
               </el-tooltip>
-              <span
-                class="cursor normal ellipsis"
-                @click="goTradeDetail(scope.row.txHash)"
+              <router-link
+                class="cursor normal ellipsis hash-width"
+                :to="getTradeUrl(scope.row.txHash)"
               >
                 <!-- txHash 显示0x + 18 -->
-                {{ scope.row.txHash | sliceStr(20) }}
-              </span>
+                {{ scope.row.txHash }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -126,10 +127,10 @@
           <template slot-scope="scope">
             <div class="flex-special">
               <!-- 操作地址显示 0x + 14 -->
-              <span
-                class="cursor blue ellipsis"
-                @click="goAddressDetail(scope.row.from)"
-                >{{ scope.row.from | sliceStr(16) }}</span
+              <router-link
+                class="cursor blue ellipsis adr-width"
+                :to="getAddressUrl(scope.row.from)"
+                >{{ scope.row.from }}</router-link
               >
             </div>
           </template>
@@ -142,10 +143,10 @@
           v-if="type != 'block'"
         >
           <template slot-scope="scope">
-            <span
+            <router-link
               class="cursor blue"
-              @click="goBlockDetail(scope.row.blockNumber)"
-              >{{ scope.row.blockNumber }}</span
+              :to="getBlockUrl(scope.row.blockNumber)"
+              >{{ scope.row.blockNumber }}</router-link
             >
           </template>
         </el-table-column>
@@ -176,7 +177,7 @@
               }"
               class="red Gilroy-Bold"
             >
-              <!-- 接受还是发送 -->
+              <!-- 接受还是发送 todo -->
               <template v-if="type != 'block' && scope.row.txType == '0'">{{
                 scope.row.from == address
                   ? $t('tradeAbout.sender2')
@@ -241,6 +242,7 @@ export default {
       pageTotal: 0,
       tradeTotal: 0,
       tradeType: '',
+      loading: false,
     };
   },
   props: {
@@ -270,6 +272,7 @@ export default {
         param.address = this.address;
         methodName = 'transactionListByAddress';
       }
+      this.loading = true;
       apiService.trade[methodName](param)
         .then((res) => {
           let { data, totalPages, totalCount, code, errMsg } = res;
@@ -290,6 +293,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
     handleCurrentChange(val) {

@@ -454,10 +454,10 @@
             </Item>
             <Item :label="$t('tradeAbout.operatorAddress')">
               <div>
-                <span
+                <router-link
                   class="blue cursor"
-                  @click="goAddressDetail(detailInfo.stakingAddr, detailInfo.stakingAddrType)"
-                  >{{ detailInfo.stakingAddr }}</span
+                  :to="getAddressUrl(detailInfo.stakingAddr, detailInfo.stakingAddrType)"
+                  >{{ detailInfo.stakingAddr }}</router-link
                 >
                 <b
                   class="cursor copyicon"
@@ -476,10 +476,10 @@
             </Item>
             <Item :label="$t('tradeAbout.rewardAddress')">
               <div>
-                <span
+                <router-link
                   class="blue cursor"
-                  @click="goAddressDetail(detailInfo.denefitAddr, detailInfo.denefitAddrType)"
-                  >{{ detailInfo.denefitAddr }}</span
+                  :to="getAddressUrl(detailInfo.denefitAddr, detailInfo.denefitAddrType)"
+                  >{{ detailInfo.denefitAddr }}</router-link
                 >
                 <span class="lightgray" v-if="detailInfo.isInit"
                   >({{ $t('nodeInfo.systemBuilt') }})</span
@@ -577,13 +577,14 @@
                 style="width: 100%"
                 key="firstTable"
                 size="mini"
+                v-loading="loading.block"
               >
                 <el-table-column :label="$t('menu.block')">
                   <template slot-scope="scope">
-                    <span
+                    <router-link
                       class="blue cursor"
-                      @click="goBlockDetail(scope.row.number)"
-                      >{{ scope.row.number }}</span
+                      :to="getBlockUrl(scope.row.number)"
+                      >{{ scope.row.number }}</router-link
                     >
                   </template>
                 </el-table-column>
@@ -629,6 +630,7 @@
               style="width: 100%"
               key="firstTable"
               size="mini"
+              v-loading="loading.operate"
             >
               <el-table-column
                 :label="$t('common.time')"
@@ -758,21 +760,28 @@
                           )}-Remove the node zero out-block Validator List，Node back to normal`
                     }}
                   </p>
+                  <!-- 版本声明 todo -->
+                  <p
+                    class="percent80 no-break"
+                    v-else-if="scope.row.type == 12"
+                  >
+                    {{ $t('actionType.' + [scope.row.type]) }}&nbsp;&nbsp;{{scope.row.version}}
+                  </p>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inTxHash')" min-width="180">
                 <template slot-scope="scope">
-                  <p
-                    class="blue cursor percent60 ellipsis"
+                  <router-link
+                    class="blue cursor ellipsis hash-width"
                     v-if="
                       scope.row.type != 6 &&
                       scope.row.type != 7 &&
                       scope.row.type != 11
                     "
-                    @click="goTradeDetail(scope.row.txHash)"
+                    :to="getTradeUrl(scope.row.txHash)"
                   >
-                    {{ scope.row.txHash | sliceStr(20) }}
-                  </p>
+                    {{ scope.row.txHash }}
+                  </router-link>
                   <span class="gray" v-else>{{
                     $t('nodeInfo.systemOperation')
                   }}</span>
@@ -780,10 +789,10 @@
               </el-table-column>
               <el-table-column :label="$t('nodeInfo.inBlock')" min-width="90">
                 <template slot-scope="scope">
-                  <span
+                  <router-link
                     class="blue cursor"
-                    @click="goBlockDetail(scope.row.blockNumber)"
-                    >{{ scope.row.blockNumber }}</span
+                    :to="getBlockUrl(scope.row.blockNumber)"
+                    >{{ scope.row.blockNumber }}</router-link
                   >
                 </template>
               </el-table-column>
@@ -818,18 +827,19 @@
               style="width: 100%"
               key="firstTable"
               size="mini"
+              v-loading="loading.deleget"
             >
               <el-table-column
                 min-width="100"
                 :label="$t('tradeAbout.delegater')"
               >
                 <template slot-scope="scope">
-                  <p
-                    class="blue cursor percent60 ellipsis"
-                    @click="goAddressDetail(scope.row.delegateAddr, scope.row.delegateAddrType)"
+                  <router-link
+                    class="blue cursor percent60 ellipsis adr-width"
+                    :to="getAddressUrl(scope.row.delegateAddr, scope.row.delegateAddrType)"
                   >
-                    {{ scope.row.delegateAddr | sliceStr(16) }}
-                  </p>
+                    {{ scope.row.delegateAddr }}
+                  </router-link>
                 </template>
               </el-table-column>
               <el-table-column min-width="200">
@@ -915,16 +925,17 @@
               style="width: 100%"
               key="firstTable"
               size="mini"
+              v-loading="loading.reward"
             >
               <el-table-column
                 :label="$t('tradeAbout.hash')"
                 :min-width="windowWidth < 750 ? 120 : ''"
               >
                 <template slot-scope="scope">
-                  <span
-                    class="blue cursor percent60 ellipsis"
-                    @click="goTradeDetail(scope.row.hash)"
-                    >{{ scope.row.hash | sliceStr(20) }}</span
+                  <router-link
+                    class="blue cursor ellipsis hash-width"
+                    :to="getTradeUrl(scope.row.hash)"
+                    >{{ scope.row.hash }}</router-link
                   >
                 </template>
               </el-table-column>
@@ -933,10 +944,10 @@
                 :min-width="windowWidth < 750 ? 120 : ''"
               >
                 <template slot-scope="scope">
-                  <span
-                    class="blue cursor percent60 ellipsis"
-                    @click="goAddressDetail(scope.row.addr, scope.row.addrType)"
-                    >{{ scope.row.addr | sliceStr(16) }}</span
+                  <router-link
+                    class="blue cursor ellipsis adr-width"
+                    :to="getAddressUrl(scope.row.addr, scope.row.addrType)"
+                    >{{ scope.row.addr }}</router-link
                   >
                 </template>
               </el-table-column>
@@ -1025,6 +1036,12 @@ export default {
       copyText3: '',
 
       imgRatio: 0,
+      loading: {
+        block: false,
+        operate: false,
+        deleget: false,
+        reward: false,
+      }
     };
   },
   props: {},
@@ -1058,6 +1075,7 @@ export default {
         pageSize: this.pageSize5,
         nodeId: this.address,
       };
+      this.loading.reward = true;
       let self = this;
       apiService.node
         .queryClaimByStaking(param)
@@ -1072,6 +1090,9 @@ export default {
         })
         .catch((error) => {
           self.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.reward = false;
         });
     },
     //获取详情
@@ -1105,12 +1126,14 @@ export default {
           this.$message.error(error);
         });
     },
+    // 已出区块
     getBlockList() {
       let param = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
         nodeId: this.address,
       };
+      this.loading.block = true;
       apiService.block
         .blockListByNodeId(param)
         .then((res) => {
@@ -1132,6 +1155,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.block = false;
         });
     },
     exportFn() {
@@ -1147,12 +1173,14 @@ export default {
       });
       window.open(href, '_blank');
     },
+    // 节点行为
     getOperateList() {
       let param = {
         pageNo: this.currentPage2,
         pageSize: this.pageSize2,
         nodeId: this.address,
       };
+      this.loading.operate = true;
       apiService.node
         .stakingOptRecordList(param)
         .then((res) => {
@@ -1166,8 +1194,12 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.operate = false;
         });
     },
+    // 委托
     getDelegetList() {
       let param = {
         pageNo: this.currentPage3,
@@ -1175,6 +1207,7 @@ export default {
         nodeId: this.address,
         stakingBlockNum: this.detailInfo.stakingBlockNum,
       };
+      this.loading.deleget = true;
       apiService.node
         .delegationListByStaking(param)
         .then((res) => {
@@ -1188,6 +1221,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.deleget = false;
         });
     },
     onCopy(copy) {

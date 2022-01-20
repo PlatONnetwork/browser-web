@@ -63,6 +63,7 @@ export default {
     totalSupply: "Total Supply",
     totalSupply_721: "Total Supply",
     holders: "Holders",
+    holders_: "Holders",
     transfers: "Transfers",
     transfers_721: "Transfers",
     transferNum: "Transaction Number",
@@ -310,6 +311,17 @@ export default {
 
     erc20Trade: "PRC20 Token Txns",
     erc721Trade: "PRC721 Token Txns",
+
+    status: {
+      name: "Status",
+      name2: "Contract State",
+      normal: "Normal",
+      destructed: "Contract was Destructed",
+      destructed2: "Contract Destructed",
+      destructed3: "Destructed",
+    },
+
+    addressErr: "Wrong address",
   },
   deleget: {
     validators: "Validators",
@@ -521,6 +533,7 @@ export default {
     7: "PRC20 ContractExecution", //erc20合约执行
     8: "PRC721 ContractCreation", //erc721合约创建
     9: "PRC721 ContractExecution", //erc721合约执行
+    21: "Contract Destructed", // 合约销毁
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
     1002: "IncreaseStaking", //'增持质押',
@@ -588,9 +601,11 @@ export default {
     6: "Double Signing",
     7: "Low Block Rate",
     10: "Increase Self-Stakes",
-    11: "Node release"
+    11: "Node release",
+    12: "DeclareVersion",
   },
   more: {
+    addToExtension: "Add to Extension",
     foundationAddress: 'Foundation Address',
     governableParameter: "GOVERNABLE PARAMETER",
     stakeThreshold: "Minimum stake LATs required to create validator.",
@@ -619,11 +634,32 @@ export default {
     zeroProduceFreezeDuration:
       "The lock time of node zero out-block penalty（1 epoch=10750blocks）"
   },
+  extension: {
+    desc: "Users can quickly add to their wallets and Web3 middleware providers (such as MetaMask) to connect to the correct Chain ID and Network ID to connect to the correct chain.Step:",
+    steps: ["Connect...", "Add to...", "Success"],
+    form: {
+      rpc: "Network URL",
+      chainId: "Chain ID",
+      currency: "Currency",
+      website: "Explorer URL",
+      connect: "Connect MetaMask",
+      add: "Add to MetaMask",
+    },
+    error: {
+      already: "MetaMask already exists Chain ID {0}",
+      noMetaMask: `MetaMask plugin is not detected, please <a href="https://metamask.io" target="_black"  style="color: #409eff;font-weight: bold;">install</a>.`,
+      tips: "TIPS",
+      isChrome: "Please use chrome browser to install MetaMask to operate.",
+      mobile: "Please install MetaMask on the PC Chrome browser to operate.",
+      noChainId: "MateMask version is to low or This is not MetaMask",
+    }
+  },
   tips: {
     totalSupply_721: "Total amount of Tokens",
-    circulatingSupply:`The number of tokens that are circulating in the market and in the general public’s hands.<br />
-    Circulating Supply in = Total Supply - Locked Tokens - Tokens Hosted by LatticeX Foundation<br />
-    Where the locked tokens include the tokens staked and delegated by the node as well as the tokens locked in the lockup contract.`,
+    circulatingSupply:`The number of tokens circulating in the crypto market and held by members of the public.<br />
+    Circulating supply = Total supply – Tokens Locked – Tokens in the Incentive Pool - Tokens Hosted by LatticeX Foundation.<br />
+    To be more specific, Tokens Locked refers to all tokens in the lockup status, covering staked or delegated tokens;
+    Tokens in the Incentive Pool includes tokens in the incentive pool contract and unclaimed staking rewards (tokens).`,
     totalSupply:`The number of tokens that have been created minus the number of tokens that have been burned.<br />
     Total Supply = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     Where W is the initial issued amount of 10 billion, n is the serial number of the current issuance cycle, 1 is the starting serial number of the genesis block, and a% is the additional issuance ratio, which is at 2.5% currently.`,

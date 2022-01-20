@@ -63,6 +63,7 @@ export default {
     totalSupply: "发行总量",
     totalSupply_721: "总供应量",
     holders: "持有数",
+    holders_: "持有者",
     transfers: "交易数",
     transfers_721: "交易",
     transferNum: "交易次数",
@@ -309,6 +310,17 @@ export default {
     systemBuilt: "系统合约，无上链字节码",
     erc20Trade: "PRC20交易",
     erc721Trade: "PRC721交易",
+
+    status: {
+      name: "状态",
+      name2: "合约状态",
+      normal: "正常",
+      destructed: "合约已销毁",
+      destructed2: "合约销毁",
+      destructed3: "已销毁",
+    },
+
+    addressErr: "地址格式错误",
   },
   deleget: {
     validators: "已委托验证节点",
@@ -518,6 +530,7 @@ export default {
     7: "PRC20合约执行",
     8: "PRC721合约创建",
     9: "PRC721合约执行",
+    21: "合约销毁",
     1000: "创建验证节点", //发起质押
     1001: "编辑验证节点", //修改质押信息
     1002: "增加自有质押", //增持质押
@@ -585,9 +598,11 @@ export default {
     6: "双签处罚",
     7: "低出块率处罚",
     10: "增加自有质押",
-    11: "节点解除锁定"
+    11: "节点解除锁定",
+    12: "版本声明",
   },
   more: {
+    addToExtension: "Add to Extension",
     foundationAddress: '基金会地址',
     governableParameter: "可治理参数",
     stakeThreshold: "创建验证节点最低的质押LAT数。",
@@ -613,11 +628,32 @@ export default {
     zeroProduceFreezeDuration:
       "节点零出块惩罚被锁定时间（一个结算周期10750blocks）"
   },
+  extension: {
+    desc: "用户可以快速添加到他们的钱包和Web3 中间件提供商（如：MetaMask）连接到正确的Chain ID 和 Network ID 以连接到正确的链；步骤：",
+    steps: ["连接...", "添加到...", "添加成功"],
+    form: {
+      rpc: "网络链接 URL",
+      chainId: "链 ID",
+      currency: "符号",
+      website: "浏览器 URL",
+      connect: "连接 MetaMask",
+      add: "添加到 MetaMask",
+    },
+    error: {
+      already: "MetaMask已存在链ID {0}",
+      noMetaMask: `未检测到MetaMask插件，请先
+        <a href="https://metamask.io" target="_black" style="color: #409eff;font-weight: bold;">安装</a>。`,
+      tips: "提示",
+      isChrome: "请使用chrome浏览器安装MetaMask进行操作。",
+      mobile: "请在PC端Chrome浏览器安装MetaMask进行操作。",
+      noChainId: "MateMask版本过低或当前非MetaMask钱包",
+    }
+  },
   tips: {
     totalSupply_721: "已铸造的Token总量",
     circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
-    实时流通供应量 = 总发行量 - 锁定的Token - 基金会托管的Token<br />
-    其中，锁定的Token，包含节点质押与委托的Token，以及通过锁仓合约锁定的Token。`,
+    实时流通供应量 = 总发行量 - 锁仓的Token - 激励池中的Token - 基金会托管的Token<br />
+    其中，锁仓的Token为所有锁仓状态的Token，包含用于质押或委托的锁仓状态的Token，激励池中的Token包含激励池合约中的Token和未领取的Staking奖励Token。`,
     totalSupply:`已经创造出来的Token数量减去已销毁的Token数量。<br />
     总发行量 = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     其中 W为初始发行100亿，n为当前增发周期序号，创世区块开始序号为1，a%为增发比例，当前为2.5%`,

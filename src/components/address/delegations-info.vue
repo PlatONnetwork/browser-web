@@ -40,12 +40,12 @@
         <el-table-column :label="$t('nodeInfo.validator')">
           <template slot-scope="scope">
             <div class="flex-special">
-              <p
-                class="cursor blue ellipsis percent60"
-                @click="goNodeDetail(scope.row.nodeId)"
+              <router-link
+                class="cursor blue ellipsis"
+                :to="getNodeUrl(scope.row.nodeId)"
               >
                 {{ scope.row.nodeName }}
-              </p>
+              </router-link>
             </div>
           </template>
         </el-table-column>
@@ -225,6 +225,7 @@ export default {
   .address-delegation {
   ul {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 20px;
     text-align: center;
     li {
@@ -249,10 +250,9 @@ export default {
       gap: 1em;
       li {
         padding: 5px 8px;
-        max-width: 22%;
         margin-right: 0;
         p {
-          word-break: break-all;
+          white-space: nowrap;
         }
       }
       

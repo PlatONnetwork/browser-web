@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i @click="goTokenDetail(detailInfo.contract, 'erc721')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(21) }}</i>
+          <i @click="goTokenDetail(detailInfo.contract, 'erc721')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(50) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -42,13 +42,13 @@
               <li>
                 <label class="Gilroy-Medium">{{ $t('tokens.contract') }}</label>
                 <div class="money contract-create-info">
-                  <span
+                  <router-link
                     class="normal"
-                    @click="goContractDetail(detailInfo.contract)"
+                    :to="getContractUrl(detailInfo.contract)"
                   >
                     <!-- {{ detailInfo.contract | sliceStr(16) }} -->
                     {{ address }}
-                  </span>
+                  </router-link>
                   <div class="detail-copy" style="margin-left: 10px">
                     <b
                       class="cursor"
@@ -118,14 +118,14 @@ export default {
   data() {
     return {
       activeTab: 1,
-      address: '',
+      // address: '',
       tokenId: '',
       detailInfo: {},
       isCopy: false,
       copyText: '',
     };
   },
-  props: ['tokensDetail'],
+  props: ['tokensDetail', 'address'],
   computed: {},
   watch: {},
   components: {
@@ -183,7 +183,7 @@ export default {
   },
   //生命周期函数
   created() {
-    this.address = this.$route.query.address.toLowerCase();
+    // this.address = this.$route.query.address.toLowerCase();
     this.tokenId = this.$route.query.id;
     if (this.tokensDetail) {
       this.detailInfo = this.tokensDetail;

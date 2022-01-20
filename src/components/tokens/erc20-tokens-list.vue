@@ -27,9 +27,9 @@
       <span class="download-btn" @click="exportFn">{{ $t('common.export') }}</span>
     </div>
     <span v-else class="download-btn abs" @click="exportFn">{{ $t('common.export') }}</span>
-    <!-- 余额table -->
+    <!-- 持有令牌table -->
     <div v-show="selectIndex === 1" class="table">
-      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini">
+      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini" v-loading="loading.balance">
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
@@ -68,14 +68,17 @@
         </el-table-column>
         <el-table-column :label="$t('tokens.contract')">
           <template slot-scope="scope">
-            <span @click="goContractDetail(scope.row.contract)" class="cursor normal ellipsis ellipsisWidth">
+            <router-link :to="getContractUrl(scope.row.contract)" class="cursor normal ellipsis adr-width">
               <icon-contract></icon-contract>
-              {{ scope.row.contract | sliceStr(20) }}
-            </span>
-            <!-- <span v-else class="ellipsis ellipsisWidth">
-              <icon-contract :active="false"></icon-contract>
-              {{ scope.row.contract | sliceStr(20) }}
-            </span> -->
+              {{ scope.row.contract }}
+            </router-link>
+          </template>
+        </el-table-column>
+        <!-- 合约状态  -->
+        <el-table-column :label="$t('contract.status.name2')">
+          <template slot-scope="scope">
+            <div v-if="scope.row.isContractDestroy" class="red">{{ $t('contract.status.destructed3') }}</div>
+            <div v-else>{{ $t('contract.status.normal') }}</div>
           </template>
         </el-table-column>
       </el-table>
@@ -86,21 +89,21 @@
       </div>
     </div>
     <div v-show="selectIndex === 2" class="table">
-      <el-table :data="tradeTableData" style="width: 100%" key="secondTable" size="mini">
+      <el-table :data="tradeTableData" style="width: 100%" key="secondTable" size="mini" v-loading="loading.trade">
         <!-- 交易哈希值 -->
         <el-table-column :label="$t('tradeAbout.hash')" width="200">
           <template slot-scope="scope">
             <div class="flex-special">
-              <span class="cursor normal ellipsis" @click="goTradeDetail(scope.row.txHash)">
+              <router-link class="cursor normal ellipsis hash-width" :to="getTradeUrl(scope.row.txHash)">
                 <!-- txHash 显示0x + 18 -->
-                {{ scope.row.txHash | sliceStr(20) }}
-              </span>
+                {{ scope.row.txHash }}
+              </router-link>
             </div>
           </template>
         </el-table-column>
 
         <!-- 块龄 -->
-        <el-table-column :label="$t('tradeAbout.age')" min-width="100">
+        <el-table-column :label="$t('tradeAbout.age')" width="130">
           <template slot-scope="scope">
             <span>
               {{
@@ -116,8 +119,8 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.fromType)" :active="scope.row.type !== 'OUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'OUT'">{{ scope.row.txFrom | sliceStr(16) }}</span>
-              <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.txFrom, scope.row.fromType)">{{ scope.row.txFrom | sliceStr(16) }}</span>
+              <span class="ellipsis adr-width" v-if="scope.row.type === 'OUT'">{{ scope.row.txFrom }}</span>
+              <router-link v-else class="cursor normal ellipsis adr-width" :to="getAddressUrl(scope.row.txFrom, scope.row.fromType)">{{ scope.row.txFrom }}</router-link>
             </div>
           </template>
         </el-table-column>
@@ -138,8 +141,8 @@
             <div class="flex-special">
               <!-- 操作地址：即签名交易的地址，显示0x+14 -->
               <icon-contract v-if="isContract(scope.row.toType)" :active="scope.row.type !== 'INPUT'"></icon-contract>
-              <span class="ellipsis ellipsisWidth" v-if="scope.row.type === 'INPUT'">{{ scope.row.transferTo | sliceStr(16) }}</span>
-              <span v-else class="cursor normal ellipsis ellipsisWidth" @click="goAddressDetail(scope.row.transferTo, scope.row.toType)">{{ scope.row.transferTo | sliceStr(16) }}</span>
+              <span class="ellipsis adr-width" v-if="scope.row.type === 'INPUT'">{{ scope.row.transferTo }}</span>
+              <router-link v-else class="cursor normal ellipsis adr-width" :to="getAddressUrl(scope.row.transferTo, scope.row.toType)">{{ scope.row.transferTo }}</router-link>
             </div>
           </template>
         </el-table-column>
@@ -153,7 +156,7 @@
         <!-- tokens 名称+单位 -->
         <el-table-column :label="$t('tokens.symbol')">
           <template slot-scope="scope">
-            <span class="cursor normal ellipsis ellipsisWidth" @click="goTokenDetail(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` | sliceStr(21) }}</span>
+            <router-link class="cursor normal ellipsis adr-width" :to="getTokenUrl(scope.row.contract, 'erc20')">{{ `${scope.row.name}  (${scope.row.symbol})` }}</router-link>
           </template>
         </el-table-column>
       </el-table>
@@ -195,6 +198,11 @@ export default {
       tradeType: 'blance',
       tokensName: 'All',
       tokenContract: '',
+
+      loading: {
+        balance: false,
+        trade: false,
+      }
     };
   },
   props: {
@@ -233,6 +241,7 @@ export default {
     },
     getBlanceList() {
       // let key = this.isAddress ? 'address' : 'contract';
+      this.loading.balance = true;
       apiService.tokens
         .tokenBalanceList({
           type: 'erc20',
@@ -253,8 +262,12 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.balance = false;
         });
     },
+    // 从持有令牌跳转过来的
     getTradeAddressList(txCount) {
       let param = {
         pageNo: this.tradeCurPage,
@@ -263,6 +276,7 @@ export default {
         contract: this.tokenContract
       };
       // apiService.trade.transactionList(param);
+      this.loading.trade = true;
       apiService.tokens
         .token20TxList(param)
         .then((res) => {
@@ -286,6 +300,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.trade = false;
         });
     },
     //获取交易列表 下分页
@@ -297,6 +314,7 @@ export default {
       };
       // let key = this.isAddress ? 'address' : 'contract';
       // param[key] = this.address;
+      this.loading.trade = true;
       apiService.tokens
         .token20TxList(param)
         .then((res) => {
@@ -325,6 +343,9 @@ export default {
         })
         .catch((error) => {
           this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading.trade = false;
         });
     },
     getTokenType(type, lowerCase = true) {
