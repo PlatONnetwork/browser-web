@@ -677,7 +677,7 @@
                           }`
                         }}
                         <span v-if="scope.row.type == 5"
-                          >-{{ $t('voteStatus.' + [scope.row.option]) }}</span
+                          >-{{ $te('voteStatus.' + scope.row.option) ? $t('voteStatus.' + scope.row.option) : $t('voteStatus.other') }}</span
                         >
                       </span>
                     </template>
@@ -693,7 +693,7 @@
                         }}-{{ scope.row.id }}</span
                       >
                       <span v-if="scope.row.type == 5"
-                        >-{{ $t('voteStatus.' + [scope.row.option]) }}</span
+                        >-{{ $te('voteStatus.' + scope.row.option) ? $t('voteStatus.' + scope.row.option) : $t('voteStatus.other') }}</span
                       >
                     </template>
                   </p>

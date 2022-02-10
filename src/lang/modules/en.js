@@ -583,14 +583,9 @@ export default {
     6: "Cancelled"
   },
   voteStatus: {
-    1: "YES",
-    2: "NO",
-    3: "ABSTAIN",
-    4: "SUPPORT",
-    11: "YES ",
-    12: "NO ",
-    13: "ABSTAIN ",
-    invalid: "(Invalid)"
+    1: "YEAS",
+    2: "NAYS",
+    other: "ABSTENTIONS",
   },
   actionType: {
     1: "Create the Validator",

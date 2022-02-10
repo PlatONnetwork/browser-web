@@ -465,13 +465,10 @@
           </el-table-column>
           <el-table-column :label="$t('tradeAbout.voteOption')" min-width="20%">
             <template slot-scope="scope">
-              <span
-                >{{
-                  detailData.type == 2
-                    ? $t('voteStatus.' + [4])
-                    : $t('voteStatus.' + [scope.row.option])
-                }}
-                <span
+              <span>
+                <span v-if="detailData.type == 2">{{$t('voteStatus.1')}}</span>
+                <span v-else>{{$te('voteStatus.' + scope.row.option) ? $t('voteStatus.' + scope.row.option) : $t('voteStatus.other')}}</span>
+                <!-- <span
                   class="grey"
                   v-if="
                     scope.row.option == 11 ||
@@ -480,7 +477,7 @@
                   "
                 >
                   {{ $t('voteStatus.invalid') }}
-                </span>
+                </span> -->
               </span>
             </template>
           </el-table-column>

@@ -623,19 +623,17 @@
           <span
             v-if="detailInfo.proposalOption == 2"
             class="green vote-status Gilroy-Bold"
-            >SUPPORT</span
+            >YEAS</span
           >
           <span
             class="green vote-status Gilroy-Bold"
             v-else-if="detailInfo.voteStatus"
             >{{
               detailInfo.voteStatus == 1
-                ? 'YES'
+                ? 'YEAS'
                 : detailInfo.voteStatus == 2
-                ? 'NO'
-                : detailInfo.voteStatus == 3
-                ? 'ABSTAIN'
-                : ''
+                ? 'NAYS'
+                : 'ABSTENTIONS'
             }}</span
           >
         </Item>

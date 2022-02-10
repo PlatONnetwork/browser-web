@@ -580,14 +580,9 @@ export default {
     6: "已取消"
   },
   voteStatus: {
-    1: "YES",
-    2: "NO",
-    3: "ABSTAIN",
-    4: "SUPPORT",
-    11: "YES ",
-    12: "NO ",
-    13: "ABSTAIN ",
-    invalid: "(无效票)"
+    1: "支持",
+    2: "反对",
+    other: "弃权",
   },
   actionType: {
     1: "创建验证节点",
