@@ -502,6 +502,9 @@ export default {
         return
       }
       let isHEX = false;
+      if (/^(0x)[\da-f]{40}|$|^(atp|lat)[\da-f]{39}$/i.test(param)) {
+        param = param.toLowerCase()
+      }
       if (isAddress(param)) {
         isHEX = param;
         param = toBech32Address(process.env.VUE_APP_ADR_PREV, param);
