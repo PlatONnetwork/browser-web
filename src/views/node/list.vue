@@ -539,16 +539,20 @@
           >
             <template slot-scope="scope">
               <div class="node-stability flex-special">
-                <div style="margin-right: 10px" class="self-tooltip">
-                  <i class="icon-low-block cursor"></i>
-                  <span>{{ scope.row.slashLowQty }}</span>
-                  <p>{{ $t('nodeInfo.lowBlockRate') }}</p>
-                </div>
-                <div class="self-tooltip self-tooltip-sign">
-                  <i class="icon-two-sign cursor"></i>
-                  <span>{{ scope.row.slashMultiQty }}</span>
-                  <p>{{ $t('nodeInfo.twoSignNum') }}</p>
-                </div>
+                <el-tooltip placement="top">
+                  <div slot="content"><p style="color: #ffc017" class="slash-tips">{{ $t('nodeInfo.lowBlockRate') }}</p></div>
+                  <div style="margin-right: 10px" class="self-tooltip">
+                    <i class="icon-low-block cursor"></i>
+                    <span>{{ scope.row.slashLowQty }}</span>
+                  </div>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                  <div div slot="content"><p style="color: #cf326e" class="slash-tips">{{ $t('nodeInfo.twoSignNum') }}</p></div>
+                   <div class="self-tooltip self-tooltip-sign">
+                    <i class="icon-two-sign cursor"></i>
+                    <span>{{ scope.row.slashMultiQty }}</span>
+                  </div>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
@@ -1046,6 +1050,11 @@ export default {
       margin-top: 20px;
     }
   }
+}
+.slash-tips {
+  padding: 2px 0;
+  width: 140px;
+  text-align: center;
 }
 </style>
 <style lang="less">
