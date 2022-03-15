@@ -84,6 +84,10 @@ const BASE = process.env.VUE_APP_API_ROOT,
     token721TxList: `${TOKEN_URL}/arc721-tx/list`,
     token721InventoryList: `${TOKEN_URL}/arc721-inventory/list`,
     token721InventoryDetail: `${TOKEN_URL}/arc721-inventory/detail`,
+
+    token1155TxList: `${TOKEN_URL}/arc1155-tx/list`,
+    token1155InventoryList: `${TOKEN_URL}/arc1155-inventory/list`,
+    token1155InventoryDetail: `${TOKEN_URL}/arc1155-inventory/detail`,
     // =================================================================
     tokenTransferList: `${TOKEN_URL}/tokenTransferList`,
     // 持有者列表
@@ -102,6 +106,7 @@ const BASE = process.env.VUE_APP_API_ROOT,
     exportTokenTransferList: `${TOKEN_URL}/exportTokenTransferList`,
     exportT20TxList: `${TOKEN_URL}/arc20-tx/export`,
     exportT721TxList: `${TOKEN_URL}/arc721-tx/export`,
+    exportT1155TxList: `${TOKEN_URL}/arc1155-tx/export`,
   },
   MORE = {
     queryConfig: `${MORE_URL}/queryConfig`,

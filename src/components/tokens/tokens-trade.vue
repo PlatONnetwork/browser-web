@@ -130,7 +130,29 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-else-if="tableType === 'erc721Id'" :label="$t('tokens.tokenID')" prop="tokenId"  min-width="120">
+        <template v-else-if="tableType === 'erc1155'">
+          <!-- 令牌ID -->
+          <el-table-column :label="$t('tokens.tokenID')" min-width="120">
+            <template slot-scope="scope">
+              <router-link
+                class="cursor normal ellipsis ellipsisWidth"
+                :title="scope.row.tokenId"
+                :to="get1155IdUrl(scope.row.contract, scope.row.tokenId)"
+              >
+                {{ scope.row.tokenId }}
+              </router-link>
+            </template>
+          </el-table-column>
+
+          <!-- 转账金额(Quantity) -->
+          <el-table-column :label="$t('tokens.quantity')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.transferValue | formatMoney }}</span>
+            </template>
+          </el-table-column>
+        </template>
+
+        <el-table-column v-else-if="tableType === 'erc721Id' || tableType === 'erc1155Id' " :label="$t('tokens.tokenID')" prop="tokenId"  min-width="120">
           <template slot-scope="scope">
               <span
                 class="ellipsis ellipsisWidth"
@@ -139,6 +161,8 @@
               >
             </template>
         </el-table-column>
+
+
       </el-table>
 
       <!-- 下分页 -->
@@ -166,6 +190,8 @@ const API = {
   erc20: apiService.tokens.token20TxList,
   erc721: apiService.tokens.token721TxList,
   erc721Id: apiService.tokens.token721TxList,
+  erc1155: apiService.tokens.token1155TxList,
+  erc1155Id: apiService.tokens.token1155TxList
 };
 export default {
   name: '',
@@ -207,7 +233,7 @@ export default {
         pageSize: this.pageSize,
         contract: this.address
       };
-      if (this.tableType === 'erc721Id') {
+     if (this.tableType === 'erc721Id' || this.tableType === 'erc1155Id') {
         param.tokenId = this.tokenId;
       }
       this.loading = true;
@@ -264,7 +290,7 @@ export default {
         tokenType: this.tableType,
         contract: 'true'
       }
-      if (this.tableType === 'erc721Id') {
+      if (this.tableType === 'erc721Id' || this.tableType === 'erc1155Id') {
         query.tokenId = this.tokenId;
       }
       //跳转至下载页

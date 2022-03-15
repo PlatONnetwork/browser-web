@@ -87,6 +87,15 @@
                   {{ detailInfo.erc721TxQty | formatNumber }}
                 </div>
               </li>
+              <li>
+                <!-- PRC1155交易 -->
+                <label class="Gilroy-Medium">{{ 
+                  $t('tokens.erc1155TokenTxns') 
+                  }}</label>
+                <div class="money">
+                  {{ detailInfo.erc1155TxQty | formatNumber }}
+                </div>
+              </li>
             </ul>
           </div>
         </el-col>
@@ -152,13 +161,19 @@
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-          v-if="isAddressDetailsDelegation"
-          >{{ $t('contract.delegations') }}</el-button
+          >{{ $t('tokens.erc1155Tokens') }}</el-button
         >
         <el-button
           size="medium"
           :class="{ active: tabIndex == 5 }"
           @click="tabChange(5)"
+          v-if="isAddressDetailsDelegation"
+          >{{ $t('contract.delegations') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 6 }"
+          @click="tabChange(6)"
           v-if="isAddressDetailsReward"
           >{{ $t('tradeAbout.rewardDetails') }}</el-button
         >
@@ -177,16 +192,18 @@
       <!-- Erc721 Token -->
       <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo"></erc721-list>
 
+      <!-- Erc1155 Token -->
+      <erc1155-list v-show="tabIndex == 4" :address="address" :tradeCount="detailInfo"></erc1155-list>
       <!-- 委托 -->
       <delegation-info
-        v-show="tabIndex == 4"
+        v-show="tabIndex == 5"
         :detailInfo="detailInfo"
         :address="address"
       ></delegation-info>
 
       <!-- 奖励领取明细 -->
       <reward-detail
-        v-show="tabIndex == 5"
+        v-show="tabIndex == 6"
         ref="rewardDetail"
         :tradeCount="detailInfo"
         :address="address"
@@ -201,6 +218,7 @@ import { mapGetters } from 'vuex';
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
+import erc1155List from '@/components/tokens/erc1155-tokens-list';
 import rewardDetail from '@/components/address/rewardDetailTable';
 import delegationInfo from '@/components/address/delegations-info';
 
@@ -230,6 +248,7 @@ export default {
     tradeList,
     erc20List,
     erc721List,
+    erc1155List,
     rewardDetail,
     delegationInfo,
   },

@@ -101,6 +101,13 @@
               <el-dropdown-item command="/tokens/tokensTranfer/prc721">{{
                 $t('menu.erc721Transfer')
               }}</el-dropdown-item>
+              <div class="dividing-line"></div>
+              <el-dropdown-item command="/tokens/tokensList/prc1155">{{ 
+                $t('menu.erc1155Tokens') 
+                }}</el-dropdown-item>
+              <el-dropdown-item command="/tokens/tokensTranfer/prc1155">{{ 
+                $t('menu.erc1155Transfer') 
+                }} </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
@@ -349,6 +356,23 @@
                 <router-link to="/tokens/tokensTranfer/prc721">{{
                   $t('menu.erc721Transfer')
                 }}</router-link>
+              </el-menu-item>
+              <el-menu-item
+                index="/tokens/tokensList/prc1155"
+                @click="toggleMobileMenuOpenend"
+                :class="{ active: $route.path == '/tokens/tokensList/prc1155' }"
+              >
+                <router-link to="/tokens/tokensList/prc1155">{{ $t('menu.erc1155Tokens') }}</router-link>
+              </el-menu-item>
+
+              <el-menu-item
+                index="/tokens/tokensTranfer/prc1155"
+                @click="toggleMobileMenuOpenend"
+                :class="{
+                  active: $route.path == '/tokens/tokensTranfer/prc1155'
+                }"
+              >
+                <router-link to="/tokens/tokensTranfer/prc1155">{{ $t('menu.erc1155Transfer') }}</router-link>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>

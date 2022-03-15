@@ -12,6 +12,8 @@ export default {
     erc20Transfer: "PRC20 TRANSFERS",
     erc721Tokens: "PRC721 HOT TOKENS",
     erc721Transfer: "PRC721 TRANSFERS",
+    erc1155Tokens: "PRC1155 HOT TOKENS",
+    erc1155Transfer: "PRC1155 TRANSFERS",
     tokenList: "TOKEN LIST",
     more: "MORE",
     comesoon: "Coming soon",
@@ -39,6 +41,7 @@ export default {
   tokens: {
     erc20: "PRC 20",
     erc721: "PRC 721",
+    erc1155: "PRC 1155",
     tokenName: "Token Name",
     owner: "Owner",
     holder: "Holder",
@@ -46,15 +49,18 @@ export default {
     holdTokens: "Tokens",
     hold20: "Tokens",
     hold721: "Inventory",
+    hold1155: "Inventory",
     unit: "Unit",
     symbol: "Symbol",
     typesToken: "Types Tokens",
     typeErc20Token: "Types PRC20 Tokens",
     typeErc721Token: "Types PRC721 Tokens",
+    typeErc1155Token: "Types PRC1155 Tokens",
     tokens: "Tokens",
     tokenID: "TokenID",
     erc20Tokens: "PRC20 TOKENS",
     erc721Tokens: "PRC721 TOKENS",
+    erc1155Tokens: "PRC1155 TOKENS",
     tokenDetail: "Token Detail",
     value: "Value",
     from: "From",
@@ -62,10 +68,12 @@ export default {
     quantity: "Quantity",
     totalSupply: "Total Supply",
     totalSupply_721: "Total Supply",
+    totalSupply_1155: "Total Supply",
     holders: "Holders",
     holders_: "Holders",
     transfers: "Transfers",
     transfers_721: "Transfers",
+    transfers_1155: "Transfers",
     transferNum: "Transaction Number",
     inventory: "Inventory",
     contract: "Contract",
@@ -73,6 +81,7 @@ export default {
     website: "Official Site",
     erc20TokenTxns: "PRC20 Token Txns",
     erc721TokenTxns: "PRC721 Token Txns",
+    erc1155TokenTxns: "PRC1155 Token Txns",
     number: "quantity",
     percentage: "percentage",
   },
@@ -128,6 +137,7 @@ export default {
     WASM: "WASM Contract",
     ERC20: "PRC20 Contract",
     ERC721: "PRC721 Contract",
+    ERC1155: "PRC1155 Contract",
     callFunction: "Call Function",
     creation: "ContractCreation",
     execution: "ContractExecution",
@@ -311,6 +321,7 @@ export default {
 
     erc20Trade: "PRC20 Token Txns",
     erc721Trade: "PRC721 Token Txns",
+    erc1155Trade: "PRC1155 Token Txns",
 
     status: {
       name: "Status",
@@ -533,6 +544,8 @@ export default {
     7: "PRC20 ContractExecution", //erc20合约执行
     8: "PRC721 ContractCreation", //erc721合约创建
     9: "PRC721 ContractExecution", //erc721合约执行
+    10: "PRC1155 ContractCreation", //erc1155合约创建
+    11: "PRC1155 ContractExecution", //erc1155合约执行
     21: "Contract Destructed", // 合约销毁
     1000: "CreateValidator", //'发起质押',
     1001: "EditValidator", //'修改质押信息',
@@ -651,6 +664,7 @@ export default {
   },
   tips: {
     totalSupply_721: "Total amount of Tokens",
+    totalSupply_1155: "Total amount of Tokens",
     circulatingSupply:`The number of tokens circulating in the crypto market and held by members of the public.<br />
     Circulating supply = Total supply – Tokens Locked – Tokens in the Incentive Pool - Tokens Hosted by LatticeX Foundation.<br />
     To be more specific, Tokens Locked refers to all tokens in the lockup status, covering staked or delegated tokens;
