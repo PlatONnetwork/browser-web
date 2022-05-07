@@ -17,7 +17,7 @@
     </div>
     <div class="trade-tab-wrap" v-if="pageType !== 'contract'">
       <ul class="trade-tab">
-        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'blance')">
+        <li :class="{ active: selectIndex == 1 }" index="1" @click="typeChange(1, 'balance')">
           {{ $t('tokens.hold721') }} ({{ balanceTotalDisplay }})
         </li>
         <li :class="{ active: selectIndex == 2 }" index="2" @click="typeChange(2, 'transfer')">
@@ -29,7 +29,7 @@
     <span v-else class="download-btn abs" @click="exportFn">{{ $t('common.export') }}</span>
     <!-- 持有令牌table -->
     <div v-show="selectIndex === 1" class="table">
-      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini" v-loading="loading.blance">
+      <el-table :data="balanceTableData" style="width: 100%" key="firstTable" size="mini" v-loading="loading.balance">
         <!-- 名称 -->
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
@@ -72,7 +72,7 @@
 
       <!-- 下分页 -->
       <div class="pagination-box">
-        <el-pagination background @current-change="handleBlancePageChange" :current-page.sync="blanceCurPage" :page-sizes="[20]" :page-size="blancePageSize" layout="sizes,total,  prev, pager, next" :total="balancePageTotal > 5000 ? 5000 : balancePageTotal" :pager-count="9"></el-pagination>
+        <el-pagination background @size-change="handleBlanceSizeChange" @current-change="handleBlancePageChange" :current-page.sync="blanceCurPage" :page-sizes="[10, 20, 50, 100]" :page-size="blancePageSize" layout="sizes,total,  prev, pager, next" :total="balancePageTotal > 5000 ? 5000 : balancePageTotal" :pager-count="9"></el-pagination>
       </div>
     </div>
     <div v-show="selectIndex === 2" class="table">
@@ -206,7 +206,7 @@ export default {
       balanceTableData: [],
       tradeTableData: [],
 
-      tradeType: 'blance',
+      tradeType: 'balance',
       tokensName: 'All',
       tokenContract: '',
       tokenId: '',
@@ -260,7 +260,7 @@ export default {
           type: 'erc721',
           address: this.address,
           pageNo: this.blanceCurPage,
-          pageSize: 20, //目前写死固定值
+          pageSize: this.blancePageSize,
         })
         .then((res) => {
           const { code, data, totalCount, displayTotalCount } = res;
@@ -382,7 +382,11 @@ export default {
       this.blanceCurPage = val;
       this.getBlanceList();
     },
-
+    handleBlanceSizeChange(val) {
+      this.blanceCurPage = 1;
+      this.blancePageSize = val;
+      this.getBlanceList();
+    },
     handleTradePageChange(val) {
       this.tradeCurPage = val;
       this.getListByTokenName();
@@ -412,7 +416,7 @@ export default {
     exportFn() {
       let exportname;
       // let contract = false;
-      if (this.tradeType === 'blance') {
+      if (this.tradeType === 'balance') {
         exportname = 'holderTokenList';
       } else if (this.tradeType === 'transfer') {
         exportname = 'TokenTransferList';
