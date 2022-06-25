@@ -7,11 +7,15 @@ import apiService from '@/services/API-services';
 import erc20DetailComponent from "@/views/tokens/detail/erc20-detail.vue";
 import erc721DetailComponent from "@/views/tokens/detail/erc721-detail.vue";
 import erc721IdDetailComponent from "@/views/tokens/detail/erc721id-detail.vue";
+import erc1155DetailComponent from '@/views/tokens/detail/erc1155-detail.vue'
+import erc1155IdDetailComponent from '@/views/tokens/detail/erc1155id-detail.vue'
 import AdrTrans from '@/mixins/adrTrans';
 const componentMap = {
     erc20: 'erc20DetailComponent',
     erc721: 'erc721DetailComponent',
-    erc721Id: 'erc721IdDetailComponent'
+    erc721Id: 'erc721IdDetailComponent',
+    erc1155: 'erc1155DetailComponent',
+    erc1155Id: 'erc1155IdDetailComponent'
 }
 export default {
   mixins: [AdrTrans],
@@ -30,7 +34,9 @@ export default {
   components: {
     erc20DetailComponent,
     erc721DetailComponent,
-    erc721IdDetailComponent
+    erc721IdDetailComponent,
+    erc1155DetailComponent,
+    erc1155IdDetailComponent
   },
   created() {
     this.checkAdr()
@@ -57,6 +63,8 @@ export default {
               this.type = 'erc20';
             } else if (data.type === 'erc721') {
               this.type = this.tokenId ? 'erc721Id' : 'erc721';
+            } else if (data.type === 'erc1155') {
+              this.type = this.tokenId ? 'erc1155Id' : 'erc1155';
             }
             this.componentData = data;
           } else {

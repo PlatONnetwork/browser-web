@@ -73,6 +73,9 @@ class ApiService {
       token721TxList: this.post.bind(this, API.TOKEN.token721TxList),
       token721InventoryList: this.post.bind(this, API.TOKEN.token721InventoryList),
       token721InventoryDetail: this.post.bind(this, API.TOKEN.token721InventoryDetail),
+      token1155TxList: this.post.bind(this, API.TOKEN.token1155TxList),
+      token1155InventoryList: this.post.bind(this, API.TOKEN.token1155InventoryList),
+      token1155InventoryDetail: this.post.bind(this, API.TOKEN.token1155InventoryDetail),
       // =================================================================
       tokenTransferList: this.post.bind(this, API.TOKEN.tokenTransferList),
       tokenHolderList: this.post.bind(this, API.TOKEN.tokenHolderList),

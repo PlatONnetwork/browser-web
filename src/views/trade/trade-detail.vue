@@ -165,6 +165,8 @@
           detailInfo.txType == '7' ||
           detailInfo.txType == '8' ||
           detailInfo.txType == '9' ||
+          detailInfo.txType == '10' || // 1155创建
+          detailInfo.txType == '11' || // 1155调用
           detailInfo.txType == '21'
         "
       >
@@ -174,7 +176,8 @@
           v-if="
             detailInfo.txType == '1' ||
             detailInfo.txType == '6' ||
-            detailInfo.txType == '8'
+            detailInfo.txType == '8' ||
+            detailInfo.txType == '10' // 1155 创建
           "
         >
           <router-link
@@ -327,6 +330,58 @@
                   :to="get721IdUrl(item.innerContractAddr, item.innerValue)"
                   >{{
                     `${item.innerValue} ${item.innerContractName}  (${item.innerSymbol})`
+                  }}
+                </router-link>
+              </li>
+              <li>
+                <img
+                  v-pic-preview
+                  class="token-pic"
+                  :src="
+                    item.innerImage ||
+                    require('@/assets/images/Platon-cat-721.svg')
+                  "
+                />
+              </li>
+            </ul>
+        </div>
+        </Item>
+         <!-- erc1155 tokens -->
+        <Item
+          :label="$t('tradeAbout.tokens')"
+          v-if="detailInfo.erc1155Params && detailInfo.erc1155Params.length > 0"
+        >
+          <div class="table-721">
+            <ul class="theader">
+              <li>from</li>
+              <li>to</li>
+              <li>token</li>
+              <li>icon</li>
+            </ul>
+            <ul
+              v-for="(item, index) in detailInfo.erc1155Params"
+              :key="index"
+            >
+              <li>
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="getAddressUrl(item.innerFrom, item.fromType)"
+                  >{{ item.innerFrom }}
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="getAddressUrl(item.innerTo, item.toType)"
+                  >{{ item.innerTo }}
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="cursor blue ellipsis token-width"
+                  :to="get1155IdUrl(item.innerContractAddr, item.tokenId)"
+                  >{{
+                    `${item.tokenId} ${item.innerContractName}  (${item.innerSymbol})`
                   }}
                 </router-link>
               </li>
@@ -1067,6 +1122,8 @@ export default {
         2: 'execution',
         7: 'execution',
         9: 'execution',
+        10: 'creation',
+        11: 'execution',
         21: 'execution',
         4: 'other',
         5: 'other',
@@ -1089,7 +1146,7 @@ export default {
       return this.$t('tradeAbout.' + typeMap[t]);
     },
     contractTypeTitle(type) {
-      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20', 'ERC721'];
+      let typeMap = ['PPOS', 'EVM', 'WASM', '', 'ERC20', 'ERC721', 'ERC1155'];
       return this.$t('tradeAbout.' + typeMap[type]);
     },
   },

@@ -57,21 +57,26 @@
 import apiService from '@/services/API-services';
 import ERC20List from './list/erc20.vue';
 import ERC721List from './list/erc721.vue';
+import ERC1155List from './list/erc1155.vue';
 const compMap = {
   prc20: 'ERC20List',
   prc721: 'ERC721List',
+  prc1155: 'ERC1155List',
 };
 const API = {
   prc20: apiService.tokens.tokenList,
   prc721: apiService.tokens.tokenList,
+  prc1155: apiService.tokens.tokenList,
 };
 const typeMap = {
   prc20: 'menu.erc20Tokens',
   prc721: 'menu.erc721Tokens',
+  prc1155: 'menu.erc1155Tokens',
 };
 const apiTypeMap = {
   prc20: 'erc20',
   prc721: 'erc721',
+  prc1155: 'erc1155',
 };
 
 export default {

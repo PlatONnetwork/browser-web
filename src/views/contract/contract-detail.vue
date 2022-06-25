@@ -84,6 +84,14 @@
                     {{ detailInfo.erc721TxQty | formatNumber }}
                   </div>
               </li>
+              <li>
+                  <label class="Gilroy-Medium">{{
+                    $t('contract.erc1155Trade')
+                  }}</label>
+                  <div class="money">
+                    {{ detailInfo.erc1155TxQty | formatNumber }}
+                  </div>
+              </li>
               <!-- 状态 todo -->
               <li>
                 <label class="Gilroy-Medium">{{
@@ -188,15 +196,17 @@
           @click="tabChange(4)"
           v-if="isAddressDetailsDelegation"
         >
-          {{ $t('contract.delegations') }}
+          {{ $t('contract.erc1155Trade') }}
         </el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" v-if="isAddressDetailsReward">
-          {{ $t('tradeAbout.rewardDetails') }}
+        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" >
+          {{ $t('tradeAbout.delegations') }}
         </el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 6 }" @click="tabChange(6)">
+        <el-button size="medium" :class="{ active: tabIndex == 6 }" @click="tabChange(6)" v-if="isAddressDetailsReward">
+          {{ $t('contract.rewardDetails') }}
+        </el-button>
+        <el-button size="medium" :class="{ active: tabIndex == 7 }" @click="tabChange(7)">
           {{ $t('contract.contract') }}
         </el-button>
-
       </div>
 
       <!-- 交易 -->
@@ -213,14 +223,16 @@
       <!-- Erc721 Token -->
       <erc721-list v-show="tabIndex == 3" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc721-list>
 
+      <!-- Erc1155 Token -->
+      <erc1155-list v-show="tabIndex == 4" :address="address" :tradeCount="detailInfo" pageType="contractA" ></erc1155-list>
       <!-- 委托 -->
-      <delegation-info v-show="tabIndex == 4" :detailInfo="detailInfo" :address="address"></delegation-info>
+      <delegation-info v-show="tabIndex == 5" :detailInfo="detailInfo" :address="address"></delegation-info>
 
       <!-- 奖励领取明细 -->
-      <reward-detail v-show="tabIndex == 5" :tradeCount="detailInfo" :address="address"></reward-detail>
+      <reward-detail v-show="tabIndex == 6" :tradeCount="detailInfo" :address="address"></reward-detail>
 
       <!-- 合约 -->
-      <contract-info v-show="tabIndex == 6" :detailInfo="detailInfo"></contract-info>
+      <contract-info v-show="tabIndex == 7" :detailInfo="detailInfo"></contract-info>
 
     </div>
   </div>
@@ -231,6 +243,7 @@ import apiService from '@/services/API-services';
 import tradeList from '@/components/trade-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
+import erc1155List from '@/components/tokens/erc1155-tokens-list';
 import rewardDetail from '@/components/address/rewardDetailTable'
 import delegationInfo from '@/components/address/delegations-info'
 import contractInfo from '@/components/contract/contract-info'
@@ -267,6 +280,7 @@ export default {
     tradeList,
     erc20List,
     erc721List,
+    erc1155List,
     contractInfo,
     rewardDetail,
     delegationInfo,
