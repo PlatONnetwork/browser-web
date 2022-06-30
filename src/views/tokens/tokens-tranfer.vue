@@ -59,22 +59,26 @@ import apiService from '@/services/API-services';
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import ERC20Tranfer from './tranfer/erc20.vue';
 import ERC721Tranfer from './tranfer/erc721.vue';
+import ERC1155Tranfer from './tranfer/erc1155.vue';
 const compMap = {
   prc20: 'ERC20Tranfer',
   prc721: 'ERC721Tranfer',
+  prc1155: 'ERC1155Tranfer',
 };
 const API = {
   prc20: apiService.tokens.token20TxList,
   prc721: apiService.tokens.token721TxList,
+  prc1155: apiService.tokens.token1155TxList,
 };
 const typeMap = {
   prc20: 'menu.erc20Transfer',
   prc721: 'menu.erc721Transfer',
+  prc1155: 'menu.erc1155Transfer',
 }
 
 export default {
   name: 'tokensListComponent',
-  components: { ERC20Tranfer, ERC721Tranfer },
+  components: { ERC20Tranfer, ERC721Tranfer, ERC1155Tranfer },
   data() {
     return {
       tableData: [],

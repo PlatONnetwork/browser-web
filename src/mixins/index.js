@@ -77,6 +77,20 @@ const routeJump = {
     go721IdDetail(address, tokenId) {
       this.$router.push(this.get721IdUrl(address, tokenId));
     },
+    //进入erc1155 id 详情
+    get1155IdUrl(address, tokenId) {
+      return {
+        path: '/tokens-detail',
+        query: {
+          type: 'erc1155Id',
+          address: address,
+          id: tokenId
+        }
+      }
+    },
+    go1155IdDetail(address, tokenId) {
+      this.$router.push(this.get1155IdUrl(address, tokenId))
+    },
     //进入节点详情
     getNodeUrl(nodeId) {
       return {
