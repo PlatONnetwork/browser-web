@@ -81,7 +81,7 @@ const apiTypeMap = {
 
 export default {
   name: 'tokensListComponent',
-  components: { ERC20List, ERC721List },
+  components: { ERC20List, ERC721List, ERC1155List },
   data() {
     return {
       tableData: [],
