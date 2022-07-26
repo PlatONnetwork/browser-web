@@ -613,6 +613,8 @@ export default {
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
+    unDelegateFreezeDuration:
+      "解除委托后，委托金冻结的结算周期数（一个结算周期10750blocks）",
     rewardPerMaxChangeRange: '"委托奖励比例" 每次修改的最大可调整幅度（‱）。',
     rewardPerChangeInterval:
       '"委托奖励比例" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。',

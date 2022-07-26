@@ -616,6 +616,8 @@ export default {
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
+    unDelegateFreezeDuration:
+      "Number of Epochs of Delegated freeze (1 epoch = 10750blocks)",
     rewardPerMaxChangeRange:
       '"Delegated Reward Ratio" The maximum adjustable range of each modification (‱).',
     rewardPerChangeInterval:
