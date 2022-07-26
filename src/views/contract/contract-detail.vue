@@ -49,17 +49,6 @@
                   <span class="money"
                     >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
                   >
-                  <div v-if="detailInfo.isRestricting">
-                    <span class="restricted"
-                      >{{
-                        detailInfo.restrictingBalance | formatMoney
-                      }}&nbsp;LAT (<a
-                        class="blue cursor"
-                        @click="goRestricte"
-                        >{{ $t('contract.restricted') }}</a
-                      >)</span
-                    >
-                  </div>
                 </div>
               </li>
               <li>
@@ -311,14 +300,6 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
-    goRestricte() {
-      this.$router.push({
-        path: '/restricting-info',
-        query: {
-          address: this.address,
-        },
-      });
-    }
   },
   //生命周期函数
   created() {
