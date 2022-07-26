@@ -46,7 +46,7 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.balance')
                 }}</label>
-                <div>
+                <div style="text-align: right">
                   <span class="money"
                     >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
                   >
@@ -58,6 +58,15 @@
                         class="blue cursor"
                         @click="goRestricte"
                         >{{ $t('contract.restricted') }}</a
+                      >)</span
+                    >
+                    <span class="restricted" style="padding-left: 12px;"
+                      >{{
+                        detailInfo.restrictingBalance | formatMoney
+                      }}&nbsp;LAT (<a
+                        class="blue cursor"
+                        @click="goDelegate"
+                        >{{ $t('contract.frozenDelegate') }}</a
                       >)</span
                     >
                   </div>
@@ -117,6 +126,20 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.invalidDelegations')
                 }}</label>
+                <div class="money">
+                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
+                </div>
+              </li>
+              <li>
+                <label class="Gilroy-Medium red">
+                  {{ $t('contract.unclaimedDelegate') }}
+                  <el-tooltip class="item" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t('deleget.percentageMsg') }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </label>
                 <div class="money">
                   {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
                 </div>
@@ -274,10 +297,17 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
-
     goRestricte() {
       this.$router.push({
         path: '/restricting-info',
+        query: {
+          address: this.address,
+        },
+      });
+    },
+    goDelegate() {
+      this.$router.push({
+        path: '/frozen-delegate-info',
         query: {
           address: this.address,
         },

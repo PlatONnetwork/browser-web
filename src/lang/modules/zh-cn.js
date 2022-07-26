@@ -303,6 +303,14 @@ export default {
     estimatedTime: "预计时间",
     unlocksNumber: "解锁数量",
 
+    frozenDelegateOverview: "委托冻结概览",
+    frozenDelegate: "委托冻结",
+    frozenDelegatePlan: "委托冻结计划",
+    thawAmount: "解冻数量",
+    unclaimedDelegate: "待领取委托",
+    unclaimedDelegateTips: "冻结期结束，主动提取可以直接到账的委托数量",
+    frozenSum: "总计冻结数",
+
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
     totalDelegated: "总计委托",

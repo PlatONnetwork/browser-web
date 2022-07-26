@@ -303,6 +303,14 @@ export default {
     estimatedTime: "Estimated Time",
     unlocksNumber: "Redeemed",
 
+    frozenDelegateOverview: "Overview",
+    frozenDelegate: "Frozen Delegations",
+    frozenDelegatePlan: "Delegation Freezing Plan",
+    thawAmount: "Unfrozen Amount",
+    unclaimedDelegate: "Unclaimed Delegations",
+    unclaimedDelegateTips: "The amount of delegations beyond the freezing period that can be withdrawn and directly deposited into the account",
+    frozenSum: "Total Frozen",
+
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
     totalDelegated: "Total Delegated",
