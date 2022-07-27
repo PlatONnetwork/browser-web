@@ -4,16 +4,18 @@
         <div class="detail-change">
             <div class="detail-copy">
                 <span>{{$t('contract.address')}}</span>
-                <i>#{{address}}</i>
-                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="address" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
+                <i>#{{showAdr}}</i>
+                <b class="cursor" :class="{copy:!isCopy}" v-clipboard:copy="showAdr" v-clipboard:success="onCopy" v-clipboard:error="onError"><p v-show="isCopy"><i class="el-icon-circle-check-outline"></i><span>{{copyText}}</span></p></b>
                 <a class="code cursor">
                     <qriously
                         class="qr-code"
-                        v-if="address"
-                        :value="address"
+                        v-if="showAdr"
+                        :value="showAdr"
                         :size="140"
                     />
                 </a>
+                <span v-if="!adrErr" class="adr-trans" @click="adrTypeChange">{{ adrType }}</span>
+                <span v-else class="adr-err">{{ $t('contract.addressErr') }}</span>
             </div>
         </div>
         <div class="restricting-detail">
@@ -58,8 +60,11 @@
     import List from '@/components/list/list'
     import Item from '@/components/list/item'
 
+    import AdrTrans from '@/mixins/adrTrans';
+
     export default {
-        name: 'contract-detail',
+        name: 'frozen-delegate-detail',
+        mixins: [AdrTrans],
         data() {
             return {
                 address:'',
@@ -138,8 +143,7 @@
         },
         //生命周期函数
         created() {
-            this.address = this.$route.query.address;
-            this.getDetail();
+            this.checkAdr() && this.getDetail()
         },
         mounted() {
 
