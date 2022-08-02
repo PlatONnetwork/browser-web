@@ -194,11 +194,14 @@
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
+          >{{ $t('contract.erc1155Trade') }}</el-button
+        >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 5 }"
+          @click="tabChange(5)"
           v-if="isAddressDetailsDelegation"
         >
-          {{ $t('contract.erc1155Trade') }}
-        </el-button>
-        <el-button size="medium" :class="{ active: tabIndex == 5 }" @click="tabChange(5)" >
           {{ $t('contract.delegations') }}
         </el-button>
         <el-button size="medium" :class="{ active: tabIndex == 6 }" @click="tabChange(6)" v-if="isAddressDetailsReward">
