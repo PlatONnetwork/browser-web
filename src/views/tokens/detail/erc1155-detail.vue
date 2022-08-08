@@ -108,7 +108,7 @@
         :tradeCount="detailInfo"
         table-type="erc1155"
       ></tokens-trade-list>
-      <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
+      <tokens-holder :address="address" v-show="activeTab == 2" table-type="erc1155"></tokens-holder>
       <tokens-inventory v-show="activeTab == 3" :address="address"></tokens-inventory>
     </div>
   </div>

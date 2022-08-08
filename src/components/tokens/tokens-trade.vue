@@ -131,7 +131,14 @@
           </el-table-column>
         </template>
 
-        <template v-else-if="tableType === 'erc1155Id'">
+        <template v-else-if="tableType === 'erc1155' || tableType === 'erc1155Id'">
+          <!-- 交易数 -->
+          <el-table-column :label="$t('tokens.transfers')">
+            <template slot-scope="scope">
+              <span>{{ scope.row.transferValue | formatMoney }}</span>
+            </template>
+          </el-table-column>
+
           <!-- 令牌ID -->
           <el-table-column :label="$t('tokens.tokenID')" min-width="120">
             <template slot-scope="scope">
@@ -142,13 +149,6 @@
               >
                 {{ scope.row.tokenId }}
               </router-link>
-            </template>
-          </el-table-column>
-
-          <!-- 转账金额(Quantity) -->
-          <el-table-column :label="$t('tokens.quantity')">
-            <template slot-scope="scope">
-              <span>{{ scope.row.transferValue | formatMoney }}</span>
             </template>
           </el-table-column>
         </template>

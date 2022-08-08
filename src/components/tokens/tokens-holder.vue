@@ -79,6 +79,10 @@ export default {
   props: {
     address: String,
     tradeCount: Object,
+    tableType: {
+      type: String,
+      default: 'erc20',
+    },
   },
   computed: {},
   watch: {
@@ -92,6 +96,7 @@ export default {
     getTradeList() {
       let param = {
         contract: this.address,
+        ercType: this.tableType,
         pageNo: this.currentPage,
         pageSize: this.pageSize,
       };
@@ -154,6 +159,7 @@ export default {
         path: '/download',
         query: {
           address: this.address,
+          tokenType: this.tableType,
           exportname: 'tokenHolderList',
         },
       });

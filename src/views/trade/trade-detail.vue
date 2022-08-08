@@ -365,23 +365,23 @@
               <li>
                 <router-link
                   class="cursor blue ellipsis token-width"
-                  :to="getAddressUrl(item.innerFrom, item.fromType)"
-                  >{{ item.innerFrom }}
+                  :to="getAddressUrl(item.from, item.fromType)"
+                  >{{ item.from }}
                 </router-link>
               </li>
               <li>
                 <router-link
                   class="cursor blue ellipsis token-width"
-                  :to="getAddressUrl(item.innerTo, item.toType)"
-                  >{{ item.innerTo }}
+                  :to="getAddressUrl(item.to, item.toType)"
+                  >{{ item.to }}
                 </router-link>
               </li>
               <li>
                 <router-link
                   class="cursor blue ellipsis token-width"
-                  :to="get1155IdUrl(item.innerContractAddr, item.tokenId)"
+                  :to="get1155IdUrl(item.contract, item.tokenId)"
                   >{{
-                    `${item.tokenId} ${item.innerContractName}  (${item.innerSymbol})`
+                    `${item.tokenId} ${item.innerContractName || ''}  (${item.innerSymbol || ''})`
                   }}
                 </router-link>
               </li>

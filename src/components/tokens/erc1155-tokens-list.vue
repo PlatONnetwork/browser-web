@@ -43,21 +43,14 @@
           </template>
         </el-table-column>
 
-        <el-table-column :label="$t('contract.balance')">
-          <template slot-scope="scope">
-            <div>
-              {{ scope.row.balance | formatMoney }}
-            </div>
-          </template>
-        </el-table-column>
-
-        <el-table-column :label="$t('tokens.transferNum')" :min-width="$i18n.locale == 'en' ? 150 : 80">
+        <el-table-column :label="$t('tokens.transfers')" :min-width="$i18n.locale == 'en' ? 150 : 80">
           <template slot-scope="scope">
             <span @click="showAddressTokenList(scope.row)" class="cursor normal">
               {{ scope.row.txCount | formatNumber }}
             </span>
           </template>
         </el-table-column>
+        <el-table-column :label="$t('tokens.decimals')" prop="decimal"/>
         <el-table-column :label="$t('tokens.contract')">
           <template slot-scope="scope">
             <router-link :to="getContractUrl(scope.row.contract)" class="cursor normal ellipsis adr-width">

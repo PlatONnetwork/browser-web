@@ -131,7 +131,7 @@
         :tradeCount="detailInfo"
         table-type="erc721"
       ></tokens-trade-list>
-      <tokens-holder :address="address" v-show="activeTab == 2"></tokens-holder>
+      <tokens-holder :address="address" v-show="activeTab == 2" table-type="erc721"></tokens-holder>
       <tokens-inventory
         v-show="activeTab == 3"
         :address="address"

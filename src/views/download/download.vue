@@ -92,7 +92,7 @@ export default {
       },
       response: '',
       exportname: '',
-      isContract: false,
+      _isContract: false,
       response1: '',
       timeZone: '+8',
       tokenType: '',
@@ -177,6 +177,8 @@ export default {
           apiConfig.TOKEN.exportTokenHolderList +
           '?contract=' +
           this.param.address +
+          '&ercType=' +
+          this.tokenType +
           '&local=' +
           this.lang +
           '&timeZone=' +
@@ -202,8 +204,10 @@ export default {
           erc20: apiConfig.TOKEN.exportT20TxList, 
           erc721: apiConfig.TOKEN.exportT721TxList, 
           erc721Id: apiConfig.TOKEN.exportT721TxList, 
+          erc1155: apiConfig.TOKEN.exportT1155TxList, 
+          erc1155Id: apiConfig.TOKEN.exportT1155TxList, 
         }
-        let adr = this.isContract ? 'contract' : 'address';
+        let adr = this._isContract ? 'contract' : 'address';
         this.src =
           preUrlMap[this.tokenType] +
           '?date=' +
@@ -216,7 +220,7 @@ export default {
           this.timeZone +
           '&token=' +
           this.response;
-        if (this.tokenType === 'erc721Id') {
+        if (this.tokenType === 'erc721Id' || this.tokenType === 'erc1155Id') {
           this.src += '&tokenId=' + this.$route.query.tokenId;
         }
       }
@@ -229,7 +233,7 @@ export default {
     this.address = this.$route.query.address;
     this.exportname = this.$route.query.exportname;
     this.tokenType = this.$route.query.tokenType;
-    this.isContract = this.$route.query.contract === 'true';
+    this._isContract = this.$route.query.contract === 'true';
     const num = -new Date().getTimezoneOffset();
     this.timeZone = num / 60;
     if (num > 0) {

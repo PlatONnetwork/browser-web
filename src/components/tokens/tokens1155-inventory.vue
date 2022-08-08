@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="inventory-box" v-loading="loading">
-      <div class="box-item" v-for="item in inventory" :key="item.tokenId">
+      <div class="box-item" v-for="item in inventory" :key="item.tokenId + item.balance">
         <div class="token-pic-wrapper">
           <img
             v-pic-preview
