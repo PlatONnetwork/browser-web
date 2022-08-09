@@ -1,22 +1,15 @@
 <template>
   <el-table :data="data" style="width: 100%" key="firstTable" size="mini">
-    <!-- todo 令牌名称（令牌名称） -->
-    <el-table-column :label="$t('tokens.tokenName')">
+    <!-- 令牌名称（令牌名称） -->
+    <!-- <el-table-column :label="$t('tokens.tokenName')">
       <template slot-scope="scope">
         <router-link
           :to="getTokenUrl(scope.row.address, 'erc721')"
           class="cursor normal ellipsis"
-          >{{ scope.row.name }}</router-link
+          >{{ scope.row.name | tokenName }}</router-link
         >
       </template>
-    </el-table-column>
-
-    <!-- 持有人 -->
-    <el-table-column :label="$t('tokens.holder_')">
-      <template slot-scope="scope">
-        <span> {{ scope.row.holder | formatNumber }}</span>
-      </template>
-    </el-table-column>
+    </el-table-column> -->
     
     <!-- 合约 -->
     <el-table-column :label="$t('tokens.contract')">
@@ -32,6 +25,13 @@
             >{{ scope.row.address }}</router-link
           >
         </div>
+      </template>
+    </el-table-column>
+
+    <!-- 持有人 -->
+    <el-table-column :label="$t('tokens.holder_')">
+      <template slot-scope="scope">
+        <span> {{ scope.row.holder | formatNumber }}</span>
       </template>
     </el-table-column>
   </el-table>

@@ -103,7 +103,7 @@
     <el-table-column :label="$t('tokens.tokens')">
       <template slot-scope="scope">
         <router-link class="cursor normal ellipsis" :to="getTokenUrl(scope.row.contract, 'erc1155')">
-          {{ `${scope.row.name}  (${scope.row.symbol})` }}
+          {{ scope.row | tokenName }}
         </router-link>
       </template>
     </el-table-column>

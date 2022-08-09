@@ -158,9 +158,9 @@
                 }}</label>
                 <!-- tokens -->
                 <div class="money contract-create-info">
-                  <span v-if="noTokens">--</span>
+                  <span v-if="noTokens">N/A</span>
                   <router-link v-else class="normal" :to="getTokenUrl(address)" >
-                    {{ detailInfo.tokenName }}({{ detailInfo.tokenSymbol }})
+                    {{ detailInfo | tokenName(['tokenName', 'tokenSymbol']) }}
                   </router-link>
                 </div>
               </li>
@@ -299,7 +299,7 @@ export default {
         .then((res) => {
           let { errMsg, code, data } = res;
           if (code == 0) {
-            this.noTokens = !(data.tokenName && data.tokenSymbol)
+            this.noTokens = !(data.hasErc20 || data.hasErc721 || data.hasErc1155);
             this.detailInfo = data;
           } else {
             this.$message.error(errMsg);

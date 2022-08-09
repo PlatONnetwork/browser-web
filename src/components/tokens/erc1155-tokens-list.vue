@@ -30,7 +30,7 @@
         <el-table-column :label="$t('nodeInfo.name')">
           <template slot-scope="scope">
             <div>
-              {{ `${scope.row.name} (${scope.row.symbol})` | sliceStr(21) }}
+              {{ scope.row | tokenName | sliceStr(21) }}
             </div>
           </template>
         </el-table-column>

@@ -220,8 +220,8 @@ export default {
   }
 }
 .token-type-name {
-  padding-left: 12px;
-  font-size: 17px;
+  padding-left: 6px;
+  font-size: 16px;
   color: #999;
 }
 

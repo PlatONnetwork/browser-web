@@ -133,7 +133,7 @@
 
         <template v-else-if="tableType === 'erc1155' || tableType === 'erc1155Id'">
           <!-- 交易数 -->
-          <el-table-column :label="$t('tokens.transfers')">
+          <el-table-column :label="$t('tokens.number')">
             <template slot-scope="scope">
               <span>{{ scope.row.transferValue | formatMoney }}</span>
             </template>

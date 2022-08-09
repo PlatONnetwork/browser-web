@@ -23,7 +23,7 @@
           <router-link class="normal cursor" :to="get1155IdUrl(item.contract, item.tokenId)">
             {{ item.tokenId }}
           </router-link>
-          {{ item.balance }}
+          <span style="padding-left: 8px">{{ item.balance }}</span>
         </p>
         <p class="token-owner ellipsis">
           Owner

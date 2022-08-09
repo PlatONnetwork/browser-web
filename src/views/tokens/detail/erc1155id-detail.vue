@@ -8,7 +8,7 @@
       <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }} </span>
-          <i @click="goTokenDetail(detailInfo.contract, 'erc1155')" style="cursor: pointer">{{ `${detailInfo.tokenName} (${detailInfo.symbol})` | sliceStr(21) }}</i>
+          <i>{{ detailInfo | tokenName | sliceStr(21) }}</i>
         </div>
       </div>
       <el-row class="overview-wrap" type="flex" justify="space-between">
@@ -213,8 +213,8 @@ export default {
   }
 }
 .token-type-name {
-  padding-left: 12px;
-  font-size: 17px;
+  padding-left: 6px;
+  font-size: 16px;
   color: #999;
 }
 

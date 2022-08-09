@@ -12,7 +12,7 @@ export default {
     erc20Transfer: "PRC20 交易",
     erc721Tokens: "PRC721热门令牌",
     erc721Transfer: "PRC721 交易",
-    erc1155Tokens: "PRC1155热门令牌",
+    erc1155Tokens: "PRC1155热门合约",
     erc1155Transfer: "PRC1155 交易",
     tokenList: "令牌列表",
     more: "更多",

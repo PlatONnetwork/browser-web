@@ -120,6 +120,24 @@ const sliceFloat = Vue.filter("sliceFloat", (str, num) => {
   }
 });
 
+// 展示token 名称
+const dealTokenName = Vue.filter("tokenName", (row, attrMap = ['name', 'symbol']) => {
+  const emptyStr = '--'
+  if (typeof row === "string") {
+    return row || emptyStr
+  }
+  let name, symbol;
+  name = row[attrMap[0]]
+  if (!name) {
+   return emptyStr 
+  }
+  symbol = row[attrMap[1]]
+  if (!symbol) {
+    return name
+  }
+  return `${name} (${symbol})`
+});
+
 export default [
   formatNumber,
   formatNumberUseFloor,
@@ -128,5 +146,6 @@ export default [
   formatMoney,
   sliceStr,
   formatTime,
-  sliceFloat
+  sliceFloat,
+  dealTokenName 
 ];

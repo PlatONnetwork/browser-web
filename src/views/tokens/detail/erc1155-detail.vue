@@ -1,16 +1,16 @@
 <template>
   <div class="contract-detail-wrap">
     <div class="content-top-white contract-detail-top content-padding">
-      <div class="page-title fontSize34">
+      <div class="page-title fontSize34" style="margin-bottom: 22px">
         {{ $t('tokens.tokenDetail') }}
       </div>
 
-      <div class="detail-change">
+      <!-- <div class="detail-change">
         <div class="detail-copy">
           <span>{{ $t('menu.tokens') }}</span>
-          <i>{{ `${detailInfo.name} (${detailInfo.symbol})` | sliceStr(21) }}</i>
+          <i>{{  detailInfo | tokenName | sliceStr(21) }}</i>
         </div>
-      </div>
+      </div> -->
       <el-row class="overview-wrap" type="flex" justify="space-between">
         <el-col :span="11">
           <!-- 概览 -->
@@ -216,8 +216,8 @@ export default {
   }
 }
 .token-type-name {
-  padding-left: 12px;
-  font-size: 17px;
+  padding-left: 6px;
+  font-size: 16px;
   color: #999;
 }
 

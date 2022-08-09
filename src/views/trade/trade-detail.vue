@@ -356,6 +356,7 @@
               <li>from</li>
               <li>to</li>
               <li>token</li>
+              <li>value</li>
               <li>icon</li>
             </ul>
             <ul
@@ -380,17 +381,17 @@
                 <router-link
                   class="cursor blue ellipsis token-width"
                   :to="get1155IdUrl(item.contract, item.tokenId)"
-                  >{{
-                    `${item.tokenId} ${item.innerContractName || ''}  (${item.innerSymbol || ''})`
-                  }}
+                  >
+                  {{ item.tokenId }}  &nbsp; {{ item | tokenName }}
                 </router-link>
               </li>
+              <li>{{item.value}}</li>
               <li>
                 <img
                   v-pic-preview
                   class="token-pic"
                   :src="
-                    item.innerImage ||
+                    item.image ||
                     require('@/assets/images/Platon-cat-721.svg')
                   "
                 />
