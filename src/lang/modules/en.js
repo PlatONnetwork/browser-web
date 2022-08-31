@@ -549,7 +549,7 @@ export default {
     1003: "ExitValidator", //'撤销质押',
     1004: "Delegate", //'发起委托',
     1005: "Undelegate", //减持/撤销委托
-    1006: "Redemption Mandate", //赎回委托
+    1006: "Withdraw", //赎回委托
     2000: "TextProposal", //'提交文本提案',
     2001: "UpgradeProposal", //'提交升级提案',
     2002: "ParameterProposal", //'提交参数提案',
