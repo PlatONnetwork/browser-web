@@ -313,6 +313,15 @@ export default {
     estimatedTime: "预计时间",
     unlocksNumber: "解锁数量",
 
+    frozenDelegateOverview: "委托冻结概览",
+    frozenDelegate: "委托冻结",
+    frozenDelegateTips: "处于冻结期，未参与其他委托业务的委托数",
+    frozenDelegatePlan: "委托冻结计划",
+    thawAmount: "解冻数量",
+    unclaimedDelegate: "待提取委托",
+    unclaimedDelegateTips: "冻结期结束，主动提取可以直接到账的委托数量",
+    frozenSum: "总计冻结数",
+
     unclaimedReward: "待领取委托奖励",
     invalidDelegations: "待赎回委托",
     totalDelegated: "总计委托",
@@ -550,7 +559,7 @@ export default {
     1003: "退出验证节点", //撤销质押
     1004: "委托", //发起委托
     1005: "赎回委托", //减持/撤销委托
-    1006: "赎回委托", //赎回委托
+    1006: "提取委托", //赎回委托
     2000: "创建文本提案", //提交文本提案
     2001: "创建升级提案", //提交升级提案
     2002: "创建参数提案", //提交参数提案
@@ -618,6 +627,8 @@ export default {
     maxValidators: "活跃验证节点数量。",
     unStakeFreezeDuration:
       "验证节点退出，质押金冻结的结算周期数（一个结算周期10750blocks）。",
+    unDelegateFreezeDuration:
+      "解除委托后，委托金冻结的结算周期数（一个结算周期10750blocks）",
     rewardPerMaxChangeRange: '"委托奖励比例" 每次修改的最大可调整幅度（‱）。',
     rewardPerChangeInterval:
       '"委托奖励比例" 允许再次修改需要等待的结算周期数（一个结算周期10750blocks）。',

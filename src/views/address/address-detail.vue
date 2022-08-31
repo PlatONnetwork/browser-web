@@ -46,18 +46,27 @@
                 <label class="Gilroy-Medium">{{
                   $t('contract.balance')
                 }}</label>
-                <div>
+                <div style="text-align: right">
                   <span class="money"
                     >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
                   >
-                  <div v-if="detailInfo.isRestricting">
-                    <span class="restricted"
+                  <div>
+                    <span class="restricted" v-if="detailInfo.isRestricting"
                       >{{
                         detailInfo.restrictingBalance | formatMoney
                       }}&nbsp;LAT (<a
                         class="blue cursor"
                         @click="goRestricte"
                         >{{ $t('contract.restricted') }}</a
+                      >)</span
+                    >
+                    <span class="restricted" style="padding-left: 12px;" v-if="detailInfo.lockBalance > 0"
+                      >{{
+                        detailInfo.lockBalance | formatMoney
+                      }}&nbsp;LAT (<a
+                        class="blue cursor"
+                        @click="goDelegate"
+                        >{{ $t('contract.frozenDelegate') }}</a
                       >)</span
                     >
                   </div>
@@ -128,6 +137,20 @@
                 }}</label>
                 <div class="money">
                   {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
+                </div>
+              </li>
+              <li>
+                <label class="Gilroy-Medium">
+                  {{ $t('contract.unclaimedDelegate') }}
+                  <el-tooltip class="item" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t('contract.unclaimedDelegateTips') }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </label>
+                <div class="money">
+                  {{ detailInfo.unLockBalance | formatMoney }}&nbsp;LAT
                 </div>
               </li>
             </ul>
@@ -295,10 +318,19 @@ export default {
     tabChange(index) {
       this.tabIndex = index;
     },
-
     goRestricte() {
       this.$router.push({
         path: '/restricting-info',
+        query: {
+          address: this.address,
+        },
+      });
+    },
+    goDelegate() {
+      const {lockBalance: balance, lockDelegateList: list } = this.detailInfo
+      sessionStorage.setItem(this.address, JSON.stringify({balance, list}))
+      this.$router.push({
+        path: '/frozen-delegate-info',
         query: {
           address: this.address,
         },

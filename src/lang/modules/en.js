@@ -313,6 +313,15 @@ export default {
     estimatedTime: "Estimated Time",
     unlocksNumber: "Redeemed",
 
+    frozenDelegateOverview: "Overview",
+    frozenDelegate: "Frozen Delegations",
+    frozenDelegateTips: "The amount of delegations in the freezing period that are not involved in other delegations",
+    frozenDelegatePlan: "Delegation Freezing Plan",
+    thawAmount: "Unfrozen Amount",
+    unclaimedDelegate: "Unclaimed Delegations",
+    unclaimedDelegateTips: "The amount of delegations beyond the freezing period that can be withdrawn and directly deposited into the account",
+    frozenSum: "Total Frozen",
+
     unclaimedReward: "Unclaimed Reward",
     invalidDelegations: "Invalid delegations",
     totalDelegated: "Total Delegated",
@@ -553,7 +562,7 @@ export default {
     1003: "ExitValidator", //'撤销质押',
     1004: "Delegate", //'发起委托',
     1005: "Undelegate", //减持/撤销委托
-    1006: "Redemption Mandate", //赎回委托
+    1006: "Withdraw", //赎回委托
     2000: "TextProposal", //'提交文本提案',
     2001: "UpgradeProposal", //'提交升级提案',
     2002: "ParameterProposal", //'提交参数提案',
@@ -621,6 +630,8 @@ export default {
     maxValidators: "Number of alternative validators (ie active).",
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
+    unDelegateFreezeDuration:
+      "Number of Epochs of Delegated freeze / Number of epochs for which the delegated funds are frozen after the delegation is removed(1 epoch = 10750blocks)",
     rewardPerMaxChangeRange:
       '"Delegated Reward Ratio" The maximum adjustable range of each modification (‱).',
     rewardPerChangeInterval:

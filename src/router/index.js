@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from './map/index'
 import { tradeList, tradeDetail } from './map/trade'
 import { contractDetail } from './map/contract'
-import { addressDetail, restrictingInfo } from './map/address'
+import { addressDetail, restrictingInfo, frozenDelegateInfo } from './map/address'
 import { blockDetail, blockList } from './map/block'
 import { nodeDetail, nodeList, historyNode, zeroNode } from './map/node'
 import { proposalList, proposalDetail } from './map/proposal.js'
@@ -25,6 +25,7 @@ export default new Router({
     historyNode,
     zeroNode,
     restrictingInfo,
+    frozenDelegateInfo,
     blockDetail,
     blockList,
     DownLoad,

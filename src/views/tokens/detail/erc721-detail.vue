@@ -203,14 +203,6 @@ export default {
         this.copyText = '';
       }, 2000);
     },
-    goRestricte() {
-      this.$router.push({
-        path: '/restricting-info',
-        query: {
-          address: this.address,
-        },
-      });
-    },
   },
   //生命周期函数
   created() {
