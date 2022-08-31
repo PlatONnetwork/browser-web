@@ -305,9 +305,10 @@ export default {
 
     frozenDelegateOverview: "委托冻结概览",
     frozenDelegate: "委托冻结",
+    frozenDelegateTips: "处于冻结期，未参与其他委托业务的委托数",
     frozenDelegatePlan: "委托冻结计划",
     thawAmount: "解冻数量",
-    unclaimedDelegate: "待领取委托",
+    unclaimedDelegate: "待提取委托",
     unclaimedDelegateTips: "冻结期结束，主动提取可以直接到账的委托数量",
     frozenSum: "总计冻结数",
 

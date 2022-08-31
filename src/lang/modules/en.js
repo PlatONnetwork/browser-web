@@ -305,6 +305,7 @@ export default {
 
     frozenDelegateOverview: "Overview",
     frozenDelegate: "Frozen Delegations",
+    frozenDelegateTips: "The amount of delegations in the freezing period that are not involved in other delegations",
     frozenDelegatePlan: "Delegation Freezing Plan",
     thawAmount: "Unfrozen Amount",
     unclaimedDelegate: "Unclaimed Delegations",
@@ -617,7 +618,7 @@ export default {
     unStakeFreezeDuration:
       "Number of Epochs of stake freeze(1 epoch=10750blocks).",
     unDelegateFreezeDuration:
-      "Number of Epochs of Delegated freeze (1 epoch = 10750blocks)",
+      "Number of Epochs of Delegated freeze / Number of epochs for which the delegated funds are frozen after the delegation is removed(1 epoch = 10750blocks)",
     rewardPerMaxChangeRange:
       '"Delegated Reward Ratio" The maximum adjustable range of each modification (‱).',
     rewardPerChangeInterval:

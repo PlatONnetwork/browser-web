@@ -50,8 +50,8 @@
                   <span class="money"
                     >{{ detailInfo.balance | formatMoney }}&nbsp;LAT</span
                   >
-                  <div v-if="detailInfo.isRestricting">
-                    <span class="restricted"
+                  <div>
+                    <span class="restricted" v-if="detailInfo.isRestricting"
                       >{{
                         detailInfo.restrictingBalance | formatMoney
                       }}&nbsp;LAT (<a
@@ -60,9 +60,9 @@
                         >{{ $t('contract.restricted') }}</a
                       >)</span
                     >
-                    <span class="restricted" style="padding-left: 12px;"
+                    <span class="restricted" style="padding-left: 12px;" v-if="detailInfo.lockBalance > 0"
                       >{{
-                        detailInfo.restrictingBalance | formatMoney
+                        detailInfo.lockBalance | formatMoney
                       }}&nbsp;LAT (<a
                         class="blue cursor"
                         @click="goDelegate"
@@ -131,17 +131,17 @@
                 </div>
               </li>
               <li>
-                <label class="Gilroy-Medium red">
+                <label class="Gilroy-Medium">
                   {{ $t('contract.unclaimedDelegate') }}
                   <el-tooltip class="item" placement="bottom">
                     <div slot="content" class="delegate-msg">
-                      {{ $t('deleget.percentageMsg') }}
+                      {{ $t('contract.unclaimedDelegateTips') }}
                     </div>
                     <i class="address-icon"></i>
                   </el-tooltip>
                 </label>
                 <div class="money">
-                  {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
+                  {{ detailInfo.unLockBalance | formatMoney }}&nbsp;LAT
                 </div>
               </li>
             </ul>
@@ -306,6 +306,8 @@ export default {
       });
     },
     goDelegate() {
+      const {lockBalance: balance, lockDelegateList: list } = this.detailInfo
+      sessionStorage.setItem(this.address, JSON.stringify({balance, list}))
       this.$router.push({
         path: '/frozen-delegate-info',
         query: {

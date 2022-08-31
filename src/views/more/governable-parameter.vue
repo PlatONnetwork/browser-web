@@ -314,7 +314,7 @@
                 }}</span>
               </div>
               <div>
-                <span class="regular">UnStakeFreezeDuration</span>
+                <span class="regular">unDelegateFreezeDuration</span>
                 <span class="medium">{{
                   lis.staking.unDelegateFreezeDuration.end
                 }}</span>
@@ -1156,8 +1156,6 @@ export default {
             }
             this.lis[d[i].module] = obj;
           }
-          // TODO cz
-          this.lis.staking.unDelegateFreezeDuration  = this.lis.staking.unStakeFreezeDuration 
         } else {
           this.$message.error(errMsg);
         }

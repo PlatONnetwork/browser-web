@@ -18,45 +18,49 @@
                 <span v-else class="adr-err">{{ $t('contract.addressErr') }}</span>
             </div>
         </div>
-        <div class="restricting-detail">
+        <div class="restricting-detail overview">
             <h3>{{$t('contract.frozenDelegateOverview')}}</h3>
-            <List class="common-info">           
-                <Item :label="$t('contract.frozenDelegate')">
-                    <p>{{detailInfo.restrictingBalance | formatMoney}}&nbsp;LAT</p>
-                </Item>
-            </List>
+            <ul>
+              <li style="margin-left: 20px;padding-left: 0px;">
+                <label class="Gilroy-Medium">
+                  {{ $t('contract.frozenDelegate') }}
+                  <el-tooltip class="item" placement="bottom">
+                    <div slot="content" class="delegate-msg">
+                      {{ $t('contract.frozenDelegateTips') }}
+                    </div>
+                    <i class="address-icon"></i>
+                  </el-tooltip>
+                </label>
+                <div class="money">
+                  {{ balance | formatMoney }}&nbsp;LAT
+                </div>
+              </li>
+            </ul>
         </div>
                
         <div class="table restricted-table">
             <h3>{{$t('contract.frozenDelegatePlan')}}</h3>
-            <el-table :data="detailInfo.rpPlans" style="width: 100%" key='firstTable' size="mini">
-                <el-table-column :label="$t('contract.frozenSum')" prop="-"></el-table-column>
+            <el-table :data="list" style="width: 100%" size="mini">
                 <el-table-column :label="$t('blockAbout.blockH')">
                     <template slot-scope="scope">
-                        <span>{{scope.row.blockNumber}}</span>
+                        <span>{{scope.row.blockNum}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('contract.estimatedTime')">
                     <template slot-scope="scope">
-                        <span>{{scope.row.estimateTime | formatTime}}</span>
+                        <span>{{scope.row.date | formatTime}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('contract.thawAmount')" width="240">
                     <template slot-scope="scope">
-                        <span>{{scope.row.amount | formatMoney}}LAT</span>
+                        <span>{{scope.row.lock | formatMoney}}&nbsp; LAT</span>
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="pagination-box">
-                <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes,total,  prev, pager, next" :total="pageTotal" :pager-count="9">
-                </el-pagination>
-            </div>
         </div>             
     </div>
 </template>
 <script>
-    import apiService from '@/services/API-services'
-
     import List from '@/components/list/list'
     import Item from '@/components/list/item'
 
@@ -68,25 +72,12 @@
         data() {
             return {
                 address:'',
-                currentPage: 1,
-                pageSize: 20,
-                pageTotal: 0,
-                detailInfo:{
-
-                },
+                balance: 0,
+                list: [],
                 isCopy:false,
                 copyText:''
             }
         },
-        props: {
-
-        },
-        computed: {
-
-        },
-		watch: {
-		
-		},
         components: {
             List,
             Item  
@@ -94,35 +85,14 @@
         methods: {
             //获取详情
             getDetail() {
-                let param = {
-                    address: this.address,
-                    pageNo: this.currentPage,
-                    pageSize: this.pageSize,
-                };
-                apiService.account
-                    .rpplanDetail(param)
-                    .then(res => {
-                        let {errMsg, code, data} = res;
-                        // console.log(res)
-                        if (code == 0) {
-                            this.detailInfo = data;
-                            this.pageTotal = data.total;
-                        } else {
-                            this.$message.error(errMsg);
-                        }
-                    })
-                    .catch(error => {
-                        this.$message.error(error);
-                    });
-            },
-            handleCurrentChange(val) {
-                this.currentPage = val;
-                this.getDetail();
-            },
-            handleSizeChange(val) {
-                this.currentPage = 1;
-                this.pageSize = val;
-                this.getDetail();
+                let info = JSON.parse(sessionStorage.getItem(this.address))
+                if (!info) {
+                    this.goAddressDetail(this.address)
+                    return
+                }
+                this.balance = info.balance
+                this.list = info.list
+
             },
             onCopy() {
                 this.copyText = this.$t('modalInfo.copysuccess');
@@ -145,9 +115,6 @@
         created() {
             this.checkAdr() && this.getDetail()
         },
-        mounted() {
-
-        }    
     }
 </script>
 <style lang="less" scoped>
@@ -157,6 +124,7 @@
     line-height: 16px;
 }
 .restricted-table{
+    padding-bottom: 100px;
     .el-table{
         margin-left: 10px;
     }
@@ -197,6 +165,7 @@
         line-height: 24px;
     }
     .restricting-detail{
+        margin-bottom: 60px;
         width: 50%;        
     }
 }
