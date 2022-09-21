@@ -98,8 +98,8 @@
               </li>
               <li>
                 <!-- PRC1155交易 -->
-                <label class="Gilroy-Medium">{{ 
-                  $t('tokens.erc1155TokenTxns') 
+                <label class="Gilroy-Medium">{{
+                  $t('tokens.erc1155TokenTxns')
                   }}</label>
                 <div class="money">
                   {{ detailInfo.erc1155TxQty | formatNumber }}
@@ -139,7 +139,7 @@
                   {{ detailInfo.delegateReleased | formatMoney }}&nbsp;LAT
                 </div>
               </li>
-              <li>
+              <li v-if="configData.switches.includes('delegate')">
                 <label class="Gilroy-Medium">
                   {{ $t('contract.unclaimedDelegate') }}
                   <el-tooltip class="item" placement="bottom">
@@ -184,7 +184,7 @@
           size="medium"
           :class="{ active: tabIndex == 4 }"
           @click="tabChange(4)"
-         
+
           >{{ $t('tokens.erc1155Tokens') }}</el-button
         >
         <el-button
@@ -266,7 +266,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward'])
+    ...mapGetters(['isAddressDetailsDelegation', 'isAddressDetailsReward', 'configData'])
   },
   watch: {},
   components: {

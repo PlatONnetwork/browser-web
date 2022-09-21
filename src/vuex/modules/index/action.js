@@ -33,6 +33,6 @@ export const indexAction = {
     commit('UPDATE_IS_ADDRESS_DETAILS_REWARD', data);
   },
   updateConfigData({ commit, state }, data) {
-    commit('UPDATE_CONFIG_DATA', data);
+    commit('UPDATE_CONFIG_DATA', Object.assign({ switches: [] }, data));
   }
 };

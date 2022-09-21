@@ -1136,6 +1136,9 @@ export default {
       let i = 0,
         j = d.endValue - d.startValue,
         k = 0;
+      if (j <= 0) {
+        return 100
+      }
       if (s == 1) i = d.value - d.startValue;
       else if (s == 2) i = d.initValue - d.startValue;
       k = (i / j) * 100;
@@ -1159,7 +1162,7 @@ export default {
         } else {
           this.$message.error(errMsg);
         }
-            console.log('this.lis: ', this.lis);
+        // console.log('this.lis: ', this.lis);
       })
       .catch((error) => {
         this.$message.error(error);
