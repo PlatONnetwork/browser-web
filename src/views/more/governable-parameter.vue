@@ -314,7 +314,7 @@
                 }}</span>
               </div>
               <div>
-                <span class="regular">unDelegateFreezeDuration</span>
+                <span class="regular">unStakeFreezeDuration</span>
                 <span class="medium">{{
                   lis.staking.unDelegateFreezeDuration.end
                 }}</span>
