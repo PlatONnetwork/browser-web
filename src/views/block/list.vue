@@ -26,7 +26,7 @@
           :page-sizes="[10, 20, 50, 100]"
           layout="prev, pager, next"
           :page-size="pageSize"
-          :total="pageTotal"
+          :total="pageTotal > 500000 ? 500000 : pageTotal"
           :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
@@ -106,7 +106,7 @@
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal"
+          :total="pageTotal > 500000 ? 500000 : pageTotal"
           :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
