@@ -260,7 +260,7 @@
           </div>
         </div>
         <!-- 内容分割4-1 -->
-        <div class="cont-box">
+        <div v-if="lis.staking.unDelegateFreezeDuration" class="cont-box">
           <h4 class="h4">unDelegateFreezeDuration</h4>
           <p class="exp">{{ $t('more.unDelegateFreezeDuration') }}</p>
           <!-- 有背景内容块 -->
