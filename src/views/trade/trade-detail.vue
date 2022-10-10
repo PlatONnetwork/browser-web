@@ -473,6 +473,31 @@
         </Item>
       </List>
 
+      <!-- 提取委托-->
+      <List
+        :title="detailTitle(detailInfo.txType)"
+        :border="true"
+        v-if="detailInfo.txType == '1006'"
+      >
+        <!-- 委托人 -->
+        <Item :label="$t('tradeAbout.delegator')">
+          <router-link
+            class="cursor normal ellipsis"
+            :to="getAddressUrl(detailInfo.from)"
+            >{{ detailInfo.from }}</router-link
+          >
+        </Item>
+        <!-- 提取数量 -->
+        <Item :label="$t('tradeAbout.extractDelegateAmount')">
+          <span>{{ detailInfo.redeemDelegationValue | formatMoney }} LAT</span>
+        </Item>
+        <!-- 交易手续费 -->
+        <Item :label="$t('tradeAbout.transactionFee')">
+          <!-- :prop="detailInfo.actualTxCost + 'LAT'" -->
+          <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
+        </Item>
+      </List>
+
       <!-- 领取奖励 TODO  -->
       <!-- 5000: 领取奖励 -->
       <List
@@ -1131,6 +1156,7 @@ export default {
         4000: 'restricting',
         1004: 'delegate',
         1005: 'undelegate',
+        1006: 'extractDelegate',
         2000: 'proposal',
         2001: 'proposal',
         2002: 'proposal',
@@ -1233,13 +1259,13 @@ export default {
   padding-left: 60px;
   flex-wrap: wrap;
   position: relative;
-  
+
  & > ul {
    display: flex;
    flex-direction: column;
    flex-shrink: 0;
    padding-right: 1em;
-   
+
    &.theader {
     width: 60px;
     font-family: Gilroy-Medium;

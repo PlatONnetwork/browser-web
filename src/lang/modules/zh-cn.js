@@ -225,6 +225,8 @@ export default {
     voting: "提案投票",
     declare: "版本声明",
     createValidator: "创建验证节点",
+    extractDelegate: "提取委托",
+    extractDelegateAmount: "提取数量",
 
     increase: "增加自有质押",
     editValidator: "编辑验证节点",

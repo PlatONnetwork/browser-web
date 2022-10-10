@@ -225,6 +225,8 @@ export default {
     voting: "VotingProposal",
     declare: "DeclareVersion",
     createValidator: "CreateValidator",
+    extractDelegate: "Withdraw",
+    extractDelegateAmount: "Withdraw Amount",
 
     increase: "IncreaseStaking",
     editValidator: "EditValidator",
