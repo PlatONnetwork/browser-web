@@ -5,9 +5,17 @@
     </div>
     <div class="sub-title">
       <div class="fontSize14 trade-count">
-        {{ $t('blockAbout.morethen') }}
-        <b class="Gilroy-Medium black">{{ displayTotalCount }}</b>
+        <template v-if="pageTotal > 500000">
+          {{ $t('tradeAbout.morethen') }}>
+        </template>
+        <template v-else>
+          {{ $t('tradeAbout.morethen2') }}
+        </template>
+        <b class="black">{{ pageTotal }}</b>
         {{ $t('blockAbout.blocks') }}
+        <span v-if="pageTotal > 500000">{{
+          $t('tradeAbout.showingLast')
+        }}</span>
       </div>
       <div class="pagination-box1">
         <el-pagination
@@ -18,7 +26,7 @@
           :page-sizes="[10, 20, 50, 100]"
           layout="prev, pager, next"
           :page-size="pageSize"
-          :total="pageTotal"
+          :total="pageTotal > 500000 ? 500000 : pageTotal"
           :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
@@ -98,7 +106,7 @@
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pageSize"
           layout="sizes,total,  prev, pager, next"
-          :total="pageTotal"
+          :total="pageTotal > 500000 ? 500000 : pageTotal"
           :pager-count="windowWidth < 750 ? 5 : 9"
         ></el-pagination>
       </div>
