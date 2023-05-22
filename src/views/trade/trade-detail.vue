@@ -258,6 +258,34 @@
         <Item :label="$t('tradeAbout.transactionFee')">
           <span>{{ detailInfo.actualTxCost | formatMoney }} LAT</span>
         </Item>
+        <Item
+          :label="$t('tradeAbout.innerTransfer')"
+          v-if="detailInfo.internalTransferParams && detailInfo.internalTransferParams.length > 0"
+        >
+          <ul>
+            <li
+              class="tokens-item"
+              v-for="(item, index) in detailInfo.internalTransferParams"
+              :key="index"
+            >
+              From
+              <!-- 跳转参数都是innerContractAddr -->
+              <router-link
+                class="cursor blue ellipsis token-width"
+                :to="getAddressUrl(item.from, item.fromType)"
+              >{{ item.from }}</router-link
+              >
+              to
+              <router-link
+                class="cursor blue ellipsis token-width"
+                :to="getAddressUrl(item.to, item.toType)"
+              >{{ item.to }}</router-link
+              >
+              for
+              <span class="money">{{ item.value | fromWei(18) | formatMoney }} LAT</span>
+            </li>
+          </ul>
+        </Item>
         <!-- erc20 tokens -->
         <Item
           :label="$t('tradeAbout.tokens')"

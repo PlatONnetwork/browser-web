@@ -199,6 +199,14 @@
         <el-button size="medium" :class="{ active: tabIndex == 7 }" @click="tabChange(7)">
           {{ $t('contract.contract') }}
         </el-button>
+
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 8 }"
+          @click="tabChange(8)"
+        >{{ $t('contract.innerTransfer') }}
+        </el-button>
+
       </div>
 
       <!-- 交易 -->
@@ -226,6 +234,9 @@
       <!-- 合约 -->
       <contract-info v-show="tabIndex == 7" :detailInfo="detailInfo"></contract-info>
 
+      <!-- 内部转账 -->
+      <inner-transfer-list v-show="tabIndex == 8" :tradeCount="detailInfo" :address="address"></inner-transfer-list>
+
     </div>
   </div>
 </template>
@@ -233,6 +244,7 @@
 import { mapGetters } from "vuex";
 import apiService from '@/services/API-services';
 import tradeList from '@/components/trade-list';
+import innerTransferList from '@/components/innerTransfer-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
 import erc1155List from '@/components/tokens/erc1155-tokens-list';
@@ -270,6 +282,7 @@ export default {
   watch: {},
   components: {
     tradeList,
+    innerTransferList,
     erc20List,
     erc721List,
     erc1155List,

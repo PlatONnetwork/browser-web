@@ -12,6 +12,7 @@
   "dependencies": {
     "af-table-column": "^1.0.3",
     "axios": "^0.21.1",
+    "bignumber.js": "^9.0.2",
     "core-js": "^3.6.5",
     "echarts": "^5.1.1",
     "element-ui": "^2.4.8",

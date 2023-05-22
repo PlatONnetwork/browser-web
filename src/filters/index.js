@@ -1,4 +1,5 @@
 import Vue from "vue";
+import BigNumber from "bignumber.js";
 
 // 数字国际千分位
 const formatNumber = Vue.filter("formatNumber", (num, count) => {
@@ -84,6 +85,10 @@ const sliceStr = Vue.filter("sliceStr", (str, num) => {
   return str ? (str.length > num ? str.slice(0, num) + "..." : str) : '';
 });
 
+const fromWei = Vue.filter('fromWei', (num, decimal) => {
+  return new BigNumber(num).div(new BigNumber(10).pow(new BigNumber(decimal))).toFixed()
+})
+
 // 世界标准时间
 const formatTime = Vue.filter("formatTime", data => {
   if (data) {
@@ -145,6 +150,7 @@ export default [
   unit,
   formatMoney,
   sliceStr,
+  fromWei,
   formatTime,
   sliceFloat,
   dealTokenName 
