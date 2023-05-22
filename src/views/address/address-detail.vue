@@ -201,6 +201,12 @@
           v-if="isAddressDetailsReward"
           >{{ $t('tradeAbout.rewardDetails') }}</el-button
         >
+        <el-button
+          size="medium"
+          :class="{ active: tabIndex == 6 }"
+          @click="tabChange(6)"
+        >{{ $t('contract.innerTransfer') }}
+        </el-button>
       </div>
       <!-- 交易 -->
       <trade-list
@@ -233,6 +239,9 @@
         :tradeCount="detailInfo"
         :address="address"
       ></reward-detail>
+
+      <!-- 内部转账 -->
+      <innerTransfer-list v-show="tabIndex == 6" :tradeCount="detailInfo" :address="address"></innerTransfer-list>
     </div>
   </div>
 </template>
@@ -241,6 +250,7 @@ import apiService from '@/services/API-services';
 import { mapGetters } from 'vuex';
 
 import tradeList from '@/components/trade-list';
+import innerTransferList from '@/components/innerTransfer-list';
 import erc20List from '@/components/tokens/erc20-tokens-list';
 import erc721List from '@/components/tokens/erc721-tokens-list';
 import erc1155List from '@/components/tokens/erc1155-tokens-list'
@@ -271,6 +281,7 @@ export default {
   watch: {},
   components: {
     tradeList,
+    innerTransferList,
     erc20List,
     erc721List,
     erc1155List,

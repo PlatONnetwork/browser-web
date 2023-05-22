@@ -11,6 +11,7 @@ const BASE = process.env.VUE_APP_API_ROOT,
   HOME_URL = `${TOTAL}/home`,
   // HOME_URL = `http://10.10.8.8:8080/home/`,
   TRADE_URL = `${TOTAL}/transaction`,
+  INNERTRANSFER_URL = `${TOTAL}/internalTransfer`,
   ACCOUNT_URL = `${TOTAL}/address`,
   NODE_URL = `${TOTAL}/staking`,
   TICKET_URL = `${TOTAL}/ticket`,
@@ -54,6 +55,9 @@ const BASE = process.env.VUE_APP_API_ROOT,
     transactionDetails: `${TRADE_URL}/transactionDetails`,
     transactionDetailNavigate: `${TRADE_URL}/transactionDetailNavigate`,
     queryClaimByAddress: `${TRADE_URL}/queryClaimByAddress`
+  },
+  INNERTRANSFER = {
+    listByOwnerAddress: `${INNERTRANSFER_URL}/listByOwnerAddress`
   },
   PROPOSAL = {
     proposalList: `${PROPOSAL_URL}/proposalList`,
@@ -117,6 +121,7 @@ export default {
   BLOCK,
   SEARCH,
   TRADE,
+  INNERTRANSFER,
   PROPOSAL,
   ACCOUNT,
   WS_CONFIG,
