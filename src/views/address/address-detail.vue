@@ -203,8 +203,8 @@
         >
         <el-button
           size="medium"
-          :class="{ active: tabIndex == 6 }"
-          @click="tabChange(6)"
+          :class="{ active: tabIndex == 7 }"
+          @click="tabChange(7)"
         >{{ $t('contract.innerTransfer') }}
         </el-button>
       </div>
@@ -241,7 +241,7 @@
       ></reward-detail>
 
       <!-- 内部转账 -->
-      <innerTransfer-list v-show="tabIndex == 6" :tradeCount="detailInfo" :address="address"></innerTransfer-list>
+      <innerTransfer-list v-show="tabIndex == 7" :tradeCount="detailInfo" :address="address"></innerTransfer-list>
     </div>
   </div>
 </template>
