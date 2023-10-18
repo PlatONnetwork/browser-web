@@ -8,7 +8,7 @@ export default {
   name: 'AddToExtension',
   data() {
     return {
-      iframeSrc: 'https://uatscan.platon.network:1443/'
+      iframeSrc: process.env.VUE_APP_ADD_NETWORK_URL   //'https://uataddnetwork.platon.network/'
     }
   },
   watch: {
