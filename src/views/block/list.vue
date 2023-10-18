@@ -153,10 +153,8 @@ export default {
             errMsg,
             displayTotalCount,
           } = res;
-          console.log(res);
           if (code == 0) {
             this.tableData = data;
-            console.log(this.tableData);
             this.pageTotal = totalCount;
             this.displayTotalCount = displayTotalCount;
           } else {
@@ -210,7 +208,6 @@ export default {
         }
         vm.getTradeList();
       }
-      console.log(to, from);
     });
   },
   //生命周期函数

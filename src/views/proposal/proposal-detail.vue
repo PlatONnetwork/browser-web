@@ -590,7 +590,6 @@ export default {
     },
     //获取提案详情
     async getProposalDetail() {
-      console.log(this.$route.query.proposalHash);
       let param = {
         proposalHash: this.$route.query.proposalHash,
       };

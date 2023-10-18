@@ -60,7 +60,6 @@ class Ws {
     disconnect() {
         // 设置延时器避免页面切换太快，在视图摧毁的生命周期里，连接还没建立，执行disconnect方法无效
         this.timer = setTimeout(() => {
-            console.log('connectFlag',this.connectFlag)
             if(this.connectFlag){
                 this.stompClient != null && this.stompClient.disconnect();             
                 clearTimeout(this.timer);
@@ -142,7 +141,6 @@ class IndexService extends Ws {
             this.chartSubHandle = this.stompClient.subscribe(API.WS_CONFIG.blockStatistic, (msg) => {
                 const res = JSON.parse(msg.body)
                 const { data, code } = res
-                console.log(`getChartData`, res)
                 if (code === 0) {
                     if(store.state.index.barIsMove){
                         store.dispatch('updateChartData', data);    
@@ -193,7 +191,6 @@ class IndexService extends Ws {
                 const res = JSON.parse(msg.body)
                 const { data, code } = res
                 // debugger                              
-                console.log(`updateValidatorData`, res)
                 if (code === 0) {
                     if (!data.isRefresh) {
                         const initData = store.state.index.ValidatorData;

@@ -19,5 +19,5 @@ module.exports = {
       }
     }
   },
-  transpileDependencies:['vue-particles']
+  transpileDependencies: [ 'vue-particles' ]
 }

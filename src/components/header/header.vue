@@ -579,7 +579,6 @@ export default {
       return arr1['en'];
     },
     handleCommand(command) {
-      console.log('网络切换》》》', command);
       store.commit('CHANGE_ID', command);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == command;
