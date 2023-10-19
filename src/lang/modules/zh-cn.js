@@ -519,7 +519,7 @@ export default {
       "节点在最近4个结算周期每份额质押净收益折合成的年化收益率，仅做参考。",
     node2Tips:
       "委托者最近4个结算周期每份额委托净收益折合成的年化收益率，仅做参考。",
-    node3Tips:"目标解锁结算周期的起始块高",
+    node3Tips: "目标解锁结算周期的起始块高",
     totalDelegatedReward: "累计委托奖励",
     delegatorNum: "当前委托者数",
     delegatedAnnualizedYield: "预计委托年化收益率",
@@ -529,10 +529,10 @@ export default {
     undelegating: "待赎回",
     information: "信息",
     rewardRatio: "委托奖励比例",
-    nextRewardRatio:"下一结算周期委托奖励比例",
+    nextRewardRatio: "下一结算周期委托奖励比例",
 
     ratioTips: " 节点收益（出块奖励，质押奖励）分配给委托者的奖励比例。",
-    unlockBlockHeight:"预估解锁块高"
+    unlockBlockHeight: "预估解锁块高"
   },
   nodeStatus: {
     1: "候选中",
@@ -642,7 +642,7 @@ export default {
     maxEvidenceAge: "双签举报证据有效的结算周期数（一个结算周期10750blocks）。",
     maxBlockGasLimit: "区块最大Gas。",
     increaseIssuanceRatio: "PlatON网络的LAT每年增发比例（‱）。",
-    minimumRelease:"释放周期的释放金额最小值",
+    minimumRelease: "释放周期的释放金额最小值",
     currentValue: "当前值 :",
     genesisValue: "初始值 :",
     zeroProduceCumulativeTime:
@@ -653,7 +653,7 @@ export default {
   },
   extension: {
     desc: "用户可以快速添加到他们的钱包和Web3 中间件提供商（如：MetaMask）连接到正确的Chain ID 和 Network ID 以连接到正确的链；步骤：",
-    steps: ["连接...", "添加到...", "添加成功"],
+    steps: [ "连接...", "添加到...", "添加成功" ],
     form: {
       rpc: "网络链接 URL",
       chainId: "链 ID",
@@ -675,10 +675,10 @@ export default {
   tips: {
     totalSupply_721: "已铸造的Token总量",
     totalSupply_1155: "已铸造的Token总量",
-    circulatingSupply:`在市场上实时流通的、公众手中的Token数量。<br />
+    circulatingSupply: `在市场上实时流通的、公众手中的Token数量。<br />
     实时流通供应量 = 总发行量 - 锁仓的Token - 激励池中的Token - 基金会托管的Token<br />
     其中，锁仓的Token为所有锁仓状态的Token，包含用于质押或委托的锁仓状态的Token，激励池中的Token包含激励池合约中的Token和未领取的Staking奖励Token。`,
-    totalSupply:`已经创造出来的Token数量减去已销毁的Token数量。<br />
+    totalSupply: `已经创造出来的Token数量减去已销毁的Token数量。<br />
     总发行量 = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     其中 W为初始发行100亿，n为当前增发周期序号，创世区块开始序号为1，a%为增发比例，当前为2.5%`,
     totalStakePower: `参与Staking的Token数，包含节点质押金和接收的委托。<br />
@@ -709,6 +709,24 @@ export default {
     tAddress: "地址",
     tBalance: "自由金余额 (LAT)",
     tLockedBalance: "锁仓金余额 (LAT)"
+  },
+  add: {
+    connectTo: '连接到',
+    slogan: '连接您的钱包，即可一键添加 PlatON 网络和 Tokens 到您的钱包。',
+    connectWallet: '连接钱包',
+    chainId: '链 ID',
+    currency: '符号',
+    rpc: 'RPC连接',
+    addToWallet: '添加到钱包',
+    contractAddress: '合约地址',
+    decimal: '精度',
+    addSuccess: '添加成功!',
+    addFailed: '添加失败!',
+    noWallet: '暂未安装该插件!',
+    faucet: '水龙头',
+    explorer: '浏览器地址',
+    plzInMeta: '请在MetaMask中打开该页面!',
+
   },
   ...zhLocale
 };
