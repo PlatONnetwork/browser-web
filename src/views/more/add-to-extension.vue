@@ -53,29 +53,29 @@
         <div v-if="windowWidth < 750" class="btn white" @click="addNetwork(item)">
           {{ $t('add.addToWallet') }}
         </div>
-        <div class="network-box" v-for="network in item.tokens">
+        <div class="network-box" v-for="token in item.tokens">
           <el-col :span="windowWidth < 750 ? 24 : 6">
             <div class="logo">
-              <img :src="network.icon" alt="">
-              <p> {{ network.label }} </p>
+              <img :src="token.icon" alt="">
+              <p> {{ token.label }} </p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 10">
             <div class="network-cell">
               <p>{{ $t('add.contractAddress') }}</p>
-              <p class="pointer" @click="copyFn(network.contractAddress)">{{ network.contractAddress
+              <p class="pointer" @click="copyFn(token.contractAddress)">{{ token.contractAddress
               }}</p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 2">
             <div class="network-cell">
               <p>{{ $t('add.decimal') }}</p>
-              <p>{{ network.decimal }} </p>
+              <p>{{ token.decimal }} </p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 6">
             <div class="flex-end">
-              <div class="btn black" @click="addToken(network)">
+              <div class="btn black" @click="addToken(item, token)">
                 {{ $t('add.addToWallet') }}
               </div>
             </div>
@@ -98,6 +98,7 @@ export default {
     return {
       isCopy: false,
       copyText: '',
+      address: '',
       supportList: [
         {
           id: 1,
@@ -179,15 +180,96 @@ export default {
   },
   methods: {
     copyFn,
-    connect() { },
-    addNetwork(network) {
-      console.log('token', network)
+    async switchNetwork(network) {
+      return new Promise(async (resolve, reject) => {
+        const switch_data = {
+          method: 'wallet_switchEthereumChain',
+          params: [ { chainId: `0x${Number(network.chainId).toString(16)}` } ], // A 0x-prefixed hexadecimal string
+        }
+        const add_data = {
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainName: network.network,
+              chainId: `0x${Number(network.chainId).toString(16)}`,
+              rpcUrls: [ network.rpc ],
+              nativeCurrency: {
+                name: network.currency,
+                symbol: network.currency,
+                decimals: network.decimal,
+              },
+              blockExplorerUrls: [ network.explorer ],
+            },
+          ],
+        }
+
+        try {
+          const res = await window.ethereum.request(switch_data)
+          resolve(res)
+        } catch (error) {
+          if (error.code === 4902 || (error.code === -32603 && error.data.originalError.code === 4902)) {
+            try {
+              const add = await window.ethereum.request(add_data)
+              resolve(add)
+            } catch (addError) {
+              reject(addError)
+            }
+          } else {
+            reject(error)
+          }
+        }
+      })
     },
-    addToken(token) {
-      console.log('token', token)
+
+    async connect() {
+      if (window.ethereum) {
+        const [ addr ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        this.address = addr
+      } else {
+        if (windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
+        return this.$message.success({ offset: 100, message: this.$t('add.noWallet') })
+      }
+    },
+    async addNetwork(network) {
+      try {
+        if (!this.address) await this.connect()
+        await this.switchNetwork(network)
+        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addToken(item, token) {
+      try {
+        if (!this.address) await connect()
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+        if (token.chainId !== chainId) await this.switchNetwork(item)
+        await window.ethereum.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: token.contractAddress,
+              symbol: token.symbol,
+              decimals: token.decimal,
+              image: token.icon,
+            },
+          },
+        })
+        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
-  mounted() { },
+  mounted() {
+    // if (this.windowWidth < 750 && !window.ethereum) {
+    //   window.location.href = 'https://metamask.app.link/dapp/uataddnetwork.platon.network/'
+    // } else if (windowWidth < 750 && window.ethereum) {
+    //   this.connect()
+    // }
+
+  },
 }
 </script>
 <style lang="less" scoped>
@@ -314,6 +396,7 @@ export default {
         .cell {
           flex: auto;
           word-break: break-all;
+
           @media screen and (max-width:750px) {
             border: 1px solid #333333;
             padding: 20px;

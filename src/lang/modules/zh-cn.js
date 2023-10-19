@@ -722,7 +722,7 @@ export default {
     decimal: '精度',
     addSuccess: '添加成功!',
     addFailed: '添加失败!',
-    noWallet: '暂未安装该插件!',
+    noWallet: '暂未安装钱包插件!',
     faucet: '水龙头',
     explorer: '浏览器地址',
     plzInMeta: '请在MetaMask中打开该页面!',
