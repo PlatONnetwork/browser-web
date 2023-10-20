@@ -10,7 +10,27 @@
           <p class="left-title">{{ $t('add.connectTo') }} PlatON</p>
           <p class="left-content">{{ $t('add.slogan') }}</p>
         </div>
-        <div class="btn white" @click="connect">
+
+        <div class="head-right" v-if="address">
+          <el-dropdown placement="bottom-start" @command="handleCommand"
+            @visible-change="blockDropdownChangHandle">
+            <div class="drop-link">
+              <img src="@/assets/images/metamask.png" alt="">
+              <p class="drop-link-text">{{ getAddress(address) }}</p>
+              <i :class="{
+                arrowDown: blockDropdownShow == false,
+                arrowUp: blockDropdownShow == true,
+              }" class="arrow el-icon-arrow-down arrowUp"></i>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="copy">{{ $t('add.copyAddress')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="logout">{{ $t('add.logout') }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+
+        <div v-else class="btn white" @click="dialogVisible = true">
           {{ $t('add.connectWallet') }}
         </div>
       </div>
@@ -83,6 +103,16 @@
         </div>
       </div>
     </div>
+    <el-dialog custom-class="connect-dialog" :title="$t('add.connectWallet')"
+      :visible.sync="dialogVisible" width="30%">
+
+      <div class="connect-dialog-box">
+        <p class="connect-dialog-title">Connect Wallet with</p>
+        <div class="connect-dialog-content" @click="connect">
+          <img src="@/assets/images/metamask-text.png" alt="">
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -91,14 +121,16 @@ import usdc from '@/assets/images/usdc-logo.png'
 import usdt from '@/assets/images/usdt-logo.png'
 import dus from '@/assets/images/dus-logo.png'
 import platon from '@/assets/images/platon-logo.png'
-import { copyFn } from '@/services/utils'
+import { copyFn, getAddress } from '@/services/utils'
 export default {
   name: 'AddToExtension',
   data() {
     return {
       isCopy: false,
+      dialogVisible: false,
       copyText: '',
       address: '',
+      blockDropdownShow: false,
       supportList: [
         {
           id: 1,
@@ -179,7 +211,22 @@ export default {
     }
   },
   methods: {
-    copyFn,
+    copyFn, getAddress,
+    handleCommand(command) {
+      switch (command) {
+        case "copy":
+          this.copyFn(this.address)
+          break;
+        case "logout":
+          this.address = ''
+          break;
+        default:
+          break;
+      }
+    },
+    blockDropdownChangHandle(boolean) {
+      this.blockDropdownShow = boolean;
+    },
     async switchNetwork(network) {
       return new Promise(async (resolve, reject) => {
         const switch_data = {
@@ -226,13 +273,13 @@ export default {
         const [ addr ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
         this.address = addr
       } else {
-        if (windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
-        return this.$message.success({ offset: 100, message: this.$t('add.noWallet') })
+        if (this.windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
+        return this.$message.error({ offset: 100, message: this.$t('add.noWallet') })
       }
     },
     async addNetwork(network) {
       try {
-        if (!this.address) await this.connect()
+        await this.connect()
         await this.switchNetwork(network)
         this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
       } catch (error) {
@@ -241,7 +288,7 @@ export default {
     },
     async addToken(item, token) {
       try {
-        if (!this.address) await connect()
+        await this.connect()
         const chainId = await window.ethereum.request({ method: 'eth_chainId' })
         if (token.chainId !== chainId) await this.switchNetwork(item)
         await window.ethereum.request({
@@ -272,9 +319,73 @@ export default {
   },
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
+.connect-dialog {
+  background-color: #1A1A1A;
+  color: #fff;
+}
+
+.el-dialog__body {
+  border-top: 1px solid #242424;
+}
+
+.el-popper {
+  background-color: #fff;
+}
+
+.el-dropdown-menu {
+  background: #fff;
+  padding: 0 0 0 0;
+
+  .el-dropdown-menu__item {
+    color: #222;
+    background-color: #fff;
+    letter-spacing: 0;
+    border-radius: 4px;
+  }
+
+  .el-dropdown-menu__item:hover {
+    background: #eaeaea;
+    color: #0798de;
+  }
+
+  .el-dropdown-menu__item:focus {
+    background-color: #0f83cd;
+  }
+
+  :first-child {
+    margin: 9px 0 0 0;
+  }
+}
+
 .content-wrap {
   position: relative;
+
+  .connect-dialog-box {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+
+    .connect-dialog-title {
+      font-size: 14px;
+      line-height: 16px;
+      color: #666;
+    }
+
+    .connect-dialog-content {
+      width: 250px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      border-radius: 30px;
+      text-align: center;
+      cursor: pointer;
+      align-self: center;
+    }
+  }
 
   .lizi {
     position: absolute;
@@ -329,6 +440,26 @@ export default {
           line-height: 14px;
           color: #999;
         }
+      }
+
+      .head-right {
+        color: #fff;
+        display: flex;
+        cursor: pointer;
+
+        .drop-link {
+          display: flex;
+          gap: 8px;
+          border: 1px solid #fff;
+          padding: 12px;
+          align-items: center;
+
+          .drop-link-text {
+            color: #fff;
+          }
+        }
+
+
       }
     }
 

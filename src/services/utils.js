@@ -33,3 +33,10 @@ export const copyFn = (content) => {
     Message.success(i18n.t('modalInfo.copysuccess'))
   }
 }
+
+export const getAddress = (str) => {
+  if (str) {
+    return str.substring(0, 6) + `...` + str.substring(str.length - 4, str.length)
+  }
+  return str
+}

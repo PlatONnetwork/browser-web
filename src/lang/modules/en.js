@@ -734,6 +734,8 @@ export default {
     faucet: 'Faucet',
     explorer: 'Block explorer URL',
     plzInMeta: 'Please open this page in MetalMask!',
+    logout: 'Log out',
+    copyAddress: 'Copy Address'
   },
   ...enLocale
 };
