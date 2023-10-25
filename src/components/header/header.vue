@@ -52,7 +52,7 @@
                   arrowDown: blockDropdownShow == false,
                   arrowUp: blockDropdownShow == true,
                 }"
-                class="arrow el-icon-arrow-down arrowUp"
+                class="el-icon-arrow-down arrowUp"
               ></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -579,7 +579,6 @@ export default {
       return arr1['en'];
     },
     handleCommand(command) {
-      console.log('网络切换》》》', command);
       store.commit('CHANGE_ID', command);
       let arr = this.chainList.filter((item, index) => {
         return item.cid == command;

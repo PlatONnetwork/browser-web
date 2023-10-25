@@ -102,7 +102,7 @@ let browserLanguage = localStorage.getItem('i18nLocale')
   ? localStorage.getItem('i18nLocale')
   : language.toLowerCase();
 browserLanguage = browserLanguage == 'zh-cn' ? 'zh-cn' : 'en';
-const i18n = new VueI18n({
+export const i18n = new VueI18n({
   locale: browserLanguage,
   messages
 });

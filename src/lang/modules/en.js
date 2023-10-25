@@ -522,7 +522,7 @@ export default {
       "Validator annualized rate of return for each staked net income in the last 4 epochs，For reference only！",
     node2Tips:
       "Delegator annualized rate of return for each delegated net income in the last 4 epochs，For reference only！",
-    node3Tips:"The target unlocks the starting block height of the settlement cycle",
+    node3Tips: "The target unlocks the starting block height of the settlement cycle",
     totalDelegatedReward: "Total Delegated Reward",
     delegatorNum: "Delegators",
     delegatedAnnualizedYield: "Delegated annualized yield",
@@ -531,11 +531,11 @@ export default {
     undelegating: "undelegating",
     information: " Information",
     rewardRatio: "Delegated Reward Ratio",
-    nextRewardRatio:"Next staking reward ratio",
+    nextRewardRatio: "Next staking reward ratio",
 
     ratioTips:
       "Proportion of rewards distributed by the node to the delegators.",
-    unlockBlockHeight:"Estimate the unlock block height"
+    unlockBlockHeight: "Estimate the unlock block height"
   },
   nodeStatus: {
     1: "Candidate",
@@ -647,7 +647,7 @@ export default {
       "Number of Epochs of valid Double-signature evidence (1 epoch=10750blocks).",
     maxBlockGasLimit: "Block Gas Limit.",
     increaseIssuanceRatio: "PlatON network's fixed annual issuance ratio of LAT(‱).",
-    minimumRelease:"The minimum amount of the release period",
+    minimumRelease: "The minimum amount of the release period",
     currentValue: "Current Value :",
     genesisValue: "Genesis Value :",
     zeroProduceCumulativeTime:
@@ -659,7 +659,7 @@ export default {
   },
   extension: {
     desc: "Users can quickly add to their wallets and Web3 middleware providers (such as MetaMask) to connect to the correct Chain ID and Network ID to connect to the correct chain.Step:",
-    steps: ["Connect...", "Add to...", "Success"],
+    steps: [ "Connect...", "Add to...", "Success" ],
     form: {
       rpc: "Network URL",
       chainId: "Chain ID",
@@ -680,11 +680,11 @@ export default {
   tips: {
     totalSupply_721: "Total amount of Tokens",
     totalSupply_1155: "Total amount of Tokens",
-    circulatingSupply:`The number of tokens circulating in the crypto market and held by members of the public.<br />
+    circulatingSupply: `The number of tokens circulating in the crypto market and held by members of the public.<br />
     Circulating supply = Total supply – Tokens Locked – Tokens in the Incentive Pool - Tokens Hosted by LatticeX Foundation.<br />
     To be more specific, Tokens Locked refers to all tokens in the lockup status, covering staked or delegated tokens;
     Tokens in the Incentive Pool includes tokens in the incentive pool contract and unclaimed staking rewards (tokens).`,
-    totalSupply:`The number of tokens that have been created minus the number of tokens that have been burned.<br />
+    totalSupply: `The number of tokens that have been created minus the number of tokens that have been burned.<br />
     Total Supply = <img style="display:inline-block; height: 14px;" src="/static/images/total-supply.svg" /><br />
     Where W is the initial issued amount of 10 billion, n is the serial number of the current issuance cycle, 1 is the starting serial number of the genesis block, and a% is the additional issuance ratio, which is at 2.5% currently.`,
     totalStakePower: `The number of tokens staked, including the tokens staked by nodes and total delegations.<br />
@@ -717,6 +717,25 @@ export default {
     tAddress: "Address",
     tBalance: "Balance (LAT)",
     tLockedBalance: "Lockup Balance (LAT)"
+  },
+  add: {
+    connectTo: 'Connect to',
+    slogan: 'After connecting your wallet, you can quickly add the PlatON network and tokens to your wallet.',
+    connectWallet: 'Connect Wallet',
+    chainId: 'ChainID',
+    currency: 'Currency',
+    rpc: 'RPC URL',
+    addToWallet: 'Add to Wallet',
+    contractAddress: 'Contract Address',
+    decimal: 'Decimal',
+    addSuccess: 'Add successfully!',
+    addFailed: 'Add failed!',
+    noWallet: 'The wallet plug-in is not installed yet!',
+    faucet: 'Faucet',
+    explorer: 'Block explorer URL',
+    plzInMeta: 'Please open this page in MetalMask!',
+    logout: 'Log out',
+    copyAddress: 'Copy Address'
   },
   ...enLocale
 };

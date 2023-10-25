@@ -40,7 +40,6 @@ const formatNumberUseFloor = Vue.filter("formatNumberUseFloor", (num, count) => 
     } else {
       str = (Math.floor(Number(num).toFixed(2) * 100) / 100).toString();
     }
-    console.log(str);
 
     return str.split(".")[0].replace(reg, "$&,") + "." + str.split(".")[1];
   }

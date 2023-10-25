@@ -224,7 +224,6 @@ export default {
           this.src += '&tokenId=' + this.$route.query.tokenId;
         }
       }
-      console.log(this.src);
       window.open(this.src);
     },
   },

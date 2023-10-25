@@ -529,6 +529,7 @@ body {
 
 .code {
   position: relative;
+
   .qr-code {
     position: absolute;
     top: 32px;
@@ -539,9 +540,11 @@ body {
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
   }
+
   &:hover .qr-code {
     display: block;
   }
+
   @media screen and (max-width: 750px) {
     .qr-code {
       background: rgba(255, 255, 255, 1);
@@ -549,6 +552,7 @@ body {
     }
   }
 }
+
 .adr-trans {
   display: inline-block;
   // width: 40px;
@@ -566,6 +570,7 @@ body {
   background: transparent;
   cursor: pointer;
   user-select: none;
+
   @media screen and (max-width: 750px) {
     height: 40px;
     line-height: 40px;
@@ -705,6 +710,7 @@ body {
     display: flex;
     font-size: 16px;
     line-height: 19px;
+
     @media (max-width: 750px) {
       line-height: 27px;
     }
@@ -850,18 +856,22 @@ body {
   text-align: center;
   font-weight: bold;
   border-radius: 4px;
+
   &--in {
     color: #02977e;
     background-color: rgba(0, 201, 167, 0.2);
   }
+
   &--out {
     color: #b47d00;
     background-color: rgba(219, 154, 4, 0.2);
   }
+
   &--none {
     color: #626c76;
     background-color: rgba(119, 131, 143, 0.2);
   }
+
   &--self {
     color: #3498db;
     background-color: rgba(52, 152, 219, 0.1);
@@ -874,17 +884,21 @@ body {
   border-radius: 8px;
   color: #00c9a7;
   background: rgba(0, 201, 167, 0.1);
+
   .arrow-icon {
     width: 12px;
   }
 }
 
 .arrowUp {
+  color: #fff;
   animation: rotateDown 0.2s linear;
   transform-origin: center center;
   transform: rotateZ(180deg);
 }
+
 .arrowDown {
+  color: #fff;
   animation: rotateUp 0.2s linear;
   transform-origin: center center;
   transform: rotateZ(0deg);
@@ -938,10 +952,13 @@ body {
 @media (max-width: 750px) {
   .trade-list-wrap {
     padding: 0 40px;
+
     .sub-title {
       flex-direction: column;
+
       .pagination-box1 {
         margin-top: 40px;
+
         .el-pagination {
           padding: 2px 0;
         }
@@ -951,16 +968,19 @@ body {
 
   .pagination-box {
     padding-bottom: 60px;
+
     .el-pagination {
       float: none !important;
       display: flex;
       flex-wrap: wrap;
       margin-left: -10px !important;
+
       .el-pagination__total {
         margin-right: 0;
         width: calc(100% - 120px);
         margin-bottom: 30px;
       }
+
       .btn-prev {
         margin-left: 5px !important;
       }
@@ -988,11 +1008,14 @@ body {
   .trade-detail-wrap .item-wrap {
     padding-left: 30px !important;
     padding-right: 30px !important;
+
     .list-item {
       width: 100%;
-      & > *:first-child {
+
+      &>*:first-child {
         min-width: 130px !important;
       }
+
       *:not(:first-child) {
         white-space: unset;
         word-break: break-all;
@@ -1004,6 +1027,7 @@ body {
 @media (max-width: 500px) {
   .trade-list-wrap {
     padding: 0 20px;
+
     .sub-title {
       .pagination-box1 {
         margin-top: 20px;
@@ -1013,6 +1037,7 @@ body {
 
   .pagination-box {
     padding-bottom: 40px;
+
     .el-pagination {
       .el-pagination__total {
         margin-right: 0;
@@ -1050,6 +1075,7 @@ body {
     display: flex;
     flex-direction: column;
   }
+
   .currency {
     word-break: break-word;
   }
@@ -1059,15 +1085,15 @@ body {
 body .el-table th.gutter {
   display: table-cell !important;
 }
- 
+
 body .el-table colgroup.gutter {
   display: table-cell !important;
 }
- 
+
 table {
   width: 100% !important;
 }
- 
+
 .el-table__body {
   // 使表格兼容safari，不错位
   width: 100%;

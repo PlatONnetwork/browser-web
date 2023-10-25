@@ -1,378 +1,647 @@
 <template>
-  <div class="content-wrap" :style="{ 'min-height': clientHeight + 'px' }">
-    <vue-particles
-      color="#2E2E2E"
-      :particleOpacity="0.7"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#2E2E2E"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.7"
-      :linesDistance="150"
-      :moveSpeed="2"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="false"
-      clickMode="repulse"
-      class="lizi"
-    ></vue-particles>
-    <img class="polyhedron-big polyhedron" src="@/assets/images/polyhedron3.svg" />
-    <img class="polyhedron-mid polyhedron" src="@/assets/images/polyhedron3.svg" />
-    <img class="polyhedron-small polyhedron" src="@/assets/images/polyhedron3.svg" />
-    <section class="content" v-if="config">
-      <p class="title">{{ $t('extension.desc') }}</p>
-      <el-steps :align-center="true">
-        <el-step status="process" :title="$t('extension.steps.0')"></el-step>
-        <el-step status="process" :title="$t('extension.steps.1')"></el-step>
-        <el-step status="process" :title="$t('extension.steps.2')"></el-step>
-      </el-steps>
-      <p v-if="status.isMobile" class="mobile-err">{{ $t('extension.error.mobile') }}</p>
-      <p v-else class="mobile-err">{{ $t('extension.error.isChrome') }}</p>
-      <div class="detail">
-        <p class="title">{{ config.title[lang] }}</p>
-        <p class="item">
-          <span class="desc">{{ $t('extension.form.rpc') }} :</span>
-          <span class="text ellipsis1">{{ config.rpcUrl }}</span>
-        </p>
-        <p class="item">
-          <span class="desc">{{ $t('extension.form.chainId') }} :</span>
-          <span class="text ellipsis1">{{ config.chainId }}</span>
-        </p>
-        <p class="item">
-          <span class="desc">{{ $t('extension.form.currency') }} :</span>
-          <span class="text ellipsis1">{{ config.nativeCurrency.symbol }}</span>
-        </p>
-        <p class="item">
-          <span class="desc">{{ $t('extension.form.website') }} :</span>
-          <span class="text ellipsis1">{{ config.blockExplorerUrl }}</span>
-        </p>
-        <template v-if="!status.isMobile">
-          <button
-            v-if="status.accounts.length"
-            @click="addToNetwork"
-            class="btn add"
-            :disabled="loading.add"
-            :class="{ active: loading.add }"
-          >
-            {{ $t('extension.form.add') }}
-          </button>
-          <button
-            v-else
-            @click="connect"
-            class="btn connect"
-            :disabled="loading.connect"
-            :class="{ active: loading.connect }"
-          >
-            {{ $t('extension.form.connect') }}
-          </button>
-        </template>
+  <div class="content-wrap">
+    <!-- <vue-particles color="#2E2E2E" :particleOpacity="0.7" :particlesNumber="80" shapeType="circle"
+      :particleSize="4" linesColor="#2E2E2E" :linesWidth="1" :lineLinked="true" :lineOpacity="0.7"
+      :linesDistance="150" :moveSpeed="2" :hoverEffect="true" hoverMode="grab" :clickEffect="false"
+      clickMode="repulse" class="lizi"></vue-particles> -->
+    <div class="wrapper">
+      <div class="head">
+        <div class="head-left">
+          <p class="left-title">{{ $t('add.connectTo') }} PlatON</p>
+          <p class="left-content">{{ $t('add.slogan') }}</p>
+        </div>
+
+        <div class="head-right" v-if="address">
+          <el-dropdown placement="bottom-start" @command="handleCommand"
+            @visible-change="blockDropdownChangHandle">
+            <div class="drop-link">
+              <img src="@/assets/images/metamask.png" alt="">
+              <p class="drop-link-text">{{ getAddress(address) }}</p>
+              <i :class="{
+                arrowDown: blockDropdownShow == false,
+                arrowUp: blockDropdownShow == true,
+              }" class="arrow el-icon-arrow-down arrowUp"></i>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="copy">{{ $t('add.copyAddress')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="logout">{{ $t('add.logout') }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+
+        <div v-else class="btn white" @click="dialogVisible = true">
+          {{ $t('add.connectWallet') }}
+        </div>
       </div>
-      <!-- <ul class="tips">
-        <li v-for="key in Object.keys(status)" :key="key">
-          {{ `${key} : ${status[key]}` }}
-        </li>
-      </ul> -->
-    </section>
+      <div class="list-box" v-for="item in supportList">
+        <div class="list-head">
+          <div class="list-head-left">
+            <img :src="item.icon" alt="">
+            <p class="title">PlatON Mainnet</p>
+          </div>
+          <div v-if="windowWidth >= 750" class="btn white" @click="addNetwork(item)">
+            {{ $t('add.addToWallet') }}
+          </div>
+        </div>
+        <div class="chain-info">
+          <div class="cell">
+            <p>{{ $t('add.chainId') }}</p>
+            <p class="pointer" @click="copyFn(item.chainId)">{{ item.chainId }}</p>
+          </div>
+          <div class="cell">
+            <p>{{ $t('add.currency') }}</p>
+            <p>{{ item.currencyLabel }}</p>
+          </div>
+          <div class="cell">
+            <p>{{ $t('add.rpc') }}</p>
+            <p class="pointer" @click="copyFn(item.rpc)">{{ item.rpc }}</p>
+          </div>
+          <div class="cell">
+            <p>{{ $t('add.explorer') }}</p>
+            <a :href="item.explorer" target="_blank" rel="nofollow noopener noreferrer">
+              {{ item.explorer }}
+            </a>
+          </div>
+          <div v-if="item.faucet" class="cell">
+            <p>{{ $t('add.faucet') }}</p>
+            <a :href="item.faucet" target="_blank" rel="nofollow noopener noreferrer">
+              {{ item.faucet }}
+            </a>
+          </div>
+        </div>
+        <div v-if="windowWidth < 750" class="btn white" @click="addNetwork(item)">
+          {{ $t('add.addToWallet') }}
+        </div>
+        <div class="network-box" v-for="token in item.tokens">
+          <el-col :span="windowWidth < 750 ? 24 : 6">
+            <div class="logo">
+              <img :src="token.icon" alt="">
+              <p> {{ token.label }} </p>
+            </div>
+          </el-col>
+          <el-col :span="windowWidth < 750 ? 24 : 10">
+            <div class="network-cell">
+              <p>{{ $t('add.contractAddress') }}</p>
+              <p class="pointer" @click="copyFn(token.contractAddress)">{{ token.contractAddress
+              }}</p>
+            </div>
+          </el-col>
+          <el-col :span="windowWidth < 750 ? 24 : 2">
+            <div class="network-cell">
+              <p>{{ $t('add.decimal') }}</p>
+              <p>{{ token.decimal }} </p>
+            </div>
+          </el-col>
+          <el-col :span="windowWidth < 750 ? 24 : 6">
+            <div class="flex-end">
+              <div class="btn black" @click="addToken(item, token)">
+                {{ $t('add.addToWallet') }}
+              </div>
+            </div>
+          </el-col>
+        </div>
+      </div>
+    </div>
+    <el-dialog custom-class="connect-dialog" :title="$t('add.connectWallet')"
+      :visible.sync="dialogVisible" width="30%">
+
+      <div class="connect-dialog-box">
+        <p class="connect-dialog-title">Connect Wallet with</p>
+        <div class="connect-dialog-content" @click="connect">
+          <img src="@/assets/images/metamask-text.png" alt="">
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
+import usdc from '@/assets/images/usdc-logo.png'
+import usdt from '@/assets/images/usdt-logo.png'
+import dus from '@/assets/images/dus-logo.png'
+import platon from '@/assets/images/platon-logo.png'
+import { copyFn, getAddress } from '@/services/utils'
 export default {
   name: 'AddToExtension',
   data() {
     return {
-      clientHeight: 700,
-      status: {
-        isMobile: true,
-        isChrome: true,
-        metamaskEnable: false,
-        accounts: [],
-      },
-      loading: {
-        connect: false,
-        add: false,
-      },
+      isCopy: false,
+      dialogVisible: false,
+      copyText: '',
+      address: '',
+      blockDropdownShow: false,
+      supportList: [
+        {
+          id: 1,
+          network: 'PlatON Mainnet',
+          icon: platon,
+          chainId: 210425,
+          currency: 'lat',
+          currencyLabel: 'LAT',
+          rpc: 'https://openapi2.platon.network/rpc',
+          explorer: 'https://scan.platon.network',
+          decimal: 18,
+          tokens: [
+            {
+              id: 11,
+              icon: dus,
+              label: 'DUS（Mainnet)',
+              symbol: 'DUS',
+              contractAddress: '0x8c171d2e96619fa18b8f49fdbf3eb5589b97a97d',
+              decimal: 6,
+            },
+            {
+              id: 12,
+              icon: usdt,
+              label: 'USDT（Mainnet)',
+              symbol: 'USDT',
+              contractAddress: '0xeac734fb7581D8eB2CE4949B0896FC4E76769509',
+              decimal: 6,
+            },
+            {
+              id: 13,
+              icon: usdc,
+              label: 'USDC（Mainnet)',
+              symbol: 'USDC',
+              contractAddress: '0xdA396A3C7FC762643f658B47228CD51De6cE936d',
+              decimal: 6,
+            },
+          ],
+        },
+        {
+          id: 2,
+          network: 'PlatON Dev Testnet2',
+          icon: platon,
+          chainId: 2206132,
+          currency: 'lat',
+          currencyLabel: 'LAT',
+          rpc: 'https://devnet2openapi.platon.network/rpc',
+          explorer: 'https://devnet2scan.platon.network',
+          faucet: 'https://devnet2faucet.platon.network/faucet',
+          decimal: 18,
+          tokens: [
+            {
+              id: 21,
+              icon: dus,
+              label: 'DUS（Devnet)',
+              symbol: 'DUS',
+              contractAddress: '0x085d18AB4FFD350d32025bc6a641E27C2Ea806a9',
+              decimal: 6,
+            },
+            {
+              id: 22,
+              icon: usdt,
+              label: 'USDT（Devnet) ',
+              symbol: 'USDT',
+              contractAddress: '0x1e6E4b48F6F57Aa7cefd8239e8515694D110386B',
+              decimal: 6,
+            },
+            {
+              id: 23,
+              icon: usdc,
+              label: 'USDC（Devnet)',
+              symbol: 'USDC',
+              contractAddress: '0x229b68722bF16CCc7186Dc8760b3D8C5980fe609',
+              decimal: 6,
+            },
+          ],
+        },
+      ]
     }
   },
-  computed: {
-    ...mapGetters(['configData']),
-    lang() {
-      return this.$i18n.locale == 'en' ? 'en' : 'cn'
-    },
-    config() {
-      return this.configData.metamask || null
-    },
-  },
   methods: {
-    setAccounts(accounts) {
-      this.status.accounts = accounts || []
-    },
-    handleErr(error) {
-      console.log('error: ', error)
-      let msg = error.message
-      if (this.lang === 'cn' && error.code === 4001) {
-        msg = '用户拒绝了该请求'
+    copyFn, getAddress,
+    handleCommand(command) {
+      switch (command) {
+        case "copy":
+          this.copyFn(this.address)
+          break;
+        case "logout":
+          this.address = ''
+          break;
+        default:
+          break;
       }
-      this.$message.error(msg)
     },
-    connect() {
-      if (!this.status.metamaskEnable) {
-        this.$alert(this.$t('extension.error.noMetaMask'), this.$t('extension.error.tips'), {
-          type: 'warning',
-          dangerouslyUseHTMLString: true,
-          showConfirmButton: false,
-        })
-        return
-      }
-      this.loading.connect = true
-      ethereum
-        .request({ method: 'eth_requestAccounts' })
-        .then(this.setAccounts)
-        .catch(this.handleErr)
-        .finally(() => {
-          this.loading.connect = false
-        })
+    blockDropdownChangHandle(boolean) {
+      this.blockDropdownShow = boolean;
     },
-    async addToNetwork() {
-      // try {
-      //   currentChainId = await ethereum.request({ method: 'eth_chainId' })
-      // } catch (error) {
-      //   this.loading.add = false
-      //   this.$message.warning(this.$t('extension.error.noChainId'))
-      //   return
-      // }
-      const currentChainId = ethereum.chainId
-      this.loading.add = true
-      const { chainName, rpcUrl, chainId: id, nativeCurrency, blockExplorerUrl } = this.config
-      const chainId = '0x' + id.toString(16)
-      if (currentChainId === chainId) {
-        this.$message.warning(this.$t('extension.error.already', [id]))
-        this.loading.add = false
-        return
-      }
-      ethereum
-        .request({
+    async switchNetwork(network) {
+      return new Promise(async (resolve, reject) => {
+        const switch_data = {
+          method: 'wallet_switchEthereumChain',
+          params: [ { chainId: `0x${Number(network.chainId).toString(16)}` } ], // A 0x-prefixed hexadecimal string
+        }
+        const add_data = {
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainName,
-              chainId,
-              rpcUrls: [rpcUrl],
-              nativeCurrency,
-              blockExplorerUrls: [blockExplorerUrl],
+              chainName: network.network,
+              chainId: `0x${Number(network.chainId).toString(16)}`,
+              rpcUrls: [ network.rpc ],
+              nativeCurrency: {
+                name: network.currency,
+                symbol: network.currency,
+                decimals: network.decimal,
+              },
+              blockExplorerUrls: [ network.explorer ],
             },
           ],
-        })
-        .then((res) => console.log(res))
-        .catch(this.handleErr)
-        .finally(() => {
-          this.loading.add = false
-        })
+        }
+
+        try {
+          const res = await window.ethereum.request(switch_data)
+          resolve(res)
+        } catch (error) {
+          if (error.code === 4902 || (error.code === -32603 && error.data.originalError.code === 4902)) {
+            try {
+              const add = await window.ethereum.request(add_data)
+              resolve(add)
+            } catch (addError) {
+              reject(addError)
+            }
+          } else {
+            reject(error)
+          }
+        }
+      })
     },
-  },
-  created() {
-    const ua = navigator.userAgent
-    this.status.isMobile = !!ua.match(
-      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-    )
-    this.status.isChrome = !!ua.match(/chrome/i)
+
+    async connect() {
+      if (window.ethereum) {
+        const [ addr ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        this.address = addr
+        this.dialogVisible = false
+      } else {
+        if (this.windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
+        return this.$message.error({ offset: 100, message: this.$t('add.noWallet') })
+      }
+    },
+    async addNetwork(network) {
+      try {
+        await this.connect()
+        await this.switchNetwork(network)
+        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addToken(item, token) {
+      try {
+        await this.connect()
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' })
+        if (token.chainId !== chainId) await this.switchNetwork(item)
+        await window.ethereum.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: token.contractAddress,
+              symbol: token.symbol,
+              decimals: token.decimal,
+              image: token.icon,
+            },
+          },
+        })
+        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
   mounted() {
-    this.clientHeight = (document.documentElement.clientHeight || document.body.clientHeight) - 100
-    this.status.metamaskEnable = Boolean(window.ethereum && window.ethereum.isMetaMask)
-    if (this.status.metamaskEnable) {
-      ethereum.request({ method: 'eth_accounts' }).then(this.setAccounts)
-      ethereum.on('accountsChanged', this.setAccounts)
-    }
-    console.log(this.configData)
+    // if (this.windowWidth < 750 && !window.ethereum) {
+    //   window.location.href = 'https://metamask.app.link/dapp/uataddnetwork.platon.network/'
+    // } else if (windowWidth < 750 && window.ethereum) {
+    //   this.connect()
+    // }
+
   },
 }
 </script>
+<style lang="less">
+.connect-dialog {
+  background-color: #1A1A1A;
+  color: #fff;
+}
 
-<style lang="less" scoped>
+.el-dialog__body {
+  border-top: 1px solid #242424;
+}
+
+.el-popper {
+  background-color: #fff;
+}
+
+.el-dropdown-menu {
+  background: #fff;
+  padding: 0 0 0 0;
+
+  .el-dropdown-menu__item {
+    color: #222;
+    background-color: #fff;
+    letter-spacing: 0;
+    border-radius: 4px;
+  }
+
+  .el-dropdown-menu__item:hover {
+    background: #eaeaea;
+    color: #0798de;
+  }
+
+  .el-dropdown-menu__item:focus {
+    background-color: #0f83cd;
+  }
+
+  :first-child {
+    margin: 9px 0 0 0;
+  }
+}
+
 .content-wrap {
   position: relative;
+
+  .connect-dialog-box {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+
+    .connect-dialog-title {
+      font-size: 14px;
+      line-height: 16px;
+      color: #666;
+    }
+
+    .connect-dialog-content {
+      width: 250px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      border-radius: 30px;
+      text-align: center;
+      cursor: pointer;
+      align-self: center;
+    }
+  }
+
   .lizi {
     position: absolute;
     min-height: 100%;
     width: 100%;
     z-index: 0;
   }
-  .content {
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0 40px;
+    margin-top: 40px;
+    margin-bottom: 60px;
     position: relative;
-    margin: 0 auto;
-    padding: 100px 0;
-    width: 915px;
-    max-width: 100%;
-    color: #ffffff;
-    text-align: center;
-    & > .title {
-      font-size: 32px;
-      font-size: 20px;
-      line-height: 30px;
-      font-weight: 500;
+    z-index: 10;
+
+    @media screen and (max-width:750px) {
+      padding: 0;
+      margin-top: 10px;
     }
-    .detail {
-      margin-top: 70px;
-      padding-bottom: 20px;
-      width: 100%;
-      font-size: 15px;
-      border: 1px solid #ffffff;
-      border-radius: 4px;
-      .title {
-        line-height: 1;
-        font-size: 18px;
-        padding: 30px 0 12px 0;
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+
+      @media screen and (max-width:750px) {
+        width: 100%;
+        flex-direction: column;
       }
-      & > p {
-        line-height: 38px;
-      }
-      .item {
-        text-align: left;
-        padding-left: 30%;
-        .desc {
-          display: inline-block;
-          width: 120px;
+
+      .head-left {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        color: #fff;
+
+        @media screen and (max-width:750px) {
+          margin-bottom: 16px;
+        }
+
+        .left-title {
+          font-family: Gilroy-Bold;
+          font-size: 24px;
+          line-height: 24px;
+        }
+
+        .left-content {
+          font-size: 14px;
+          line-height: 14px;
+          color: #999;
         }
       }
-      .btn {
-        margin: 32px 0 20px 0;
-      }
-    }
-  }
-  @media screen and (max-width: 750px) {
-    .content {
-      padding: 20px 0 80px 0;
-      .detail {
-        padding-bottom: 0;
-        .title {
-          padding: 30px 0 16px 0;
-        }
-        .item {
+
+      .head-right {
+        color: #fff;
+        display: flex;
+        cursor: pointer;
+
+        .drop-link {
           display: flex;
-          line-height: 1;
-          padding: 0 18px 16px 18px;
-          overflow: initial;
-          line-height: 20px;
-          .desc {
-            // font-size: 13px;
-            width: 104px;
-            flex-shrink: 0;
+          gap: 8px;
+          border: 1px solid #fff;
+          padding: 12px;
+          align-items: center;
+
+          .drop-link-text {
+            color: #fff;
           }
-          .text {
-            display: block;
+        }
+
+
+      }
+    }
+
+    .list-box {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      background-color: #111;
+      margin-top: 30px;
+
+      @media screen and (max-width:750px) {
+        padding: 24px;
+      }
+
+      .list-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        @media screen and (max-width:750px) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .list-head-left {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          align-items: center;
+
+          @media screen and (max-width:750px) {
+            margin-bottom: 20px;
+          }
+
+          p.title {
+            color: #fff;
+            font-family: Gilroy-Bold;
+            font-size: 20px;
+            line-height: 24px;
+
+
+          }
+        }
+
+      }
+
+      .chain-info {
+        margin-top: 26px;
+        width: 100%;
+        height: 80px;
+        border: 1px solid #333333;
+        display: flex;
+        padding: 20px 40px;
+
+        @media screen and (max-width:750px) {
+          width: 100%;
+          padding: 0;
+          margin-bottom: 20px;
+          height: auto;
+          border: none;
+          flex-wrap: wrap;
+        }
+
+        .cell {
+          flex: auto;
+          word-break: break-all;
+
+          @media screen and (max-width:750px) {
+            border: 1px solid #333333;
+            padding: 20px;
+          }
+
+          & p:nth-child(1) {
+            color: #999;
+            font-size: 12px;
+            line-height: 14px;
+            margin-bottom: 8px;
+          }
+
+          & p:nth-child(2) {
+            font-family: Gilroy-Medium;
+            color: #fff;
+            font-size: 14px;
+            line-height: 16px;
+          }
+        }
+
+        .box {
+          flex: auto;
+        }
+      }
+
+      .network-box {
+        background-color: #222;
+        padding: 34px;
+        margin-top: 20px;
+        color: #fff;
+
+        @media screen and (max-width:750px) {
+          display: flex;
+          flex-direction: column;
+          padding: 20px;
+          gap: 20px;
+        }
+
+        .logo {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 14px;
+          font-family: Gilroy-Bold;
+          font-size: 20px;
+          line-height: 24px;
+        }
+
+        .network-cell {
+          display: flex;
+          gap: 9px;
+          flex-direction: column;
+
+          & p:nth-child(1) {
+            color: #999;
+            font-size: 12px;
+            line-height: 14px;
+          }
+
+          & p:nth-child(2) {
+            font-size: 14px;
+            line-height: 16px;
+            white-space: wrap;
             word-break: break-all;
           }
         }
+
+        .flex-end {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    .btn {
+      width: 140px;
+      height: 40px;
+      font-family: Gilroy-Medium;
+      font-size: 14px;
+      line-height: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      @media screen and (max-width:750px) {
+        width: 100%;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.white {
+        background-color: #fff;
+        color: #000;
+      }
+
+      &.black {
+        background-color: #222;
+        color: #fff;
+        border: 1px solid #FFFFFF
       }
     }
   }
+
 }
-.btn {
-  width: 253px;
-  height: 58px;
-  font-size: 20px;
-  color: #ffffff;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #979797;
-  border-radius: 4px;
+
+a {
+  color: #fff;
+}
+
+.pointer {
   cursor: pointer;
-  // &:hover {
-  //   color: #0798de;
-  // }
-  &.active {
-    cursor: not-allowed;
-  }
-  &.active::after {
-    animation: blink 2s ease-in-out infinite;
-  }
-  &::after {
-    content: '';
-    display: inline-block;
-    margin-left: 14px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-  }
-  &.connect::after {
-    background-color: #979797;
-  }
-  &.add::after {
-    background-color: #15a73e;
-  }
-  &.add {
-    background: rgba(21, 167, 62, 0.2);
-    border: 1px solid #15a73e;
-  }
-}
-.mobile-err {
-  padding-top: 20px;
-  color: #e6a23c;
-  &::before {
-    content: '*';
-    color: #f56c6c;
-  }
-}
-
-.el-steps {
-  margin-top: 16px;
-  /deep/ .el-step__line {
-    top: 23px;
-    background: #fff;
-  }
-  /deep/ .el-step__icon {
-    background: #000;
-    width: 48px;
-    height: 48px;
-    border-width: 1px;
-  }
-  /deep/ .el-step__title.is-process {
-    font-weight: normal;
-  }
-}
-
-@keyframes blink {
-  0% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  50% {
-    opacity: 0.2;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-}
-
-.polyhedron {
-  position: absolute;
-  top: 70px;
-  opacity: 0.5;
-  animation: rotating 8s infinite linear;
-  &.polyhedron-big {
-    width: 180px;
-    height: 180px;
-    left: -20px;
-  }
-  &.polyhedron-mid {
-    width: 50px;
-    height: 50px;
-    top: 500px;
-    left: 200px;
-  }
-  &.polyhedron-small {
-    width: 50px;
-    height: 50px;
-    top: 150px;
-    right: 0;
-    opacity: 0.3;
-  }
 }
 </style>
