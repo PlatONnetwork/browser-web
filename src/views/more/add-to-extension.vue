@@ -272,6 +272,7 @@ export default {
       if (window.ethereum) {
         const [ addr ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
         this.address = addr
+        this.dialogVisible = false
       } else {
         if (this.windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
         return this.$message.error({ offset: 100, message: this.$t('add.noWallet') })
