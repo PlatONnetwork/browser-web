@@ -280,6 +280,12 @@ export default {
     },
     async addNetwork(network) {
       try {
+        const currentChainId = ethereum.chainId
+        const { chainId } = network
+        if (currentChainId === '0x' + chainId.toString(16)) {
+          this.$message.warning(this.$t('extension.error.already', [ chainId ]))
+          return
+        }
         await this.connect()
         await this.switchNetwork(network)
         this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
