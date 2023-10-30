@@ -276,8 +276,8 @@ export default {
         this.address = addr
         this.dialogVisible = false
       } else {
-        if (this.windowWidth < 750) return this.$message.success({ offset: 100, message: this.$t('add.plzInMeta') })
-        return this.$message.error({ offset: 100, message: this.$t('add.noWallet') })
+        if (this.windowWidth < 750) return this.$message.success({ message: this.$t('add.plzInMeta') })
+        return this.$message.error({ message: this.$t('add.noWallet') })
       }
     },
     async addNetwork(network) {
@@ -290,7 +290,7 @@ export default {
         }
         await this.connect()
         await this.switchNetwork(network)
-        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+        this.$message.success({ message: this.$t('add.addSuccess') })
       } catch (error) {
         console.log(error)
       }
@@ -312,7 +312,7 @@ export default {
             },
           },
         })
-        this.$message.success({ offset: 100, message: this.$t('add.addSuccess') })
+        this.$message.success({ message: this.$t('add.addSuccess') })
       } catch (error) {
         console.log(error)
       }
