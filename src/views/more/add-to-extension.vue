@@ -104,7 +104,7 @@
       </div>
     </div>
     <el-dialog custom-class="connect-dialog" :title="$t('add.connectWallet')"
-      :visible.sync="dialogVisible" width="30%">
+      :visible.sync="dialogVisible" :width="windowWidth < 750 ? '80%' : '500px'">
 
       <div class="connect-dialog-box">
         <p class="connect-dialog-title">Connect Wallet with</p>
@@ -332,6 +332,7 @@ export default {
 .connect-dialog {
   background-color: #1A1A1A;
   color: #fff;
+  margin: 0 auto;
 }
 
 .el-dialog__body {
