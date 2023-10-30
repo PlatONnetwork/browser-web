@@ -282,7 +282,7 @@ export default {
     },
     async addNetwork(network) {
       try {
-        const currentChainId = ethereum.chainId
+        const currentChainId = await window.ethereum.request({ method: 'eth_chainId' })
         const { chainId } = network
         if (currentChainId === '0x' + chainId.toString(16)) {
           this.$message.warning(this.$t('extension.error.already', [ chainId ]))
