@@ -38,7 +38,7 @@
         <div class="list-head">
           <div class="list-head-left">
             <img :src="item.icon" alt="">
-            <p class="title">PlatON Mainnet</p>
+            <p class="title">{{ item.netLabel }}</p>
           </div>
           <div v-if="windowWidth >= 750" class="btn white" @click="addNetwork(item)">
             {{ $t('add.addToWallet') }}
@@ -135,6 +135,7 @@ export default {
         {
           id: 1,
           network: 'PlatON Mainnet',
+          netLabel: 'PlatON Mainnet',
           icon: platon,
           chainId: 210425,
           currency: 'lat',
@@ -172,6 +173,7 @@ export default {
         {
           id: 2,
           network: 'PlatON Dev Testnet2',
+          netLabel: 'PlatON Devnet',
           icon: platon,
           chainId: 2206132,
           currency: 'lat',
