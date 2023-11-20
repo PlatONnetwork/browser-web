@@ -623,7 +623,7 @@ export default {
     12: "版本声明",
   },
   more: {
-    addToExtension: "Add to Extension",
+    addToExtension: "添加网络及令牌",
     foundationAddress: '基金会地址',
     governableParameter: "可治理参数",
     stakeThreshold: "创建验证节点最低的质押LAT数。",
@@ -670,6 +670,10 @@ export default {
       isChrome: "请使用chrome浏览器安装MetaMask进行操作。",
       mobile: "请在PC端Chrome浏览器安装MetaMask进行操作。",
       noChainId: "MateMask版本过低或当前非MetaMask钱包",
+      reject: "用户取消了操作",
+      failed: "添加失败",
+      noSupport: "当前令牌不适用该钱包",
+      alreadyAddNetwork: "已添加过该网络",
     }
   },
   tips: {
@@ -725,7 +729,7 @@ export default {
     noWallet: '暂未安装钱包插件!',
     faucet: '水龙头',
     explorer: '浏览器地址',
-    plzInMeta: '请在MetaMask中打开该页面!',
+    plzInMeta: '请在钱包中打开该页面!',
     logout: '登出',
     copyAddress: '复制钱包地址'
   },

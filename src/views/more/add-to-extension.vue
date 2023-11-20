@@ -1,101 +1,103 @@
 <template>
   <div class="content-wrap">
-    <!-- <vue-particles color="#2E2E2E" :particleOpacity="0.7" :particlesNumber="80" shapeType="circle"
-      :particleSize="4" linesColor="#2E2E2E" :linesWidth="1" :lineLinked="true" :lineOpacity="0.7"
-      :linesDistance="150" :moveSpeed="2" :hoverEffect="true" hoverMode="grab" :clickEffect="false"
-      clickMode="repulse" class="lizi"></vue-particles> -->
     <div class="wrapper">
       <div class="head">
         <div class="head-left">
           <p class="left-title">{{ $t('add.connectTo') }} PlatON</p>
           <p class="left-content">{{ $t('add.slogan') }}</p>
         </div>
-
-        <div class="head-right" v-if="address">
-          <el-dropdown placement="bottom-start" @command="handleCommand"
-            @visible-change="blockDropdownChangHandle">
-            <div class="drop-link">
-              <img src="@/assets/images/metamask.png" alt="">
-              <p class="drop-link-text">{{ getAddress(address) }}</p>
-              <i :class="{
-                arrowDown: blockDropdownShow == false,
-                arrowUp: blockDropdownShow == true,
-              }" class="arrow el-icon-arrow-down arrowUp"></i>
-            </div>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="copy">{{ $t('add.copyAddress')
-              }}</el-dropdown-item>
-              <el-dropdown-item command="logout">{{ $t('add.logout') }}</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-
-        <div v-else class="btn white" @click="dialogVisible = true">
-          {{ $t('add.connectWallet') }}
+        <div class="head-right">
+          <div
+            @click="
+              () => {
+                return (curNetwork = 'mainnet')
+              }
+            "
+            class="head-net-box"
+          >
+            Mainnet
+          </div>
+          <div
+            @click="
+              () => {
+                return (curNetwork = 'devnet')
+              }
+            "
+            class="head-net-box"
+          >
+            Devnet
+          </div>
+          <div
+            class="move-box"
+            :class="curNetwork === 'mainnet' ? 'normal-left' : windowWidth < 750 ? 'mobile-left' : 'spec-left'"
+          >
+            {{ curNetwork === 'mainnet' ? 'Mainnet' : 'Devnet' }}
+          </div>
         </div>
       </div>
-      <div class="list-box" v-for="item in supportList">
+      <div class="list-box">
         <div class="list-head">
           <div class="list-head-left">
-            <img :src="item.icon" alt="">
-            <p class="title">{{ item.netLabel }}</p>
+            <img :src="supportList[curNetwork].icon" alt="" />
+            <p class="title">{{ supportList[curNetwork].netLabel }}</p>
           </div>
-          <div v-if="windowWidth >= 750" class="btn white" @click="addNetwork(item)">
+          <div v-if="windowWidth >= 750" class="btn white" @click="setupNetwork(supportList[curNetwork])">
             {{ $t('add.addToWallet') }}
           </div>
         </div>
         <div class="chain-info">
           <div class="cell">
             <p>{{ $t('add.chainId') }}</p>
-            <p class="pointer" @click="copyFn(item.chainId)">{{ item.chainId }}</p>
+            <p class="pointer" @click="copyFn(supportList[curNetwork].chainId)">
+              {{ supportList[curNetwork].chainId }}
+            </p>
           </div>
           <div class="cell">
             <p>{{ $t('add.currency') }}</p>
-            <p>{{ item.currencyLabel }}</p>
+            <p>{{ supportList[curNetwork].currencyLabel }}</p>
           </div>
           <div class="cell">
             <p>{{ $t('add.rpc') }}</p>
-            <p class="pointer" @click="copyFn(item.rpc)">{{ item.rpc }}</p>
+            <p class="pointer" @click="copyFn(supportList[curNetwork].rpc)">{{ supportList[curNetwork].rpc }}</p>
           </div>
           <div class="cell">
             <p>{{ $t('add.explorer') }}</p>
-            <a :href="item.explorer" target="_blank" rel="nofollow noopener noreferrer">
-              {{ item.explorer }}
+            <a :href="supportList[curNetwork].explorer" target="_blank" rel="nofollow noopener noreferrer">
+              {{ supportList[curNetwork].explorer }}
             </a>
           </div>
-          <div v-if="item.faucet" class="cell">
+          <div v-if="supportList[curNetwork].faucet" class="cell">
             <p>{{ $t('add.faucet') }}</p>
-            <a :href="item.faucet" target="_blank" rel="nofollow noopener noreferrer">
-              {{ item.faucet }}
+            <a :href="supportList[curNetwork].faucet" target="_blank" rel="nofollow noopener noreferrer">
+              {{ supportList[curNetwork].faucet }}
             </a>
           </div>
         </div>
-        <div v-if="windowWidth < 750" class="btn white" @click="addNetwork(item)">
+        <div v-if="windowWidth < 750" class="btn white" @click="setupNetwork(supportList[curNetwork])">
           {{ $t('add.addToWallet') }}
         </div>
-        <div class="network-box" v-for="token in item.tokens">
+        <div class="network-box" v-for="token in supportList[curNetwork].tokens">
           <el-col :span="windowWidth < 750 ? 24 : 6">
             <div class="logo">
-              <img :src="token.icon" alt="">
-              <p> {{ token.label }} </p>
+              <img :src="token.icon" alt="" />
+              <p>{{ token.label }}</p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 10">
             <div class="network-cell">
               <p>{{ $t('add.contractAddress') }}</p>
-              <p class="pointer" @click="copyFn(token.contractAddress)">{{ token.contractAddress
-              }}</p>
+              <p class="pointer" @click="copyFn(token.contractAddress)">{{ token.contractAddress }}</p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 2">
             <div class="network-cell">
               <p>{{ $t('add.decimal') }}</p>
-              <p>{{ token.decimal }} </p>
+              <p>{{ token.decimal }}</p>
             </div>
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 6">
             <div class="flex-end">
-              <div class="btn black" @click="addToken(item, token)">
+              <div class="btn black" @click="onWatchAsset(supportList[curNetwork], token)">
                 {{ $t('add.addToWallet') }}
               </div>
             </div>
@@ -103,16 +105,19 @@
         </div>
       </div>
     </div>
-    <el-dialog custom-class="connect-dialog" :title="$t('add.connectWallet')"
-      :visible.sync="dialogVisible" :width="windowWidth < 750 ? '80%' : '500px'">
-
+    <!-- <el-dialog
+      custom-class="connect-dialog"
+      :title="$t('add.connectWallet')"
+      :visible.sync="dialogVisible"
+      :width="windowWidth < 750 ? '80%' : '500px'"
+    >
       <div class="connect-dialog-box">
         <p class="connect-dialog-title">Connect Wallet with</p>
         <div class="connect-dialog-content" @click="connect">
-          <img src="@/assets/images/metamask-text.png" alt="">
+          <img src="@/assets/images/metamask-text.png" alt="" />
         </div>
       </div>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -126,13 +131,10 @@ export default {
   name: 'AddToExtension',
   data() {
     return {
-      isCopy: false,
-      dialogVisible: false,
-      copyText: '',
-      address: '',
+      curNetwork: 'mainnet',
       blockDropdownShow: false,
-      supportList: [
-        {
+      supportList: {
+        mainnet: {
           id: 1,
           network: 'PlatON Mainnet',
           netLabel: 'PlatON Mainnet',
@@ -170,7 +172,7 @@ export default {
             },
           ],
         },
-        {
+        devnet: {
           id: 2,
           network: 'PlatON Dev Testnet2',
           netLabel: 'PlatON Devnet',
@@ -209,128 +211,230 @@ export default {
             },
           ],
         },
-      ]
+      },
     }
   },
   methods: {
-    copyFn, getAddress,
-    handleCommand(command) {
-      switch (command) {
-        case "copy":
-          this.copyFn(this.address)
-          break;
-        case "logout":
-          this.address = ''
-          break;
-        default:
-          break;
-      }
-    },
+    copyFn,
+    getAddress,
     blockDropdownChangHandle(boolean) {
-      this.blockDropdownShow = boolean;
+      this.blockDropdownShow = boolean
     },
-    async switchNetwork(network) {
-      return new Promise(async (resolve, reject) => {
-        const switch_data = {
-          method: 'wallet_switchEthereumChain',
-          params: [ { chainId: `0x${Number(network.chainId).toString(16)}` } ], // A 0x-prefixed hexadecimal string
-        }
-        const add_data = {
+    showSuccessMsg() {
+      return this.$message.success(this.$t('add.addSuccess'))
+    },
+
+    showFailedMsg(msg) {
+      return this.$message.error(msg || this.$t('add.addFailed'))
+    },
+    async connect() {
+      if (window?.ethereum) await window?.ethereum.request({ method: 'eth_requestAccounts' })
+    },
+    async setupNetwork(chainConfig) {
+      const provider = window?.ethereum
+      if (!provider) {
+        return this.$message.error('missing provider')
+      }
+      const chainId = Number(chainConfig.chainId)
+      const curId = await provider.request({ method: 'eth_chainId' })
+      if (`0x${Number(chainId).toString(16)}` === curId)
+        return this.$message.warning(this.$t('extension.error.alreadyAddNetwork'))
+      await this.connect()
+      const switchChain = () =>
+        provider.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
-              chainName: network.network,
-              chainId: `0x${Number(network.chainId).toString(16)}`,
-              rpcUrls: [ network.rpc ],
+              chainId: `0x${chainId.toString(16)}`,
+              chainName: chainConfig.network,
               nativeCurrency: {
-                name: network.currency,
-                symbol: network.currency,
-                decimals: network.decimal,
+                name: chainConfig.currency,
+                symbol: chainConfig.currency,
+                decimals: chainConfig.decimal,
               },
-              blockExplorerUrls: [ network.explorer ],
+              rpcUrls: [chainConfig.rpc],
+              blockExplorerUrls: [chainConfig.explorer],
             },
           ],
+        })
+
+      return provider
+        .request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: `0x${chainId.toString(16)}` }],
+        })
+        .then((r) => {
+          // sb coin98 插件切换失败时是 resolve 而非 reject, coinbase 的添加网络也有问题，已经添加还会继续报未添加的错， 拒绝了也不会 reject
+          if ([-32603, 4902].includes(r?.code)) {
+            return switchChain()
+          }
+          return r
+        })
+        .catch((e) => {
+          // -32603 为手机端 metamask app 报错的 code
+          if ([-32603, 4902].includes(e?.code)) {
+            return switchChain()
+          }
+          return Promise.reject(e)
+        })
+    },
+    async watchAsset(token) {
+      const provider = window.ethereum
+      if (!provider) {
+        throw new Error('missing provider')
+      }
+      const tokenAdded = await provider.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: token.contractAddress,
+            symbol: token.symbol,
+            decimals: token.decimal,
+            image: token.icon,
+          },
+        },
+      })
+
+      return tokenAdded
+    },
+    getResolvedCb(result, provider) {
+      if (this.windowWidth >= 750) {
+        if (this.isTrustWallet) {
+          return this.showSuccessMsg
         }
 
-        try {
-          const res = await window.ethereum.request(switch_data)
-          resolve(res)
-        } catch (error) {
-          if (error.code === 4902 || (error.code === -32603 && error.data.originalError.code === 4902)) {
-            try {
-              const add = await window.ethereum.request(add_data)
-              resolve(add)
-            } catch (addError) {
-              reject(addError)
+        if (this.isTokenPocket || this.isCoinbaseWallet) {
+          return () => {
+            if (result === true) {
+              this.showSuccessMsg()
+            } else {
+              this.showFailedMsg(this.$t('extension.error.reject'))
             }
-          } else {
-            reject(error)
           }
         }
-      })
-    },
 
-    async connect() {
-      if (window.ethereum) {
-        const [ addr ] = await window.ethereum.request({ method: 'eth_requestAccounts' })
-        this.address = addr
-        this.dialogVisible = false
-      } else {
-        if (this.windowWidth < 750) return this.$message.success({ message: this.$t('add.plzInMeta') })
-        return this.$message.error({ message: this.$t('add.noWallet') })
-      }
-    },
-    async addNetwork(network) {
-      try {
-        const currentChainId = await window.ethereum.request({ method: 'eth_chainId' })
-        const { chainId } = network
-        if (currentChainId === '0x' + chainId.toString(16)) {
-          this.$message.warning(this.$t('extension.error.already', [ chainId ]))
-          return
+        // 默认按照 metamask 返回的结果逻辑
+        return () => {
+          if (result === true) {
+            this.showSuccessMsg()
+          } else {
+            this.showFailedMsg(this.$t('extension.error.failed'))
+          }
         }
-        await this.connect()
-        await this.switchNetwork(network)
-        this.$message.success({ message: this.$t('add.addSuccess') })
-      } catch (error) {
-        console.log(error)
+      } else {
+        // app 浏览器端
+        if (this.isBitgetWallet) {
+          // bitget app 返回的东西无法分清成功失败，全依赖于内部的提示
+          return () => {}
+        }
+
+        if (this.isOkxWallet) {
+          return () => {
+            if (this.isIOS) {
+              this.showSuccessMsg()
+            } else {
+              if (result === true) {
+                this.showSuccessMsg()
+              } else {
+                this.showFailedMsg(this.$t('extension.error.failed'))
+              }
+            }
+          }
+        }
+
+        if (this.isCoinbaseWallet) {
+          return () => {
+            if (result === true) {
+              this.showSuccessMsg()
+            } else {
+              this.showFailedMsg(this.$t('extension.error.failed'))
+            }
+          }
+        }
+
+        // 默认按照 metamask 返回的结果逻辑
+        return () => {
+          if (result === true) {
+            this.showSuccessMsg()
+          } else {
+            this.showFailedMsg(this.$t('extension.error.failed'))
+          }
+        }
       }
     },
-    async addToken(item, token) {
-      try {
-        await this.connect()
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' })
-        if (token.chainId !== chainId) await this.switchNetwork(item)
-        await window.ethereum.request({
-          method: 'wallet_watchAsset',
-          params: {
-            type: 'ERC20',
-            options: {
-              address: token.contractAddress,
-              symbol: token.symbol,
-              decimals: token.decimal,
-              image: token.icon,
-            },
-          },
-        })
-        this.$message.success({ message: this.$t('add.addSuccess') })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  },
-  mounted() {
-    // if (this.windowWidth < 750 && !window.ethereum) {
-    //   window.location.href = 'https://metamask.app.link/dapp/uataddnetwork.platon.network/'
-    // } else if (windowWidth < 750 && window.ethereum) {
-    //   this.connect()
-    // }
+    getRejectedCb(error, provider) {
+      const msg = typeof error === 'string' ? error : error?.message
+      const errMsg = msg || this.$t('extension.error.failed')
 
+      if (provider?.isUniPassProvider || this.isParticleWallet || provider?.isWalletConnect) {
+        return () => {
+          this.showFailedMsg(this.$t('extension.error.noSupport'))
+        }
+      }
+
+      if (this.windowWidth >= 750) {
+        if (this.isTrustWallet) {
+          return () => {
+            if (error?.code === -32602) {
+              this.showFailedMsg(this.$t('extension.error.already'))
+            } else {
+              this.showFailedMsg(errMsg)
+            }
+          }
+        }
+      }
+
+      return () => {
+        this.showFailedMsg(errMsg)
+      }
+    },
+    async onWatchAsset(chainConfig, tokenInfo) {
+      try {
+        if (!window.ethereum) throw new Error('missing provider')
+        await this.connect()
+        const curId = await window.ethereum.request({ method: 'eth_chainId' })
+        if (`0x${Number(chainConfig.chainId).toString(16)}` !== curId) await this.setupNetwork(chainConfig)
+        const result = await this.watchAsset(tokenInfo)
+        const cb = this.getResolvedCb(result)
+        cb()
+      } catch (error) {
+        const cb = this.getRejectedCb(error)
+        cb()
+      }
+    },
   },
+  computed: {
+    isBitgetWallet() {
+      return window?.ethereum?.isBitKeep || window?.ethereum?.isBitEthereum
+    },
+
+    isTrustWallet() {
+      return window?.ethereum?.isTrust || window?.ethereum?.isTrustWallet
+    },
+
+    isTokenPocket() {
+      return window?.ethereum?.isTokenPocket
+    },
+    isOkxWallet() {
+      return window.okxwallet || window.okxwallet
+    },
+    isCoinbaseWallet() {
+      return window?.ethereum?.isCoinbaseWallet
+    },
+    isParticleWallet() {
+      return window?.ethereum?.isParticle || window?.ethereum?.isParticleNetwork
+    },
+    isIOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent)
+    },
+  },
+  mounted() {},
 }
 </script>
 <style lang="less">
 .connect-dialog {
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
   color: #fff;
   margin: 0 auto;
 }
@@ -413,7 +517,7 @@ export default {
     position: relative;
     z-index: 10;
 
-    @media screen and (max-width:750px) {
+    @media screen and (max-width: 750px) {
       padding: 0;
       margin-top: 10px;
     }
@@ -424,7 +528,7 @@ export default {
       align-items: center;
       color: #fff;
 
-      @media screen and (max-width:750px) {
+      @media screen and (max-width: 750px) {
         width: 100%;
         flex-direction: column;
       }
@@ -435,7 +539,7 @@ export default {
         gap: 12px;
         color: #fff;
 
-        @media screen and (max-width:750px) {
+        @media screen and (max-width: 750px) {
           margin-bottom: 16px;
         }
 
@@ -456,20 +560,57 @@ export default {
         color: #fff;
         display: flex;
         cursor: pointer;
+        position: relative;
+        border: 1px solid #fff;
+        margin: 2px;
+        width: 210px;
+        height: 40px;
 
-        .drop-link {
+        @media screen and (max-width: 750px) {
+          margin-top: 30px;
+          width: 100%;
+        }
+
+        .head-net-box {
+          flex: 1;
           display: flex;
-          gap: 8px;
-          border: 1px solid #fff;
-          padding: 12px;
+          justify-content: center;
           align-items: center;
+          font-size: 14px;
+          line-height: 16px;
+        }
 
-          .drop-link-text {
-            color: #fff;
+        .move-box {
+          transition: all 200ms;
+          width: 102px;
+          background-color: #fff;
+          position: absolute;
+          top: 2px;
+          height: 34px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 14px;
+          line-height: 16px;
+          cursor: pointer;
+          color: #000;
+
+          @media screen and (max-width: 750px) {
+            width: 50%;
           }
         }
 
+        .normal-left {
+          left: 2px;
+        }
 
+        .spec-left {
+          left: 104px;
+        }
+
+        .mobile-left {
+          left: calc(50% - 2px);
+        }
       }
     }
 
@@ -480,7 +621,7 @@ export default {
       background-color: #111;
       margin-top: 30px;
 
-      @media screen and (max-width:750px) {
+      @media screen and (max-width: 750px) {
         padding: 24px;
       }
 
@@ -489,8 +630,7 @@ export default {
         justify-content: space-between;
         align-items: center;
 
-
-        @media screen and (max-width:750px) {
+        @media screen and (max-width: 750px) {
           flex-direction: column;
           align-items: flex-start;
         }
@@ -501,7 +641,7 @@ export default {
           gap: 12px;
           align-items: center;
 
-          @media screen and (max-width:750px) {
+          @media screen and (max-width: 750px) {
             margin-bottom: 20px;
           }
 
@@ -510,11 +650,8 @@ export default {
             font-family: Gilroy-Bold;
             font-size: 20px;
             line-height: 24px;
-
-
           }
         }
-
       }
 
       .chain-info {
@@ -525,7 +662,7 @@ export default {
         display: flex;
         padding: 20px 40px;
 
-        @media screen and (max-width:750px) {
+        @media screen and (max-width: 750px) {
           width: 100%;
           padding: 0;
           margin-bottom: 20px;
@@ -538,7 +675,7 @@ export default {
           flex: auto;
           word-break: break-all;
 
-          @media screen and (max-width:750px) {
+          @media screen and (max-width: 750px) {
             border: 1px solid #333333;
             padding: 20px;
           }
@@ -569,7 +706,7 @@ export default {
         margin-top: 20px;
         color: #fff;
 
-        @media screen and (max-width:750px) {
+        @media screen and (max-width: 750px) {
           display: flex;
           flex-direction: column;
           padding: 20px;
@@ -623,7 +760,7 @@ export default {
       align-items: center;
       cursor: pointer;
 
-      @media screen and (max-width:750px) {
+      @media screen and (max-width: 750px) {
         width: 100%;
       }
 
@@ -639,11 +776,10 @@ export default {
       &.black {
         background-color: #222;
         color: #fff;
-        border: 1px solid #FFFFFF
+        border: 1px solid #ffffff;
       }
     }
   }
-
 }
 
 a {
