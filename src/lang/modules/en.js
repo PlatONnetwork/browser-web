@@ -675,6 +675,10 @@ export default {
       isChrome: "Please use chrome browser to install MetaMask to operate.",
       mobile: "Please install MetaMask on the PC Chrome browser to operate.",
       noChainId: "MateMask version is to low or This is not MetaMask",
+      reject: "User rejected the request",
+      failed: "Failed to add to wallet.",
+      noSupport: "Adding token is not supported by the wallet.",
+      alreadyAddNetwork: "The network has been added to the wallet.",
     }
   },
   tips: {
@@ -733,7 +737,7 @@ export default {
     noWallet: 'The wallet plug-in is not installed yet!',
     faucet: 'Faucet',
     explorer: 'Block explorer URL',
-    plzInMeta: 'Please open this page in MetalMask!',
+    plzInMeta: 'Please open this page in wallet app!',
     logout: 'Log out',
     copyAddress: 'Copy Address'
   },
