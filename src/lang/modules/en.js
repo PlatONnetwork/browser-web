@@ -739,7 +739,8 @@ export default {
     explorer: 'Block explorer URL',
     plzInMeta: 'Please open this page in wallet app!',
     logout: 'Log out',
-    copyAddress: 'Copy Address'
+    copyAddress: 'Copy Address',
+    missingProvider: 'Miss Ethereum Provider',
   },
   ...enLocale
 };

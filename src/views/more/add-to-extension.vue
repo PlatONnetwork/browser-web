@@ -73,7 +73,17 @@
             </a>
           </div>
         </div>
-        <div v-if="windowWidth < 750" class="btn white" @click="setupNetwork(supportList[curNetwork])">
+        <div
+          v-if="windowWidth < 750"
+          class="btn white"
+          @click="
+            if (isInApp) {
+              setupNetwork(supportList[curNetwork])
+            } else {
+              dialogVisible = true
+            }
+          "
+        >
           {{ $t('add.addToWallet') }}
         </div>
         <div class="network-box" v-for="token in supportList[curNetwork].tokens">
@@ -97,7 +107,16 @@
           </el-col>
           <el-col :span="windowWidth < 750 ? 24 : 6">
             <div class="flex-end">
-              <div class="btn black" @click="onWatchAsset(supportList[curNetwork], token)">
+              <div
+                class="btn black"
+                @click="
+                  if (isInMobileBrowser) {
+                    dialogVisible = true
+                  } else {
+                    onWatchAsset(supportList[curNetwork], token)
+                  }
+                "
+              >
                 {{ $t('add.addToWallet') }}
               </div>
             </div>
@@ -105,19 +124,23 @@
         </div>
       </div>
     </div>
-    <!-- <el-dialog
+    <el-dialog
       custom-class="connect-dialog"
       :title="$t('add.connectWallet')"
       :visible.sync="dialogVisible"
+      modal="true"
       :width="windowWidth < 750 ? '80%' : '500px'"
     >
       <div class="connect-dialog-box">
-        <p class="connect-dialog-title">Connect Wallet with</p>
-        <div class="connect-dialog-content" @click="connect">
-          <img src="@/assets/images/metamask-text.png" alt="" />
+        <!-- <p class="connect-dialog-title">Connect Wallet with</p> -->
+        <div v-for="item in walletList" :key="item.id" class="connect-dialog-content" @click="item.connect">
+          <div class="connect-dialog-inner-box">
+            <img :src="item.img" alt="" />
+            <span>{{ item.name }}</span>
+          </div>
         </div>
       </div>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 
@@ -126,11 +149,15 @@ import usdc from '@/assets/images/usdc-logo.png'
 import usdt from '@/assets/images/usdt-logo.png'
 import dus from '@/assets/images/dus-logo.png'
 import platon from '@/assets/images/platon-logo.png'
+
 import { copyFn, getAddress } from '@/services/utils'
+import walletList from '@/config/connector'
 export default {
   name: 'AddToExtension',
   data() {
     return {
+      walletList,
+      dialogVisible: false,
       curNetwork: 'mainnet',
       blockDropdownShow: false,
       supportList: {
@@ -233,7 +260,7 @@ export default {
     async setupNetwork(chainConfig) {
       const provider = window?.ethereum
       if (!provider) {
-        return this.$message.error('missing provider')
+        return this.$message.error(this.$t('add.missingProvider'))
       }
       const chainId = Number(chainConfig.chainId)
       const curId = await provider.request({ method: 'eth_chainId' })
@@ -281,7 +308,7 @@ export default {
     async watchAsset(token) {
       const provider = window.ethereum
       if (!provider) {
-        throw new Error('missing provider')
+        throw new Error(this.$t('add.missingProvider'))
       }
       const tokenAdded = await provider.request({
         method: 'wallet_watchAsset',
@@ -391,7 +418,7 @@ export default {
     },
     async onWatchAsset(chainConfig, tokenInfo) {
       try {
-        if (!window.ethereum) throw new Error('missing provider')
+        if (!window.ethereum) throw new Error(this.$t('add.missingProvider'))
         await this.connect()
         const curId = await window.ethereum.request({ method: 'eth_chainId' })
         if (`0x${Number(chainConfig.chainId).toString(16)}` !== curId) await this.setupNetwork(chainConfig)
@@ -405,6 +432,18 @@ export default {
     },
   },
   computed: {
+    isInApp() {
+      return this.isInMobile && window?.ethereum
+    },
+
+    isInMobileBrowser() {
+      return this.isInMobile && !window?.ethereum
+    },
+
+    isInMobile() {
+      return this.windowWidth < 750
+    },
+
     isBitgetWallet() {
       return window?.ethereum?.isBitKeep || window?.ethereum?.isBitEthereum
     },
@@ -437,6 +476,7 @@ export default {
   background-color: #1a1a1a;
   color: #fff;
   margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .el-dialog__body {
@@ -474,13 +514,11 @@ export default {
 
 .content-wrap {
   position: relative;
-
+  margin-bottom: 40px;
   .connect-dialog-box {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    margin-bottom: 30px;
-
+    gap: 20px;
     .connect-dialog-title {
       font-size: 14px;
       line-height: 16px;
@@ -498,6 +536,24 @@ export default {
       text-align: center;
       cursor: pointer;
       align-self: center;
+      .connect-dialog-inner-box {
+        color: #fff;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 120px;
+        gap: 14px;
+        justify-self: center;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        span {
+          font-size: 14px;
+          line-height: 22px;
+          font-family: Gilroy-Medium;
+        }
+      }
     }
   }
 

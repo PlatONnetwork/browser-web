@@ -731,7 +731,8 @@ export default {
     explorer: '浏览器地址',
     plzInMeta: '请在钱包中打开该页面!',
     logout: '登出',
-    copyAddress: '复制钱包地址'
+    copyAddress: '复制钱包地址',
+    missingProvider: '请先安装钱包插件',
   },
   ...zhLocale
 };
