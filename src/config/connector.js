@@ -77,7 +77,7 @@ export const callCoinbaseWalletApp = () =>
     window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURI(window.location.href)}`, '_blank', 'noopener noreferrer')
 
 export const callCoin98WalletApp = () =>
-    window.open(`https://coin98.com/dapp/${window.location.host}${window.location.pathname}/1`, '_blank', 'noopener noreferrer')
+    window.open(`https://coin98.com/dapp/${window.location.host}/1`, '_blank', 'noopener noreferrer')
 
 const walletList = [
     {
