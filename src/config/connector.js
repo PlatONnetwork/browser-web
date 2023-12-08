@@ -8,9 +8,9 @@ import metamaskImg from '@/assets/images/connector/metamask.png'
 import c98Img from '@/assets/images/connector/c98.png'
 
 export const callMetamaskApp = () =>
-    window.open(`https://metamask.app.link/dapp/${window.location.host}`, '_blank', 'noopener noreferrer')
+    window.open(`https://metamask.app.link/dapp/${window.location.href}`, '_blank', 'noopener noreferrer')
 
-export const callImTokenWalletApp = () =>
+export const callImTokenWalletApp = () =>//done
     new CallApp({
         scheme: {
             protocol: 'imtokenv2',
@@ -24,9 +24,9 @@ export const callImTokenWalletApp = () =>
         },
     })
 
-export const callBitgetApp = () =>
+export const callBitgetApp = () =>//done
     window.open(
-        `https://bkcode.vip?action=dapp&url=${encodeURI(window.location.origin)}`,
+        `https://bkcode.vip?action=dapp&url=${encodeURI(window.location.href)}`,
         '_blank',
         'noopener noreferrer'
     )
@@ -41,7 +41,7 @@ export const callTpWalletApp = () =>
     }).open({
         path: 'open',
         param: {
-            params: encodeURI(JSON.stringify({ url: window.location.origin })),
+            params: encodeURI(JSON.stringify({ url: window.location.href })),
         },
     })
 
@@ -69,15 +69,15 @@ export const callOkxWalletApp = () =>
     }).open({
         path: 'wallet/dapp/details',
         param: {
-            dappUrl: window.location.origin,
+            dappUrl: window.location.href,
         },
     })
 
 export const callCoinbaseWalletApp = () =>
-    window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURI(window.location.origin)}`, '_blank', 'noopener noreferrer')
+    window.open(`https://go.cb-w.com/dapp?cb_url=${encodeURI(window.location.href)}`, '_blank', 'noopener noreferrer')
 
 export const callCoin98WalletApp = () =>
-    window.open(`https://coin98.com/dapp/${window.location.host}/1`, '_blank', 'noopener noreferrer')
+    window.open(`https://coin98.com/dapp/${window.location.host}${window.location.pathname}/1`, '_blank', 'noopener noreferrer')
 
 const walletList = [
     {
