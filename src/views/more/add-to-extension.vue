@@ -128,7 +128,6 @@
       custom-class="connect-dialog"
       :title="$t('add.connectWallet')"
       :visible.sync="dialogVisible"
-      modal="true"
       :width="windowWidth < 750 ? '80%' : '500px'"
     >
       <div class="connect-dialog-box">
