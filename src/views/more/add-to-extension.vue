@@ -175,8 +175,8 @@ export default {
             {
               id: 11,
               icon: dus,
-              label: 'DUS（Mainnet)',
-              symbol: 'DUS',
+              label: 'DUSD（Mainnet)',
+              symbol: 'DUSD',
               contractAddress: '0x8c171d2e96619fa18b8f49fdbf3eb5589b97a97d',
               decimal: 6,
             },
@@ -214,8 +214,8 @@ export default {
             {
               id: 21,
               icon: dus,
-              label: 'DUS（Devnet)',
-              symbol: 'DUS',
+              label: 'DUSD（Devnet)',
+              symbol: 'DUSD',
               contractAddress: '0x085d18AB4FFD350d32025bc6a641E27C2Ea806a9',
               decimal: 6,
             },
