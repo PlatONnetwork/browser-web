@@ -723,10 +723,7 @@
 
           <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
           <div class="call-data-box">
-            <el-select v-if="showSelect" v-model="curDataShowType"
-              style="margin-left: 10px;width:130px
-                                                                                                                                                                                                                                                          "
-              size="small">
+            <el-select v-if="showSelect" v-model="curDataShowType" size="small">
               <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
                 :label="item.label"></el-option>
             </el-select>
@@ -962,6 +959,7 @@ export default {
   width: 100%;
 
   .el-select {
+    width: 140px;
     margin-left: 0px !important;
     border: 1px solid #f5f5f5 !important;
   }
