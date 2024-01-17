@@ -723,7 +723,7 @@
           <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
           <el-select v-if="showSelect" v-model="curDataShowType"
             style="margin-left: 10px;width:130px
-                                                                                                                                                                                                "
+                                                                                                                                                                                                            "
             size="small">
             <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
               :label="item.label"></el-option>
@@ -738,8 +738,8 @@
 import List from '@/components/list/list';
 import Item from '@/components/list/item';
 import apiService from '@/services/API-services';
-import web3 from 'web3'
-import { hexToUTF8 } from '../../services/utils.js'
+// import web3 from 'web3'
+import { hexToUTF8, testHexToUtf8 } from '../../services/utils.js'
 export default {
   name: 'trade-detail',
   data() {
@@ -776,7 +776,7 @@ export default {
     showSelect() {
       const { txInfo, txType, input } = this.detailInfo;
       const data = txType == 0 ? input : txInfo
-      return data && data.startsWith('0x') ? true : false
+      return data && data.startsWith('0x') && data !== '0x' ? true : false
     },
     curExtraData() {
       const { txInfo, txType, input } = this.detailInfo;
@@ -793,9 +793,9 @@ export default {
   },
   watch: {
     detailInfo(newVal) {
-      if (newVal.txType == 0 && newVal.input.startsWith('0x')) {
+      if (newVal.txType == 0 && newVal.input.startsWith('0x') && newVal.input !== '0x') {
         try {
-          web3.utils.hexToString(newVal.input)
+          testHexToUtf8(newVal.input)
           this.curDataShowType = 'utf8'
         } catch (error) {
           console.log('error', error)
