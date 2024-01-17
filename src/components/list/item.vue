@@ -1,7 +1,7 @@
 <template>
   <div :class="{
     'list-item': vertical === false,
-    'list-col-item': vertical === true
+    'list-col-item': vertical === true,
   }">
     <!-- 左侧标签 -->
     <template v-if="label">
@@ -27,8 +27,6 @@
   </div>
 </template>
 <script>
-import apiService from '@/services/API-services';
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'list',
   data() {
@@ -36,6 +34,10 @@ export default {
   },
   props: {
     prop: [ String, Number ],
+    dataVertical: {
+      type: Boolean,
+      default: false
+    },
     vertical: {
       type: Boolean,
       default: false
