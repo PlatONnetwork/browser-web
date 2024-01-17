@@ -1,30 +1,25 @@
 <template>
-  <div
-    :class="{
-      'list-item': vertical === false,
-      'list-col-item': vertical === true
-    }"
-  >
+  <div :class="{
+    'list-item': vertical === false,
+    'list-col-item': vertical === true
+  }">
+    <!-- 左侧标签 -->
     <template v-if="label">
       <label v-if="vertical === false">{{
-          label 
-        }}：<el-tooltip v-if="tips" placement="bottom" class="item" effect="dark">
+        label
+      }}：<el-tooltip v-if="tips" placement="bottom" class="item" effect="dark">
           <div slot="content" class="delegate-msg" v-html="tips">
           </div>
           <i class="address-icon"></i>
         </el-tooltip>
       </label>
       <label v-else> {{ label }}</label>
-      
     </template>
-    <p
-      v-if="prop || prop == 0"
-      :class="{
-        red: type == 'fail',
-        blue: type == 'link',
-        green: type == 'success'
-      }"
-    >
+    <p v-if="prop || prop == 0" :class="{
+      red: type == 'fail',
+      blue: type == 'link',
+      green: type == 'success'
+    }">
       {{ prop }}
     </p>
     <slot name="tipHeader"> </slot>
@@ -40,7 +35,7 @@ export default {
     return {};
   },
   props: {
-    prop: [String, Number],
+    prop: [ String, Number ],
     vertical: {
       type: Boolean,
       default: false
@@ -77,8 +72,8 @@ export default {
     // }
   },
   //生命周期函数
-  created() {},
-  mounted() {}
+  created() { },
+  mounted() { }
 };
 </script>
 <style lang="less" scoped>
@@ -86,6 +81,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 15px;
+
   label {
     font-size: 13px;
     color: #666;
@@ -94,28 +90,34 @@ export default {
     min-width: 169px;
     font-family: Gilroy-Medium;
   }
+
   p {
     word-break: break-all;
     width: 85%;
   }
+
   .blue:hover {
     color: #0e52ac;
   }
 }
+
 .list-col-item {
   display: flex;
   flex-flow: column nowrap;
   margin-bottom: 15px;
+
   label {
     font-size: 13px;
     color: #666;
     line-height: 15px;
     font-family: Gilroy-Medium;
   }
+
   p {
     word-break: break-all;
     width: 85%;
   }
+
   .blue:hover {
     color: #0e52ac;
   }
@@ -124,6 +126,7 @@ export default {
 <style lang="less">
 .extra-data.list-item {
   margin-bottom: 10px;
+
   p {
     width: 474px;
     min-height: 86px;
@@ -133,8 +136,10 @@ export default {
     padding: 6px;
   }
 }
+
 .postscript.list-item {
   margin-bottom: 10px;
+
   p {
     width: 474px;
     border: 1px solid #f5f5f5;
@@ -142,6 +147,7 @@ export default {
     border-radius: 1px;
     padding: 6px;
   }
+
   .zero-block {
     width: auto !important;
   }

@@ -24,7 +24,7 @@ Vue.use(VueParticles);
 
 import './filters';
 import './directives';
-import routeJump from'./mixins';
+import routeJump from './mixins';
 // css
 import '../public/static/css/reset.css';
 import '../public/static/css/element-ui.css';
@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
   // }
   next();
 });
-router.afterEach(function(to) {
+router.afterEach(function (to) {
   // 需要延时，否则一进来就取缓存了
   // setTimeout(()=>{
   //     if(to.path=='/block' || to.path=='/trade'){
@@ -85,19 +85,19 @@ Vue.config.productionTip = false;
 // const browserLanguage = navigator.language.toLowerCase()
 //获取location后的search信息
 const GetQueryString = (name) => {
-    let  reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-    let r = window.location.search.substr(1).match(reg);
-    if (r != null) return decodeURI(decodeURI(r[2])); return null;
+  let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+  let r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURI(decodeURI(r[ 2 ])); return null;
 }
 let lang = GetQueryString('lang')
-if (lang =='zh'){
-    //中文
-    localStorage.setItem('i18nLocale', 'zh-cn')
-} else if (lang == 'en'){
-    //英文
-    localStorage.setItem('i18nLocale', 'en')
+if (lang == 'zh') {
+  //中文
+  localStorage.setItem('i18nLocale', 'zh-cn')
+} else if (lang == 'en') {
+  //英文
+  localStorage.setItem('i18nLocale', 'en')
 }
-const language = navigator.language || window.navigator['browserLanguage'];
+const language = navigator.language || window.navigator[ 'browserLanguage' ];
 let browserLanguage = localStorage.getItem('i18nLocale')
   ? localStorage.getItem('i18nLocale')
   : language.toLowerCase();
@@ -119,7 +119,7 @@ export default window.vueVm = new Vue({
   i18n,
   render: h => h(App),
   methods: {
-    ...mapActions(['initJsonData'])
+    ...mapActions([ 'initJsonData' ])
   },
   beforeCreate() {
     // console.warn('hahahahahahaha')
