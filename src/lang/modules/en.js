@@ -86,6 +86,7 @@ export default {
     percentage: "percentage",
   },
   tradeAbout: {
+    imgPreview: "Img Preview",
     confirmTime: "Time",
     foundTransactions: "Transactions Found",
     showingLast: "(Showing The Last 500k Records)",

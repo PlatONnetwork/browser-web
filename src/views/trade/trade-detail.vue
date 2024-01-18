@@ -723,23 +723,30 @@
 
           <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
           <div class="call-data-box">
-            <el-select v-if="showSelect" v-model="curDataShowType" size="small">
-              <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
-                :label="item.label"></el-option>
-            </el-select>
+            <div class="call-op-line">
+              <el-select v-if="showSelect" v-model="curDataShowType" size="small">
+                <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
+                  :label="item.label"></el-option>
+              </el-select>
+              <span v-if="showBaseImg" @click="dialogVisible = true">{{ $t('tradeAbout.imgPreview')
+              }}</span>
+            </div>
             <el-input type="textarea" :rows="8" placeholder="" v-model="curExtraData"></el-input>
           </div>
         </Item>
       </List>
       <!-- 交易信息information  end -->
     </div>
+    <el-dialog destroy-on-close custom-class="img-dialog" :title="$t('tradeAbout.imgPreview')"
+      :visible.sync="dialogVisible" :width="dialogWidth">
+      <img :src="curExtraData" @load="onLoadImg" :width="boxWidth" alt="">
+    </el-dialog>
   </div>
 </template>
 <script>
 import List from '@/components/list/list';
 import Item from '@/components/list/item';
 import apiService from '@/services/API-services';
-// import web3 from 'web3'
 import { hexToUTF8, testHexToUtf8 } from '../../services/utils.js'
 export default {
   name: 'trade-detail',
@@ -760,6 +767,9 @@ export default {
       isCopy: false,
       copyText: '',
       curDataShowType: 'default',
+      dialogWidth: '',
+      boxWidth: '',
+      dialogVisible: false,
       curDataShowTypeList: [
         {
           label: 'Default View',
@@ -790,6 +800,9 @@ export default {
       } catch (error) {
         console.log('error:', error)
       }
+    },
+    showBaseImg() {
+      return this.curExtraData?.indexOf('data:image') > -1
     }
   },
   watch: {
@@ -809,6 +822,21 @@ export default {
     Item,
   },
   methods: {
+    onLoadImg: function (e) {
+      var img = e.target;
+      var width = 0;
+      if (img.fileSize > 0 || (img.width > 1 && img.height > 1)) {
+        width = img.width;
+      }
+      if ((img.height > img.width) && width > 370) {
+        width = 360
+      } else if (width > 600) {
+        width = 600
+      }
+      this.boxWidth = width + 'px';
+      this.dialogWidth = width + 40 + 'px';
+    },
+
     //进入提案详情
     getProposalUrl(hx) {
       return {
@@ -952,11 +980,28 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+/deep/ .el-dialog__title {
+  color: #000;
+  font-size: 20px;
+}
+
 .call-data-box {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
+
+  .call-op-line {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    span {
+      font-size: 14px;
+      cursor: pointer;
+      color: #0798de;
+    }
+  }
 
   .el-select {
     width: 140px;
@@ -1101,6 +1146,31 @@ export default {
 }
 
 @media (max-width: 750px) {
+  .call-data-box {
+    .call-op-line {
+      span {
+        font-size: 14px;
+        white-space: nowrap !important;
+      }
+    }
+
+    .el-select {
+      width: 100px;
+    }
+
+    .el-textarea {
+      width: 288px;
+      margin-left: -130px;
+      border: 1px solid #f0e9e9;
+    }
+
+    /deep/ .el-textarea__inner {
+      background-color: #f5f5f5 !important;
+      padding: 15px;
+    }
+
+  }
+
   .detail-change {
     justify-content: flex-end;
     flex-wrap: wrap;
