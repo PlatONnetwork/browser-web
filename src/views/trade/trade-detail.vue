@@ -728,7 +728,8 @@
                 <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
                   :label="item.label"></el-option>
               </el-select>
-              <span v-if="showBaseImg" @click="dialogVisible = true">{{ $t('tradeAbout.imgPreview')
+              <span v-if="showBaseImg" @click="dialogVisible = true">{{
+                $t('tradeAbout.imgPreview')
               }}</span>
             </div>
             <el-input type="textarea" :rows="8" placeholder="" v-model="curExtraData"></el-input>
@@ -737,8 +738,8 @@
       </List>
       <!-- 交易信息information  end -->
     </div>
-    <el-dialog destroy-on-close custom-class="img-dialog" :title="$t('tradeAbout.imgPreview')"
-      :visible.sync="dialogVisible" :width="dialogWidth">
+    <el-dialog v-if="dialogVisible" destroy-on-close custom-class="img-dialog"
+      :title="$t('tradeAbout.imgPreview')" :visible.sync="dialogVisible" :width="dialogWidth">
       <img :src="curExtraData" @load="onLoadImg" :width="boxWidth" alt="">
     </el-dialog>
   </div>
@@ -825,14 +826,19 @@ export default {
     onLoadImg: function (e) {
       var img = e.target;
       var width = 0;
-      if (img.fileSize > 0 || (img.width > 1 && img.height > 1)) {
+      if (img && img.fileSize > 0 || (img.width > 1 && img.height > 1)) {
         width = img.width;
       }
-      if ((img.height > img.width) && width > 370) {
-        width = 360
-      } else if (width > 600) {
-        width = 600
+      if (this.windowWidth < 750) {
+        width = 300
+      } else {
+        if ((img.height > img.width)) {
+          width = 360
+        } else {
+          width = 600
+        }
       }
+
       this.boxWidth = width + 'px';
       this.dialogWidth = width + 40 + 'px';
     },
@@ -976,7 +982,13 @@ export default {
     //获取交易列表
     this.getDetail();
   },
-  // mounted() {}
+  mounted() {
+    window.addEventListener('resize', () => {
+      if (this.dialogVisible) {
+        this.dialogVisible = false
+      }
+    });
+  }
 };
 </script>
 <style lang="less" scoped>
