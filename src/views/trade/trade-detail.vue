@@ -719,15 +719,16 @@
         <!-- 燃料价格 -->
         <Item :label="$t('tradeAbout.gasPrice')">{{ detailInfo.gasPrice | formatMoney }} LAT</Item>
         <!-- 交易数据 -->
-        <Item class="extra-data" :label="$t('tradeAbout.rawData')" :prop="curExtraData">
+        <Item class="extra-data" :label="$t('tradeAbout.rawData')">
+
           <!-- <div class="rawData">{{detailInfo.txInfo}}</div> -->
-          <el-select v-if="showSelect" v-model="curDataShowType"
-            style="margin-left: 10px;width:130px
-                                                                                                                                                                                                            "
-            size="small">
-            <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
-              :label="item.label"></el-option>
-          </el-select>
+          <div class="call-data-box">
+            <el-select v-if="showSelect" v-model="curDataShowType" size="small">
+              <el-option :key="item.value" v-for="item in curDataShowTypeList" :value="item.value"
+                :label="item.label"></el-option>
+            </el-select>
+            <el-input type="textarea" :rows="8" placeholder="" v-model="curExtraData"></el-input>
+          </div>
         </Item>
       </List>
       <!-- 交易信息information  end -->
@@ -951,6 +952,30 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.call-data-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  .el-select {
+    width: 140px;
+    margin-left: 0px !important;
+    border: 1px solid #f5f5f5 !important;
+  }
+
+  .el-textarea {
+    width: 50%;
+    border: 1px solid #f0e9e9;
+  }
+
+  /deep/ .el-textarea__inner {
+    background-color: #f5f5f5 !important;
+    padding: 15px;
+  }
+
+}
+
 .common-info {
   margin: 31px 0 50px;
 }
