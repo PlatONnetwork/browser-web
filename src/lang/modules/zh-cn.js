@@ -86,6 +86,7 @@ export default {
     percentage: "百分比",
   },
   tradeAbout: {
+    imgPreview: "图片预览",
     confirmTime: "确认时间",
     foundTransactions: "交易",
     showingLast: "(仅显示最新500k记录)",
@@ -331,6 +332,7 @@ export default {
     totalDelegated: "总计委托",
     warn: "合约已销毁，执行于交易",
     systemBuilt: "系统合约，无上链字节码",
+
     erc20Trade: "PRC20交易",
     erc721Trade: "PRC721交易",
     erc1155Trade: "PRC1155交易",
