@@ -146,7 +146,7 @@
 <script>
 import usdc from '@/assets/images/usdc-logo.png'
 import usdt from '@/assets/images/usdt-logo.png'
-import dus from '@/assets/images/dus-logo.png'
+import dusdIcon from '@/assets/images/dus-logo.png'
 import platon from '@/assets/images/platon-logo.png'
 
 import { copyFn, getAddress } from '@/services/utils'
@@ -174,9 +174,9 @@ export default {
           tokens: [
             {
               id: 11,
-              icon: dus,
-              label: 'DUS（Mainnet)',
-              symbol: 'DUS',
+              icon: dusdIcon,
+              label: 'DUSD（Mainnet)',
+              symbol: 'DUSD',
               contractAddress: '0x8c171d2e96619fa18b8f49fdbf3eb5589b97a97d',
               decimal: 6,
             },
@@ -213,9 +213,9 @@ export default {
           tokens: [
             {
               id: 21,
-              icon: dus,
-              label: 'DUS（Devnet)',
-              symbol: 'DUS',
+              icon: dusdIcon,
+              label: 'DUSD（Devnet)',
+              symbol: 'DUSD',
               contractAddress: '0x085d18AB4FFD350d32025bc6a641E27C2Ea806a9',
               decimal: 6,
             },
