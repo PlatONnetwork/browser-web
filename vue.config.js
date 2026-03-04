@@ -9,7 +9,7 @@ module.exports = {
     proxy: {
       '/apis': {
         // target: 'http://192.168.120.150:40000',
-        target: "https://devnet2scan.platon.network/",
+        target: "https://devnet3scan.platon.network/",
         secure: false,
         ws: true,
         changeOrigin: true,
@@ -19,5 +19,5 @@ module.exports = {
       }
     }
   },
-  transpileDependencies: [ 'vue-particles' ]
+  transpileDependencies: ['vue-particles']
 }
